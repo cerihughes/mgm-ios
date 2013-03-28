@@ -1,7 +1,7 @@
 package uk.co.cerihughes.denonpiccoloremote;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
@@ -10,6 +10,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		ArtistSearchTask task = new ArtistSearchTask();
+		task.execute("John");
 	}
 
 	@Override
