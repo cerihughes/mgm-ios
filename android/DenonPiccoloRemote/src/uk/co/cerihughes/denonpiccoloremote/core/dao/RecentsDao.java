@@ -1,5 +1,6 @@
 package uk.co.cerihughes.denonpiccoloremote.core.dao;
 
-public interface RecentsDao {
+public interface RecentsDao
+{
 
 }

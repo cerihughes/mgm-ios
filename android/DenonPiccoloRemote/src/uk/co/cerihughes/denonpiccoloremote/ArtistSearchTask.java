@@ -7,17 +7,21 @@ import uk.co.cerihughes.denonpiccoloremote.core.dao.impl.SpotifyServiceDao;
 import uk.co.cerihughes.denonpiccoloremote.core.model.Artist;
 import android.os.AsyncTask;
 
-public class ArtistSearchTask extends AsyncTask<String, Integer, Iterable<Artist>> {
-
+public class ArtistSearchTask extends AsyncTask<String, Integer, Iterable<Artist>>
+{
 	@Override
-	protected Iterable<Artist> doInBackground(String... params) {
+	protected Iterable<Artist> doInBackground(String... params)
+	{
 		ArrayList<Artist> results = new ArrayList<Artist>();
 		SpotifyServiceDao dao = new SpotifyServiceDao();
 		for (String predicate : params)
 		{
-			try {
+			try
+			{
 				results.addAll(dao.searchArtists(predicate));
-			} catch (DaoException e) {
+			}
+			catch (DaoException e)
+			{
 				e.printStackTrace();
 			}
 		}
@@ -25,6 +29,7 @@ public class ArtistSearchTask extends AsyncTask<String, Integer, Iterable<Artist
 	}
 
 	@Override
-	protected void onPostExecute(Iterable<Artist> result) {
+	protected void onPostExecute(Iterable<Artist> result)
+	{
 	}
 }
