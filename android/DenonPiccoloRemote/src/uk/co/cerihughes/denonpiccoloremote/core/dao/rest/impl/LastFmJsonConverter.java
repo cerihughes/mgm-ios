@@ -65,13 +65,13 @@ public abstract class LastFmJsonConverter extends JsonConverter
 	protected Playlist convertPlaylist(JSONObject json) throws JSONException
 	{
 		final Playlist playlist = new Playlist();
-		final String jsonDate = (String) json.get("date");
+		final String jsonDate = json.getString("date");
 		final Date date = getDate(jsonDate);
-		final String description = (String) json.get("description");
-		final JSONArray imageArray = (JSONArray) json.get("image");
+		final String description = json.getString("description");
+		final JSONArray imageArray = json.getJSONArray("image");
 		final String imageUri = processImageArray(imageArray);
-		final String title = (String) json.get("title");
-		final String url = (String) json.get("url");
+		final String title = json.getString("title");
+		final String url = json.getString("url");
 
 		playlist.setName(title);
 		playlist.setLocation(url);
@@ -116,10 +116,10 @@ public abstract class LastFmJsonConverter extends JsonConverter
 	protected Artist convertArtist(JSONObject json) throws JSONException
 	{
 		final Artist artist = new Artist();
-		final JSONArray imageArray = (JSONArray) json.get("image");
+		final JSONArray imageArray = json.getJSONArray("image");
 		final String imageUri = processImageArray(imageArray);
-		final String name = (String) json.get("name");
-		final String url = (String) json.get("url");
+		final String name = json.getString("name");
+		final String url = json.getString("url");
 
 		artist.setName(name);
 		artist.setLocation(url);
@@ -163,10 +163,10 @@ public abstract class LastFmJsonConverter extends JsonConverter
 	protected Album convertAlbum(JSONObject json) throws JSONException
 	{
 		final Album album = new Album();
-		final JSONArray imageArray = (JSONArray) json.get("image");
+		final JSONArray imageArray = json.getJSONArray("image");
 		final String imageUri = processImageArray(imageArray);
-		final String name = (String) json.get("name");
-		final String url = (String) json.get("url");
+		final String name = json.getString("name");
+		final String url = json.getString("url");
 
 		album.setName(name);
 		album.setLocation(url);
@@ -216,7 +216,7 @@ public abstract class LastFmJsonConverter extends JsonConverter
 	protected Track convertTrack(JSONObject json) throws JSONException
 	{
 		final Track track = new Track();
-		final String durationString = (String) json.get("duration");
+		final String durationString = json.getString("duration");
 		Integer duration = null;
 		if (durationString != null)
 		{
@@ -230,10 +230,10 @@ public abstract class LastFmJsonConverter extends JsonConverter
 				duration = null;
 			}
 		}
-		final JSONArray imageArray = (JSONArray) json.get("image");
+		final JSONArray imageArray = json.getJSONArray("image");
 		final String imageUri = processImageArray(imageArray);
-		final String name = (String) json.get("name");
-		final String url = (String) json.get("url");
+		final String name = json.getString("name");
+		final String url = json.getString("url");
 
 		track.setName(name);
 		track.setLength(duration);
@@ -271,7 +271,7 @@ public abstract class LastFmJsonConverter extends JsonConverter
 			for (int i = 0; i < imageArray.length(); i++)
 			{
 				lastObject = imageArray.getJSONObject(i);
-				final String sizeString = (String) lastObject.get("size");
+				final String sizeString = lastObject.getString("size");
 				if (sizeString != null && sizeString.equals(imageSize.getJsonValue()))
 				{
 					return getUri(lastObject);

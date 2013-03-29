@@ -4,14 +4,17 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import uk.co.cerihughes.denonpiccoloremote.core.dao.DaoException;
-import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.ConvertException;
+import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.ContentTypeProcessor;
 import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.Converter;
-import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.Getter;
-import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.GetterException;
-import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.impl.RestServiceClient;
+import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.Invoker;
+import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.RestServiceClient;
+import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.RestServiceClientException;
+import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.impl.GetInvoker;
+import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.impl.PostInvoker;
 
 public abstract class RestServiceDao
 {
+	protected static final String APPLICATION_JSON = "application/json";
 
 	protected String encodeParameter(String parameter)
 	{
@@ -25,28 +28,42 @@ public abstract class RestServiceDao
 		}
 	}
 
-	protected <ResponseType, ConvertedType> ConvertedType get(String url, Getter<ResponseType> getter,
+	protected <ResponseType, ConvertedType> ConvertedType get(String url, ContentTypeProcessor<ResponseType> processor,
 			Converter<ResponseType, ConvertedType> converter) throws DaoException
 	{
-		RestServiceClient<ResponseType, ConvertedType> restClient = new RestServiceClient<ResponseType, ConvertedType>(getter, converter);
+		return get(url, null, processor, converter);
+	}
+
+	protected <ResponseType, ConvertedType> ConvertedType get(String url, String accept, ContentTypeProcessor<ResponseType> processor,
+			Converter<ResponseType, ConvertedType> converter) throws DaoException
+	{
+		final Invoker invoker = new GetInvoker(accept);
+		final RestServiceClient<ResponseType, ConvertedType> restClient = new RestServiceClient<ResponseType, ConvertedType>(invoker,
+				processor, converter);
 		try
 		{
-			return restClient.get(url);
+			return restClient.invoke(url);
 		}
-		catch (GetterException ex)
-		{
-			throw new DaoException(ex);
-		}
-		catch (ConvertException ex)
+		catch (RestServiceClientException ex)
 		{
 			throw new DaoException(ex);
 		}
 	}
 
-	protected <ResponseType, ConvertedType> ConvertedType post(String url, String body, Getter<ResponseType> getter,
+	protected <ResponseType, ConvertedType> ConvertedType post(String url, String body, ContentTypeProcessor<ResponseType> processor,
 			Converter<ResponseType, ConvertedType> converter) throws DaoException
 	{
-		return null;
+		final Invoker invoker = new PostInvoker(body);
+		final RestServiceClient<ResponseType, ConvertedType> restClient = new RestServiceClient<ResponseType, ConvertedType>(invoker,
+				processor, converter);
+		try
+		{
+			return restClient.invoke(url);
+		}
+		catch (RestServiceClientException ex)
+		{
+			throw new DaoException(ex);
+		}
 	}
 
 }

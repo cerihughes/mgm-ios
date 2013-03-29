@@ -7,30 +7,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.ConvertException;
+import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.Converter;
 import uk.co.cerihughes.denonpiccoloremote.core.model.Track;
 
 public class LastFmFavouriteTracksJsonConverter extends LastFmJsonConverter implements Converter<JSONObject, Collection<Track>>
 {
 	@Override
-	public Collection<Track> convert(JSONObject response) throws ConvertException
+	public Collection<Track> convert(JSONObject response) throws ConverterException
 	{
-		ArrayList<Track> result = new ArrayList<Track>();
+		final ArrayList<Track> result = new ArrayList<Track>();
 		try
 		{
-			JSONObject topLevel = (JSONObject) response.get("tracks");
-			JSONArray tracks = (JSONArray) topLevel.get("track");
+			final JSONObject topLevel = response.getJSONObject("tracks");
+			final JSONArray tracks = topLevel.getJSONArray("track");
 			for (int i = 0; i < tracks.length(); i++)
 			{
-				JSONObject track = tracks.getJSONObject(i);
+				final JSONObject track = tracks.getJSONObject(i);
 				result.add(convertTrack(track));
 			}
 			return result;
 		}
 		catch (JSONException ex)
 		{
-			throw new ConvertException(ex);
+			throw new ConverterException(ex);
 		}
 	}
 }

@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import uk.co.cerihughes.denonpiccoloremote.core.dao.DaoException;
 import uk.co.cerihughes.denonpiccoloremote.core.dao.InfiniteServiceDao;
-import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.impl.JsonGetter;
+import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.impl.JsonContentTypeProcessor;
 import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.impl.SpotifyArtistSearchJsonConverter;
 import uk.co.cerihughes.denonpiccoloremote.core.model.Album;
 import uk.co.cerihughes.denonpiccoloremote.core.model.Artist;
@@ -40,7 +40,7 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 	public Collection<Artist> searchArtists(String predicate) throws DaoException
 	{
 		final String url = getArtistSearchUrl(predicate);
-		return get(url, new JsonGetter(), new SpotifyArtistSearchJsonConverter());
+		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyArtistSearchJsonConverter());
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.ConvertException;
+import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.Converter;
 import uk.co.cerihughes.denonpiccoloremote.core.model.Artist;
 
@@ -15,13 +15,13 @@ public class SpotifyArtistSearchJsonConverter implements Converter<JSONObject, C
 {
 
 	@Override
-	public Collection<Artist> convert(JSONObject response) throws ConvertException
+	public Collection<Artist> convert(JSONObject response) throws ConverterException
 	{
 		ArrayList<Artist> result = new ArrayList<Artist>();
 		try
 		{
-			JSONObject info = (JSONObject) response.get("info");
-			JSONArray artists = (JSONArray) response.get("artists");
+			final JSONObject info = (JSONObject) response.get("info");
+			final JSONArray artists = (JSONArray) response.get("artists");
 			for (int i = 0; i < artists.length(); i++)
 			{
 				JSONObject artist = artists.getJSONObject(i);
@@ -31,16 +31,16 @@ public class SpotifyArtistSearchJsonConverter implements Converter<JSONObject, C
 		}
 		catch (JSONException ex)
 		{
-			throw new ConvertException(ex);
+			throw new ConverterException(ex);
 		}
 	}
 
 	private Artist convertArtist(JSONObject json) throws JSONException
 	{
-		Artist artist = new Artist();
-		String href = (String) json.get("href");
-		String name = (String) json.get("name");
-		String popularity = (String) json.get("popularity");
+		final Artist artist = new Artist();
+		final String href = json.getString("href");
+		final String name = json.getString("name");
+		final String popularity = json.getString("popularity");
 		Float popularityFloat;
 		try
 		{

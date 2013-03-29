@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.ConvertException;
+import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denonpiccoloremote.core.dao.rest.Converter;
 import uk.co.cerihughes.denonpiccoloremote.core.model.Album;
 
@@ -15,23 +15,23 @@ public class LastFmFavouriteAlbumsJsonConverter extends LastFmJsonConverter impl
 {
 
 	@Override
-	public Collection<Album> convert(JSONObject response) throws ConvertException
+	public Collection<Album> convert(JSONObject response) throws ConverterException
 	{
-		ArrayList<Album> result = new ArrayList<Album>();
+		final ArrayList<Album> result = new ArrayList<Album>();
 		try
 		{
-			JSONObject topLevel = (JSONObject) response.get("albums");
-			JSONArray albums = (JSONArray) topLevel.get("album");
+			final JSONObject topLevel = response.getJSONObject("albums");
+			final JSONArray albums = topLevel.getJSONArray("album");
 			for (int i = 0; i < albums.length(); i++)
 			{
-				JSONObject album = albums.getJSONObject(i);
+				final JSONObject album = albums.getJSONObject(i);
 				result.add(convertAlbum(album));
 			}
 			return result;
 		}
 		catch (JSONException ex)
 		{
-			throw new ConvertException(ex);
+			throw new ConverterException(ex);
 		}
 	}
 }
