@@ -43,4 +43,10 @@ public abstract class RestServiceDao
 		}
 	}
 
+	protected <ResponseType, ConvertedType> ConvertedType post(String url, String body, Getter<ResponseType> getter,
+			Converter<ResponseType, ConvertedType> converter) throws DaoException
+	{
+		return null;
+	}
+
 }

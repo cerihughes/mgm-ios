@@ -16,44 +16,45 @@ import uk.co.cerihughes.denonpiccoloremote.core.model.Track;
 
 public class LastFmServiceDao extends RestServiceDao
 {
-
+	private String sessionKey;
 	private String apikey;
 	private String username;
 
-	public LastFmServiceDao(String apikey, String username)
+	public LastFmServiceDao(String sessionKey, String apikey, String username)
 	{
 		super();
+		this.sessionKey = sessionKey;
 		this.apikey = apikey;
 		this.username = username;
 	}
 
 	private String getPlaylistsUrl()
 	{
-		return String.format("http://ws.audioscrobbler.com/2.0/?method=user.getplaylists&user=%s&api_key=%s&format=json",
+		return String.format("http://ws.audioscrobbler.com/2.0/?method=user.getPlaylists&user=%s&api_key=%s&format=json",
 				encodeParameter(username), encodeParameter(apikey));
 	}
 
 	private String getFavouriteArtistsUrl()
 	{
-		return String.format("http://ws.audioscrobbler.com/2.0/?method=library.getartists&user=%s&api_key=%s&format=json",
+		return String.format("http://ws.audioscrobbler.com/2.0/?method=library.getArtists&user=%s&api_key=%s&format=json",
 				encodeParameter(username), encodeParameter(apikey));
 	}
 
-	// TODO: This
-	// private String getRecommendedArtistsUrl(String predicate) {
-	// return String.format("http://ws.spotify.com/search/1/artist?q=%s",
-	// encodeParameter(predicate));
-	// }
+	private String getRecommendedArtistsUrl()
+	{
+		return String.format("http://ws.audioscrobbler.com/2.0/?method=user.getRecommendedArtists&user=%s&api_key=%s&format=json",
+				encodeParameter(username), encodeParameter(apikey));
+	}
 
 	private String getFavouriteAlbumsUrl()
 	{
-		return String.format("http://ws.audioscrobbler.com/2.0/?method=library.getalbums&user=%s&api_key=%s&format=json",
+		return String.format("http://ws.audioscrobbler.com/2.0/?method=library.getAlbums&user=%s&api_key=%s&format=json",
 				encodeParameter(username), encodeParameter(apikey));
 	}
 
 	private String getNewAlbumReleasesUrl()
 	{
-		return String.format("http://ws.audioscrobbler.com/2.0/?method=user.getnewreleases&user=%s&api_key=%s&format=json",
+		return String.format("http://ws.audioscrobbler.com/2.0/?method=user.getNewReleases&user=%s&api_key=%s&format=json",
 				encodeParameter(username), encodeParameter(apikey));
 	}
 
