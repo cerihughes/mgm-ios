@@ -9,7 +9,7 @@ import android.annotation.SuppressLint;
 public abstract class JsonConverter
 {
 	@SuppressLint("SimpleDateFormat")
-	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
 	protected Date getDate(String jsonDate)
 	{

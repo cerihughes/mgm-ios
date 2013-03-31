@@ -11,8 +11,8 @@ public class MainActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		ArtistSearchTask task = new ArtistSearchTask();
-		task.execute("John");
+		LastFmLoginTask task = new LastFmLoginTask();
+		task.execute("Ez4uJsay");
 	}
 
 	@Override

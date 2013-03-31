@@ -4,6 +4,7 @@ public class Track extends MusicItem
 {
 	private Integer length;
 
+	@EHT(field="length")
 	public Integer getLength()
 	{
 		return length;

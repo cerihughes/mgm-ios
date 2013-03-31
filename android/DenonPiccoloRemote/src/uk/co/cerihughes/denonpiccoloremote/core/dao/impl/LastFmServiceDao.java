@@ -29,11 +29,12 @@ public class LastFmServiceDao extends RestServiceDao
 		this.sessionKey = sessionKey;
 		this.apiKey = apiKey;
 		this.username = username;
+		this.secret = secret;
 	}
 
 	private String getPostUrl()
 	{
-		return String.format("https://ws.audioscrobbler.com/2.0/");
+		return String.format("https://ws.audioscrobbler.com/2.0/?format=json");
 	}
 
 	private String getPlaylistsUrl()
@@ -69,11 +70,13 @@ public class LastFmServiceDao extends RestServiceDao
 	public String getMobileSession(String password) throws DaoException
 	{
 		final LastFmAuthenticatorHelper helper = new LastFmAuthenticatorHelper(secret);
-		helper.put("method", "auth.getMobileSession");
-		helper.put("password", password);
-		helper.put("username", username);
+		password = helper.md5(password);
+		final String authToken = helper.md5(username + password);
 		helper.put("api_key", apiKey);
-		helper.put("format", "json");
+		helper.put("method", "auth.getMobileSession");
+		helper.put("username", username);
+		helper.put("authToken", authToken);
+
 		final String body = helper.createBody();
 		final String url = getPostUrl();
 		return post(url, body, new JsonContentTypeProcessor(), new LastFmMobileSessionConverter());
@@ -96,7 +99,6 @@ public class LastFmServiceDao extends RestServiceDao
 		final LastFmAuthenticatorHelper helper = new LastFmAuthenticatorHelper(secret);
 		helper.put("method", "user.getRecommendedArtists");
 		helper.put("api_key", apiKey);
-		helper.put("format", "json");
 		helper.put("sk", sessionKey);
 		final String body = helper.createBody();
 		final String url = getPostUrl();

@@ -1,12 +1,13 @@
 package uk.co.cerihughes.denonpiccoloremote.core.model;
 
-public class MusicItem
+public class MusicItem extends EHTObject
 {
 	private String name;
 	private String location;
 	private Float popularity;
 	private String imageUri;
 
+	@EHT(field="name")
 	public String getName()
 	{
 		return name;
@@ -17,6 +18,7 @@ public class MusicItem
 		this.name = name;
 	}
 
+	@EHT(field="location")
 	public String getLocation()
 	{
 		return location;
@@ -27,6 +29,7 @@ public class MusicItem
 		this.location = location;
 	}
 
+	@EHT(field="popularity")
 	public Float getPopularity()
 	{
 		return popularity;
@@ -37,6 +40,7 @@ public class MusicItem
 		this.popularity = popularity;
 	}
 
+	@EHT(field="imageUri")
 	public String getImageUri()
 	{
 		return imageUri;
@@ -46,5 +50,4 @@ public class MusicItem
 	{
 		this.imageUri = imageUri;
 	}
-
 }

@@ -39,14 +39,20 @@ public class LastFmAuthenticatorHelper
 		}
 
 		signature.append(secret);
+
+		final String md5 = md5(signature.toString());
+		body.append("api_sig=");
+		body.append(md5);
+		return body.toString();
+	}
+
+	String md5(String input) throws DaoException
+	{
 		try
 		{
 			final MessageDigest digest = MessageDigest.getInstance("MD5");
-			final byte[] bytes = digest.digest(signature.toString().getBytes());
-			final String md5 = encodeHex(bytes);
-			body.append("api_sig=");
-			body.append(md5);
-			return body.toString();
+			final byte[] bytes = digest.digest(input.getBytes());
+			return encodeHex(bytes);
 		}
 		catch (NoSuchAlgorithmException ex)
 		{

@@ -19,18 +19,27 @@ public class LastFmPlaylistsJsonConverter extends LastFmJsonConverter implements
 		ArrayList<Playlist> result = new ArrayList<Playlist>();
 		try
 		{
-			final JSONObject topLevel = (JSONObject) response.get("playlists");
-			final JSONArray playlists = (JSONArray) topLevel.get("playlist");
-			for (int i = 0; i < playlists.length(); i++)
+			final JSONObject topLevel = response.getJSONObject("playlists");
+			final Object next = topLevel.get("playlist");
+			if (next instanceof JSONObject)
 			{
-				final JSONObject playlist = playlists.getJSONObject(i);
+				final JSONObject playlist = (JSONObject) next;
 				result.add(convertPlaylist(playlist));
 			}
-			return result;
+			else if (next instanceof JSONArray)
+			{
+				final JSONArray playlists = (JSONArray) next;
+				for (int i = 0; i < playlists.length(); i++)
+				{
+					final JSONObject playlist = playlists.getJSONObject(i);
+					result.add(convertPlaylist(playlist));
+				}
+			}					
 		}
 		catch (JSONException ex)
 		{
 			throw new ConverterException(ex);
 		}
+		return result;
 	}
 }

@@ -17,7 +17,6 @@ public abstract class Invoker
 {
 	public String invoke(String url) throws InvokerException
 	{
-		final StringBuilder builder = new StringBuilder();
 		final HttpClient client = new DefaultHttpClient();
 		final HttpRequestBase requestBase = getRequestBase(url);
 		try
@@ -25,20 +24,24 @@ public abstract class Invoker
 			final HttpResponse response = client.execute(requestBase);
 			final StatusLine statusLine = response.getStatusLine();
 			final int statusCode = statusLine.getStatusCode();
+			final HttpEntity entity = response.getEntity();
+			final InputStream content = entity.getContent();
+			final BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+
+			final StringBuilder sb = new StringBuilder();
+			String line;
+			while ((line = reader.readLine()) != null)
+			{
+				sb.append(line);
+			}
+			final String responseBody = sb.toString();
 			if (statusCode == 200)
 			{
-				final HttpEntity entity = response.getEntity();
-				final InputStream content = entity.getContent();
-				final BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-				String line;
-				while ((line = reader.readLine()) != null)
-				{
-					builder.append(line);
-				}
+				return responseBody;
 			}
 			else
 			{
-				throw new InvokerException(String.format("Unexpected response [%d] for url [%s].", statusCode, url));
+				throw new InvokerException(String.format("Unexpected response [%d] for url [%s] : [%s].", statusCode, url, responseBody));
 			}
 		}
 		catch (ClientProtocolException ex)
@@ -49,7 +52,6 @@ public abstract class Invoker
 		{
 			throw new InvokerException(ex);
 		}
-		return builder.toString();
 	}
 
 	protected abstract HttpRequestBase getRequestBase(String url) throws InvokerException;

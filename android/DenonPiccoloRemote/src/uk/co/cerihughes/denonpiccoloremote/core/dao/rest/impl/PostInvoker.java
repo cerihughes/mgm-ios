@@ -24,6 +24,7 @@ public class PostInvoker extends Invoker
 	protected HttpRequestBase getRequestBase(String url) throws InvokerException
 	{
 		final HttpPost post = new HttpPost(url);
+		post.addHeader("Content-Type", "application/x-www-form-urlencoded");
 		if (body != null)
 		{
 			try
