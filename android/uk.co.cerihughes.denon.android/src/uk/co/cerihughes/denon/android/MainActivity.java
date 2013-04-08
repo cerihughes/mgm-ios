@@ -2,7 +2,6 @@ package uk.co.cerihughes.denon.android;
 
 import uk.co.cerihughes.denon.android.service.BrowserUpnpService;
 import uk.co.cerihughes.denon.android.service.DlnaRegistryServiceConnection;
-import uk.co.cerihughes.denonpiccoloremote.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
