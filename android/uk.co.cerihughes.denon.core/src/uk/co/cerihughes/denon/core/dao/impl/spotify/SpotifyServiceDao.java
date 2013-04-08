@@ -50,10 +50,10 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 	}
 
 	@Override
-	public Collection<Album> searchAlbums(String predicate)
+	public Collection<Album> searchAlbums(String predicate) throws DaoException
 	{
-		// JSONObject json = doGet(getAlbumSearchUrl(predicate));
-		return null;
+		final String url = getAlbumSearchUrl(predicate);
+		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyAlbumSearchJsonConverter());
 	}
 
 	@Override

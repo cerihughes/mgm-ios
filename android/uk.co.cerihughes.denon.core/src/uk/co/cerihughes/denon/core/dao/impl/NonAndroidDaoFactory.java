@@ -13,6 +13,7 @@ import uk.co.cerihughes.denon.core.dao.IDaoFactoryListener;
 import uk.co.cerihughes.denon.core.dao.impl.dlna.DlnaServiceDao;
 import uk.co.cerihughes.denon.core.dao.impl.lastfm.LastFmServiceDao;
 import uk.co.cerihughes.denon.core.dao.impl.spotify.SpotifyServiceDao;
+import uk.co.cerihughes.denon.core.model.Album;
 import uk.co.cerihughes.denon.core.model.Artist;
 
 public class NonAndroidDaoFactory extends DaoFactory
@@ -50,8 +51,8 @@ public class NonAndroidDaoFactory extends DaoFactory
 					else if (dao.getType() == EDaoType.SPOTIFY_DIRECT)
 					{
 						final SpotifyServiceDao spotify = (SpotifyServiceDao) dao;
-						Collection<Artist> artists = spotify.searchArtists("Ian");
-						System.out.println(String.format("All Spotify 'Ian' Artists (%d) : %s", artists.size(), artists.toString()));
+						Collection<Album> albums = spotify.searchAlbums("Takk");
+						System.out.println(String.format("All Spotify 'Takk' Albums (%d) : %s", albums.size(), albums.toString()));
 
 					}
 					if (dao.getType() == EDaoType.LAST_FM_DIRECT)
