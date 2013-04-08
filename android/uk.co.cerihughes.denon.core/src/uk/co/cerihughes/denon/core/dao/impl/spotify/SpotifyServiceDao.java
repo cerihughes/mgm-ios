@@ -30,6 +30,11 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 		return String.format("http://ws.spotify.com/search/1/album?q=%s", encodeParameter(predicate));
 	}
 
+	private String getAlbumsForArtistId(String artistId)
+	{
+		return String.format("http://ws.spotify.com/lookup/1/.json?uri=spotify:artist:%s&extras=album", encodeParameter(artistId));
+	}
+
 	private String getTrackSearchUrl(String predicate)
 	{
 		return String.format("http://ws.spotify.com/search/1/track?q=%s", encodeParameter(predicate));
@@ -57,17 +62,17 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 	}
 
 	@Override
-	public Collection<Album> getAlbums(Artist artist)
+	public Collection<Album> getAlbums(Artist artist) throws DaoException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		final String url = getAlbumsForArtistId(artist.getId());
+		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyAlbumsForArtistJsonConverter());
 	}
 
 	@Override
-	public Collection<Track> searchTracks(String predicate)
+	public Collection<Track> searchTracks(String predicate) throws DaoException
 	{
-		// JSONObject json = doGet(getTrackSearchUrl(predicate));
-		return null;
+		final String url = getTrackSearchUrl(predicate);
+		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyTrackSearchJsonConverter());
 	}
 
 	@Override

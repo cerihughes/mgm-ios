@@ -10,9 +10,8 @@ import org.json.JSONObject;
 import uk.co.cerihughes.denon.core.dao.impl.IConverter;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Album;
-import uk.co.cerihughes.denon.core.model.Artist;
 
-public class SpotifyAlbumSearchJsonConverter extends SpotifyJsonConverter implements IConverter<JSONObject, Collection<Album>>
+public class SpotifyAlbumsForArtistJsonConverter extends SpotifyJsonConverter implements IConverter<JSONObject, Collection<Album>>
 {
 
 	@Override
@@ -21,10 +20,12 @@ public class SpotifyAlbumSearchJsonConverter extends SpotifyJsonConverter implem
 		ArrayList<Album> result = new ArrayList<Album>();
 		try
 		{
-			final JSONArray albums = (JSONArray) response.get("albums");
+			final JSONObject topLevel = response.getJSONObject("artist");
+			final JSONArray albums = (JSONArray) topLevel.get("albums");
 			for (int i = 0; i < albums.length(); i++)
 			{
-				JSONObject album = albums.getJSONObject(i);
+				final JSONObject item = albums.getJSONObject(i);
+				final JSONObject album = item.getJSONObject("album");
 				result.add(convertAlbum(album));
 			}
 			return result;
@@ -40,24 +41,12 @@ public class SpotifyAlbumSearchJsonConverter extends SpotifyJsonConverter implem
 		final Album album = new Album();
 		final String href = json.getString("href");
 		final String name = json.getString("name");
-		final String popularity = json.getString("popularity");
-		Float popularityFloat;
-		try
-		{
-			popularityFloat = Float.parseFloat(popularity);
-		}
-		catch (NumberFormatException ex)
-		{
-			popularityFloat = null;
-		}
+		final String artist = json.getString("artist");
 
 		album.setId(getIdFromSpotifyHref(href));
 		album.setName(name);
 		album.setLocation(href);
-		album.setPopularity(popularityFloat);
-
-		final Artist owningArtist = getOwningArtist(json);
-		album.setArtistName(owningArtist.getName());
+		album.setArtistName(artist);
 
 		return album;
 	}

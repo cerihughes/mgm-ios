@@ -2,12 +2,24 @@ package uk.co.cerihughes.denon.core.model;
 
 public class MusicItem extends EHTObject
 {
+	private String id;
 	private String name;
 	private String location;
 	private Float popularity;
 	private String imageUri;
 
-	@EHT(field="name")
+	@EHT(field = "id")
+	public String getId()
+	{
+		return id;
+	}
+
+	public void setId(String id)
+	{
+		this.id = id;
+	}
+
+	@EHT(field = "name")
 	public String getName()
 	{
 		return name;
@@ -18,7 +30,7 @@ public class MusicItem extends EHTObject
 		this.name = name;
 	}
 
-	@EHT(field="location")
+	@EHT(field = "location")
 	public String getLocation()
 	{
 		return location;
@@ -29,7 +41,7 @@ public class MusicItem extends EHTObject
 		this.location = location;
 	}
 
-	@EHT(field="popularity")
+	@EHT(field = "popularity")
 	public Float getPopularity()
 	{
 		return popularity;
@@ -40,7 +52,7 @@ public class MusicItem extends EHTObject
 		this.popularity = popularity;
 	}
 
-	@EHT(field="imageUri")
+	@EHT(field = "imageUri")
 	public String getImageUri()
 	{
 		return imageUri;
