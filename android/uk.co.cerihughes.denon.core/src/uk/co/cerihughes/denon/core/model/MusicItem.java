@@ -1,7 +1,12 @@
 package uk.co.cerihughes.denon.core.model;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MusicItem extends EHTObject
 {
+	private Map<String, String> attributes = new HashMap<String, String>();
 	private String id;
 	private String name;
 	private String location;
@@ -61,5 +66,21 @@ public class MusicItem extends EHTObject
 	public void setImageUri(String imageUri)
 	{
 		this.imageUri = imageUri;
+	}
+
+	@EHT(field = "attributes")
+	public Map<String, String> getAttributes()
+	{
+		return Collections.unmodifiableMap(attributes);
+	}
+
+	public String getAttribute(String key)
+	{
+		return attributes.get(key);
+	}
+
+	public void putAttribute(String key, String value)
+	{
+		attributes.put(key, value);
 	}
 }

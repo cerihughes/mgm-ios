@@ -1,6 +1,7 @@
 package uk.co.cerihughes.denon.core.dao.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.teleal.cling.UpnpService;
 import org.teleal.cling.UpnpServiceImpl;
@@ -15,7 +16,6 @@ import uk.co.cerihughes.denon.core.dao.impl.lastfm.LastFmServiceDao;
 import uk.co.cerihughes.denon.core.dao.impl.spotify.SpotifyServiceDao;
 import uk.co.cerihughes.denon.core.model.Album;
 import uk.co.cerihughes.denon.core.model.Artist;
-import uk.co.cerihughes.denon.core.model.Track;
 
 public class NonAndroidDaoFactory extends DaoFactory
 {
@@ -45,7 +45,7 @@ public class NonAndroidDaoFactory extends DaoFactory
 					if (dao.getType() == EDaoType.DLNA_DIRECT)
 					{
 						final DlnaServiceDao dlna = (DlnaServiceDao) dao;
-						Collection<Artist> artists = dlna.allArtists();
+						List<Artist> artists = dlna.allArtists();
 						System.out.println(String.format("All DLNA Artists (%d) : %s", artists.size(), artists.toString()));
 
 					}
@@ -54,16 +54,16 @@ public class NonAndroidDaoFactory extends DaoFactory
 						final SpotifyServiceDao spotify = (SpotifyServiceDao) dao;
 						final Artist artist = new Artist();
 						artist.setId("6UUrUCIZtQeOf8tC0WuzRy");
-						Collection<Album> albums = spotify.getAlbums(artist);
+						List<Album> albums = spotify.getAlbums(artist);
 						System.out.println(String.format("All Spotify Sigur Ros Albums (%d) : %s", albums.size(), albums.toString()));
-//						Collection<Track> tracks = spotify.searchTracks("Takk");
+//						List<Track> tracks = spotify.searchTracks("Takk");
 //						System.out.println(String.format("All Spotify 'Takk' Tracks (%d) : %s", tracks.size(), tracks.toString()));
 
 					}
 					if (dao.getType() == EDaoType.LAST_FM_DIRECT)
 					{
 						final LastFmServiceDao lastFm = (LastFmServiceDao) dao;
-						Collection<Artist> artists = lastFm.getFavouriteArtists();
+						List<Artist> artists = lastFm.getFavouriteArtists();
 						System.out.println(String.format("All Last FM Favourite Artists (%d) : %s", artists.size(), artists.toString()));
 					}
 				}

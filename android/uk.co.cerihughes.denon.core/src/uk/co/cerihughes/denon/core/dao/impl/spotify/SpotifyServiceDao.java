@@ -1,6 +1,6 @@
 package uk.co.cerihughes.denon.core.dao.impl.spotify;
 
-import java.util.Collection;
+import java.util.List;
 
 import uk.co.cerihughes.denon.core.dao.DaoException;
 import uk.co.cerihughes.denon.core.dao.EDaoType;
@@ -30,7 +30,7 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 		return String.format("http://ws.spotify.com/search/1/album?q=%s", encodeParameter(predicate));
 	}
 
-	private String getAlbumsForArtistId(String artistId)
+	private String getAlbumsForArtistIdUrl(String artistId)
 	{
 		return String.format("http://ws.spotify.com/lookup/1/.json?uri=spotify:artist:%s&extras=album", encodeParameter(artistId));
 	}
@@ -41,56 +41,56 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 	}
 
 	@Override
-	public Collection<Playlist> searchPlaylists(String predicate)
+	public List<Playlist> searchPlaylists(String predicate)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Artist> searchArtists(String predicate) throws DaoException
+	public List<Artist> searchArtists(String predicate) throws DaoException
 	{
 		final String url = getArtistSearchUrl(predicate);
 		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyArtistSearchJsonConverter());
 	}
 
 	@Override
-	public Collection<Album> searchAlbums(String predicate) throws DaoException
+	public List<Album> searchAlbums(String predicate) throws DaoException
 	{
 		final String url = getAlbumSearchUrl(predicate);
 		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyAlbumSearchJsonConverter());
 	}
 
 	@Override
-	public Collection<Album> getAlbums(Artist artist) throws DaoException
+	public List<Album> getAlbums(Artist artist) throws DaoException
 	{
-		final String url = getAlbumsForArtistId(artist.getId());
+		final String url = getAlbumsForArtistIdUrl(artist.getId());
 		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyAlbumsForArtistJsonConverter());
 	}
 
 	@Override
-	public Collection<Track> searchTracks(String predicate) throws DaoException
+	public List<Track> searchTracks(String predicate) throws DaoException
 	{
 		final String url = getTrackSearchUrl(predicate);
 		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyTrackSearchJsonConverter());
 	}
 
 	@Override
-	public Collection<Track> getTracks(Album album)
+	public List<Track> getTracks(Album album)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Track> getTracks(Artist artist)
+	public List<Track> getTracks(Artist artist)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Track> getTracks(Playlist playlist)
+	public List<Track> getTracks(Playlist playlist)
 	{
 		// TODO Auto-generated method stub
 		return null;

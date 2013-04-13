@@ -1,6 +1,6 @@
 package uk.co.cerihughes.denon.core.dao.impl.lastfm;
 
-import java.util.Collection;
+import java.util.List;
 
 import uk.co.cerihughes.denon.core.dao.DaoException;
 import uk.co.cerihughes.denon.core.dao.EDaoType;
@@ -83,19 +83,19 @@ public class LastFmServiceDao extends RestServiceDao
 		return post(url, body, new JsonContentTypeProcessor(), new LastFmMobileSessionConverter());
 	}
 
-	public Collection<Playlist> getPlaylists() throws DaoException
+	public List<Playlist> getPlaylists() throws DaoException
 	{
 		final String url = getPlaylistsUrl();
 		return get(url, new JsonContentTypeProcessor(), new LastFmPlaylistsJsonConverter());
 	}
 
-	public Collection<Artist> getFavouriteArtists() throws DaoException
+	public List<Artist> getFavouriteArtists() throws DaoException
 	{
 		final String url = getFavouriteArtistsUrl();
 		return get(url, new JsonContentTypeProcessor(), new LastFmFavouriteArtistsJsonConverter());
 	}
 
-	public Collection<Artist> getRecommendedArtists() throws DaoException
+	public List<Artist> getRecommendedArtists() throws DaoException
 	{
 		final LastFmAuthenticatorHelper helper = new LastFmAuthenticatorHelper(secret);
 		helper.put("method", "user.getRecommendedArtists");
@@ -106,19 +106,19 @@ public class LastFmServiceDao extends RestServiceDao
 		return post(url, body, new JsonContentTypeProcessor(), new LastFmRecommendedArtistsJsonConverter());
 	}
 
-	public Collection<Album> getFavouriteAlbums() throws DaoException
+	public List<Album> getFavouriteAlbums() throws DaoException
 	{
 		final String url = getFavouriteAlbumsUrl();
 		return get(url, new JsonContentTypeProcessor(), new LastFmFavouriteAlbumsJsonConverter());
 	}
 
-	public Collection<Album> getNewAlbumReleases() throws DaoException
+	public List<Album> getNewAlbumReleases() throws DaoException
 	{
 		final String url = getNewAlbumReleasesUrl();
 		return get(url, new JsonContentTypeProcessor(), new LastFmNewAlbumReleasesJsonConverter());
 	}
 
-	public Collection<Track> getFavouriteTracks() throws DaoException
+	public List<Track> getFavouriteTracks() throws DaoException
 	{
 		final String url = getFavouriteTracksUrl();
 		return get(url, new JsonContentTypeProcessor(), new LastFmFavouriteTracksJsonConverter());

@@ -1,7 +1,7 @@
 package uk.co.cerihughes.denon.core.dao.impl.dlna;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.teleal.cling.support.model.DIDLContent;
 import org.teleal.cling.support.model.container.Container;
@@ -10,10 +10,10 @@ import uk.co.cerihughes.denon.core.dao.impl.IConverter;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Artist;
 
-public class ArtistContainerDidlConverter implements IConverter<DIDLContent, Collection<Artist>>
+public class ArtistContainerDidlConverter implements IConverter<DIDLContent, List<Artist>>
 {
 	@Override
-	public Collection<Artist> convert(DIDLContent response) throws ConverterException
+	public List<Artist> convert(DIDLContent response) throws ConverterException
 	{
 		final ArrayList<Artist> result = new ArrayList<Artist>();
 		for (Container container  : response.getContainers())

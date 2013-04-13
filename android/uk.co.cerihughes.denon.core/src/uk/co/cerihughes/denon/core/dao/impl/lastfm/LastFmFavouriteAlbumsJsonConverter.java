@@ -1,7 +1,7 @@
 package uk.co.cerihughes.denon.core.dao.impl.lastfm;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,11 +11,11 @@ import uk.co.cerihughes.denon.core.dao.impl.IConverter;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Album;
 
-public class LastFmFavouriteAlbumsJsonConverter extends LastFmJsonConverter implements IConverter<JSONObject, Collection<Album>>
+public class LastFmFavouriteAlbumsJsonConverter extends LastFmJsonConverter implements IConverter<JSONObject, List<Album>>
 {
 
 	@Override
-	public Collection<Album> convert(JSONObject response) throws ConverterException
+	public List<Album> convert(JSONObject response) throws ConverterException
 	{
 		final ArrayList<Album> result = new ArrayList<Album>();
 		try

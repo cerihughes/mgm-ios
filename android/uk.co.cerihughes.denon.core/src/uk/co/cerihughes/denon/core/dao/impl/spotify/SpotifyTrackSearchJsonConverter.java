@@ -1,7 +1,7 @@
 package uk.co.cerihughes.denon.core.dao.impl.spotify;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,11 +13,11 @@ import uk.co.cerihughes.denon.core.model.Album;
 import uk.co.cerihughes.denon.core.model.Artist;
 import uk.co.cerihughes.denon.core.model.Track;
 
-public class SpotifyTrackSearchJsonConverter extends SpotifyJsonConverter implements IConverter<JSONObject, Collection<Track>>
+public class SpotifyTrackSearchJsonConverter extends SpotifyJsonConverter implements IConverter<JSONObject, List<Track>>
 {
 
 	@Override
-	public Collection<Track> convert(JSONObject response) throws ConverterException
+	public List<Track> convert(JSONObject response) throws ConverterException
 	{
 		ArrayList<Track> result = new ArrayList<Track>();
 		try
@@ -41,30 +41,27 @@ public class SpotifyTrackSearchJsonConverter extends SpotifyJsonConverter implem
 		final Track track = new Track();
 		final String href = json.getString("href");
 		final String name = json.getString("name");
-		final String popularity = json.getString("popularity");
+		final float popularity = (float)json.getDouble("popularity");
 		final int length = json.getInt("length");
+		final int number = json.getInt("track-number");
 
-		Float popularityFloat;
-		try
-		{
-			popularityFloat = Float.parseFloat(popularity);
-		}
-		catch (NumberFormatException ex)
-		{
-			popularityFloat = null;
-		}
-
-		track.setId(getIdFromSpotifyHref(href));
+		final String id = getIdFromSpotifyHref(href);
+		track.setId(id);
 		track.setName(name);
 		track.setLocation(href);
-		track.setPopularity(popularityFloat);
+		track.setPopularity(popularity);
 		track.setLength(length);
+		track.setNumber(number);
 
 		final Artist owningArtist = getOwningArtist(json);
 		track.setArtistName(owningArtist.getName());
 
 		final Album owningAlbum = getOwningAlbum(json);
 		track.setAlbumName(owningAlbum.getName());
+
+		track.putAttribute(SPOTIFY_ARTIST_ID_ATTRIBUTE, owningArtist.getId());
+		track.putAttribute(SPOTIFY_ALBUM_ID_ATTRIBUTE, owningAlbum.getId());
+		track.putAttribute(SPOTIFY_TRACK_ID_ATTRIBUTE, id);
 
 		return track;
 	}

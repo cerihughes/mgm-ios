@@ -1,6 +1,6 @@
 package uk.co.cerihughes.denon.core.dao.impl.dlna;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.teleal.cling.UpnpService;
 import org.teleal.cling.model.meta.RemoteService;
@@ -53,70 +53,70 @@ public class DlnaServiceDao implements IFiniteServiceDao
 	}
 
 	@Override
-	public Collection<Playlist> searchPlaylists(String predicate)
+	public List<Playlist> searchPlaylists(String predicate)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Artist> searchArtists(String predicate)
+	public List<Artist> searchArtists(String predicate)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Album> searchAlbums(String predicate)
+	public List<Album> searchAlbums(String predicate)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Album> getAlbums(Artist artist)
+	public List<Album> getAlbums(Artist artist)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Track> searchTracks(String predicate)
+	public List<Track> searchTracks(String predicate)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Track> getTracks(Album album)
+	public List<Track> getTracks(Album album)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Track> getTracks(Artist artist)
+	public List<Track> getTracks(Artist artist)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Track> getTracks(Playlist playlist)
+	public List<Track> getTracks(Playlist playlist)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Playlist> allPlaylists()
+	public List<Playlist> allPlaylists()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Artist> allArtists() throws DaoException
+	public List<Artist> allArtists() throws DaoException
 	{
 		final SynchronousBrowse browse = new SynchronousBrowse();
 		final DIDLContent response = browse.browse(upnpService, remoteService, containerData.getArtistContainerId(),
@@ -133,14 +133,14 @@ public class DlnaServiceDao implements IFiniteServiceDao
 	}
 
 	@Override
-	public Collection<Album> allAlbums() throws DaoException
+	public List<Album> allAlbums() throws DaoException
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Track> allTracks()
+	public List<Track> allTracks()
 	{
 		// TODO Auto-generated method stub
 		return null;

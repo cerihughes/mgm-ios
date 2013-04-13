@@ -1,7 +1,7 @@
 package uk.co.cerihughes.denon.core.dao.impl.spotify;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,11 +11,11 @@ import uk.co.cerihughes.denon.core.dao.impl.IConverter;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Album;
 
-public class SpotifyAlbumsForArtistJsonConverter extends SpotifyJsonConverter implements IConverter<JSONObject, Collection<Album>>
+public class SpotifyAlbumsForArtistJsonConverter extends SpotifyJsonConverter implements IConverter<JSONObject, List<Album>>
 {
 
 	@Override
-	public Collection<Album> convert(JSONObject response) throws ConverterException
+	public List<Album> convert(JSONObject response) throws ConverterException
 	{
 		ArrayList<Album> result = new ArrayList<Album>();
 		try
@@ -43,10 +43,19 @@ public class SpotifyAlbumsForArtistJsonConverter extends SpotifyJsonConverter im
 		final String name = json.getString("name");
 		final String artist = json.getString("artist");
 
-		album.setId(getIdFromSpotifyHref(href));
+		final String id = getIdFromSpotifyHref(href);
+		album.setId(id);
 		album.setName(name);
 		album.setLocation(href);
 		album.setArtistName(artist);
+
+		final String artistHref = json.optString("artist-id");
+		if (artistHref != null)
+		{
+			final String artistId = getIdFromSpotifyHref(artistHref);
+			album.putAttribute(SPOTIFY_ARTIST_ID_ATTRIBUTE, artistId);
+		}
+		album.putAttribute(SPOTIFY_ALBUM_ID_ATTRIBUTE, id);
 
 		return album;
 	}

@@ -1,7 +1,7 @@
 package uk.co.cerihughes.denon.core.dao.impl.spotify;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,11 +11,11 @@ import uk.co.cerihughes.denon.core.dao.impl.IConverter;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Artist;
 
-public class SpotifyArtistSearchJsonConverter implements IConverter<JSONObject, Collection<Artist>>
+public class SpotifyArtistSearchJsonConverter extends SpotifyJsonConverter implements IConverter<JSONObject, List<Artist>>
 {
 
 	@Override
-	public Collection<Artist> convert(JSONObject response) throws ConverterException
+	public List<Artist> convert(JSONObject response) throws ConverterException
 	{
 		ArrayList<Artist> result = new ArrayList<Artist>();
 		try
@@ -50,9 +50,13 @@ public class SpotifyArtistSearchJsonConverter implements IConverter<JSONObject, 
 			popularityFloat = null;
 		}
 
+		final String id = getIdFromSpotifyHref(href);
+		artist.setId(id);
 		artist.setName(name);
 		artist.setLocation(href);
 		artist.setPopularity(popularityFloat);
+		
+		artist.putAttribute(SPOTIFY_ARTIST_ID_ATTRIBUTE, id);
 
 		return artist;
 	}
