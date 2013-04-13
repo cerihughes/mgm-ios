@@ -37,7 +37,7 @@ public class DlnaServiceDao implements IFiniteServiceDao
 	{
 		return EDaoType.DLNA_DIRECT;
 	}
-	
+
 	@Override
 	public void start()
 	{
@@ -89,13 +89,6 @@ public class DlnaServiceDao implements IFiniteServiceDao
 
 	@Override
 	public List<Track> getTracks(Album album)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Track> getTracks(Artist artist)
 	{
 		// TODO Auto-generated method stub
 		return null;

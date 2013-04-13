@@ -2,20 +2,32 @@ package uk.co.cerihughes.denon.core.model;
 
 public class Track extends MusicItem
 {
-	private Integer number;
+	private Integer trackNumber;
+	private Integer discNumber;
 	private Integer length;
 	private String albumName;
 	private String artistName;
 
-	@EHT(field = "number")
-	public Integer getNumber()
+	@EHT(field = "trackNumber")
+	public Integer getTrackNumber()
 	{
-		return number;
+		return trackNumber;
 	}
 
-	public void setNumber(Integer number)
+	public void setTrackNumber(Integer trackNumber)
 	{
-		this.number = number;
+		this.trackNumber = trackNumber;
+	}
+
+	@EHT(field = "discNumber")
+	public Integer getDiscNumber()
+	{
+		return discNumber;
+	}
+
+	public void setDiscNumber(Integer discNumber)
+	{
+		this.discNumber = discNumber;
 	}
 
 	@EHT(field = "length")

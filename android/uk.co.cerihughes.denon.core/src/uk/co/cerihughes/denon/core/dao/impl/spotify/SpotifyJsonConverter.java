@@ -12,7 +12,7 @@ public abstract class SpotifyJsonConverter extends JsonConverter
 	static final String SPOTIFY_ARTIST_ID_ATTRIBUTE = "SPOTIFY_ARTIST_ID_ATTRIBUTE";
 	static final String SPOTIFY_ALBUM_ID_ATTRIBUTE = "SPOTIFY_ALBUM_ID_ATTRIBUTE";
 	static final String SPOTIFY_TRACK_ID_ATTRIBUTE = "SPOTIFY_TRACK_ID_ATTRIBUTE";
-	
+
 	protected String getIdFromSpotifyHref(String href)
 	{
 		if (href != null)

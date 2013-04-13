@@ -1,6 +1,5 @@
 package uk.co.cerihughes.denon.core.dao.impl.dlna;
 
-
 public class ContainerData
 {
 	private String playlistContainerId;

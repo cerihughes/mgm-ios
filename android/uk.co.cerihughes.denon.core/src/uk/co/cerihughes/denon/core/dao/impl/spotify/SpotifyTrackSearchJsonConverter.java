@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import uk.co.cerihughes.denon.core.dao.EDaoType;
 import uk.co.cerihughes.denon.core.dao.impl.IConverter;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Album;
@@ -41,17 +42,18 @@ public class SpotifyTrackSearchJsonConverter extends SpotifyJsonConverter implem
 		final Track track = new Track();
 		final String href = json.getString("href");
 		final String name = json.getString("name");
-		final float popularity = (float)json.getDouble("popularity");
+		final float popularity = (float) json.getDouble("popularity");
 		final int length = json.getInt("length");
 		final int number = json.getInt("track-number");
 
+		track.setSource(EDaoType.SPOTIFY_DIRECT);
 		final String id = getIdFromSpotifyHref(href);
 		track.setId(id);
 		track.setName(name);
 		track.setLocation(href);
 		track.setPopularity(popularity);
 		track.setLength(length);
-		track.setNumber(number);
+		track.setTrackNumber(number);
 
 		final Artist owningArtist = getOwningArtist(json);
 		track.setArtistName(owningArtist.getName());

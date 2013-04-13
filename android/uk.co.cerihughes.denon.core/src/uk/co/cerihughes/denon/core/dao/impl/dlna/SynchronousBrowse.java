@@ -47,7 +47,7 @@ public class SynchronousBrowse
 
 	private class AsynchronousBrowse extends Browse
 	{
-		public AsynchronousBrowse(Service<?,?> service, String containerId, BrowseFlag flag)
+		public AsynchronousBrowse(Service<?, ?> service, String containerId, BrowseFlag flag)
 		{
 			super(service, containerId, flag);
 		}

@@ -8,8 +8,8 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.co.cerihughes.denon.core.dao.EDaoType;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
-import uk.co.cerihughes.denon.core.model.Album;
 import uk.co.cerihughes.denon.core.model.Track;
 
 public class TestSpotifyTrackSearchJsonConverter
@@ -41,10 +41,11 @@ public class TestSpotifyTrackSearchJsonConverter
 		final List<Track> result = cut.convert(json);
 		Assert.assertEquals(1, result.size());
 		final Track track = result.get(0);
+		Assert.assertEquals(EDaoType.SPOTIFY_DIRECT, track.getSource());
 		Assert.assertEquals("To Live in Your Pocket", track.getName());
 		Assert.assertEquals(0.09644f, track.getPopularity());
-		Assert.assertEquals((Integer)8, track.getNumber());
-		Assert.assertEquals((Integer)192, track.getLength());
+		Assert.assertEquals((Integer) 8, track.getTrackNumber());
+		Assert.assertEquals((Integer) 192, track.getLength());
 		Assert.assertEquals("spotify:track:0j69l8EN5k7hua1TDfxK1O", track.getLocation());
 		Assert.assertEquals("0j69l8EN5k7hua1TDfxK1O", track.getId());
 		Assert.assertEquals("Jewellers", track.getArtistName());
@@ -61,10 +62,11 @@ public class TestSpotifyTrackSearchJsonConverter
 		final List<Track> result = cut.convert(json);
 		Assert.assertEquals(5, result.size());
 		final Track track = result.get(0);
+		Assert.assertEquals(EDaoType.SPOTIFY_DIRECT, track.getSource());
 		Assert.assertEquals("Cler Achel", track.getName());
 		Assert.assertEquals(0.33358f, track.getPopularity());
-		Assert.assertEquals((Integer)1, track.getNumber());
-		Assert.assertEquals((Integer)267, track.getLength());
+		Assert.assertEquals((Integer) 1, track.getTrackNumber());
+		Assert.assertEquals((Integer) 267, track.getLength());
 		Assert.assertEquals("spotify:track:5uscjCcGU5eMxCoN2o1ACp", track.getLocation());
 		Assert.assertEquals("5uscjCcGU5eMxCoN2o1ACp", track.getId());
 		Assert.assertEquals("Tinariwen", track.getArtistName());

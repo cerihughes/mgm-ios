@@ -56,8 +56,9 @@ public class NonAndroidDaoFactory extends DaoFactory
 						artist.setId("6UUrUCIZtQeOf8tC0WuzRy");
 						List<Album> albums = spotify.getAlbums(artist);
 						System.out.println(String.format("All Spotify Sigur Ros Albums (%d) : %s", albums.size(), albums.toString()));
-//						List<Track> tracks = spotify.searchTracks("Takk");
-//						System.out.println(String.format("All Spotify 'Takk' Tracks (%d) : %s", tracks.size(), tracks.toString()));
+						// List<Track> tracks = spotify.searchTracks("Takk");
+						// System.out.println(String.format("All Spotify 'Takk' Tracks (%d) : %s",
+						// tracks.size(), tracks.toString()));
 
 					}
 					if (dao.getType() == EDaoType.LAST_FM_DIRECT)

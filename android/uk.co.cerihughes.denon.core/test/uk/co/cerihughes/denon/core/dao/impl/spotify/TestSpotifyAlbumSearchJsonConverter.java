@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.co.cerihughes.denon.core.dao.EDaoType;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Album;
 
@@ -40,6 +41,7 @@ public class TestSpotifyAlbumSearchJsonConverter
 		final List<Album> result = cut.convert(json);
 		Assert.assertEquals(1, result.size());
 		final Album album = result.get(0);
+		Assert.assertEquals(EDaoType.SPOTIFY_DIRECT, album.getSource());
 		Assert.assertEquals("The Hissing Of Summer Lawns", album.getName());
 		Assert.assertEquals(0.45509f, album.getPopularity());
 		Assert.assertEquals("spotify:album:3gUlFM3azK6ZIkKz1zK7Nj", album.getLocation());
@@ -57,6 +59,7 @@ public class TestSpotifyAlbumSearchJsonConverter
 		final List<Album> result = cut.convert(json);
 		Assert.assertEquals(24, result.size());
 		final Album album = result.get(0);
+		Assert.assertEquals(EDaoType.SPOTIFY_DIRECT, album.getSource());
 		Assert.assertEquals("Rio De Janeiro Party Club Hits (The Best Copacabana Limbo Top)", album.getName());
 		Assert.assertEquals(0.41794f, album.getPopularity());
 		Assert.assertEquals("spotify:album:2Mv6Rv7Zu2AdXiPc0vPQcf", album.getLocation());

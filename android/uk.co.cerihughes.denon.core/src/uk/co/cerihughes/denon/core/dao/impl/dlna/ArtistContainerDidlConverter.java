@@ -16,7 +16,7 @@ public class ArtistContainerDidlConverter implements IConverter<DIDLContent, Lis
 	public List<Artist> convert(DIDLContent response) throws ConverterException
 	{
 		final ArrayList<Artist> result = new ArrayList<Artist>();
-		for (Container container  : response.getContainers())
+		for (Container container : response.getContainers())
 		{
 			final Artist artist = new Artist();
 			artist.setName(container.getTitle());

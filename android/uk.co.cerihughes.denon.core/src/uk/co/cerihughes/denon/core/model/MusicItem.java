@@ -4,14 +4,28 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import uk.co.cerihughes.denon.core.dao.EDaoType;
+
 public class MusicItem extends EHTObject
 {
 	private Map<String, String> attributes = new HashMap<String, String>();
+	private EDaoType source;
 	private String id;
 	private String name;
 	private String location;
 	private Float popularity;
 	private String imageUri;
+
+	@EHT(field = "source")
+	public EDaoType getSource()
+	{
+		return source;
+	}
+
+	public void setSource(EDaoType source)
+	{
+		this.source = source;
+	}
 
 	@EHT(field = "id")
 	public String getId()

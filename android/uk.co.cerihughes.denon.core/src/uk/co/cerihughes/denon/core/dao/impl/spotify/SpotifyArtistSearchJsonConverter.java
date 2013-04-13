@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import uk.co.cerihughes.denon.core.dao.EDaoType;
 import uk.co.cerihughes.denon.core.dao.impl.IConverter;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Artist;
@@ -50,12 +51,13 @@ public class SpotifyArtistSearchJsonConverter extends SpotifyJsonConverter imple
 			popularityFloat = null;
 		}
 
+		artist.setSource(EDaoType.SPOTIFY_DIRECT);
 		final String id = getIdFromSpotifyHref(href);
 		artist.setId(id);
 		artist.setName(name);
 		artist.setLocation(href);
 		artist.setPopularity(popularityFloat);
-		
+
 		artist.putAttribute(SPOTIFY_ARTIST_ID_ATTRIBUTE, id);
 
 		return artist;

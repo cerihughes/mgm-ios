@@ -20,12 +20,12 @@ public abstract class RestServiceDao implements IDao
 	public void start()
 	{
 	}
-	
+
 	@Override
 	public void stop()
 	{
 	}
-	
+
 	protected String encodeParameter(String parameter)
 	{
 		try

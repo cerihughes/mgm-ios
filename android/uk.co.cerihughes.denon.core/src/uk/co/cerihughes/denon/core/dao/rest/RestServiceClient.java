@@ -8,7 +8,8 @@ public class RestServiceClient<ResponseType, ConvertedType>
 	private ContentTypeProcessor<ResponseType> processor;
 	private IConverter<ResponseType, ConvertedType> converter;
 
-	public RestServiceClient(Invoker invoker, ContentTypeProcessor<ResponseType> processor, IConverter<ResponseType, ConvertedType> converter)
+	public RestServiceClient(Invoker invoker, ContentTypeProcessor<ResponseType> processor,
+			IConverter<ResponseType, ConvertedType> converter)
 	{
 		this.invoker = invoker;
 		this.processor = processor;

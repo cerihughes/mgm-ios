@@ -22,8 +22,6 @@ public interface InfiniteServiceDao extends IDao
 
 	List<Track> getTracks(Album album) throws DaoException;
 
-	List<Track> getTracks(Artist artist) throws DaoException;
-
 	List<Track> getTracks(Playlist playlist) throws DaoException;
 
 }

@@ -4,7 +4,7 @@ public class Artist extends MusicItem
 {
 	private Integer albumCount;
 
-	@EHT(field="album")
+	@EHT(field = "album")
 	public Integer getAlbumCount()
 	{
 		return albumCount;

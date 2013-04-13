@@ -34,7 +34,7 @@ public class LastFmPlaylistsJsonConverter extends LastFmJsonConverter implements
 					final JSONObject playlist = playlists.getJSONObject(i);
 					result.add(convertPlaylist(playlist));
 				}
-			}					
+			}
 		}
 		catch (JSONException ex)
 		{

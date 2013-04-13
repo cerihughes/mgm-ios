@@ -30,9 +30,9 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 		return String.format("http://ws.spotify.com/search/1/album?q=%s", encodeParameter(predicate));
 	}
 
-	private String getAlbumsForArtistIdUrl(String artistId)
+	private String getAlbumsForArtistUrl(String artistId)
 	{
-		return String.format("http://ws.spotify.com/lookup/1/.json?uri=spotify:artist:%s&extras=album", encodeParameter(artistId));
+		return String.format("http://ws.spotify.com/lookup/1/.json?uri=spotify:artist:%s&extras=albumdetail", encodeParameter(artistId));
 	}
 
 	private String getTrackSearchUrl(String predicate)
@@ -40,10 +40,15 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 		return String.format("http://ws.spotify.com/search/1/track?q=%s", encodeParameter(predicate));
 	}
 
+	private String getTracksForAlbumUrl(String albumId)
+	{
+		return String.format("http://ws.spotify.com/lookup/1/.json?uri=spotify:track:%s&extras=trackdetail", encodeParameter(albumId));
+	}
+
 	@Override
 	public List<Playlist> searchPlaylists(String predicate)
 	{
-		// TODO Auto-generated method stub
+		// Not supported.
 		return null;
 	}
 
@@ -64,8 +69,13 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 	@Override
 	public List<Album> getAlbums(Artist artist) throws DaoException
 	{
-		final String url = getAlbumsForArtistIdUrl(artist.getId());
-		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyAlbumsForArtistJsonConverter());
+		final String artistId = artist.getAttribute(SpotifyJsonConverter.SPOTIFY_ARTIST_ID_ATTRIBUTE);
+		if (artistId != null)
+		{
+			final String url = getAlbumsForArtistUrl(artistId);
+			return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyAlbumsForArtistJsonConverter());
+		}
+		throw new DaoException("Not a Spotify artist.");
 	}
 
 	@Override
@@ -76,23 +86,21 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 	}
 
 	@Override
-	public List<Track> getTracks(Album album)
+	public List<Track> getTracks(Album album) throws DaoException
 	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Track> getTracks(Artist artist)
-	{
-		// TODO Auto-generated method stub
-		return null;
+		final String albumId = album.getAttribute(SpotifyJsonConverter.SPOTIFY_ALBUM_ID_ATTRIBUTE);
+		if (albumId != null)
+		{
+			final String url = getTracksForAlbumUrl(albumId);
+			return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyTracksForAlbumJsonConverter());
+		}
+		throw new DaoException("Not a Spotify album.");
 	}
 
 	@Override
 	public List<Track> getTracks(Playlist playlist)
 	{
-		// TODO Auto-generated method stub
+		// Not supported.
 		return null;
 	}
 }
