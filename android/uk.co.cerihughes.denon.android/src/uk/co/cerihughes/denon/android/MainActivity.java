@@ -20,7 +20,7 @@ public class MainActivity extends Activity
 
 		getApplicationContext().bindService(new Intent(this, BrowserUpnpService.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
-		setContentView(R.layout.activity_main);
+//		setContentView(R.layout.activity_main);
 		// DlnaArtistsTask task = new DlnaArtistsTask();
 		// task.execute("");
 	}
@@ -36,7 +36,7 @@ public class MainActivity extends Activity
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+//		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 }
