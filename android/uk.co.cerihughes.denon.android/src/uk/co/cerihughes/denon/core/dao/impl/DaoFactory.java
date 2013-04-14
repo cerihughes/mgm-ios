@@ -28,11 +28,8 @@ import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 
 public abstract class DaoFactory implements IDaoFactory, MainRegistryListenerDelegate
 {
-	private static final String API_KEY = "c906b96ff00fac94c2cde40b3f9dbf19";
-	private static final String API_SECRET = "f4280454e04778b9eaaf320b977c3b78";
-
 	private final SpotifyServiceDao spotifyDirectDao = new SpotifyServiceDao();
-	private final LastFmServiceDao lastFmDirectDao = new LastFmServiceDao(null, API_KEY, API_SECRET, "hughesceritest");
+	private final LastFmServiceDao lastFmDirectDao = new LastFmServiceDao(null, "hughesceritest");
 	private final ArrayList<IDaoFactoryListener> listeners = new ArrayList<IDaoFactoryListener>();
 	private final MainRegistryListener registryListener = new MainRegistryListener(this);
 	private UpnpService upnpService;

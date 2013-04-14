@@ -19,7 +19,7 @@ public abstract class LastFmJsonConverter extends JsonConverter
 
 	protected LastFmJsonConverter()
 	{
-		setImageSize(LastFmImageSize.MEDIUM);
+		setImageSize(LastFmImageSize.LARGE);
 	}
 
 	public LastFmImageSize getImageSize()

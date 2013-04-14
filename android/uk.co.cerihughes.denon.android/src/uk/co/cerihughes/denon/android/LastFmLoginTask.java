@@ -2,33 +2,17 @@ package uk.co.cerihughes.denon.android;
 
 import uk.co.cerihughes.denon.core.dao.DaoException;
 import uk.co.cerihughes.denon.core.dao.impl.lastfm.LastFmServiceDao;
-import android.os.AsyncTask;
 
-public class LastFmLoginTask extends AsyncTask<String, Integer, AsyncTaskResult<String>>
+public class LastFmLoginTask extends AsyncCallbackTask<String, Integer, String, DaoException>
 {
-	private static final String API_KEY = "c906b96ff00fac94c2cde40b3f9dbf19";
-	private static final String API_SECRET = "f4280454e04778b9eaaf320b977c3b78";
-
 	@Override
-	protected AsyncTaskResult<String> doInBackground(String... params)
+	protected String runInBackground(String... params) throws DaoException
 	{
 		if (params.length == 1)
 		{
-			final LastFmServiceDao dao = new LastFmServiceDao(null, API_KEY, API_SECRET, "hughesceri");
-			try
-			{
-				return new AsyncTaskResult<String>(dao.getMobileSession(params[0]));
-			}
-			catch (DaoException ex)
-			{
-				return new AsyncTaskResult<String>(ex);
-			}
+			final LastFmServiceDao dao = new LastFmServiceDao(null, "hughesceri");
+			return dao.getMobileSession(params[0]);
 		}
-		return new AsyncTaskResult<String>(new DaoException("Only 1 password can be processed."));
-	}
-
-	@Override
-	protected void onPostExecute(AsyncTaskResult<String> result)
-	{
+		throw new DaoException("Only 1 password can be processed.");
 	}
 }

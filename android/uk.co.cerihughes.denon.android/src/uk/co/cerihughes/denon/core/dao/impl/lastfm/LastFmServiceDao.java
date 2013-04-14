@@ -13,18 +13,21 @@ import uk.co.cerihughes.denon.core.model.Track;
 
 public class LastFmServiceDao extends RestServiceDao
 {
+	private static final String API_KEY = "c906b96ff00fac94c2cde40b3f9dbf19";
+	private static final String API_SECRET = "f4280454e04778b9eaaf320b977c3b78";
+
 	private String sessionKey;
 	private String apiKey;
 	private String secret;
 	private String username;
 
-	public LastFmServiceDao(String sessionKey, String apiKey, String secret, String username)
+	public LastFmServiceDao(String sessionKey, String username)
 	{
 		super();
 		this.sessionKey = sessionKey;
-		this.apiKey = apiKey;
 		this.username = username;
-		this.secret = secret;
+		this.apiKey = API_KEY;
+		this.secret = API_SECRET;
 	}
 
 	@Override

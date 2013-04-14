@@ -5,9 +5,8 @@ import java.util.Collection;
 import uk.co.cerihughes.denon.core.dao.DaoException;
 import uk.co.cerihughes.denon.core.dao.impl.dlna.DlnaServiceDao;
 import uk.co.cerihughes.denon.core.model.Artist;
-import android.os.AsyncTask;
 
-public class DlnaArtistsTask extends AsyncTask<String, Integer, AsyncTaskResult<Collection<Artist>>>
+public class DlnaArtistsTask extends AsyncCallbackTask<String, Integer, Collection<Artist>, DaoException>
 {
 	private DlnaServiceDao dao;
 
@@ -18,22 +17,9 @@ public class DlnaArtistsTask extends AsyncTask<String, Integer, AsyncTaskResult<
 	}
 
 	@Override
-	protected AsyncTaskResult<Collection<Artist>> doInBackground(String... params)
+	protected Collection<Artist> runInBackground(String... params) throws DaoException
 	{
-
-		try
-		{
-			return new AsyncTaskResult<Collection<Artist>>(dao.allArtists());
-		}
-		catch (DaoException ex)
-		{
-			return new AsyncTaskResult<Collection<Artist>>(ex);
-		}
-	}
-
-	@Override
-	protected void onPostExecute(AsyncTaskResult<Collection<Artist>> result)
-	{
+		return dao.allArtists();
 	}
 
 }
