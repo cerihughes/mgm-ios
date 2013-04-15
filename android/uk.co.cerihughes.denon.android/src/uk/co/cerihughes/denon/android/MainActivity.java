@@ -2,6 +2,9 @@ package uk.co.cerihughes.denon.android;
 
 import java.util.ArrayList;
 
+import uk.co.cerihughes.denon.android.browse.FavouriteAlbumsPageFragment;
+import uk.co.cerihughes.denon.android.browse.FavouriteArtistsPageFragment;
+import uk.co.cerihughes.denon.android.browse.FavouriteTracksPageFragment;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
@@ -32,10 +35,10 @@ public class MainActivity extends FragmentActivity
 
 		mTabsAdapter = new TabsAdapter(this, mViewPager);
 		mTabsAdapter.addTab(bar.newTab().setText("Recent"), ScreenSlidePageFragment.class, null);
-		mTabsAdapter.addTab(bar.newTab().setText("Artist"), ScreenSlidePageFragment.class, null);
+		mTabsAdapter.addTab(bar.newTab().setText("Artist"), FavouriteArtistsPageFragment.class, null);
 		mTabsAdapter.addTab(bar.newTab().setText("Albums"), FavouriteAlbumsPageFragment.class, null);
-		mTabsAdapter.addTab(bar.newTab().setText("Tracks"), ScreenSlidePageFragment.class, null);
-		mTabsAdapter.addTab(bar.newTab().setText("Recommendations"), FavouriteAlbumsPageFragment.class, null);
+		mTabsAdapter.addTab(bar.newTab().setText("Tracks"), FavouriteTracksPageFragment.class, null);
+		mTabsAdapter.addTab(bar.newTab().setText("Recommendations"), ScreenSlidePageFragment.class, null);
 
 		if (savedInstanceState != null)
 		{

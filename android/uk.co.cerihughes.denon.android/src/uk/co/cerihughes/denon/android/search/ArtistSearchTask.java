@@ -1,4 +1,4 @@
-package uk.co.cerihughes.denon.android;
+package uk.co.cerihughes.denon.android.search;
 
 import java.util.ArrayList;
 

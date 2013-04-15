@@ -1,8 +1,9 @@
-package uk.co.cerihughes.denon.android;
+package uk.co.cerihughes.denon.android.browse;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.cerihughes.denon.android.AsyncCallbackTask;
 import uk.co.cerihughes.denon.core.dao.DaoException;
 import uk.co.cerihughes.denon.core.dao.impl.lastfm.LastFmServiceDao;
 import uk.co.cerihughes.denon.core.model.Album;

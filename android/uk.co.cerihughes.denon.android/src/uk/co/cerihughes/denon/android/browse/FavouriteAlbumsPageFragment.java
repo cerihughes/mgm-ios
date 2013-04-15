@@ -1,7 +1,10 @@
-package uk.co.cerihughes.denon.android;
+package uk.co.cerihughes.denon.android.browse;
 
 import java.util.List;
 
+import uk.co.cerihughes.denon.android.AsyncCallback;
+import uk.co.cerihughes.denon.android.ImageAdapter;
+import uk.co.cerihughes.denon.android.R;
 import uk.co.cerihughes.denon.core.dao.DaoException;
 import uk.co.cerihughes.denon.core.model.Album;
 import android.os.Bundle;
@@ -9,7 +12,6 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 public class FavouriteAlbumsPageFragment extends ListFragment implements AsyncCallback<List<Album>, DaoException>
 {
