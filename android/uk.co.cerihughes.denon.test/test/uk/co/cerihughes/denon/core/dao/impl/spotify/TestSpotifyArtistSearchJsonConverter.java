@@ -3,16 +3,17 @@ package uk.co.cerihughes.denon.core.dao.impl.spotify;
 import java.util.List;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Before;
+import org.junit.Test;
 
 import uk.co.cerihughes.denon.core.dao.EDaoType;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Artist;
 
-public class TestSpotifyArtistSearchJsonConverter extends TestCase
+public class TestSpotifyArtistSearchJsonConverter
 {
 	private static final String NO_RESULTS_JSON = "{\"info\": {\"num_results\": 0, \"limit\": 100, \"offset\": 0, \"query\": \"artist:DFGDSF\", \"type\": \"artist\", \"page\": 1}, \"artists\": []}";
 	private static final String SINGLE_RESULT_JSON = "{\"info\": {\"num_results\": 1, \"limit\": 100, \"offset\": 0, \"query\": \"artist:Joanna Gruesome\", \"type\": \"artist\", \"page\": 1}, \"artists\": [{\"href\": \"spotify:artist:6K2bPQMt5xXBCfMdU5Lokj\", \"name\": \"Joanna Gruesome\", \"popularity\": \"0.00244\"}]}";
@@ -20,12 +21,13 @@ public class TestSpotifyArtistSearchJsonConverter extends TestCase
 
 	private SpotifyArtistSearchJsonConverter cut;
 
-	@Override
+	@Before
 	public void setUp()
 	{
 		cut = new SpotifyArtistSearchJsonConverter();
 	}
 
+	@Test
 	public void testNoResults() throws ConverterException, JSONException
 	{
 		final JSONObject json = new JSONObject(NO_RESULTS_JSON);
@@ -33,6 +35,7 @@ public class TestSpotifyArtistSearchJsonConverter extends TestCase
 		Assert.assertEquals(0, result.size());
 	}
 
+	@Test
 	public void testSingleResult() throws ConverterException, JSONException
 	{
 		final JSONObject json = new JSONObject(SINGLE_RESULT_JSON);
@@ -50,6 +53,7 @@ public class TestSpotifyArtistSearchJsonConverter extends TestCase
 		Assert.assertNull(artist.getAlbumCount());
 	}
 
+	@Test
 	public void testMultipleResults() throws ConverterException, JSONException
 	{
 		final JSONObject json = new JSONObject(MULTIPLE_RESULTS_JSON);

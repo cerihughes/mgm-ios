@@ -3,16 +3,17 @@ package uk.co.cerihughes.denon.core.dao.impl.spotify;
 import java.util.List;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Before;
+import org.junit.Test;
 
 import uk.co.cerihughes.denon.core.dao.EDaoType;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Album;
 
-public class TestSpotifyAlbumSearchJsonConverter extends TestCase
+public class TestSpotifyAlbumSearchJsonConverter
 {
 	private static final String NO_RESULTS_JSON = "{\"info\": {\"num_results\": 0, \"limit\": 100, \"offset\": 0, \"query\": \"dkfjhgkjsdfhgs\", \"type\": \"album\", \"page\": 1}, \"albums\": []}";
 	private static final String SINGLE_RESULT_JSON = "{\"info\": {\"num_results\": 1, \"limit\": 100, \"offset\": 0, \"query\": \"the hissing of summer lawns\", \"type\": \"album\", \"page\": 1}, \"albums\": [{\"name\": \"The Hissing Of Summer Lawns\", \"popularity\": \"0.45509\", \"external-ids\": [{\"type\": \"upc\", \"id\": \"603497987139\"}], \"href\": \"spotify:album:3gUlFM3azK6ZIkKz1zK7Nj\", \"artists\": [{\"href\": \"spotify:artist:5hW4L92KnC6dX9t7tYM4Ve\", \"name\": \"Joni Mitchell\"}], \"availability\": {\"territories\": \"AD AI AL AM AT AU AW AX AZ BA BE BG BM BV BY CA CH CY CZ DE DK EE ES FI FK FO FR GE GF GG GI GL GP GR GS HR HU IE IM IO IS IT JE KY LI LT LU LV MC MD ME MK MQ MS MT MX NC NL NO NZ PF PL PM PN PT RE RO RS RU SE SH SI SJ SK SM TC TF TR UA US VA VG WF YT\"}}]}";
@@ -20,12 +21,13 @@ public class TestSpotifyAlbumSearchJsonConverter extends TestCase
 
 	private SpotifyAlbumSearchJsonConverter cut;
 
-	@Override
+	@Before
 	public void setUp()
 	{
 		cut = new SpotifyAlbumSearchJsonConverter();
 	}
 
+	@Test
 	public void testNoResults() throws ConverterException, JSONException
 	{
 		final JSONObject json = new JSONObject(NO_RESULTS_JSON);
@@ -33,6 +35,7 @@ public class TestSpotifyAlbumSearchJsonConverter extends TestCase
 		Assert.assertEquals(0, result.size());
 	}
 
+	@Test
 	public void testSingleResult() throws ConverterException, JSONException
 	{
 		final JSONObject json = new JSONObject(SINGLE_RESULT_JSON);
@@ -50,6 +53,7 @@ public class TestSpotifyAlbumSearchJsonConverter extends TestCase
 		Assert.assertNull(album.getAttribute(SpotifyJsonConverter.SPOTIFY_TRACK_ID_ATTRIBUTE));
 	}
 
+	@Test
 	public void testMultipleResults() throws ConverterException, JSONException
 	{
 		final JSONObject json = new JSONObject(MULTIPLE_RESULTS_JSON);
