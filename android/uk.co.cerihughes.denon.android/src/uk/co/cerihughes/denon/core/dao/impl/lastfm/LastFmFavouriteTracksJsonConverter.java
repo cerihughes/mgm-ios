@@ -16,15 +16,27 @@ public class LastFmFavouriteTracksJsonConverter extends LastFmJsonConverter impl
 	@Override
 	public List<Track> convert(JSONObject response) throws ConverterException
 	{
+
 		final ArrayList<Track> result = new ArrayList<Track>();
 		try
 		{
-			final JSONObject topLevel = response.getJSONObject("tracks");
-			final JSONArray tracks = topLevel.getJSONArray("track");
-			for (int i = 0; i < tracks.length(); i++)
+			final JSONObject topLevel = response.getJSONObject("toptracks");
+			final JSONArray tracksArray = topLevel.optJSONArray("track");
+			if (tracksArray != null)
 			{
-				final JSONObject track = tracks.getJSONObject(i);
-				result.add(convertTrack(track));
+				for (int i = 0; i < tracksArray.length(); i++)
+				{
+					final JSONObject track = tracksArray.getJSONObject(i);
+					result.add(convertTrack(track));
+				}
+			}
+			else
+			{
+				final JSONObject trackObject = topLevel.optJSONObject("track");
+				if (trackObject != null)
+				{
+					result.add(convertTrack(trackObject));
+				}
 			}
 			return result;
 		}

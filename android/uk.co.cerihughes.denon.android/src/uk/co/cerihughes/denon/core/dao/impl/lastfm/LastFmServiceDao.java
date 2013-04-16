@@ -49,13 +49,13 @@ public class LastFmServiceDao extends RestServiceDao
 
 	private String getFavouriteArtistsUrl()
 	{
-		return String.format("http://ws.audioscrobbler.com/2.0/?method=library.getArtists&user=%s&api_key=%s&format=json",
+		return String.format("http://ws.audioscrobbler.com/2.0/?method=user.getTopArtists&user=%s&api_key=%s&format=json",
 				encodeParameter(username), encodeParameter(apiKey));
 	}
 
 	private String getFavouriteAlbumsUrl()
 	{
-		return String.format("http://ws.audioscrobbler.com/2.0/?method=library.getAlbums&user=%s&api_key=%s&format=json",
+		return String.format("http://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=%s&api_key=%s&format=json",
 				encodeParameter(username), encodeParameter(apiKey));
 	}
 
@@ -67,7 +67,7 @@ public class LastFmServiceDao extends RestServiceDao
 
 	private String getFavouriteTracksUrl()
 	{
-		return String.format("http://ws.audioscrobbler.com/2.0/?method=library.gettracks&user=%s&api_key=%s&format=json",
+		return String.format("http://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=%s&api_key=%s&format=json",
 				encodeParameter(username), encodeParameter(apiKey));
 	}
 

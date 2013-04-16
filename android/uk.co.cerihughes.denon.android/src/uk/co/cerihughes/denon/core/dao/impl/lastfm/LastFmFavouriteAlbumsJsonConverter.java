@@ -20,7 +20,7 @@ public class LastFmFavouriteAlbumsJsonConverter extends LastFmJsonConverter impl
 		final ArrayList<Album> result = new ArrayList<Album>();
 		try
 		{
-			final JSONObject topLevel = response.getJSONObject("albums");
+			final JSONObject topLevel = response.getJSONObject("topalbums");
 			final JSONArray albums = topLevel.getJSONArray("album");
 			for (int i = 0; i < albums.length(); i++)
 			{

@@ -20,7 +20,7 @@ public class LastFmFavouriteArtistsJsonConverter extends LastFmJsonConverter imp
 		final ArrayList<Artist> result = new ArrayList<Artist>();
 		try
 		{
-			final JSONObject topLevel = response.getJSONObject("artists");
+			final JSONObject topLevel = response.getJSONObject("topartists");
 			final int total = topLevel.getInt("total");
 			if (total > 0)
 			{
