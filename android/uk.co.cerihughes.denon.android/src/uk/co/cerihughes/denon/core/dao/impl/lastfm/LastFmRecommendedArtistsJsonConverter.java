@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Artist;
 
-public class LastFmRecommendedArtistsJsonConverter extends LastFmFavouriteArtistsJsonConverter
+public class LastFmRecommendedArtistsJsonConverter extends LastFmMostPlayedArtistsJsonConverter
 {
 	@Override
 	public List<Artist> convert(JSONObject response) throws ConverterException

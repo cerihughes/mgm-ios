@@ -17,7 +17,7 @@ public class LastFmGetFavouriteAlbumsTask extends AsyncCallbackTask<String, Inte
 		for (String param : params)
 		{
 			final LastFmServiceDao dao = new LastFmServiceDao(null, param);
-			result.addAll(dao.getFavouriteAlbums());
+			result.addAll(dao.getMostPlayedAlbums());
 		}
 		return result;
 	}

@@ -1,6 +1,5 @@
 package uk.co.cerihughes.denon.core.dao.impl;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.teleal.cling.UpnpService;
@@ -64,7 +63,7 @@ public class NonAndroidDaoFactory extends DaoFactory
 					if (dao.getType() == EDaoType.LAST_FM_DIRECT)
 					{
 						final LastFmServiceDao lastFm = (LastFmServiceDao) dao;
-						List<Artist> artists = lastFm.getFavouriteArtists();
+						List<Artist> artists = lastFm.getMostPlayedArtists();
 						System.out.println(String.format("All Last FM Favourite Artists (%d) : %s", artists.size(), artists.toString()));
 					}
 				}

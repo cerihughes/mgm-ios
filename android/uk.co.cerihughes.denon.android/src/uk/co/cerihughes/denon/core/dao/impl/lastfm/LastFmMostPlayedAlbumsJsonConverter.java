@@ -11,7 +11,7 @@ import uk.co.cerihughes.denon.core.dao.impl.IConverter;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Album;
 
-public class LastFmFavouriteAlbumsJsonConverter extends LastFmJsonConverter implements IConverter<JSONObject, List<Album>>
+public class LastFmMostPlayedAlbumsJsonConverter extends LastFmJsonConverter implements IConverter<JSONObject, List<Album>>
 {
 
 	@Override
@@ -21,11 +21,22 @@ public class LastFmFavouriteAlbumsJsonConverter extends LastFmJsonConverter impl
 		try
 		{
 			final JSONObject topLevel = response.getJSONObject("topalbums");
-			final JSONArray albums = topLevel.getJSONArray("album");
-			for (int i = 0; i < albums.length(); i++)
+			final JSONArray albumsArray = topLevel.optJSONArray("album");
+			if (albumsArray != null)
 			{
-				final JSONObject album = albums.getJSONObject(i);
-				result.add(convertAlbum(album));
+				for (int i = 0; i < albumsArray.length(); i++)
+				{
+					final JSONObject album = albumsArray.getJSONObject(i);
+					result.add(convertAlbum(album));
+				}
+			}
+			else
+			{
+				final JSONObject albumsObject = topLevel.optJSONObject("album");
+				if (albumsObject != null)
+				{
+					result.add(convertAlbum(albumsObject));
+				}
 			}
 			return result;
 		}

@@ -17,7 +17,7 @@ public class LastFmGetFavouriteArtistsTask extends AsyncCallbackTask<String, Int
 		for (String param : params)
 		{
 			final LastFmServiceDao dao = new LastFmServiceDao(null, param);
-			result.addAll(dao.getFavouriteArtists());
+			result.addAll(dao.getMostPlayedArtists());
 		}
 		return result;
 	}

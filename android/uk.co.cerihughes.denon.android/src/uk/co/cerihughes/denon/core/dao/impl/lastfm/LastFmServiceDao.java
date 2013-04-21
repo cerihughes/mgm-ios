@@ -47,13 +47,13 @@ public class LastFmServiceDao extends RestServiceDao
 				encodeParameter(username), encodeParameter(apiKey));
 	}
 
-	private String getFavouriteArtistsUrl()
+	private String getMostPlayedArtistsUrl()
 	{
 		return String.format("http://ws.audioscrobbler.com/2.0/?method=user.getTopArtists&user=%s&api_key=%s&format=json",
 				encodeParameter(username), encodeParameter(apiKey));
 	}
 
-	private String getFavouriteAlbumsUrl()
+	private String getMostPlayedAlbumsUrl()
 	{
 		return String.format("http://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=%s&api_key=%s&format=json",
 				encodeParameter(username), encodeParameter(apiKey));
@@ -65,9 +65,15 @@ public class LastFmServiceDao extends RestServiceDao
 				encodeParameter(username), encodeParameter(apiKey));
 	}
 
-	private String getFavouriteTracksUrl()
+	private String getMostPlayedTracksUrl()
 	{
 		return String.format("http://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=%s&api_key=%s&format=json",
+				encodeParameter(username), encodeParameter(apiKey));
+	}
+
+	private String getLovedTracksUrl()
+	{
+		return String.format("http://ws.audioscrobbler.com/2.0/?method=user.getLovedTracks&user=%s&api_key=%s&format=json",
 				encodeParameter(username), encodeParameter(apiKey));
 	}
 
@@ -92,10 +98,10 @@ public class LastFmServiceDao extends RestServiceDao
 		return get(url, new JsonContentTypeProcessor(), new LastFmPlaylistsJsonConverter());
 	}
 
-	public List<Artist> getFavouriteArtists() throws DaoException
+	public List<Artist> getMostPlayedArtists() throws DaoException
 	{
-		final String url = getFavouriteArtistsUrl();
-		return get(url, new JsonContentTypeProcessor(), new LastFmFavouriteArtistsJsonConverter());
+		final String url = getMostPlayedArtistsUrl();
+		return get(url, new JsonContentTypeProcessor(), new LastFmMostPlayedArtistsJsonConverter());
 	}
 
 	public List<Artist> getRecommendedArtists() throws DaoException
@@ -109,10 +115,10 @@ public class LastFmServiceDao extends RestServiceDao
 		return post(url, body, new JsonContentTypeProcessor(), new LastFmRecommendedArtistsJsonConverter());
 	}
 
-	public List<Album> getFavouriteAlbums() throws DaoException
+	public List<Album> getMostPlayedAlbums() throws DaoException
 	{
-		final String url = getFavouriteAlbumsUrl();
-		return get(url, new JsonContentTypeProcessor(), new LastFmFavouriteAlbumsJsonConverter());
+		final String url = getMostPlayedAlbumsUrl();
+		return get(url, new JsonContentTypeProcessor(), new LastFmMostPlayedAlbumsJsonConverter());
 	}
 
 	public List<Album> getNewAlbumReleases() throws DaoException
@@ -121,9 +127,15 @@ public class LastFmServiceDao extends RestServiceDao
 		return get(url, new JsonContentTypeProcessor(), new LastFmNewAlbumReleasesJsonConverter());
 	}
 
-	public List<Track> getFavouriteTracks() throws DaoException
+	public List<Track> getMostPlayedTracks() throws DaoException
 	{
-		final String url = getFavouriteTracksUrl();
-		return get(url, new JsonContentTypeProcessor(), new LastFmFavouriteTracksJsonConverter());
+		final String url = getMostPlayedTracksUrl();
+		return get(url, new JsonContentTypeProcessor(), new LastFmMostPlayedTracksJsonConverter());
+	}
+
+	public List<Track> getLovedTracks() throws DaoException
+	{
+		final String url = getLovedTracksUrl();
+		return get(url, new JsonContentTypeProcessor(), new LastFmLovedTracksJsonConverter());
 	}
 }

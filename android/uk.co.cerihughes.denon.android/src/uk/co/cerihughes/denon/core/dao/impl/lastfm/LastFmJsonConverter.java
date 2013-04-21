@@ -16,6 +16,7 @@ import uk.co.cerihughes.denon.core.model.Track;
 public abstract class LastFmJsonConverter extends JsonConverter
 {
 	static final String LAST_FM_ARTIST_ID_ATTRIBUTE = "LAST_FM_ARTIST_ID_ATTRIBUTE";
+	static final String LAST_FM_ALBUM_ID_ATTRIBUTE = "LAST_FM_ALBUM_ID_ATTRIBUTE";
 	static final String LAST_FM_TRACK_ID_ATTRIBUTE = "LAST_FM_TRACK_ID_ATTRIBUTE";
 
 	private LastFmImageSize imageSize;
@@ -46,6 +47,7 @@ public abstract class LastFmJsonConverter extends JsonConverter
 		final String title = json.getString("title");
 		final String url = json.getString("url");
 
+		playlist.setSource(EDaoType.LAST_FM_DIRECT);
 		playlist.setName(title);
 		playlist.setLocation(url);
 		playlist.setImageUri(imageUri);
@@ -58,14 +60,19 @@ public abstract class LastFmJsonConverter extends JsonConverter
 	protected Artist convertArtist(JSONObject json) throws JSONException
 	{
 		final Artist artist = new Artist();
+		final String mbid = json.getString("mbid");
 		final JSONArray imageArray = json.getJSONArray("image");
 		final String imageUri = processImageArray(imageArray);
 		final String name = json.getString("name");
 		final String url = json.getString("url");
 
+		artist.setId(mbid);
+		artist.setSource(EDaoType.LAST_FM_DIRECT);
 		artist.setName(name);
 		artist.setLocation(url);
 		artist.setImageUri(imageUri);
+
+		artist.putAttribute(LAST_FM_ARTIST_ID_ATTRIBUTE, mbid);
 
 		return artist;
 	}
@@ -73,14 +80,23 @@ public abstract class LastFmJsonConverter extends JsonConverter
 	protected Album convertAlbum(JSONObject json) throws JSONException
 	{
 		final Album album = new Album();
+		final String mbid = json.getString("mbid");
 		final JSONArray imageArray = json.getJSONArray("image");
 		final String imageUri = processImageArray(imageArray);
 		final String name = json.getString("name");
 		final String url = json.getString("url");
 
+		album.setId(mbid);
+		album.setSource(EDaoType.LAST_FM_DIRECT);
 		album.setName(name);
 		album.setLocation(url);
 		album.setImageUri(imageUri);
+
+		final Artist owningArtist = getOwningArtist(json);
+		album.setArtistName(owningArtist.getName());
+
+		album.putAttribute(LAST_FM_ARTIST_ID_ATTRIBUTE, owningArtist.getId());
+		album.putAttribute(LAST_FM_ALBUM_ID_ATTRIBUTE, mbid);
 
 		return album;
 	}
@@ -89,7 +105,11 @@ public abstract class LastFmJsonConverter extends JsonConverter
 	{
 		final Track track = new Track();
 		final String mbid = json.getString("mbid");
-		final int duration = json.getInt("duration");
+		Integer duration = json.optInt("duration", -1);
+		if (duration == -1)
+		{
+			duration = null;
+		}
 		final JSONArray imageArray = json.getJSONArray("image");
 		final String imageUri = processImageArray(imageArray);
 		final String name = json.getString("name");

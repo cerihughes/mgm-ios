@@ -11,7 +11,7 @@ import uk.co.cerihughes.denon.core.dao.impl.IConverter;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Track;
 
-public class LastFmFavouriteTracksJsonConverter extends LastFmJsonConverter implements IConverter<JSONObject, List<Track>>
+public class LastFmLovedTracksJsonConverter extends LastFmJsonConverter implements IConverter<JSONObject, List<Track>>
 {
 	@Override
 	public List<Track> convert(JSONObject response) throws ConverterException
@@ -20,7 +20,7 @@ public class LastFmFavouriteTracksJsonConverter extends LastFmJsonConverter impl
 		final ArrayList<Track> result = new ArrayList<Track>();
 		try
 		{
-			final JSONObject topLevel = response.getJSONObject("toptracks");
+			final JSONObject topLevel = response.getJSONObject("lovedtracks");
 			final JSONArray tracksArray = topLevel.optJSONArray("track");
 			if (tracksArray != null)
 			{
