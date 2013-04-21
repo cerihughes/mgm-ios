@@ -6,7 +6,7 @@ import java.util.Date;
 
 public abstract class JsonConverter
 {
-	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 	protected Date getDate(String jsonDate)
 	{

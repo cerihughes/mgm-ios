@@ -1,0 +1,73 @@
+package uk.co.cerihughes.denon.core.dao.impl.lastfm;
+
+import java.util.List;
+
+import junit.framework.Assert;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.Before;
+import org.junit.Test;
+
+import uk.co.cerihughes.denon.core.dao.EDaoType;
+import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
+import uk.co.cerihughes.denon.core.model.Album;
+
+public class TestLastFmNewAlbumReleasesJsonConverter
+{
+	private static final String NO_RESULTS_JSON = "{\"albums\":{\"#text\":\"\\n\",\"user\":\"hughesceritest\",\"source\":\"Amazon MP3 (United Kingdom)\"}}";
+	private static final String SINGLE_RESULT_JSON = "{\"albums\":{\"album\":{\"name\":\"Love Story\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Phoenix\\/Love+Story\",\"artist\":{\"name\":\"Phoenix\",\"mbid\":\"02f4c1ff-65e0-4412-8e8b-6239b0faecb5\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Phoenix\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/88071561.jpg\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/88071561.jpg\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/88071561.jpg\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/88071561.jpg\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Fri, 22 Mar 2013 00:00:00 +0000\"}},\"@attr\":{\"user\":\"sarahlethbridge\",\"source\":\"Amazon MP3 (United Kingdom)\"}}}";
+	private static final String MULTIPLE_RESULTS_JSON = "{\"albums\":{\"album\":[{\"name\":\"Oblivion - Original Motion Picture Soundtrack\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/M83\\/Oblivion+-+Original+Motion+Picture+Soundtrack\",\"artist\":{\"name\":\"M83\",\"mbid\":\"6d7b7cd4-254b-4c25-83f6-dd20f98ceacd\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/M83\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/87489735.png\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/87489735.png\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/87489735.png\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/87489735.png\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Tue, 9 Apr 2013 00:00:00 +0000\"}},{\"name\":\"Kill Uncle (Remaster)\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Morrissey\\/Kill+Uncle+(Remaster)\",\"artist\":{\"name\":\"Morrissey\",\"mbid\":\"013fa897-86db-41d3-8e9f-386c8a34f4e6\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Morrissey\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/88374797.jpg\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/88374797.jpg\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/88374797.jpg\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/88374797.jpg\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Fri, 5 Apr 2013 00:00:00 +0000\"}},{\"name\":\"Dear Miss Lonelyhearts\",\"mbid\":\"e98230da-45e4-4d4b-92c5-26e0705c889e\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Cold+War+Kids\\/Dear+Miss+Lonelyhearts\",\"artist\":{\"name\":\"Cold War Kids\",\"mbid\":\"0741b30d-e15b-4a8c-b2e5-8834a03d6116\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Cold+War+Kids\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/88321735.png\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/88321735.png\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/88321735.png\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/88321735.png\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Sun, 31 Mar 2013 00:00:00 +0000\"}},{\"name\":\"Two Hands One Mouth (Live in Europe)\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Sparks\\/Two+Hands+One+Mouth+(Live+in+Europe)\",\"artist\":{\"name\":\"Sparks\",\"mbid\":\"50eca6ac-90e9-4cea-87b9-2557655a7913\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Sparks\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/88212333.jpg\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/88212333.jpg\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/88212333.jpg\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/88212333.jpg\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Sun, 31 Mar 2013 00:00:00 +0000\"}},{\"name\":\"5 Album Set (Remastered) (Public Image\\/Second Edition\\/Flowers of Romance\\/This Is What You Want\\/Album)\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Public+Image+Limited\\/5+Album+Set+(Remastered)+(Public+Image%2FSecond+Edition%2FFlowers+of+Romance%2FThis+Is+What+You+Want%2FAlbum)\",\"artist\":{\"name\":\"Public Image Limited\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/+noredirect\\/Public+Image+Limited\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/88022737.jpg\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/88022737.jpg\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/88022737.jpg\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/88022737.jpg\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Fri, 22 Mar 2013 00:00:00 +0000\"}},{\"name\":\"Love Story\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Phoenix\\/Love+Story\",\"artist\":{\"name\":\"Phoenix\",\"mbid\":\"02f4c1ff-65e0-4412-8e8b-6239b0faecb5\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Phoenix\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/88071561.jpg\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/88071561.jpg\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/88071561.jpg\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/88071561.jpg\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Fri, 22 Mar 2013 00:00:00 +0000\"}},{\"name\":\"Das Ist Alkomerz\",\"mbid\":\"af499d1c-3beb-4c5f-b81a-ed20fb15a6fa\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Jeans+Team\\/Das+Ist+Alkomerz\",\"artist\":{\"name\":\"Jeans Team\",\"mbid\":\"d3bbafea-896e-4ec4-9c2f-5b06e4c81433\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Jeans+Team\"},\"image\":[{\"#text\":\"http:\\/\\/cdn.last.fm\\/flatness\\/catalogue\\/noimage\\/2\\/default_album_medium.png\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/cdn.last.fm\\/flatness\\/catalogue\\/noimage\\/2\\/default_album_medium.png\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/cdn.last.fm\\/flatness\\/catalogue\\/noimage\\/2\\/default_album_medium.png\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/cdn.last.fm\\/flatness\\/catalogue\\/noimage\\/2\\/default_album_medium.png\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Fri, 22 Mar 2013 00:00:00 +0000\"}},{\"name\":\"One Way Home - EP\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/K-OS\\/One+Way+Home+-+EP\",\"artist\":{\"name\":\"K-OS\",\"mbid\":\"3dfb71a2-2e06-4a69-8839-3e1fc07e92ea\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/K-OS\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/88638617.jpg\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/88638617.jpg\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/88638617.jpg\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/88638617.jpg\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Fri, 22 Mar 2013 00:00:00 +0000\"}},{\"name\":\"Life (Extended Edition)\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Inspiral+Carpets\\/Life+(Extended+Edition)\",\"artist\":{\"name\":\"Inspiral Carpets\",\"mbid\":\"03c2e506-e8bb-4bd6-9693-5aa97c8eea1c\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Inspiral+Carpets\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/87719735.jpg\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/87719735.jpg\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/87719735.jpg\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/87719735.jpg\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Fri, 15 Mar 2013 00:00:00 +0000\"}},{\"name\":\"Wondering (Original Recordings)\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Stevie+Wonder\\/Wondering+(Original+Recordings)\",\"artist\":{\"name\":\"Stevie Wonder\",\"mbid\":\"1ee18fb3-18a6-4c7f-8ba0-bc41cdd0462e\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Stevie+Wonder\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/87626295.jpg\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/87626295.jpg\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/87626295.jpg\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/87626295.jpg\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Tue, 12 Mar 2013 00:00:00 +0000\"}},{\"name\":\"Introducing The Beach Boys\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/The+Beach+Boys\\/Introducing+The+Beach+Boys\",\"artist\":{\"name\":\"The Beach Boys\",\"mbid\":\"1d45138d-c675-4016-87a7-7ad5cce5e1bc\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/The+Beach+Boys\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/87454837.jpg\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/87454837.jpg\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/87454837.jpg\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/87454837.jpg\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Wed, 6 Mar 2013 00:00:00 +0000\"}},{\"name\":\"Lo Fi\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Jarvis\\/Lo+Fi\",\"artist\":{\"name\":\"Jarvis\",\"mbid\":\"ca596a7a-9c9f-4295-985a-9c06db5c2621\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/+noredirect\\/Jarvis\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/87289559.jpg\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/87289559.jpg\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/87289559.jpg\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/87289559.jpg\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Thu, 28 Feb 2013 00:00:00 +0000\"}},{\"name\":\"yokuyoku\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Busta\\/yokuyoku\",\"artist\":{\"name\":\"Busta\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/+noredirect\\/Busta\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/87040329.jpg\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/87040329.jpg\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/87040329.jpg\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/87040329.jpg\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Wed, 20 Feb 2013 00:00:00 +0000\"}},{\"name\":\"The Boombox Testimonies\",\"mbid\":\"\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Jonny\\/The+Boombox+Testimonies\",\"artist\":{\"name\":\"Jonny\",\"mbid\":\"25cd6905-d0b9-42a4-8303-41dff49a0b75\",\"url\":\"http:\\/\\/www.last.fm\\/music\\/Jonny\"},\"image\":[{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/34s\\/87091047.jpg\",\"size\":\"small\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/64s\\/87091047.jpg\",\"size\":\"medium\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/126\\/87091047.jpg\",\"size\":\"large\"},{\"#text\":\"http:\\/\\/userserve-ak.last.fm\\/serve\\/300x300\\/87091047.jpg\",\"size\":\"extralarge\"}],\"@attr\":{\"releasedate\":\"Thu, 14 Feb 2013 00:00:00 +0000\"}}],\"@attr\":{\"user\":\"hughesceri\",\"source\":\"Amazon MP3 (United Kingdom)\"}}}";
+
+	private LastFmNewAlbumReleasesJsonConverter cut;
+
+	@Before
+	public void setUp()
+	{
+		cut = new LastFmNewAlbumReleasesJsonConverter();
+	}
+
+	@Test
+	public void testNoResults() throws ConverterException, JSONException
+	{
+		final JSONObject json = new JSONObject(NO_RESULTS_JSON);
+		final List<Album> result = cut.convert(json);
+		Assert.assertEquals(0, result.size());
+	}
+
+	@Test
+	public void testSingleResult() throws ConverterException, JSONException
+	{
+		final JSONObject json = new JSONObject(SINGLE_RESULT_JSON);
+		final List<Album> result = cut.convert(json);
+		Assert.assertEquals(1, result.size());
+		final Album album = result.get(0);
+		Assert.assertEquals(EDaoType.LAST_FM_DIRECT, album.getSource());
+		Assert.assertEquals("Love Story", album.getName());
+		Assert.assertNull(album.getPopularity());
+		Assert.assertEquals("http://www.last.fm/music/Phoenix/Love+Story", album.getLocation());
+		Assert.assertNull(album.getId());
+		Assert.assertEquals("Phoenix", album.getArtistName());
+		Assert.assertEquals("http://userserve-ak.last.fm/serve/126/88071561.jpg", album.getImageUri());
+		Assert.assertEquals("02f4c1ff-65e0-4412-8e8b-6239b0faecb5", album.getAttribute(LastFmJsonConverter.LAST_FM_ARTIST_ID_ATTRIBUTE));
+		Assert.assertNull(album.getAttribute(LastFmJsonConverter.LAST_FM_ALBUM_ID_ATTRIBUTE));
+	}
+
+	@Test
+	public void testMultipleResults() throws ConverterException, JSONException
+	{
+		final JSONObject json = new JSONObject(MULTIPLE_RESULTS_JSON);
+		final List<Album> result = cut.convert(json);
+		Assert.assertEquals(14, result.size());
+		final Album album = result.get(0);
+		Assert.assertEquals(EDaoType.LAST_FM_DIRECT, album.getSource());
+		Assert.assertEquals("Oblivion - Original Motion Picture Soundtrack", album.getName());
+		Assert.assertNull(album.getPopularity());
+		Assert.assertEquals("http://www.last.fm/music/M83/Oblivion+-+Original+Motion+Picture+Soundtrack", album.getLocation());
+		Assert.assertNull(album.getId());
+		Assert.assertEquals("M83", album.getArtistName());
+		Assert.assertEquals("http://userserve-ak.last.fm/serve/126/87489735.png", album.getImageUri());
+		Assert.assertEquals("6d7b7cd4-254b-4c25-83f6-dd20f98ceacd", album.getAttribute(LastFmJsonConverter.LAST_FM_ARTIST_ID_ATTRIBUTE));
+		Assert.assertNull(album.getAttribute(LastFmJsonConverter.LAST_FM_ALBUM_ID_ATTRIBUTE));
+	}
+}

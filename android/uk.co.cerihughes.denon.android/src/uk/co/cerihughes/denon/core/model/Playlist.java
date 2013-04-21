@@ -5,6 +5,7 @@ import java.util.Date;
 public class Playlist extends MusicItem
 {
 	private String description;
+	private Integer trackCount;
 	private Date creationDate;
 
 	@EHT(field = "description")
@@ -16,6 +17,17 @@ public class Playlist extends MusicItem
 	public void setDescription(String description)
 	{
 		this.description = description;
+	}
+
+	@EHT(field = "trackCount")
+	public Integer getTrackCount()
+	{
+		return trackCount;
+	}
+
+	public void setTrackCount(Integer trackCount)
+	{
+		this.trackCount = trackCount;
 	}
 
 	@EHT(field = "creationDate")

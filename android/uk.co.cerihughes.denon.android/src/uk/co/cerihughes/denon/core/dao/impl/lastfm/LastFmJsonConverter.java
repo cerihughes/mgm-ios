@@ -36,9 +36,20 @@ public abstract class LastFmJsonConverter extends JsonConverter
 		this.imageSize = imageSize;
 	}
 
+	private String getMbid(JSONObject json) throws JSONException
+	{
+		final String mbid = json.optString("mbid");
+		if (mbid != null && mbid.length() > 0)
+		{
+			return mbid;
+		}
+		return null;
+	}
+
 	protected Playlist convertPlaylist(JSONObject json) throws JSONException
 	{
 		final Playlist playlist = new Playlist();
+		final String id = json.getString("id");
 		final String jsonDate = json.getString("date");
 		final Date date = getDate(jsonDate);
 		final String description = json.getString("description");
@@ -46,13 +57,16 @@ public abstract class LastFmJsonConverter extends JsonConverter
 		final String imageUri = processImageArray(imageArray);
 		final String title = json.getString("title");
 		final String url = json.getString("url");
+		final int trackCount = json.getInt("size");
 
+		playlist.setId(id);
 		playlist.setSource(EDaoType.LAST_FM_DIRECT);
 		playlist.setName(title);
 		playlist.setLocation(url);
 		playlist.setImageUri(imageUri);
 		playlist.setDescription(description);
 		playlist.setCreationDate(date);
+		playlist.setTrackCount(trackCount);
 
 		return playlist;
 	}
@@ -60,7 +74,7 @@ public abstract class LastFmJsonConverter extends JsonConverter
 	protected Artist convertArtist(JSONObject json) throws JSONException
 	{
 		final Artist artist = new Artist();
-		final String mbid = json.getString("mbid");
+		final String mbid = getMbid(json);
 		final JSONArray imageArray = json.getJSONArray("image");
 		final String imageUri = processImageArray(imageArray);
 		final String name = json.getString("name");
@@ -80,7 +94,7 @@ public abstract class LastFmJsonConverter extends JsonConverter
 	protected Album convertAlbum(JSONObject json) throws JSONException
 	{
 		final Album album = new Album();
-		final String mbid = json.getString("mbid");
+		final String mbid = getMbid(json);
 		final JSONArray imageArray = json.getJSONArray("image");
 		final String imageUri = processImageArray(imageArray);
 		final String name = json.getString("name");
@@ -104,7 +118,7 @@ public abstract class LastFmJsonConverter extends JsonConverter
 	protected Track convertTrack(JSONObject json) throws JSONException
 	{
 		final Track track = new Track();
-		final String mbid = json.getString("mbid");
+		final String mbid = getMbid(json);
 		Integer duration = json.optInt("duration", -1);
 		if (duration == -1)
 		{
@@ -124,10 +138,10 @@ public abstract class LastFmJsonConverter extends JsonConverter
 
 		final Artist owningArtist = getOwningArtist(json);
 		track.setArtistName(owningArtist.getName());
-		
+
 		track.putAttribute(LAST_FM_ARTIST_ID_ATTRIBUTE, owningArtist.getId());
 		track.putAttribute(LAST_FM_TRACK_ID_ATTRIBUTE, mbid);
-		
+
 		return track;
 	}
 
@@ -160,15 +174,16 @@ public abstract class LastFmJsonConverter extends JsonConverter
 		final String uri = (String) object.get("#text");
 		return uri;
 	}
-	
+
 	protected Artist getOwningArtist(JSONObject json) throws JSONException
 	{
 		final Artist artist = new Artist();
 		final JSONObject jsonArtist = json.optJSONObject("artist");
 		if (artist != null)
 		{
+			final String mbid = getMbid(jsonArtist);
 			artist.setName(jsonArtist.getString("name"));
-			artist.setId(jsonArtist.getString("mbid"));
+			artist.setId(mbid);
 			artist.setLocation(jsonArtist.getString("url"));
 		}
 		return artist;

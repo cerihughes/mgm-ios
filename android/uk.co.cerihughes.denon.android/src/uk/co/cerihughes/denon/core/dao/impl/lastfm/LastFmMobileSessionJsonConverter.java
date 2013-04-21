@@ -6,16 +6,8 @@ import org.json.JSONObject;
 import uk.co.cerihughes.denon.core.dao.impl.IConverter;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 
-public class LastFmMobileSessionConverter extends LastFmJsonConverter implements IConverter<JSONObject, String>
+public class LastFmMobileSessionJsonConverter extends LastFmJsonConverter implements IConverter<JSONObject, String>
 {
-
-	/**
-	 * Process:
-	 * 
-	 * <code>
-	 * {"session":{"name":"arkanoid","key":"<session_key>","subscriber":"0"}}
-	 * </code>
-	 */
 	@Override
 	public String convert(JSONObject response) throws ConverterException
 	{

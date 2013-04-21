@@ -89,7 +89,8 @@ public class LastFmServiceDao extends RestServiceDao
 
 		final String body = helper.createBody();
 		final String url = getPostUrl();
-		return post(url, body, new JsonContentTypeProcessor(), new LastFmMobileSessionConverter());
+		this.sessionKey = post(url, body, new JsonContentTypeProcessor(), new LastFmMobileSessionJsonConverter());
+		return this.sessionKey;
 	}
 
 	public List<Playlist> getPlaylists() throws DaoException

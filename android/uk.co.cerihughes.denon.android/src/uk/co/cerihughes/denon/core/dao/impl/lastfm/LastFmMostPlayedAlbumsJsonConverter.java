@@ -13,14 +13,18 @@ import uk.co.cerihughes.denon.core.model.Album;
 
 public class LastFmMostPlayedAlbumsJsonConverter extends LastFmJsonConverter implements IConverter<JSONObject, List<Album>>
 {
-
+	protected String getTopLevelKey()
+	{
+		return "topalbums";
+	}
+	
 	@Override
 	public List<Album> convert(JSONObject response) throws ConverterException
 	{
 		final ArrayList<Album> result = new ArrayList<Album>();
 		try
 		{
-			final JSONObject topLevel = response.getJSONObject("topalbums");
+			final JSONObject topLevel = response.getJSONObject(getTopLevelKey());
 			final JSONArray albumsArray = topLevel.optJSONArray("album");
 			if (albumsArray != null)
 			{

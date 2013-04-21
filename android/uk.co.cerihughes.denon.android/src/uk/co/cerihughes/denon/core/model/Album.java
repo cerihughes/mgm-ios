@@ -6,7 +6,8 @@ public class Album extends MusicItem
 {
 	private Date releaseDate;
 	private String artistName;
-	private Integer discs;
+	private Integer discCount;
+	private Integer trackCount;
 
 	@EHT(field = "releaseDate")
 	public Date getReleaseDate()
@@ -30,14 +31,25 @@ public class Album extends MusicItem
 		this.artistName = artistName;
 	}
 
-	@EHT(field = "discs")
-	public Integer getDiscs()
+	@EHT(field = "discCount")
+	public Integer getDiscCount()
 	{
-		return discs;
+		return discCount;
 	}
 
-	public void setDiscs(Integer discs)
+	public void setDiscCount(Integer discCount)
 	{
-		this.discs = discs;
+		this.discCount = discCount;
+	}
+
+	@EHT(field = "trackCount")
+	public Integer getTrackCount()
+	{
+		return trackCount;
+	}
+
+	public void setTrackCount(Integer trackCount)
+	{
+		this.trackCount = trackCount;
 	}
 }

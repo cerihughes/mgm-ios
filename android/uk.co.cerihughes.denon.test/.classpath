@@ -5,5 +5,12 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/uk.co.cerihughes.denon.android"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.json"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/fluent-hc-4.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-cache-4.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/httpmime-4.2.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
