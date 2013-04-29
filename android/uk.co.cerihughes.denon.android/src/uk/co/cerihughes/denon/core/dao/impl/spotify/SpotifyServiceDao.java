@@ -4,15 +4,15 @@ import java.util.List;
 
 import uk.co.cerihughes.denon.core.dao.DaoException;
 import uk.co.cerihughes.denon.core.dao.EDaoType;
-import uk.co.cerihughes.denon.core.dao.InfiniteServiceDao;
+import uk.co.cerihughes.denon.core.dao.IHierarchicalDao;
+import uk.co.cerihughes.denon.core.dao.ISearchableDao;
 import uk.co.cerihughes.denon.core.dao.impl.RestServiceDao;
 import uk.co.cerihughes.denon.core.dao.rest.impl.JsonContentTypeProcessor;
 import uk.co.cerihughes.denon.core.model.Album;
 import uk.co.cerihughes.denon.core.model.Artist;
-import uk.co.cerihughes.denon.core.model.Playlist;
 import uk.co.cerihughes.denon.core.model.Track;
 
-public class SpotifyServiceDao extends RestServiceDao implements InfiniteServiceDao
+public class SpotifyServiceDao extends RestServiceDao implements IHierarchicalDao, ISearchableDao
 {
 	@Override
 	public EDaoType getType()
@@ -46,13 +46,6 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 	}
 
 	@Override
-	public List<Playlist> searchPlaylists(String predicate)
-	{
-		// Not supported.
-		return null;
-	}
-
-	@Override
 	public List<Artist> searchArtists(String predicate) throws DaoException
 	{
 		final String url = getArtistSearchUrl(predicate);
@@ -64,6 +57,13 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 	{
 		final String url = getAlbumSearchUrl(predicate);
 		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyAlbumSearchJsonConverter());
+	}
+	
+	@Override
+	public List<Album> searchAlbums(String artistName, String albumName) throws DaoException
+	{
+		final String predicate = String.format("%s %s", artistName, albumName);
+		return searchAlbums(predicate);
 	}
 
 	@Override
@@ -84,6 +84,13 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 		final String url = getTrackSearchUrl(predicate);
 		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyTrackSearchJsonConverter());
 	}
+	
+	@Override
+	public List<Track> searchTrack(String artistName, String trackName) throws DaoException
+	{
+		final String predicate = String.format("%s %s", artistName, trackName);
+		return searchTracks(predicate);
+	}
 
 	@Override
 	public List<Track> getTracks(Album album) throws DaoException
@@ -95,12 +102,5 @@ public class SpotifyServiceDao extends RestServiceDao implements InfiniteService
 			return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyTracksForAlbumJsonConverter());
 		}
 		throw new DaoException("Not a Spotify album.");
-	}
-
-	@Override
-	public List<Track> getTracks(Playlist playlist)
-	{
-		// Not supported.
-		return null;
 	}
 }

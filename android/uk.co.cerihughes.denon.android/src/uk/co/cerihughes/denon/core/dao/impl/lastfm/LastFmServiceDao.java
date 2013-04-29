@@ -4,6 +4,10 @@ import java.util.List;
 
 import uk.co.cerihughes.denon.core.dao.DaoException;
 import uk.co.cerihughes.denon.core.dao.EDaoType;
+import uk.co.cerihughes.denon.core.dao.IFavouriteDao;
+import uk.co.cerihughes.denon.core.dao.IHistoricalDao;
+import uk.co.cerihughes.denon.core.dao.IPlaylistDao;
+import uk.co.cerihughes.denon.core.dao.IRecommendationDao;
 import uk.co.cerihughes.denon.core.dao.impl.RestServiceDao;
 import uk.co.cerihughes.denon.core.dao.rest.impl.JsonContentTypeProcessor;
 import uk.co.cerihughes.denon.core.model.Album;
@@ -11,7 +15,7 @@ import uk.co.cerihughes.denon.core.model.Artist;
 import uk.co.cerihughes.denon.core.model.Playlist;
 import uk.co.cerihughes.denon.core.model.Track;
 
-public class LastFmServiceDao extends RestServiceDao
+public class LastFmServiceDao extends RestServiceDao implements IRecommendationDao, IHistoricalDao, IFavouriteDao, IPlaylistDao
 {
 	private static final String API_KEY = "c906b96ff00fac94c2cde40b3f9dbf19";
 	private static final String API_SECRET = "f4280454e04778b9eaaf320b977c3b78";
@@ -93,12 +97,6 @@ public class LastFmServiceDao extends RestServiceDao
 		return this.sessionKey;
 	}
 
-	public List<Playlist> getPlaylists() throws DaoException
-	{
-		final String url = getPlaylistsUrl();
-		return get(url, new JsonContentTypeProcessor(), new LastFmPlaylistsJsonConverter());
-	}
-
 	public List<Artist> getMostPlayedArtists() throws DaoException
 	{
 		final String url = getMostPlayedArtistsUrl();
@@ -116,16 +114,24 @@ public class LastFmServiceDao extends RestServiceDao
 		return post(url, body, new JsonContentTypeProcessor(), new LastFmRecommendedArtistsJsonConverter());
 	}
 
+	@Override
+	public List<Album> getRecommendedAlbums() throws DaoException
+	{
+		final String url = getNewAlbumReleasesUrl();
+		return get(url, new JsonContentTypeProcessor(), new LastFmNewAlbumReleasesJsonConverter());
+	}
+
+	@Override
+	public List<Track> getRecommendedTracks() throws DaoException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public List<Album> getMostPlayedAlbums() throws DaoException
 	{
 		final String url = getMostPlayedAlbumsUrl();
 		return get(url, new JsonContentTypeProcessor(), new LastFmMostPlayedAlbumsJsonConverter());
-	}
-
-	public List<Album> getNewAlbumReleases() throws DaoException
-	{
-		final String url = getNewAlbumReleasesUrl();
-		return get(url, new JsonContentTypeProcessor(), new LastFmNewAlbumReleasesJsonConverter());
 	}
 
 	public List<Track> getMostPlayedTracks() throws DaoException
@@ -134,9 +140,38 @@ public class LastFmServiceDao extends RestServiceDao
 		return get(url, new JsonContentTypeProcessor(), new LastFmMostPlayedTracksJsonConverter());
 	}
 
-	public List<Track> getLovedTracks() throws DaoException
+	@Override
+	public List<Artist> getFavouriteArtists() throws DaoException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Album> getFavouriteAlbums() throws DaoException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Track> getFavouriteTracks() throws DaoException
 	{
 		final String url = getLovedTracksUrl();
 		return get(url, new JsonContentTypeProcessor(), new LastFmLovedTracksJsonConverter());
+	}
+
+	@Override
+	public List<Playlist> allPlaylists() throws DaoException
+	{
+		final String url = getPlaylistsUrl();
+		return get(url, new JsonContentTypeProcessor(), new LastFmPlaylistsJsonConverter());
+	}
+
+	@Override
+	public List<Track> getTracks(Playlist playlist) throws DaoException
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

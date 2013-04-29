@@ -9,14 +9,17 @@ import org.teleal.cling.support.model.DIDLContent;
 
 import uk.co.cerihughes.denon.core.dao.DaoException;
 import uk.co.cerihughes.denon.core.dao.EDaoType;
-import uk.co.cerihughes.denon.core.dao.IFiniteServiceDao;
+import uk.co.cerihughes.denon.core.dao.IHierarchicalDao;
+import uk.co.cerihughes.denon.core.dao.ILibraryDao;
+import uk.co.cerihughes.denon.core.dao.IPlaylistDao;
+import uk.co.cerihughes.denon.core.dao.ISearchableDao;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Album;
 import uk.co.cerihughes.denon.core.model.Artist;
 import uk.co.cerihughes.denon.core.model.Playlist;
 import uk.co.cerihughes.denon.core.model.Track;
 
-public class DlnaServiceDao implements IFiniteServiceDao
+public class DlnaServiceDao implements ILibraryDao, IHierarchicalDao, IPlaylistDao, ISearchableDao
 {
 	public static final int TIMEOUT = 10;
 
@@ -50,13 +53,6 @@ public class DlnaServiceDao implements IFiniteServiceDao
 	{
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public List<Playlist> searchPlaylists(String predicate)
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -134,6 +130,20 @@ public class DlnaServiceDao implements IFiniteServiceDao
 
 	@Override
 	public List<Track> allTracks()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Track> searchTrack(String artistName, String trackName) throws DaoException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Album> searchAlbums(String artistName, String albumName) throws DaoException
 	{
 		// TODO Auto-generated method stub
 		return null;
