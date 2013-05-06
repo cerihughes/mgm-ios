@@ -12,7 +12,7 @@ public class MusicItem extends EHTObject
 	private EDaoType source;
 	private String id;
 	private String name;
-	private String location;
+	private String uri;
 	private Float popularity;
 	private String imageUri;
 
@@ -49,15 +49,15 @@ public class MusicItem extends EHTObject
 		this.name = name;
 	}
 
-	@EHT(field = "location")
-	public String getLocation()
+	@EHT(field = "uri")
+	public String getUri()
 	{
-		return location;
+		return uri;
 	}
 
-	public void setLocation(String location)
+	public void setUri(String uri)
 	{
-		this.location = location;
+		this.uri = uri;
 	}
 
 	@EHT(field = "popularity")

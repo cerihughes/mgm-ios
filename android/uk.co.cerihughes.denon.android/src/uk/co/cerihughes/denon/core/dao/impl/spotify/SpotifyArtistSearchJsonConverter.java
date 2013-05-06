@@ -55,7 +55,7 @@ public class SpotifyArtistSearchJsonConverter extends SpotifyJsonConverter imple
 		final String id = getIdFromSpotifyHref(href);
 		artist.setId(id);
 		artist.setName(name);
-		artist.setLocation(href);
+		artist.setUri(href);
 		artist.setPopularity(popularityFloat);
 
 		artist.putAttribute(SPOTIFY_ARTIST_ID_ATTRIBUTE, id);

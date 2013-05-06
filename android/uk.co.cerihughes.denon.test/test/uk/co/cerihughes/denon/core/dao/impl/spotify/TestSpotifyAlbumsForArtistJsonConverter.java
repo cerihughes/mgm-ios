@@ -44,7 +44,7 @@ public class TestSpotifyAlbumsForArtistJsonConverter
 		Assert.assertEquals(EDaoType.SPOTIFY_DIRECT, album.getSource());
 		Assert.assertEquals("Sleep Education", album.getName());
 		Assert.assertNull(album.getPopularity());
-		Assert.assertEquals("spotify:album:71ilXXlwf8zuSMn9mpNkgx", album.getLocation());
+		Assert.assertEquals("spotify:album:71ilXXlwf8zuSMn9mpNkgx", album.getUri());
 		Assert.assertEquals("71ilXXlwf8zuSMn9mpNkgx", album.getId());
 		Assert.assertEquals("Jewellers", album.getArtistName());
 		Assert.assertEquals("2011", getYear(album.getReleaseDate()));
@@ -63,7 +63,7 @@ public class TestSpotifyAlbumsForArtistJsonConverter
 		Assert.assertEquals(EDaoType.SPOTIFY_DIRECT, album.getSource());
 		Assert.assertEquals("After the Blackout", album.getName());
 		Assert.assertNull(album.getPopularity());
-		Assert.assertEquals("spotify:album:67Pjc7GqUX6ZDFYNLxy93l", album.getLocation());
+		Assert.assertEquals("spotify:album:67Pjc7GqUX6ZDFYNLxy93l", album.getUri());
 		Assert.assertEquals("67Pjc7GqUX6ZDFYNLxy93l", album.getId());
 		Assert.assertEquals("Sugarman", album.getArtistName());
 		Assert.assertEquals("2013", getYear(album.getReleaseDate()));

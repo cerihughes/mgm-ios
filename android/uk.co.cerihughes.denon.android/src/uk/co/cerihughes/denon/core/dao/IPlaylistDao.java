@@ -7,7 +7,7 @@ import uk.co.cerihughes.denon.core.model.Track;
 
 public interface IPlaylistDao extends IDao
 {
-	List<Playlist> allPlaylists() throws DaoException;
+	List<Playlist> getAllPlaylists() throws DaoException;
 
 	List<Track> getTracks(Playlist playlist) throws DaoException;
 }

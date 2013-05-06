@@ -50,7 +50,7 @@ public class SpotifyTrackSearchJsonConverter extends SpotifyJsonConverter implem
 		final String id = getIdFromSpotifyHref(href);
 		track.setId(id);
 		track.setName(name);
-		track.setLocation(href);
+		track.setUri(href);
 		track.setPopularity(popularity);
 		track.setLength(length);
 		track.setTrackNumber(number);

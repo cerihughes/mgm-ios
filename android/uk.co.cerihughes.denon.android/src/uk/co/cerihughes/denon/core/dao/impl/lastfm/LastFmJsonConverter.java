@@ -62,7 +62,7 @@ public abstract class LastFmJsonConverter extends JsonConverter
 		playlist.setId(id);
 		playlist.setSource(EDaoType.LAST_FM_DIRECT);
 		playlist.setName(title);
-		playlist.setLocation(url);
+		playlist.setUri(url);
 		playlist.setImageUri(imageUri);
 		playlist.setDescription(description);
 		playlist.setCreationDate(date);
@@ -83,7 +83,7 @@ public abstract class LastFmJsonConverter extends JsonConverter
 		artist.setId(mbid);
 		artist.setSource(EDaoType.LAST_FM_DIRECT);
 		artist.setName(name);
-		artist.setLocation(url);
+		artist.setUri(url);
 		artist.setImageUri(imageUri);
 
 		artist.putAttribute(LAST_FM_ARTIST_ID_ATTRIBUTE, mbid);
@@ -103,7 +103,7 @@ public abstract class LastFmJsonConverter extends JsonConverter
 		album.setId(mbid);
 		album.setSource(EDaoType.LAST_FM_DIRECT);
 		album.setName(name);
-		album.setLocation(url);
+		album.setUri(url);
 		album.setImageUri(imageUri);
 
 		final Artist owningArtist = getOwningArtist(json);
@@ -133,7 +133,7 @@ public abstract class LastFmJsonConverter extends JsonConverter
 		track.setSource(EDaoType.LAST_FM_DIRECT);
 		track.setName(name);
 		track.setLength(duration);
-		track.setLocation(url);
+		track.setUri(url);
 		track.setImageUri(imageUri);
 
 		final Artist owningArtist = getOwningArtist(json);
@@ -184,7 +184,7 @@ public abstract class LastFmJsonConverter extends JsonConverter
 			final String mbid = getMbid(jsonArtist);
 			artist.setName(jsonArtist.getString("name"));
 			artist.setId(mbid);
-			artist.setLocation(jsonArtist.getString("url"));
+			artist.setUri(jsonArtist.getString("url"));
 		}
 		return artist;
 	}

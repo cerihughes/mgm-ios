@@ -8,9 +8,9 @@ import uk.co.cerihughes.denon.core.model.Track;
 
 public interface ILibraryDao extends IDao
 {
-	List<Artist> allArtists() throws DaoException;
+	List<Artist> getAllArtists() throws DaoException;
 
-	List<Album> allAlbums() throws DaoException;
+	List<Album> getAllAlbums() throws DaoException;
 
-	List<Track> allTracks() throws DaoException;
+	List<Track> getAllTracks() throws DaoException;
 }

@@ -56,7 +56,7 @@ public class SpotifyAlbumSearchJsonConverter extends SpotifyJsonConverter implem
 		final String id = getIdFromSpotifyHref(href);
 		album.setId(id);
 		album.setName(name);
-		album.setLocation(href);
+		album.setUri(href);
 		album.setPopularity(popularityFloat);
 
 		final Artist owningArtist = getOwningArtist(json);

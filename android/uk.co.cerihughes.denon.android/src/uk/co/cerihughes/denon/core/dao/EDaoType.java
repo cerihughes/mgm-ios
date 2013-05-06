@@ -2,6 +2,8 @@ package uk.co.cerihughes.denon.core.dao;
 
 public enum EDaoType
 {
+	PLAYER_DENON(false),
+
 	LAST_FM_DIRECT(true),
 
 	LAST_FM_DENON(false),

@@ -5,15 +5,17 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Comparator;
 import java.util.TreeMap;
 
-import uk.co.cerihughes.denon.core.dao.DaoException;
+import uk.co.cerihughes.denon.core.dao.rest.RequestBodyGenerator;
+import uk.co.cerihughes.denon.core.dao.rest.RequestBodyGeneratorException;
 
-public class LastFmAuthenticatorHelper
+public class LastFmAuthenticatorRequestBodyGenerator implements RequestBodyGenerator
 {
-	private String secret;
-	private TreeMap<String, String> treeMap = new TreeMap<String, String>(new StringComparator());
+	private final String secret;
+	private final TreeMap<String, String> treeMap = new TreeMap<String, String>(new StringComparator());
 
-	public LastFmAuthenticatorHelper(String secret)
+	public LastFmAuthenticatorRequestBodyGenerator(String secret)
 	{
+		super();
 		this.secret = secret;
 	}
 
@@ -22,7 +24,8 @@ public class LastFmAuthenticatorHelper
 		return treeMap.put(key, value);
 	}
 
-	public String createBody() throws DaoException
+	@Override
+	public String generateRequestBody() throws RequestBodyGeneratorException
 	{
 		final StringBuilder signature = new StringBuilder();
 		final StringBuilder body = new StringBuilder();
@@ -46,7 +49,7 @@ public class LastFmAuthenticatorHelper
 		return body.toString();
 	}
 
-	String md5(String input) throws DaoException
+	protected String md5(String input) throws RequestBodyGeneratorException
 	{
 		try
 		{
@@ -56,7 +59,7 @@ public class LastFmAuthenticatorHelper
 		}
 		catch (NoSuchAlgorithmException ex)
 		{
-			throw new DaoException(ex);
+			throw new RequestBodyGeneratorException(ex);
 		}
 	}
 

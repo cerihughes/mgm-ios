@@ -45,7 +45,7 @@ public class TestSpotifyArtistSearchJsonConverter
 		Assert.assertEquals(EDaoType.SPOTIFY_DIRECT, artist.getSource());
 		Assert.assertEquals("Joanna Gruesome", artist.getName());
 		Assert.assertEquals(0.00244f, artist.getPopularity());
-		Assert.assertEquals("spotify:artist:6K2bPQMt5xXBCfMdU5Lokj", artist.getLocation());
+		Assert.assertEquals("spotify:artist:6K2bPQMt5xXBCfMdU5Lokj", artist.getUri());
 		Assert.assertEquals("6K2bPQMt5xXBCfMdU5Lokj", artist.getId());
 		Assert.assertEquals("6K2bPQMt5xXBCfMdU5Lokj", artist.getAttribute(SpotifyJsonConverter.SPOTIFY_ARTIST_ID_ATTRIBUTE));
 		Assert.assertNull(artist.getAttribute(SpotifyJsonConverter.SPOTIFY_ALBUM_ID_ATTRIBUTE));
@@ -63,7 +63,7 @@ public class TestSpotifyArtistSearchJsonConverter
 		Assert.assertEquals(EDaoType.SPOTIFY_DIRECT, artist.getSource());
 		Assert.assertEquals("Bj\u00f6rk", artist.getName());
 		Assert.assertEquals(0.61962f, artist.getPopularity());
-		Assert.assertEquals("spotify:artist:7w29UYBi0qsHi5RTcv3lmA", artist.getLocation());
+		Assert.assertEquals("spotify:artist:7w29UYBi0qsHi5RTcv3lmA", artist.getUri());
 		Assert.assertEquals("7w29UYBi0qsHi5RTcv3lmA", artist.getId());
 		Assert.assertEquals("7w29UYBi0qsHi5RTcv3lmA", artist.getAttribute(SpotifyJsonConverter.SPOTIFY_ARTIST_ID_ATTRIBUTE));
 		Assert.assertNull(artist.getAttribute(SpotifyJsonConverter.SPOTIFY_ALBUM_ID_ATTRIBUTE));

@@ -60,7 +60,7 @@ public class TestLastFmPlaylistsJsonConverter
 		Assert.assertNull(playlist.getPopularity());
 		Assert.assertEquals("2013-03-29T12:08:41", getDateString(playlist.getCreationDate()));
 		Assert.assertEquals((Integer) 1, playlist.getTrackCount());
-		Assert.assertEquals("http://www.last.fm/user/hughesceri/library/playlists/6mkb2_", playlist.getLocation());
+		Assert.assertEquals("http://www.last.fm/user/hughesceri/library/playlists/6mkb2_", playlist.getUri());
 		Assert.assertEquals("11130446", playlist.getId());
 		Assert.assertEquals("http://userserve-ak.last.fm/serve/126/88164707.jpg", playlist.getImageUri());
 	}
@@ -78,7 +78,7 @@ public class TestLastFmPlaylistsJsonConverter
 		Assert.assertNull(playlist.getPopularity());
 		Assert.assertEquals("2008-05-22T09:24:23", getDateString(playlist.getCreationDate()));
 		Assert.assertEquals((Integer) 18, playlist.getTrackCount());
-		Assert.assertEquals("http://www.last.fm/user/RJ/library/playlists/1k1qp_doglist", playlist.getLocation());
+		Assert.assertEquals("http://www.last.fm/user/RJ/library/playlists/1k1qp_doglist", playlist.getUri());
 		Assert.assertEquals("2614993", playlist.getId());
 		Assert.assertEquals("http://userserve-ak.last.fm/serve/126/5976386.jpg", playlist.getImageUri());
 	}

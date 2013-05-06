@@ -47,7 +47,7 @@ public class TestSpotifyTrackSearchJsonConverter
 		Assert.assertEquals(0.09644f, track.getPopularity());
 		Assert.assertEquals((Integer) 8, track.getTrackNumber());
 		Assert.assertEquals((Integer) 192, track.getLength());
-		Assert.assertEquals("spotify:track:0j69l8EN5k7hua1TDfxK1O", track.getLocation());
+		Assert.assertEquals("spotify:track:0j69l8EN5k7hua1TDfxK1O", track.getUri());
 		Assert.assertEquals("0j69l8EN5k7hua1TDfxK1O", track.getId());
 		Assert.assertEquals("Jewellers", track.getArtistName());
 		Assert.assertEquals("Sleep Education", track.getAlbumName());
@@ -68,7 +68,7 @@ public class TestSpotifyTrackSearchJsonConverter
 		Assert.assertEquals(0.33358f, track.getPopularity());
 		Assert.assertEquals((Integer) 1, track.getTrackNumber());
 		Assert.assertEquals((Integer) 267, track.getLength());
-		Assert.assertEquals("spotify:track:5uscjCcGU5eMxCoN2o1ACp", track.getLocation());
+		Assert.assertEquals("spotify:track:5uscjCcGU5eMxCoN2o1ACp", track.getUri());
 		Assert.assertEquals("5uscjCcGU5eMxCoN2o1ACp", track.getId());
 		Assert.assertEquals("Tinariwen", track.getArtistName());
 		Assert.assertEquals("Aman Iman: Water Is Life", track.getAlbumName());

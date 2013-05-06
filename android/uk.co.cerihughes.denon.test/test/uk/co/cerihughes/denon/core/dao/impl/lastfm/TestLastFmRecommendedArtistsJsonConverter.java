@@ -35,7 +35,7 @@ public class TestLastFmRecommendedArtistsJsonConverter
 		Assert.assertEquals(EDaoType.LAST_FM_DIRECT, artist.getSource());
 		Assert.assertEquals("Graham Coxon", artist.getName());
 		Assert.assertNull(artist.getPopularity());
-		Assert.assertEquals("http://www.last.fm/music/Graham+Coxon", artist.getLocation());
+		Assert.assertEquals("http://www.last.fm/music/Graham+Coxon", artist.getUri());
 		Assert.assertEquals("fb56cc34-2ab1-4621-ac18-9bf2895e5f4f", artist.getId());
 		Assert.assertNull(artist.getAlbumCount());
 		Assert.assertEquals("http://userserve-ak.last.fm/serve/126/28997119.jpg", artist.getImageUri());

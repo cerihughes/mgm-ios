@@ -45,7 +45,7 @@ public class TestLastFmMostPlayedArtistsJsonConverter
 		Assert.assertEquals(EDaoType.LAST_FM_DIRECT, artist.getSource());
 		Assert.assertEquals("Radiohead", artist.getName());
 		Assert.assertNull(artist.getPopularity());
-		Assert.assertEquals("http://www.last.fm/music/Radiohead", artist.getLocation());
+		Assert.assertEquals("http://www.last.fm/music/Radiohead", artist.getUri());
 		Assert.assertEquals("a74b1b7f-71a5-4011-9441-d0b5e4122711", artist.getId());
 		Assert.assertNull(artist.getAlbumCount());
 		Assert.assertEquals("http://userserve-ak.last.fm/serve/126/5801617.jpg", artist.getImageUri());
@@ -62,7 +62,7 @@ public class TestLastFmMostPlayedArtistsJsonConverter
 		Assert.assertEquals(EDaoType.LAST_FM_DIRECT, artist.getSource());
 		Assert.assertEquals("Blur", artist.getName());
 		Assert.assertNull(artist.getPopularity());
-		Assert.assertEquals("http://www.last.fm/music/Blur", artist.getLocation());
+		Assert.assertEquals("http://www.last.fm/music/Blur", artist.getUri());
 		Assert.assertEquals("ba853904-ae25-4ebb-89d6-c44cfbd71bd2", artist.getId());
 		Assert.assertNull(artist.getAlbumCount());
 		Assert.assertEquals("http://userserve-ak.last.fm/serve/126/35509015.jpg", artist.getImageUri());

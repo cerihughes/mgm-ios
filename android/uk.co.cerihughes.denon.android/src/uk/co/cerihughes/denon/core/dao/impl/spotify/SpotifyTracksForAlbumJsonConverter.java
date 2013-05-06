@@ -64,7 +64,7 @@ public class SpotifyTracksForAlbumJsonConverter extends SpotifyJsonConverter imp
 		final String id = getIdFromSpotifyHref(href);
 		track.setId(id);
 		track.setName(name);
-		track.setLocation(href);
+		track.setUri(href);
 		track.setTrackNumber(trackNumber);
 		track.setDiscNumber(discNumber);
 		track.setLength(length);

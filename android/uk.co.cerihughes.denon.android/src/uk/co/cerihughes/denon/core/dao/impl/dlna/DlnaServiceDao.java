@@ -11,15 +11,17 @@ import uk.co.cerihughes.denon.core.dao.DaoException;
 import uk.co.cerihughes.denon.core.dao.EDaoType;
 import uk.co.cerihughes.denon.core.dao.IHierarchicalDao;
 import uk.co.cerihughes.denon.core.dao.ILibraryDao;
+import uk.co.cerihughes.denon.core.dao.IPlayableDao;
 import uk.co.cerihughes.denon.core.dao.IPlaylistDao;
 import uk.co.cerihughes.denon.core.dao.ISearchableDao;
 import uk.co.cerihughes.denon.core.dao.rest.ConverterException;
 import uk.co.cerihughes.denon.core.model.Album;
 import uk.co.cerihughes.denon.core.model.Artist;
+import uk.co.cerihughes.denon.core.model.MusicItem;
 import uk.co.cerihughes.denon.core.model.Playlist;
 import uk.co.cerihughes.denon.core.model.Track;
 
-public class DlnaServiceDao implements ILibraryDao, IHierarchicalDao, IPlaylistDao, ISearchableDao
+public class DlnaServiceDao implements ILibraryDao, IHierarchicalDao, IPlaylistDao, ISearchableDao, IPlayableDao
 {
 	public static final int TIMEOUT = 10;
 
@@ -98,14 +100,14 @@ public class DlnaServiceDao implements ILibraryDao, IHierarchicalDao, IPlaylistD
 	}
 
 	@Override
-	public List<Playlist> allPlaylists()
+	public List<Playlist> getAllPlaylists()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Artist> allArtists() throws DaoException
+	public List<Artist> getAllArtists() throws DaoException
 	{
 		final SynchronousBrowse browse = new SynchronousBrowse();
 		final DIDLContent response = browse.browse(upnpService, remoteService, containerData.getArtistContainerId(),
@@ -122,14 +124,14 @@ public class DlnaServiceDao implements ILibraryDao, IHierarchicalDao, IPlaylistD
 	}
 
 	@Override
-	public List<Album> allAlbums() throws DaoException
+	public List<Album> getAllAlbums() throws DaoException
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Track> allTracks()
+	public List<Track> getAllTracks()
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -147,5 +149,12 @@ public class DlnaServiceDao implements ILibraryDao, IHierarchicalDao, IPlaylistD
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void play(MusicItem item)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

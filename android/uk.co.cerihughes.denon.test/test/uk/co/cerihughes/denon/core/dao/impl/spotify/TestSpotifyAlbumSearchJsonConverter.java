@@ -45,7 +45,7 @@ public class TestSpotifyAlbumSearchJsonConverter
 		Assert.assertEquals(EDaoType.SPOTIFY_DIRECT, album.getSource());
 		Assert.assertEquals("The Hissing Of Summer Lawns", album.getName());
 		Assert.assertEquals(0.45509f, album.getPopularity());
-		Assert.assertEquals("spotify:album:3gUlFM3azK6ZIkKz1zK7Nj", album.getLocation());
+		Assert.assertEquals("spotify:album:3gUlFM3azK6ZIkKz1zK7Nj", album.getUri());
 		Assert.assertEquals("3gUlFM3azK6ZIkKz1zK7Nj", album.getId());
 		Assert.assertEquals("Joni Mitchell", album.getArtistName());
 		Assert.assertEquals("5hW4L92KnC6dX9t7tYM4Ve", album.getAttribute(SpotifyJsonConverter.SPOTIFY_ARTIST_ID_ATTRIBUTE));
@@ -63,7 +63,7 @@ public class TestSpotifyAlbumSearchJsonConverter
 		Assert.assertEquals(EDaoType.SPOTIFY_DIRECT, album.getSource());
 		Assert.assertEquals("Rio De Janeiro Party Club Hits (The Best Copacabana Limbo Top)", album.getName());
 		Assert.assertEquals(0.41794f, album.getPopularity());
-		Assert.assertEquals("spotify:album:2Mv6Rv7Zu2AdXiPc0vPQcf", album.getLocation());
+		Assert.assertEquals("spotify:album:2Mv6Rv7Zu2AdXiPc0vPQcf", album.getUri());
 		Assert.assertEquals("2Mv6Rv7Zu2AdXiPc0vPQcf", album.getId());
 		Assert.assertEquals("Sugarman", album.getArtistName());
 		Assert.assertEquals("4h2QaToPkcxneMGGNFbGSU", album.getAttribute(SpotifyJsonConverter.SPOTIFY_ARTIST_ID_ATTRIBUTE));

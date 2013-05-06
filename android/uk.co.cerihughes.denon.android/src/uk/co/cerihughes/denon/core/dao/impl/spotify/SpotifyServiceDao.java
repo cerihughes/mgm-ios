@@ -5,14 +5,16 @@ import java.util.List;
 import uk.co.cerihughes.denon.core.dao.DaoException;
 import uk.co.cerihughes.denon.core.dao.EDaoType;
 import uk.co.cerihughes.denon.core.dao.IHierarchicalDao;
+import uk.co.cerihughes.denon.core.dao.IPlayableDao;
 import uk.co.cerihughes.denon.core.dao.ISearchableDao;
 import uk.co.cerihughes.denon.core.dao.impl.RestServiceDao;
-import uk.co.cerihughes.denon.core.dao.rest.impl.JsonContentTypeProcessor;
+import uk.co.cerihughes.denon.core.dao.rest.impl.JsonResponseProcessor;
 import uk.co.cerihughes.denon.core.model.Album;
 import uk.co.cerihughes.denon.core.model.Artist;
+import uk.co.cerihughes.denon.core.model.MusicItem;
 import uk.co.cerihughes.denon.core.model.Track;
 
-public class SpotifyServiceDao extends RestServiceDao implements IHierarchicalDao, ISearchableDao
+public class SpotifyServiceDao extends RestServiceDao implements IHierarchicalDao, ISearchableDao, IPlayableDao
 {
 	@Override
 	public EDaoType getType()
@@ -49,14 +51,14 @@ public class SpotifyServiceDao extends RestServiceDao implements IHierarchicalDa
 	public List<Artist> searchArtists(String predicate) throws DaoException
 	{
 		final String url = getArtistSearchUrl(predicate);
-		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyArtistSearchJsonConverter());
+		return get(url, APPLICATION_JSON, new JsonResponseProcessor(), new SpotifyArtistSearchJsonConverter());
 	}
 
 	@Override
 	public List<Album> searchAlbums(String predicate) throws DaoException
 	{
 		final String url = getAlbumSearchUrl(predicate);
-		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyAlbumSearchJsonConverter());
+		return get(url, APPLICATION_JSON, new JsonResponseProcessor(), new SpotifyAlbumSearchJsonConverter());
 	}
 	
 	@Override
@@ -73,7 +75,7 @@ public class SpotifyServiceDao extends RestServiceDao implements IHierarchicalDa
 		if (artistId != null)
 		{
 			final String url = getAlbumsForArtistUrl(artistId);
-			return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyAlbumsForArtistJsonConverter());
+			return get(url, APPLICATION_JSON, new JsonResponseProcessor(), new SpotifyAlbumsForArtistJsonConverter());
 		}
 		throw new DaoException("Not a Spotify artist.");
 	}
@@ -82,7 +84,7 @@ public class SpotifyServiceDao extends RestServiceDao implements IHierarchicalDa
 	public List<Track> searchTracks(String predicate) throws DaoException
 	{
 		final String url = getTrackSearchUrl(predicate);
-		return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyTrackSearchJsonConverter());
+		return get(url, APPLICATION_JSON, new JsonResponseProcessor(), new SpotifyTrackSearchJsonConverter());
 	}
 	
 	@Override
@@ -99,8 +101,15 @@ public class SpotifyServiceDao extends RestServiceDao implements IHierarchicalDa
 		if (albumId != null)
 		{
 			final String url = getTracksForAlbumUrl(albumId);
-			return get(url, APPLICATION_JSON, new JsonContentTypeProcessor(), new SpotifyTracksForAlbumJsonConverter());
+			return get(url, APPLICATION_JSON, new JsonResponseProcessor(), new SpotifyTracksForAlbumJsonConverter());
 		}
 		throw new DaoException("Not a Spotify album.");
+	}
+
+	@Override
+	public void play(MusicItem item)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

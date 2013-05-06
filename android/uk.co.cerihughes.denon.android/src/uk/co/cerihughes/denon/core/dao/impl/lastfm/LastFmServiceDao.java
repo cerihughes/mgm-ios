@@ -6,16 +6,19 @@ import uk.co.cerihughes.denon.core.dao.DaoException;
 import uk.co.cerihughes.denon.core.dao.EDaoType;
 import uk.co.cerihughes.denon.core.dao.IFavouriteDao;
 import uk.co.cerihughes.denon.core.dao.IHistoricalDao;
+import uk.co.cerihughes.denon.core.dao.IPlayableDao;
 import uk.co.cerihughes.denon.core.dao.IPlaylistDao;
 import uk.co.cerihughes.denon.core.dao.IRecommendationDao;
 import uk.co.cerihughes.denon.core.dao.impl.RestServiceDao;
-import uk.co.cerihughes.denon.core.dao.rest.impl.JsonContentTypeProcessor;
+import uk.co.cerihughes.denon.core.dao.rest.impl.JsonResponseProcessor;
 import uk.co.cerihughes.denon.core.model.Album;
 import uk.co.cerihughes.denon.core.model.Artist;
+import uk.co.cerihughes.denon.core.model.MusicItem;
 import uk.co.cerihughes.denon.core.model.Playlist;
 import uk.co.cerihughes.denon.core.model.Track;
 
-public class LastFmServiceDao extends RestServiceDao implements IRecommendationDao, IHistoricalDao, IFavouriteDao, IPlaylistDao
+public class LastFmServiceDao extends RestServiceDao implements IRecommendationDao, IHistoricalDao, IFavouriteDao, IPlaylistDao,
+		IPlayableDao
 {
 	private static final String API_KEY = "c906b96ff00fac94c2cde40b3f9dbf19";
 	private static final String API_SECRET = "f4280454e04778b9eaaf320b977c3b78";
@@ -83,42 +86,38 @@ public class LastFmServiceDao extends RestServiceDao implements IRecommendationD
 
 	public String getMobileSession(String password) throws DaoException
 	{
-		final LastFmAuthenticatorHelper helper = new LastFmAuthenticatorHelper(secret);
-		password = helper.md5(password);
-		final String authToken = helper.md5(username + password);
-		helper.put("api_key", apiKey);
-		helper.put("method", "auth.getMobileSession");
-		helper.put("username", username);
-		helper.put("authToken", authToken);
+		final LastFmMobileSessionAuthenticatorRequestBodyGenerator bodyGenerator = new LastFmMobileSessionAuthenticatorRequestBodyGenerator(
+				secret, username, password);
+		bodyGenerator.put("api_key", apiKey);
+		bodyGenerator.put("method", "auth.getMobileSession");
+		bodyGenerator.put("username", username);
 
-		final String body = helper.createBody();
 		final String url = getPostUrl();
-		this.sessionKey = post(url, body, new JsonContentTypeProcessor(), new LastFmMobileSessionJsonConverter());
+		this.sessionKey = post(url, bodyGenerator, new JsonResponseProcessor(), new LastFmMobileSessionJsonConverter());
 		return this.sessionKey;
 	}
 
 	public List<Artist> getMostPlayedArtists() throws DaoException
 	{
 		final String url = getMostPlayedArtistsUrl();
-		return get(url, new JsonContentTypeProcessor(), new LastFmMostPlayedArtistsJsonConverter());
+		return get(url, new JsonResponseProcessor(), new LastFmMostPlayedArtistsJsonConverter());
 	}
 
 	public List<Artist> getRecommendedArtists() throws DaoException
 	{
-		final LastFmAuthenticatorHelper helper = new LastFmAuthenticatorHelper(secret);
-		helper.put("method", "user.getRecommendedArtists");
-		helper.put("api_key", apiKey);
-		helper.put("sk", sessionKey);
-		final String body = helper.createBody();
+		final LastFmAuthenticatorRequestBodyGenerator bodyGenerator = new LastFmAuthenticatorRequestBodyGenerator(secret);
+		bodyGenerator.put("method", "user.getRecommendedArtists");
+		bodyGenerator.put("api_key", apiKey);
+		bodyGenerator.put("sk", sessionKey);
 		final String url = getPostUrl();
-		return post(url, body, new JsonContentTypeProcessor(), new LastFmRecommendedArtistsJsonConverter());
+		return post(url, bodyGenerator, new JsonResponseProcessor(), new LastFmRecommendedArtistsJsonConverter());
 	}
 
 	@Override
 	public List<Album> getRecommendedAlbums() throws DaoException
 	{
 		final String url = getNewAlbumReleasesUrl();
-		return get(url, new JsonContentTypeProcessor(), new LastFmNewAlbumReleasesJsonConverter());
+		return get(url, new JsonResponseProcessor(), new LastFmNewAlbumReleasesJsonConverter());
 	}
 
 	@Override
@@ -131,13 +130,13 @@ public class LastFmServiceDao extends RestServiceDao implements IRecommendationD
 	public List<Album> getMostPlayedAlbums() throws DaoException
 	{
 		final String url = getMostPlayedAlbumsUrl();
-		return get(url, new JsonContentTypeProcessor(), new LastFmMostPlayedAlbumsJsonConverter());
+		return get(url, new JsonResponseProcessor(), new LastFmMostPlayedAlbumsJsonConverter());
 	}
 
 	public List<Track> getMostPlayedTracks() throws DaoException
 	{
 		final String url = getMostPlayedTracksUrl();
-		return get(url, new JsonContentTypeProcessor(), new LastFmMostPlayedTracksJsonConverter());
+		return get(url, new JsonResponseProcessor(), new LastFmMostPlayedTracksJsonConverter());
 	}
 
 	@Override
@@ -158,14 +157,14 @@ public class LastFmServiceDao extends RestServiceDao implements IRecommendationD
 	public List<Track> getFavouriteTracks() throws DaoException
 	{
 		final String url = getLovedTracksUrl();
-		return get(url, new JsonContentTypeProcessor(), new LastFmLovedTracksJsonConverter());
+		return get(url, new JsonResponseProcessor(), new LastFmLovedTracksJsonConverter());
 	}
 
 	@Override
-	public List<Playlist> allPlaylists() throws DaoException
+	public List<Playlist> getAllPlaylists() throws DaoException
 	{
 		final String url = getPlaylistsUrl();
-		return get(url, new JsonContentTypeProcessor(), new LastFmPlaylistsJsonConverter());
+		return get(url, new JsonResponseProcessor(), new LastFmPlaylistsJsonConverter());
 	}
 
 	@Override
@@ -173,5 +172,12 @@ public class LastFmServiceDao extends RestServiceDao implements IRecommendationD
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void play(MusicItem item)
+	{
+		// TODO Auto-generated method stub
+
 	}
 }

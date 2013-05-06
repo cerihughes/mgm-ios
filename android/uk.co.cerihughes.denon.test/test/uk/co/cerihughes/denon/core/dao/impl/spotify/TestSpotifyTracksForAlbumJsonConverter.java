@@ -36,7 +36,7 @@ public class TestSpotifyTracksForAlbumJsonConverter
 		Assert.assertEquals(EDaoType.SPOTIFY_DIRECT, track.getSource());
 		Assert.assertEquals("Razor - Acoustic recorded live on Edge 102.1, Toronto on June 16, 2005", track.getName());
 		Assert.assertEquals(0.31000f, track.getPopularity());
-		Assert.assertEquals("spotify:track:07KdWMEZCzLPJYEty0BLS9", track.getLocation());
+		Assert.assertEquals("spotify:track:07KdWMEZCzLPJYEty0BLS9", track.getUri());
 		Assert.assertEquals("07KdWMEZCzLPJYEty0BLS9", track.getId());
 		Assert.assertEquals((Integer) 1, track.getTrackNumber());
 		Assert.assertEquals((Integer) 1, track.getDiscNumber());
@@ -58,7 +58,7 @@ public class TestSpotifyTracksForAlbumJsonConverter
 		Assert.assertEquals(EDaoType.SPOTIFY_DIRECT, track.getSource());
 		Assert.assertEquals("What If I Do?", track.getName());
 		Assert.assertEquals(0.39000f, track.getPopularity());
-		Assert.assertEquals("spotify:track:3trcjkAjWu8qK60f4lKkGS", track.getLocation());
+		Assert.assertEquals("spotify:track:3trcjkAjWu8qK60f4lKkGS", track.getUri());
 		Assert.assertEquals("3trcjkAjWu8qK60f4lKkGS", track.getId());
 		Assert.assertEquals((Integer) 2, track.getTrackNumber());
 		Assert.assertEquals((Integer) 2, track.getDiscNumber());

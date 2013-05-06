@@ -45,7 +45,7 @@ public class TestLastFmNewAlbumReleasesJsonConverter
 		Assert.assertEquals(EDaoType.LAST_FM_DIRECT, album.getSource());
 		Assert.assertEquals("Love Story", album.getName());
 		Assert.assertNull(album.getPopularity());
-		Assert.assertEquals("http://www.last.fm/music/Phoenix/Love+Story", album.getLocation());
+		Assert.assertEquals("http://www.last.fm/music/Phoenix/Love+Story", album.getUri());
 		Assert.assertNull(album.getId());
 		Assert.assertEquals("Phoenix", album.getArtistName());
 		Assert.assertEquals("http://userserve-ak.last.fm/serve/126/88071561.jpg", album.getImageUri());
@@ -63,7 +63,7 @@ public class TestLastFmNewAlbumReleasesJsonConverter
 		Assert.assertEquals(EDaoType.LAST_FM_DIRECT, album.getSource());
 		Assert.assertEquals("Oblivion - Original Motion Picture Soundtrack", album.getName());
 		Assert.assertNull(album.getPopularity());
-		Assert.assertEquals("http://www.last.fm/music/M83/Oblivion+-+Original+Motion+Picture+Soundtrack", album.getLocation());
+		Assert.assertEquals("http://www.last.fm/music/M83/Oblivion+-+Original+Motion+Picture+Soundtrack", album.getUri());
 		Assert.assertNull(album.getId());
 		Assert.assertEquals("M83", album.getArtistName());
 		Assert.assertEquals("http://userserve-ak.last.fm/serve/126/87489735.png", album.getImageUri());

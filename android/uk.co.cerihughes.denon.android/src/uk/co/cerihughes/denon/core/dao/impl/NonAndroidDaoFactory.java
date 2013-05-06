@@ -44,7 +44,7 @@ public class NonAndroidDaoFactory extends DaoFactory
 					if (dao.getType() == EDaoType.DLNA_DIRECT)
 					{
 						final DlnaServiceDao dlna = (DlnaServiceDao) dao;
-						List<Artist> artists = dlna.allArtists();
+						List<Artist> artists = dlna.getAllArtists();
 						System.out.println(String.format("All DLNA Artists (%d) : %s", artists.size(), artists.toString()));
 
 					}

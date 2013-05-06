@@ -65,7 +65,7 @@ public class SpotifyAlbumsForArtistJsonConverter extends SpotifyJsonConverter im
 		final String id = getIdFromSpotifyHref(href);
 		album.setId(id);
 		album.setName(name);
-		album.setLocation(href);
+		album.setUri(href);
 		album.setArtistName(artist);
 		album.setReleaseDate(getReleaseDate(releaseYear));
 

@@ -19,7 +19,7 @@ public class DlnaArtistsTask extends AsyncCallbackTask<String, Integer, Collecti
 	@Override
 	protected Collection<Artist> runInBackground(String... params) throws DaoException
 	{
-		return dao.allArtists();
+		return dao.getAllArtists();
 	}
 
 }

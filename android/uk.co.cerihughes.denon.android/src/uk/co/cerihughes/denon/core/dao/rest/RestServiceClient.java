@@ -5,10 +5,10 @@ import uk.co.cerihughes.denon.core.dao.impl.IConverter;
 public class RestServiceClient<ResponseType, ConvertedType>
 {
 	private Invoker invoker;
-	private ContentTypeProcessor<ResponseType> processor;
+	private ResponseProcessor<ResponseType> processor;
 	private IConverter<ResponseType, ConvertedType> converter;
 
-	public RestServiceClient(Invoker invoker, ContentTypeProcessor<ResponseType> processor,
+	public RestServiceClient(Invoker invoker, ResponseProcessor<ResponseType> processor,
 			IConverter<ResponseType, ConvertedType> converter)
 	{
 		this.invoker = invoker;
@@ -28,7 +28,7 @@ public class RestServiceClient<ResponseType, ConvertedType>
 		{
 			throw new RestServiceClientException(ex);
 		}
-		catch (ContentTypeProcessorException ex)
+		catch (ResponseProcessorException ex)
 		{
 			throw new RestServiceClientException(ex);
 		}
