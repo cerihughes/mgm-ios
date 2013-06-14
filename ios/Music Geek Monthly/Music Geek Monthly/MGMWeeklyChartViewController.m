@@ -140,20 +140,37 @@
     if ([[UIApplication sharedApplication] canOpenURL:defaultUrl])
     {
         MGMGroupAlbum* album = [self.albums objectAtIndex:indexPath.row];
-        if (!album.spotifyUri)
+        if (album.searchedSpotifyData == NO)
         {
             NSLog(@"Performing spotify search for %@ - %@", album.artistName, album.albumName);
-            [self.core.daoFactory.spotifyDao updateAlbumInfo:album];
-            if (album.spotifyUri)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
             {
-                NSURL* actualUrl = [NSURL URLWithString:album.spotifyUri];
-                [[UIApplication sharedApplication] openURL:actualUrl];
-            }
-            else
-            {
-                // Report a problem.
-            }
+                // Search in a background thread...
+                [self.core.daoFactory.spotifyDao updateAlbumInfo:album];
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    // ... but invoke the UI in the main thread...
+                    [self openAlbumInSpotify:album];
+                });
+            });
         }
+        else
+        {
+            [self openAlbumInSpotify:album];
+        }
+    }
+}
+
+- (void) openAlbumInSpotify:(MGMGroupAlbum*)album
+{
+    if (album.spotifyUri)
+    {
+        NSURL* actualUrl = [NSURL URLWithString:album.spotifyUri];
+        [[UIApplication sharedApplication] openURL:actualUrl];
+    }
+    else
+    {
+        // Report a problem.
     }
 }
 

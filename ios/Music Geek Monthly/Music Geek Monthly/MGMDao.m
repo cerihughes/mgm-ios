@@ -10,12 +10,12 @@
 
 @implementation MGMDao
 
-- (NSData*) getContentsOfUrl:(NSString*)url
+- (NSData*) contentsOfUrl:(NSString*)url
 {
-    return [self getContentsOfUrl:url withHttpHeaders:nil];
+    return [self contentsOfUrl:url withHttpHeaders:nil];
 }
 
-- (NSData*) getContentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers
+- (NSData*) contentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers
 {
     NSString* encodedUrl = [url stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:encodedUrl] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];

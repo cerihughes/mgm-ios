@@ -27,7 +27,7 @@
 {
     NSString* urlString = [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, API_KEY];
     NSError* error = nil;
-    NSData* jsonData = [self getContentsOfUrl:urlString];
+    NSData* jsonData = [self contentsOfUrl:urlString];
     if (error == nil)
     {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
@@ -43,7 +43,7 @@
 {
     NSString* urlString = [NSString stringWithFormat:ALBUM_INFO_URL, API_KEY, album.albumMbid];
     NSError* error = nil;
-    NSData* jsonData = [self getContentsOfUrl:urlString];
+    NSData* jsonData = [self contentsOfUrl:urlString];
     if (error == nil)
     {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
