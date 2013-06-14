@@ -7,7 +7,7 @@
 //
 
 #import "MGMLastFmDao.h"
-#import "MGMLastFmGroupAlbum.h"
+#import "MGMGroupAlbum.h"
 
 #define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&api_key=%@&format=json"
 #define ALBUM_INFO_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=%@&mbid=%@&format=json"
@@ -16,8 +16,6 @@
 #define API_KEY @"a854bc0fca8c0d316751ed4ed2082379"
 
 #define MAX_RESULTS 20
-
-#define IMAGE_SIZE_PREFERENCE @[@"
 
 @interface MGMLastFmDao()
 
@@ -28,9 +26,8 @@
 - (NSArray*) topWeeklyAlbums
 {
     NSString* urlString = [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, API_KEY];
-    NSURL* url = [NSURL URLWithString:urlString];
     NSError* error = nil;
-    NSData* jsonData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
+    NSData* jsonData = [self getContentsOfUrl:urlString];
     if (error == nil)
     {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
@@ -42,18 +39,17 @@
     return nil;
 }
 
-- (void) updateAlbumInfo:(MGMLastFmGroupAlbum*)album
+- (void) updateAlbumInfo:(MGMGroupAlbum*)album
 {
-    NSString* urlString = [NSString stringWithFormat:ALBUM_INFO_URL, API_KEY, album.mbid];
-    NSURL* url = [NSURL URLWithString:urlString];
+    NSString* urlString = [NSString stringWithFormat:ALBUM_INFO_URL, API_KEY, album.albumMbid];
     NSError* error = nil;
-    NSData* jsonData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
+    NSData* jsonData = [self getContentsOfUrl:urlString];
     if (error == nil)
     {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
         if (error == nil)
         {
-            [self updateAlbum:album withJson:json];
+            [self updateAlbumInfo:album withJson:json];
         }
     }
 }
@@ -67,32 +63,37 @@
     for (NSUInteger i = 0; i < cap; i++)
     {
         NSDictionary* album = [albums objectAtIndex:i];
-        MGMLastFmGroupAlbum* converted = [self albumForJson:album];
+        MGMGroupAlbum* converted = [self albumForJson:album];
         [results addObject:converted];
     }
     return [results copy];
 }
 
-- (MGMLastFmGroupAlbum*) albumForJson:(NSDictionary*)json
+- (MGMGroupAlbum*) albumForJson:(NSDictionary*)json
 {
-    MGMLastFmGroupAlbum* album = [[MGMLastFmGroupAlbum alloc] init];
+    MGMGroupAlbum* album = [[MGMGroupAlbum alloc] init];
     NSUInteger rank = [[[json objectForKey:@"@attr"] objectForKey:@"rank"] intValue];
-    NSString* artistName = [[json objectForKey:@"artist"] objectForKey:@"#text"];
-    NSString* mbid = [json objectForKey:@"mbid"];
+    NSDictionary* artist = [json objectForKey:@"artist"];
+    NSString* artistMbid = [artist objectForKey:@"mbid"];
+    NSString* artistName = [artist objectForKey:@"#text"];
+    NSString* albumMbid = [json objectForKey:@"mbid"];
     NSString* albumName = [json objectForKey:@"name"];
     NSUInteger listeners = [[json objectForKey:@"playcount"] intValue];
     NSString* url = [json objectForKey:@"url"];
 
     album.rank = rank;
+    album.artistMbid = artistMbid;
     album.artistName = artistName;
-    album.mbid = mbid;
+    album.albumMbid = albumMbid;
     album.albumName = albumName;
     album.listeners = listeners;
     album.lastFmUri = url;
+    album.searchedLastFmData = NO;
+    album.searchedSpotifyData = NO;
     return album;
 }
 
-- (void) updateAlbum:(MGMLastFmGroupAlbum*)album withJson:(NSDictionary*)json
+- (void) updateAlbumInfo:(MGMGroupAlbum*)album withJson:(NSDictionary*)json
 {
     NSDictionary* albumJson = [json objectForKey:@"album"];
     NSArray* images = [albumJson objectForKey:@"image"];
@@ -104,6 +105,7 @@
         [modelImages setObject:value forKey:key];
     }
     album.imageUris = [modelImages copy];
+    album.searchedLastFmData = YES;
 }
 
 @end

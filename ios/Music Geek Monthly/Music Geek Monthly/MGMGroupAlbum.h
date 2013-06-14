@@ -1,5 +1,5 @@
 //
-//  MGMLastFmGroupAlbum.h
+//  MGMGroupAlbum.h
 //  Music Geek Monthly
 //
 //  Created by Ceri Hughes on 05/06/2013.
@@ -14,14 +14,18 @@
 #define IMAGE_SIZE_EXTRA_LARGE @"extralarge"
 #define IMAGE_SIZE_MEGA @"mega"
 
-@interface MGMLastFmGroupAlbum : NSObject
+@interface MGMGroupAlbum : NSObject
 
 @property NSUInteger rank;
-@property (strong) NSString* lastFmUri;
-@property (strong) NSString* mbid;
-@property (strong) NSString* albumName;
+@property (strong) NSString* artistMbid;
 @property (strong) NSString* artistName;
+@property (strong) NSString* albumMbid;
+@property (strong) NSString* albumName;
+@property (strong) NSString* lastFmUri;
+@property (strong) NSString* spotifyUri;
 @property (strong) NSDictionary* imageUris;
 @property NSUInteger listeners;
+@property BOOL searchedLastFmData;
+@property BOOL searchedSpotifyData;
 
 @end

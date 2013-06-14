@@ -20,6 +20,7 @@
 
 - (void) createInstances
 {
+    self.daoFactory = [[MGMDaoFactory alloc] init];
 }
 
 - (void) enteredForeground
