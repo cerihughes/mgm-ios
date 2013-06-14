@@ -15,7 +15,7 @@
 #define GROUP_NAME @"Music+Geek+Monthly"
 #define API_KEY @"a854bc0fca8c0d316751ed4ed2082379"
 
-#define MAX_RESULTS 20
+#define MAX_RESULTS 10
 
 @interface MGMLastFmDao()
 
