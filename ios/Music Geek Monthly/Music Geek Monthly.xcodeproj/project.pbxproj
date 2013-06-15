@@ -22,6 +22,9 @@
 		653B6BCA175FDB4B005D372C /* MGMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BC4175FDB4B005D372C /* MGMView.m */; };
 		653B6BCB175FDB4B005D372C /* MGMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BC6175FDB4B005D372C /* MGMViewController.m */; };
 		653B6BCE175FDCAB005D372C /* MGMTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BCD175FDCAA005D372C /* MGMTransitionViewController.m */; };
+		656D01B3176C5DB900B9B0B3 /* lastfm.png in Resources */ = {isa = PBXBuildFile; fileRef = 656D01B1176C5DB900B9B0B3 /* lastfm.png */; };
+		656D01B4176C5DB900B9B0B3 /* spotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 656D01B2176C5DB900B9B0B3 /* spotify.png */; };
+		656D01B7176C5EC500B9B0B3 /* MGMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 656D01B6176C5EC500B9B0B3 /* MGMImageCache.m */; };
 		659F9F42175B928E000C413B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F41175B928E000C413B /* UIKit.framework */; };
 		659F9F44175B928E000C413B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F43175B928E000C413B /* Foundation.framework */; };
 		659F9F46175B928E000C413B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F45175B928E000C413B /* CoreGraphics.framework */; };
@@ -74,6 +77,10 @@
 		653B6BC6175FDB4B005D372C /* MGMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMViewController.m; sourceTree = "<group>"; };
 		653B6BCC175FDCAA005D372C /* MGMTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTransitionViewController.h; sourceTree = "<group>"; };
 		653B6BCD175FDCAA005D372C /* MGMTransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTransitionViewController.m; sourceTree = "<group>"; };
+		656D01B1176C5DB900B9B0B3 /* lastfm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lastfm.png; path = "Music Geek Monthly/lastfm.png"; sourceTree = "<group>"; };
+		656D01B2176C5DB900B9B0B3 /* spotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spotify.png; path = "Music Geek Monthly/spotify.png"; sourceTree = "<group>"; };
+		656D01B5176C5EC500B9B0B3 /* MGMImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMImageCache.h; sourceTree = "<group>"; };
+		656D01B6176C5EC500B9B0B3 /* MGMImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMImageCache.m; sourceTree = "<group>"; };
 		659F9F3E175B928E000C413B /* Music Geek Monthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Geek Monthly.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		659F9F41175B928E000C413B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		659F9F43175B928E000C413B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -138,6 +145,8 @@
 			children = (
 				659F9F50175B928E000C413B /* MGMAppDelegate.h */,
 				659F9F51175B928E000C413B /* MGMAppDelegate.m */,
+				656D01B5176C5EC500B9B0B3 /* MGMImageCache.h */,
+				656D01B6176C5EC500B9B0B3 /* MGMImageCache.m */,
 				653B6BC5175FDB4B005D372C /* MGMViewController.h */,
 				653B6BC6175FDB4B005D372C /* MGMViewController.m */,
 				653B6BCC175FDCAA005D372C /* MGMTransitionViewController.h */,
@@ -256,6 +265,8 @@
 				65D4514B1764F78800374C5F /* album1.png */,
 				65D451491764F78800374C5F /* album2.png */,
 				65D4514A1764F78800374C5F /* album3.png */,
+				656D01B1176C5DB900B9B0B3 /* lastfm.png */,
+				656D01B2176C5DB900B9B0B3 /* spotify.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -339,6 +350,8 @@
 				65D451501764F78800374C5F /* album2.png in Resources */,
 				65D451511764F78800374C5F /* album3.png in Resources */,
 				65D451521764F78800374C5F /* album1.png in Resources */,
+				656D01B3176C5DB900B9B0B3 /* lastfm.png in Resources */,
+				656D01B4176C5DB900B9B0B3 /* spotify.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +399,7 @@
 				65215F9A176BA64300250168 /* MGMDaoFactory.m in Sources */,
 				6508CB16176BACF400594244 /* MGMSpotifyDao.m in Sources */,
 				6508CB1A176BB05700594244 /* MGMDao.m in Sources */,
+				656D01B7176C5EC500B9B0B3 /* MGMImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

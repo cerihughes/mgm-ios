@@ -129,7 +129,7 @@
     NSString* albumArtUri = [self bestImageForAlbum:album];
     if (albumArtUri)
     {
-        UIImage* image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:albumArtUri]]];
+        UIImage* image = [self.ui.imageCache imageFromUrl:albumArtUri];
         cell.imageView.image = image;
     }
 }

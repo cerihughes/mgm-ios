@@ -44,7 +44,7 @@
     NSString* urlString = [NSString stringWithFormat:ALBUM_INFO_URL, API_KEY, album.albumMbid];
     NSError* error = nil;
     NSData* jsonData = [self contentsOfUrl:urlString];
-    if (error == nil)
+    if (error == nil && jsonData != nil)
     {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
         if (error == nil)
