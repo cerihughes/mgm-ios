@@ -8,6 +8,8 @@
 
 #import "MGMImageCache.h"
 
+#define CACHE_SIZE 20
+
 @interface MGMImageCache()
 
 @property (strong) NSMutableDictionary* cache;
@@ -21,8 +23,8 @@
 {
     if (self = [super init])
     {
-        self.cache = [NSMutableDictionary dictionaryWithCapacity:10];
-        self.timestamps = [NSMutableDictionary dictionaryWithCapacity:10];
+        self.cache = [NSMutableDictionary dictionaryWithCapacity:CACHE_SIZE];
+        self.timestamps = [NSMutableDictionary dictionaryWithCapacity:CACHE_SIZE];
         self.cacheDurationInMinutes = 10;
     }
     return self;
