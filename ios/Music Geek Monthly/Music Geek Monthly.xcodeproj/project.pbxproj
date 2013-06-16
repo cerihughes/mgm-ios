@@ -42,6 +42,7 @@
 		65D451501764F78800374C5F /* album2.png in Resources */ = {isa = PBXBuildFile; fileRef = 65D451491764F78800374C5F /* album2.png */; };
 		65D451511764F78800374C5F /* album3.png in Resources */ = {isa = PBXBuildFile; fileRef = 65D4514A1764F78800374C5F /* album3.png */; };
 		65D451521764F78800374C5F /* album1.png in Resources */ = {isa = PBXBuildFile; fileRef = 65D4514B1764F78800374C5F /* album1.png */; };
+		65F6D20E176DE66500E36ACD /* MGMAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F6D20D176DE66500E36ACD /* MGMAlbumView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,8 @@
 		65D451491764F78800374C5F /* album2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = album2.png; path = "Music Geek Monthly/album2.png"; sourceTree = "<group>"; };
 		65D4514A1764F78800374C5F /* album3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = album3.png; path = "Music Geek Monthly/album3.png"; sourceTree = "<group>"; };
 		65D4514B1764F78800374C5F /* album1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = album1.png; path = "Music Geek Monthly/album1.png"; sourceTree = "<group>"; };
+		65F6D20C176DE66500E36ACD /* MGMAlbumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumView.h; sourceTree = "<group>"; };
+		65F6D20D176DE66500E36ACD /* MGMAlbumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +160,8 @@
 				653B6BC2175FDB4B005D372C /* MGMUI.m */,
 				653B6BC3175FDB4B005D372C /* MGMView.h */,
 				653B6BC4175FDB4B005D372C /* MGMView.m */,
+				65F6D20C176DE66500E36ACD /* MGMAlbumView.h */,
+				65F6D20D176DE66500E36ACD /* MGMAlbumView.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -400,6 +405,7 @@
 				6508CB16176BACF400594244 /* MGMSpotifyDao.m in Sources */,
 				6508CB1A176BB05700594244 /* MGMDao.m in Sources */,
 				656D01B7176C5EC500B9B0B3 /* MGMImageCache.m in Sources */,
+				65F6D20E176DE66500E36ACD /* MGMAlbumView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

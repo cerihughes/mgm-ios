@@ -2,6 +2,7 @@
 #import "MGMWeeklyChartViewController.h"
 #import "MGMLastFmDao.h"
 #import "MGMGroupAlbum.h"
+#import "MGMAlbumView.h"
 
 @interface MGMWeeklyChartViewController() <UITableViewDataSource, UITableViewDelegate>
 
@@ -16,11 +17,23 @@
 
 - (void) viewDidLoad
 {
-	self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
+//	self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
 //    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 	[self.view addSubview:self.tableView];
+
+    MGMAlbumView* albumView1 = [[MGMAlbumView alloc] initWithFrame:CGRectMake(0, 0, 160, 160)];
+    albumView1.albumImage = [UIImage imageNamed:@"album1.png"];
+    albumView1.artistName = @"The Smiths";
+    albumView1.albumName = @"Meat is Murder";
+    [self.view addSubview:albumView1];
+
+    MGMAlbumView* albumView2 = [[MGMAlbumView alloc] initWithFrame:CGRectMake(160, 160, 160, 160)];
+    albumView2.albumImage = [UIImage imageNamed:@"album2.png"];
+    albumView2.artistName = @"Boards of Canada";
+    albumView2.albumName = @"Tomorrow's Harvest";
+    [self.view addSubview:albumView2];
 }
 
 - (void) viewDidAppear:(BOOL)animated
