@@ -12,6 +12,7 @@
 
 @property NSUInteger cacheDurationInMinutes;
 
-- (UIImage*) imageFromUrl:(NSString*)url;
+- (void) asyncImageFromUrl:(NSString*)url completion:(void (^)(UIImage* image))completion;
+- (UIImage*) imageFromUrl:(NSString *)url;
 
 @end

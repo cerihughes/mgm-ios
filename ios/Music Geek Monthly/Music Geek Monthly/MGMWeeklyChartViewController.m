@@ -115,19 +115,22 @@
 
 - (void) renderAlbum:(MGMGroupAlbum*)album
 {
-    CGRect frame = [self calculatePositionForRank:album.rank];
+    NSUInteger rank = album.rank;
+    CGRect frame = [self calculatePositionForRank:rank];
 
     NSUInteger albumType = (album.rank % 3) + 1;
     NSString* imageName = [NSString stringWithFormat:@"album%d.png", albumType];
     UIImage* image = [UIImage imageNamed:imageName];
-    [self.albumsView addAlbum:image artistName:album.artistName albumName:album.albumName rank:album.rank listeners:album.listeners atFrame:frame];
+    [self.albumsView addAlbum:image artistName:album.artistName albumName:album.albumName rank:rank listeners:album.listeners atFrame:frame];
 
-//    NSString* albumArtUri = [self bestImageForAlbum:album];
-//    if (albumArtUri)
-//    {
-//        UIImage* image = [self.ui.imageCache imageFromUrl:albumArtUri];
-//        cell.imageView.image = image;
-//    }
+    NSString* albumArtUri = [self bestImageForAlbum:album];
+    if (albumArtUri)
+    {
+        [self.ui.imageCache asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
+        {
+            [self.albumsView updateAlbumImage:image atRank:rank];
+        }];
+    }
 }
 
 #pragma mark -

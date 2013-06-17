@@ -30,6 +30,21 @@
     return self;
 }
 
+- (void) asyncImageFromUrl:(NSString *)url completion:(void (^)(UIImage *))completion
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    {
+        // Fetch in a background thread...
+        UIImage* image = [self imageFromUrl:url];
+
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            // ... but respond in the main thread...
+            completion(image);
+        });
+    });
+}
+
 - (UIImage*) imageFromUrl:(NSString *)url
 {
     [self clearExpiredItems];

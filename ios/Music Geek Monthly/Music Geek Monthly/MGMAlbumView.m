@@ -33,6 +33,8 @@
     label.textColor = [UIColor whiteColor];
     label.shadowColor = [UIColor blackColor];
     label.font = [UIFont fontWithName:fontName size:fontSize];
+    label.shadowOffset = CGSizeMake(2, 2);
+
     return label;
 }
 
@@ -47,12 +49,8 @@
     self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:self.imageView];
 
-    self.rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 2, width / 3, height / 3)];
-    self.rankLabel.backgroundColor = [UIColor clearColor];
-    self.rankLabel.textColor = [UIColor whiteColor];
-    self.rankLabel.textAlignment = NSTextAlignmentCenter;
-    self.rankLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:32];
-    self.rankLabel.alpha = 0.5;
+    self.rankLabel = [self createLabelWithRect:CGRectMake(2, 2, width / 4, height / 4) fontName:DEFAULT_FONT_BOLD fontSize:32];
+    self.rankLabel.alpha = 0.75;
     [self.imageView addSubview:self.rankLabel];
 
     CGFloat textParentViewWidth = width - 4;
