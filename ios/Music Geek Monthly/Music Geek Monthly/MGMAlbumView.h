@@ -21,5 +21,7 @@
 @property (strong) UIImage* albumImage;
 @property (strong) NSString* artistName;
 @property (strong) NSString* albumName;
+@property NSUInteger rank;
+@property NSUInteger listeners;
 
 @end

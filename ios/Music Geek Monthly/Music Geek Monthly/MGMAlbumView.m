@@ -8,16 +8,33 @@
 
 #import "MGMAlbumView.h"
 
+#define LISTENERS_FORMAT @"%d geeks listening this week"
+
 @interface MGMAlbumView()
 
 @property (strong) UIImageView* imageView;
 @property (strong) UILabel* artistLabel;
 @property (strong) UILabel* albumLabel;
 @property (strong) UILabel* rankLabel;
+@property (strong) UILabel* listenersLabel;
 
 @end
 
 @implementation MGMAlbumView
+{
+    NSUInteger _listeners;
+}
+
+- (UILabel*) createLabelWithRect:(CGRect)rect fontName:(NSString*)fontName fontSize:(CGFloat)fontSize
+{
+    UILabel* label = [[UILabel alloc] initWithFrame:rect];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor whiteColor];
+    label.shadowColor = [UIColor blackColor];
+    label.font = [UIFont fontWithName:fontName size:fontSize];
+    return label;
+}
 
 - (void) commonInit
 {
@@ -30,6 +47,14 @@
     self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:self.imageView];
 
+    self.rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 2, width / 3, height / 3)];
+    self.rankLabel.backgroundColor = [UIColor clearColor];
+    self.rankLabel.textColor = [UIColor whiteColor];
+    self.rankLabel.textAlignment = NSTextAlignmentCenter;
+    self.rankLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:32];
+    self.rankLabel.alpha = 0.5;
+    [self.imageView addSubview:self.rankLabel];
+
     CGFloat textParentViewWidth = width - 4;
     CGFloat textParentViewHeight = height / 4;
     CGFloat y = height - textParentViewHeight - 2;
@@ -41,22 +66,15 @@
     [self.imageView addSubview:textParentView];
 
     CGFloat textWidth = textParentViewWidth - 4;
-    CGFloat textHeight = textParentViewHeight / 2;
-    self.artistLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 2, textWidth, textHeight)];
-    self.artistLabel.textAlignment = NSTextAlignmentCenter;
-    self.artistLabel.backgroundColor = [UIColor clearColor];
-    self.artistLabel.textColor = [UIColor whiteColor];
-    self.artistLabel.shadowColor = [UIColor blackColor];
-    self.artistLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:10];
+    CGFloat textHeight = textParentViewHeight / 3;
+    self.artistLabel = [self createLabelWithRect:CGRectMake(2, 0, textWidth, textHeight) fontName:DEFAULT_FONT_BOLD fontSize:10];
     [textParentView addSubview:self.artistLabel];
 
-    self.albumLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 4 + textHeight, textWidth, textHeight)];
-    self.albumLabel.textAlignment = NSTextAlignmentCenter;
-    self.albumLabel.backgroundColor = [UIColor clearColor];
-    self.albumLabel.textColor = [UIColor whiteColor];
-    self.albumLabel.shadowColor = [UIColor blackColor];
-    self.albumLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:10];
+    self.albumLabel = [self createLabelWithRect:CGRectMake(2, textHeight, textWidth, textHeight) fontName:DEFAULT_FONT_MEDIUM fontSize:10];
     [textParentView addSubview:self.albumLabel];
+
+    self.listenersLabel = [self createLabelWithRect:CGRectMake(2, textHeight * 2, textWidth, textHeight) fontName:DEFAULT_FONT_ITALIC fontSize:10];
+    [textParentView addSubview:self.listenersLabel];
 }
 
 - (UIImage*) albumImage
@@ -88,5 +106,27 @@
 {
     self.albumLabel.text = albumName;
 }
+
+- (NSUInteger) rank
+{
+    return self.rankLabel.text.intValue;
+}
+
+- (void) setRank:(NSUInteger)rank
+{
+    self.rankLabel.text = [NSString stringWithFormat:@"%d", rank];
+}
+
+- (NSUInteger) listeners
+{
+    return _listeners;
+}
+
+- (void) setListeners:(NSUInteger)listeners
+{
+    self.listenersLabel.text = [NSString stringWithFormat:LISTENERS_FORMAT, listeners];
+    _listeners = listeners;
+}
+
 
 @end

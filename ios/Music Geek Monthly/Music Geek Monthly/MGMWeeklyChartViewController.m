@@ -1,13 +1,15 @@
 
 #import "MGMWeeklyChartViewController.h"
-#import "MGMLastFmDao.h"
 #import "MGMGroupAlbum.h"
-#import "MGMAlbumView.h"
+#import "MGMAlbumsView.h"
 
-@interface MGMWeeklyChartViewController() <UITableViewDataSource, UITableViewDelegate>
+@interface MGMWeeklyChartViewController() <MGMAlbumsViewDelegate>
 
-@property (strong) UITableView* tableView;
+@property (strong) MGMAlbumsView* albumsView;
+
 @property (strong) NSArray* albums;
+@property NSUInteger rowCount;
+@property CGFloat albumSize;
 
 @end
 
@@ -17,23 +19,12 @@
 
 - (void) viewDidLoad
 {
-//	self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
-//    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-	[self.view addSubview:self.tableView];
+	self.albumsView = [[MGMAlbumsView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
+    self.albumsView.delegate = self;
+	[self.view addSubview:self.albumsView];
 
-    MGMAlbumView* albumView1 = [[MGMAlbumView alloc] initWithFrame:CGRectMake(0, 0, 160, 160)];
-    albumView1.albumImage = [UIImage imageNamed:@"album1.png"];
-    albumView1.artistName = @"The Smiths";
-    albumView1.albumName = @"Meat is Murder";
-    [self.view addSubview:albumView1];
-
-    MGMAlbumView* albumView2 = [[MGMAlbumView alloc] initWithFrame:CGRectMake(160, 160, 160, 160)];
-    albumView2.albumImage = [UIImage imageNamed:@"album2.png"];
-    albumView2.artistName = @"Boards of Canada";
-    albumView2.albumName = @"Tomorrow's Harvest";
-    [self.view addSubview:albumView2];
+    self.rowCount = 2;
+    self.albumSize = 160;
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -48,7 +39,7 @@
         dispatch_async(dispatch_get_main_queue(), ^
         {
             // ... but update the UI in the main thread...
-            [self.tableView reloadData];
+            [self reloadData];
         });
     });
 }
@@ -84,75 +75,70 @@
     return [album.imageUris objectForKey:size];
 }
 
-#pragma mark -
-#pragma mark UITableViewDataSource
-
-- (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
+- (void) reloadData
 {
-    return self.albums.count;
-}
-
-- (UITableViewCell*) tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
-{
-
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID];
-
-    if (cell == nil)
+    [self.albumsView clearAllAlbums];
+    for (MGMGroupAlbum* album in self.albums)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CELL_ID];
-    }
-
-    NSUInteger row = indexPath.row;
-    MGMGroupAlbum* album = [self.albums objectAtIndex:row];
-    NSUInteger albumType = (row % 3) + 1;
-    NSString* imageName = [NSString stringWithFormat:@"album%d.png", albumType];
-    cell.textLabel.text = album.albumName;
-    cell.detailTextLabel.text = album.artistName;
-    cell.imageView.image = [UIImage imageNamed:imageName];
-    return cell;
-}
-
-#pragma mark -
-#pragma mark UITableViewDelegate
-
-- (void) tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath
-{
-    MGMGroupAlbum* album = [self.albums objectAtIndex:indexPath.row];
-    if (album.searchedLastFmData == NO)
-    {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+        if (album.searchedLastFmData == NO)
         {
-            // Search in a background thread...
-            [self.core.daoFactory.lastFmDao updateAlbumInfo:album];
-            dispatch_async(dispatch_get_main_queue(), ^
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
             {
-                // ... but update the UI in the main thread...
-                [self renderAlbum:album inCell:cell];
+                // Search in a background thread...
+                [self.core.daoFactory.lastFmDao updateAlbumInfo:album];
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    // ... but update the UI in the main thread...
+                    [self renderAlbum:album];
+                });
             });
-        });
-    }
-    else
-    {
-        [self renderAlbum:album inCell:cell];
+        }
+        else
+        {
+            [self renderAlbum:album];
+        }
     }
 }
 
-- (void) renderAlbum:(MGMGroupAlbum*)album inCell:(UITableViewCell*)cell
+- (CGRect) calculatePositionForRank:(NSUInteger)rank
 {
-    NSString* albumArtUri = [self bestImageForAlbum:album];
-    if (albumArtUri)
-    {
-        UIImage* image = [self.ui.imageCache imageFromUrl:albumArtUri];
-        cell.imageView.image = image;
-    }
+    rank--;
+    CGFloat y = rank / self.rowCount;
+    CGFloat x = (rank % self.rowCount);
+    CGFloat size = self.albumSize;
+    //    if (large && x < (self.rowCount - 1))
+    //    {
+    //        size *= 2;
+    //    }
+    return CGRectMake(x * size, y * size, size, size);
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void) renderAlbum:(MGMGroupAlbum*)album
+{
+    CGRect frame = [self calculatePositionForRank:album.rank];
+
+    NSUInteger albumType = (album.rank % 3) + 1;
+    NSString* imageName = [NSString stringWithFormat:@"album%d.png", albumType];
+    UIImage* image = [UIImage imageNamed:imageName];
+    [self.albumsView addAlbum:image artistName:album.artistName albumName:album.albumName rank:album.rank listeners:album.listeners atFrame:frame];
+
+//    NSString* albumArtUri = [self bestImageForAlbum:album];
+//    if (albumArtUri)
+//    {
+//        UIImage* image = [self.ui.imageCache imageFromUrl:albumArtUri];
+//        cell.imageView.image = image;
+//    }
+}
+
+#pragma mark -
+#pragma mark MGMAlbumsViewDelegate
+
+- (void) albumPressedWithRank:(NSUInteger)rank
 {
     NSURL* defaultUrl = [NSURL URLWithString:@"spotify:"];
     if ([[UIApplication sharedApplication] canOpenURL:defaultUrl])
     {
-        MGMGroupAlbum* album = [self.albums objectAtIndex:indexPath.row];
+        MGMGroupAlbum* album = [self.albums objectAtIndex:rank];
         if (album.searchedSpotifyData == NO)
         {
             NSLog(@"Performing spotify search for %@ - %@", album.artistName, album.albumName);

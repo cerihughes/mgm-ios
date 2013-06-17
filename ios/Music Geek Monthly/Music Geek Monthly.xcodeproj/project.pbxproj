@@ -11,6 +11,7 @@
 		6508CB17176BACF400594244 /* MGMSpotifyDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508CB15176BACF400594244 /* MGMSpotifyDao.m */; };
 		6508CB1A176BB05700594244 /* MGMDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508CB19176BB05700594244 /* MGMDao.m */; };
 		6508CB1B176BB05700594244 /* MGMDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508CB19176BB05700594244 /* MGMDao.m */; };
+		651CC69F176F9455007B7F0D /* MGMAlbumsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 651CC69E176F9455007B7F0D /* MGMAlbumsView.m */; };
 		65215F9A176BA64300250168 /* MGMDaoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 65215F99176BA64300250168 /* MGMDaoFactory.m */; };
 		653B6BB6175FD106005D372C /* MGMGroupAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BB5175FD106005D372C /* MGMGroupAlbum.m */; };
 		653B6BB7175FD106005D372C /* MGMGroupAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BB5175FD106005D372C /* MGMGroupAlbum.m */; };
@@ -60,6 +61,8 @@
 		6508CB15176BACF400594244 /* MGMSpotifyDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMSpotifyDao.m; sourceTree = "<group>"; };
 		6508CB18176BB05700594244 /* MGMDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMDao.h; sourceTree = "<group>"; };
 		6508CB19176BB05700594244 /* MGMDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDao.m; sourceTree = "<group>"; };
+		651CC69D176F9455007B7F0D /* MGMAlbumsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumsView.h; sourceTree = "<group>"; };
+		651CC69E176F9455007B7F0D /* MGMAlbumsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumsView.m; sourceTree = "<group>"; };
 		65215F98176BA64300250168 /* MGMDaoFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMDaoFactory.h; sourceTree = "<group>"; };
 		65215F99176BA64300250168 /* MGMDaoFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDaoFactory.m; sourceTree = "<group>"; };
 		653B6BB4175FD106005D372C /* MGMGroupAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMGroupAlbum.h; sourceTree = "<group>"; };
@@ -162,6 +165,8 @@
 				653B6BC4175FDB4B005D372C /* MGMView.m */,
 				65F6D20C176DE66500E36ACD /* MGMAlbumView.h */,
 				65F6D20D176DE66500E36ACD /* MGMAlbumView.m */,
+				651CC69D176F9455007B7F0D /* MGMAlbumsView.h */,
+				651CC69E176F9455007B7F0D /* MGMAlbumsView.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -406,6 +411,7 @@
 				6508CB1A176BB05700594244 /* MGMDao.m in Sources */,
 				656D01B7176C5EC500B9B0B3 /* MGMImageCache.m in Sources */,
 				65F6D20E176DE66500E36ACD /* MGMAlbumView.m in Sources */,
+				651CC69F176F9455007B7F0D /* MGMAlbumsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
