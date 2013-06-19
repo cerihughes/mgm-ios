@@ -15,6 +15,10 @@
 		65215F9A176BA64300250168 /* MGMDaoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 65215F99176BA64300250168 /* MGMDaoFactory.m */; };
 		652FD00517722BFC00CF5F89 /* MGMGridManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00417722BFC00CF5F89 /* MGMGridManager.m */; };
 		652FD00617722BFC00CF5F89 /* MGMGridManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00417722BFC00CF5F89 /* MGMGridManager.m */; };
+		652FD00917724CAE00CF5F89 /* MGMGroupAlbums.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00817724CAE00CF5F89 /* MGMGroupAlbums.m */; };
+		652FD00A17724CAE00CF5F89 /* MGMGroupAlbums.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00817724CAE00CF5F89 /* MGMGroupAlbums.m */; };
+		652FD00D17724CE200CF5F89 /* MGMTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00C17724CE200CF5F89 /* MGMTimePeriod.m */; };
+		652FD00E17724CE200CF5F89 /* MGMTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00C17724CE200CF5F89 /* MGMTimePeriod.m */; };
 		653B6BB6175FD106005D372C /* MGMGroupAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BB5175FD106005D372C /* MGMGroupAlbum.m */; };
 		653B6BB7175FD106005D372C /* MGMGroupAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BB5175FD106005D372C /* MGMGroupAlbum.m */; };
 		653B6BBB175FD13F005D372C /* MGMLastFmDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BBA175FD13F005D372C /* MGMLastFmDao.m */; };
@@ -69,6 +73,10 @@
 		65215F99176BA64300250168 /* MGMDaoFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDaoFactory.m; sourceTree = "<group>"; };
 		652FD00317722BFC00CF5F89 /* MGMGridManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMGridManager.h; sourceTree = "<group>"; };
 		652FD00417722BFC00CF5F89 /* MGMGridManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMGridManager.m; sourceTree = "<group>"; };
+		652FD00717724CAE00CF5F89 /* MGMGroupAlbums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMGroupAlbums.h; sourceTree = "<group>"; };
+		652FD00817724CAE00CF5F89 /* MGMGroupAlbums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMGroupAlbums.m; sourceTree = "<group>"; };
+		652FD00B17724CE200CF5F89 /* MGMTimePeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTimePeriod.h; sourceTree = "<group>"; };
+		652FD00C17724CE200CF5F89 /* MGMTimePeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTimePeriod.m; sourceTree = "<group>"; };
 		653B6BB4175FD106005D372C /* MGMGroupAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMGroupAlbum.h; sourceTree = "<group>"; };
 		653B6BB5175FD106005D372C /* MGMGroupAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMGroupAlbum.m; sourceTree = "<group>"; };
 		653B6BB9175FD13F005D372C /* MGMLastFmDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMLastFmDao.h; sourceTree = "<group>"; };
@@ -182,6 +190,10 @@
 			children = (
 				653B6BB4175FD106005D372C /* MGMGroupAlbum.h */,
 				653B6BB5175FD106005D372C /* MGMGroupAlbum.m */,
+				652FD00717724CAE00CF5F89 /* MGMGroupAlbums.h */,
+				652FD00817724CAE00CF5F89 /* MGMGroupAlbums.m */,
+				652FD00B17724CE200CF5F89 /* MGMTimePeriod.h */,
+				652FD00C17724CE200CF5F89 /* MGMTimePeriod.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -419,6 +431,8 @@
 				65F6D20E176DE66500E36ACD /* MGMAlbumView.m in Sources */,
 				651CC69F176F9455007B7F0D /* MGMAlbumsView.m in Sources */,
 				652FD00517722BFC00CF5F89 /* MGMGridManager.m in Sources */,
+				652FD00917724CAE00CF5F89 /* MGMGroupAlbums.m in Sources */,
+				652FD00D17724CE200CF5F89 /* MGMTimePeriod.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +446,8 @@
 				6508CB17176BACF400594244 /* MGMSpotifyDao.m in Sources */,
 				6508CB1B176BB05700594244 /* MGMDao.m in Sources */,
 				652FD00617722BFC00CF5F89 /* MGMGridManager.m in Sources */,
+				652FD00A17724CAE00CF5F89 /* MGMGroupAlbums.m in Sources */,
+				652FD00E17724CE200CF5F89 /* MGMTimePeriod.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

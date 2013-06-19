@@ -23,7 +23,7 @@
 
 @implementation MGMLastFmDao
 
-- (NSArray*) topWeeklyAlbums
+- (MGMGroupAlbums*) topWeeklyAlbums
 {
     NSString* urlString = [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, API_KEY];
     NSError* error = nil;
@@ -54,9 +54,15 @@
     }
 }
 
-- (NSArray*) albumsForJson:(NSDictionary*)json
+- (MGMGroupAlbums*) albumsForJson:(NSDictionary*)json
 {
+    MGMGroupAlbums* groupAlbums = [[MGMGroupAlbums alloc] init];
     NSDictionary* weeklyalbumchart = [json objectForKey:@"weeklyalbumchart"];
+    NSDictionary* attrs = [weeklyalbumchart objectForKey:@"@attr"];
+    NSUInteger from = [[attrs objectForKey:@"from"] intValue];
+    NSUInteger to = [[attrs objectForKey:@"to"] intValue];
+    NSDate* fromDate = [NSDate dateWithTimeIntervalSince1970:from];
+    NSDate* toDate = [NSDate dateWithTimeIntervalSince1970:to];
     NSArray* albums = [weeklyalbumchart objectForKey:@"album"];
     NSUInteger cap = albums.count < MAX_RESULTS ? albums.count : MAX_RESULTS;
     NSMutableArray* results = [NSMutableArray arrayWithCapacity:cap];
@@ -66,7 +72,9 @@
         MGMGroupAlbum* converted = [self albumForJson:album];
         [results addObject:converted];
     }
-    return [results copy];
+    groupAlbums.albums = [results copy];
+    groupAlbums.timePeriod = [MGMTimePeriod timePeriodWithStartDate:fromDate endDate:toDate];
+    return groupAlbums;
 }
 
 - (MGMGroupAlbum*) albumForJson:(NSDictionary*)json

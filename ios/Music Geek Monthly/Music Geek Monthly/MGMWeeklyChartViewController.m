@@ -8,7 +8,7 @@
 
 @property (strong) MGMAlbumsView* albumsView;
 
-@property (strong) NSArray* albums;
+@property (strong) MGMGroupAlbums* groupAlbums;
 @property NSUInteger rowCount;
 @property CGFloat albumSize;
 @property (strong) NSArray* gridData;
@@ -39,7 +39,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
         // Search in a background thread...
-        self.albums = [self.core.daoFactory.lastFmDao topWeeklyAlbums];
+        self.groupAlbums = [self.core.daoFactory.lastFmDao topWeeklyAlbums];
 
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -87,7 +87,7 @@
 - (void) reloadData
 {
     [self.albumsView clearAllAlbums];
-    for (MGMGroupAlbum* album in self.albums)
+    for (MGMGroupAlbum* album in self.groupAlbums.albums)
     {
         if (album.searchedLastFmData == NO)
         {
@@ -151,7 +151,7 @@
     NSURL* defaultUrl = [NSURL URLWithString:@"spotify:"];
     if ([[UIApplication sharedApplication] canOpenURL:defaultUrl])
     {
-        MGMGroupAlbum* album = [self.albums objectAtIndex:rank];
+        MGMGroupAlbum* album = [self.groupAlbums.albums objectAtIndex:rank];
         if (album.searchedSpotifyData == NO)
         {
             NSLog(@"Performing spotify search for %@ - %@", album.artistName, album.albumName);

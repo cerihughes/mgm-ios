@@ -7,11 +7,12 @@
 //
 
 #import "MGMDao.h"
+#import "MGMGroupAlbums.h"
 #import "MGMGroupAlbum.h"
 
 @interface MGMLastFmDao : MGMDao
 
-- (NSArray*) topWeeklyAlbums;
+- (MGMGroupAlbums*) topWeeklyAlbums;
 - (void) updateAlbumInfo:(MGMGroupAlbum*)album;
 
 @end
