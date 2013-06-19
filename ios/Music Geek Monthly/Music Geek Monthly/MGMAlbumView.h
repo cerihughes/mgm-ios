@@ -18,6 +18,7 @@
 
 @interface MGMAlbumView : MGMView
 
+@property (weak) id<MGMAlbumViewDelegate> delegate;
 @property (strong) UIImage* albumImage;
 @property (strong) NSString* artistName;
 @property (strong) NSString* albumName;

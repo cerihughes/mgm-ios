@@ -52,6 +52,10 @@
 - (NSString*) bestImageForAlbum:(MGMGroupAlbum*)album
 {
     NSString* uri;
+    if (album.rank == 1 && (uri = [self imageSize:IMAGE_SIZE_MEGA forAlbum:album]) != nil)
+    {
+        return uri;
+    }
     if((uri = [self imageSize:IMAGE_SIZE_EXTRA_LARGE forAlbum:album]) != nil)
     {
         return uri;

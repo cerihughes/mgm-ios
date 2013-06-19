@@ -9,7 +9,7 @@
 #import "MGMAlbumsView.h"
 #import "MGMAlbumView.h"
 
-@interface MGMAlbumsView()
+@interface MGMAlbumsView() <MGMAlbumViewDelegate>
 
 @property (strong) UIScrollView* scrollView;
 
@@ -45,6 +45,7 @@
     albumView.albumName = albumName;
     albumView.rank = rank;
     albumView.listeners = listeners;
+    albumView.delegate = self;
     [self.scrollView addSubview:albumView];
     [self.albumViews addObject:albumView];
     CGSize existingSize = self.scrollView.contentSize;
@@ -68,6 +69,14 @@
         }
     }
     return nil;
+}
+
+#pragma mark -
+#pragma mark MGMAlbumViewDelegate
+
+- (void) albumPressed:(MGMAlbumView *)albumView
+{
+    [self.delegate albumPressedWithRank:albumView.rank];
 }
 
 @end

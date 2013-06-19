@@ -12,7 +12,7 @@
 
 @interface MGMAlbumView()
 
-@property (strong) UIImageView* imageView;
+@property (strong) UIButton* imageButton;
 @property (strong) UILabel* artistLabel;
 @property (strong) UILabel* albumLabel;
 @property (strong) UILabel* rankLabel;
@@ -44,15 +44,18 @@
     CGFloat width = size.width - 4;
     CGFloat height = size.height - 4;
 
-    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, width, height)];
-    self.imageView.userInteractionEnabled = YES;
-    self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self addSubview:self.imageView];
+    self.imageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.imageButton.frame = CGRectMake(2, 2, width, height);
+    self.imageButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    self.imageButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
+    self.imageButton.userInteractionEnabled = YES;
+    [self.imageButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.imageButton];
 
     CGFloat fontSize = height / 4 / 1.3;
     self.rankLabel = [self createLabelWithRect:CGRectMake(2, 2, width / 4, height / 4) fontName:DEFAULT_FONT_BOLD fontSize:fontSize];
     self.rankLabel.alpha = 0.75;
-    [self.imageView addSubview:self.rankLabel];
+    [self.imageButton addSubview:self.rankLabel];
 
     CGFloat textParentViewWidth = width - 4;
     CGFloat textParentViewHeight = height / 4;
@@ -61,8 +64,7 @@
     textParentView.autoresizesSubviews = YES;
     textParentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     textParentView.backgroundColor = [UIColor clearColor];
-//    textParentView.alpha = 0.5;
-    [self.imageView addSubview:textParentView];
+    [self.imageButton addSubview:textParentView];
 
     CGFloat textWidth = textParentViewWidth - 4;
     CGFloat textHeight = textParentViewHeight / 3;
@@ -79,12 +81,12 @@
 
 - (UIImage*) albumImage
 {
-    return self.imageView.image;
+    return self.imageButton.imageView.image;
 }
 
 - (void) setAlbumImage:(UIImage *)albumImage
 {
-    self.imageView.image = albumImage;
+    [self.imageButton setImage:albumImage forState:UIControlStateNormal];
 }
 
 - (NSString*) artistName
@@ -128,5 +130,9 @@
     _listeners = listeners;
 }
 
+- (void) buttonPressed:(id)receiver
+{
+    [self.delegate albumPressed:self];
+}
 
 @end
