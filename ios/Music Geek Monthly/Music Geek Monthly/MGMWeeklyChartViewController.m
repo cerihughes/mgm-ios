@@ -2,6 +2,7 @@
 #import "MGMWeeklyChartViewController.h"
 #import "MGMGroupAlbum.h"
 #import "MGMAlbumsView.h"
+#import "MGMGridManager.h"
 
 @interface MGMWeeklyChartViewController() <MGMAlbumsViewDelegate>
 
@@ -10,6 +11,7 @@
 @property (strong) NSArray* albums;
 @property NSUInteger rowCount;
 @property CGFloat albumSize;
+@property (strong) NSArray* gridData;
 
 @end
 
@@ -19,12 +21,15 @@
 
 - (void) viewDidLoad
 {
-	self.albumsView = [[MGMAlbumsView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
+    CGRect rect = [UIScreen mainScreen].bounds;
+	self.albumsView = [[MGMAlbumsView alloc] initWithFrame:rect];
     self.albumsView.delegate = self;
 	[self.view addSubview:self.albumsView];
 
-    self.rowCount = 2;
-    self.albumSize = 160;
+    BOOL iPad = rect.size.width > 320;
+    self.rowCount = iPad ? 3 : 2;
+    self.albumSize = rect.size.width / self.rowCount;
+    self.gridData = [MGMGridManager rectsForRows:self.rowCount columns:15 size:self.albumSize count:15];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -102,15 +107,16 @@
 
 - (CGRect) calculatePositionForRank:(NSUInteger)rank
 {
-    rank--;
-    CGFloat y = rank / self.rowCount;
-    CGFloat x = (rank % self.rowCount);
-    CGFloat size = self.albumSize;
+//    rank--;
+//    CGFloat y = rank / self.rowCount;
+//    CGFloat x = (rank % self.rowCount);
+//    CGFloat size = self.albumSize;
     //    if (large && x < (self.rowCount - 1))
     //    {
     //        size *= 2;
     //    }
-    return CGRectMake(x * size, y * size, size, size);
+    NSValue* value = [self.gridData objectAtIndex:rank - 1];
+    return [value CGRectValue];
 }
 
 - (void) renderAlbum:(MGMGroupAlbum*)album

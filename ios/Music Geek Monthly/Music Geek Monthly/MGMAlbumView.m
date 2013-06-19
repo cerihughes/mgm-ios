@@ -49,7 +49,8 @@
     self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:self.imageView];
 
-    self.rankLabel = [self createLabelWithRect:CGRectMake(2, 2, width / 4, height / 4) fontName:DEFAULT_FONT_BOLD fontSize:32];
+    CGFloat fontSize = height / 4 / 1.3;
+    self.rankLabel = [self createLabelWithRect:CGRectMake(2, 2, width / 4, height / 4) fontName:DEFAULT_FONT_BOLD fontSize:fontSize];
     self.rankLabel.alpha = 0.75;
     [self.imageView addSubview:self.rankLabel];
 
@@ -65,13 +66,14 @@
 
     CGFloat textWidth = textParentViewWidth - 4;
     CGFloat textHeight = textParentViewHeight / 3;
-    self.artistLabel = [self createLabelWithRect:CGRectMake(2, 0, textWidth, textHeight) fontName:DEFAULT_FONT_BOLD fontSize:10];
+    fontSize = textHeight / 1.3;
+    self.artistLabel = [self createLabelWithRect:CGRectMake(2, 0, textWidth, textHeight) fontName:DEFAULT_FONT_BOLD fontSize:fontSize];
     [textParentView addSubview:self.artistLabel];
 
-    self.albumLabel = [self createLabelWithRect:CGRectMake(2, textHeight, textWidth, textHeight) fontName:DEFAULT_FONT_MEDIUM fontSize:10];
+    self.albumLabel = [self createLabelWithRect:CGRectMake(2, textHeight, textWidth, textHeight) fontName:DEFAULT_FONT_MEDIUM fontSize:fontSize];
     [textParentView addSubview:self.albumLabel];
 
-    self.listenersLabel = [self createLabelWithRect:CGRectMake(2, textHeight * 2, textWidth, textHeight) fontName:DEFAULT_FONT_ITALIC fontSize:10];
+    self.listenersLabel = [self createLabelWithRect:CGRectMake(2, textHeight * 2, textWidth, textHeight) fontName:DEFAULT_FONT_ITALIC fontSize:fontSize];
     [textParentView addSubview:self.listenersLabel];
 }
 

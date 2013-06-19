@@ -13,6 +13,8 @@
 		6508CB1B176BB05700594244 /* MGMDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508CB19176BB05700594244 /* MGMDao.m */; };
 		651CC69F176F9455007B7F0D /* MGMAlbumsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 651CC69E176F9455007B7F0D /* MGMAlbumsView.m */; };
 		65215F9A176BA64300250168 /* MGMDaoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 65215F99176BA64300250168 /* MGMDaoFactory.m */; };
+		652FD00517722BFC00CF5F89 /* MGMGridManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00417722BFC00CF5F89 /* MGMGridManager.m */; };
+		652FD00617722BFC00CF5F89 /* MGMGridManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00417722BFC00CF5F89 /* MGMGridManager.m */; };
 		653B6BB6175FD106005D372C /* MGMGroupAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BB5175FD106005D372C /* MGMGroupAlbum.m */; };
 		653B6BB7175FD106005D372C /* MGMGroupAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BB5175FD106005D372C /* MGMGroupAlbum.m */; };
 		653B6BBB175FD13F005D372C /* MGMLastFmDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BBA175FD13F005D372C /* MGMLastFmDao.m */; };
@@ -65,6 +67,8 @@
 		651CC69E176F9455007B7F0D /* MGMAlbumsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumsView.m; sourceTree = "<group>"; };
 		65215F98176BA64300250168 /* MGMDaoFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMDaoFactory.h; sourceTree = "<group>"; };
 		65215F99176BA64300250168 /* MGMDaoFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDaoFactory.m; sourceTree = "<group>"; };
+		652FD00317722BFC00CF5F89 /* MGMGridManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMGridManager.h; sourceTree = "<group>"; };
+		652FD00417722BFC00CF5F89 /* MGMGridManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMGridManager.m; sourceTree = "<group>"; };
 		653B6BB4175FD106005D372C /* MGMGroupAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMGroupAlbum.h; sourceTree = "<group>"; };
 		653B6BB5175FD106005D372C /* MGMGroupAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMGroupAlbum.m; sourceTree = "<group>"; };
 		653B6BB9175FD13F005D372C /* MGMLastFmDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMLastFmDao.h; sourceTree = "<group>"; };
@@ -140,6 +144,8 @@
 			children = (
 				653B6BBF175FDB4B005D372C /* MGMCore.h */,
 				653B6BC0175FDB4B005D372C /* MGMCore.m */,
+				652FD00317722BFC00CF5F89 /* MGMGridManager.h */,
+				652FD00417722BFC00CF5F89 /* MGMGridManager.m */,
 				653B6BB8175FD12F005D372C /* Dao */,
 				653B6BA7175FD073005D372C /* Model */,
 			);
@@ -412,6 +418,7 @@
 				656D01B7176C5EC500B9B0B3 /* MGMImageCache.m in Sources */,
 				65F6D20E176DE66500E36ACD /* MGMAlbumView.m in Sources */,
 				651CC69F176F9455007B7F0D /* MGMAlbumsView.m in Sources */,
+				652FD00517722BFC00CF5F89 /* MGMGridManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +431,7 @@
 				653B6BBC175FD13F005D372C /* MGMLastFmDao.m in Sources */,
 				6508CB17176BACF400594244 /* MGMSpotifyDao.m in Sources */,
 				6508CB1B176BB05700594244 /* MGMDao.m in Sources */,
+				652FD00617722BFC00CF5F89 /* MGMGridManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,7 +495,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -514,7 +522,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
