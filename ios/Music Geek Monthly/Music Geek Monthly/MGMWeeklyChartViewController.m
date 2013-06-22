@@ -8,6 +8,7 @@
 
 @property (strong) MGMAlbumsView* albumsView;
 
+@property (strong) NSArray* timePeriods;
 @property (strong) MGMGroupAlbums* groupAlbums;
 @property NSUInteger rowCount;
 @property CGFloat albumSize;
@@ -39,6 +40,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
         // Search in a background thread...
+        self.timePeriods = [self.core.daoFactory.lastFmDao weeklyTimePeriods];
         self.groupAlbums = [self.core.daoFactory.lastFmDao topWeeklyAlbums];
 
         dispatch_async(dispatch_get_main_queue(), ^

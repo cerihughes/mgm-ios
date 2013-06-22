@@ -9,6 +9,7 @@
 #import "MGMLastFmDao.h"
 #import "MGMGroupAlbum.h"
 
+#define WEEKLY_PERIODS_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyChartList&group=%@&api_key=%@&format=json"
 #define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&api_key=%@&format=json"
 #define ALBUM_INFO_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=%@&mbid=%@&format=json"
 
@@ -22,6 +23,22 @@
 @end
 
 @implementation MGMLastFmDao
+
+- (NSArray*) weeklyTimePeriods
+{
+    NSString* urlString = [NSString stringWithFormat:WEEKLY_PERIODS_URL, GROUP_NAME, API_KEY];
+    NSError* error = nil;
+    NSData* jsonData = [self contentsOfUrl:urlString];
+    if (error == nil)
+    {
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+        if (error == nil)
+        {
+            return [self timePeriodsForJson:json];
+        }
+    }
+    return nil;
+}
 
 - (MGMGroupAlbums*) topWeeklyAlbums
 {
@@ -52,6 +69,24 @@
             [self updateAlbumInfo:album withJson:json];
         }
     }
+}
+
+- (NSArray*) timePeriodsForJson:(NSDictionary*)json
+{
+    NSMutableArray* array = [NSMutableArray array];
+    NSDictionary* weeklychartlist = [json objectForKey:@"weeklychartlist"];
+    NSArray* chart = [weeklychartlist objectForKey:@"chart"];
+    for (NSDictionary* period in chart)
+    {
+        NSUInteger from = [[period objectForKey:@"from"] intValue];
+        NSUInteger to = [[period objectForKey:@"to"] intValue];
+        NSDate* fromDate = [NSDate dateWithTimeIntervalSince1970:from];
+        NSDate* toDate = [NSDate dateWithTimeIntervalSince1970:to];
+        MGMTimePeriod* timePeriod = [MGMTimePeriod timePeriodWithStartDate:fromDate endDate:toDate];
+        [array addObject:timePeriod];
+    }
+
+    return [array copy];
 }
 
 - (MGMGroupAlbums*) albumsForJson:(NSDictionary*)json
