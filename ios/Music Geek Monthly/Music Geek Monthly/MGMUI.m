@@ -2,7 +2,9 @@
 #import "MGMUI.h"
 #import "MGMTransitionViewController.h"
 #import "MGMWeeklyChartViewController.h"
+#import "MGMWeeklyTimePeriodViewController.h"
 #import <UIKit/UIKit.h>
+#import "UIViewController+MGMAdditions.h"
 
 @interface MGMUI()
 
@@ -37,8 +39,10 @@
     
     MGMWeeklyChartViewController* weeklyChartViewController = [[MGMWeeklyChartViewController alloc] init];
     weeklyChartViewController.ui = self;
-    weeklyChartViewController.core = self.core;
     [self.transitions setObject:weeklyChartViewController forKey:TO_CHART];
+
+    MGMWeeklyTimePeriodViewController* timePeriodViewController = [[MGMWeeklyTimePeriodViewController alloc] init];
+    timePeriodViewController.ui = self;
 
     self.parentViewController = [[MGMTransitionViewController alloc] init];
     self.parentViewController.initialViewController = weeklyChartViewController;
@@ -51,7 +55,7 @@
 
 - (void) transition:(NSString *)transition withState:(id)state
 {
-    MGMViewController* controller = [self.transitions objectForKey:transition];
+    UIViewController* controller = [self.transitions objectForKey:transition];
     if (![self.parentViewController.currentViewController isEqual:controller])
     {
         [self.parentViewController transitionTo:controller];

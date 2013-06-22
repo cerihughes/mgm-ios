@@ -1,9 +1,6 @@
 
-#import "MGMViewController.h"
-#import "MGMCore.h"
+#import "UIViewController+MGMAdditions.h"
 
-@interface MGMWeeklyChartViewController : MGMViewController
-
-@property (assign) MGMCore* core;
+@interface MGMWeeklyChartViewController : UIViewController
 
 @end

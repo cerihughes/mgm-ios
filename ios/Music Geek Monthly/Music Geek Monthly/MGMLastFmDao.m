@@ -86,7 +86,18 @@
         [array addObject:timePeriod];
     }
 
-    return [array copy];
+    return [self reverseArray:array];
+}
+
+- (NSArray *)reverseArray:(NSArray*)array
+{
+    NSMutableArray* reversed = [NSMutableArray arrayWithCapacity:array.count];
+    NSEnumerator* enumerator = array.reverseObjectEnumerator;
+    for (id element in enumerator)
+    {
+        [reversed addObject:element];
+    }
+    return [reversed copy];
 }
 
 - (MGMGroupAlbums*) albumsForJson:(NSDictionary*)json
