@@ -10,13 +10,14 @@
 #import "MGMGroupAlbum.h"
 
 #define WEEKLY_PERIODS_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyChartList&group=%@&api_key=%@&format=json"
-#define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&api_key=%@&format=json"
+#define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&from=%d&to=%d&api_key=%@&format=json"
 #define ALBUM_INFO_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=%@&mbid=%@&format=json"
 
 #define GROUP_NAME @"Music+Geek+Monthly"
 #define API_KEY @"a854bc0fca8c0d316751ed4ed2082379"
 
-#define MAX_RESULTS 15
+#define MAX_ALBUM_RESULTS 15
+#define MAX_TIME_PERIODS 104
 
 @interface MGMLastFmDao()
 
@@ -40,9 +41,11 @@
     return nil;
 }
 
-- (MGMGroupAlbums*) topWeeklyAlbums
+- (NSArray*) topWeeklyAlbumsForTimePeriod:(MGMTimePeriod*)timePeriod;
 {
-    NSString* urlString = [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, API_KEY];
+    NSUInteger from = timePeriod.startDate.timeIntervalSince1970;
+    NSUInteger to = timePeriod.endDate.timeIntervalSince1970;
+    NSString* urlString = [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, from, to, API_KEY];
     NSError* error = nil;
     NSData* jsonData = [self contentsOfUrl:urlString];
     if (error == nil)
@@ -73,20 +76,23 @@
 
 - (NSArray*) timePeriodsForJson:(NSDictionary*)json
 {
-    NSMutableArray* array = [NSMutableArray array];
     NSDictionary* weeklychartlist = [json objectForKey:@"weeklychartlist"];
     NSArray* chart = [weeklychartlist objectForKey:@"chart"];
-    for (NSDictionary* period in chart)
+    NSArray* reversedChart = [self reverseArray:chart];
+    NSUInteger cap = reversedChart.count < MAX_TIME_PERIODS ? reversedChart.count : MAX_TIME_PERIODS;
+    NSMutableArray* results = [NSMutableArray arrayWithCapacity:cap];
+    for (NSUInteger i = 0; i < cap; i++)
     {
+        NSDictionary* period = [reversedChart objectAtIndex:i];
         NSUInteger from = [[period objectForKey:@"from"] intValue];
         NSUInteger to = [[period objectForKey:@"to"] intValue];
         NSDate* fromDate = [NSDate dateWithTimeIntervalSince1970:from];
         NSDate* toDate = [NSDate dateWithTimeIntervalSince1970:to];
         MGMTimePeriod* timePeriod = [MGMTimePeriod timePeriodWithStartDate:fromDate endDate:toDate];
-        [array addObject:timePeriod];
+        [results addObject:timePeriod];
     }
 
-    return [self reverseArray:array];
+    return [results copy];
 }
 
 - (NSArray *)reverseArray:(NSArray*)array
@@ -100,17 +106,11 @@
     return [reversed copy];
 }
 
-- (MGMGroupAlbums*) albumsForJson:(NSDictionary*)json
+- (NSArray*) albumsForJson:(NSDictionary*)json
 {
-    MGMGroupAlbums* groupAlbums = [[MGMGroupAlbums alloc] init];
     NSDictionary* weeklyalbumchart = [json objectForKey:@"weeklyalbumchart"];
-    NSDictionary* attrs = [weeklyalbumchart objectForKey:@"@attr"];
-    NSUInteger from = [[attrs objectForKey:@"from"] intValue];
-    NSUInteger to = [[attrs objectForKey:@"to"] intValue];
-    NSDate* fromDate = [NSDate dateWithTimeIntervalSince1970:from];
-    NSDate* toDate = [NSDate dateWithTimeIntervalSince1970:to];
     NSArray* albums = [weeklyalbumchart objectForKey:@"album"];
-    NSUInteger cap = albums.count < MAX_RESULTS ? albums.count : MAX_RESULTS;
+    NSUInteger cap = albums.count < MAX_ALBUM_RESULTS ? albums.count : MAX_ALBUM_RESULTS;
     NSMutableArray* results = [NSMutableArray arrayWithCapacity:cap];
     for (NSUInteger i = 0; i < cap; i++)
     {
@@ -118,9 +118,7 @@
         MGMGroupAlbum* converted = [self albumForJson:album];
         [results addObject:converted];
     }
-    groupAlbums.albums = [results copy];
-    groupAlbums.timePeriod = [MGMTimePeriod timePeriodWithStartDate:fromDate endDate:toDate];
-    return groupAlbums;
+    return [results copy];
 }
 
 - (MGMGroupAlbum*) albumForJson:(NSDictionary*)json

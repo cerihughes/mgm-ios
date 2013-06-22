@@ -13,13 +13,11 @@
 		6508CB1B176BB05700594244 /* MGMDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508CB19176BB05700594244 /* MGMDao.m */; };
 		651CC69F176F9455007B7F0D /* MGMAlbumsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 651CC69E176F9455007B7F0D /* MGMAlbumsView.m */; };
 		65215F9A176BA64300250168 /* MGMDaoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 65215F99176BA64300250168 /* MGMDaoFactory.m */; };
-		65291AF81775F8AD002595AC /* MGMChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65291AF71775F8AD002595AC /* MGMChartViewController.m */; };
-		65291AFB1775FC67002595AC /* MGMWeeklyTimePeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65291AFA1775FC67002595AC /* MGMWeeklyTimePeriodViewController.m */; };
 		65291B01177606E2002595AC /* UIViewController+MGMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 65291B00177606E2002595AC /* UIViewController+MGMAdditions.m */; };
+		65291B0617761A75002595AC /* MGMWeeklyChartViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65291B0517761A75002595AC /* MGMWeeklyChartViewController~iphone.xib */; };
+		65291B0817762539002595AC /* MGMWeeklyChartViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65291B0717762539002595AC /* MGMWeeklyChartViewController~ipad.xib */; };
 		652FD00517722BFC00CF5F89 /* MGMGridManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00417722BFC00CF5F89 /* MGMGridManager.m */; };
 		652FD00617722BFC00CF5F89 /* MGMGridManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00417722BFC00CF5F89 /* MGMGridManager.m */; };
-		652FD00917724CAE00CF5F89 /* MGMGroupAlbums.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00817724CAE00CF5F89 /* MGMGroupAlbums.m */; };
-		652FD00A17724CAE00CF5F89 /* MGMGroupAlbums.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00817724CAE00CF5F89 /* MGMGroupAlbums.m */; };
 		652FD00D17724CE200CF5F89 /* MGMTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00C17724CE200CF5F89 /* MGMTimePeriod.m */; };
 		652FD00E17724CE200CF5F89 /* MGMTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD00C17724CE200CF5F89 /* MGMTimePeriod.m */; };
 		653B6BB6175FD106005D372C /* MGMGroupAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BB5175FD106005D372C /* MGMGroupAlbum.m */; };
@@ -73,16 +71,12 @@
 		651CC69E176F9455007B7F0D /* MGMAlbumsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumsView.m; sourceTree = "<group>"; };
 		65215F98176BA64300250168 /* MGMDaoFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMDaoFactory.h; sourceTree = "<group>"; };
 		65215F99176BA64300250168 /* MGMDaoFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDaoFactory.m; sourceTree = "<group>"; };
-		65291AF61775F8AD002595AC /* MGMChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMChartViewController.h; sourceTree = "<group>"; };
-		65291AF71775F8AD002595AC /* MGMChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMChartViewController.m; sourceTree = "<group>"; };
-		65291AF91775FC67002595AC /* MGMWeeklyTimePeriodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWeeklyTimePeriodViewController.h; sourceTree = "<group>"; };
-		65291AFA1775FC67002595AC /* MGMWeeklyTimePeriodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyTimePeriodViewController.m; sourceTree = "<group>"; };
 		65291AFF177606E2002595AC /* UIViewController+MGMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MGMAdditions.h"; sourceTree = "<group>"; };
 		65291B00177606E2002595AC /* UIViewController+MGMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MGMAdditions.m"; sourceTree = "<group>"; };
+		65291B0517761A75002595AC /* MGMWeeklyChartViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMWeeklyChartViewController~iphone.xib"; sourceTree = "<group>"; };
+		65291B0717762539002595AC /* MGMWeeklyChartViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMWeeklyChartViewController~ipad.xib"; sourceTree = "<group>"; };
 		652FD00317722BFC00CF5F89 /* MGMGridManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMGridManager.h; sourceTree = "<group>"; };
 		652FD00417722BFC00CF5F89 /* MGMGridManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMGridManager.m; sourceTree = "<group>"; };
-		652FD00717724CAE00CF5F89 /* MGMGroupAlbums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMGroupAlbums.h; sourceTree = "<group>"; };
-		652FD00817724CAE00CF5F89 /* MGMGroupAlbums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMGroupAlbums.m; sourceTree = "<group>"; };
 		652FD00B17724CE200CF5F89 /* MGMTimePeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTimePeriod.h; sourceTree = "<group>"; };
 		652FD00C17724CE200CF5F89 /* MGMTimePeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTimePeriod.m; sourceTree = "<group>"; };
 		653B6BB4175FD106005D372C /* MGMGroupAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMGroupAlbum.h; sourceTree = "<group>"; };
@@ -156,12 +150,10 @@
 		65291AF31775F658002595AC /* WeeklyChart */ = {
 			isa = PBXGroup;
 			children = (
-				65291AF61775F8AD002595AC /* MGMChartViewController.h */,
-				65291AF71775F8AD002595AC /* MGMChartViewController.m */,
-				65291AF91775FC67002595AC /* MGMWeeklyTimePeriodViewController.h */,
-				65291AFA1775FC67002595AC /* MGMWeeklyTimePeriodViewController.m */,
 				653B6BBD175FDB4B005D372C /* MGMWeeklyChartViewController.h */,
 				653B6BBE175FDB4B005D372C /* MGMWeeklyChartViewController.m */,
+				65291B0517761A75002595AC /* MGMWeeklyChartViewController~iphone.xib */,
+				65291B0717762539002595AC /* MGMWeeklyChartViewController~ipad.xib */,
 			);
 			name = WeeklyChart;
 			sourceTree = "<group>";
@@ -216,8 +208,6 @@
 			children = (
 				653B6BB4175FD106005D372C /* MGMGroupAlbum.h */,
 				653B6BB5175FD106005D372C /* MGMGroupAlbum.m */,
-				652FD00717724CAE00CF5F89 /* MGMGroupAlbums.h */,
-				652FD00817724CAE00CF5F89 /* MGMGroupAlbums.m */,
 				652FD00B17724CE200CF5F89 /* MGMTimePeriod.h */,
 				652FD00C17724CE200CF5F89 /* MGMTimePeriod.m */,
 			);
@@ -406,6 +396,8 @@
 				65D451521764F78800374C5F /* album1.png in Resources */,
 				656D01B3176C5DB900B9B0B3 /* lastfm.png in Resources */,
 				656D01B4176C5DB900B9B0B3 /* spotify.png in Resources */,
+				65291B0617761A75002595AC /* MGMWeeklyChartViewController~iphone.xib in Resources */,
+				65291B0817762539002595AC /* MGMWeeklyChartViewController~ipad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,10 +448,7 @@
 				65F6D20E176DE66500E36ACD /* MGMAlbumView.m in Sources */,
 				651CC69F176F9455007B7F0D /* MGMAlbumsView.m in Sources */,
 				652FD00517722BFC00CF5F89 /* MGMGridManager.m in Sources */,
-				652FD00917724CAE00CF5F89 /* MGMGroupAlbums.m in Sources */,
 				652FD00D17724CE200CF5F89 /* MGMTimePeriod.m in Sources */,
-				65291AF81775F8AD002595AC /* MGMChartViewController.m in Sources */,
-				65291AFB1775FC67002595AC /* MGMWeeklyTimePeriodViewController.m in Sources */,
 				65291B01177606E2002595AC /* UIViewController+MGMAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -474,7 +463,6 @@
 				6508CB17176BACF400594244 /* MGMSpotifyDao.m in Sources */,
 				6508CB1B176BB05700594244 /* MGMDao.m in Sources */,
 				652FD00617722BFC00CF5F89 /* MGMGridManager.m in Sources */,
-				652FD00A17724CAE00CF5F89 /* MGMGroupAlbums.m in Sources */,
 				652FD00E17724CE200CF5F89 /* MGMTimePeriod.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

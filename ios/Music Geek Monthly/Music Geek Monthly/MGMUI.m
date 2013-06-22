@@ -1,10 +1,10 @@
 
 #import "MGMUI.h"
+
+#import "UIViewController+MGMAdditions.h"
+
 #import "MGMTransitionViewController.h"
 #import "MGMWeeklyChartViewController.h"
-#import "MGMWeeklyTimePeriodViewController.h"
-#import <UIKit/UIKit.h>
-#import "UIViewController+MGMAdditions.h"
 
 @interface MGMUI()
 
@@ -40,9 +40,6 @@
     MGMWeeklyChartViewController* weeklyChartViewController = [[MGMWeeklyChartViewController alloc] init];
     weeklyChartViewController.ui = self;
     [self.transitions setObject:weeklyChartViewController forKey:TO_CHART];
-
-    MGMWeeklyTimePeriodViewController* timePeriodViewController = [[MGMWeeklyTimePeriodViewController alloc] init];
-    timePeriodViewController.ui = self;
 
     self.parentViewController = [[MGMTransitionViewController alloc] init];
     self.parentViewController.initialViewController = weeklyChartViewController;

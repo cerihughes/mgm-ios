@@ -4,45 +4,119 @@
 #import "MGMAlbumsView.h"
 #import "MGMGridManager.h"
 
-@interface MGMWeeklyChartViewController() <MGMAlbumsViewDelegate>
-
-@property (strong) MGMAlbumsView* albumsView;
+@interface MGMWeeklyChartViewController() <MGMAlbumsViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UITableViewDelegate, UIPickerViewDelegate>
 
 @property (weak) MGMUI* ui;
-@property (strong) MGMGroupAlbums* groupAlbums;
+
+@property (strong) IBOutlet UITableView* timePeriodTable;
+@property (strong) IBOutlet UIPickerView* timePeriodPicker;
+@property (strong) IBOutlet MGMAlbumsView* albumsView;
+
+@property (strong) NSArray* timePeriods;
+@property (strong) NSMutableArray* timePeriodTitles;
+@property (strong) NSMutableDictionary* timePeriodMap;
+
+@property (strong) NSArray* groupAlbums;
+
+@property (strong) NSDateFormatter* dateFormatter;
+@property (strong) NSDateFormatter* groupHeaderFormatter;
+@property (strong) NSDateFormatter* groupItemFormatter;
+
 @property NSUInteger rowCount;
 @property CGFloat albumSize;
 @property (strong) NSArray* gridData;
+
 
 @end
 
 @implementation MGMWeeklyChartViewController
 
-#define CELL_ID @"SimpleTableItem"
+#define CELL_ID @"MGMWeeklyChartViewControllerCellId"
+
+- (id)init
+{
+    if (self = [super initWithNibName:nil bundle:nil])
+    {
+        self.dateFormatter = [[NSDateFormatter alloc] init];
+        self.dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+        self.dateFormatter.timeStyle = NSDateFormatterNoStyle;
+
+        // dd MMM
+        self.groupItemFormatter = [[NSDateFormatter alloc] init];
+        [self.groupItemFormatter setDateFormat:@"dd MMM"];
+
+        // MMM yyyy
+        self.groupHeaderFormatter = [[NSDateFormatter alloc] init];
+        self.groupHeaderFormatter.dateFormat = @"MMM yyyy";
+    }
+    return self;
+}
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
 
-    CGRect rect = [UIScreen mainScreen].bounds;
-	self.albumsView = [[MGMAlbumsView alloc] initWithFrame:rect];
     self.albumsView.delegate = self;
-	[self.view addSubview:self.albumsView];
+    self.timePeriodPicker.dataSource = self;
+    self.timePeriodPicker.delegate = self;
+    self.timePeriodTable.dataSource = self;
+    self.timePeriodTable.delegate = self;
 
-    BOOL iPad = rect.size.width > 320;
+    BOOL iPad = self.view.frame.size.width > 320;
     self.rowCount = iPad ? 3 : 2;
-    self.albumSize = rect.size.width / self.rowCount;
+    self.albumSize = self.albumsView.frame.size.width / self.rowCount;
     self.gridData = [MGMGridManager rectsForRows:self.rowCount columns:15 size:self.albumSize count:15];
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
         // Search in a background thread...
-        self.groupAlbums = [self.core.daoFactory.lastFmDao topWeeklyAlbums];
+        self.timePeriods = [self.core.daoFactory.lastFmDao weeklyTimePeriods];
+        [self processTimePeriods];
+
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            // ... but update the UI in the main thread...
+            [self.timePeriodPicker reloadAllComponents];
+            [self.timePeriodPicker selectRow:0 inComponent:0 animated:YES];
+
+            [self.timePeriodTable reloadData];
+            NSIndexPath* path = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.timePeriodTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
+
+            MGMTimePeriod* timePeriod = [self.timePeriods objectAtIndex:0];
+            [self loadAlbumsForPeriod:timePeriod];
+        });
+    });
+}
+
+- (void) processTimePeriods
+{
+    self.timePeriodTitles = [NSMutableArray arrayWithCapacity:24];
+    self.timePeriodMap = [NSMutableDictionary dictionaryWithCapacity:24];
+
+    for (MGMTimePeriod* period in self.timePeriods)
+    {
+        NSMutableArray* month = [self groupForDate:period.startDate];
+        [month addObject:period];
+    }
+}
+
+- (NSMutableArray*) groupForDate:(NSDate*)startDate
+{
+    NSString* formatted = [self.groupHeaderFormatter stringFromDate:startDate];
+    if (![self.timePeriodTitles containsObject:formatted])
+    {
+        [self.timePeriodTitles addObject:formatted];
+        [self.timePeriodMap setObject:[NSMutableArray arrayWithCapacity:5] forKey:formatted];
+    }
+    return [self.timePeriodMap objectForKey:formatted];
+}
+
+- (void) loadAlbumsForPeriod:(MGMTimePeriod*)timePeriod
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    {
+        self.groupAlbums = [self.core.daoFactory.lastFmDao topWeeklyAlbumsForTimePeriod:timePeriod];
 
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -90,7 +164,7 @@
 - (void) reloadData
 {
     [self.albumsView clearAllAlbums];
-    for (MGMGroupAlbum* album in self.groupAlbums.albums)
+    for (MGMGroupAlbum* album in self.groupAlbums)
     {
         if (album.searchedLastFmData == NO)
         {
@@ -114,14 +188,6 @@
 
 - (CGRect) calculatePositionForRank:(NSUInteger)rank
 {
-//    rank--;
-//    CGFloat y = rank / self.rowCount;
-//    CGFloat x = (rank % self.rowCount);
-//    CGFloat size = self.albumSize;
-    //    if (large && x < (self.rowCount - 1))
-    //    {
-    //        size *= 2;
-    //    }
     NSValue* value = [self.gridData objectAtIndex:rank - 1];
     return [value CGRectValue];
 }
@@ -147,6 +213,92 @@
 }
 
 #pragma mark -
+#pragma mark UITableViewDataSource
+
+- (NSInteger) numberOfSectionsInTableView:(UITableView*)tableView
+{
+    return self.timePeriodTitles.count;
+}
+
+- (NSMutableArray*) arrayForSection:(NSUInteger)section
+{
+    NSString* title = [self.timePeriodTitles objectAtIndex:section];
+    return [self.timePeriodMap objectForKey:title];
+}
+
+- (MGMTimePeriod*) timePeriodForIndexPath:(NSIndexPath*)path
+{
+    NSMutableArray* array = [self arrayForSection:path.section];
+    return [array objectAtIndex:path.row];
+}
+
+- (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSMutableArray* array = [self arrayForSection:section];
+    return array.count;
+}
+
+- (NSString*) tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [self.timePeriodTitles objectAtIndex:section];
+}
+
+- (UITableViewCell*) tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+    }
+    
+    MGMTimePeriod* period = [self timePeriodForIndexPath:indexPath];
+	NSString* startString = [self.groupItemFormatter stringFromDate:period.startDate];
+	NSString* endString = [self.groupItemFormatter stringFromDate:period.endDate];
+
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", startString, endString];
+    return cell;
+}
+
+#pragma mark -
+#pragma mark UIPickerViewDataSource
+
+- (NSInteger) numberOfComponentsInPickerView:(UIPickerView*)pickerView
+{
+    return 1;
+}
+
+- (NSInteger) pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return self.timePeriods.count;
+}
+
+#pragma mark -
+#pragma mark UITableViewDelegate
+
+- (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    MGMTimePeriod* timePeriod = [self timePeriodForIndexPath:indexPath];
+    [self loadAlbumsForPeriod:timePeriod];
+}
+
+#pragma mark -
+#pragma mark UIPickerViewDelegate
+
+- (NSString *)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    MGMTimePeriod* period = [self.timePeriods objectAtIndex:row];
+	NSString* startString = [self.dateFormatter stringFromDate:period.startDate];
+	NSString* endString = [self.dateFormatter stringFromDate:period.endDate];
+    return [NSString stringWithFormat:@"%@ - %@", startString, endString];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    MGMTimePeriod* timePeriod = [self.timePeriods objectAtIndex:row];
+    [self loadAlbumsForPeriod:timePeriod];
+}
+
+#pragma mark -
 #pragma mark MGMAlbumsViewDelegate
 
 - (void) albumPressedWithRank:(NSUInteger)rank
@@ -154,7 +306,7 @@
     NSURL* defaultUrl = [NSURL URLWithString:@"spotify:"];
     if ([[UIApplication sharedApplication] canOpenURL:defaultUrl])
     {
-        MGMGroupAlbum* album = [self.groupAlbums.albums objectAtIndex:rank];
+        MGMGroupAlbum* album = [self.groupAlbums objectAtIndex:rank];
         if (album.searchedSpotifyData == NO)
         {
             NSLog(@"Performing spotify search for %@ - %@", album.artistName, album.albumName);
