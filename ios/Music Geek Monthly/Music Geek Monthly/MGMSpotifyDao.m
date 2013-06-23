@@ -7,25 +7,48 @@
 //
 
 #import "MGMSpotifyDao.h"
+#import "MGMSpotifyPlaylist.h"
 
-#define ALBUM_SEARCH_URL @"http://ws.spotify.com/search/1/album?q=%@"
-#define TERRITORY @"GB"
-
-@interface MGMSpotifyDao()
+@interface MGMSpotifyDao ()
 
 @property (strong) NSDictionary* acceptJson;
+@property (strong) NSDateFormatter* dateFormatter;
 
 @end
 
 @implementation MGMSpotifyDao
+
+#define ALBUM_SEARCH_URL @"http://ws.spotify.com/search/1/album?q=%@"
+#define TERRITORY @"GB"
 
 - (id) init
 {
     if (self = [super init])
     {
         self.acceptJson = [NSDictionary dictionaryWithObject:@"application/json" forKey:@"Accept"];
+        self.dateFormatter = [[NSDateFormatter alloc] init];
+        self.dateFormatter.dateFormat = @"dd/MM/yyyy";
     }
     return self;
+}
+
+- (MGMSpotifyPlaylist*) playlistWithEventNumber:(NSUInteger)eventNumber eventDate:(NSString*)eventDate spotifyUrl:(NSString*)spotifyUrl httpUrl:(NSString*)httpUrl
+{
+    NSDate* date = [self.dateFormatter dateFromString:eventDate];
+    return [MGMSpotifyPlaylist playlistWithEventNumber:eventNumber eventDate:date spotifyUrl:spotifyUrl httpUrl:httpUrl];
+}
+
+- (NSArray*) eventPlaylists
+{
+    NSMutableArray* array = [NSMutableArray arrayWithCapacity:5];
+
+    [array addObject:[self playlistWithEventNumber:29 eventDate:@"29/05/2013" spotifyUrl:@"spotify:user:fuzzylogic1981:playlist:7ehW6P8sKvkPkM5kJv3VVl" httpUrl:@"http://open.spotify.com/user/fuzzylogic1981/playlist/7ehW6P8sKvkPkM5kJv3VVl"]];
+    [array addObject:[self playlistWithEventNumber:28 eventDate:@"25/04/2013" spotifyUrl:@"spotify:user:fuzzylogic1981:playlist:56gYGCP1ByZZ0uvk8eZgv7" httpUrl:@"http://open.spotify.com/user/fuzzylogic1981/playlist/56gYGCP1ByZZ0uvk8eZgv7"]];
+    [array addObject:[self playlistWithEventNumber:27 eventDate:@"25/03/2013" spotifyUrl:@"spotify:user:fuzzylogic1981:playlist:00kmjX7GFQrBtuGydkhebH" httpUrl:@"http://open.spotify.com/user/fuzzylogic1981/playlist/00kmjX7GFQrBtuGydkhebH"]];
+    [array addObject:[self playlistWithEventNumber:26 eventDate:@"28/02/2013" spotifyUrl:@"spotify:user:fuzzylogic1981:playlist:2uRJfoDsShTYIEkrUadhZ1" httpUrl:@"http://open.spotify.com/user/fuzzylogic1981/playlist/2uRJfoDsShTYIEkrUadhZ1"]];
+    [array addObject:[self playlistWithEventNumber:25 eventDate:@"24/01/2013" spotifyUrl:@"spotify:user:fuzzylogic1981:playlist:5a7AaNPsZAUGy29GRJiGnN" httpUrl:@"http://open.spotify.com/user/fuzzylogic1981/playlist/5a7AaNPsZAUGy29GRJiGnN"]];
+
+    return [array copy];
 }
 
 - (void) updateAlbumInfo:(MGMGroupAlbum *)album

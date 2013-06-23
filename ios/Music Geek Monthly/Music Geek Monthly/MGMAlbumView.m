@@ -10,7 +10,7 @@
 
 #define LISTENERS_FORMAT @"%d geeks listening this week"
 
-@interface MGMAlbumView()
+@interface MGMAlbumView ()
 
 @property (strong) UIButton* imageButton;
 @property (strong) UILabel* artistLabel;

@@ -5,8 +5,9 @@
 
 #import "MGMTransitionViewController.h"
 #import "MGMWeeklyChartViewController.h"
+#import "MGMPlaylistsViewController.h"
 
-@interface MGMUI()
+@interface MGMUI ()
 
 @property (retain) NSMutableDictionary* transitions;
 
@@ -41,8 +42,12 @@
     weeklyChartViewController.ui = self;
     [self.transitions setObject:weeklyChartViewController forKey:TO_CHART];
 
+    MGMPlaylistsViewController* playlistsViewController = [[MGMPlaylistsViewController alloc] init];
+    playlistsViewController.ui = self;
+    [self.transitions setObject:playlistsViewController forKey:TO_PLAYLISTS];
+
     self.parentViewController = [[MGMTransitionViewController alloc] init];
-    self.parentViewController.initialViewController = weeklyChartViewController;
+    self.parentViewController.initialViewController = playlistsViewController;
 }
 
 - (void) transition:(NSString *)transition

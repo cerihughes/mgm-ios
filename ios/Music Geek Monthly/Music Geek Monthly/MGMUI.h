@@ -5,6 +5,7 @@
 #import "MGMImageCache.h"
 
 #define TO_CHART @"TO_CHART"
+#define TO_PLAYLISTS @"TO_PLAYLISTS"
 
 @interface MGMUI : NSObject
 

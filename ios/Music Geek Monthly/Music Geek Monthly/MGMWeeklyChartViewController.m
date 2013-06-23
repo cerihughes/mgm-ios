@@ -4,9 +4,7 @@
 #import "MGMAlbumsView.h"
 #import "MGMGridManager.h"
 
-@interface MGMWeeklyChartViewController() <MGMAlbumsViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UITableViewDelegate, UIPickerViewDelegate>
-
-@property (weak) MGMUI* ui;
+@interface MGMWeeklyChartViewController () <MGMAlbumsViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UITableViewDelegate, UIPickerViewDelegate>
 
 @property (strong) IBOutlet UITableView* timePeriodTable;
 @property (strong) IBOutlet UIPickerView* timePeriodPicker;
@@ -26,14 +24,13 @@
 @property CGFloat albumSize;
 @property (strong) NSArray* gridData;
 
-
 @end
 
 @implementation MGMWeeklyChartViewController
 
 #define CELL_ID @"MGMWeeklyChartViewControllerCellId"
 
-- (id)init
+- (id) init
 {
     if (self = [super initWithNibName:nil bundle:nil])
     {

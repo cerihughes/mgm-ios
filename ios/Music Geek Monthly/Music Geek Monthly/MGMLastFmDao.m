@@ -19,7 +19,7 @@
 #define MAX_ALBUM_RESULTS 15
 #define MAX_TIME_PERIODS 104
 
-@interface MGMLastFmDao()
+@interface MGMLastFmDao ()
 
 @end
 

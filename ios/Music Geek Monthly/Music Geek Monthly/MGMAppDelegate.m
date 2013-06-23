@@ -9,7 +9,7 @@
 #import "MGMAppDelegate.h"
 #import "MGMUI.h"
 
-@interface MGMAppDelegate()
+@interface MGMAppDelegate ()
 
 @property (strong) MGMUI* ui;
 

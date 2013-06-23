@@ -1,7 +1,7 @@
 
 #import "MGMCore.h"
 
-@interface MGMCore()
+@interface MGMCore ()
 
 - (void) createInstances;
 

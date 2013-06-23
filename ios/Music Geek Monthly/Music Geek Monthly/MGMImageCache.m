@@ -10,7 +10,7 @@
 
 #define CACHE_SIZE 20
 
-@interface MGMImageCache()
+@interface MGMImageCache ()
 
 @property (strong) NSMutableDictionary* cache;
 @property (strong) NSMutableDictionary* timestamps;

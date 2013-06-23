@@ -9,7 +9,7 @@
 #import "MGMAlbumsView.h"
 #import "MGMAlbumView.h"
 
-@interface MGMAlbumsView() <MGMAlbumViewDelegate>
+@interface MGMAlbumsView () <MGMAlbumViewDelegate>
 
 @property (strong) UIScrollView* scrollView;
 

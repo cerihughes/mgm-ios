@@ -1,7 +1,7 @@
 
 #import "MGMGridManager.h"
 
-@interface MGMGridManager()
+@interface MGMGridManager ()
 
 @property NSUInteger rows;
 @property NSUInteger columns;
