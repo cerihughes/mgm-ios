@@ -23,6 +23,7 @@
 {
     self.lastFmDao = [[MGMLastFmDao alloc] init];
     self.spotifyDao = [[MGMSpotifyDao alloc] init];
+    self.eventsDao = [[MGMEventsDao alloc] init];
 }
 
 @end

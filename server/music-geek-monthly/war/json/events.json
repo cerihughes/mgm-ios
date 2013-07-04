@@ -18,7 +18,7 @@
 		},
 		{
 			"id" : 30,
-			"date" : "2013-06-27T20:00:00.000Z",
+			"date" : "2013-06-27T20:00:00.000+0100",
 			"spotifyPlaylistId" : "380jBfG9hcNKY1TJUBbtlF",
 			"classicAlbum" :
 			{
@@ -35,7 +35,7 @@
 		},
 		{
 			"id" : 29,
-			"date" : "2013-05-29T20:00:00.000Z",
+			"date" : "2013-05-29T20:00:00.000+0100",
 			"spotifyPlaylistId" : "7ehW6P8sKvkPkM5kJv3VVl",
 			"classicAlbum" :
 			{
@@ -52,7 +52,7 @@
 		},
 		{
 			"id" : 28,
-			"date" : "2013-04-25T20:00:00.000Z",
+			"date" : "2013-04-25T20:00:00.000+0100",
 			"spotifyPlaylistId" : "56gYGCP1ByZZ0uvk8eZgv7",
 			"classicAlbum" :
 			{
@@ -69,7 +69,7 @@
 		},
 		{
 			"id" : 27,
-			"date" : "2013-03-25T20:00:00.000Z",
+			"date" : "2013-03-25T20:00:00.000+0000",
 			"spotifyPlaylistId" : "00kmjX7GFQrBtuGydkhebH",
 			"classicAlbum" :
 			{
@@ -86,7 +86,7 @@
 		},
 		{
 			"id" : 26,
-			"date" : "2013-02-28T20:00:00.000Z",
+			"date" : "2013-02-28T20:00:00.000+0000",
 			"spotifyPlaylistId" : "2uRJfoDsShTYIEkrUadhZ1",
 			"classicAlbum" :
 			{
@@ -103,7 +103,7 @@
 		},
 		{
 			"id" : 25,
-			"date" : "2013-01-24T20:00:00.000Z",
+			"date" : "2013-01-24T20:00:00.000+0000",
 			"spotifyPlaylistId" : "5a7AaNPsZAUGy29GRJiGnN",
 			"classicAlbum" :
 			{

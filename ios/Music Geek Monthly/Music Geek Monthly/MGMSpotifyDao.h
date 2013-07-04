@@ -11,7 +11,6 @@
 
 @interface MGMSpotifyDao : MGMDao
 
-- (NSArray*) eventPlaylists;
 - (void) updateAlbumInfo:(MGMGroupAlbum*)album;
 
 @end

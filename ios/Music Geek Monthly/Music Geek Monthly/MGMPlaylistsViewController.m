@@ -7,7 +7,7 @@
 //
 
 #import "MGMPlaylistsViewController.h"
-#import "MGMSpotifyPlaylist.h"
+#import "MGMEvent.h"
 
 @interface MGMPlaylistsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -15,7 +15,7 @@
 @property (strong) IBOutlet UIWebView* webView;
 
 @property (strong) NSDateFormatter* dateFormatter;
-@property (strong) NSArray* eventPlaylists;
+@property (strong) NSArray* events;
 
 @end
 
@@ -44,7 +44,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
         // Search in a background thread...
-        self.eventPlaylists = [self.core.daoFactory.spotifyDao eventPlaylists];
+        self.events = [self.core.daoFactory.eventsDao events];
 
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -53,15 +53,15 @@
             NSIndexPath* path = [NSIndexPath indexPathForRow:0 inSection:0];
             [self.eventsTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
 
-            MGMSpotifyPlaylist* playlist = [self.eventPlaylists objectAtIndex:0];
-            [self loadPlaylist:playlist];
+            MGMEvent* event = [self.events objectAtIndex:0];
+            [self loadEventPlaylist:event];
         });
     });
 }
 
-- (void) loadPlaylist:(MGMSpotifyPlaylist*)playlist
+- (void) loadEventPlaylist:(MGMEvent*)event
 {
-    NSURL* url = [NSURL URLWithString:playlist.httpUrl];
+    NSURL* url = [NSURL URLWithString:event.spotifyHttpUrl];
     NSURLRequest* request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
 }
@@ -71,7 +71,7 @@
 
 - (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.eventPlaylists.count;
+    return self.events.count;
 }
 
 - (UITableViewCell*) tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
@@ -82,10 +82,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
     }
 
-    MGMSpotifyPlaylist* playlist = [self.eventPlaylists objectAtIndex:indexPath.row];
-	NSString* dateString = [self.dateFormatter stringFromDate:playlist.eventDate];
+    MGMEvent* event = [self.events objectAtIndex:indexPath.row];
+	NSString* dateString = [self.dateFormatter stringFromDate:event.eventDate];
 
-    cell.textLabel.text = [NSString stringWithFormat:@"MGM%d %@", playlist.eventNumber, dateString];
+    cell.textLabel.text = [NSString stringWithFormat:@"MGM%d %@", event.eventNumber, dateString];
     return cell;
 }
 
@@ -94,15 +94,15 @@
 
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    MGMSpotifyPlaylist* playlist = [self.eventPlaylists objectAtIndex:indexPath.row];
-    [self loadPlaylist:playlist];
+    MGMEvent* event = [self.events objectAtIndex:indexPath.row];
+    [self loadEventPlaylist:event];
 }
 
-- (void) openPlaylistInSpotify:(MGMSpotifyPlaylist*)playlist
+- (void) openEventPlaylistInSpotify:(MGMEvent*)event
 {
-    if (playlist.spotifyUrl)
+    if (event.spotifyPlaylistUrl)
     {
-        NSURL* actualUrl = [NSURL URLWithString:playlist.spotifyUrl];
+        NSURL* actualUrl = [NSURL URLWithString:event.spotifyPlaylistUrl];
         [[UIApplication sharedApplication] openURL:actualUrl];
     }
     else
