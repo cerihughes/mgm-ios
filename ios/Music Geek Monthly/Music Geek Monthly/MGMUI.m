@@ -47,7 +47,7 @@
     [self.transitions setObject:playlistsViewController forKey:TO_PLAYLISTS];
 
     self.parentViewController = [[MGMTransitionViewController alloc] init];
-    self.parentViewController.initialViewController = playlistsViewController;
+    self.parentViewController.initialViewController = weeklyChartViewController;
 }
 
 - (void) transition:(NSString *)transition

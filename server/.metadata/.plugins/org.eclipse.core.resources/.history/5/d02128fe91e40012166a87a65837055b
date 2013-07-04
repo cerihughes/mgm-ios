@@ -1,0 +1,58 @@
+{
+	"events" :
+	[
+		{
+			"id" : 31,
+			"classicAlbumUri" : "spotify:album:4tfBE4zd8PUieuUNF0zd03",
+			"newAlbumUfri" : "spotify:album:7H7UxuxjGSJuV7LcCFUxTD"
+		},
+		{
+			"id" : 30,
+			"date" : "2013-06-27T20:00:00.000Z",
+			"playlistUri" : "spotify:user:fuzzylogic1981:playlist:380jBfG9hcNKY1TJUBbtlF",
+			"classicAlbumUri" : "spotify:album:4Bxqc1pGokTgFSt50F7stT",
+			"newAlbumUfri" : "spotify:album:2JhR4tjuc3MIKa8v2JaKze"
+		},
+		{
+			"id" : 29,
+			"date" : "2013-05-29T20:00:00.000Z",
+			"playlistUri" : "spotify:user:fuzzylogic1981:playlist:7ehW6P8sKvkPkM5kJv3VVl",
+			"classicAlbumUri" : "",
+			"newAlbumUfri" : ""
+		}
+		{
+			"id" : 28,
+			"date" : "2013-04-25T20:00:00.000Z",
+			"playlistUri" : "spotify:user:fuzzylogic1981:playlist:7ehW6P8sKvkPkM5kJv3VVl",
+			"classicAlbumUri" : "",
+			"newAlbumUfri" : ""
+		}
+		{
+			"id" : 27,
+			"date" : "2013-03-25T20:00:00.000Z",
+			"playlistUri" : "spotify:user:fuzzylogic1981:playlist:7ehW6P8sKvkPkM5kJv3VVl",
+			"classicAlbumUri" : "",
+			"newAlbumUfri" : ""
+		}
+		{
+			"id" : 26,
+			"date" : "2013-02-28T20:00:00.000Z",
+			"playlistUri" : "spotify:user:fuzzylogic1981:playlist:7ehW6P8sKvkPkM5kJv3VVl",
+			"classicAlbumUri" : "",
+			"newAlbumUfri" : ""
+		}
+		{
+			"id" : 25,
+			"date" : "2013-01-24T20:00:00.000Z",
+			"playlistUri" : "spotify:user:fuzzylogic1981:playlist:7ehW6P8sKvkPkM5kJv3VVl",
+			"classicAlbumUri" : "",
+			"newAlbumUfri" : ""
+		}
+	]
+}
+
+
+    [:28 " spotifyUrl:@"spotify:user:fuzzylogic1981:playlist:56gYGCP1ByZZ0uvk8eZgv7" httpUrl:@"http://open.spotify.com/user/fuzzylogic1981/playlist/56gYGCP1ByZZ0uvk8eZgv7"]];
+    [:27 " spotifyUrl:@"spotify:user:fuzzylogic1981:playlist:00kmjX7GFQrBtuGydkhebH" httpUrl:@"http://open.spotify.com/user/fuzzylogic1981/playlist/00kmjX7GFQrBtuGydkhebH"]];
+    [:26 " spotifyUrl:@"spotify:user:fuzzylogic1981:playlist:2uRJfoDsShTYIEkrUadhZ1" httpUrl:@"http://open.spotify.com/user/fuzzylogic1981/playlist/2uRJfoDsShTYIEkrUadhZ1"]];
+    [:25 " spotifyUrl:@"spotify:user:fuzzylogic1981:playlist:5a7AaNPsZAUGy29GRJiGnN" httpUrl:@"http://open.spotify.com/user/fuzzylogic1981/playlist/5a7AaNPsZAUGy29GRJiGnN"]];
