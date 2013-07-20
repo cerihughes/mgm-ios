@@ -14,6 +14,6 @@
 
 - (NSArray*) weeklyTimePeriods;
 - (NSArray*) topWeeklyAlbumsForTimePeriod:(MGMTimePeriod*)timePeriod;
-- (void) updateAlbumInfo:(MGMGroupAlbum*)album;
+- (void) updateAlbumInfo:(MGMAlbum*)album;
 
 @end

@@ -4,13 +4,15 @@
 #import "MGMTransitionViewController.h"
 #import "MGMImageCache.h"
 
+#define TO_HOME @"TO_HOME"
 #define TO_CHART @"TO_CHART"
 #define TO_PLAYLISTS @"TO_PLAYLISTS"
 
 @interface MGMUI : NSObject
 
 @property (retain) MGMCore* core;
-@property (retain) MGMTransitionViewController* parentViewController;
+//@property (retain) MGMTransitionViewController* parentViewController;
+@property (retain) UIViewController* parentViewController;
 @property (retain) MGMImageCache* imageCache;
 
 - (void) transition:(NSString*)transition;

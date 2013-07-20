@@ -18,11 +18,8 @@
 
 @property NSUInteger rank;
 @property (strong) NSString* artistMbid;
-@property (strong) NSString* albumMbid;
 @property (strong) NSString* lastFmUri;
-@property (strong) NSDictionary* imageUris;
 @property NSUInteger listeners;
-@property BOOL searchedLastFmData;
 @property BOOL searchedSpotifyData;
 
 @end

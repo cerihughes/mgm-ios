@@ -23,6 +23,7 @@
 {
     CGSize parentSize = self.frame.size;
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, parentSize.width, parentSize.height)];
+    self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:self.scrollView];
 
     self.albumViews = [NSMutableArray arrayWithCapacity:15];

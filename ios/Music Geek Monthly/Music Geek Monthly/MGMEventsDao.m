@@ -21,6 +21,7 @@
 #define JSON_ELEMENT_NEW_ALBUM @"newAlbum"
 #define JSON_ELEMENT_ARTIST_NAME @"artistName"
 #define JSON_ELEMENT_ALBUM_NAME @"albumName"
+#define JSON_ELEMENT_MBID @"mbid"
 #define JSON_ELEMENT_ALBUM_ID @"spotifyAlbumId"
 
 @interface MGMEventsDao ()
@@ -88,11 +89,13 @@
 {
     NSString* artistName = [json objectForKey:JSON_ELEMENT_ARTIST_NAME];
     NSString* albumName = [json objectForKey:JSON_ELEMENT_ALBUM_NAME];
+    NSString* mbid = [json objectForKey:JSON_ELEMENT_MBID];
     NSString* spotifyAlbumId = [json objectForKey:JSON_ELEMENT_ALBUM_ID];
 
     MGMAlbum* album = [[MGMAlbum alloc] init];
     album.artistName = artistName;
     album.albumName = albumName;
+    album.albumMbid = mbid;
     album.spotifyAlbumId = spotifyAlbumId;
 
     return album;

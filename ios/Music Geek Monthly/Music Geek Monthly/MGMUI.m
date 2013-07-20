@@ -4,10 +4,11 @@
 #import "UIViewController+MGMAdditions.h"
 
 #import "MGMTransitionViewController.h"
+#import "MGMHomeViewController.h"
 #import "MGMWeeklyChartViewController.h"
-#import "MGMPlaylistsViewController.h"
+#import "MGMEventsViewController.h"
 
-@interface MGMUI ()
+@interface MGMUI () <MGMHomeViewControllerDelegate>
 
 @property (retain) NSMutableDictionary* transitions;
 
@@ -37,17 +38,29 @@
 - (void) setupControllers
 {
     self.transitions = [NSMutableDictionary dictionary];
-    
+
+    MGMHomeViewController* homeViewController = [[MGMHomeViewController alloc] init];
+    homeViewController.ui = self;
+    [self.transitions setObject:homeViewController forKey:TO_HOME];
+    homeViewController.delegate = self;
+    homeViewController.title = @"Home";
+
     MGMWeeklyChartViewController* weeklyChartViewController = [[MGMWeeklyChartViewController alloc] init];
     weeklyChartViewController.ui = self;
     [self.transitions setObject:weeklyChartViewController forKey:TO_CHART];
+    weeklyChartViewController.title = @"Weekly Charts";
 
-    MGMPlaylistsViewController* playlistsViewController = [[MGMPlaylistsViewController alloc] init];
-    playlistsViewController.ui = self;
-    [self.transitions setObject:playlistsViewController forKey:TO_PLAYLISTS];
+    MGMEventsViewController* eventsViewController = [[MGMEventsViewController alloc] init];
+    eventsViewController.ui = self;
+    [self.transitions setObject:eventsViewController forKey:TO_PLAYLISTS];
+    eventsViewController.title = @"Previous Events";
 
-    self.parentViewController = [[MGMTransitionViewController alloc] init];
-    self.parentViewController.initialViewController = playlistsViewController;
+    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+
+    self.parentViewController = navigationController;
+
+//    self.parentViewController = [[MGMTransitionViewController alloc] init];
+//    self.parentViewController.initialViewController = homeViewController;
 }
 
 - (void) transition:(NSString *)transition
@@ -57,12 +70,12 @@
 
 - (void) transition:(NSString *)transition withState:(id)state
 {
-    UIViewController* controller = [self.transitions objectForKey:transition];
-    if (![self.parentViewController.currentViewController isEqual:controller])
-    {
-        [self.parentViewController transitionTo:controller];
-        [controller transitionCompleteWithState:state];
-    }
+//    UIViewController* controller = [self.transitions objectForKey:transition];
+//    if (![self.parentViewController.currentViewController isEqual:controller])
+//    {
+//        [self.parentViewController transitionTo:controller];
+//        [controller transitionCompleteWithState:state];
+//    }
 }
 
 - (void) enteringBackground
@@ -86,6 +99,31 @@
 
 - (void) timeChanged
 {
+}
+
+- (UIViewController*) controllerForOption:(MGMHomeViewControllerOption)option
+{
+    switch (option) {
+        case MGMHomeViewControllerOptionPreviousEvents:
+            return [self.transitions objectForKey:TO_PLAYLISTS];
+            break;
+        case MGMHomeViewControllerOptionNextEvent:
+            return nil;
+            break;
+        case MGMHomeViewControllerOptionCharts:
+            return [self.transitions objectForKey:TO_CHART];
+            break;
+    }
+}
+
+#pragma mark -
+#pragma mark MGMHomeViewControllerDelegate
+
+- (void) optionSelected:(MGMHomeViewControllerOption)option
+{
+    UINavigationController* navigationController = (UINavigationController*)self.parentViewController;
+    UIViewController* nextController = [self controllerForOption:option];
+    [navigationController pushViewController:nextController animated:YES];
 }
 
 @end

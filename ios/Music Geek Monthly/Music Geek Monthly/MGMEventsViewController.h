@@ -1,5 +1,5 @@
 //
-//  MGMPlaylistsViewController.h
+//  MGMEventsViewController.h
 //  Music Geek Monthly
 //
 //  Created by Ceri Hughes on 23/06/2013.
@@ -8,6 +8,6 @@
 
 #import "MGMViewController.h"
 
-@interface MGMPlaylistsViewController : MGMViewController
+@interface MGMEventsViewController : MGMViewController
 
 @end

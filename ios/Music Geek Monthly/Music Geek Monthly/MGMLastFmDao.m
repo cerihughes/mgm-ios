@@ -59,7 +59,7 @@
     return nil;
 }
 
-- (void) updateAlbumInfo:(MGMGroupAlbum*)album
+- (void) updateAlbumInfo:(MGMAlbum*)album
 {
     NSString* urlString = [NSString stringWithFormat:ALBUM_INFO_URL, API_KEY, album.albumMbid];
     NSError* error = nil;
@@ -145,7 +145,7 @@
     return album;
 }
 
-- (void) updateAlbumInfo:(MGMGroupAlbum*)album withJson:(NSDictionary*)json
+- (void) updateAlbumInfo:(MGMAlbum*)album withJson:(NSDictionary*)json
 {
     NSDictionary* albumJson = [json objectForKey:@"album"];
     NSArray* images = [albumJson objectForKey:@"image"];
@@ -154,7 +154,10 @@
     {
         NSString* key = [image objectForKey:@"size"];
         NSString* value = [image objectForKey:@"#text"];
-        [modelImages setObject:value forKey:key];
+        if (value && value.length > 0)
+        {
+            [modelImages setObject:value forKey:key];
+        }
     }
     album.imageUris = [modelImages copy];
     album.searchedLastFmData = YES;
