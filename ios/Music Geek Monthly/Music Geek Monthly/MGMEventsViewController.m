@@ -14,14 +14,32 @@
 @property (strong) IBOutlet UITableView* eventsTable;
 @property (strong) IBOutlet UILabel* classicAlbumArtistLabel;
 @property (strong) IBOutlet UILabel* classicAlbumTitleLabel;
-@property (strong) IBOutlet UIImageView* classicAlbumImageView;
+@property (strong) IBOutlet UIButton* classicAlbumButton;
 @property (strong) IBOutlet UILabel* newlyReleasedAlbumArtistLabel;
 @property (strong) IBOutlet UILabel* newlyReleasedAlbumTitleLabel;
-@property (strong) IBOutlet UIImageView* newlyReleasedAlbumImageView;
+@property (strong) IBOutlet UIButton* newlyReleasedAlbumButton;
 @property (strong) IBOutlet UIWebView* playlistWebView;
+
+@property (strong) IBOutlet UIButton* classicAlbumSpotifyButton;
+@property (strong) IBOutlet UIButton* classicAlbumLastFmButton;
+@property (strong) IBOutlet UIButton* classicAlbumWikipediaButton;
+@property (strong) IBOutlet UIButton* classicAlbumYouTubeButton;
+@property (strong) IBOutlet UIButton* newlyReleasedAlbumSpotifyButton;
+@property (strong) IBOutlet UIButton* newlyReleasedAlbumLastFmButton;
+@property (strong) IBOutlet UIButton* newlyReleasedAlbumWikipediaButton;
+@property (strong) IBOutlet UIButton* newlyReleasedAlbumYouTubeButton;
 
 @property (strong) NSDateFormatter* dateFormatter;
 @property (strong) NSArray* events;
+
+- (IBAction)classicAlbumLastFmPressed:(id)sender;
+- (IBAction)classicAlbumSpotifyPressed:(id)sender;
+- (IBAction)classicAlbumWikipediaPressed:(id)sender;
+- (IBAction)classicAlbumYouTubePressed:(id)sender;
+- (IBAction)newlyReleasedAlbumLastFmPressed:(id)sender;
+- (IBAction)newlyReleasedAlbumSpotifyPressed:(id)sender;
+- (IBAction)newlyReleasedAlbumWikipediaPressed:(id)sender;
+- (IBAction)newlyReleasedAlbumYouTubePressed:(id)sender;
 
 @end
 
@@ -71,15 +89,31 @@
 - (void) displayEvent:(MGMEvent*)event
 {
     // Clear the album images...
-    self.classicAlbumImageView.image = [UIImage imageNamed:@"album1.png"];
-    self.newlyReleasedAlbumImageView.image = [UIImage imageNamed:@"album2.png"];
+    [self.classicAlbumButton setImage:[UIImage imageNamed:@"album1.png"] forState:UIControlStateNormal];
+    [self.newlyReleasedAlbumButton setImage:[UIImage imageNamed:@"album2.png"] forState:UIControlStateNormal];
 
 	NSString* dateString = [self.dateFormatter stringFromDate:event.eventDate];
     self.title = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
 
-    MGMAlbum* classicAlbum = event.classicAlbum;
+    NSString* urlString = [NSString stringWithFormat:WEB_URL_PATTERN, event.spotifyHttpUrl];
+    NSURL* url = [NSURL URLWithString:urlString];
+    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    [self.playlistWebView loadRequest:request];
+
+    [self displayClassicAlbum:event.classicAlbum];
+    [self displayNewRelease:event.newlyReleasedAlbum];
+}
+
+- (void) displayClassicAlbum:(MGMAlbum*)classicAlbum
+{
     self.classicAlbumArtistLabel.text = classicAlbum.artistName;
     self.classicAlbumTitleLabel.text = classicAlbum.albumName;
+
+    self.classicAlbumLastFmButton.hidden = (classicAlbum.lastFmUri == nil);
+    self.classicAlbumSpotifyButton.hidden = (classicAlbum.spotifyUri == nil);
+    self.classicAlbumWikipediaButton.hidden = (classicAlbum.wikipediaUri == nil);
+    self.classicAlbumYouTubeButton.hidden = (classicAlbum.youTubeUri == nil);
+
     if (classicAlbum.searchedLastFmData == NO)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
@@ -97,10 +131,17 @@
     {
         [self displayClassicAlbumImage:classicAlbum];
     }
-
-    MGMAlbum* newRelease = event.newlyReleasedAlbum;
+}
+- (void) displayNewRelease:(MGMAlbum*)newRelease
+{
     self.newlyReleasedAlbumArtistLabel.text = newRelease.artistName;
     self.newlyReleasedAlbumTitleLabel.text = newRelease.albumName;
+
+    self.newlyReleasedAlbumLastFmButton.hidden = (newRelease.lastFmUri == nil);
+    self.newlyReleasedAlbumSpotifyButton.hidden = (newRelease.spotifyUri == nil);
+    self.newlyReleasedAlbumWikipediaButton.hidden = (newRelease.wikipediaUri == nil);
+    self.newlyReleasedAlbumYouTubeButton.hidden = (newRelease.youTubeUri == nil);
+
     if (newRelease.searchedLastFmData == NO)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
@@ -118,11 +159,6 @@
     {
         [self displayNewReleaseAlbumImage:newRelease];
     }
-
-    NSString* urlString = [NSString stringWithFormat:WEB_URL_PATTERN, event.spotifyHttpUrl];
-    NSURL* url = [NSURL URLWithString:urlString];
-    NSURLRequest* request = [NSURLRequest requestWithURL:url];
-    [self.playlistWebView loadRequest:request];
 }
 
 - (void) displayNewReleaseAlbumImage:(MGMAlbum*)newRelease
@@ -131,9 +167,9 @@
     if (albumArtUri)
     {
         [self.ui.imageCache asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
-         {
-             self.newlyReleasedAlbumImageView.image = image;
-         }];
+        {
+             [self.newlyReleasedAlbumButton setImage:image forState:UIControlStateNormal];
+        }];
     }
 }
 
@@ -143,9 +179,9 @@
     if (albumArtUri)
     {
         [self.ui.imageCache asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
-         {
-             self.classicAlbumImageView.image = image;
-         }];
+        {
+            [self.classicAlbumButton setImage:image forState:UIControlStateNormal];
+        }];
     }
 }
 
@@ -180,6 +216,64 @@
     return [album.imageUris objectForKey:size];
 }
 
+- (MGMEvent*) selectedEvent
+{
+    NSIndexPath* indexPath = [[self.eventsTable indexPathsForSelectedRows] objectAtIndex:0];
+    return [self.events objectAtIndex:indexPath.row];
+}
+
+- (MGMAlbum*) selectedClassicAlbum
+{
+    return self.selectedEvent.classicAlbum;
+}
+
+- (MGMAlbum*) selectedNewlyReleasedAlbum
+{
+    return self.selectedEvent.newlyReleasedAlbum;
+}
+
+- (void) navigateToWebPanel:(NSString*)uri
+{
+    [self.ui transition:TO_WEB withState:uri];
+}
+
+- (IBAction)classicAlbumLastFmPressed:(id)sender
+{
+}
+
+- (IBAction)classicAlbumSpotifyPressed:(id)sender
+{
+}
+
+- (IBAction)classicAlbumWikipediaPressed:(id)sender
+{
+    [self navigateToWebPanel:self.selectedClassicAlbum.wikipediaUri];
+}
+
+- (IBAction)classicAlbumYouTubePressed:(id)sender
+{
+    [self navigateToWebPanel:self.selectedClassicAlbum.youTubeUri];
+}
+
+- (IBAction)newlyReleasedAlbumLastFmPressed:(id)sender
+{
+
+}
+
+- (IBAction)newlyReleasedAlbumSpotifyPressed:(id)sender
+{
+
+}
+
+- (IBAction)newlyReleasedAlbumWikipediaPressed:(id)sender
+{
+    [self navigateToWebPanel:self.selectedNewlyReleasedAlbum.wikipediaUri];
+}
+
+- (IBAction)newlyReleasedAlbumYouTubePressed:(id)sender
+{
+    [self navigateToWebPanel:self.selectedNewlyReleasedAlbum.youTubeUri];
+}
 
 #pragma mark -
 #pragma mark UITableViewDataSource

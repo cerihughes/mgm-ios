@@ -7,6 +7,7 @@
 #define TO_HOME @"TO_HOME"
 #define TO_CHART @"TO_CHART"
 #define TO_PLAYLISTS @"TO_PLAYLISTS"
+#define TO_WEB @"TO_WEB"
 
 @interface MGMUI : NSObject
 

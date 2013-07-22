@@ -67,7 +67,8 @@
     NSArray* splits = [href componentsSeparatedByString:@":"];
     if (splits.count == 3)
     {
-        album.spotifyAlbumId = [splits objectAtIndex:2];
+        NSMutableDictionary* metadata = album.metadata.mutableCopy;
+        [metadata setObject:[splits objectAtIndex:2] forKey:METADATA_KEY_SPOTIFY];
     }
 }
 

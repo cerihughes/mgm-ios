@@ -22,7 +22,7 @@
 #define JSON_ELEMENT_ARTIST_NAME @"artistName"
 #define JSON_ELEMENT_ALBUM_NAME @"albumName"
 #define JSON_ELEMENT_MBID @"mbid"
-#define JSON_ELEMENT_ALBUM_ID @"spotifyAlbumId"
+#define JSON_ELEMENT_METADATA @"metadata"
 
 @interface MGMEventsDao ()
 
@@ -90,13 +90,17 @@
     NSString* artistName = [json objectForKey:JSON_ELEMENT_ARTIST_NAME];
     NSString* albumName = [json objectForKey:JSON_ELEMENT_ALBUM_NAME];
     NSString* mbid = [json objectForKey:JSON_ELEMENT_MBID];
-    NSString* spotifyAlbumId = [json objectForKey:JSON_ELEMENT_ALBUM_ID];
+    NSDictionary* metadata = [json objectForKey:JSON_ELEMENT_METADATA];
+    if (metadata == nil)
+    {
+        metadata = [NSDictionary dictionary];
+    }
 
     MGMAlbum* album = [[MGMAlbum alloc] init];
     album.artistName = artistName;
     album.albumName = albumName;
     album.albumMbid = mbid;
-    album.spotifyAlbumId = spotifyAlbumId;
+    album.metadata = metadata;
 
     return album;
 }

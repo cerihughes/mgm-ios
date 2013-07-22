@@ -8,6 +8,10 @@
 
 #import "MGMEvent.h"
 
+#define SPOTIFY_PLAYLIST_URI_PATTERN @"spotify:user:%@:playlist:%@"
+#define HTTP_PLAYLIST_URI_PATTERN @"http://open.spotify.com/user/%@/playlist/%@"
+#define SPOTIFY_USER_ANDREW_JONES @"fuzzylogic1981"
+
 @implementation MGMEvent
 
 - (NSString*) spotifyPlaylistUrl

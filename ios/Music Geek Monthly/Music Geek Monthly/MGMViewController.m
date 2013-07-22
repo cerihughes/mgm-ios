@@ -14,4 +14,8 @@
 
 @implementation MGMViewController
 
+- (void) transitionCompleteWithState:(id)state
+{
+}
+
 @end

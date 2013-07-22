@@ -13,4 +13,6 @@
 
 @property (weak) MGMUI* ui;
 
+- (void) transitionCompleteWithState:(id)state;
+
 @end

@@ -333,9 +333,10 @@
 
 - (void) openAlbumInSpotify:(MGMGroupAlbum*)album
 {
-    if (album.spotifyAlbumUri)
+    NSString* uri = album.spotifyUri;
+    if (uri)
     {
-        NSURL* actualUrl = [NSURL URLWithString:album.spotifyAlbumUri];
+        NSURL* actualUrl = [NSURL URLWithString:uri];
         [[UIApplication sharedApplication] openURL:actualUrl];
     }
     else

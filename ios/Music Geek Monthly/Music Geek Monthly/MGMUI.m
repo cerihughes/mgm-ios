@@ -7,6 +7,7 @@
 #import "MGMHomeViewController.h"
 #import "MGMWeeklyChartViewController.h"
 #import "MGMEventsViewController.h"
+#import "MGMWebViewController.h"
 
 @interface MGMUI () <MGMHomeViewControllerDelegate>
 
@@ -55,6 +56,11 @@
     [self.transitions setObject:eventsViewController forKey:TO_PLAYLISTS];
     eventsViewController.title = @"Previous Events";
 
+    MGMWebViewController* webViewController = [[MGMWebViewController alloc] init];
+    webViewController.ui = self;
+    [self.transitions setObject:webViewController forKey:TO_WEB];
+    webViewController.title = @"Web";
+
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
 
     self.parentViewController = navigationController;
@@ -70,12 +76,10 @@
 
 - (void) transition:(NSString *)transition withState:(id)state
 {
-//    UIViewController* controller = [self.transitions objectForKey:transition];
-//    if (![self.parentViewController.currentViewController isEqual:controller])
-//    {
-//        [self.parentViewController transitionTo:controller];
-//        [controller transitionCompleteWithState:state];
-//    }
+    UINavigationController* navigationController = (UINavigationController*)self.parentViewController;
+    UIViewController* nextController = [self.transitions objectForKey:transition];
+    [navigationController pushViewController:nextController animated:YES];
+    [nextController transitionCompleteWithState:state];
 }
 
 - (void) enteringBackground
@@ -101,17 +105,17 @@
 {
 }
 
-- (UIViewController*) controllerForOption:(MGMHomeViewControllerOption)option
+- (NSString*) transitionForOption:(MGMHomeViewControllerOption)option
 {
     switch (option) {
         case MGMHomeViewControllerOptionPreviousEvents:
-            return [self.transitions objectForKey:TO_PLAYLISTS];
+            return TO_PLAYLISTS;
             break;
         case MGMHomeViewControllerOptionNextEvent:
             return nil;
             break;
         case MGMHomeViewControllerOptionCharts:
-            return [self.transitions objectForKey:TO_CHART];
+            return TO_CHART;
             break;
     }
 }
@@ -121,9 +125,7 @@
 
 - (void) optionSelected:(MGMHomeViewControllerOption)option
 {
-    UINavigationController* navigationController = (UINavigationController*)self.parentViewController;
-    UIViewController* nextController = [self controllerForOption:option];
-    [navigationController pushViewController:nextController animated:YES];
+    [self transition:[self transitionForOption:option]];
 }
 
 @end
