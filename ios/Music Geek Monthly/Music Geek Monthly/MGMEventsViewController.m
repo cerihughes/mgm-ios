@@ -12,7 +12,6 @@
 @interface MGMEventsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong) IBOutlet UITableView* eventsTable;
-@property (strong) IBOutlet UILabel* eventLabel;
 @property (strong) IBOutlet UILabel* classicAlbumArtistLabel;
 @property (strong) IBOutlet UILabel* classicAlbumTitleLabel;
 @property (strong) IBOutlet UIImageView* classicAlbumImageView;
@@ -30,7 +29,7 @@
 
 #define CELL_ID @"MGMEventsViewControllerCellId"
 
-#define EVENT_TITLE_PATTERN @"MGM%d %@"
+#define EVENT_TITLE_PATTERN @"MGM#%d %@"
 #define WEB_URL_PATTERN @"https://embed.spotify.com/?uri=%@"
 
 - (id) init
@@ -64,7 +63,6 @@
             [self.eventsTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
 
             MGMEvent* event = [self.events objectAtIndex:0];
-            self.title = [self.dateFormatter stringFromDate:event.eventDate];
             [self displayEvent:event];
         });
     });
@@ -77,7 +75,7 @@
     self.newlyReleasedAlbumImageView.image = [UIImage imageNamed:@"album2.png"];
 
 	NSString* dateString = [self.dateFormatter stringFromDate:event.eventDate];
-    self.eventLabel.text = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
+    self.title = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
 
     MGMAlbum* classicAlbum = event.classicAlbum;
     self.classicAlbumArtistLabel.text = classicAlbum.artistName;
@@ -212,7 +210,6 @@
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     MGMEvent* event = [self.events objectAtIndex:indexPath.row];
-    self.title = [self.dateFormatter stringFromDate:event.eventDate];
     [self displayEvent:event];
 }
 

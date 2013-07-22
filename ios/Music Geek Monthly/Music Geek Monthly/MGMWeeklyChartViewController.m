@@ -82,7 +82,6 @@
 
             MGMTimePeriod* timePeriod = [self.timePeriods objectAtIndex:0];
             [self loadAlbumsForPeriod:timePeriod];
-            self.title = [self titleForTimePeriod:timePeriod];
         });
     });
 }
@@ -112,6 +111,8 @@
 
 - (void) loadAlbumsForPeriod:(MGMTimePeriod*)timePeriod
 {
+    self.title = [self titleForTimePeriod:timePeriod];
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
         self.groupAlbums = [self.core.daoFactory.lastFmDao topWeeklyAlbumsForTimePeriod:timePeriod];
@@ -280,7 +281,6 @@
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     MGMTimePeriod* timePeriod = [self timePeriodForIndexPath:indexPath];
-    self.title = [self titleForTimePeriod:timePeriod];
     [self loadAlbumsForPeriod:timePeriod];
 }
 
