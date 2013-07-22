@@ -64,6 +64,7 @@
             [self.eventsTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
 
             MGMEvent* event = [self.events objectAtIndex:0];
+            self.title = [self.dateFormatter stringFromDate:event.eventDate];
             [self displayEvent:event];
         });
     });
@@ -211,6 +212,7 @@
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     MGMEvent* event = [self.events objectAtIndex:indexPath.row];
+    self.title = [self.dateFormatter stringFromDate:event.eventDate];
     [self displayEvent:event];
 }
 

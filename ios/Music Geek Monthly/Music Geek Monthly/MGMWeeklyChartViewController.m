@@ -82,6 +82,7 @@
 
             MGMTimePeriod* timePeriod = [self.timePeriods objectAtIndex:0];
             [self loadAlbumsForPeriod:timePeriod];
+            self.title = [self titleForTimePeriod:timePeriod];
         });
     });
 }
@@ -248,12 +249,16 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
     }
     
-    MGMTimePeriod* period = [self timePeriodForIndexPath:indexPath];
-	NSString* startString = [self.groupItemFormatter stringFromDate:period.startDate];
-	NSString* endString = [self.groupItemFormatter stringFromDate:period.endDate];
-
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", startString, endString];
+    MGMTimePeriod* timePeriod = [self timePeriodForIndexPath:indexPath];
+    cell.textLabel.text = [self titleForTimePeriod:timePeriod];
     return cell;
+}
+
+- (NSString*) titleForTimePeriod:(MGMTimePeriod*)period
+{
+    NSString* startString = [self.groupItemFormatter stringFromDate:period.startDate];
+    NSString* endString = [self.groupItemFormatter stringFromDate:period.endDate];
+    return [NSString stringWithFormat:@"%@ - %@", startString, endString];
 }
 
 #pragma mark -
@@ -275,6 +280,7 @@
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     MGMTimePeriod* timePeriod = [self timePeriodForIndexPath:indexPath];
+    self.title = [self titleForTimePeriod:timePeriod];
     [self loadAlbumsForPeriod:timePeriod];
 }
 
