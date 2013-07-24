@@ -18,7 +18,7 @@
 - (NSData*) contentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers
 {
     NSString* encodedUrl = [url stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:encodedUrl] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:encodedUrl] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [request setHTTPMethod: @"GET"];
     [headers enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
     {

@@ -16,7 +16,6 @@
 #define GROUP_NAME @"Music+Geek+Monthly"
 #define API_KEY @"a854bc0fca8c0d316751ed4ed2082379"
 
-#define MAX_ALBUM_RESULTS 15
 #define MAX_TIME_PERIODS 104
 
 @interface MGMLastFmDao ()
@@ -30,7 +29,7 @@
     NSString* urlString = [NSString stringWithFormat:WEEKLY_PERIODS_URL, GROUP_NAME, API_KEY];
     NSError* error = nil;
     NSData* jsonData = [self contentsOfUrl:urlString];
-    if (error == nil)
+    if (error == nil && jsonData)
     {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
         if (error == nil)
@@ -41,22 +40,36 @@
     return nil;
 }
 
-- (NSArray*) topWeeklyAlbumsForTimePeriod:(MGMTimePeriod*)timePeriod;
+- (NSArray*) topWeeklyAlbums:(NSUInteger)count forTimePeriod:(MGMTimePeriod*)timePeriod
 {
     NSUInteger from = timePeriod.startDate.timeIntervalSince1970;
     NSUInteger to = timePeriod.endDate.timeIntervalSince1970;
     NSString* urlString = [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, from, to, API_KEY];
     NSError* error = nil;
     NSData* jsonData = [self contentsOfUrl:urlString];
-    if (error == nil)
+    if (error == nil && jsonData)
     {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
         if (error == nil)
         {
-            return [self albumsForJson:json];
+            return [self albums:count forJson:json];
         }
     }
     return nil;
+}
+
+- (NSArray*) topWeeklyAlbumsForMostRecentTimePeriod:(NSUInteger)count
+{
+    MGMTimePeriod* mostRecent = [[self weeklyTimePeriods] objectAtIndex:0];
+    NSArray* albums = [self topWeeklyAlbums:count forTimePeriod:mostRecent];
+    for (MGMGroupAlbum* album in albums)
+    {
+        if (album.searchedLastFmData == NO)
+        {
+            [self updateAlbumInfo:album];
+        }
+    }
+    return albums;
 }
 
 - (void) updateAlbumInfo:(MGMAlbum*)album
@@ -64,7 +77,7 @@
     NSString* urlString = [NSString stringWithFormat:ALBUM_INFO_URL, API_KEY, album.albumMbid];
     NSError* error = nil;
     NSData* jsonData = [self contentsOfUrl:urlString];
-    if (error == nil && jsonData != nil)
+    if (error == nil && jsonData)
     {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
         if (error == nil)
@@ -106,11 +119,11 @@
     return [reversed copy];
 }
 
-- (NSArray*) albumsForJson:(NSDictionary*)json
+- (NSArray*) albums:(NSUInteger)count forJson:(NSDictionary*)json
 {
     NSDictionary* weeklyalbumchart = [json objectForKey:@"weeklyalbumchart"];
     NSArray* albums = [weeklyalbumchart objectForKey:@"album"];
-    NSUInteger cap = albums.count < MAX_ALBUM_RESULTS ? albums.count : MAX_ALBUM_RESULTS;
+    NSUInteger cap = albums.count < count ? albums.count : count;
     NSMutableArray* results = [NSMutableArray arrayWithCapacity:cap];
     for (NSUInteger i = 0; i < cap; i++)
     {

@@ -13,7 +13,8 @@
 @interface MGMLastFmDao : MGMDao
 
 - (NSArray*) weeklyTimePeriods;
-- (NSArray*) topWeeklyAlbumsForTimePeriod:(MGMTimePeriod*)timePeriod;
+- (NSArray*) topWeeklyAlbums:(NSUInteger)count forTimePeriod:(MGMTimePeriod*)timePeriod;
+- (NSArray*) topWeeklyAlbumsForMostRecentTimePeriod:(NSUInteger)count;
 - (void) updateAlbumInfo:(MGMAlbum*)album;
 
 @end

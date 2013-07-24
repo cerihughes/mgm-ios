@@ -97,7 +97,7 @@
 
     NSString* urlString = [NSString stringWithFormat:WEB_URL_PATTERN, event.spotifyHttpUrl];
     NSURL* url = [NSURL URLWithString:urlString];
-    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [self.playlistWebView loadRequest:request];
 
     [self displayClassicAlbum:event.classicAlbum];
@@ -166,7 +166,7 @@
     NSString* albumArtUri = [self bestImageForAlbum:newRelease];
     if (albumArtUri)
     {
-        [self.ui.imageCache asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
+        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
         {
              [self.newlyReleasedAlbumButton setImage:image forState:UIControlStateNormal];
         }];
@@ -178,7 +178,7 @@
     NSString* albumArtUri = [self bestImageForAlbum:classicAlbum];
     if (albumArtUri)
     {
-        [self.ui.imageCache asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
+        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
         {
             [self.classicAlbumButton setImage:image forState:UIControlStateNormal];
         }];

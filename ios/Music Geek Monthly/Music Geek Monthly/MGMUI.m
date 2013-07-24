@@ -26,7 +26,6 @@
     {
         [self setupCore];
         [self setupControllers];
-        self.imageCache = [[MGMImageCache alloc] init];
     }
     return self;
 }

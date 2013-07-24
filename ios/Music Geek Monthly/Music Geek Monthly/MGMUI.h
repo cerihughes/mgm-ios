@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 #import "MGMCore.h"
 #import "MGMTransitionViewController.h"
-#import "MGMImageCache.h"
+#import "MGMImageHelper.h"
 
 #define TO_HOME @"TO_HOME"
 #define TO_CHART @"TO_CHART"
@@ -14,7 +14,6 @@
 @property (retain) MGMCore* core;
 //@property (retain) MGMTransitionViewController* parentViewController;
 @property (retain) UIViewController* parentViewController;
-@property (retain) MGMImageCache* imageCache;
 
 - (void) transition:(NSString*)transition;
 - (void) transition:(NSString*)transition withState:(id)state;

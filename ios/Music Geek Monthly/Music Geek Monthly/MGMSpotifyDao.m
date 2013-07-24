@@ -34,7 +34,7 @@
     NSString* urlString = [NSString stringWithFormat:ALBUM_SEARCH_URL, searchString];
     NSError* error = nil;
     NSData* jsonData = [self contentsOfUrl:urlString withHttpHeaders:self.acceptJson];
-    if (error == nil)
+    if (error == nil && jsonData)
     {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
         if (error == nil)

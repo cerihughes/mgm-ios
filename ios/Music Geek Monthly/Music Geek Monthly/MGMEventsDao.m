@@ -46,7 +46,7 @@
 {
     NSError* error = nil;
     NSData* jsonData = [self contentsOfUrl:EVENTS_URL];
-    if (error == nil)
+    if (error == nil && jsonData)
     {
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
         if (error == nil)

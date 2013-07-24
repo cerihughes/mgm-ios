@@ -3,6 +3,9 @@
 #import "MGMGroupAlbum.h"
 #import "MGMAlbumsView.h"
 #import "MGMGridManager.h"
+#import "MGMImageHelper.h"
+
+#define ALBUMS_IN_CHART 15
 
 @interface MGMWeeklyChartViewController () <MGMAlbumsViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UITableViewDelegate, UIPickerViewDelegate>
 
@@ -115,7 +118,7 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        self.groupAlbums = [self.core.daoFactory.lastFmDao topWeeklyAlbumsForTimePeriod:timePeriod];
+        self.groupAlbums = [self.core.daoFactory.lastFmDao topWeeklyAlbums:ALBUMS_IN_CHART forTimePeriod:timePeriod];
 
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -204,7 +207,7 @@
     NSString* albumArtUri = [self bestImageForAlbum:album];
     if (albumArtUri)
     {
-        [self.ui.imageCache asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
+        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
         {
             [self.albumsView updateAlbumImage:image atRank:rank];
         }];
