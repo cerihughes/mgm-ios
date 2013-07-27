@@ -58,6 +58,7 @@
 		659F9F62175B928E000C413B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F43175B928E000C413B /* Foundation.framework */; };
 		659F9F6A175B928E000C413B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F68175B928E000C413B /* InfoPlist.strings */; };
 		659F9F6D175B928E000C413B /* Music_Geek_MonthlyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659F9F6C175B928E000C413B /* Music_Geek_MonthlyTests.m */; };
+		65BA8A2C17A434EF0054966B /* MGMURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BA8A2B17A434EF0054966B /* MGMURLCache.m */; };
 		65CD17031785A66F0082168D /* MGMEventsDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CD17021785A66F0082168D /* MGMEventsDao.m */; };
 		65CD17041785A66F0082168D /* MGMEventsDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CD17021785A66F0082168D /* MGMEventsDao.m */; };
 		65CD17071785A8570082168D /* MGMAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CD17061785A8570082168D /* MGMAlbum.m */; };
@@ -156,6 +157,8 @@
 		659F9F69175B928E000C413B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		659F9F6B175B928E000C413B /* Music_Geek_MonthlyTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Music_Geek_MonthlyTests.h; sourceTree = "<group>"; };
 		659F9F6C175B928E000C413B /* Music_Geek_MonthlyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Music_Geek_MonthlyTests.m; sourceTree = "<group>"; };
+		65BA8A2A17A434EF0054966B /* MGMURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMURLCache.h; sourceTree = "<group>"; };
+		65BA8A2B17A434EF0054966B /* MGMURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMURLCache.m; sourceTree = "<group>"; };
 		65CD17011785A66F0082168D /* MGMEventsDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMEventsDao.h; sourceTree = "<group>"; };
 		65CD17021785A66F0082168D /* MGMEventsDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventsDao.m; sourceTree = "<group>"; };
 		65CD17051785A8570082168D /* MGMAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbum.h; sourceTree = "<group>"; };
@@ -245,6 +248,8 @@
 			children = (
 				653B6BBF175FDB4B005D372C /* MGMCore.h */,
 				653B6BC0175FDB4B005D372C /* MGMCore.m */,
+				65BA8A2A17A434EF0054966B /* MGMURLCache.h */,
+				65BA8A2B17A434EF0054966B /* MGMURLCache.m */,
 				652FD00317722BFC00CF5F89 /* MGMGridManager.h */,
 				652FD00417722BFC00CF5F89 /* MGMGridManager.m */,
 				653B6BB8175FD12F005D372C /* Dao */,
@@ -585,6 +590,7 @@
 				652C8718179DD53C0059595E /* MGMWebViewController.m in Sources */,
 				652ABF88179EFE59005C8501 /* MGMPulsatingAlbumsView.m in Sources */,
 				6554DE3717A05431006A2A29 /* MGMPulsatingAlbumView.m in Sources */,
+				65BA8A2C17A434EF0054966B /* MGMURLCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

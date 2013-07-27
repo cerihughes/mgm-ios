@@ -8,6 +8,7 @@
 
 #import "MGMAppDelegate.h"
 #import "MGMUI.h"
+#import "MGMURLCache.h"
 
 @interface MGMAppDelegate ()
 
@@ -20,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSLog(@"application:didFinishLaunchingWithOptions:");
-    NSURLCache* cache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
+    MGMURLCache* cache = [[MGMURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:32 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
 
     self.ui = [[MGMUI alloc] init];
