@@ -34,6 +34,7 @@
 
 - (void) viewDidLoad
 {
+    [self.albumsView setupAlbumsInRow:4];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
         // Search in a background thread...
@@ -44,7 +45,6 @@
             // ... but update the UI in the main thread...
             MGMEvent* event = [events objectAtIndex:0];
             [self displayEvent:event];
-            [self.albumsView setupAlbumsInRow:4];
         });
     });
 }
