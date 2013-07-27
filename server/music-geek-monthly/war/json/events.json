@@ -383,6 +383,7 @@
 		{
 			"id" : 17,
 			"date" : "2012-05-31T20:00:00.000+0100",
+			"spotifyPlaylistId" : "70jkO5RfqDELSDWRZy9kzu",
 			"classicAlbum" :
 			{
 				"artistName" : "Faith No More",
@@ -553,42 +554,231 @@
 		{
 			"id" : 10,
 			"date" : "2011-10-27T20:00:00.000+0100",
-			"spotifyPlaylistId" : "2xsrVABcCXKdvl3ohVNSuA"
+			"spotifyPlaylistId" : "2xsrVABcCXKdvl3ohVNSuA",
+			"classicAlbum" :
+			{
+				"artistName" : "Nirvana",
+				"albumName" : "Nevermind",
+				"mbid" : "b4e87df5-e995-4438-ae42-c8df327f163f",
+				"score" : 6.9,
+				"metadata" :
+				{
+					"spotify" : "2uEf3r9i2bnxwJQsxQ0xQ7",
+					"wikipedia" : "Nevermind"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Wilco",
+				"albumName" : "The Whole Love",
+				"mbid" : "ff966916-47f3-48b8-95ce-75ed50f6673c",
+				"score" : 5.5,
+				"metadata" :
+				{
+					"spotify" : "77WMbPujQbxWvY6P6XO5aC",
+					"wikipedia" : "The_Whole_Love"
+				}
+			}
 		},
 		{
 			"id" : 9,
 			"date" : "2011-09-29T20:00:00.000+0100",
-			"spotifyPlaylistId" : "4OrI6gAbI4h3p6RLx9PiPh"
+			"spotifyPlaylistId" : "4OrI6gAbI4h3p6RLx9PiPh",
+			"classicAlbum" :
+			{
+				"artistName" : "ABC",
+				"albumName" : "The Lexicon of Love",
+				"mbid" : "ad5f896b-d603-334b-a8f7-676ceb1a4757",
+				"score" : 7.2,
+				"metadata" :
+				{
+					"spotify" : "2aFWgTQdB8lG7DuMHIU6uw",
+					"wikipedia" : "The_Lexicon_of_Love"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Beirut",
+				"albumName" : "The Rip Tide",
+				"mbid" : "2068e712-823d-4656-ae56-abd0f313d75a",
+				"score" : 6.2,
+				"metadata" :
+				{
+					"spotify" : "7ri0EOAjJuuyawBbbEyU2L",
+					"wikipedia" : "The_Rip_Tide"
+				}
+			}
 		},
 		{
 			"id" : 8,
 			"date" : "2011-08-25T20:00:00.000+0100",
-			"spotifyPlaylistId" : "7hbfCUtBEpg9cbJ4KMJxAZ"
+			"spotifyPlaylistId" : "7hbfCUtBEpg9cbJ4KMJxAZ",
+			"classicAlbum" :
+			{
+				"artistName" : "Marvin Gaye",
+				"albumName" : "What's Going On",
+				"mbid" : "99379078-2a6a-4fca-b53f-35540b737802",
+				"score" : 6.2,
+				"metadata" :
+				{
+					"spotify" : "51OTwBCtfrubk9HRlKKw41",
+					"wikipedia" : "What%27s_Going_On_(Marvin_Gaye_album)"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "She Keeps Bees",
+				"albumName" : "Dig On",
+				"mbid" : "4557c702-6459-45f2-9e92-d07c3a9cd45b",
+				"score" : 5.8,
+				"metadata" :
+				{
+					"spotify" : "5gsG3BIgvCXtYapJROhrWR"
+				}
+			}
 		},
 		{
 			"id" : 7,
 			"date" : "2011-07-28T20:00:00.000+0100",
-			"spotifyPlaylistId" : "61kKINnwrmIaa8A5yTJORy"
+			"spotifyPlaylistId" : "61kKINnwrmIaa8A5yTJORy",
+			"classicAlbum" :
+			{
+				"artistName" : "Jeff Wayne",
+				"albumName" : "Jeff Wayne's Musical Version of The War of the Worlds",
+				"mbid" : "8a6b523c-76da-418f-800f-5f04e0b81eda",
+				"score" : 6,
+				"metadata" :
+				{
+					"spotify" : "7ligZljXfUtcKPCotWul5g",
+					"wikipedia" : "Jeff_Wayne%27s_Musical_Version_of_The_War_of_the_Worlds"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Sparrow and the Workshop",
+				"albumName" : "Spitting Daggers",
+				"mbid" : "df8709da-64a0-4ac1-9a94-b1b2ab568b3d",
+				"score" : 6.2,
+				"metadata" :
+				{
+					"spotify" : "0YHoWuJEKBoJjWbLDK232n"
+				}
+			}
 		},
 		{
 			"id" : 6,
 			"date" : "2011-06-30T20:00:00.000+0100",
-			"spotifyPlaylistId" : "5F44hS5u4WYJvd8IIDlkBE"
+			"spotifyPlaylistId" : "5F44hS5u4WYJvd8IIDlkBE",
+			"classicAlbum" :
+			{
+				"artistName" : "David Bowie",
+				"albumName" : "The Rise and Fall of Ziggy Stardust and the Spiders from Mars",
+				"mbid" : "952f4c05-1941-37af-9844-b9f84faf195f",
+				"score" : 8.7,
+				"metadata" :
+				{
+					"spotify" : "0745mDdMqet9J5nO5x7IQS",
+					"wikipedia" : "The_Rise_and_Fall_of_Ziggy_Stardust_and_the_Spiders_from_Mars"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Gang Gang Dance",
+				"albumName" : "Eye Contact",
+				"mbid" : "6d9c39a2-cc4b-31f7-a54f-0058933c787d",
+				"score" : 4.8,
+				"metadata" :
+				{
+					"spotify" : "3FnTGwJUmashhPZm9T87k4",
+					"wikipedia" : "Eye_Contact_(Gang_Gang_Dance_album)"
+				}
+			}
 		},
 		{
 			"id" : 5,
 			"date" : "2011-05-26T20:00:00.000+0100",
-			"spotifyPlaylistId" : "64PSzyeTg9nmp9bhUQil2V"
+			"spotifyPlaylistId" : "64PSzyeTg9nmp9bhUQil2V",
+			"classicAlbum" :
+			{
+				"artistName" : "Crosby, Stills, Nash & Young",
+				"albumName" : "Déjà Vu",
+				"mbid" : "2dab319f-b772-40a2-8466-424bd7a9512e",
+				"score" : 5.4,
+				"metadata" :
+				{
+					"spotify" : "5bHkK1X4WEOzNvRhehvOcb",
+					"wikipedia" : "Déjà_Vu_(Crosby,_Stills,_Nash_%26_Young_album)"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Cat's Eyes",
+				"albumName" : "Cat's Eyes",
+				"mbid" : "75114c5d-edd7-445a-9c44-e2018cbf705b",
+				"score" : 7.2,
+				"metadata" :
+				{
+					"spotify" : "2enp4ZpYtPpRuQ0g9FhRhj",
+					"wikipedia" : "Cat%27s_Eyes_(album)"
+				}
+			}
 		},
 		{
 			"id" : 4,
 			"date" : "2011-04-28T20:00:00.000+0100",
-			"spotifyPlaylistId" : "0s6HtbwO5pcQpOqJAqn3mF"
+			"spotifyPlaylistId" : "0s6HtbwO5pcQpOqJAqn3mF",
+			"classicAlbum" :
+			{
+				"artistName" : "Celebration",
+				"albumName" : "Celebration",
+				"mbid" : "9e1f173d-0c7d-45f6-97f9-6ad95dc97f2f",
+				"score" : 7.1,
+				"metadata" :
+				{
+					"spotify" : "1a9kNORaIhMoEedN1kZUoO",
+					"wikipedia" : "Celebration_(Celebration_album)"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "The Cave Singers",
+				"albumName" : "No Witch",
+				"mbid" : "7667d44e-2d7c-48c7-bda0-ffc42035189f",
+				"score" : 5.8,
+				"metadata" :
+				{
+					"spotify" : "0mIkXhPYg8uMiXWOhUDQFa",
+					"wikipedia" : "No_Witch"
+				}
+			}
 		},
 		{
 			"id" : 3,
 			"date" : "2011-03-31T20:00:00.000+0100",
-			"spotifyPlaylistId" : "09w0wmZ8qe6DcgmyIbxXwB"
+			"spotifyPlaylistId" : "09w0wmZ8qe6DcgmyIbxXwB",
+			"classicAlbum" :
+			{
+				"artistName" : "Bill Callahan",
+				"albumName" : "Sometimes I Wish We Were an Eagle",
+				"mbid" : "52d23044-b2a8-310b-89bf-28f7932bd94a",
+				"score" : 6.7,
+				"metadata" :
+				{
+					"wikipedia" : "Sometimes_I_Wish_We_Were_an_Eagle"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Mogwai",
+				"albumName" : "Hardcore Will Never Die, But You Will",
+				"mbid" : "cb72cbd5-a8cd-42b3-83af-251d56dfef12",
+				"score" : 6.6,
+				"metadata" :
+				{
+					"spotify" : "7w4z35rOtFKt9gHRTU6Qil",
+					"wikipedia" : "Hardcore_Will_Never_Die,_But_You_Will"
+				}
+			}
 		},
 		{
 			"id" : 2,
