@@ -10,6 +10,7 @@
 				"artistName" : "David Bowie",
 				"albumName" : "Young Americans",
 				"mbid" : "fba008bb-1d47-4ec3-89b5-bd7538400008",
+				"score" : 7.5,
 				"metadata" :
 				{
 					"spotify" : "4tfBE4zd8PUieuUNF0zd03",
@@ -22,6 +23,7 @@
 				"artistName" : "Jon Hopkins",
 				"albumName" : "Immunity",
 				"mbid" : "9b93c88b-b939-4206-af30-b3a3e7f1ab8d",
+				"score" : 6.8,
 				"metadata" :
 				{
 					"spotify" : "7H7UxuxjGSJuV7LcCFUxTD",
@@ -39,6 +41,7 @@
 				"artistName" : "Sir Simon Rattle",
 				"albumName" : "Stravinsky: Le Sacre du Printemps - The Rite of Spring",
 				"mbid" : "78020fdb-4e0e-4522-9d13-74017e5a4f65",
+				"score" : 8.6,
 				"metadata" :
 				{
 					"spotify" : "4Bxqc1pGokTgFSt50F7stT",
@@ -51,6 +54,7 @@
 				"artistName" : "The National",
 				"albumName" : "Trouble Will Find Me",
 				"mbid" : "d4e57d35-d8f8-4302-bca4-534b6227e284",
+				"score" : 7.2,
 				"metadata" :
 				{
 					"spotify" : "2JhR4tjuc3MIKa8v2JaKze",
@@ -68,6 +72,7 @@
 				"artistName" : "British Sea Power",
 				"albumName" : "The Decline Of British Sea Power",
 				"mbid" : "5a1c48c9-62a0-43f3-8df8-884a859643da",
+				"score" : 6.8,
 				"metadata" :
 				{
 					"spotify" : "1Xa2UgEUb3P01fjtkjLUlN",
@@ -79,6 +84,7 @@
 				"artistName" : "The Knife",
 				"albumName" : "Shaking The Habitual",
 				"mbid" : "af4632af-80d3-4aa8-9690-7d254054579d",
+				"score" : 5.8,
 				"metadata" :
 				{
 					"spotify" : "2pUYqGLp3aqokOxDWzcBZX",
@@ -95,6 +101,7 @@
 				"artistName" : "Helium",
 				"albumName" : "The Magic City",
 				"mbid" : "d3ecf520-32e6-42a6-a561-646c7979e6e5",
+				"score" : 7.4,
 				"metadata" :
 				{
 					"spotify" : "5ZcpjhmeKnRTsVyGKtHGP0",
@@ -106,6 +113,7 @@
 				"artistName" : "Suuns",
 				"albumName" : "Images du Futur",
 				"mbid" : "279fa00b-6cf5-44e6-931f-3cf45abab706",
+				"score" : 7.4,
 				"metadata" :
 				{
 					"spotify" : "3DLpLtQHQDDahtWz8DA8HY",
@@ -122,6 +130,7 @@
 				"artistName" : "The Rolling Stones",
 				"albumName" : "Beggars Banquet",
 				"mbid" : "8833c2be-4717-3d58-96f2-33f592a3dc06",
+				"score" : 7.7,
 				"metadata" :
 				{
 					"spotify" : "5WZFtmADuJUZPtt0NER0Qi",
@@ -134,6 +143,7 @@
 				"artistName" : "Matmos",
 				"albumName" : "The Marriage of True Minds",
 				"mbid" : "e6d0113f-4d97-47be-b945-2f54eaa516c5",
+				"score" : 4.9,
 				"metadata" :
 				{
 					"spotify" : "7akmUbAAJkLy7BrUWxqKOr"
@@ -149,6 +159,7 @@
 				"artistName" : "The Beatles",
 				"albumName" : "Please Please Me",
 				"mbid" : "62cf2288-3ba5-3831-83e5-fb8021d6dd0a",
+				"score" : 7,
 				"metadata" :
 				{
 					"wikipedia" : "Please_Please_Me",
@@ -160,6 +171,7 @@
 				"artistName" : "Yo La Tengo",
 				"albumName" : "Fade",
 				"mbid" : "306adcf4-39b2-4706-919a-f960cc7a1c48",
+				"score" : 6.6,
 				"metadata" :
 				{
 					"spotify" : "7cReNgYN2wNYsj78NB67ut",
@@ -176,6 +188,7 @@
 				"artistName" : "The Appleseed Cast",
 				"albumName" : "Two Conversations",
 				"mbid" : "6db2ddfe-9035-4df9-ab31-840fcca5e95a",
+				"score" : 5.1,
 				"metadata" :
 				{
 					"spotify" : "68WzfYqfdk0hFI9MRolL72",
@@ -187,6 +200,7 @@
 				"artistName" : "Prince Rama",
 				"albumName" : "Top Ten Hits of the End of the World",
 				"mbid" : "3944c337-bf46-4c2b-8a0a-32cb1a059ed5",
+				"score" : 4.5,
 				"metadata" :
 				{
 					"spotify" : "1ZKo7vzlhAsZ76c1sih3Hm"
@@ -202,6 +216,7 @@
 				"artistName" : "Various Artists",
 				"albumName" : "Midnight Cowboy: Music From The Motion Picture",
 				"mbid" : "7994a95c-e468-34c0-853d-040213bd3009",
+				"score" : 7.4,
 				"metadata" :
 				{
 					"spotify" : "4si97m2YFhhUxllFaZxbST",
@@ -213,6 +228,7 @@
 				"artistName" : "Godspeed You! Black Emperor",
 				"albumName" : "'Allelujah! Don't Bend! Ascend!",
 				"mbid" : "7067908c-402e-4c17-99af-4c509b89d91c",
+				"score" : 7.6,
 				"metadata" :
 				{
 					"spotify" : "30bTXMxsMsYn7QbwmDW3rj",
@@ -229,6 +245,7 @@
 				"artistName" : "Miss Kittin & The Hacker",
 				"albumName" : "First Album",
 				"mbid" : "351c961d-77bb-4d9c-afeb-302bae8ba390",
+				"score" : 4.1,
 				"metadata" :
 				{
 					"spotify" : "3n1pYP0wv1XO92ab72e1EQ",
@@ -240,6 +257,7 @@
 				"artistName" : "Grizzly Bear",
 				"albumName" : "Shields",
 				"mbid" : "01586826-b4ab-4617-9a18-25cb051d07d8",
+				"score" : 7.1,
 				"metadata" :
 				{
 					"spotify" : "57LAEzKL94ZHwbIkUWYCDY",
@@ -256,6 +274,7 @@
 				"artistName" : "Limp Bizkit",
 				"albumName" : "Chocolate Starfish and the Hot Dog Flavored Water",
 				"mbid" : "b98a6168-47e3-4d44-816a-91adea3525d8",
+				"score" : 1.9,
 				"metadata" :
 				{
 					"spotify" : "4AYU4g0aPveWCPxPedoBVV",
@@ -267,6 +286,7 @@
 				"artistName" : "Fergus & Geronimo",
 				"albumName" : "Funky Was the State Of Affairs",
 				"mbid" : "c2566d4f-bd19-4cff-a962-e755ad521b27",
+				"score" : 5.8,
 				"metadata" :
 				{
 					"spotify" : "5z5YagYxozh7HiiUudIE5r"
@@ -282,6 +302,7 @@
 				"artistName" : "Brian Eno",
 				"albumName" : "Taking Tiger Mountain (By Strategy)",
 				"mbid" : "2f6a3f47-40af-4699-9ee8-ba2218341103",
+				"score" : 6.3,
 				"metadata" :
 				{
 					"spotify" : "1IMbtEVdtaFz0PPiq4brLZ",
@@ -293,6 +314,7 @@
 				"artistName" : "Shonen Knife",
 				"albumName" : "Pop Tune",
 				"mbid" : "b7813fbf-699b-4e90-b1c7-7f178485b455",
+				"score" : 5.5,
 				"metadata" :
 				{
 					"spotify" : "46VScxfhUlqO6Hai39Dzkr",
@@ -309,6 +331,7 @@
 				"artistName" : "Devo",
 				"albumName" : "Q: Are We Not Men? A: We Are Devo!",
 				"mbid" : "d4bfdd53-f9ac-35d8-b30d-f750b4420af4",
+				"score" : 6.8,
 				"metadata" :
 				{
 					"spotify" : "1KkMseKFaUHN3TXrXF3jHT",
@@ -320,6 +343,7 @@
 				"artistName" : "Patti Smith",
 				"albumName" : "Banga",
 				"mbid" : "42fd03a6-5cb1-4107-a82d-7172f98559db",
+				"score" : 7.5,
 				"metadata" :
 				{
 					"spotify" : "67epO9J9KoY8KSFA4xC4kA",
@@ -336,6 +360,7 @@
 				"artistName" : "The The",
 				"albumName" : "Dusk",
 				"mbid" : "8ec76c59-aae8-4726-9d3a-1dabfa55c3b6",
+				"score" : 6.6,
 				"metadata" :
 				{
 					"spotify" : "2l787tSnzSfpfvgPNsR5O2",
@@ -347,6 +372,7 @@
 				"artistName" : "Richard Hawley",
 				"albumName" : "Standing at the Sky's Edge",
 				"mbid" : "29bcf276-fba8-4a40-bee2-e702e98ce80c",
+				"score" : 6.7,
 				"metadata" :
 				{
 					"spotify" : "6xp40ZHvGtOB65FQx9ahT1",
@@ -362,6 +388,7 @@
 				"artistName" : "Faith No More",
 				"albumName" : "Angel Dust",
 				"mbid" : "6e7f56e0-b858-3af0-aad9-88680361aced",
+				"score" : 6.2,
 				"metadata" :
 				{
 					"spotify" : "59GwovfBk0Kp2HJw1G7E5Q",
@@ -373,6 +400,7 @@
 				"artistName" : "Santigold",
 				"albumName" : "Master of My Make-Believe",
 				"mbid" : "334170cb-f992-41dd-a535-0812efd938a4",
+				"score" : 6.9,
 				"metadata" :
 				{
 					"spotify" : "69jrxUSjHoEu6PeBMq3273",
@@ -389,6 +417,7 @@
 				"artistName" : "Sonic Youth",
 				"albumName" : "Dirty",
 				"mbid" : "bf98c54a-127f-47bf-af05-14e3deb2b14b",
+				"score" : 5.9,
 				"metadata" :
 				{
 					"spotify" : "3vZQVeesxkzSRPtVLsrXKn",
@@ -397,9 +426,10 @@
 			},
 			"newAlbum" :
 			{
-				"artistName" : "îlafur Arnalds",
+				"artistName" : "Ã“lafur Arnalds",
 				"albumName" : "Another Happy Day",
 				"mbid" : "d0542407-7c57-46f2-a49d-80befab6615a",
+				"score" : 5.7,
 				"metadata" :
 				{
 					"spotify" : "0KbQLhslfkYGJokYeqsrVO"
@@ -415,6 +445,7 @@
 				"artistName" : "Leonard Cohen",
 				"albumName" : "Songs of Love and Hate",
 				"mbid" : "3127cecf-2d23-49b8-89d9-25c87f1d50e0",
+				"score" : 5.9,
 				"metadata" :
 				{
 					"spotify" : "1byP5MGkh5Pas7YuOtzd3I",
@@ -426,6 +457,7 @@
 				"artistName" : "Grimes",
 				"albumName" : "Visions",
 				"mbid" : "2fd00edb-391a-41ec-8f2f-01e2c202d9eb",
+				"score" : 7.1,
 				"metadata" :
 				{
 					"spotify" : "2jXthXcPiAdhatxYPv4yPk",
@@ -442,6 +474,7 @@
 				"artistName" : "The Notwist",
 				"albumName" : "Neon Golden",
 				"mbid" : "0e9c6c79-02b7-4111-8c86-e1b173572113",
+				"score" : 7.3,
 				"metadata" :
 				{
 					"wikipedia" : "Neon_Golden"
@@ -452,6 +485,7 @@
 				"artistName" : "The Black Keys",
 				"albumName" : "El Camino",
 				"mbid" : "9c78e227-cedb-430f-b737-f1ea6bce6fa2",
+				"score" : 6.7,
 				"metadata" :
 				{
 					"wikipedia" : "El_Camino_(The_Black_Keys_album)"
@@ -467,6 +501,7 @@
 				"artistName" : "Wire",
 				"albumName" : "154",
 				"mbid" : "1c497282-290a-4ac3-b52e-9d160e28ac28",
+				"score" : 6.1,
 				"metadata" :
 				{
 					"spotify" : "54csKoPnQbDk0dh2Un2gl4",
@@ -478,6 +513,7 @@
 				"artistName" : "Thee Oh Sees",
 				"albumName" : "Carrion Crawler/The Dream",
 				"mbid" : "238ac0cc-bf91-475d-a455-9435181944a3",
+				"score" : 6.6,
 				"metadata" :
 				{
 					"spotify" : "7JC1vAUtlOwe8AJ3hLmr91",
@@ -494,6 +530,7 @@
 				"artistName" : "Bob Dylan",
 				"albumName" : "Desire",
 				"mbid" : "0586779a-1e0c-465a-ad7d-5dd1c0946028",
+				"score" : 6.8,
 				"metadata" :
 				{
 					"spotify" : "1T8usYsiGEMPMQOLFgJEbE",
@@ -505,6 +542,7 @@
 				"artistName" : "Still Corners",
 				"albumName" : "Creatures of an Hour",
 				"mbid" : "99c0ab05-7bd4-43e4-8009-8d255d791a45",
+				"score" : 5.9,
 				"metadata" :
 				{
 					"spotify" : "2KTTWvdCwPakrp3AVcsUQC",
@@ -515,42 +553,42 @@
 		{
 			"id" : 10,
 			"date" : "2011-10-27T20:00:00.000+0100",
-			"spotifyPlaylistId" : "2xsrVABcCXKdvl3ohVNSuA",
+			"spotifyPlaylistId" : "2xsrVABcCXKdvl3ohVNSuA"
 		},
 		{
 			"id" : 9,
 			"date" : "2011-09-29T20:00:00.000+0100",
-			"spotifyPlaylistId" : "4OrI6gAbI4h3p6RLx9PiPh",
+			"spotifyPlaylistId" : "4OrI6gAbI4h3p6RLx9PiPh"
 		},
 		{
 			"id" : 8,
 			"date" : "2011-08-25T20:00:00.000+0100",
-			"spotifyPlaylistId" : "7hbfCUtBEpg9cbJ4KMJxAZ",
+			"spotifyPlaylistId" : "7hbfCUtBEpg9cbJ4KMJxAZ"
 		},
 		{
 			"id" : 7,
 			"date" : "2011-07-28T20:00:00.000+0100",
-			"spotifyPlaylistId" : "61kKINnwrmIaa8A5yTJORy",
+			"spotifyPlaylistId" : "61kKINnwrmIaa8A5yTJORy"
 		},
 		{
 			"id" : 6,
 			"date" : "2011-06-30T20:00:00.000+0100",
-			"spotifyPlaylistId" : "5F44hS5u4WYJvd8IIDlkBE",
+			"spotifyPlaylistId" : "5F44hS5u4WYJvd8IIDlkBE"
 		},
 		{
 			"id" : 5,
 			"date" : "2011-05-26T20:00:00.000+0100",
-			"spotifyPlaylistId" : "64PSzyeTg9nmp9bhUQil2V",
+			"spotifyPlaylistId" : "64PSzyeTg9nmp9bhUQil2V"
 		},
 		{
 			"id" : 4,
 			"date" : "2011-04-28T20:00:00.000+0100",
-			"spotifyPlaylistId" : "0s6HtbwO5pcQpOqJAqn3mF",
+			"spotifyPlaylistId" : "0s6HtbwO5pcQpOqJAqn3mF"
 		},
 		{
 			"id" : 3,
 			"date" : "2011-03-31T20:00:00.000+0100",
-			"spotifyPlaylistId" : "09w0wmZ8qe6DcgmyIbxXwB",
+			"spotifyPlaylistId" : "09w0wmZ8qe6DcgmyIbxXwB"
 		},
 		{
 			"id" : 2,
@@ -561,6 +599,7 @@
 				"artistName" : "Stevie Wonder",
 				"albumName" : "Songs In The Key Of Life",
 				"mbid" : "5d3014fb-6761-4626-ab83-985d74177109",
+				"score" : 6.7,
 				"metadata" :
 				{
 					"spotify" : "0ekrCyUT01BzU89QbiKcaI",
@@ -572,6 +611,7 @@
 				"artistName" : "Fujiya & Miyagi",
 				"albumName" : "Ventriloquizzing",
 				"mbid" : "4250910a-5d2b-4ce8-8d25-f4afbae0ff79",
+				"score" : 6.6,
 				"metadata" :
 				{
 					"spotify" : "7n8LCYB1fUiGSJI9BpIVFO",
@@ -582,7 +622,7 @@
 		{
 			"id" : 1,
 			"date" : "2011-01-27T20:00:00.000+0000",
-			"spotifyPlaylistId" : "3SWdpu43D59vl0yzbAjie4",
+			"spotifyPlaylistId" : "3SWdpu43D59vl0yzbAjie4"
 		}
 	]
 }
