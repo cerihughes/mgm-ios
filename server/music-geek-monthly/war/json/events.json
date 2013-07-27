@@ -3,17 +3,31 @@
 	[
 		{
 			"id" : 31,
+			"date" : "2013-07-25T20:00:00.000+0100",
+			"spotifyPlaylistId" : "5lkggsEt1WDdlkWWxq5dmu",
 			"classicAlbum" :
 			{
 				"artistName" : "David Bowie",
 				"albumName" : "Young Americans",
-				"spotifyAlbumId" : "4tfBE4zd8PUieuUNF0zd03"
+				"mbid" : "fba008bb-1d47-4ec3-89b5-bd7538400008",
+				"metadata" :
+				{
+					"spotify" : "4tfBE4zd8PUieuUNF0zd03",
+					"wikipedia" : "Young_Americans_(album)",
+					"youtube" : "eeJDyIkzqKE"
+				}
 			},
 			"newAlbum" :
 			{
 				"artistName" : "Jon Hopkins",
 				"albumName" : "Immunity",
-				"spotifyAlbumId" : "7H7UxuxjGSJuV7LcCFUxTD"
+				"mbid" : "9b93c88b-b939-4206-af30-b3a3e7f1ab8d",
+				"metadata" :
+				{
+					"spotify" : "7H7UxuxjGSJuV7LcCFUxTD",
+					"wikipedia" : "Immunity_(Jon_Hopkins_album)",
+					"youtube" : "anA3HAJLNxI"
+				}
 			}
 		},
 		{
@@ -24,13 +38,25 @@
 			{
 				"artistName" : "Sir Simon Rattle",
 				"albumName" : "Stravinsky: Le Sacre du Printemps - The Rite of Spring",
-				"spotifyAlbumId" : "4Bxqc1pGokTgFSt50F7stT"
+				"mbid" : "78020fdb-4e0e-4522-9d13-74017e5a4f65",
+				"metadata" :
+				{
+					"spotify" : "4Bxqc1pGokTgFSt50F7stT",
+					"wikipedia" : "The_Rite_of_Spring",
+					"youtube" : "aGFRwKQqbk4"
+				}
 			},
 			"newAlbum" :
 			{
 				"artistName" : "The National",
 				"albumName" : "Trouble Will Find Me",
-				"spotifyAlbumId" : "2JhR4tjuc3MIKa8v2JaKze"
+				"mbid" : "d4e57d35-d8f8-4302-bca4-534b6227e284",
+				"metadata" :
+				{
+					"spotify" : "2JhR4tjuc3MIKa8v2JaKze",
+					"wikipedia" : "Trouble_Will_Find_Me",
+					"youtube" : "oM9eNIAutuA"
+				}
 			}
 		},
 		{
@@ -41,13 +67,23 @@
 			{
 				"artistName" : "British Sea Power",
 				"albumName" : "The Decline Of British Sea Power",
-				"spotifyAlbumId" : "1Xa2UgEUb3P01fjtkjLUlN"
+				"mbid" : "5a1c48c9-62a0-43f3-8df8-884a859643da",
+				"metadata" :
+				{
+					"spotify" : "1Xa2UgEUb3P01fjtkjLUlN",
+					"wikipedia" : "The_Decline_of_British_Sea_Power"
+				}
 			},
 			"newAlbum" :
 			{
 				"artistName" : "The Knife",
 				"albumName" : "Shaking The Habitual",
-				"spotifyAlbumId" : "2pUYqGLp3aqokOxDWzcBZX"
+				"mbid" : "af4632af-80d3-4aa8-9690-7d254054579d",
+				"metadata" :
+				{
+					"spotify" : "2pUYqGLp3aqokOxDWzcBZX",
+					"wikipedia" : "Shaking_the_Habitual"
+				}
 			}
 		},
 		{
@@ -58,13 +94,23 @@
 			{
 				"artistName" : "Helium",
 				"albumName" : "The Magic City",
-				"spotifyAlbumId" : "5ZcpjhmeKnRTsVyGKtHGP0"
+				"mbid" : "d3ecf520-32e6-42a6-a561-646c7979e6e5",
+				"metadata" :
+				{
+					"spotify" : "5ZcpjhmeKnRTsVyGKtHGP0",
+					"wikipedia" : "The_Magic_City_(Helium_album)"
+				}
 			},
 			"newAlbum" :
 			{
 				"artistName" : "Suuns",
 				"albumName" : "Images du Futur",
-				"spotifyAlbumId" : "3DLpLtQHQDDahtWz8DA8HY"
+				"mbid" : "279fa00b-6cf5-44e6-931f-3cf45abab706",
+				"metadata" :
+				{
+					"spotify" : "3DLpLtQHQDDahtWz8DA8HY",
+					"youtube" : "R6Ob3SgAY4k"
+				}
 			}
 		},
 		{
@@ -75,13 +121,23 @@
 			{
 				"artistName" : "The Rolling Stones",
 				"albumName" : "Beggars Banquet",
-				"spotifyAlbumId" : "5WZFtmADuJUZPtt0NER0Qi"
+				"mbid" : "8833c2be-4717-3d58-96f2-33f592a3dc06",
+				"metadata" :
+				{
+					"spotify" : "5WZFtmADuJUZPtt0NER0Qi",
+					"wikipedia" : "Beggars_Banquet",
+					"youtube" : "y7rN-imfu68"
+				}
 			},
 			"newAlbum" :
 			{
 				"artistName" : "Matmos",
 				"albumName" : "The Marriage of True Minds",
-				"spotifyAlbumId" : "7akmUbAAJkLy7BrUWxqKOr"
+				"mbid" : "e6d0113f-4d97-47be-b945-2f54eaa516c5",
+				"metadata" :
+				{
+					"spotify" : "7akmUbAAJkLy7BrUWxqKOr"
+				}
 			}
 		},
 		{
@@ -92,13 +148,23 @@
 			{
 				"artistName" : "The Beatles",
 				"albumName" : "Please Please Me",
-				"otherUri" : "http://www.youtube.com/watch?v=W42ZEUvqh-s"
+				"mbid" : "62cf2288-3ba5-3831-83e5-fb8021d6dd0a",
+				"metadata" :
+				{
+					"wikipedia" : "Please_Please_Me",
+					"youtube" : "W42ZEUvqh-s"
+				}
 			},
 			"newAlbum" :
 			{
 				"artistName" : "Yo La Tengo",
 				"albumName" : "Fade",
-				"spotifyAlbumId" : "7cReNgYN2wNYsj78NB67ut"
+				"mbid" : "306adcf4-39b2-4706-919a-f960cc7a1c48",
+				"metadata" :
+				{
+					"spotify" : "7cReNgYN2wNYsj78NB67ut",
+					"wikipedia" : "Fade_(Yo_La_Tengo_album)"
+				}
 			}
 		},
 		{
@@ -109,14 +175,414 @@
 			{
 				"artistName" : "The Appleseed Cast",
 				"albumName" : "Two Conversations",
-				"spotifyAlbumId" : "68WzfYqfdk0hFI9MRolL72"
+				"mbid" : "6db2ddfe-9035-4df9-ab31-840fcca5e95a",
+				"metadata" :
+				{
+					"spotify" : "68WzfYqfdk0hFI9MRolL72",
+					"wikipedia" : "Two_Conversations"
+				}
 			},
 			"newAlbum" :
 			{
 				"artistName" : "Prince Rama",
 				"albumName" : "Top Ten Hits of the End of the World",
-				"spotifyAlbumId" : "1ZKo7vzlhAsZ76c1sih3Hm"
+				"mbid" : "3944c337-bf46-4c2b-8a0a-32cb1a059ed5",
+				"metadata" :
+				{
+					"spotify" : "1ZKo7vzlhAsZ76c1sih3Hm"
+				}
 			}
+		},
+		{
+			"id" : 23,
+			"date" : "2012-11-29T20:00:00.000+0000",
+			"spotifyPlaylistId" : "4YnJoBOuEvb1CYXukSsw0v",
+			"classicAlbum" :
+			{
+				"artistName" : "Various Artists",
+				"albumName" : "Midnight Cowboy: Music From The Motion Picture",
+				"mbid" : "7994a95c-e468-34c0-853d-040213bd3009",
+				"metadata" :
+				{
+					"spotify" : "4si97m2YFhhUxllFaZxbST",
+					"wikipedia" : "Midnight_Cowboy"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Godspeed You! Black Emperor",
+				"albumName" : "'Allelujah! Don't Bend! Ascend!",
+				"mbid" : "7067908c-402e-4c17-99af-4c509b89d91c",
+				"metadata" :
+				{
+					"spotify" : "30bTXMxsMsYn7QbwmDW3rj",
+					"wikipedia" : "Allelujah!_Don%27t_Bend!_Ascend!"
+				}
+			}
+		},
+		{
+			"id" : 22,
+			"date" : "2012-10-25T20:00:00.000+0100",
+			"spotifyPlaylistId" : "4Jr0XvXxm25x6VvsF5f6zu",
+			"classicAlbum" :
+			{
+				"artistName" : "Miss Kittin & The Hacker",
+				"albumName" : "First Album",
+				"mbid" : "351c961d-77bb-4d9c-afeb-302bae8ba390",
+				"metadata" :
+				{
+					"spotify" : "3n1pYP0wv1XO92ab72e1EQ",
+					"wikipedia" : "First_Album_(Miss_Kittin_%26_The_Hacker_album)"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Grizzly Bear",
+				"albumName" : "Shields",
+				"mbid" : "01586826-b4ab-4617-9a18-25cb051d07d8",
+				"metadata" :
+				{
+					"spotify" : "57LAEzKL94ZHwbIkUWYCDY",
+					"wikipedia" : "Shields_(album)"
+				}
+			}
+		},
+		{
+			"id" : 21,
+			"date" : "2012-09-27T20:00:00.000+0100",
+			"spotifyPlaylistId" : "4XgGC9lxbVHNP8VJpBgpVP",
+			"classicAlbum" :
+			{
+				"artistName" : "Limp Bizkit",
+				"albumName" : "Chocolate Starfish and the Hot Dog Flavored Water",
+				"mbid" : "b98a6168-47e3-4d44-816a-91adea3525d8",
+				"metadata" :
+				{
+					"spotify" : "4AYU4g0aPveWCPxPedoBVV",
+					"wikipedia" : "Chocolate_Starfish_and_the_Hot_Dog_Flavored_Water"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Fergus & Geronimo",
+				"albumName" : "Funky Was the State Of Affairs",
+				"mbid" : "c2566d4f-bd19-4cff-a962-e755ad521b27",
+				"metadata" :
+				{
+					"spotify" : "5z5YagYxozh7HiiUudIE5r"
+				}
+			}
+		},
+		{
+			"id" : 20,
+			"date" : "2012-08-30T20:00:00.000+0100",
+			"spotifyPlaylistId" : "1FdvQE67OqoNNFEgjKlTKJ",
+			"classicAlbum" :
+			{
+				"artistName" : "Brian Eno",
+				"albumName" : "Taking Tiger Mountain (By Strategy)",
+				"mbid" : "2f6a3f47-40af-4699-9ee8-ba2218341103",
+				"metadata" :
+				{
+					"spotify" : "1IMbtEVdtaFz0PPiq4brLZ",
+					"wikipedia" : "Taking_Tiger_Mountain_(By_Strategy)"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Shonen Knife",
+				"albumName" : "Pop Tune",
+				"mbid" : "b7813fbf-699b-4e90-b1c7-7f178485b455",
+				"metadata" :
+				{
+					"spotify" : "46VScxfhUlqO6Hai39Dzkr",
+					"wikipedia" : "Pop_Tune"
+				}
+			}
+		},
+		{
+			"id" : 19,
+			"date" : "2012-08-07T20:00:00.000+0100",
+			"spotifyPlaylistId" : "3AtWp2xBlTghv6iOmLHTo6",
+			"classicAlbum" :
+			{
+				"artistName" : "Devo",
+				"albumName" : "Q: Are We Not Men? A: We Are Devo!",
+				"mbid" : "d4bfdd53-f9ac-35d8-b30d-f750b4420af4",
+				"metadata" :
+				{
+					"spotify" : "1KkMseKFaUHN3TXrXF3jHT",
+					"wikipedia" : "Question:_Are_We_Not_Men%3F_Answer:_We_Are_Devo!"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Patti Smith",
+				"albumName" : "Banga",
+				"mbid" : "42fd03a6-5cb1-4107-a82d-7172f98559db",
+				"metadata" :
+				{
+					"spotify" : "67epO9J9KoY8KSFA4xC4kA",
+					"wikipedia" : "Banga_(album)"
+				}
+			}
+		},
+		{
+			"id" : 18,
+			"date" : "2012-06-28T20:00:00.000+0100",
+			"spotifyPlaylistId" : "3nihCynI6MYnQX5ugKTljx",
+			"classicAlbum" :
+			{
+				"artistName" : "The The",
+				"albumName" : "Dusk",
+				"mbid" : "8ec76c59-aae8-4726-9d3a-1dabfa55c3b6",
+				"metadata" :
+				{
+					"spotify" : "2l787tSnzSfpfvgPNsR5O2",
+					"wikipedia" : "Dusk_(The_The_album)"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Richard Hawley",
+				"albumName" : "Standing at the Sky's Edge",
+				"mbid" : "29bcf276-fba8-4a40-bee2-e702e98ce80c",
+				"metadata" :
+				{
+					"spotify" : "6xp40ZHvGtOB65FQx9ahT1",
+					"wikipedia" : "Standing_at_the_Sky%27s_Edge"
+				}
+			}
+		},
+		{
+			"id" : 17,
+			"date" : "2012-05-31T20:00:00.000+0100",
+			"classicAlbum" :
+			{
+				"artistName" : "Faith No More",
+				"albumName" : "Angel Dust",
+				"mbid" : "6e7f56e0-b858-3af0-aad9-88680361aced",
+				"metadata" :
+				{
+					"spotify" : "59GwovfBk0Kp2HJw1G7E5Q",
+					"wikipedia" : "Angel_Dust_(Faith_No_More_album)"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Santigold",
+				"albumName" : "Master of My Make-Believe",
+				"mbid" : "334170cb-f992-41dd-a535-0812efd938a4",
+				"metadata" :
+				{
+					"spotify" : "69jrxUSjHoEu6PeBMq3273",
+					"wikipedia" : "Master_of_My_Make-Believe"
+				}
+			}
+		},
+		{
+			"id" : 16,
+			"date" : "2012-04-26T20:00:00.000+0100",
+			"spotifyPlaylistId" : "20ejBnkCBTOOCTQSypXJN1",
+			"classicAlbum" :
+			{
+				"artistName" : "Sonic Youth",
+				"albumName" : "Dirty",
+				"mbid" : "bf98c54a-127f-47bf-af05-14e3deb2b14b",
+				"metadata" :
+				{
+					"spotify" : "3vZQVeesxkzSRPtVLsrXKn",
+					"wikipedia" : "Dirty_(Sonic_Youth_album)"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "îlafur Arnalds",
+				"albumName" : "Another Happy Day",
+				"mbid" : "d0542407-7c57-46f2-a49d-80befab6615a",
+				"metadata" :
+				{
+					"spotify" : "0KbQLhslfkYGJokYeqsrVO"
+				}
+			}
+		},
+		{
+			"id" : 15,
+			"date" : "2012-03-29T20:00:00.000+0100",
+			"spotifyPlaylistId" : "2D8KlFpPICPn3FLWxuORBN",
+			"classicAlbum" :
+			{
+				"artistName" : "Leonard Cohen",
+				"albumName" : "Songs of Love and Hate",
+				"mbid" : "3127cecf-2d23-49b8-89d9-25c87f1d50e0",
+				"metadata" :
+				{
+					"spotify" : "1byP5MGkh5Pas7YuOtzd3I",
+					"wikipedia" : "Songs_of_love_and_hate"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Grimes",
+				"albumName" : "Visions",
+				"mbid" : "2fd00edb-391a-41ec-8f2f-01e2c202d9eb",
+				"metadata" :
+				{
+					"spotify" : "2jXthXcPiAdhatxYPv4yPk",
+					"wikipedia" : "Visions_(Grimes_album)"
+				}
+			}
+		},
+		{
+			"id" : 14,
+			"date" : "2012-02-23T20:00:00.000+0000",
+			"spotifyPlaylistId" : "4Oh6CyK6wNrHX9Pqf3rFCs",
+			"classicAlbum" :
+			{
+				"artistName" : "The Notwist",
+				"albumName" : "Neon Golden",
+				"mbid" : "0e9c6c79-02b7-4111-8c86-e1b173572113",
+				"metadata" :
+				{
+					"wikipedia" : "Neon_Golden"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "The Black Keys",
+				"albumName" : "El Camino",
+				"mbid" : "9c78e227-cedb-430f-b737-f1ea6bce6fa2",
+				"metadata" :
+				{
+					"wikipedia" : "El_Camino_(The_Black_Keys_album)"
+				}
+			}
+		},
+		{
+			"id" : 13,
+			"date" : "2012-01-26T20:00:00.000+0000",
+			"spotifyPlaylistId" : "6H8qZ497nmv7rnY0CPpy6r",
+			"classicAlbum" :
+			{
+				"artistName" : "Wire",
+				"albumName" : "154",
+				"mbid" : "1c497282-290a-4ac3-b52e-9d160e28ac28",
+				"metadata" :
+				{
+					"spotify" : "54csKoPnQbDk0dh2Un2gl4",
+					"wikipedia" : "154_(album)"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Thee Oh Sees",
+				"albumName" : "Carrion Crawler/The Dream",
+				"mbid" : "238ac0cc-bf91-475d-a455-9435181944a3",
+				"metadata" :
+				{
+					"spotify" : "7JC1vAUtlOwe8AJ3hLmr91",
+					"wikipedia" : "Carrion_Crawler/The_Dream"
+				}
+			}
+		},
+		{
+			"id" : 11,
+			"date" : "2011-11-30T20:00:00.000+0000",
+			"spotifyPlaylistId" : "1Q2AVbYJPA05zOo2jSbnHl",
+			"classicAlbum" :
+			{
+				"artistName" : "Bob Dylan",
+				"albumName" : "Desire",
+				"mbid" : "0586779a-1e0c-465a-ad7d-5dd1c0946028",
+				"metadata" :
+				{
+					"spotify" : "1T8usYsiGEMPMQOLFgJEbE",
+					"wikipedia" : "Desire_(Bob_Dylan_album)"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Still Corners",
+				"albumName" : "Creatures of an Hour",
+				"mbid" : "99c0ab05-7bd4-43e4-8009-8d255d791a45",
+				"metadata" :
+				{
+					"spotify" : "2KTTWvdCwPakrp3AVcsUQC",
+					"wikipedia" : "Creatures_of_an_Hour"
+				}
+			}
+		},
+		{
+			"id" : 10,
+			"date" : "2011-10-27T20:00:00.000+0100",
+			"spotifyPlaylistId" : "2xsrVABcCXKdvl3ohVNSuA",
+		},
+		{
+			"id" : 9,
+			"date" : "2011-09-29T20:00:00.000+0100",
+			"spotifyPlaylistId" : "4OrI6gAbI4h3p6RLx9PiPh",
+		},
+		{
+			"id" : 8,
+			"date" : "2011-08-25T20:00:00.000+0100",
+			"spotifyPlaylistId" : "7hbfCUtBEpg9cbJ4KMJxAZ",
+		},
+		{
+			"id" : 7,
+			"date" : "2011-07-28T20:00:00.000+0100",
+			"spotifyPlaylistId" : "61kKINnwrmIaa8A5yTJORy",
+		},
+		{
+			"id" : 6,
+			"date" : "2011-06-30T20:00:00.000+0100",
+			"spotifyPlaylistId" : "5F44hS5u4WYJvd8IIDlkBE",
+		},
+		{
+			"id" : 5,
+			"date" : "2011-05-26T20:00:00.000+0100",
+			"spotifyPlaylistId" : "64PSzyeTg9nmp9bhUQil2V",
+		},
+		{
+			"id" : 4,
+			"date" : "2011-04-28T20:00:00.000+0100",
+			"spotifyPlaylistId" : "0s6HtbwO5pcQpOqJAqn3mF",
+		},
+		{
+			"id" : 3,
+			"date" : "2011-03-31T20:00:00.000+0100",
+			"spotifyPlaylistId" : "09w0wmZ8qe6DcgmyIbxXwB",
+		},
+		{
+			"id" : 2,
+			"date" : "2011-02-17T20:00:00.000+0000",
+			"spotifyPlaylistId" : "1luGunqHuU7DIdkZXhH3XD",
+			"classicAlbum" :
+			{
+				"artistName" : "Stevie Wonder",
+				"albumName" : "Songs In The Key Of Life",
+				"mbid" : "5d3014fb-6761-4626-ab83-985d74177109",
+				"metadata" :
+				{
+					"spotify" : "0ekrCyUT01BzU89QbiKcaI",
+					"wikipedia" : "Songs_in_the_key_of_life"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Fujiya & Miyagi",
+				"albumName" : "Ventriloquizzing",
+				"mbid" : "4250910a-5d2b-4ce8-8d25-f4afbae0ff79",
+				"metadata" :
+				{
+					"spotify" : "7n8LCYB1fUiGSJI9BpIVFO",
+					"wikipedia" : "Ventriloquizzing"
+				}
+			}
+		},
+		{
+			"id" : 1,
+			"date" : "2011-01-27T20:00:00.000+0000",
+			"spotifyPlaylistId" : "3SWdpu43D59vl0yzbAjie4",
 		}
 	]
 }
