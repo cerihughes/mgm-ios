@@ -44,9 +44,14 @@
             // ... but update the UI in the main thread...
             MGMEvent* event = [events objectAtIndex:0];
             [self displayEvent:event];
-            [self loadImages];
+            [self.albumsView setupAlbumsInRow:4];
         });
     });
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [self loadImages];
 }
 
 - (void) displayEvent:(MGMEvent*)event
@@ -168,7 +173,6 @@
         }
     }
 
-    [self.albumsView setupAlbumsInRow:4];
     [self.albumsView renderImages:images];
 }
 
