@@ -11,7 +11,6 @@
 #import "MGMAlbum.h"
 
 #define EVENTS_URL @"http://music-geek-monthly.appspot.com/json/events.json"
-#define MAX_EVENTS 12
 
 #define JSON_ELEMENT_EVENTS @"events"
 #define JSON_ELEMENT_ID @"id"
@@ -22,6 +21,7 @@
 #define JSON_ELEMENT_ARTIST_NAME @"artistName"
 #define JSON_ELEMENT_ALBUM_NAME @"albumName"
 #define JSON_ELEMENT_MBID @"mbid"
+#define JSON_ELEMENT_SCORE @"score"
 #define JSON_ELEMENT_METADATA @"metadata"
 
 @interface MGMEventsDao ()
@@ -60,9 +60,8 @@
 - (NSArray*) eventsForJson:(NSDictionary*)json
 {
     NSArray* events = [json objectForKey:JSON_ELEMENT_EVENTS];
-    NSUInteger cap = events.count < MAX_EVENTS ? events.count : MAX_EVENTS;
-    NSMutableArray* results = [NSMutableArray arrayWithCapacity:cap];
-    for (NSUInteger i = 0; i < cap; i++)
+    NSMutableArray* results = [NSMutableArray arrayWithCapacity:events.count];
+    for (NSUInteger i = 0; i < events.count; i++)
     {
         NSDictionary* eventJson = [events objectAtIndex:i];
         NSUInteger eventNumber = [[eventJson objectForKey:JSON_ELEMENT_ID] intValue];
@@ -90,6 +89,7 @@
     NSString* artistName = [json objectForKey:JSON_ELEMENT_ARTIST_NAME];
     NSString* albumName = [json objectForKey:JSON_ELEMENT_ALBUM_NAME];
     NSString* mbid = [json objectForKey:JSON_ELEMENT_MBID];
+    NSNumber* score = [json objectForKey:JSON_ELEMENT_SCORE];
     NSDictionary* metadata = [json objectForKey:JSON_ELEMENT_METADATA];
     if (metadata == nil)
     {
@@ -100,6 +100,7 @@
     album.artistName = artistName;
     album.albumName = albumName;
     album.albumMbid = mbid;
+    album.score = score;
     album.metadata = metadata;
 
     return album;

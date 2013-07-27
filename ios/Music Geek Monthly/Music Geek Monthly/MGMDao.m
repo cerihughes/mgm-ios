@@ -27,7 +27,12 @@
 
     NSError *requestError;
     NSURLResponse *urlResponse = nil;
-    return [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    if (requestError == nil)
+    {
+        return data;
+    }
+    return nil;
 }
 
 @end

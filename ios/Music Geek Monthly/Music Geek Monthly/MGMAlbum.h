@@ -18,6 +18,7 @@
 @property (strong) NSString* artistName;
 @property (strong) NSString* albumName;
 @property (strong) NSString* albumMbid;
+@property (strong) NSNumber* score;
 @property (strong) NSDictionary* metadata;
 @property (strong) NSDictionary* imageUris;
 @property BOOL searchedLastFmData;
