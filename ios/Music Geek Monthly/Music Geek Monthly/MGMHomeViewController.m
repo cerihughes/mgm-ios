@@ -9,13 +9,16 @@
 
 #import "MGMHomeViewController.h"
 #import "MGMPulsatingAlbumsView.h"
+#import "MGMPressableAlbumView.h"
 #import "MGMEvent.h"
 
 @interface MGMHomeViewController ()
 
 @property (strong) IBOutlet MGMPulsatingAlbumsView* albumsView;
-@property (strong) IBOutlet UIButton* classicAlbumButton;
-@property (strong) IBOutlet UIButton* newlyReleasedAlbumButton;
+@property (strong) IBOutlet MGMPressableAlbumView* classicAlbumView;
+@property (strong) IBOutlet MGMPressableAlbumView* newlyReleasedAlbumView;
+
+@property (strong) NSArray* events;
 
 - (IBAction) previousEventsPressed:(id)sender;
 - (IBAction) chartsPressed:(id)sender;
@@ -34,24 +37,41 @@
 
 - (void) viewDidLoad
 {
-    [self.albumsView setupAlbumsInRow:4];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-    {
-        // Search in a background thread...
-        NSArray* events = [self.core.daoFactory.eventsDao events];
+    [super viewDidLoad];
+    
+    self.classicAlbumView.alphaOff = 0;
+    self.classicAlbumView.alphaOn = 1;
+    self.classicAlbumView.animationTime = 1;
+    [self.classicAlbumView renderImageWithNoAnimation:[UIImage imageNamed:@"album1.png"]];
+    self.classicAlbumView.activityInProgress = YES;
 
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
-            // ... but update the UI in the main thread...
-            MGMEvent* event = [events objectAtIndex:0];
-            [self displayEvent:event];
-        });
-    });
+    self.newlyReleasedAlbumView.alphaOff = 0;
+    self.newlyReleasedAlbumView.alphaOn = 1;
+    self.newlyReleasedAlbumView.animationTime = 1;
+    [self.newlyReleasedAlbumView renderImageWithNoAnimation:[UIImage imageNamed:@"album3.png"]];
+    self.newlyReleasedAlbumView.activityInProgress = YES;
+
+    [self.albumsView setupAlbumsInRow:4];
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
     [self loadImages];
+    if (self.events == nil)
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+        {
+            // Search in a background thread...
+            self.events = [self.core.daoFactory.eventsDao events];
+            MGMEvent* event = [self.events objectAtIndex:0];
+
+            dispatch_async(dispatch_get_main_queue(), ^
+            {
+                // ... but update the UI in the main thread...
+                [self displayEvent:event];
+            });
+        });
+    }
 }
 
 - (void) displayEvent:(MGMEvent*)event
@@ -71,6 +91,7 @@
             dispatch_async(dispatch_get_main_queue(), ^
             {
                 // ... but update the UI in the main thread...
+                self.classicAlbumView.activityInProgress = NO;
                 [self displayClassicAlbumImage:classicAlbum];
             });
         });
@@ -91,6 +112,7 @@
             dispatch_async(dispatch_get_main_queue(), ^
             {
                 // ... but update the UI in the main thread...
+                self.newlyReleasedAlbumView.activityInProgress = NO;
                 [self displayNewReleaseAlbumImage:newRelease];
             });
         });
@@ -107,9 +129,11 @@
     if (albumArtUri)
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
-         {
-             [self.newlyReleasedAlbumButton setImage:image forState:UIControlStateNormal];
-         }];
+        {
+            [self.newlyReleasedAlbumView renderImage:image];
+            self.newlyReleasedAlbumView.artistName = newRelease.artistName;
+            self.newlyReleasedAlbumView.albumName = newRelease.albumName;
+        }];
     }
 }
 
@@ -119,9 +143,11 @@
     if (albumArtUri)
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
-         {
-             [self.classicAlbumButton setImage:image forState:UIControlStateNormal];
-         }];
+        {
+            [self.classicAlbumView renderImage:image];
+            self.classicAlbumView.artistName = classicAlbum.artistName;
+            self.classicAlbumView.albumName = classicAlbum.albumName;
+        }];
     }
 }
 

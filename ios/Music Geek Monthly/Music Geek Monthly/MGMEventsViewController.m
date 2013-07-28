@@ -8,38 +8,17 @@
 
 #import "MGMEventsViewController.h"
 #import "MGMEvent.h"
+#import "MGMPressableAlbumView.h"
 
 @interface MGMEventsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong) IBOutlet UITableView* eventsTable;
-@property (strong) IBOutlet UILabel* classicAlbumArtistLabel;
-@property (strong) IBOutlet UILabel* classicAlbumTitleLabel;
-@property (strong) IBOutlet UIButton* classicAlbumButton;
-@property (strong) IBOutlet UILabel* newlyReleasedAlbumArtistLabel;
-@property (strong) IBOutlet UILabel* newlyReleasedAlbumTitleLabel;
-@property (strong) IBOutlet UIButton* newlyReleasedAlbumButton;
+@property (strong) IBOutlet MGMPressableAlbumView* classicAlbumView;
+@property (strong) IBOutlet MGMPressableAlbumView* newlyReleasedAlbumView;
 @property (strong) IBOutlet UIWebView* playlistWebView;
-
-@property (strong) IBOutlet UIButton* classicAlbumSpotifyButton;
-@property (strong) IBOutlet UIButton* classicAlbumLastFmButton;
-@property (strong) IBOutlet UIButton* classicAlbumWikipediaButton;
-@property (strong) IBOutlet UIButton* classicAlbumYouTubeButton;
-@property (strong) IBOutlet UIButton* newlyReleasedAlbumSpotifyButton;
-@property (strong) IBOutlet UIButton* newlyReleasedAlbumLastFmButton;
-@property (strong) IBOutlet UIButton* newlyReleasedAlbumWikipediaButton;
-@property (strong) IBOutlet UIButton* newlyReleasedAlbumYouTubeButton;
 
 @property (strong) NSDateFormatter* dateFormatter;
 @property (strong) NSArray* events;
-
-- (IBAction)classicAlbumLastFmPressed:(id)sender;
-- (IBAction)classicAlbumSpotifyPressed:(id)sender;
-- (IBAction)classicAlbumWikipediaPressed:(id)sender;
-- (IBAction)classicAlbumYouTubePressed:(id)sender;
-- (IBAction)newlyReleasedAlbumLastFmPressed:(id)sender;
-- (IBAction)newlyReleasedAlbumSpotifyPressed:(id)sender;
-- (IBAction)newlyReleasedAlbumWikipediaPressed:(id)sender;
-- (IBAction)newlyReleasedAlbumYouTubePressed:(id)sender;
 
 @end
 
@@ -65,6 +44,13 @@
 {
     [super viewDidLoad];
 
+    self.classicAlbumView.alphaOff = 0;
+    self.classicAlbumView.alphaOn = 1;
+    self.classicAlbumView.animationTime = 0.25;
+    self.newlyReleasedAlbumView.alphaOff = 0;
+    self.newlyReleasedAlbumView.alphaOn = 1;
+    self.newlyReleasedAlbumView.animationTime = 0.25;
+
     self.eventsTable.dataSource = self;
     self.eventsTable.delegate = self;
 
@@ -89,8 +75,8 @@
 - (void) displayEvent:(MGMEvent*)event
 {
     // Clear the album images...
-    [self.classicAlbumButton setImage:[UIImage imageNamed:@"album1.png"] forState:UIControlStateNormal];
-    [self.newlyReleasedAlbumButton setImage:[UIImage imageNamed:@"album2.png"] forState:UIControlStateNormal];
+//    self.classicAlbumView.albumImage = [UIImage imageNamed:@"album1.png"];
+//    self.newlyReleasedAlbumView.albumImage = [UIImage imageNamed:@"album2.png"];
 
 	NSString* dateString = [self.dateFormatter stringFromDate:event.eventDate];
     self.title = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
@@ -106,13 +92,8 @@
 
 - (void) displayClassicAlbum:(MGMAlbum*)classicAlbum
 {
-    self.classicAlbumArtistLabel.text = classicAlbum.artistName;
-    self.classicAlbumTitleLabel.text = classicAlbum.albumName;
-
-    self.classicAlbumLastFmButton.hidden = (classicAlbum.lastFmUri == nil);
-    self.classicAlbumSpotifyButton.hidden = (classicAlbum.spotifyUri == nil);
-    self.classicAlbumWikipediaButton.hidden = (classicAlbum.wikipediaUri == nil);
-    self.classicAlbumYouTubeButton.hidden = (classicAlbum.youTubeUri == nil);
+    self.classicAlbumView.artistName = classicAlbum.artistName;
+    self.classicAlbumView.albumName = classicAlbum.albumName;
 
     if (classicAlbum.searchedLastFmData == NO)
     {
@@ -134,13 +115,8 @@
 }
 - (void) displayNewRelease:(MGMAlbum*)newRelease
 {
-    self.newlyReleasedAlbumArtistLabel.text = newRelease.artistName;
-    self.newlyReleasedAlbumTitleLabel.text = newRelease.albumName;
-
-    self.newlyReleasedAlbumLastFmButton.hidden = (newRelease.lastFmUri == nil);
-    self.newlyReleasedAlbumSpotifyButton.hidden = (newRelease.spotifyUri == nil);
-    self.newlyReleasedAlbumWikipediaButton.hidden = (newRelease.wikipediaUri == nil);
-    self.newlyReleasedAlbumYouTubeButton.hidden = (newRelease.youTubeUri == nil);
+    self.newlyReleasedAlbumView.artistName = newRelease.artistName;
+    self.newlyReleasedAlbumView.albumName = newRelease.albumName;
 
     if (newRelease.searchedLastFmData == NO)
     {
@@ -168,7 +144,7 @@
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
         {
-             [self.newlyReleasedAlbumButton setImage:image forState:UIControlStateNormal];
+            [self.newlyReleasedAlbumView renderImage:image];
         }];
     }
 }
@@ -180,7 +156,7 @@
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
         {
-            [self.classicAlbumButton setImage:image forState:UIControlStateNormal];
+            [self.classicAlbumView renderImage:image];
         }];
     }
 }

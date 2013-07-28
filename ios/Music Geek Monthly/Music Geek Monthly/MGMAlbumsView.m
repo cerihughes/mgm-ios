@@ -7,9 +7,9 @@
 //
 
 #import "MGMAlbumsView.h"
-#import "MGMAlbumView.h"
+#import "MGMRankedAlbumView.h"
 
-@interface MGMAlbumsView () <MGMAlbumViewDelegate>
+@interface MGMAlbumsView () <MGMPressableAlbumViewDelegate>
 
 @property (strong) UIScrollView* scrollView;
 
@@ -21,6 +21,8 @@
 
 - (void) commonInit
 {
+    [super commonInit];
+
     CGSize parentSize = self.frame.size;
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, parentSize.width, parentSize.height)];
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -29,23 +31,13 @@
     self.albumViews = [NSMutableArray arrayWithCapacity:15];
 }
 
-- (void) clearAllAlbums
+- (void) setupAlbumFrame:(CGRect)frame forRank:(NSUInteger)rank
 {
-    for (MGMAlbumView* view in self.albumViews)
-    {
-        [view removeFromSuperview];
-    }
-    [self.albumViews removeAllObjects];
-}
-
-- (void) addAlbum:(UIImage *)albumImage artistName:(NSString *)artistName albumName:(NSString *)albumName rank:(NSUInteger)rank listeners:(NSUInteger)listeners atFrame:(CGRect)frame
-{
-    MGMAlbumView* albumView = [[MGMAlbumView alloc] initWithFrame:frame];
-    albumView.albumImage = albumImage;
-    albumView.artistName = artistName;
-    albumView.albumName = albumName;
+    MGMRankedAlbumView* albumView = [[MGMRankedAlbumView alloc] initWithFrame:frame];
+    albumView.alphaOn = 1;
+    albumView.alphaOff = 0;
+    albumView.animationTime = 0.5;
     albumView.rank = rank;
-    albumView.listeners = listeners;
     albumView.delegate = self;
     [self.scrollView addSubview:albumView];
     [self.albumViews addObject:albumView];
@@ -54,15 +46,31 @@
     self.scrollView.contentSize = CGRectUnion(existingContent, frame).size;
 }
 
-- (void) updateAlbumImage:(UIImage *)albumImage atRank:(NSUInteger)rank
+- (void) setActivityInProgress:(BOOL)inProgress forRank:(NSUInteger)rank
 {
-    MGMAlbumView* albumView = [self albumViewForRank:rank];
-    albumView.albumImage = albumImage;
+    MGMRankedAlbumView* albumView = [self albumViewForRank:rank];
+    albumView.activityInProgress = inProgress;
 }
 
-- (MGMAlbumView*) albumViewForRank:(NSUInteger)rank
+- (void) setAlbumImage:(UIImage *)albumImage artistName:(NSString *)artistName albumName:(NSString *)albumName rank:(NSUInteger)rank listeners:(NSUInteger)listeners
 {
-    for (MGMAlbumView* view in self.albumViews)
+    [self setAlbumImage:albumImage atRank:rank];
+
+    MGMRankedAlbumView* albumView = [self albumViewForRank:rank];
+    albumView.artistName = artistName;
+    albumView.albumName = albumName;
+    albumView.listeners = listeners;
+}
+
+- (void) setAlbumImage:(UIImage *)albumImage atRank:(NSUInteger)rank
+{
+    MGMRankedAlbumView* albumView = [self albumViewForRank:rank];
+    [albumView renderImage:albumImage];
+}
+
+- (MGMRankedAlbumView*) albumViewForRank:(NSUInteger)rank
+{
+    for (MGMRankedAlbumView* view in self.albumViews)
     {
         if (view.rank == rank)
         {
@@ -73,11 +81,16 @@
 }
 
 #pragma mark -
-#pragma mark MGMAlbumViewDelegate
+#pragma mark MGMPressableAlbumViewDelegate
 
-- (void) albumPressed:(MGMAlbumView *)albumView
+- (void) albumPressed:(MGMRankedAlbumView *)albumView
 {
     [self.delegate albumPressedWithRank:albumView.rank];
+}
+
+- (void) detailPressed:(MGMRankedAlbumView *)albumView
+{
+    
 }
 
 @end

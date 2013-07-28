@@ -33,6 +33,9 @@
         {
             CGRect frame = CGRectMake(row * albumWidth, column * albumWidth, albumWidth, albumWidth);
             MGMPulsatingAlbumView* imageView = [[MGMPulsatingAlbumView alloc] initWithFrame:frame];
+            imageView.alphaOn = 0.15;
+            imageView.alphaOff = 0;
+            imageView.animationTime = 3;
             [self addSubview:imageView];
             [self.albumViews addObject:imageView];
         }

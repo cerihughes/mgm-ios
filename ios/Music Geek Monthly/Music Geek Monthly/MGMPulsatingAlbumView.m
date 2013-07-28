@@ -8,10 +8,6 @@
 
 #import "MGMPulsatingAlbumView.h"
 
-#define ALPHA_OFF 0
-#define ALPHA_ON 0.15
-#define ANIMATION_TIME 3
-
 @interface MGMPulsatingAlbumView ()
 
 @property (strong) UIImageView* imageView;
@@ -22,28 +18,42 @@
 
 - (void) commonInit
 {
+    self.alphaOff = 0;
+    self.alphaOn = 0.9;
+    self.animationTime = 1;
     CGSize parentSize = self.frame.size;
     CGRect frame = CGRectMake(0, 0, parentSize.width, parentSize.height);
     self.imageView = [[UIImageView alloc] initWithFrame:frame];
     self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.imageView.alpha = ALPHA_ON;
+    self.imageView.alpha = self.alphaOn;
     [self addSubview:self.imageView];
+}
+
+- (void) renderImageWithNoAnimation:(UIImage*)image
+{
+    self.imageView.image = image;
+    self.imageView.alpha = self.alphaOn;
+}
+
+- (void) renderImage:(UIImage*)image
+{
+    [self renderImage:image afterDelay:0];
 }
 
 - (void) renderImage:(UIImage*)image afterDelay:(NSTimeInterval)delay
 {
-    [UIView animateWithDuration:ANIMATION_TIME delay:delay options:UIViewAnimationOptionCurveEaseIn animations:^
+    [UIView animateWithDuration:self.animationTime delay:delay options:UIViewAnimationOptionCurveEaseIn animations:^
     {
-        self.imageView.alpha = ALPHA_OFF;
+        self.imageView.alpha = self.alphaOff;
     }
     completion:^(BOOL finished)
     {
         self.imageView.image = image;
         if (image)
         {
-            [UIView animateWithDuration:ANIMATION_TIME animations:^
+            [UIView animateWithDuration:self.animationTime animations:^
             {
-                self.imageView.alpha = ALPHA_ON;
+                self.imageView.alpha = self.alphaOn;
             }];
         }
     }];

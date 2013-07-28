@@ -23,10 +23,6 @@
 @property (strong) NSDateFormatter* groupHeaderFormatter;
 @property (strong) NSDateFormatter* groupItemFormatter;
 
-@property NSUInteger rowCount;
-@property CGFloat albumSize;
-@property (strong) NSArray* gridData;
-
 @end
 
 @implementation MGMWeeklyChartViewController
@@ -63,9 +59,16 @@
     self.timePeriodTable.delegate = self;
 
     BOOL iPad = self.view.frame.size.width > 320;
-    self.rowCount = iPad ? 3 : 2;
-    self.albumSize = self.albumsView.frame.size.width / self.rowCount;
-    self.gridData = [MGMGridManager rectsForRows:self.rowCount columns:15 size:self.albumSize count:15];
+    NSUInteger rowCount = iPad ? 3 : 2;
+    CGFloat albumSize = self.albumsView.frame.size.width / rowCount;
+    NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:15 size:albumSize count:15];
+
+    for (NSUInteger i = 0; i < ALBUMS_IN_CHART; i++)
+    {
+        NSValue* value = [gridData objectAtIndex:i];
+        CGRect frame = [value CGRectValue];
+        [self.albumsView setupAlbumFrame:frame forRank:i + 1];
+    }
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
@@ -165,9 +168,9 @@
 
 - (void) reloadData
 {
-    [self.albumsView clearAllAlbums];
     for (MGMGroupAlbum* album in self.groupAlbums)
     {
+        [self.albumsView setActivityInProgress:YES forRank:album.rank];
         if (album.searchedLastFmData == NO)
         {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
@@ -188,29 +191,25 @@
     }
 }
 
-- (CGRect) calculatePositionForRank:(NSUInteger)rank
-{
-    NSValue* value = [self.gridData objectAtIndex:rank - 1];
-    return [value CGRectValue];
-}
-
 - (void) renderAlbum:(MGMGroupAlbum*)album
 {
     NSUInteger rank = album.rank;
-    CGRect frame = [self calculatePositionForRank:rank];
-
-    NSUInteger albumType = (album.rank % 3) + 1;
-    NSString* imageName = [NSString stringWithFormat:@"album%d.png", albumType];
-    UIImage* image = [UIImage imageNamed:imageName];
-    [self.albumsView addAlbum:image artistName:album.artistName albumName:album.albumName rank:rank listeners:album.listeners atFrame:frame];
 
     NSString* albumArtUri = [self bestImageForAlbum:album];
     if (albumArtUri)
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
         {
-            [self.albumsView updateAlbumImage:image atRank:rank];
+            [self.albumsView setActivityInProgress:NO forRank:album.rank];
+            [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:album.listeners];
         }];
+    }
+    else
+    {
+        NSUInteger albumType = (album.rank % 3) + 1;
+        NSString* imageName = [NSString stringWithFormat:@"album%d.png", albumType];
+        UIImage* image = [UIImage imageNamed:imageName];
+        [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:album.listeners];
     }
 }
 
