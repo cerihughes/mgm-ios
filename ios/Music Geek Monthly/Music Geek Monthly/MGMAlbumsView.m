@@ -7,9 +7,9 @@
 //
 
 #import "MGMAlbumsView.h"
-#import "MGMRankedAlbumView.h"
+#import "MGMAlbumView.h"
 
-@interface MGMAlbumsView () <MGMPressableAlbumViewDelegate>
+@interface MGMAlbumsView () <MGMAlbumViewDelegate>
 
 @property (strong) UIScrollView* scrollView;
 
@@ -33,7 +33,7 @@
 
 - (void) setupAlbumFrame:(CGRect)frame forRank:(NSUInteger)rank
 {
-    MGMRankedAlbumView* albumView = [[MGMRankedAlbumView alloc] initWithFrame:frame];
+    MGMAlbumView* albumView = [[MGMAlbumView alloc] initWithFrame:frame];
     albumView.alphaOn = 1;
     albumView.alphaOff = 0;
     albumView.animationTime = 0.5;
@@ -48,7 +48,7 @@
 
 - (void) setActivityInProgress:(BOOL)inProgress forRank:(NSUInteger)rank
 {
-    MGMRankedAlbumView* albumView = [self albumViewForRank:rank];
+    MGMAlbumView* albumView = [self albumViewForRank:rank];
     albumView.activityInProgress = inProgress;
 }
 
@@ -56,7 +56,7 @@
 {
     [self setAlbumImage:albumImage atRank:rank];
 
-    MGMRankedAlbumView* albumView = [self albumViewForRank:rank];
+    MGMAlbumView* albumView = [self albumViewForRank:rank];
     albumView.artistName = artistName;
     albumView.albumName = albumName;
     albumView.listeners = listeners;
@@ -64,13 +64,13 @@
 
 - (void) setAlbumImage:(UIImage *)albumImage atRank:(NSUInteger)rank
 {
-    MGMRankedAlbumView* albumView = [self albumViewForRank:rank];
+    MGMAlbumView* albumView = [self albumViewForRank:rank];
     [albumView renderImage:albumImage];
 }
 
-- (MGMRankedAlbumView*) albumViewForRank:(NSUInteger)rank
+- (MGMAlbumView*) albumViewForRank:(NSUInteger)rank
 {
-    for (MGMRankedAlbumView* view in self.albumViews)
+    for (MGMAlbumView* view in self.albumViews)
     {
         if (view.rank == rank)
         {
@@ -83,12 +83,12 @@
 #pragma mark -
 #pragma mark MGMPressableAlbumViewDelegate
 
-- (void) albumPressed:(MGMRankedAlbumView *)albumView
+- (void) albumPressed:(MGMAlbumView *)albumView
 {
     [self.delegate albumPressedWithRank:albumView.rank];
 }
 
-- (void) detailPressed:(MGMRankedAlbumView *)albumView
+- (void) detailPressed:(MGMAlbumView *)albumView
 {
     
 }

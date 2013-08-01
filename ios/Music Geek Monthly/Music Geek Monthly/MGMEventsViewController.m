@@ -8,13 +8,13 @@
 
 #import "MGMEventsViewController.h"
 #import "MGMEvent.h"
-#import "MGMPressableAlbumView.h"
+#import "MGMAlbumView.h"
 
 @interface MGMEventsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong) IBOutlet UITableView* eventsTable;
-@property (strong) IBOutlet MGMPressableAlbumView* classicAlbumView;
-@property (strong) IBOutlet MGMPressableAlbumView* newlyReleasedAlbumView;
+@property (strong) IBOutlet MGMAlbumView* classicAlbumView;
+@property (strong) IBOutlet MGMAlbumView* newlyReleasedAlbumView;
 @property (strong) IBOutlet UIWebView* playlistWebView;
 
 @property (strong) NSDateFormatter* dateFormatter;

@@ -9,14 +9,14 @@
 
 #import "MGMHomeViewController.h"
 #import "MGMPulsatingAlbumsView.h"
-#import "MGMPressableAlbumView.h"
+#import "MGMAlbumView.h"
 #import "MGMEvent.h"
 
 @interface MGMHomeViewController ()
 
 @property (strong) IBOutlet MGMPulsatingAlbumsView* albumsView;
-@property (strong) IBOutlet MGMPressableAlbumView* classicAlbumView;
-@property (strong) IBOutlet MGMPressableAlbumView* newlyReleasedAlbumView;
+@property (strong) IBOutlet MGMAlbumView* classicAlbumView;
+@property (strong) IBOutlet MGMAlbumView* newlyReleasedAlbumView;
 
 @property (strong) NSArray* events;
 

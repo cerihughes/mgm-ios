@@ -1,0 +1,223 @@
+//
+//  MGMAlbumView.m
+//  Music Geek Monthly
+//
+//  Created by Ceri Hughes on 01/08/2013.
+//  Copyright (c) 2013 Ceri Hughes. All rights reserved.
+//
+
+#import "MGMAlbumView.h"
+
+#define LISTENERS_FORMAT @"%d geeks listening this week"
+
+@interface MGMAlbumView ()
+
+@property (strong) UIImageView* imageView;
+@property (strong) UIButton* detailButton;
+@property (strong) UILabel* artistLabel;
+@property (strong) UILabel* albumLabel;
+@property (strong) UIActivityIndicatorView* activityIndicatorView;
+@property (strong) UILabel* rankLabel;
+@property (strong) UILabel* listenersLabel;
+
+@end
+
+@implementation MGMAlbumView
+{
+    NSUInteger _listeners;
+}
+
++ (UILabel*) createLabelWithRect:(CGRect)rect fontName:(NSString*)fontName fontSize:(CGFloat)fontSize
+{
+    UILabel* label = [[UILabel alloc] initWithFrame:rect];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor whiteColor];
+    label.shadowColor = [UIColor blackColor];
+    label.font = [UIFont fontWithName:fontName size:fontSize];
+    label.shadowOffset = CGSizeMake(2, 2);
+
+    return label;
+}
+
+- (void) commonInit
+{
+    [super commonInit];
+    
+    self.alphaOff = 0;
+    self.alphaOn = 0.9;
+    self.animationTime = 1;
+    
+    CGSize parentSize = self.frame.size;
+    CGRect frame = CGRectMake(0, 0, parentSize.width, parentSize.height);
+    self.imageView = [[UIImageView alloc] initWithFrame:frame];
+    self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.imageView.alpha = self.alphaOn;
+
+    CGSize size = self.frame.size;
+    CGFloat width = size.width - 4;
+    CGFloat height = size.height - 4;
+
+    CGFloat fontSize = height / 4 / 1.25;
+    self.rankLabel = [MGMAlbumView createLabelWithRect:CGRectMake(2, 2, width / 4, height / 4) fontName:DEFAULT_FONT_BOLD fontSize:fontSize];
+    self.rankLabel.alpha = 0.75;
+    self.rankLabel.textColor = [UIColor yellowColor];
+
+    self.detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    CGFloat detailWidth = 34;
+    CGFloat detailHeight = detailWidth;
+    CGFloat detailX = width - (detailWidth + 10);
+    CGFloat detailY = 10;
+    self.detailButton.frame = CGRectMake(detailX, detailY, detailWidth, detailHeight);
+    self.detailButton.alpha = 0;
+    self.detailViewShowing = NO;
+    [self.detailButton addTarget:self action:@selector(detailPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+    CGFloat textParentViewWidth = width - 4;
+    CGFloat textParentViewHeight = height / 4;
+    CGFloat y = height - textParentViewHeight - 2;
+    UIView* textParentView = [[UIView alloc] initWithFrame:CGRectMake(2, y, textParentViewWidth, textParentViewHeight)];
+    textParentView.autoresizesSubviews = YES;
+    textParentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    textParentView.backgroundColor = [UIColor clearColor];
+
+    CGFloat textWidth = textParentViewWidth - 4;
+    CGFloat textHeight = textParentViewHeight / 3;
+    fontSize = textHeight / 1.25;
+    self.artistLabel = [MGMAlbumView createLabelWithRect:CGRectMake(2, 0, textWidth, textHeight) fontName:DEFAULT_FONT_BOLD fontSize:fontSize];
+    self.albumLabel = [MGMAlbumView createLabelWithRect:CGRectMake(2, textHeight, textWidth, textHeight) fontName:DEFAULT_FONT_MEDIUM fontSize:fontSize];
+    self.listenersLabel = [MGMAlbumView createLabelWithRect:CGRectMake(2, 2 * textHeight, textWidth, textHeight) fontName:DEFAULT_FONT_ITALIC fontSize:fontSize];
+
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.activityIndicatorView setContentMode:UIViewContentModeCenter];
+    self.activityInProgress = NO;
+
+    [self addSubview:self.imageView];
+    [self addSubview:self.rankLabel];
+
+    [self addSubview:textParentView];
+    [textParentView addSubview:self.artistLabel];
+    [textParentView addSubview:self.albumLabel];
+    [textParentView addSubview:self.listenersLabel];
+
+    [self addSubview:self.detailButton];
+    [self addSubview:self.activityIndicatorView];
+}
+
+- (NSString*) artistName
+{
+    return self.artistLabel.text;
+}
+
+- (void) setArtistName:(NSString *)artistName
+{
+    self.artistLabel.text = artistName;
+}
+
+- (NSString*) albumName
+{
+    return self.albumLabel.text;
+}
+
+- (void) setAlbumName:(NSString *)albumName
+{
+    self.albumLabel.text = albumName;
+}
+
+- (void) imagePressed:(id)receiver
+{
+    [self.delegate albumPressed:self];
+}
+
+- (void) detailPressed:(id)receiver
+{
+    [self.delegate detailPressed:self];
+}
+
+- (BOOL) activityInProgress
+{
+    return self.activityIndicatorView.hidden == NO;
+}
+
+- (void) setActivityInProgress:(BOOL)activityInProgress
+{
+    if (activityInProgress)
+    {
+        [self.activityIndicatorView startAnimating];
+    }
+    else
+    {
+        [self.activityIndicatorView stopAnimating];
+    }
+}
+
+- (BOOL) detailViewShowing
+{
+    return self.detailButton.alpha == self.alphaOn;
+}
+
+- (void) setDetailViewShowing:(BOOL)detailViewShowing
+{
+    self.detailButton.userInteractionEnabled = detailViewShowing;
+    CGFloat newAlpha = detailViewShowing ? self.alphaOn : self.alphaOff;
+    [UIView animateWithDuration:self.animationTime * 2 animations:^
+    {
+        self.detailButton.alpha = newAlpha;
+    }];
+}
+
+- (NSUInteger) rank
+{
+    return self.rankLabel.text.intValue;
+}
+
+- (void) setRank:(NSUInteger)rank
+{
+    self.rankLabel.hidden = (rank == 0);
+    self.rankLabel.text = [NSString stringWithFormat:@"%d", rank];
+}
+
+- (NSUInteger) listeners
+{
+    return _listeners;
+}
+
+- (void) setListeners:(NSUInteger)listeners
+{
+    self.listenersLabel.hidden = (listeners == 0);
+    self.listenersLabel.text = [NSString stringWithFormat:LISTENERS_FORMAT, listeners];
+    _listeners = listeners;
+}
+
+
+- (void) renderImageWithNoAnimation:(UIImage*)image
+{
+    self.imageView.image = image;
+    self.imageView.alpha = self.alphaOn;
+}
+
+- (void) renderImage:(UIImage*)image
+{
+    [self renderImage:image afterDelay:0];
+}
+
+- (void) renderImage:(UIImage*)image afterDelay:(NSTimeInterval)delay
+{
+    [UIView animateWithDuration:self.animationTime delay:delay options:UIViewAnimationOptionCurveEaseIn animations:^
+    {
+        self.imageView.alpha = self.alphaOff;
+    }
+    completion:^(BOOL finished)
+    {
+        self.imageView.image = image;
+        if (image)
+        {
+            [UIView animateWithDuration:self.animationTime animations:^
+            {
+                self.imageView.alpha = self.alphaOn;
+            }];
+        }
+    }];
+}
+
+@end

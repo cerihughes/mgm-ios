@@ -7,7 +7,7 @@
 //
 
 #import "MGMPulsatingAlbumsView.h"
-#import "MGMPulsatingAlbumView.h"
+#import "MGMAlbumView.h"
 
 @interface MGMPulsatingAlbumsView ()
 
@@ -32,7 +32,7 @@
         for (NSUInteger column = 0; column < albumsInColumn; column++)
         {
             CGRect frame = CGRectMake(row * albumWidth, column * albumWidth, albumWidth, albumWidth);
-            MGMPulsatingAlbumView* imageView = [[MGMPulsatingAlbumView alloc] initWithFrame:frame];
+            MGMAlbumView* imageView = [[MGMAlbumView alloc] initWithFrame:frame];
             imageView.alphaOn = 0.15;
             imageView.alphaOff = 0;
             imageView.animationTime = 3;
@@ -47,7 +47,7 @@
     NSArray* shuffled = [self shuffledCopy:self.albumViews];
     for (NSUInteger i = 0; i < shuffled.count; i++)
     {
-        MGMPulsatingAlbumView* albumView = [shuffled objectAtIndex:i];
+        MGMAlbumView* albumView = [shuffled objectAtIndex:i];
         [albumView renderImage:[self randomImageFromArray:images] afterDelay:i / 4.0];
     }
 }

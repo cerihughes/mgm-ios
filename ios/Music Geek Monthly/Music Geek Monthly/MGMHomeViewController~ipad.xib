@@ -488,9 +488,9 @@
 				<string key="570.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="61.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="639.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="671.CustomClassName">MGMPressableAlbumView</string>
+				<string key="671.CustomClassName">MGMAlbumView</string>
 				<string key="671.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="672.CustomClassName">MGMPressableAlbumView</string>
+				<string key="672.CustomClassName">MGMAlbumView</string>
 				<string key="672.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
@@ -501,6 +501,14 @@
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">MGMAlbumView</string>
+					<string key="superclassName">MGMView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MGMAlbumView.h</string>
+					</object>
+				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">MGMHomeViewController</string>
 					<string key="superclassName">MGMViewController</string>
@@ -520,8 +528,8 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="albumsView">MGMPulsatingAlbumsView</string>
-						<string key="classicAlbumView">MGMPressableAlbumView</string>
-						<string key="newlyReleasedAlbumView">MGMPressableAlbumView</string>
+						<string key="classicAlbumView">MGMAlbumView</string>
+						<string key="newlyReleasedAlbumView">MGMAlbumView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="albumsView">
@@ -530,32 +538,16 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="classicAlbumView">
 							<string key="name">classicAlbumView</string>
-							<string key="candidateClassName">MGMPressableAlbumView</string>
+							<string key="candidateClassName">MGMAlbumView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="newlyReleasedAlbumView">
 							<string key="name">newlyReleasedAlbumView</string>
-							<string key="candidateClassName">MGMPressableAlbumView</string>
+							<string key="candidateClassName">MGMAlbumView</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/MGMHomeViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">MGMPressableAlbumView</string>
-					<string key="superclassName">MGMPulsatingAlbumView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/MGMPressableAlbumView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">MGMPulsatingAlbumView</string>
-					<string key="superclassName">MGMView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/MGMPulsatingAlbumView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
