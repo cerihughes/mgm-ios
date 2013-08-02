@@ -42,6 +42,7 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrameSize">{173, 1004}</string>
 						<reference key="NSSuperview" ref="393961274"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="79843273"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -69,6 +70,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{326, 20}, {196, 21}}</string>
 								<reference key="NSSuperview" ref="79843273"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="85163317"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -101,6 +103,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{65, 20}, {196, 21}}</string>
 								<reference key="NSSuperview" ref="79843273"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="447573999"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -122,6 +125,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 253}, {547, 21}}</string>
 								<reference key="NSSuperview" ref="79843273"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="385827835"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -143,6 +147,7 @@
 								<int key="NSvFlags">276</int>
 								<string key="NSFrame">{{20, 282}, {547, 702}}</string>
 								<reference key="NSSuperview" ref="79843273"/>
+								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<string key="NSAntiCompressionPriority">{750, 750}</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -158,6 +163,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{65, 49}, {196, 196}}</string>
 								<reference key="NSSuperview" ref="79843273"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="343930944"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -174,6 +180,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{326, 49}, {196, 196}}</string>
 								<reference key="NSSuperview" ref="79843273"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="781064828"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -186,6 +193,7 @@
 						</array>
 						<string key="NSFrame">{{181, 0}, {587, 1004}}</string>
 						<reference key="NSSuperview" ref="393961274"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="455320388"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSHuggingPriority">{250, 250}</string>
@@ -199,6 +207,7 @@
 				</array>
 				<string key="NSFrame">{{0, 20}, {768, 1004}}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="716614311"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -359,7 +368,74 @@
 			<nil key="sourceID"/>
 			<int key="maxID">292</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">MGMAlbumView</string>
+					<string key="superclassName">MGMView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MGMAlbumView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MGMAlbumViewController</string>
+					<string key="superclassName">MGMViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MGMAlbumViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MGMEventsViewController</string>
+					<string key="superclassName">MGMAlbumViewController</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="classicAlbumView">MGMAlbumView</string>
+						<string key="eventsTable">UITableView</string>
+						<string key="newlyReleasedAlbumView">MGMAlbumView</string>
+						<string key="playlistWebView">UIWebView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="classicAlbumView">
+							<string key="name">classicAlbumView</string>
+							<string key="candidateClassName">MGMAlbumView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="eventsTable">
+							<string key="name">eventsTable</string>
+							<string key="candidateClassName">UITableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="newlyReleasedAlbumView">
+							<string key="name">newlyReleasedAlbumView</string>
+							<string key="candidateClassName">MGMAlbumView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="playlistWebView">
+							<string key="name">playlistWebView</string>
+							<string key="candidateClassName">UIWebView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MGMEventsViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MGMView</string>
+					<string key="superclassName">UIView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MGMView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MGMViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MGMViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

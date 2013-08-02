@@ -7,11 +7,11 @@
 
 #define ALBUMS_IN_CHART 15
 
-@interface MGMWeeklyChartViewController () <MGMWeeklyChartAlbumsViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UITableViewDelegate, UIPickerViewDelegate>
+@interface MGMWeeklyChartViewController () <MGMWeeklyChartAlbumsViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong) IBOutlet UITableView* timePeriodTable;
-@property (strong) IBOutlet UIPickerView* timePeriodPicker;
 @property (strong) IBOutlet MGMWeeklyChartAlbumsView* albumsView;
+@property (strong) IBOutlet UIViewController* iPhone2ndController;
 
 @property (strong) NSArray* timePeriods;
 @property (strong) NSMutableArray* timePeriodTitles;
@@ -53,8 +53,6 @@
     [super viewDidLoad];
 
     self.albumsView.delegate = self;
-    self.timePeriodPicker.dataSource = self;
-    self.timePeriodPicker.delegate = self;
     self.timePeriodTable.dataSource = self;
     self.timePeriodTable.delegate = self;
 
@@ -79,15 +77,16 @@
         dispatch_async(dispatch_get_main_queue(), ^
         {
             // ... but update the UI in the main thread...
-            [self.timePeriodPicker reloadAllComponents];
-            [self.timePeriodPicker selectRow:0 inComponent:0 animated:YES];
-
             [self.timePeriodTable reloadData];
             NSIndexPath* path = [NSIndexPath indexPathForRow:0 inSection:0];
             [self.timePeriodTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
 
             MGMTimePeriod* timePeriod = [self.timePeriods objectAtIndex:0];
-            [self loadAlbumsForPeriod:timePeriod];
+            if (self.iPhone2ndController == nil)
+            {
+                // Only auto-populate on iPad...
+                [self loadAlbumsForPeriod:timePeriod];
+            }
         });
     });
 }
@@ -117,7 +116,15 @@
 
 - (void) loadAlbumsForPeriod:(MGMTimePeriod*)timePeriod
 {
-    self.title = [self titleForTimePeriod:timePeriod];
+    if (self.iPhone2ndController)
+    {
+        [self.navigationController pushViewController:self.iPhone2ndController animated:YES];
+        self.iPhone2ndController.title = [self titleForTimePeriod:timePeriod];
+    }
+    else
+    {
+        self.title = [self titleForTimePeriod:timePeriod];
+    }
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
@@ -250,41 +257,11 @@
 }
 
 #pragma mark -
-#pragma mark UIPickerViewDataSource
-
-- (NSInteger) numberOfComponentsInPickerView:(UIPickerView*)pickerView
-{
-    return 1;
-}
-
-- (NSInteger) pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return self.timePeriods.count;
-}
-
-#pragma mark -
 #pragma mark UITableViewDelegate
 
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     MGMTimePeriod* timePeriod = [self timePeriodForIndexPath:indexPath];
-    [self loadAlbumsForPeriod:timePeriod];
-}
-
-#pragma mark -
-#pragma mark UIPickerViewDelegate
-
-- (NSString *)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    MGMTimePeriod* period = [self.timePeriods objectAtIndex:row];
-	NSString* startString = [self.dateFormatter stringFromDate:period.startDate];
-	NSString* endString = [self.dateFormatter stringFromDate:period.endDate];
-    return [NSString stringWithFormat:@"%@ - %@", startString, endString];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    MGMTimePeriod* timePeriod = [self.timePeriods objectAtIndex:row];
     [self loadAlbumsForPeriod:timePeriod];
 }
 
