@@ -6,15 +6,13 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMDao.h"
+#import "MGMAlbumMetadataDao.h"
 #import "MGMTimePeriod.h"
-#import "MGMGroupAlbum.h"
 
-@interface MGMLastFmDao : MGMDao
+@interface MGMLastFmDao : MGMAlbumMetadataDao
 
 - (NSArray*) weeklyTimePeriods;
 - (NSArray*) topWeeklyAlbums:(NSUInteger)count forTimePeriod:(MGMTimePeriod*)timePeriod;
 - (NSArray*) topWeeklyAlbumsForMostRecentTimePeriod:(NSUInteger)count;
-- (void) updateAlbumInfo:(MGMAlbum*)album;
 
 @end

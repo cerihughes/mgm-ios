@@ -17,4 +17,6 @@
 @property (strong) MGMSpotifyDao* spotifyDao;
 @property (strong) MGMEventsDao* eventsDao;
 
+- (MGMAlbumMetadataDao*) metadataDaoForServiceType:(MGMAlbumServiceType)serviceType;
+
 @end

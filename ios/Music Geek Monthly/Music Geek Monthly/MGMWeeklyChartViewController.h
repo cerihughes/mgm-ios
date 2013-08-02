@@ -1,6 +1,6 @@
 
-#import "MGMViewController.h"
+#import "MGMAlbumViewController.h"
 
-@interface MGMWeeklyChartViewController : MGMViewController
+@interface MGMWeeklyChartViewController : MGMAlbumViewController
 
 @end

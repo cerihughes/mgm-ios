@@ -12,13 +12,14 @@
 #import "MGMAlbumView.h"
 #import "MGMEvent.h"
 
-@interface MGMHomeViewController ()
+@interface MGMHomeViewController () <MGMAlbumViewDelegate>
 
 @property (strong) IBOutlet MGMPulsatingAlbumsView* albumsView;
 @property (strong) IBOutlet MGMAlbumView* classicAlbumView;
 @property (strong) IBOutlet MGMAlbumView* newlyReleasedAlbumView;
 
-@property (strong) NSArray* events;
+@property (strong) MGMEvent* event;
+@property (strong) NSArray* backgroundImages;
 
 - (IBAction) previousEventsPressed:(id)sender;
 - (IBAction) chartsPressed:(id)sender;
@@ -42,36 +43,37 @@
     self.classicAlbumView.alphaOff = 0;
     self.classicAlbumView.alphaOn = 1;
     self.classicAlbumView.animationTime = 1;
-    [self.classicAlbumView renderImageWithNoAnimation:[UIImage imageNamed:@"album1.png"]];
     self.classicAlbumView.activityInProgress = YES;
+    self.classicAlbumView.pressable = NO;
+    self.classicAlbumView.delegate = self;
 
     self.newlyReleasedAlbumView.alphaOff = 0;
     self.newlyReleasedAlbumView.alphaOn = 1;
     self.newlyReleasedAlbumView.animationTime = 1;
-    [self.newlyReleasedAlbumView renderImageWithNoAnimation:[UIImage imageNamed:@"album3.png"]];
     self.newlyReleasedAlbumView.activityInProgress = YES;
+    self.newlyReleasedAlbumView.pressable = NO;
+    self.newlyReleasedAlbumView.delegate = self;
 
     [self.albumsView setupAlbumsInRow:4];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    {
+        // Search in a background thread...
+        self.event = [self.core.daoFactory.eventsDao latestEvent];
+
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            // ... but update the UI in the main thread...
+            [self displayEvent:self.event];
+        });
+    });
+
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     [self loadImages];
-    if (self.events == nil)
-    {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-        {
-            // Search in a background thread...
-            self.events = [self.core.daoFactory.eventsDao events];
-            MGMEvent* event = [self.events objectAtIndex:0];
-
-            dispatch_async(dispatch_get_main_queue(), ^
-            {
-                // ... but update the UI in the main thread...
-                [self displayEvent:event];
-            });
-        });
-    }
 }
 
 - (void) displayEvent:(MGMEvent*)event
@@ -82,7 +84,7 @@
 
 - (void) displayClassicAlbum:(MGMAlbum*)classicAlbum
 {
-    if (classicAlbum.searchedLastFmData == NO)
+    if ([classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
         {
@@ -103,7 +105,7 @@
 }
 - (void) displayNewRelease:(MGMAlbum*)newRelease
 {
-    if (newRelease.searchedLastFmData == NO)
+    if ([newRelease searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
         {
@@ -133,6 +135,8 @@
             [self.newlyReleasedAlbumView renderImage:image];
             self.newlyReleasedAlbumView.artistName = newRelease.artistName;
             self.newlyReleasedAlbumView.albumName = newRelease.albumName;
+            self.newlyReleasedAlbumView.pressable = YES;
+            self.newlyReleasedAlbumView.detailViewShowing = YES;
         }];
     }
 }
@@ -147,59 +151,56 @@
             [self.classicAlbumView renderImage:image];
             self.classicAlbumView.artistName = classicAlbum.artistName;
             self.classicAlbumView.albumName = classicAlbum.albumName;
+            self.classicAlbumView.pressable = YES;
+            self.classicAlbumView.detailViewShowing = YES;
         }];
     }
 }
 
 - (NSString*) bestImageForAlbum:(MGMAlbum*)album
 {
-    NSString* uri;
-    if((uri = [self imageSize:IMAGE_SIZE_EXTRA_LARGE forAlbum:album]) != nil)
+    // TODO - Make this a strategy
+    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeLarge, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
+    for (NSUInteger i = 0; i < 5; i++)
     {
-        return uri;
-    }
-    if((uri = [self imageSize:IMAGE_SIZE_MEGA forAlbum:album]) != nil)
-    {
-        return uri;
-    }
-    if((uri = [self imageSize:IMAGE_SIZE_LARGE forAlbum:album]) != nil)
-    {
-        return uri;
-    }
-    if((uri = [self imageSize:IMAGE_SIZE_MEDIUM forAlbum:album]) != nil)
-    {
-        return uri;
-    }
-    if((uri = [self imageSize:IMAGE_SIZE_SMALL forAlbum:album]) != nil)
-    {
-        return uri;
+        NSString* uri = [album imageUrlForImageSize:sizes[i]];
+        if (uri)
+        {
+            return uri;
+        }
     }
     return nil;
 }
 
-- (NSString*) imageSize:(NSString*)size forAlbum:(MGMAlbum*)album
-{
-    return [album.imageUris objectForKey:size];
-}
-
 - (void) loadImages
 {
-    NSArray* albums = [self.core.daoFactory.lastFmDao topWeeklyAlbumsForMostRecentTimePeriod:30];
-    NSMutableArray* images = [NSMutableArray arrayWithCapacity:albums.count];
-    for (MGMGroupAlbum* album in albums)
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        NSString* albumArtUri = [self bestImageForAlbum:album];
-        if (albumArtUri)
+        // Search in a background thread...
+        if (self.backgroundImages == nil)
         {
-            UIImage* image = [MGMImageHelper imageFromUrl:albumArtUri];
-            if (image)
+            self.backgroundImages = [self.core.daoFactory.lastFmDao topWeeklyAlbumsForMostRecentTimePeriod:30];
+        }
+        NSMutableArray* images = [NSMutableArray arrayWithCapacity:self.backgroundImages.count];
+        for (MGMAlbum* album in self.backgroundImages)
+        {
+            NSString* albumArtUri = [self bestImageForAlbum:album];
+            if (albumArtUri)
             {
-                [images addObject:image];
+                UIImage* image = [MGMImageHelper imageFromUrl:albumArtUri];
+                if (image)
+                {
+                    [images addObject:image];
+                }
             }
         }
-    }
 
-    [self.albumsView renderImages:images];
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            // ... but update the UI in the main thread...
+            [self.albumsView renderImages:images];
+        });
+    });
 }
 
 - (IBAction) previousEventsPressed:(id)sender
@@ -210,6 +211,24 @@
 - (IBAction) chartsPressed:(id)sender
 {
     [self.delegate optionSelected:MGMHomeViewControllerOptionCharts];
+}
+
+#pragma mark -
+#pragma mark MGMAlbumViewDelegate
+
+- (MGMAlbum*) albumForAlbumView:(MGMAlbumView*)albumView
+{
+    return albumView == self.classicAlbumView ? self.event.classicAlbum : self.event.newlyReleasedAlbum;
+}
+
+- (void) albumPressed:(MGMAlbumView*)albumView
+{
+    [self.albumSelectionDelegate albumSelected:[self albumForAlbumView:albumView]];
+}
+
+- (void) detailPressed:(MGMAlbumView*)albumView
+{
+    [self.albumSelectionDelegate detailSelected:[self albumForAlbumView:albumView]];
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  MGMAlbumsView.h
+//  MGMWeeklyChartAlbumsView.h
 //  Music Geek Monthly
 //
 //  Created by Ceri Hughes on 17/06/2013.
@@ -8,15 +8,16 @@
 
 #import "MGMView.h"
 
-@protocol MGMAlbumsViewDelegate <NSObject>
+@protocol MGMWeeklyChartAlbumsViewDelegate <NSObject>
 
 - (void) albumPressedWithRank:(NSUInteger)rank;
+- (void) detailPressedWithRank:(NSUInteger)rank;
 
 @end
 
-@interface MGMAlbumsView : MGMView
+@interface MGMWeeklyChartAlbumsView : MGMView
 
-@property (weak) id<MGMAlbumsViewDelegate> delegate;
+@property (weak) id<MGMWeeklyChartAlbumsViewDelegate> delegate;
 
 - (void) setupAlbumFrame:(CGRect)frame forRank:(NSUInteger)rank;
 - (void) setActivityInProgress:(BOOL)inProgress forRank:(NSUInteger)rank;

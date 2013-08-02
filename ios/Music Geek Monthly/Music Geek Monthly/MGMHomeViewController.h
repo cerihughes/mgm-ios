@@ -6,13 +6,11 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMViewController.h"
-
+#import "MGMAlbumViewController.h"
 
 typedef enum
 {
     MGMHomeViewControllerOptionPreviousEvents,
-    MGMHomeViewControllerOptionNextEvent,
     MGMHomeViewControllerOptionCharts
 }
 MGMHomeViewControllerOption;
@@ -23,7 +21,7 @@ MGMHomeViewControllerOption;
 
 @end
 
-@interface MGMHomeViewController : MGMViewController
+@interface MGMHomeViewController : MGMAlbumViewController
 
 @property (weak) id<MGMHomeViewControllerDelegate> delegate;
 

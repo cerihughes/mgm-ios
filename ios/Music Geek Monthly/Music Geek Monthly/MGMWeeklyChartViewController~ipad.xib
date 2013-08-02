@@ -65,6 +65,7 @@
 						<string key="NSFrame">{{181, 0}, {587, 1004}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -165,7 +166,7 @@
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="12.CustomClassName">MGMAlbumsView</string>
+				<string key="12.CustomClassName">MGMWeeklyChartAlbumsView</string>
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -178,11 +179,11 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
-					<string key="className">MGMAlbumsView</string>
-					<string key="superclassName">MGMView</string>
+					<string key="className">MGMAlbumViewController</string>
+					<string key="superclassName">MGMViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/MGMAlbumsView.h</string>
+						<string key="minorKey">./Classes/MGMAlbumViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -202,17 +203,25 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">MGMWeeklyChartAlbumsView</string>
+					<string key="superclassName">MGMView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MGMWeeklyChartAlbumsView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">MGMWeeklyChartViewController</string>
-					<string key="superclassName">MGMViewController</string>
+					<string key="superclassName">MGMAlbumViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="albumsView">MGMAlbumsView</string>
+						<string key="albumsView">MGMWeeklyChartAlbumsView</string>
 						<string key="timePeriodPicker">UIPickerView</string>
 						<string key="timePeriodTable">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="albumsView">
 							<string key="name">albumsView</string>
-							<string key="candidateClassName">MGMAlbumsView</string>
+							<string key="candidateClassName">MGMWeeklyChartAlbumsView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="timePeriodPicker">
 							<string key="name">timePeriodPicker</string>

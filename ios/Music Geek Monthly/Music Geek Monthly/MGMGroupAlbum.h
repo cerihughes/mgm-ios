@@ -8,12 +8,6 @@
 
 #import "MGMAlbum.h"
 
-#define IMAGE_SIZE_SMALL @"small"
-#define IMAGE_SIZE_MEDIUM @"medium"
-#define IMAGE_SIZE_LARGE @"large"
-#define IMAGE_SIZE_EXTRA_LARGE @"extralarge"
-#define IMAGE_SIZE_MEGA @"mega"
-
 @interface MGMGroupAlbum : MGMAlbum
 
 @property NSUInteger rank;

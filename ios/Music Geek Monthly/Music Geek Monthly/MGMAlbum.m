@@ -8,40 +8,55 @@
 
 #import "MGMAlbum.h"
 
-#define URI_PATTERN_SPOTIFY @"spotify:album:%@"
-#define URI_PATTERN_WIKIPEDIA @"http://en.wikipedia.org/wiki/%@"
-#define URI_PATTERN_YOUTUBE @"http://www.youtube.com/watch?v=%@"
+@interface MGMAlbum ()
+
+@property (strong) NSMutableArray* searchedServiceTypes;
+@property (strong) NSMutableDictionary* metadata;
+@property (strong) NSMutableDictionary* imageUris;
+
+@end
 
 @implementation MGMAlbum
 
-- (NSString*) uriForMetadataKey:(NSString*)metadataKey pattern:(NSString*)pattern
+- (id)init
 {
-    NSString* data = [self.metadata objectForKey:metadataKey];
-    if (data)
+    if (self = [super init])
     {
-        return [NSString stringWithFormat:pattern, data];
+        self.searchedServiceTypes = [NSMutableArray array];
+        self.metadata = [NSMutableDictionary dictionary];
+        self.imageUris = [NSMutableDictionary dictionary];
     }
-    return nil;
+    return self;
 }
 
-- (NSString*) lastFmUri
+- (BOOL) searchedServiceType:(MGMAlbumServiceType)serviceType
 {
-    return nil;
+    return [self.searchedServiceTypes containsObject:[NSNumber numberWithInt:serviceType]];
 }
 
-- (NSString*) spotifyUri
+- (void) setServiceTypeSearched:(MGMAlbumServiceType)serviceType
 {
-    return [self uriForMetadataKey:METADATA_KEY_SPOTIFY pattern:URI_PATTERN_SPOTIFY];
+    [self.searchedServiceTypes addObject:[NSNumber numberWithInt:serviceType]];
 }
 
-- (NSString*) wikipediaUri
+- (NSString*) imageUrlForImageSize:(MGMAlbumImageSize)size
 {
-    return [self uriForMetadataKey:METADATA_KEY_WIKIPEDIA pattern:URI_PATTERN_WIKIPEDIA];
+    return [self.imageUris objectForKey:[NSNumber numberWithInt:size]];
 }
 
-- (NSString*) youTubeUri
+- (void) setImageUrl:(NSString*)imageUrl forImageSize:(MGMAlbumImageSize)size
 {
-    return [self uriForMetadataKey:METADATA_KEY_YOUTUBE pattern:URI_PATTERN_YOUTUBE];
+    [self.imageUris setObject:imageUrl forKey:[NSNumber numberWithInt:size]];
+}
+
+- (NSString*) metadataForServiceType:(MGMAlbumServiceType)serviceType
+{
+    return [self.metadata objectForKey:[NSNumber numberWithInt:serviceType]];
+}
+
+- (void) setMetadata:(NSString*)metadata forServiceType:(MGMAlbumServiceType)serviceType
+{
+    [self.metadata setObject:metadata forKey:[NSNumber numberWithInt:serviceType]];
 }
 
 @end

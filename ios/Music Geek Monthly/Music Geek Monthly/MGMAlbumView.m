@@ -12,7 +12,7 @@
 
 @interface MGMAlbumView ()
 
-@property (strong) UIImageView* imageView;
+@property (strong) UIButton* button;
 @property (strong) UIButton* detailButton;
 @property (strong) UILabel* artistLabel;
 @property (strong) UILabel* albumLabel;
@@ -44,15 +44,17 @@
 {
     [super commonInit];
     
-    self.alphaOff = 0;
-    self.alphaOn = 0.9;
+    self.alphaOff = 0.0;
+    self.alphaOn = 1.0;
     self.animationTime = 1;
     
     CGSize parentSize = self.frame.size;
     CGRect frame = CGRectMake(0, 0, parentSize.width, parentSize.height);
-    self.imageView = [[UIImageView alloc] initWithFrame:frame];
-    self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.imageView.alpha = self.alphaOn;
+    self.button = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.button.frame = frame;
+    self.button.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.button.alpha = self.alphaOff + 0.0001; // So that we initially animate...
+    self.pressable = NO;
 
     CGSize size = self.frame.size;
     CGFloat width = size.width - 4;
@@ -92,16 +94,26 @@
     [self.activityIndicatorView setContentMode:UIViewContentModeCenter];
     self.activityInProgress = NO;
 
-    [self addSubview:self.imageView];
-    [self addSubview:self.rankLabel];
+    [self addSubview:self.button];
+    [self.button addSubview:self.rankLabel];
 
-    [self addSubview:textParentView];
+    [self.button addSubview:textParentView];
     [textParentView addSubview:self.artistLabel];
     [textParentView addSubview:self.albumLabel];
     [textParentView addSubview:self.listenersLabel];
 
-    [self addSubview:self.detailButton];
+    [self.button addSubview:self.detailButton];
     [self addSubview:self.activityIndicatorView];
+}
+
+- (BOOL) pressable
+{
+    return self.button.userInteractionEnabled;
+}
+
+- (void) setPressable:(BOOL)pressable
+{
+    self.button.userInteractionEnabled = pressable;
 }
 
 - (NSString*) artistName
@@ -160,10 +172,7 @@
 {
     self.detailButton.userInteractionEnabled = detailViewShowing;
     CGFloat newAlpha = detailViewShowing ? self.alphaOn : self.alphaOff;
-    [UIView animateWithDuration:self.animationTime * 2 animations:^
-    {
-        self.detailButton.alpha = newAlpha;
-    }];
+    self.detailButton.alpha = newAlpha;
 }
 
 - (NSUInteger) rank
@@ -189,11 +198,10 @@
     _listeners = listeners;
 }
 
-
 - (void) renderImageWithNoAnimation:(UIImage*)image
 {
-    self.imageView.image = image;
-    self.imageView.alpha = self.alphaOn;
+    [self.button setImage:image forState:UIControlStateNormal];
+    self.button.alpha = self.alphaOn;
 }
 
 - (void) renderImage:(UIImage*)image
@@ -205,18 +213,14 @@
 {
     [UIView animateWithDuration:self.animationTime delay:delay options:UIViewAnimationOptionCurveEaseIn animations:^
     {
-        self.imageView.alpha = self.alphaOff;
+        self.button.alpha = self.alphaOff;
     }
     completion:^(BOOL finished)
     {
-        self.imageView.image = image;
-        if (image)
+        [UIView animateWithDuration:self.animationTime animations:^
         {
-            [UIView animateWithDuration:self.animationTime animations:^
-            {
-                self.imageView.alpha = self.alphaOn;
-            }];
-        }
+            [self renderImageWithNoAnimation:image];
+        }];
     }];
 }
 

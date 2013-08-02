@@ -7,9 +7,11 @@
 //
 
 #import "MGMDao.h"
+#import "MGMEvent.h"
 
 @interface MGMEventsDao : MGMDao
 
+- (MGMEvent*) latestEvent;
 - (NSArray*) events;
 
 @end

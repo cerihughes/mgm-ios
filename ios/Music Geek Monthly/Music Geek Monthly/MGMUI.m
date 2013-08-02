@@ -110,9 +110,6 @@
         case MGMHomeViewControllerOptionPreviousEvents:
             return TO_PLAYLISTS;
             break;
-        case MGMHomeViewControllerOptionNextEvent:
-            return nil;
-            break;
         case MGMHomeViewControllerOptionCharts:
             return TO_CHART;
             break;

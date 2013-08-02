@@ -7,7 +7,6 @@
 //
 
 #import "MGMEventsDao.h"
-#import "MGMEvent.h"
 #import "MGMAlbum.h"
 
 #define EVENTS_URL @"http://music-geek-monthly.appspot.com/json/events.json"
@@ -24,8 +23,14 @@
 #define JSON_ELEMENT_SCORE @"score"
 #define JSON_ELEMENT_METADATA @"metadata"
 
+#define METADATA_KEY_LASTFM @"lastFm"
+#define METADATA_KEY_SPOTIFY @"spotify"
+#define METADATA_KEY_WIKIPEDIA @"wikipedia"
+#define METADATA_KEY_YOUTUBE @"youtube"
+
 @interface MGMEventsDao ()
 
+@property (strong) NSArray* serviceTypes;
 @property (strong) NSDateFormatter* dateFormatter;
 
 @end
@@ -36,10 +41,27 @@
 {
     if (self = [super init])
     {
+        self.serviceTypes = @[METADATA_KEY_LASTFM, METADATA_KEY_SPOTIFY, METADATA_KEY_WIKIPEDIA, METADATA_KEY_YOUTUBE];
         self.dateFormatter = [[NSDateFormatter alloc] init];
         self.dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     }
     return self;
+}
+
+- (MGMEvent*) latestEvent
+{
+    NSError* error = nil;
+    NSData* jsonData = [self contentsOfUrl:EVENTS_URL];
+    if (error == nil && jsonData)
+    {
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+        if (error == nil)
+        {
+            NSArray* array = [self eventsForJson:json cap:1];
+            return [array objectAtIndex:0];
+        }
+    }
+    return nil;
 }
 
 - (NSArray*) events
@@ -51,17 +73,18 @@
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
         if (error == nil)
         {
-            return [self eventsForJson:json];
+            return [self eventsForJson:json cap:0];
         }
     }
     return nil;
 }
 
-- (NSArray*) eventsForJson:(NSDictionary*)json
+- (NSArray*) eventsForJson:(NSDictionary*)json cap:(NSUInteger)cap
 {
     NSArray* events = [json objectForKey:JSON_ELEMENT_EVENTS];
     NSMutableArray* results = [NSMutableArray arrayWithCapacity:events.count];
-    for (NSUInteger i = 0; i < events.count; i++)
+    NSUInteger capped = cap > 0 ? (cap < events.count ? cap : events.count) : events.count;
+    for (NSUInteger i = 0; i < capped; i++)
     {
         NSDictionary* eventJson = [events objectAtIndex:i];
         NSUInteger eventNumber = [[eventJson objectForKey:JSON_ELEMENT_ID] intValue];
@@ -101,7 +124,14 @@
     album.albumName = albumName;
     album.albumMbid = mbid;
     album.score = score;
-    album.metadata = metadata;
+    [metadata enumerateKeysAndObjectsUsingBlock:^(NSString* key, NSString* obj, BOOL *stop)
+    {
+        MGMAlbumServiceType serviceType = [self.serviceTypes indexOfObject:key];
+        if (serviceType != NSNotFound)
+        {
+            [album setMetadata:obj forServiceType:serviceType];
+        }
+    }];
 
     return album;
 }

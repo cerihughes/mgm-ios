@@ -1,15 +1,15 @@
 //
-//  MGMAlbumsView.m
+//  MGMWeeklyChartAlbumsView.m
 //  Music Geek Monthly
 //
 //  Created by Ceri Hughes on 17/06/2013.
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMAlbumsView.h"
+#import "MGMWeeklyChartAlbumsView.h"
 #import "MGMAlbumView.h"
 
-@interface MGMAlbumsView () <MGMAlbumViewDelegate>
+@interface MGMWeeklyChartAlbumsView () <MGMAlbumViewDelegate>
 
 @property (strong) UIScrollView* scrollView;
 
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation MGMAlbumsView
+@implementation MGMWeeklyChartAlbumsView
 
 - (void) commonInit
 {
@@ -38,7 +38,9 @@
     albumView.alphaOff = 0;
     albumView.animationTime = 0.5;
     albumView.rank = rank;
+    albumView.detailViewShowing = NO;
     albumView.delegate = self;
+    albumView.pressable = NO;
     [self.scrollView addSubview:albumView];
     [self.albumViews addObject:albumView];
     CGSize existingSize = self.scrollView.contentSize;
@@ -65,6 +67,8 @@
 - (void) setAlbumImage:(UIImage *)albumImage atRank:(NSUInteger)rank
 {
     MGMAlbumView* albumView = [self albumViewForRank:rank];
+    albumView.pressable = YES;
+    albumView.detailViewShowing = YES;
     [albumView renderImage:albumImage];
 }
 
@@ -90,7 +94,7 @@
 
 - (void) detailPressed:(MGMAlbumView *)albumView
 {
-    
+    [self.delegate detailPressedWithRank:albumView.rank];
 }
 
 @end

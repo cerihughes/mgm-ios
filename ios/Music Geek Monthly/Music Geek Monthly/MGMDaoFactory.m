@@ -26,4 +26,17 @@
     self.eventsDao = [[MGMEventsDao alloc] init];
 }
 
+- (MGMAlbumMetadataDao*) metadataDaoForServiceType:(MGMAlbumServiceType)serviceType
+{
+    switch (serviceType)
+    {
+        case MGMAlbumServiceTypeLastFm:
+            return self.lastFmDao;
+        case MGMAlbumServiceTypeSpotify:
+            return self.spotifyDao;
+        default:
+            return nil;
+    }
+}
+
 @end

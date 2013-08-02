@@ -10,7 +10,7 @@
 #import "MGMEvent.h"
 #import "MGMAlbumView.h"
 
-@interface MGMEventsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface MGMEventsViewController () <UITableViewDataSource, UITableViewDelegate, MGMAlbumViewDelegate>
 
 @property (strong) IBOutlet UITableView* eventsTable;
 @property (strong) IBOutlet MGMAlbumView* classicAlbumView;
@@ -19,6 +19,7 @@
 
 @property (strong) NSDateFormatter* dateFormatter;
 @property (strong) NSArray* events;
+@property (strong) MGMEvent* event;
 
 @end
 
@@ -47,9 +48,16 @@
     self.classicAlbumView.alphaOff = 0;
     self.classicAlbumView.alphaOn = 1;
     self.classicAlbumView.animationTime = 0.25;
+    self.classicAlbumView.activityInProgress = YES;
+    self.classicAlbumView.pressable = NO;
+    self.classicAlbumView.delegate = self;
+
     self.newlyReleasedAlbumView.alphaOff = 0;
     self.newlyReleasedAlbumView.alphaOn = 1;
     self.newlyReleasedAlbumView.animationTime = 0.25;
+    self.newlyReleasedAlbumView.activityInProgress = YES;
+    self.newlyReleasedAlbumView.pressable = NO;
+    self.newlyReleasedAlbumView.delegate = self;
 
     self.eventsTable.dataSource = self;
     self.eventsTable.delegate = self;
@@ -74,10 +82,8 @@
 
 - (void) displayEvent:(MGMEvent*)event
 {
-    // Clear the album images...
-//    self.classicAlbumView.albumImage = [UIImage imageNamed:@"album1.png"];
-//    self.newlyReleasedAlbumView.albumImage = [UIImage imageNamed:@"album2.png"];
-
+    self.event = event;
+    
 	NSString* dateString = [self.dateFormatter stringFromDate:event.eventDate];
     self.title = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
 
@@ -95,7 +101,7 @@
     self.classicAlbumView.artistName = classicAlbum.artistName;
     self.classicAlbumView.albumName = classicAlbum.albumName;
 
-    if (classicAlbum.searchedLastFmData == NO)
+    if ([classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
         {
@@ -118,7 +124,7 @@
     self.newlyReleasedAlbumView.artistName = newRelease.artistName;
     self.newlyReleasedAlbumView.albumName = newRelease.albumName;
 
-    if (newRelease.searchedLastFmData == NO)
+    if ([newRelease searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
         {
@@ -163,33 +169,16 @@
 
 - (NSString*) bestImageForAlbum:(MGMAlbum*)album
 {
-    NSString* uri;
-    if((uri = [self imageSize:IMAGE_SIZE_EXTRA_LARGE forAlbum:album]) != nil)
+    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeLarge, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
+    for (NSUInteger i = 0; i < 5; i++)
     {
-        return uri;
-    }
-    if((uri = [self imageSize:IMAGE_SIZE_MEGA forAlbum:album]) != nil)
-    {
-        return uri;
-    }
-    if((uri = [self imageSize:IMAGE_SIZE_LARGE forAlbum:album]) != nil)
-    {
-        return uri;
-    }
-    if((uri = [self imageSize:IMAGE_SIZE_MEDIUM forAlbum:album]) != nil)
-    {
-        return uri;
-    }
-    if((uri = [self imageSize:IMAGE_SIZE_SMALL forAlbum:album]) != nil)
-    {
-        return uri;
+        NSString* uri = [album imageUrlForImageSize:sizes[i]];
+        if (uri)
+        {
+            return uri;
+        }
     }
     return nil;
-}
-
-- (NSString*) imageSize:(NSString*)size forAlbum:(MGMAlbum*)album
-{
-    return [album.imageUris objectForKey:size];
 }
 
 - (MGMEvent*) selectedEvent
@@ -211,44 +200,6 @@
 - (void) navigateToWebPanel:(NSString*)uri
 {
     [self.ui transition:TO_WEB withState:uri];
-}
-
-- (IBAction)classicAlbumLastFmPressed:(id)sender
-{
-}
-
-- (IBAction)classicAlbumSpotifyPressed:(id)sender
-{
-}
-
-- (IBAction)classicAlbumWikipediaPressed:(id)sender
-{
-    [self navigateToWebPanel:self.selectedClassicAlbum.wikipediaUri];
-}
-
-- (IBAction)classicAlbumYouTubePressed:(id)sender
-{
-    [self navigateToWebPanel:self.selectedClassicAlbum.youTubeUri];
-}
-
-- (IBAction)newlyReleasedAlbumLastFmPressed:(id)sender
-{
-
-}
-
-- (IBAction)newlyReleasedAlbumSpotifyPressed:(id)sender
-{
-
-}
-
-- (IBAction)newlyReleasedAlbumWikipediaPressed:(id)sender
-{
-    [self navigateToWebPanel:self.selectedNewlyReleasedAlbum.wikipediaUri];
-}
-
-- (IBAction)newlyReleasedAlbumYouTubePressed:(id)sender
-{
-    [self navigateToWebPanel:self.selectedNewlyReleasedAlbum.youTubeUri];
 }
 
 #pragma mark -
@@ -294,6 +245,24 @@
     {
         // Report a problem.
     }
+}
+
+#pragma mark -
+#pragma mark MGMAlbumViewDelegate
+
+- (MGMAlbum*) albumForAlbumView:(MGMAlbumView*)albumView
+{
+    return albumView == self.classicAlbumView ? self.event.classicAlbum : self.event.newlyReleasedAlbum;
+}
+
+- (void) albumPressed:(MGMAlbumView*)albumView
+{
+    [self.albumSelectionDelegate albumSelected:[self albumForAlbumView:albumView]];
+}
+
+- (void) detailPressed:(MGMAlbumView*)albumView
+{
+    [self.albumSelectionDelegate detailSelected:[self albumForAlbumView:albumView]];
 }
 
 @end

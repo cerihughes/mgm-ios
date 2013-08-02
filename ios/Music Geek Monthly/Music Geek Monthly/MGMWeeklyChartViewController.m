@@ -1,17 +1,17 @@
 
 #import "MGMWeeklyChartViewController.h"
+#import "MGMWeeklyChartAlbumsView.h"
 #import "MGMGroupAlbum.h"
-#import "MGMAlbumsView.h"
 #import "MGMGridManager.h"
 #import "MGMImageHelper.h"
 
 #define ALBUMS_IN_CHART 15
 
-@interface MGMWeeklyChartViewController () <MGMAlbumsViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UITableViewDelegate, UIPickerViewDelegate>
+@interface MGMWeeklyChartViewController () <MGMWeeklyChartAlbumsViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UITableViewDelegate, UIPickerViewDelegate>
 
 @property (strong) IBOutlet UITableView* timePeriodTable;
 @property (strong) IBOutlet UIPickerView* timePeriodPicker;
-@property (strong) IBOutlet MGMAlbumsView* albumsView;
+@property (strong) IBOutlet MGMWeeklyChartAlbumsView* albumsView;
 
 @property (strong) NSArray* timePeriods;
 @property (strong) NSMutableArray* timePeriodTitles;
@@ -134,36 +134,21 @@
 - (NSString*) bestImageForAlbum:(MGMGroupAlbum*)album
 {
     NSString* uri;
-    if (album.rank == 1 && (uri = [self imageSize:IMAGE_SIZE_MEGA forAlbum:album]) != nil)
+    if (album.rank == 1 && (uri = [album imageUrlForImageSize:MGMAlbumImageSizeMega]) != nil)
     {
         return uri;
     }
-    if((uri = [self imageSize:IMAGE_SIZE_EXTRA_LARGE forAlbum:album]) != nil)
+
+    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeLarge, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
+    for (NSUInteger i = 0; i < 5; i++)
     {
-        return uri;
-    }
-    if((uri = [self imageSize:IMAGE_SIZE_MEGA forAlbum:album]) != nil)
-    {
-        return uri;
-    }
-    if((uri = [self imageSize:IMAGE_SIZE_LARGE forAlbum:album]) != nil)
-    {
-        return uri;
-    }
-    if((uri = [self imageSize:IMAGE_SIZE_MEDIUM forAlbum:album]) != nil)
-    {
-        return uri;
-    }
-    if((uri = [self imageSize:IMAGE_SIZE_SMALL forAlbum:album]) != nil)
-    {
-        return uri;
+        NSString* uri = [album imageUrlForImageSize:sizes[i]];
+        if (uri)
+        {
+            return uri;
+        }
     }
     return nil;
-}
-
-- (NSString*) imageSize:(NSString*)size forAlbum:(MGMGroupAlbum*)album
-{
-    return [album.imageUris objectForKey:size];
 }
 
 - (void) reloadData
@@ -171,7 +156,7 @@
     for (MGMGroupAlbum* album in self.groupAlbums)
     {
         [self.albumsView setActivityInProgress:YES forRank:album.rank];
-        if (album.searchedLastFmData == NO)
+        if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
         {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
             {
@@ -304,47 +289,16 @@
 }
 
 #pragma mark -
-#pragma mark MGMAlbumsViewDelegate
+#pragma mark MGMWeeklyChartAlbumsViewDelegate
 
 - (void) albumPressedWithRank:(NSUInteger)rank
 {
-    NSURL* defaultUrl = [NSURL URLWithString:@"spotify:"];
-    if ([[UIApplication sharedApplication] canOpenURL:defaultUrl])
-    {
-        MGMGroupAlbum* album = [self.groupAlbums objectAtIndex:rank];
-        if (album.searchedSpotifyData == NO)
-        {
-            NSLog(@"Performing spotify search for %@ - %@", album.artistName, album.albumName);
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-            {
-                // Search in a background thread...
-                [self.core.daoFactory.spotifyDao updateAlbumInfo:album];
-                dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    // ... but invoke the UI in the main thread...
-                    [self openAlbumInSpotify:album];
-                });
-            });
-        }
-        else
-        {
-            [self openAlbumInSpotify:album];
-        }
-    }
+
 }
 
-- (void) openAlbumInSpotify:(MGMGroupAlbum*)album
+- (void) detailPressedWithRank:(NSUInteger)rank
 {
-    NSString* uri = album.spotifyUri;
-    if (uri)
-    {
-        NSURL* actualUrl = [NSURL URLWithString:uri];
-        [[UIApplication sharedApplication] openURL:actualUrl];
-    }
-    else
-    {
-        // Report a problem.
-    }
+    
 }
 
 @end

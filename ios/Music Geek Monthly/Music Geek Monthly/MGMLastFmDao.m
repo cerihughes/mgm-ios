@@ -18,11 +18,28 @@
 
 #define MAX_TIME_PERIODS 104
 
+#define IMAGE_SIZE_SMALL @"small"
+#define IMAGE_SIZE_MEDIUM @"medium"
+#define IMAGE_SIZE_LARGE @"large"
+#define IMAGE_SIZE_EXTRA_LARGE @"extralarge"
+#define IMAGE_SIZE_MEGA @"mega"
+
 @interface MGMLastFmDao ()
+
+@property (strong) NSArray* sizeStrings;
 
 @end
 
 @implementation MGMLastFmDao
+
+- (id) init
+{
+    if (self = [super init])
+    {
+        self.sizeStrings = @[IMAGE_SIZE_SMALL, IMAGE_SIZE_MEDIUM, IMAGE_SIZE_LARGE, IMAGE_SIZE_EXTRA_LARGE, IMAGE_SIZE_MEGA];
+    }
+    return self;
+}
 
 - (NSArray*) weeklyTimePeriods
 {
@@ -64,7 +81,7 @@
     NSArray* albums = [self topWeeklyAlbums:count forTimePeriod:mostRecent];
     for (MGMGroupAlbum* album in albums)
     {
-        if (album.searchedLastFmData == NO)
+        if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
         {
             [self updateAlbumInfo:album];
         }
@@ -153,8 +170,6 @@
     album.albumName = albumName;
     album.listeners = listeners;
     album.lastFmUri = url;
-    album.searchedLastFmData = NO;
-    album.searchedSpotifyData = NO;
     return album;
 }
 
@@ -162,18 +177,19 @@
 {
     NSDictionary* albumJson = [json objectForKey:@"album"];
     NSArray* images = [albumJson objectForKey:@"image"];
-    NSMutableDictionary* modelImages = [NSMutableDictionary dictionaryWithCapacity:images.count];
     for (NSDictionary* image in images)
     {
         NSString* key = [image objectForKey:@"size"];
         NSString* value = [image objectForKey:@"#text"];
         if (value && value.length > 0)
         {
-            [modelImages setObject:value forKey:key];
+            MGMAlbumImageSize size = [self.sizeStrings indexOfObject:key];
+            if (size != NSNotFound)
+            {
+                [album setImageUrl:value forImageSize:size];
+            }
         }
     }
-    album.imageUris = [modelImages copy];
-    album.searchedLastFmData = YES;
 }
 
 @end

@@ -24,6 +24,7 @@
 @property CGFloat alphaOff;
 @property CGFloat alphaOn;
 @property NSTimeInterval animationTime;
+@property BOOL pressable;
 
 @property (strong) NSString* artistName;
 @property (strong) NSString* albumName;

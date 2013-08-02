@@ -28,7 +28,7 @@
     return self;
 }
 
-- (void) updateAlbumInfo:(MGMGroupAlbum *)album
+- (void) updateAlbumInfo:(MGMAlbum *)album
 {
     NSString* searchString = [NSString stringWithFormat:@"%@ %@", album.artistName, album.albumName];
     NSString* urlString = [NSString stringWithFormat:ALBUM_SEARCH_URL, searchString];
@@ -44,9 +44,8 @@
     }
 }
 
-- (void) updateAlbumInfo:(MGMGroupAlbum*)album withJson:(NSDictionary*)json
+- (void) updateAlbumInfo:(MGMAlbum*)album withJson:(NSDictionary*)json
 {
-    album.searchedSpotifyData = YES;
     NSArray* albums = [json objectForKey:@"albums"];
     NSArray* available = [self availableAlbums:albums inTerritory:TERRITORY];
     NSDictionary* match = nil;
@@ -61,14 +60,13 @@
     [self updateAlbumInfo:album withAlbumJson:match];
 }
 
-- (void) updateAlbumInfo:(MGMGroupAlbum*)album withAlbumJson:(NSDictionary*)json
+- (void) updateAlbumInfo:(MGMAlbum*)album withAlbumJson:(NSDictionary*)json
 {
     NSString* href = [json objectForKey:@"href"];
     NSArray* splits = [href componentsSeparatedByString:@":"];
     if (splits.count == 3)
     {
-        NSMutableDictionary* metadata = album.metadata.mutableCopy;
-        [metadata setObject:[splits objectAtIndex:2] forKey:METADATA_KEY_SPOTIFY];
+        [album setMetadata:[splits objectAtIndex:2] forServiceType:MGMAlbumServiceTypeSpotify];
     }
 }
 
@@ -88,7 +86,7 @@
     return available;
 }
 
-- (NSDictionary*) bestMatchForAlbum:(MGMGroupAlbum*)album inAlbums:(NSArray*)albumsJson
+- (NSDictionary*) bestMatchForAlbum:(MGMAlbum*)album inAlbums:(NSArray*)albumsJson
 {
     NSLog(@"Found %d matches in Spotify.", albumsJson.count);
     float mostPopularValue = 0;
@@ -120,7 +118,7 @@
     return mostPopularAlbum;
 }
 
-- (BOOL) album:(MGMGroupAlbum*)album isExactMatchForArtistName:(NSString*)artistName albumName:(NSString*)albumName
+- (BOOL) album:(MGMAlbum*)album isExactMatchForArtistName:(NSString*)artistName albumName:(NSString*)albumName
 {
     NSLog(@"Found %@ - %@", albumName, artistName);
     if ([artistName.lowercaseString isEqualToString:album.artistName.lowercaseString] && [albumName.lowercaseString isEqualToString:album.albumName.lowercaseString])

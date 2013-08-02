@@ -8,10 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
-#define METADATA_KEY_LASTFM @"lastFm"
-#define METADATA_KEY_SPOTIFY @"spotify"
-#define METADATA_KEY_WIKIPEDIA @"wikipedia"
-#define METADATA_KEY_YOUTUBE @"youtube"
+typedef enum
+{
+    MGMAlbumImageSizeSmall,
+    MGMAlbumImageSizeMedium,
+    MGMAlbumImageSizeLarge,
+    MGMAlbumImageSizeExtraLarge,
+    MGMAlbumImageSizeMega
+}
+MGMAlbumImageSize;
+
+typedef enum
+{
+    MGMAlbumServiceTypeLastFm,
+    MGMAlbumServiceTypeSpotify,
+    MGMAlbumServiceTypeWikipedia,
+    MGMAlbumServiceTypeYouTube
+}
+MGMAlbumServiceType;
 
 @interface MGMAlbum : NSObject
 
@@ -19,13 +33,14 @@
 @property (strong) NSString* albumName;
 @property (strong) NSString* albumMbid;
 @property (strong) NSNumber* score;
-@property (strong) NSDictionary* metadata;
-@property (strong) NSDictionary* imageUris;
-@property BOOL searchedLastFmData;
 
-- (NSString*) lastFmUri;
-- (NSString*) spotifyUri;
-- (NSString*) wikipediaUri;
-- (NSString*) youTubeUri;
+- (BOOL) searchedServiceType:(MGMAlbumServiceType)serviceType;
+- (void) setServiceTypeSearched:(MGMAlbumServiceType)serviceType;
+
+- (NSString*) imageUrlForImageSize:(MGMAlbumImageSize)size;
+- (void) setImageUrl:(NSString*)imageUrl forImageSize:(MGMAlbumImageSize)size;
+
+- (NSString*) metadataForServiceType:(MGMAlbumServiceType)serviceType;
+- (void) setMetadata:(NSString*)metadata forServiceType:(MGMAlbumServiceType)serviceType;
 
 @end
