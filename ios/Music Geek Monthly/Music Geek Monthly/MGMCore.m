@@ -21,6 +21,7 @@
 - (void) createInstances
 {
     self.daoFactory = [[MGMDaoFactory alloc] init];
+    self.albumPlayer = [[MGMAlbumPlayer alloc] init];
 }
 
 - (void) enteredForeground

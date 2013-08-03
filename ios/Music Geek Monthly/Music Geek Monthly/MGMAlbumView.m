@@ -54,6 +54,7 @@
     self.button.frame = frame;
     self.button.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.button.alpha = self.alphaOff + 0.0001; // So that we initially animate...
+    [self.button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.pressable = NO;
 
     CGSize size = self.frame.size;
@@ -136,7 +137,7 @@
     self.albumLabel.text = albumName;
 }
 
-- (void) imagePressed:(id)receiver
+- (void) buttonPressed:(id)receiver
 {
     [self.delegate albumPressed:self];
 }

@@ -297,6 +297,7 @@
 				65E53CE91785CF3D001ECA79 /* Home */,
 				6594349417776AB400DCA9DB /* Events */,
 				65291AF31775F658002595AC /* WeeklyChart */,
+				6576DDAF17AD11A200BCB00B /* Album Detail */,
 				652C8715179DD51D0059595E /* Web */,
 				653B6BC1175FDB4B005D372C /* MGMUI.h */,
 				653B6BC2175FDB4B005D372C /* MGMUI.m */,
@@ -340,6 +341,13 @@
 				65CD17021785A66F0082168D /* MGMEventsDao.m */,
 			);
 			name = Dao;
+			sourceTree = "<group>";
+		};
+		6576DDAF17AD11A200BCB00B /* Album Detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Album Detail";
 			sourceTree = "<group>";
 		};
 		6594349417776AB400DCA9DB /* Events */ = {

@@ -8,8 +8,9 @@
 #import "MGMWeeklyChartViewController.h"
 #import "MGMEventsViewController.h"
 #import "MGMWebViewController.h"
+#import "MGMAlbumSelectionDelegate.h"
 
-@interface MGMUI () <MGMHomeViewControllerDelegate>
+@interface MGMUI () <MGMHomeViewControllerDelegate, MGMAlbumSelectionDelegate>
 
 @property (retain) NSMutableDictionary* transitions;
 
@@ -44,16 +45,19 @@
     [self.transitions setObject:homeViewController forKey:TO_HOME];
     homeViewController.delegate = self;
     homeViewController.title = @"Home";
+    homeViewController.albumSelectionDelegate = self;
 
     MGMWeeklyChartViewController* weeklyChartViewController = [[MGMWeeklyChartViewController alloc] init];
     weeklyChartViewController.ui = self;
     [self.transitions setObject:weeklyChartViewController forKey:TO_CHART];
     weeklyChartViewController.title = @"Weekly Charts";
+    weeklyChartViewController.albumSelectionDelegate = self;
 
     MGMEventsViewController* eventsViewController = [[MGMEventsViewController alloc] init];
     eventsViewController.ui = self;
     [self.transitions setObject:eventsViewController forKey:TO_PLAYLISTS];
     eventsViewController.title = @"Previous Events";
+    eventsViewController.albumSelectionDelegate = self;
 
     MGMWebViewController* webViewController = [[MGMWebViewController alloc] init];
     webViewController.ui = self;
@@ -123,5 +127,19 @@
 {
     [self transition:[self transitionForOption:option]];
 }
+
+#pragma mark -
+#pragma mark MGMAlbumSelectionDelegate
+
+- (void) albumSelected:(MGMAlbum*)album
+{
+    [self.core.albumPlayer playAlbum:album onService:MGMAlbumServiceTypeSpotify];
+}
+
+- (void) detailSelected:(MGMAlbum*)album
+{
+    
+}
+
 
 @end

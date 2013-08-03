@@ -48,7 +48,12 @@
         NSURL* url = [NSURL URLWithString:uriString];
         if ([[UIApplication sharedApplication] canOpenURL:url])
         {
+            NSLog(@"Opening URL: %@", url);
             [[UIApplication sharedApplication] openURL:url];
+        }
+        else
+        {
+            NSLog(@"No handler for URL: %@", url);
         }
     }
 }

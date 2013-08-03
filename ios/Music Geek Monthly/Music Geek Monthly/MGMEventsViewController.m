@@ -166,6 +166,10 @@
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
         {
             [self.newlyReleasedAlbumView renderImage:image];
+            self.newlyReleasedAlbumView.artistName = newRelease.artistName;
+            self.newlyReleasedAlbumView.albumName = newRelease.albumName;
+            self.newlyReleasedAlbumView.pressable = YES;
+            self.newlyReleasedAlbumView.detailViewShowing = YES;
         }];
     }
 }
@@ -178,6 +182,10 @@
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
         {
             [self.classicAlbumView renderImage:image];
+            self.classicAlbumView.artistName = classicAlbum.artistName;
+            self.classicAlbumView.albumName = classicAlbum.albumName;
+            self.classicAlbumView.pressable = YES;
+            self.classicAlbumView.detailViewShowing = YES;
         }];
     }
 }

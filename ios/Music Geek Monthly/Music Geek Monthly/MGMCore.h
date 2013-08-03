@@ -1,10 +1,12 @@
 
 #import <Foundation/Foundation.h>
 #import "MGMDaoFactory.h"
+#import "MGMAlbumPlayer.h"
 
 @interface MGMCore : NSObject
 
 @property (strong) MGMDaoFactory* daoFactory;
+@property (strong) MGMAlbumPlayer* albumPlayer;
 
 /**
  * Notifies the core that it's entering background mode.
