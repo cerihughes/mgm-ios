@@ -17,6 +17,7 @@
 @property (strong) IBOutlet MGMPulsatingAlbumsView* albumsView;
 @property (strong) IBOutlet MGMAlbumView* classicAlbumView;
 @property (strong) IBOutlet MGMAlbumView* newlyReleasedAlbumView;
+@property (strong) IBOutlet UILabel* nextEventDateLabel;
 
 @property (strong) MGMEvent* event;
 @property (strong) NSArray* backgroundImages;
@@ -25,6 +26,8 @@
 - (IBAction) chartsPressed:(id)sender;
 
 @end
+
+#define NEXT_EVENT_PATTERN @"The next event will be on %@ at %@"
 
 @implementation MGMHomeViewController
 
@@ -78,6 +81,21 @@
 
 - (void) displayEvent:(MGMEvent*)event
 {
+    if (event.eventDate)
+    {
+        NSDateFormatter* eventDateFormatter = [[NSDateFormatter alloc] init];
+
+        [eventDateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        [eventDateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        NSString* dateString = [eventDateFormatter stringFromDate:event.eventDate];
+
+        [eventDateFormatter setDateStyle:NSDateFormatterNoStyle];
+        [eventDateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+        NSString* timeString = [eventDateFormatter stringFromDate:event.eventDate];
+
+        self.nextEventDateLabel.text = [NSString stringWithFormat:NEXT_EVENT_PATTERN, dateString, timeString];
+    }
+    
     [self displayClassicAlbum:event.classicAlbum];
     [self displayNewRelease:event.newlyReleasedAlbum];
 }

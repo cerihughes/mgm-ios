@@ -16,6 +16,7 @@
 		650F13C217AABB060048226A /* MGMAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 650F13C117AABB060048226A /* MGMAlbumView.m */; };
 		651CC69F176F9455007B7F0D /* MGMWeeklyChartAlbumsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 651CC69E176F9455007B7F0D /* MGMWeeklyChartAlbumsView.m */; };
 		65215F9A176BA64300250168 /* MGMDaoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 65215F99176BA64300250168 /* MGMDaoFactory.m */; };
+		6523827B17AD094E00FAE0B3 /* MGMEventsViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6523827A17AD094E00FAE0B3 /* MGMEventsViewController~iphone.xib */; };
 		65291B01177606E2002595AC /* UIViewController+MGMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 65291B00177606E2002595AC /* UIViewController+MGMAdditions.m */; };
 		65291B0617761A75002595AC /* MGMWeeklyChartViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65291B0517761A75002595AC /* MGMWeeklyChartViewController~iphone.xib */; };
 		65291B0817762539002595AC /* MGMWeeklyChartViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65291B0717762539002595AC /* MGMWeeklyChartViewController~ipad.xib */; };
@@ -108,6 +109,7 @@
 		651CC69E176F9455007B7F0D /* MGMWeeklyChartAlbumsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartAlbumsView.m; sourceTree = "<group>"; };
 		65215F98176BA64300250168 /* MGMDaoFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMDaoFactory.h; sourceTree = "<group>"; };
 		65215F99176BA64300250168 /* MGMDaoFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDaoFactory.m; sourceTree = "<group>"; };
+		6523827A17AD094E00FAE0B3 /* MGMEventsViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMEventsViewController~iphone.xib"; sourceTree = "<group>"; };
 		65291AFF177606E2002595AC /* UIViewController+MGMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MGMAdditions.h"; sourceTree = "<group>"; };
 		65291B00177606E2002595AC /* UIViewController+MGMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MGMAdditions.m"; sourceTree = "<group>"; };
 		65291B0517761A75002595AC /* MGMWeeklyChartViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMWeeklyChartViewController~iphone.xib"; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 				6594349817776BE800DCA9DB /* MGMEventsViewController.h */,
 				6594349917776BE800DCA9DB /* MGMEventsViewController.m */,
 				659434A217777A9F00DCA9DB /* MGMEventsViewController~ipad.xib */,
+				6523827A17AD094E00FAE0B3 /* MGMEventsViewController~iphone.xib */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				65ECD8FB17AC2F4300701A00 /* MGMHomeViewController~iphone.xib in Resources */,
 				65E8110717ACFF2100FCBC9F /* README.md in Resources */,
 				65E8110817ACFF2100FCBC9F /* release_notes.md in Resources */,
+				6523827B17AD094E00FAE0B3 /* MGMEventsViewController~iphone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

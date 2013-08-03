@@ -16,6 +16,7 @@
 @property (strong) IBOutlet MGMAlbumView* classicAlbumView;
 @property (strong) IBOutlet MGMAlbumView* newlyReleasedAlbumView;
 @property (strong) IBOutlet UIWebView* playlistWebView;
+@property (strong) IBOutlet UIViewController* iPhone2ndController;
 
 @property (strong) NSDateFormatter* dateFormatter;
 @property (strong) NSArray* events;
@@ -71,11 +72,16 @@
         {
             // ... but update the UI in the main thread...
             [self.eventsTable reloadData];
-            NSIndexPath* path = [NSIndexPath indexPathForRow:0 inSection:0];
-            [self.eventsTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
+            
+            if (self.iPhone2ndController == nil)
+            {
+                // Only auto-populate on iPad...
+                NSIndexPath* path = [NSIndexPath indexPathForRow:0 inSection:0];
+                [self.eventsTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
 
-            MGMEvent* event = [self.events objectAtIndex:0];
-            [self displayEvent:event];
+                MGMEvent* event = [self.events objectAtIndex:0];
+                [self displayEvent:event];
+            }
         });
     });
 }
@@ -83,9 +89,18 @@
 - (void) displayEvent:(MGMEvent*)event
 {
     self.event = event;
-    
 	NSString* dateString = [self.dateFormatter stringFromDate:event.eventDate];
-    self.title = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
+    NSString* newTitle = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
+
+    if (self.iPhone2ndController)
+    {
+        [self.navigationController pushViewController:self.iPhone2ndController animated:YES];
+        self.iPhone2ndController.title = newTitle;
+    }
+    else
+    {
+        self.title = newTitle;
+    }
 
     NSString* urlString = [NSString stringWithFormat:WEB_URL_PATTERN, event.spotifyHttpUrl];
     NSURL* url = [NSURL URLWithString:urlString];
