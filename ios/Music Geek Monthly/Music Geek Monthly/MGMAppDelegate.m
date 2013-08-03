@@ -9,6 +9,7 @@
 #import "MGMAppDelegate.h"
 #import "MGMUI.h"
 #import "MGMURLCache.h"
+#import "TestFlight.h"
 
 @interface MGMAppDelegate ()
 
@@ -21,6 +22,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSLog(@"application:didFinishLaunchingWithOptions:");
+
+    // TODO: - Use the next line only during beta
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+
+    [TestFlight takeOff:@"4c193851-92f4-4a07-ac1f-2af55eb53f67"];
+
     MGMURLCache* cache = [[MGMURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:32 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
 

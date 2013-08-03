@@ -75,6 +75,10 @@
 		65E53CF41785D27D001ECA79 /* button_blank_gray_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CF01785D27D001ECA79 /* button_blank_gray_01.png */; };
 		65E53CF51785D27D001ECA79 /* button_blank_red_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CF11785D27D001ECA79 /* button_blank_red_01.png */; };
 		65E53CF61785D27D001ECA79 /* button_blank_yellow_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CF21785D27D001ECA79 /* button_blank_yellow_01.png */; };
+		65E8110617ACFF2100FCBC9F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E8110217ACFF2100FCBC9F /* libTestFlight.a */; };
+		65E8110717ACFF2100FCBC9F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 65E8110317ACFF2100FCBC9F /* README.md */; };
+		65E8110817ACFF2100FCBC9F /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 65E8110417ACFF2100FCBC9F /* release_notes.md */; };
+		65E8110A17AD014800FCBC9F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E8110917AD014800FCBC9F /* libz.dylib */; };
 		65ECD8FB17AC2F4300701A00 /* MGMHomeViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65ECD8FA17AC2F4300701A00 /* MGMHomeViewController~iphone.xib */; };
 		65ECD90117AC3B2F00701A00 /* MGMAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */; };
 		65ECD90417AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */; };
@@ -182,6 +186,12 @@
 		65E53CF01785D27D001ECA79 /* button_blank_gray_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blank_gray_01.png; path = "Music Geek Monthly/button_blank_gray_01.png"; sourceTree = "<group>"; };
 		65E53CF11785D27D001ECA79 /* button_blank_red_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blank_red_01.png; path = "Music Geek Monthly/button_blank_red_01.png"; sourceTree = "<group>"; };
 		65E53CF21785D27D001ECA79 /* button_blank_yellow_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blank_yellow_01.png; path = "Music Geek Monthly/button_blank_yellow_01.png"; sourceTree = "<group>"; };
+		65E8110217ACFF2100FCBC9F /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		65E8110317ACFF2100FCBC9F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		65E8110417ACFF2100FCBC9F /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		65E8110517ACFF2100FCBC9F /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		65E8110917AD014800FCBC9F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		65E8110B17AD040500FCBC9F /* MGMLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMLogging.h; sourceTree = "<group>"; };
 		65ECD8FA17AC2F4300701A00 /* MGMHomeViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMHomeViewController~iphone.xib"; sourceTree = "<group>"; };
 		65ECD8FC17AC39C500701A00 /* MGMAlbumSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumSelectionDelegate.h; sourceTree = "<group>"; };
 		65ECD8FF17AC3B2E00701A00 /* MGMAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumViewController.h; sourceTree = "<group>"; };
@@ -195,9 +205,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E8110A17AD014800FCBC9F /* libz.dylib in Frameworks */,
 				659F9F42175B928E000C413B /* UIKit.framework in Frameworks */,
 				659F9F44175B928E000C413B /* Foundation.framework in Frameworks */,
 				659F9F46175B928E000C413B /* CoreGraphics.framework in Frameworks */,
+				65E8110617ACFF2100FCBC9F /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +280,7 @@
 				652FD00417722BFC00CF5F89 /* MGMGridManager.m */,
 				65ECD90217AC3DCB00701A00 /* MGMAlbumPlayer.h */,
 				65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */,
+				65E8110B17AD040500FCBC9F /* MGMLogging.h */,
 				653B6BB8175FD12F005D372C /* Dao */,
 				653B6BA7175FD073005D372C /* Model */,
 			);
@@ -340,6 +353,8 @@
 		659F9F35175B928E000C413B = {
 			isa = PBXGroup;
 			children = (
+				65E8110917AD014800FCBC9F /* libz.dylib */,
+				65E8110017ACFF2100FCBC9F /* Libraries */,
 				65D451451764F54C00374C5F /* Resources */,
 				659F9F47175B928E000C413B /* Music Geek Monthly */,
 				659F9F65175B928E000C413B /* Music Geek MonthlyTests */,
@@ -452,6 +467,26 @@
 			name = Home;
 			sourceTree = "<group>";
 		};
+		65E8110017ACFF2100FCBC9F /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				65E8110117ACFF2100FCBC9F /* TestFlightSDK1.2.6 */,
+			);
+			name = Libraries;
+			path = "Music Geek Monthly/Libraries";
+			sourceTree = "<group>";
+		};
+		65E8110117ACFF2100FCBC9F /* TestFlightSDK1.2.6 */ = {
+			isa = PBXGroup;
+			children = (
+				65E8110217ACFF2100FCBC9F /* libTestFlight.a */,
+				65E8110317ACFF2100FCBC9F /* README.md */,
+				65E8110417ACFF2100FCBC9F /* release_notes.md */,
+				65E8110517ACFF2100FCBC9F /* TestFlight.h */,
+			);
+			path = TestFlightSDK1.2.6;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -546,6 +581,8 @@
 				652C871A179DD6AE0059595E /* MGMWebViewController~ipad.xib in Resources */,
 				6554DE3417A053F0006A2A29 /* MGM_icon.png in Resources */,
 				65ECD8FB17AC2F4300701A00 /* MGMHomeViewController~iphone.xib in Resources */,
+				65E8110717ACFF2100FCBC9F /* README.md in Resources */,
+				65E8110817ACFF2100FCBC9F /* release_notes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,6 +768,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Music Geek Monthly/Music Geek Monthly-Prefix.pch";
 				INFOPLIST_FILE = "Music Geek Monthly/Music Geek Monthly-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Music Geek Monthly/Libraries/TestFlightSDK1.2.6\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -742,6 +783,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Music Geek Monthly/Music Geek Monthly-Prefix.pch";
 				INFOPLIST_FILE = "Music Geek Monthly/Music Geek Monthly-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Music Geek Monthly/Libraries/TestFlightSDK1.2.6\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

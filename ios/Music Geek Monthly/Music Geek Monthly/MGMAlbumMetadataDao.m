@@ -10,4 +10,9 @@
 
 @implementation MGMAlbumMetadataDao
 
+- (void) updateAlbumInfo:(MGMAlbum*)album
+{
+
+}
+
 @end
