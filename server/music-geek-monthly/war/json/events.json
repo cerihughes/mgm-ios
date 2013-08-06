@@ -2,6 +2,32 @@
 	"events" :
 	[
 		{
+			"id" : 32,
+			"date" : "2013-08-29T20:00:00.000+0100",
+			"classicAlbum" :
+			{
+				"artistName" : "Isaac Hayes",
+				"albumName" : "Hot Buttered Soul",
+				"mbid" : "ccd965f1-6292-43a6-b7af-1d07a21be0b8",
+				"metadata" :
+				{
+					"spotify" : "55115VABPbIk8cMqYcvcRv",
+					"wikipedia" : "Hot_Buttered_Soul"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Fuck Buttons",
+				"albumName" : "Slow Focus",
+				"mbid" : "a2ad100c-6d77-4846-a959-a515aa6813fd",
+				"metadata" :
+				{
+					"spotify" : "2I1PxMR8wj1Y6k88bselsq",
+					"wikipedia" : "Slow_Focus"
+				}
+			}
+		},
+		{
 			"id" : 31,
 			"date" : "2013-07-25T20:00:00.000+0100",
 			"spotifyPlaylistId" : "5lkggsEt1WDdlkWWxq5dmu",
@@ -9,7 +35,7 @@
 			{
 				"artistName" : "David Bowie",
 				"albumName" : "Young Americans",
-				"mbid" : "fba008bb-1d47-4ec3-89b5-bd7538400008",
+				"mbid" : "361fc46d-c888-445b-94af-bd0ff8a2e109",
 				"score" : 7.5,
 				"metadata" :
 				{
@@ -40,7 +66,7 @@
 			{
 				"artistName" : "Sir Simon Rattle",
 				"albumName" : "Stravinsky: Le Sacre du Printemps - The Rite of Spring",
-				"mbid" : "78020fdb-4e0e-4522-9d13-74017e5a4f65",
+				"mbid" : "5a38e34b-6c9c-4098-a9ca-e79106bbbdc8",
 				"score" : 8.6,
 				"metadata" :
 				{
