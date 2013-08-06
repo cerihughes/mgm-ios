@@ -17,6 +17,5 @@
 @property (strong) MGMEvent* event;
 
 - (void) displayEvent:(MGMEvent*)event;
-- (NSString*) bestImageForAlbum:(MGMAlbum*)album;
 
 @end

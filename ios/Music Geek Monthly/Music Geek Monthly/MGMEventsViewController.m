@@ -114,7 +114,41 @@
 	NSString* dateString = [self.dateFormatter stringFromDate:event.eventDate];
 
     cell.textLabel.text = dateString;
+
+    if ([event.classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+        {
+            // Search in a background thread...
+            [self.core.daoFactory.lastFmDao updateAlbumInfo:event.classicAlbum];
+            dispatch_async(dispatch_get_main_queue(), ^
+            {
+                // ... but update the UI in the main thread...
+                [self addAlbumImage:event.classicAlbum toCell:cell];
+            });
+        });
+    }
+    else
+    {
+        [self addAlbumImage:event.classicAlbum toCell:cell];
+    }
     return cell;
+}
+
+- (void) addAlbumImage:(MGMAlbum*)album toCell:(UITableViewCell*)cell
+{
+    NSString* albumArtUri = [album bestTableImageUrl];
+    if (albumArtUri)
+    {
+        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
+        {
+            cell.imageView.image = image;
+        }];
+    }
+    else
+    {
+        cell.imageView.image = [UIImage imageNamed:@"album1.png"];
+    }
 }
 
 #pragma mark -

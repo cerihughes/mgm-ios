@@ -59,4 +59,30 @@
     [self.metadata setObject:metadata forKey:[NSNumber numberWithInt:serviceType]];
 }
 
+- (NSString*) bestImageWithPreferences:(MGMAlbumImageSize[5])sizes
+{
+    for (NSUInteger i = 0; i < 5; i++)
+    {
+        NSString* uri = [self imageUrlForImageSize:sizes[i]];
+        if (uri)
+        {
+            return uri;
+        }
+    }
+    return nil;
+}
+
+- (NSString*) bestAlbumImageUrl
+{
+    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeLarge, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
+    return [self bestImageWithPreferences:sizes];
+}
+
+- (NSString*) bestTableImageUrl
+{
+    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeSmall, MGMAlbumImageSizeMedium, MGMAlbumImageSizeLarge, MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega};
+    return [self bestImageWithPreferences:sizes];
+}
+
+
 @end

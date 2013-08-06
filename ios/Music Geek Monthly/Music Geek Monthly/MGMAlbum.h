@@ -43,4 +43,7 @@ MGMAlbumServiceType;
 - (NSString*) metadataForServiceType:(MGMAlbumServiceType)serviceType;
 - (void) setMetadata:(NSString*)metadata forServiceType:(MGMAlbumServiceType)serviceType;
 
+- (NSString*) bestAlbumImageUrl;
+- (NSString*) bestTableImageUrl;
+
 @end

@@ -10,4 +10,15 @@
 
 @implementation MGMGroupAlbum
 
+- (NSString*) bestAlbumImageUrl
+{
+    NSString* uri;
+    if (self.rank == 1 && (uri = [self imageUrlForImageSize:MGMAlbumImageSizeMega]) != nil)
+    {
+        return uri;
+    }
+
+    return [super bestAlbumImageUrl];
+}
+
 @end

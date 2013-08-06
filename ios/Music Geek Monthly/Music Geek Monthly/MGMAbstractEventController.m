@@ -95,7 +95,7 @@
 
 - (void) displayNewReleaseAlbumImage:(MGMAlbum*)newRelease
 {
-    NSString* albumArtUri = [self bestImageForAlbum:newRelease];
+    NSString* albumArtUri = [newRelease bestAlbumImageUrl];
     if (albumArtUri)
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
@@ -113,7 +113,7 @@
 
 - (void) displayClassicAlbumImage:(MGMAlbum*)classicAlbum
 {
-    NSString* albumArtUri = [self bestImageForAlbum:classicAlbum];
+    NSString* albumArtUri = [classicAlbum bestAlbumImageUrl];
     if (albumArtUri)
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
@@ -127,20 +127,6 @@
         self.classicAlbumView.activityInProgress = NO;
         [self.classicAlbumView renderImage:[UIImage imageNamed:@"album3.png"]];
     }
-}
-
-- (NSString*) bestImageForAlbum:(MGMAlbum*)album
-{
-    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeLarge, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
-    for (NSUInteger i = 0; i < 5; i++)
-    {
-        NSString* uri = [album imageUrlForImageSize:sizes[i]];
-        if (uri)
-        {
-            return uri;
-        }
-    }
-    return nil;
 }
 
 #pragma mark -

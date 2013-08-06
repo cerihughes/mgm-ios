@@ -138,26 +138,6 @@
     });
 }
 
-- (NSString*) bestImageForAlbum:(MGMGroupAlbum*)album
-{
-    NSString* uri;
-    if (album.rank == 1 && (uri = [album imageUrlForImageSize:MGMAlbumImageSizeMega]) != nil)
-    {
-        return uri;
-    }
-
-    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeLarge, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
-    for (NSUInteger i = 0; i < 5; i++)
-    {
-        NSString* uri = [album imageUrlForImageSize:sizes[i]];
-        if (uri)
-        {
-            return uri;
-        }
-    }
-    return nil;
-}
-
 - (void) reloadData
 {
     for (MGMGroupAlbum* album in self.groupAlbums)
@@ -187,7 +167,7 @@
 {
     NSUInteger rank = album.rank;
 
-    NSString* albumArtUri = [self bestImageForAlbum:album];
+    NSString* albumArtUri = [album bestAlbumImageUrl];
     if (albumArtUri)
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)

@@ -143,7 +143,7 @@
         {
             self.backgroundAlbumIndex = 0;
         }
-        uri = [self bestImageForAlbum:album];
+        uri = [album bestAlbumImageUrl];
     }
     return uri;
 }
