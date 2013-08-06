@@ -22,6 +22,7 @@
 {
     self.daoFactory = [[MGMDaoFactory alloc] init];
     self.albumPlayer = [[MGMAlbumPlayer alloc] init];
+    self.albumPlayer.daoFactory = self.daoFactory;
 }
 
 - (void) enteredForeground

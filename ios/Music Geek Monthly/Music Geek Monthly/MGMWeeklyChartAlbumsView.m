@@ -56,19 +56,12 @@
 
 - (void) setAlbumImage:(UIImage *)albumImage artistName:(NSString *)artistName albumName:(NSString *)albumName rank:(NSUInteger)rank listeners:(NSUInteger)listeners
 {
-    [self setAlbumImage:albumImage atRank:rank];
-
-    MGMAlbumView* albumView = [self albumViewForRank:rank];
-    albumView.artistName = artistName;
-    albumView.albumName = albumName;
-    albumView.listeners = listeners;
-}
-
-- (void) setAlbumImage:(UIImage *)albumImage atRank:(NSUInteger)rank
-{
     MGMAlbumView* albumView = [self albumViewForRank:rank];
     albumView.pressable = YES;
     albumView.detailViewShowing = YES;
+    albumView.artistName = artistName;
+    albumView.albumName = albumName;
+    albumView.listeners = listeners;
     [albumView renderImage:albumImage];
 }
 

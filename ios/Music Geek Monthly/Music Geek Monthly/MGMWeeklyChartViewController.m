@@ -270,12 +270,14 @@
 
 - (void) albumPressedWithRank:(NSUInteger)rank
 {
-
+    MGMAlbum* album = [self.groupAlbums objectAtIndex:rank - 1];
+    [self.albumSelectionDelegate albumSelected:album];
 }
 
 - (void) detailPressedWithRank:(NSUInteger)rank
 {
-    
+    MGMAlbum* album = [self.groupAlbums objectAtIndex:rank - 1];
+    [self.albumSelectionDelegate detailSelected:album];
 }
 
 @end

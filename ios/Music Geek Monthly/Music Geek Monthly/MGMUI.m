@@ -120,6 +120,11 @@
     }
 }
 
+- (void) navigateToWebPanel:(NSString*)uri
+{
+    [self transition:TO_WEB withState:uri];
+}
+
 #pragma mark -
 #pragma mark MGMHomeViewControllerDelegate
 

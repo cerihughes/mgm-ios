@@ -207,12 +207,7 @@
 
 - (void) renderImage:(UIImage*)image
 {
-    [self renderImage:image afterDelay:0];
-}
-
-- (void) renderImage:(UIImage*)image afterDelay:(NSTimeInterval)delay
-{
-    [UIView animateWithDuration:self.animationTime delay:delay options:UIViewAnimationOptionCurveEaseIn animations:^
+    [UIView animateWithDuration:self.animationTime animations:^
     {
         self.button.alpha = self.alphaOff;
     }

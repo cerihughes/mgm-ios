@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMAlbumViewController.h"
+#import "MGMAbstractEventController.h"
 
-@interface MGMEventsViewController : MGMAlbumViewController
+@interface MGMEventsViewController : MGMAbstractEventController
 
 @end

@@ -36,7 +36,5 @@
 
 - (void) renderImageWithNoAnimation:(UIImage*)image;
 - (void) renderImage:(UIImage*)image;
-- (void) renderImage:(UIImage*)image afterDelay:(NSTimeInterval)delay;
-
 
 @end

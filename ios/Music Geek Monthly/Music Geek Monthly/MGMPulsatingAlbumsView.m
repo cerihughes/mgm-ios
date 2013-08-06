@@ -17,6 +17,11 @@
 
 @implementation MGMPulsatingAlbumsView
 
+- (NSUInteger) albumCount
+{
+    return self.albumViews.count;
+}
+
 - (void) setupAlbumsInRow:(NSUInteger)albumsInRow
 {
     self.albumViews = [NSMutableArray array];
@@ -42,31 +47,12 @@
     }
 }
 
-- (void) renderImages:(NSArray *)images
+- (void) renderImage:(UIImage*)image atIndex:(NSUInteger)index
 {
-    NSArray* shuffled = [self shuffledCopy:self.albumViews];
-    for (NSUInteger i = 0; i < shuffled.count; i++)
+    if (index < self.albumCount)
     {
-        MGMAlbumView* albumView = [shuffled objectAtIndex:i];
-        [albumView renderImage:[self randomImageFromArray:images] afterDelay:i / 4.0];
+        [[self.albumViews objectAtIndex:index] renderImage:image];
     }
-}
-
-- (NSArray*) shuffledCopy:(NSArray*)input
-{
-    NSMutableArray* copy = [input mutableCopy];
-    for (int i = [input count] - 1; i > 0; i--)
-    {
-        int j = arc4random() % (i + 1);
-        [copy exchangeObjectAtIndex:i withObjectAtIndex:j];
-    }
-    return [copy copy];
-}
-
-- (UIImage*) randomImageFromArray:(NSArray*)images
-{
-    int index = arc4random() % images.count;
-    return [images objectAtIndex:index];
 }
 
 @end

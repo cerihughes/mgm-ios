@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMAlbumViewController.h"
+#import "MGMAbstractEventController.h"
 
 typedef enum
 {
@@ -21,7 +21,7 @@ MGMHomeViewControllerOption;
 
 @end
 
-@interface MGMHomeViewController : MGMAlbumViewController
+@interface MGMHomeViewController : MGMAbstractEventController
 
 @property (weak) id<MGMHomeViewControllerDelegate> delegate;
 

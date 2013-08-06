@@ -10,7 +10,9 @@
 
 @interface MGMPulsatingAlbumsView : MGMView
 
+@property (readonly) NSUInteger albumCount;
+
 - (void) setupAlbumsInRow:(NSUInteger)albumsInRow;
-- (void) renderImages:(NSArray*)images;
+- (void) renderImage:(UIImage*)image atIndex:(NSUInteger)index;
 
 @end

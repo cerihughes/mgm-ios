@@ -78,15 +78,7 @@
 - (NSArray*) topWeeklyAlbumsForMostRecentTimePeriod:(NSUInteger)count
 {
     MGMTimePeriod* mostRecent = [[self weeklyTimePeriods] objectAtIndex:0];
-    NSArray* albums = [self topWeeklyAlbums:count forTimePeriod:mostRecent];
-    for (MGMGroupAlbum* album in albums)
-    {
-        if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
-        {
-            [self updateAlbumInfo:album];
-        }
-    }
-    return albums;
+    return [self topWeeklyAlbums:count forTimePeriod:mostRecent];
 }
 
 - (void) updateAlbumInfo:(MGMAlbum*)album
