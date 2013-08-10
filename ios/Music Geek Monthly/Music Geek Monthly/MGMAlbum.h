@@ -10,20 +10,22 @@
 
 typedef enum
 {
-    MGMAlbumImageSizeSmall,
-    MGMAlbumImageSizeMedium,
-    MGMAlbumImageSizeLarge,
-    MGMAlbumImageSizeExtraLarge,
-    MGMAlbumImageSizeMega
+    MGMAlbumImageSizeNone = 0,
+    MGMAlbumImageSizeSmall = 1,
+    MGMAlbumImageSizeMedium = 2,
+    MGMAlbumImageSizeLarge = 3,
+    MGMAlbumImageSizeExtraLarge = 4,
+    MGMAlbumImageSizeMega = 5
 }
 MGMAlbumImageSize;
 
 typedef enum
 {
-    MGMAlbumServiceTypeLastFm,
-    MGMAlbumServiceTypeSpotify,
-    MGMAlbumServiceTypeWikipedia,
-    MGMAlbumServiceTypeYouTube
+    MGMAlbumServiceTypeNone = 0,
+    MGMAlbumServiceTypeLastFm = 1,
+    MGMAlbumServiceTypeSpotify = 2,
+    MGMAlbumServiceTypeWikipedia = 3,
+    MGMAlbumServiceTypeYouTube = 4
 }
 MGMAlbumServiceType;
 

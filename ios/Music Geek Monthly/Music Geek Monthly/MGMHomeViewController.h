@@ -10,8 +10,9 @@
 
 typedef enum
 {
-    MGMHomeViewControllerOptionPreviousEvents,
-    MGMHomeViewControllerOptionCharts
+    MGMHomeViewControllerOptionPreviousNone = 0,
+    MGMHomeViewControllerOptionPreviousEvents = 1,
+    MGMHomeViewControllerOptionCharts = 2
 }
 MGMHomeViewControllerOption;
 

@@ -113,10 +113,10 @@
     switch (option) {
         case MGMHomeViewControllerOptionPreviousEvents:
             return TO_PLAYLISTS;
-            break;
         case MGMHomeViewControllerOptionCharts:
             return TO_CHART;
-            break;
+        default:
+            return nil;
     }
 }
 
