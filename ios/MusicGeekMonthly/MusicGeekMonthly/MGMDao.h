@@ -10,7 +10,4 @@
 
 @interface MGMDao : NSObject
 
-- (NSData*) contentsOfUrl:(NSString*)url;
-- (NSData*) contentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers;
-
 @end

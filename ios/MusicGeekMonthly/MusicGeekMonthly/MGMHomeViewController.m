@@ -93,7 +93,7 @@
         if (self.backgroundAlbums == nil)
         {
             NSUInteger albumContentPoolSize = albumsToRender * 2;
-            self.backgroundAlbums = [self shuffledCopy:[self.core.daoFactory.lastFmDao topWeeklyAlbumsForMostRecentTimePeriod:albumContentPoolSize]];
+            self.backgroundAlbums = [self shuffledCopy:[self.core.daoFactory.lastFmDao topWeeklyAlbumsForMostRecentTimePeriod:albumContentPoolSize].albums];
 
             NSMutableArray* indices = [NSMutableArray arrayWithCapacity:albumsToRender];
             for (NSUInteger i = 0; i < albumsToRender; i++)

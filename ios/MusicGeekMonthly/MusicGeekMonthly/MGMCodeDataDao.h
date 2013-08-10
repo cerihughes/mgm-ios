@@ -1,13 +1,13 @@
 //
-//  MGMDao.m
+//  MGMCodeDataDao.h
 //  Music Geek Monthly
 //
-//  Created by Ceri Hughes on 14/06/2013.
+//  Created by Ceri Hughes on 10/08/2013.
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
 #import "MGMDao.h"
 
-@implementation MGMDao
+@interface MGMCodeDataDao : MGMDao
 
 @end

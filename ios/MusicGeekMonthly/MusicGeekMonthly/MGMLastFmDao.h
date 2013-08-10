@@ -7,12 +7,13 @@
 //
 
 #import "MGMAlbumMetadataDao.h"
+#import "MGMWeeklyChart.h"
 #import "MGMTimePeriod.h"
 
 @interface MGMLastFmDao : MGMAlbumMetadataDao
 
 - (NSArray*) weeklyTimePeriods;
-- (NSArray*) topWeeklyAlbums:(NSUInteger)count forTimePeriod:(MGMTimePeriod*)timePeriod;
-- (NSArray*) topWeeklyAlbumsForMostRecentTimePeriod:(NSUInteger)count;
+- (MGMWeeklyChart*) topWeeklyAlbums:(NSUInteger)count forTimePeriod:(MGMTimePeriod*)timePeriod;
+- (MGMWeeklyChart*) topWeeklyAlbumsForMostRecentTimePeriod:(NSUInteger)count;
 
 @end

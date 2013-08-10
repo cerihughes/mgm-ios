@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMDao.h"
+#import "MGMHttpDao.h"
 #import "MGMAlbum.h"
 
-@interface MGMAlbumMetadataDao : MGMDao
+@interface MGMAlbumMetadataDao : MGMHttpDao
 
 - (void) updateAlbumInfo:(MGMAlbum*)album;
 

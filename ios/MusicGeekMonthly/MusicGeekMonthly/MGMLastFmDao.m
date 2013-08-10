@@ -57,7 +57,7 @@
     return nil;
 }
 
-- (NSArray*) topWeeklyAlbums:(NSUInteger)count forTimePeriod:(MGMTimePeriod*)timePeriod
+- (MGMWeeklyChart*) topWeeklyAlbums:(NSUInteger)count forTimePeriod:(MGMTimePeriod*)timePeriod
 {
     NSUInteger from = timePeriod.startDate.timeIntervalSince1970;
     NSUInteger to = timePeriod.endDate.timeIntervalSince1970;
@@ -69,13 +69,16 @@
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
         if (error == nil)
         {
-            return [self albums:count forJson:json];
+            MGMWeeklyChart* chart = [[MGMWeeklyChart alloc] init];
+            chart.timePeriod = timePeriod;
+            chart.albums = [self albums:count forJson:json];
+            return chart;
         }
     }
     return nil;
 }
 
-- (NSArray*) topWeeklyAlbumsForMostRecentTimePeriod:(NSUInteger)count
+- (MGMWeeklyChart*) topWeeklyAlbumsForMostRecentTimePeriod:(NSUInteger)count
 {
     MGMTimePeriod* mostRecent = [[self weeklyTimePeriods] objectAtIndex:0];
     return [self topWeeklyAlbums:count forTimePeriod:mostRecent];

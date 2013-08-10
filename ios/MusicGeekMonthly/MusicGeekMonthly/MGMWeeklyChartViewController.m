@@ -16,7 +16,7 @@
 @property (strong) NSMutableArray* timePeriodTitles;
 @property (strong) NSMutableDictionary* timePeriodMap;
 
-@property (strong) NSArray* groupAlbums;
+@property (strong) MGMWeeklyChart* weeklyChart;
 
 @property (strong) NSDateFormatter* dateFormatter;
 @property (strong) NSDateFormatter* groupHeaderFormatter;
@@ -127,7 +127,7 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        self.groupAlbums = [self.core.daoFactory.lastFmDao topWeeklyAlbums:ALBUMS_IN_CHART forTimePeriod:timePeriod];
+        self.weeklyChart = [self.core.daoFactory.lastFmDao topWeeklyAlbums:ALBUMS_IN_CHART forTimePeriod:timePeriod];
 
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -139,7 +139,7 @@
 
 - (void) reloadData
 {
-    for (MGMAlbum* album in self.groupAlbums)
+    for (MGMAlbum* album in self.weeklyChart.albums)
     {
         [self.albumsView setActivityInProgress:YES forRank:album.rank.intValue];
         if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
@@ -250,13 +250,13 @@
 
 - (void) albumPressedWithRank:(NSUInteger)rank
 {
-    MGMAlbum* album = [self.groupAlbums objectAtIndex:rank - 1];
+    MGMAlbum* album = [self.weeklyChart.albums objectAtIndex:rank - 1];
     [self.albumSelectionDelegate albumSelected:album];
 }
 
 - (void) detailPressedWithRank:(NSUInteger)rank
 {
-    MGMAlbum* album = [self.groupAlbums objectAtIndex:rank - 1];
+    MGMAlbum* album = [self.weeklyChart.albums objectAtIndex:rank - 1];
     [self.albumSelectionDelegate detailSelected:album];
 }
 

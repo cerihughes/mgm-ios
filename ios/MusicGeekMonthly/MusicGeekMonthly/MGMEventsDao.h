@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMDao.h"
+#import "MGMHttpDao.h"
 #import "MGMEvent.h"
 
-@interface MGMEventsDao : MGMDao
+@interface MGMEventsDao : MGMHttpDao
 
 - (MGMEvent*) latestEvent;
 - (NSArray*) events;
