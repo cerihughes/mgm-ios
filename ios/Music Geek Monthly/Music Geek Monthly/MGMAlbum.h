@@ -33,6 +33,8 @@ MGMAlbumServiceType;
 @property (strong) NSString* albumName;
 @property (strong) NSString* albumMbid;
 @property (strong) NSNumber* score;
+@property (strong) NSNumber* rank;
+@property (strong) NSNumber* listeners;
 
 - (BOOL) searchedServiceType:(MGMAlbumServiceType)serviceType;
 - (void) setServiceTypeSearched:(MGMAlbumServiceType)serviceType;

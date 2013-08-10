@@ -7,7 +7,7 @@
 //
 
 #import "MGMLastFmDao.h"
-#import "MGMGroupAlbum.h"
+#import "MGMAlbum.h"
 
 #define WEEKLY_PERIODS_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyChartList&group=%@&api_key=%@&format=json"
 #define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&from=%d&to=%d&api_key=%@&format=json"
@@ -137,31 +137,27 @@
     for (NSUInteger i = 0; i < cap; i++)
     {
         NSDictionary* album = [albums objectAtIndex:i];
-        MGMGroupAlbum* converted = [self albumForJson:album];
+        MGMAlbum* converted = [self albumForJson:album];
         [results addObject:converted];
     }
     return [results copy];
 }
 
-- (MGMGroupAlbum*) albumForJson:(NSDictionary*)json
+- (MGMAlbum*) albumForJson:(NSDictionary*)json
 {
-    MGMGroupAlbum* album = [[MGMGroupAlbum alloc] init];
-    NSUInteger rank = [[[json objectForKey:@"@attr"] objectForKey:@"rank"] intValue];
+    MGMAlbum* album = [[MGMAlbum alloc] init];
+    NSNumber* rank = [[json objectForKey:@"@attr"] objectForKey:@"rank"];
     NSDictionary* artist = [json objectForKey:@"artist"];
-    NSString* artistMbid = [artist objectForKey:@"mbid"];
     NSString* artistName = [artist objectForKey:@"#text"];
     NSString* albumMbid = [json objectForKey:@"mbid"];
     NSString* albumName = [json objectForKey:@"name"];
-    NSUInteger listeners = [[json objectForKey:@"playcount"] intValue];
-    NSString* url = [json objectForKey:@"url"];
+    NSNumber* listeners = [json objectForKey:@"playcount"];
 
     album.rank = rank;
-    album.artistMbid = artistMbid;
     album.artistName = artistName;
     album.albumMbid = albumMbid;
     album.albumName = albumName;
     album.listeners = listeners;
-    album.lastFmUri = url;
     return album;
 }
 

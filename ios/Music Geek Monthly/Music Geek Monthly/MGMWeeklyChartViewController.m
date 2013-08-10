@@ -1,7 +1,6 @@
 
 #import "MGMWeeklyChartViewController.h"
 #import "MGMWeeklyChartAlbumsView.h"
-#import "MGMGroupAlbum.h"
 #import "MGMGridManager.h"
 #import "MGMImageHelper.h"
 
@@ -140,9 +139,9 @@
 
 - (void) reloadData
 {
-    for (MGMGroupAlbum* album in self.groupAlbums)
+    for (MGMAlbum* album in self.groupAlbums)
     {
-        [self.albumsView setActivityInProgress:YES forRank:album.rank];
+        [self.albumsView setActivityInProgress:YES forRank:album.rank.intValue];
         if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
         {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
@@ -163,25 +162,26 @@
     }
 }
 
-- (void) renderAlbum:(MGMGroupAlbum*)album
+- (void) renderAlbum:(MGMAlbum*)album
 {
-    NSUInteger rank = album.rank;
+    NSUInteger rank = album.rank.intValue;
+    NSUInteger listeners = album.listeners.intValue;
 
     NSString* albumArtUri = [album bestAlbumImageUrl];
     if (albumArtUri)
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
         {
-            [self.albumsView setActivityInProgress:NO forRank:album.rank];
-            [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:album.listeners];
+            [self.albumsView setActivityInProgress:NO forRank:rank];
+            [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
         }];
     }
     else
     {
-        NSUInteger albumType = (album.rank % 3) + 1;
+        NSUInteger albumType = (rank % 3) + 1;
         NSString* imageName = [NSString stringWithFormat:@"album%d.png", albumType];
         UIImage* image = [UIImage imageNamed:imageName];
-        [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:album.listeners];
+        [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
     }
 }
 

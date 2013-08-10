@@ -74,6 +74,12 @@
 
 - (NSString*) bestAlbumImageUrl
 {
+    NSString* uri;
+    if (self.rank.intValue == 1 && (uri = [self imageUrlForImageSize:MGMAlbumImageSizeMega]) != nil)
+    {
+        return uri;
+    }
+
     MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeLarge, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
     return [self bestImageWithPreferences:sizes];
 }
