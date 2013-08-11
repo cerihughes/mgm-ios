@@ -14,6 +14,12 @@
 
 @implementation MGMEvent
 
+@dynamic eventDate;
+@dynamic eventNumber;
+@dynamic spotifyPlaylistId;
+@dynamic classicAlbum;
+@dynamic newlyReleasedAlbum;
+
 - (NSString*) spotifyPlaylistUrl
 {
     if (self.spotifyPlaylistId)

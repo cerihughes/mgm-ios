@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMDao.h"
+#import "MGMCoreDataAwareDao.h"
 
-@interface MGMHttpDao : MGMDao
+@interface MGMHttpDao : MGMCoreDataAwareDao
 
 - (NSData*) contentsOfUrl:(NSString*)url;
 - (NSData*) contentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers;

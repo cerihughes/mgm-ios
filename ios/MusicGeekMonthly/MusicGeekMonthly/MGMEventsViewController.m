@@ -24,7 +24,7 @@
 
 #define CELL_ID @"MGMEventsViewControllerCellId"
 
-#define EVENT_TITLE_PATTERN @"MGM#%d %@"
+#define EVENT_TITLE_PATTERN @"MGM#%@ %@"
 #define WEB_URL_PATTERN @"https://embed.spotify.com/?uri=%@"
 
 - (id) init

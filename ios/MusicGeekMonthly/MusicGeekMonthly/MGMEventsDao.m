@@ -87,14 +87,14 @@
     for (NSUInteger i = 0; i < capped; i++)
     {
         NSDictionary* eventJson = [events objectAtIndex:i];
-        NSUInteger eventNumber = [[eventJson objectForKey:JSON_ELEMENT_ID] intValue];
+        NSNumber* eventNumber = [eventJson objectForKey:JSON_ELEMENT_ID];
         NSString* dateString = [eventJson objectForKey:JSON_ELEMENT_DATE];
         NSDate* date = [self.dateFormatter dateFromString:dateString];
         NSString* playlistId = [eventJson objectForKey:JSON_ELEMENT_PLAYLIST_ID];
         MGMAlbum* classicAlbum = [self albumForJson:[eventJson objectForKey:JSON_ELEMENT_CLASSIC_ALBUM]];
         MGMAlbum* newAlbum = [self albumForJson:[eventJson objectForKey:JSON_ELEMENT_NEW_ALBUM]];
 
-        MGMEvent* event = [[MGMEvent alloc] init];
+        MGMEvent* event = [self.coreDataDao createNewEvent:nil];
         event.eventNumber = eventNumber;
         event.eventDate = date;
         event.spotifyPlaylistId = playlistId;
@@ -119,7 +119,7 @@
         metadata = [NSDictionary dictionary];
     }
 
-    MGMAlbum* album = [[MGMAlbum alloc] init];
+    MGMAlbum* album = [self.coreDataDao createNewAlbum:nil];
     album.artistName = artistName;
     album.albumName = albumName;
     album.albumMbid = mbid;

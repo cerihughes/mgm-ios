@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 typedef enum
 {
@@ -29,14 +29,17 @@ typedef enum
 }
 MGMAlbumServiceType;
 
-@interface MGMAlbum : NSObject
+@interface MGMAlbum : NSManagedObject
 
-@property (strong) NSString* artistName;
-@property (strong) NSString* albumName;
-@property (strong) NSString* albumMbid;
-@property (strong) NSNumber* score;
-@property (strong) NSNumber* rank;
-@property (strong) NSNumber* listeners;
+@property (nonatomic, retain) NSString* albumMbid;
+@property (nonatomic, retain) NSString* albumName;
+@property (nonatomic, retain) NSString* artistName;
+@property (nonatomic, retain) NSData* imageUris;
+@property (nonatomic, retain) NSNumber* listeners;
+@property (nonatomic, retain) NSData* metadata;
+@property (nonatomic, retain) NSNumber* rank;
+@property (nonatomic, retain) NSNumber* score;
+@property (nonatomic, retain) NSData* searchedServiceTypes;
 
 - (BOOL) searchedServiceType:(MGMAlbumServiceType)serviceType;
 - (void) setServiceTypeSearched:(MGMAlbumServiceType)serviceType;

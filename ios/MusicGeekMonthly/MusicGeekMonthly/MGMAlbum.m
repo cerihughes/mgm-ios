@@ -10,53 +10,75 @@
 
 @interface MGMAlbum ()
 
-@property (strong) NSMutableArray* searchedServiceTypes;
-@property (strong) NSMutableDictionary* metadata;
-@property (strong) NSMutableDictionary* imageUris;
+@property (strong) NSMutableArray* internalSearchedServiceTypes;
+@property (strong) NSMutableDictionary* internalImageUris;
+@property (strong) NSMutableDictionary* internalMetadata;
 
 @end
 
 @implementation MGMAlbum
 
-- (id)init
+@dynamic albumMbid;
+@dynamic albumName;
+@dynamic artistName;
+@dynamic imageUris;
+@dynamic listeners;
+@dynamic metadata;
+@dynamic rank;
+@dynamic score;
+@dynamic searchedServiceTypes;
+
+@synthesize internalSearchedServiceTypes;
+@synthesize internalImageUris;
+@synthesize internalMetadata;
+
+- (void) awakeFromInsert
 {
-    if (self = [super init])
-    {
-        self.searchedServiceTypes = [NSMutableArray array];
-        self.metadata = [NSMutableDictionary dictionary];
-        self.imageUris = [NSMutableDictionary dictionary];
-    }
-    return self;
+    [super awakeFromInsert];
+    self.internalSearchedServiceTypes = [NSMutableArray array];
+    self.internalImageUris = [NSMutableDictionary dictionary];
+    self.internalMetadata = [NSMutableDictionary dictionary];
+}
+
+- (void) awakeFromFetch
+{
+    [super awakeFromFetch];
+    self.internalSearchedServiceTypes = [NSKeyedUnarchiver unarchiveObjectWithData:self.searchedServiceTypes];
+    self.internalImageUris = [NSKeyedUnarchiver unarchiveObjectWithData:self.imageUris];
+    self.internalMetadata = [NSKeyedUnarchiver unarchiveObjectWithData:self.metadata];
 }
 
 - (BOOL) searchedServiceType:(MGMAlbumServiceType)serviceType
 {
-    return [self.searchedServiceTypes containsObject:[NSNumber numberWithInt:serviceType]];
+    return [self.internalSearchedServiceTypes containsObject:[NSNumber numberWithInt:serviceType]];
 }
 
 - (void) setServiceTypeSearched:(MGMAlbumServiceType)serviceType
 {
-    [self.searchedServiceTypes addObject:[NSNumber numberWithInt:serviceType]];
+    [self.internalSearchedServiceTypes addObject:[NSNumber numberWithInt:serviceType]];
+    self.searchedServiceTypes = [NSKeyedArchiver archivedDataWithRootObject:self.internalSearchedServiceTypes];
 }
 
 - (NSString*) imageUrlForImageSize:(MGMAlbumImageSize)size
 {
-    return [self.imageUris objectForKey:[NSNumber numberWithInt:size]];
+    return [self.internalImageUris objectForKey:[NSNumber numberWithInt:size]];
 }
 
 - (void) setImageUrl:(NSString*)imageUrl forImageSize:(MGMAlbumImageSize)size
 {
-    [self.imageUris setObject:imageUrl forKey:[NSNumber numberWithInt:size]];
+    [self.internalImageUris setObject:imageUrl forKey:[NSNumber numberWithInt:size]];
+    self.imageUris = [NSKeyedArchiver archivedDataWithRootObject:self.internalImageUris];
 }
 
 - (NSString*) metadataForServiceType:(MGMAlbumServiceType)serviceType
 {
-    return [self.metadata objectForKey:[NSNumber numberWithInt:serviceType]];
+    return [self.internalMetadata objectForKey:[NSNumber numberWithInt:serviceType]];
 }
 
 - (void) setMetadata:(NSString*)metadata forServiceType:(MGMAlbumServiceType)serviceType
 {
-    [self.metadata setObject:metadata forKey:[NSNumber numberWithInt:serviceType]];
+    [self.internalMetadata setObject:metadata forKey:[NSNumber numberWithInt:serviceType]];
+    self.metadata = [NSKeyedArchiver archivedDataWithRootObject:self.internalMetadata];
 }
 
 - (NSString*) bestImageWithPreferences:(MGMAlbumImageSize[5])sizes
@@ -89,6 +111,5 @@
     MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeSmall, MGMAlbumImageSizeMedium, MGMAlbumImageSizeLarge, MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega};
     return [self bestImageWithPreferences:sizes];
 }
-
 
 @end

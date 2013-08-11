@@ -1,5 +1,5 @@
 //
-//  MGMTimePerios.m
+//  MGMTimePeriod.m
 //  Music Geek Monthly
 //
 //  Created by Ceri Hughes on 19/06/2013.
@@ -10,19 +10,7 @@
 
 @implementation MGMTimePeriod
 
-+ (MGMTimePeriod*) timePeriodWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate
-{
-    return [[MGMTimePeriod alloc] initWithStartDate:startDate endDate:endDate];
-}
-
-- (id) initWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate
-{
-    if (self = [super init])
-    {
-        self.startDate = startDate;
-        self.endDate = endDate;
-    }
-    return self;
-}
+@dynamic endDate;
+@dynamic startDate;
 
 @end

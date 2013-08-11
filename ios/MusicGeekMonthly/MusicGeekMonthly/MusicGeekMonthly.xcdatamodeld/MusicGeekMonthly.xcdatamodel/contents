@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="MGMAlbum" representedClassName="MGMAlbum" syncable="YES">
+        <attribute name="albumMbid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="albumName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artistName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageUris" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="listeners" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="metadata" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="rank" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="score" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="searchedServiceTypes" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="classicAlbumEvent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMEvent" inverseName="classicAlbum" inverseEntity="MGMEvent" syncable="YES"/>
+        <relationship name="newlyReleasedAlbumEvent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMEvent" inverseName="newlyReleasedAlbum" inverseEntity="MGMEvent" syncable="YES"/>
+        <relationship name="weeklyChart" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMWeeklyChart" inverseName="albums" inverseEntity="MGMWeeklyChart" syncable="YES"/>
+    </entity>
+    <entity name="MGMEvent" representedClassName="MGMEvent" syncable="YES">
+        <attribute name="eventDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="eventNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="spotifyPlaylistId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="classicAlbum" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMAlbum" inverseName="classicAlbumEvent" inverseEntity="MGMAlbum" syncable="YES"/>
+        <relationship name="newlyReleasedAlbum" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMAlbum" inverseName="newlyReleasedAlbumEvent" inverseEntity="MGMAlbum" syncable="YES"/>
+    </entity>
+    <entity name="MGMTimePeriod" representedClassName="MGMTimePeriod" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="weeklyChart" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMWeeklyChart" inverseName="timePeriod" inverseEntity="MGMWeeklyChart" syncable="YES"/>
+    </entity>
+    <entity name="MGMWeeklyChart" representedClassName="MGMWeeklyChart" syncable="YES">
+        <relationship name="albums" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MGMAlbum" inverseName="weeklyChart" inverseEntity="MGMAlbum" syncable="YES"/>
+        <relationship name="timePeriod" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMTimePeriod" inverseName="weeklyChart" inverseEntity="MGMTimePeriod" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="MGMAlbum" positionX="-225" positionY="-81" width="128" height="223"/>
+        <element name="MGMEvent" positionX="358" positionY="9" width="128" height="118"/>
+        <element name="MGMTimePeriod" positionX="-216" positionY="290" width="128" height="88"/>
+        <element name="MGMWeeklyChart" positionX="160" positionY="192" width="128" height="73"/>
+    </elements>
+</model>

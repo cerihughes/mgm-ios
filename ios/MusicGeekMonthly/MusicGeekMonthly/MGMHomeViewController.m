@@ -93,14 +93,14 @@
         if (self.backgroundAlbums == nil)
         {
             NSUInteger albumContentPoolSize = albumsToRender * 2;
-            self.backgroundAlbums = [self shuffledCopy:[self.core.daoFactory.lastFmDao topWeeklyAlbumsForMostRecentTimePeriod:albumContentPoolSize].albums];
+            self.backgroundAlbums = [self shuffledArray:[self.core.daoFactory.lastFmDao topWeeklyAlbumsForMostRecentTimePeriod:albumContentPoolSize].albums];
 
-            NSMutableArray* indices = [NSMutableArray arrayWithCapacity:albumsToRender];
+            NSMutableOrderedSet* indices = [NSMutableOrderedSet orderedSetWithCapacity:albumsToRender];
             for (NSUInteger i = 0; i < albumsToRender; i++)
             {
                 [indices addObject:[NSNumber numberWithInt:i]];
             }
-            self.backgroundAlbumViewIndices = [self shuffledCopy:indices];
+            self.backgroundAlbumViewIndices = [self shuffledArray:indices];
             self.backgroundAlbumIndex = 0;
         }
 
@@ -148,9 +148,9 @@
     return uri;
 }
 
-- (NSArray*) shuffledCopy:(NSArray*)input
+- (NSArray*) shuffledArray:(NSOrderedSet*)input
 {
-    NSMutableArray* copy = [input mutableCopy];
+    NSMutableArray* copy = [[input array] mutableCopy];
     for (int i = [input count] - 1; i > 0; i--)
     {
         int j = arc4random() % (i + 1);

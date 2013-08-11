@@ -6,12 +6,23 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "MGMTimePeriod.h"
+#import "MGMAlbum.h"
 
-@interface MGMWeeklyChart : NSObject
+@interface MGMWeeklyChart : NSManagedObject
 
-@property (strong) MGMTimePeriod* timePeriod;
-@property (strong) NSArray* albums;
+@property (nonatomic, retain) NSOrderedSet *albums;
+@property (nonatomic, retain) MGMTimePeriod *timePeriod;
+
+@end
+
+@interface MGMWeeklyChart (AlbumsAccessors)
+
+- (NSMutableSet*)primitiveAlbums;
+- (void)setPrimitiveAlbums:(NSMutableSet*)values;
+
+- (void) addAlbumsObject:(MGMAlbum*)value;
+- (void) addAlbums:(NSOrderedSet*)values;
 
 @end

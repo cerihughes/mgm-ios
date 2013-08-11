@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "MGMAlbum.h"
 
-@interface MGMEvent : NSObject
+@interface MGMEvent : NSManagedObject
 
-@property NSUInteger eventNumber;
-@property (strong) NSDate* eventDate;
-@property (strong) NSString* spotifyPlaylistId;
-@property (strong) MGMAlbum* classicAlbum;
-@property (strong) MGMAlbum* newlyReleasedAlbum;
+@property (nonatomic, retain) NSDate* eventDate;
+@property (nonatomic, retain) NSNumber* eventNumber;
+@property (nonatomic, retain) NSString* spotifyPlaylistId;
+@property (nonatomic, retain) MGMAlbum* classicAlbum;
+@property (nonatomic, retain) MGMAlbum* newlyReleasedAlbum;
 
 - (NSString*) spotifyPlaylistUrl;
 - (NSString*) spotifyHttpUrl;

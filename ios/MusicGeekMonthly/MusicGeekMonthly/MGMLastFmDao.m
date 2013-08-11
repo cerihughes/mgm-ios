@@ -27,6 +27,7 @@
 @interface MGMLastFmDao ()
 
 @property (strong) NSArray* sizeStrings;
+@property (strong) NSNumberFormatter* numberFormatter;
 
 @end
 
@@ -37,6 +38,8 @@
     if (self = [super init])
     {
         self.sizeStrings = @[IMAGE_SIZE_SMALL, IMAGE_SIZE_MEDIUM, IMAGE_SIZE_LARGE, IMAGE_SIZE_EXTRA_LARGE, IMAGE_SIZE_MEGA];
+        self.numberFormatter = [[NSNumberFormatter alloc] init];
+        [self.numberFormatter setNumberStyle:NSNumberFormatterNoStyle];
     }
     return self;
 }
@@ -69,9 +72,9 @@
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
         if (error == nil)
         {
-            MGMWeeklyChart* chart = [[MGMWeeklyChart alloc] init];
+            MGMWeeklyChart* chart = [self.coreDataDao createNewWeeklyChart:&error];
             chart.timePeriod = timePeriod;
-            chart.albums = [self albums:count forJson:json];
+            [self addAlbums:count toChart:chart forJson:json];
             return chart;
         }
     }
@@ -113,7 +116,9 @@
         NSUInteger to = [[period objectForKey:@"to"] intValue];
         NSDate* fromDate = [NSDate dateWithTimeIntervalSince1970:from];
         NSDate* toDate = [NSDate dateWithTimeIntervalSince1970:to];
-        MGMTimePeriod* timePeriod = [MGMTimePeriod timePeriodWithStartDate:fromDate endDate:toDate];
+        MGMTimePeriod* timePeriod = [self.coreDataDao createNewMGMTimePeriod:nil];
+        timePeriod.startDate = fromDate;
+        timePeriod.endDate = toDate;
         [results addObject:timePeriod];
     }
 
@@ -131,36 +136,34 @@
     return [reversed copy];
 }
 
-- (NSArray*) albums:(NSUInteger)count forJson:(NSDictionary*)json
+- (void) addAlbums:(NSUInteger)count toChart:(MGMWeeklyChart*)chart forJson:(NSDictionary*)json
 {
     NSDictionary* weeklyalbumchart = [json objectForKey:@"weeklyalbumchart"];
     NSArray* albums = [weeklyalbumchart objectForKey:@"album"];
     NSUInteger cap = albums.count < count ? albums.count : count;
-    NSMutableArray* results = [NSMutableArray arrayWithCapacity:cap];
     for (NSUInteger i = 0; i < cap; i++)
     {
         NSDictionary* album = [albums objectAtIndex:i];
         MGMAlbum* converted = [self albumForJson:album];
-        [results addObject:converted];
+        [chart addAlbumsObject:converted];
     }
-    return [results copy];
 }
 
 - (MGMAlbum*) albumForJson:(NSDictionary*)json
 {
-    MGMAlbum* album = [[MGMAlbum alloc] init];
-    NSNumber* rank = [[json objectForKey:@"@attr"] objectForKey:@"rank"];
+    MGMAlbum* album = [self.coreDataDao createNewAlbum:nil];
+    NSString* rank = [[json objectForKey:@"@attr"] objectForKey:@"rank"];
     NSDictionary* artist = [json objectForKey:@"artist"];
     NSString* artistName = [artist objectForKey:@"#text"];
     NSString* albumMbid = [json objectForKey:@"mbid"];
     NSString* albumName = [json objectForKey:@"name"];
-    NSNumber* listeners = [json objectForKey:@"playcount"];
+    NSString* listeners = [json objectForKey:@"playcount"];
 
-    album.rank = rank;
+    album.rank = [self.numberFormatter numberFromString:rank];
     album.artistName = artistName;
     album.albumMbid = albumMbid;
     album.albumName = albumName;
-    album.listeners = listeners;
+    album.listeners = [self.numberFormatter numberFromString:listeners];
     return album;
 }
 

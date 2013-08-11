@@ -10,9 +10,11 @@
 #import "MGMLastFmDao.h"
 #import "MGMSpotifyDao.h"
 #import "MGMEventsDao.h"
+#import "MGMCoreDataDao.h"
 
 @interface MGMDaoFactory : NSObject
 
+@property (strong) MGMCoreDataDao* coreDataDao;
 @property (strong) MGMLastFmDao* lastFmDao;
 @property (strong) MGMSpotifyDao* spotifyDao;
 @property (strong) MGMEventsDao* eventsDao;
