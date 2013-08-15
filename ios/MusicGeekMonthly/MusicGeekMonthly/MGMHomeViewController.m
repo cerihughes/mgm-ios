@@ -17,9 +17,9 @@
 @property (strong) IBOutlet UILabel* nextEventDateLabel;
 
 @property (strong) MGMEvent* event;
-@property (strong) NSArray* backgroundAlbums;
-@property (strong) NSArray* backgroundAlbumViewIndices;
-@property NSUInteger backgroundAlbumIndex;
+@property (strong) NSArray* backgroundChartEntries;
+@property (strong) NSArray* backgroundChartEntryViewIndices;
+@property NSUInteger backgroundChartEntryIndex;
 
 - (IBAction) previousEventsPressed:(id)sender;
 - (IBAction) chartsPressed:(id)sender;
@@ -47,7 +47,13 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
         // Search in a background thread...
-        self.event = [self.core.daoFactory.eventsDao latestEvent];
+        NSError* error = nil;
+        self.event = [self.core.daoFactory.eventsDao latestEvent:&error];
+        if (error)
+        {
+            [self handleError:error];
+            return;
+        }
 
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -90,26 +96,45 @@
     {
         // Search in a background thread...
         NSUInteger albumsToRender = self.albumsView.albumCount;
-        if (self.backgroundAlbums == nil)
+        if (self.backgroundChartEntries == nil)
         {
-            NSUInteger albumContentPoolSize = albumsToRender * 2;
-            self.backgroundAlbums = [self shuffledArray:[self.core.daoFactory.lastFmDao topWeeklyAlbumsForMostRecentTimePeriod:albumContentPoolSize].albums];
+            NSError* error = nil;
+            MGMTimePeriod* mostRecent = [self.core.daoFactory.lastFmDao mostRecentTimePeriod:&error];
+            if (error)
+            {
+                [self handleError:error];
+                return;
+            }
+
+            self.backgroundChartEntries = [self shuffledArray:[self.core.daoFactory.lastFmDao topWeeklyAlbumsForStartDate:mostRecent.startDate endDate:mostRecent.endDate error:&error].chartEntries];
+            if (error)
+            {
+                [self handleError:error];
+                return;
+            }
 
             NSMutableOrderedSet* indices = [NSMutableOrderedSet orderedSetWithCapacity:albumsToRender];
             for (NSUInteger i = 0; i < albumsToRender; i++)
             {
                 [indices addObject:[NSNumber numberWithInt:i]];
             }
-            self.backgroundAlbumViewIndices = [self shuffledArray:indices];
-            self.backgroundAlbumIndex = 0;
+            self.backgroundChartEntryViewIndices = [self shuffledArray:indices];
+            self.backgroundChartEntryIndex = 0;
         }
 
-        for (NSNumber* albumViewIndex in self.backgroundAlbumViewIndices)
+        for (NSNumber* albumViewIndex in self.backgroundChartEntryViewIndices)
         {
             NSString* albumArtUri = [self nextBackgroundAlbumArtUri];
             if (albumArtUri)
             {
-                UIImage* image = [MGMImageHelper imageFromUrl:albumArtUri];
+                NSError* error = nil;
+                UIImage* image = [MGMImageHelper imageFromUrl:albumArtUri error:&error];
+                if (error)
+                {
+                    [self handleError:error];
+                    return;
+                }
+
                 if (image == nil)
                 {
                     image = [UIImage imageNamed:@"album1.png"];
@@ -131,17 +156,23 @@
 {
     NSUInteger howManyChecks = 0;
     NSString* uri = nil;
-    while (howManyChecks < self.backgroundAlbums.count && uri == nil)
+    while (howManyChecks < self.backgroundChartEntries.count && uri == nil)
     {
-        MGMAlbum* album = [self.backgroundAlbums objectAtIndex:self.backgroundAlbumIndex++];
+        MGMChartEntry* chartEntry = [self.backgroundChartEntries objectAtIndex:self.backgroundChartEntryIndex++];
+        MGMAlbum* album = chartEntry.album;
         if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
         {
-            [self.core.daoFactory.lastFmDao updateAlbumInfo:album];
+            NSError* error = nil;
+            [self.core.daoFactory.lastFmDao updateAlbumInfo:album error:&error];
+            if (error != nil)
+            {
+                [self handleError:error];
+            }
         }
 
-        if (self.backgroundAlbumIndex == self.backgroundAlbums.count)
+        if (self.backgroundChartEntryIndex == self.backgroundChartEntries.count)
         {
-            self.backgroundAlbumIndex = 0;
+            self.backgroundChartEntryIndex = 0;
         }
         uri = [album bestAlbumImageUrl];
     }

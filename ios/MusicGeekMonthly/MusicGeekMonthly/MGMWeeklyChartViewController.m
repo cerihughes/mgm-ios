@@ -70,7 +70,14 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
         // Search in a background thread...
-        self.timePeriods = [self.core.daoFactory.lastFmDao weeklyTimePeriods];
+        NSError* error = nil;
+        self.timePeriods = [self.core.daoFactory.lastFmDao weeklyTimePeriods:&error];
+        if (error != nil)
+        {
+            [self handleError:error];
+            return;
+        }
+
         [self processTimePeriods];
 
         dispatch_async(dispatch_get_main_queue(), ^
@@ -127,7 +134,13 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        self.weeklyChart = [self.core.daoFactory.lastFmDao topWeeklyAlbums:ALBUMS_IN_CHART forTimePeriod:timePeriod];
+        NSError* error = nil;
+        self.weeklyChart = [self.core.daoFactory.lastFmDao topWeeklyAlbumsForStartDate:timePeriod.startDate endDate:timePeriod.endDate error:&error];
+        if (error)
+        {
+            [self handleError:error];
+            return;
+        }
 
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -139,41 +152,57 @@
 
 - (void) reloadData
 {
-    for (MGMAlbum* album in self.weeklyChart.albums)
+    for (MGMChartEntry* entry in self.weeklyChart.chartEntries)
     {
-        [self.albumsView setActivityInProgress:YES forRank:album.rank.intValue];
+        MGMAlbum* album = entry.album;
+        [self.albumsView setActivityInProgress:YES forRank:entry.rank.intValue];
         if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
         {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
             {
                 // Search in a background thread...
-                [self.core.daoFactory.lastFmDao updateAlbumInfo:album];
+                NSError* error = nil;
+                [self.core.daoFactory.lastFmDao updateAlbumInfo:album error:&error];
+                if (error != nil)
+                {
+                    [self handleError:error];
+                    return;
+                }
+
                 dispatch_async(dispatch_get_main_queue(), ^
                 {
                     // ... but update the UI in the main thread...
-                    [self renderAlbum:album];
+                    [self renderChartEntry:entry];
                 });
             });
         }
         else
         {
-            [self renderAlbum:album];
+            [self renderChartEntry:entry];
         }
     }
 }
 
-- (void) renderAlbum:(MGMAlbum*)album
+- (void) renderChartEntry:(MGMChartEntry*)chartEntry
 {
-    NSUInteger rank = album.rank.intValue;
-    NSUInteger listeners = album.listeners.intValue;
+    NSUInteger rank = chartEntry.rank.intValue;
+    NSUInteger listeners = chartEntry.listeners.intValue;
 
-    NSString* albumArtUri = [album bestAlbumImageUrl];
+    NSString* albumArtUri = [chartEntry bestAlbumImageUrl];
+    MGMAlbum* album = chartEntry.album;
     if (albumArtUri)
     {
-        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
+        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
         {
-            [self.albumsView setActivityInProgress:NO forRank:rank];
-            [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
+            if (error)
+            {
+                [self handleError:error];
+            }
+            else
+            {
+                [self.albumsView setActivityInProgress:NO forRank:rank];
+                [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
+            }
         }];
     }
     else
@@ -250,14 +279,14 @@
 
 - (void) albumPressedWithRank:(NSUInteger)rank
 {
-    MGMAlbum* album = [self.weeklyChart.albums objectAtIndex:rank - 1];
-    [self.albumSelectionDelegate albumSelected:album];
+    MGMChartEntry* entry = [self.weeklyChart.chartEntries objectAtIndex:rank - 1];
+    [self.albumSelectionDelegate albumSelected:entry.album];
 }
 
 - (void) detailPressedWithRank:(NSUInteger)rank
 {
-    MGMAlbum* album = [self.weeklyChart.albums objectAtIndex:rank - 1];
-    [self.albumSelectionDelegate detailSelected:album];
+    MGMChartEntry* entry = [self.weeklyChart.chartEntries objectAtIndex:rank - 1];
+    [self.albumSelectionDelegate detailSelected:entry.album];
 }
 
 @end

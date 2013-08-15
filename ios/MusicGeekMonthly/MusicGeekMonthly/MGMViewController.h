@@ -15,4 +15,6 @@
 
 - (void) transitionCompleteWithState:(id)state;
 
+- (void) handleError:(NSError*)error;
+
 @end

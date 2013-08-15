@@ -22,13 +22,16 @@
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request
 {
     NSCachedURLResponse* response = [super cachedResponseForRequest:request];
-    NSLog(@"%s called with parameter (%@). Returning (%@)", __FUNCTION__, request, response);
+    if (!response)
+    {
+        NSLog(@"%s called with parameter (%@). Returning (%@)", __FUNCTION__, request, response);
+    }
     return response;
 }
 
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request
 {
-    NSLog(@"%s called with parameters (%@, %@).", __FUNCTION__, cachedResponse, request);
+//    NSLog(@"%s called with parameters (%@, %@).", __FUNCTION__, cachedResponse, request);
     [super storeCachedResponse:cachedResponse forRequest:request];
 }
 

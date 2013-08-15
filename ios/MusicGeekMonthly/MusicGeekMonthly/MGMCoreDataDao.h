@@ -14,9 +14,21 @@
 
 @interface MGMCoreDataDao : MGMDao
 
+- (MGMTimePeriod*) createNewTimePeriod:(NSError**)error;
 - (MGMWeeklyChart*) createNewWeeklyChart:(NSError**)error;
-- (MGMEvent*) createNewEvent:(NSError**)error;
+- (MGMChartEntry*) createNewChartEntry:(NSError**)error;
 - (MGMAlbum*) createNewAlbum:(NSError**)error;
-- (MGMTimePeriod*) createNewMGMTimePeriod:(NSError**)error;
+- (MGMAlbumImageUri*) createNewAlbumImageUri:(NSError**)error;
+- (MGMAlbumMetadata*) createNewAlbumMetadata:(NSError**)error;
+- (MGMEvent*) createNewEvent:(NSError**)error;
+
+- (MGMTimePeriod*) fetchTimePeriod:(NSDate*)startDate endDate:(NSDate*)endDate error:(NSError**)error;
+- (MGMWeeklyChart*) fetchWeeklyChart:(NSDate*)startDate endDate:(NSDate*)endDate error:(NSError**)error;
+- (MGMAlbum*) fetchAlbum:(NSString*)albumMbid error:(NSError**)error;
+- (MGMAlbumImageUri*) fetchAlbumImageUriForAlbum:(MGMAlbum*)album size:(MGMAlbumImageSize)size error:(NSError**)error;
+- (MGMAlbumMetadata*) fetchAlbumMetadataForAlbum:(MGMAlbum*)album serviceType:(MGMAlbumServiceType)serviceType error:(NSError**)error;
+- (MGMEvent*) fetchEvent:(NSNumber*)eventNumber error:(NSError**)error;
+
+- (void) persistChanges:(NSError**)error;
 
 @end

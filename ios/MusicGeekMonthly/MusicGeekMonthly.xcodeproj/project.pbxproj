@@ -13,6 +13,12 @@
 		6508CB1B176BB05700594244 /* MGMDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508CB19176BB05700594244 /* MGMDao.m */; };
 		6509FF6E17AC5F4700DE68DE /* MGMAlbumMetadataDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509FF6D17AC5F4700DE68DE /* MGMAlbumMetadataDao.m */; };
 		6509FF6F17AC5F4700DE68DE /* MGMAlbumMetadataDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509FF6D17AC5F4700DE68DE /* MGMAlbumMetadataDao.m */; };
+		650BEEFC17BBE212008A57AF /* MGMAlbumMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 650BEEFB17BBE212008A57AF /* MGMAlbumMetadata.m */; };
+		650BEEFD17BBE212008A57AF /* MGMAlbumMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 650BEEFB17BBE212008A57AF /* MGMAlbumMetadata.m */; };
+		650BEF0017BBE213008A57AF /* MGMAlbumImageUri.m in Sources */ = {isa = PBXBuildFile; fileRef = 650BEEFF17BBE213008A57AF /* MGMAlbumImageUri.m */; };
+		650BEF0117BBE213008A57AF /* MGMAlbumImageUri.m in Sources */ = {isa = PBXBuildFile; fileRef = 650BEEFF17BBE213008A57AF /* MGMAlbumImageUri.m */; };
+		650BF24B17B97DAB00020C2B /* MGMChartEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 650BF24A17B97DAB00020C2B /* MGMChartEntry.m */; };
+		650BF24C17B97DAB00020C2B /* MGMChartEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 650BF24A17B97DAB00020C2B /* MGMChartEntry.m */; };
 		650F13C217AABB060048226A /* MGMAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 650F13C117AABB060048226A /* MGMAlbumView.m */; };
 		651238C817B16C3300C5D353 /* MGMAbstractEventController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651238C717B16C3300C5D353 /* MGMAbstractEventController.m */; };
 		651CC69F176F9455007B7F0D /* MGMWeeklyChartAlbumsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 651CC69E176F9455007B7F0D /* MGMWeeklyChartAlbumsView.m */; };
@@ -105,6 +111,12 @@
 		6508CB19176BB05700594244 /* MGMDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDao.m; sourceTree = "<group>"; };
 		6509FF6C17AC5F4700DE68DE /* MGMAlbumMetadataDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumMetadataDao.h; sourceTree = "<group>"; };
 		6509FF6D17AC5F4700DE68DE /* MGMAlbumMetadataDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumMetadataDao.m; sourceTree = "<group>"; };
+		650BEEFA17BBE212008A57AF /* MGMAlbumMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumMetadata.h; sourceTree = "<group>"; };
+		650BEEFB17BBE212008A57AF /* MGMAlbumMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumMetadata.m; sourceTree = "<group>"; };
+		650BEEFE17BBE213008A57AF /* MGMAlbumImageUri.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumImageUri.h; sourceTree = "<group>"; };
+		650BEEFF17BBE213008A57AF /* MGMAlbumImageUri.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumImageUri.m; sourceTree = "<group>"; };
+		650BF24917B97DAB00020C2B /* MGMChartEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMChartEntry.h; sourceTree = "<group>"; };
+		650BF24A17B97DAB00020C2B /* MGMChartEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMChartEntry.m; sourceTree = "<group>"; };
 		650F13C017AABB060048226A /* MGMAlbumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumView.h; sourceTree = "<group>"; };
 		650F13C117AABB060048226A /* MGMAlbumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumView.m; sourceTree = "<group>"; };
 		651238C617B16C3300C5D353 /* MGMAbstractEventController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAbstractEventController.h; sourceTree = "<group>"; };
@@ -328,14 +340,20 @@
 			isa = PBXGroup;
 			children = (
 				65E975B517B6BD6F00CF53B2 /* MusicGeekMonthly.xcdatamodeld */,
-				65E975BB17B6CB1700CF53B2 /* MGMAlbum.h */,
-				65E975BC17B6CB1700CF53B2 /* MGMAlbum.m */,
-				65E975BE17B6CB1800CF53B2 /* MGMEvent.h */,
-				65E975BF17B6CB1800CF53B2 /* MGMEvent.m */,
 				65E975B817B6CB1600CF53B2 /* MGMTimePeriod.h */,
 				65E975B917B6CB1600CF53B2 /* MGMTimePeriod.m */,
 				65E975C117B6CB1800CF53B2 /* MGMWeeklyChart.h */,
 				65E975C217B6CB1800CF53B2 /* MGMWeeklyChart.m */,
+				650BF24917B97DAB00020C2B /* MGMChartEntry.h */,
+				650BF24A17B97DAB00020C2B /* MGMChartEntry.m */,
+				65E975BB17B6CB1700CF53B2 /* MGMAlbum.h */,
+				65E975BC17B6CB1700CF53B2 /* MGMAlbum.m */,
+				650BEEFE17BBE213008A57AF /* MGMAlbumImageUri.h */,
+				650BEEFF17BBE213008A57AF /* MGMAlbumImageUri.m */,
+				650BEEFA17BBE212008A57AF /* MGMAlbumMetadata.h */,
+				650BEEFB17BBE212008A57AF /* MGMAlbumMetadata.m */,
+				65E975BE17B6CB1800CF53B2 /* MGMEvent.h */,
+				65E975BF17B6CB1800CF53B2 /* MGMEvent.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -688,6 +706,9 @@
 				65E975C017B6CB1800CF53B2 /* MGMEvent.m in Sources */,
 				65E975C317B6CB1800CF53B2 /* MGMWeeklyChart.m in Sources */,
 				65E975C617B6CD5A00CF53B2 /* MGMCoreDataAwareDao.m in Sources */,
+				650BF24B17B97DAB00020C2B /* MGMChartEntry.m in Sources */,
+				650BEEFC17BBE212008A57AF /* MGMAlbumMetadata.m in Sources */,
+				650BEF0017BBE213008A57AF /* MGMAlbumImageUri.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,6 +724,9 @@
 				65CD17041785A66F0082168D /* MGMEventsDao.m in Sources */,
 				65ECD90517AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */,
 				6509FF6F17AC5F4700DE68DE /* MGMAlbumMetadataDao.m in Sources */,
+				650BF24C17B97DAB00020C2B /* MGMChartEntry.m in Sources */,
+				650BEEFD17BBE212008A57AF /* MGMAlbumMetadata.m in Sources */,
+				650BEF0117BBE213008A57AF /* MGMAlbumImageUri.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

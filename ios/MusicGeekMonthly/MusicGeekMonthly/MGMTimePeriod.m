@@ -10,7 +10,7 @@
 
 @implementation MGMTimePeriod
 
-@dynamic endDate;
 @dynamic startDate;
+@dynamic endDate;
 
 @end

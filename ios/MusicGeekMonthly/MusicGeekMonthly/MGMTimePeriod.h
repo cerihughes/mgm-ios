@@ -8,9 +8,11 @@
 
 #import <CoreData/CoreData.h>
 
+@class MGMWeeklyChart;
+
 @interface MGMTimePeriod : NSManagedObject
 
-@property (nonatomic, retain) NSDate* endDate;
-@property (nonatomic, retain) NSDate* startDate;
+@property (nonatomic, strong) NSDate* startDate;
+@property (nonatomic, strong) NSDate* endDate;
 
 @end

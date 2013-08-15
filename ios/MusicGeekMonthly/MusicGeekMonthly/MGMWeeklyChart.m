@@ -10,25 +10,21 @@
 
 @implementation MGMWeeklyChart
 
-@dynamic albums;
-@dynamic timePeriod;
+@dynamic startDate;
+@dynamic endDate;
+@dynamic chartEntries;
 
-#pragma mark -
-#pragma mark Horseshit iOS doesn't implement these properly and Apple (naturally) don't advertise the bug: http://stackoverflow.com/questions/7385439/exception-thrown-in-nsorderedset-generated-accessors (not fixed in iOS6).
+// Horseshit iOS doesn't implement these properly and Apple (naturally) don't advertise the bug: http://stackoverflow.com/questions/7385439/exception-thrown-in-nsorderedset-generated-accessors (not fixed in iOS6). Also https://devforums.apple.com/message/470731#470731
 
-- (void) addAlbumsObject:(MGMAlbum*)value
+- (void) addChartEntriesObject:(MGMChartEntry *)value
 {
-    NSSet* changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
-    [self willChangeValueForKey:@"albums" withSetMutation:NSKeyValueIntersectSetMutation usingObjects:changedObjects];
-    [[self primitiveAlbums] addObject:value];
-    [self didChangeValueForKey:@"albums" withSetMutation:NSKeyValueIntersectSetMutation usingObjects:changedObjects];
+    [self willAccessValueForKey:@"chartEntries"];
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:[[self primitiveChartEntries] count]];
+    [self didAccessValueForKey:@"chartEntries"];
+    [self willChange:NSKeyValueChangeInsertion valuesAtIndexes:indexSet forKey:@"chartEntries"];
+    [[self primitiveChartEntries] addObject:value];
+    [self didChange:NSKeyValueChangeInsertion valuesAtIndexes:indexSet forKey:@"chartEntries"];
 }
 
-- (void) addAlbums:(NSOrderedSet*)values
-{
-    [self willChangeValueForKey:@"albums" withSetMutation:NSKeyValueIntersectSetMutation usingObjects:[values set]];
-    [[self primitiveAlbums] unionSet:[values set]];
-    [self didChangeValueForKey:@"albums" withSetMutation:NSKeyValueIntersectSetMutation usingObjects:[values set]];
-}
 
 @end

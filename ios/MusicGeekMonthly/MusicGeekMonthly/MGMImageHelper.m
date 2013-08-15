@@ -10,7 +10,7 @@
 
 @implementation MGMImageHelper
 
-+ (void) asyncImageFromUrl:(NSString *)url completion:(void (^)(UIImage *))completion
++ (void) asyncImageFromUrl:(NSString *)url completion:(void (^)(UIImage*, NSError*))completion
 {
     NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
@@ -20,15 +20,15 @@
         // Respond in the main thread...
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            completion(image);
+            completion(image, error);
         });
     }];
 }
 
-+ (UIImage*) imageFromUrl:(NSString *)url
++ (UIImage*) imageFromUrl:(NSString *)url error:(NSError**)error
 {
     NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:error];
     return [UIImage imageWithData:data];
 }
 

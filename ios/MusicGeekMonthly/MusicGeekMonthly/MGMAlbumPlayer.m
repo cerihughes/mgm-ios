@@ -30,13 +30,18 @@
     return self;
 }
 
-- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service
+- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service error:(NSError**)error
 {
     if ([album searchedServiceType:service] == NO)
     {
         NSLog(@"Updating album metadata: %@ - %@", album.artistName, album.albumName);
         MGMAlbumMetadataDao* dao = [self.daoFactory metadataDaoForServiceType:service];
-        [dao updateAlbumInfo:album];
+        [dao updateAlbumInfo:album error:error];
+        if (error && *error != nil)
+        {
+            return;
+        }
+        
         [album setServiceTypeSearched:service];
     }
     

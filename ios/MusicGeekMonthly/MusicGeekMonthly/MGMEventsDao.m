@@ -48,38 +48,45 @@
     return self;
 }
 
-- (MGMEvent*) latestEvent
+- (MGMEvent*) latestEvent:(NSError**)error
 {
-    NSError* error = nil;
     NSData* jsonData = [self contentsOfUrl:EVENTS_URL];
-    if (error == nil && jsonData)
+    if (jsonData)
     {
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-        if (error == nil)
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:error];
+        if (error && *error != nil)
         {
-            NSArray* array = [self eventsForJson:json cap:1];
-            return [array objectAtIndex:0];
+            return nil;
         }
+
+        NSArray* array = [self eventsForJson:json cap:1 error:error];
+        if (error && *error != nil)
+        {
+            return nil;
+        }
+
+        return [array objectAtIndex:0];
     }
     return nil;
 }
 
-- (NSArray*) events
+- (NSArray*) events:(NSError**)error
 {
-    NSError* error = nil;
     NSData* jsonData = [self contentsOfUrl:EVENTS_URL];
-    if (error == nil && jsonData)
+    if (jsonData)
     {
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-        if (error == nil)
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:error];
+        if (error && *error != nil)
         {
-            return [self eventsForJson:json cap:0];
+            return nil;
         }
+
+        return [self eventsForJson:json cap:0 error:error];
     }
     return nil;
 }
 
-- (NSArray*) eventsForJson:(NSDictionary*)json cap:(NSUInteger)cap
+- (NSArray*) eventsForJson:(NSDictionary*)json cap:(NSUInteger)cap error:(NSError**)error
 {
     NSArray* events = [json objectForKey:JSON_ELEMENT_EVENTS];
     NSMutableArray* results = [NSMutableArray arrayWithCapacity:events.count];
@@ -91,23 +98,51 @@
         NSString* dateString = [eventJson objectForKey:JSON_ELEMENT_DATE];
         NSDate* date = [self.dateFormatter dateFromString:dateString];
         NSString* playlistId = [eventJson objectForKey:JSON_ELEMENT_PLAYLIST_ID];
-        MGMAlbum* classicAlbum = [self albumForJson:[eventJson objectForKey:JSON_ELEMENT_CLASSIC_ALBUM]];
-        MGMAlbum* newAlbum = [self albumForJson:[eventJson objectForKey:JSON_ELEMENT_NEW_ALBUM]];
 
-        MGMEvent* event = [self.coreDataDao createNewEvent:nil];
-        event.eventNumber = eventNumber;
-        event.eventDate = date;
-        event.spotifyPlaylistId = playlistId;
-        event.classicAlbum = classicAlbum;
-        event.newlyReleasedAlbum = newAlbum;
+        MGMAlbum* classicAlbum = [self albumForJson:[eventJson objectForKey:JSON_ELEMENT_CLASSIC_ALBUM] error:error];
+        if (error && *error != nil)
+        {
+            return nil;
+        }
 
+        MGMAlbum* newAlbum = [self albumForJson:[eventJson objectForKey:JSON_ELEMENT_NEW_ALBUM] error:error];
+        if (error && *error != nil)
+        {
+            return nil;
+        }
+
+        MGMEvent* event = [self.coreDataDao fetchEvent:eventNumber error:error];
+        if (error && *error != nil)
+        {
+            return nil;
+        }
+        
+        if (event == nil)
+        {
+            event = [self.coreDataDao createNewEvent:error];
+            if (error && *error != nil)
+            {
+                return nil;
+            }
+
+            event.eventNumber = eventNumber;
+            event.eventDate = date;
+            event.spotifyPlaylistId = playlistId;
+            event.classicAlbum = classicAlbum;
+            event.newlyReleasedAlbum = newAlbum;
+            [self.coreDataDao persistChanges:error];
+            if (error && *error != nil)
+            {
+                return nil;
+            }
+        }
         [results addObject:event];
     }
 
     return [results copy];
 }
 
-- (MGMAlbum*) albumForJson:(NSDictionary*)json
+- (MGMAlbum*) albumForJson:(NSDictionary*)json error:(NSError**)error
 {
     NSString* artistName = [json objectForKey:JSON_ELEMENT_ARTIST_NAME];
     NSString* albumName = [json objectForKey:JSON_ELEMENT_ALBUM_NAME];
@@ -119,19 +154,58 @@
         metadata = [NSDictionary dictionary];
     }
 
-    MGMAlbum* album = [self.coreDataDao createNewAlbum:nil];
-    album.artistName = artistName;
-    album.albumName = albumName;
-    album.albumMbid = mbid;
-    album.score = score;
+    MGMAlbum* album = [self.coreDataDao fetchAlbum:mbid error:error];
+    if (error && *error != nil)
+    {
+        return nil;
+    }
+    
+    if (album == nil)
+    {
+        album = [self.coreDataDao createNewAlbum:error];
+        if (error && *error != nil)
+        {
+            return nil;
+        }
+
+        album.artistName = artistName;
+        album.albumName = albumName;
+        album.albumMbid = mbid;
+        album.score = score;
+    }
+
     [metadata enumerateKeysAndObjectsUsingBlock:^(NSString* key, NSString* obj, BOOL *stop)
     {
         MGMAlbumServiceType serviceType = [self.serviceTypes indexOfObject:key];
         if (serviceType != NSNotFound)
         {
-            [album setMetadata:obj forServiceType:serviceType];
+            MGMAlbumMetadata* metadata = [self.coreDataDao fetchAlbumMetadataForAlbum:album serviceType:serviceType error:error];
+            if (error && *error != nil)
+            {
+                return;
+            }
+
+            if (metadata == nil)
+            {
+                metadata = [self.coreDataDao createNewAlbumMetadata:error];
+                if (error && *error != nil)
+                {
+                    return;
+                }
+
+                metadata.serviceType = serviceType;
+                metadata.value = obj;
+                [album addMetadataObject:metadata];
+                [self.coreDataDao persistChanges:error];
+
+                if (error && *error != nil)
+                {
+                    return;
+                }
+            }
         }
     }];
+    [self.coreDataDao persistChanges:error];
 
     return album;
 }

@@ -125,6 +125,11 @@
     [self transition:TO_WEB withState:uri];
 }
 
+- (void) handleError:(NSError*)error
+{
+    NSLog(@"Error occurred: %@", error);
+}
+
 #pragma mark -
 #pragma mark MGMHomeViewControllerDelegate
 
@@ -138,7 +143,12 @@
 
 - (void) albumSelected:(MGMAlbum*)album
 {
-    [self.core.albumPlayer playAlbum:album onService:MGMAlbumServiceTypeSpotify];
+    NSError* error = nil;
+    [self.core.albumPlayer playAlbum:album onService:MGMAlbumServiceTypeSpotify error:&error];
+    if (error != nil)
+    {
+        [self handleError:error];
+    }
 }
 
 - (void) detailSelected:(MGMAlbum*)album

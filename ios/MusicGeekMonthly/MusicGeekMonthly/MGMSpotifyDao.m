@@ -28,23 +28,23 @@
     return self;
 }
 
-- (void) updateAlbumInfo:(MGMAlbum *)album
+- (void) updateAlbumInfo:(MGMAlbum *)album error:(NSError**)error
 {
     NSString* searchString = [NSString stringWithFormat:@"%@ %@", album.artistName, album.albumName];
     NSString* urlString = [NSString stringWithFormat:ALBUM_SEARCH_URL, searchString];
-    NSError* error = nil;
     NSData* jsonData = [self contentsOfUrl:urlString withHttpHeaders:self.acceptJson];
-    if (error == nil && jsonData)
+    if (jsonData)
     {
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-        if (error == nil)
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:error];
+        if (error  && *error != nil)
         {
-            [self updateAlbumInfo:album withJson:json];
+            return;
         }
+        [self updateAlbumInfo:album withJson:json error:error];
     }
 }
 
-- (void) updateAlbumInfo:(MGMAlbum*)album withJson:(NSDictionary*)json
+- (void) updateAlbumInfo:(MGMAlbum*)album withJson:(NSDictionary*)json error:(NSError**)error
 {
     NSArray* albums = [json objectForKey:@"albums"];
     NSArray* available = [self availableAlbums:albums inTerritory:TERRITORY];
@@ -57,16 +57,41 @@
     {
         match = [self bestMatchForAlbum:album inAlbums:available];
     }
-    [self updateAlbumInfo:album withAlbumJson:match];
+    [self updateAlbumInfo:album withAlbumJson:match error:error];
 }
 
-- (void) updateAlbumInfo:(MGMAlbum*)album withAlbumJson:(NSDictionary*)json
+- (void) updateAlbumInfo:(MGMAlbum*)album withAlbumJson:(NSDictionary*)json error:(NSError**)error
 {
     NSString* href = [json objectForKey:@"href"];
     NSArray* splits = [href componentsSeparatedByString:@":"];
     if (splits.count == 3)
     {
-        [album setMetadata:[splits objectAtIndex:2] forServiceType:MGMAlbumServiceTypeSpotify];
+        NSString* value = [splits objectAtIndex:2];
+
+        MGMAlbumMetadata* metadata = [self.coreDataDao fetchAlbumMetadataForAlbum:album serviceType:MGMAlbumServiceTypeSpotify error:error];
+        if (error && *error != nil)
+        {
+            return;
+        }
+
+        if (metadata == nil)
+        {
+            metadata = [self.coreDataDao createNewAlbumMetadata:error];
+            if (error && *error != nil)
+            {
+                return;
+            }
+
+            metadata.serviceType = MGMAlbumServiceTypeSpotify;
+            metadata.value = value;
+            [album addMetadataObject:metadata];
+            [self.coreDataDao persistChanges:error];
+
+            if (error && *error != nil)
+            {
+                return;
+            }
+        }
     }
 }
 

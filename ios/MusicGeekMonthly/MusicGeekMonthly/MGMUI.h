@@ -33,4 +33,6 @@
  */
 - (void) timeChanged;
 
+- (void) handleError:(NSError*)error;
+
 @end

@@ -54,7 +54,7 @@
     albumView.activityInProgress = inProgress;
 }
 
-- (void) setAlbumImage:(UIImage *)albumImage artistName:(NSString *)artistName albumName:(NSString *)albumName rank:(NSUInteger)rank listeners:(NSUInteger)listeners
+- (void) setAlbumImage:(UIImage*)albumImage artistName:(NSString*)artistName albumName:(NSString*)albumName rank:(NSUInteger)rank listeners:(NSUInteger)listeners
 {
     MGMAlbumView* albumView = [self albumViewForRank:rank];
     albumView.pressable = YES;

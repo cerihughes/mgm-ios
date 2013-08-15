@@ -18,4 +18,9 @@
 {
 }
 
+- (void) handleError:(NSError*)error
+{
+    [self.ui handleError:error];
+}
+
 @end

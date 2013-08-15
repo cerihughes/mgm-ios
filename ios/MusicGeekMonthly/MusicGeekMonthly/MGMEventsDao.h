@@ -11,7 +11,7 @@
 
 @interface MGMEventsDao : MGMHttpDao
 
-- (MGMEvent*) latestEvent;
-- (NSArray*) events;
+- (MGMEvent*) latestEvent:(NSError**)error;
+- (NSArray*) events:(NSError**)error;
 
 @end

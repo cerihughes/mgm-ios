@@ -7,7 +7,7 @@
 //
 
 #import "MGMLastFmDao.h"
-#import "MGMAlbum.h"
+#import "MGMChartEntry.h"
 
 #define WEEKLY_PERIODS_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyChartList&group=%@&api_key=%@&format=json"
 #define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&from=%d&to=%d&api_key=%@&format=json"
@@ -44,65 +44,95 @@
     return self;
 }
 
-- (NSArray*) weeklyTimePeriods
+- (NSArray*) weeklyTimePeriods:(NSError**)error
 {
     NSString* urlString = [NSString stringWithFormat:WEEKLY_PERIODS_URL, GROUP_NAME, API_KEY];
-    NSError* error = nil;
     NSData* jsonData = [self contentsOfUrl:urlString];
-    if (error == nil && jsonData)
+    if (jsonData)
     {
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-        if (error == nil)
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:error];
+        if (error && *error != nil)
         {
-            return [self timePeriodsForJson:json];
+            return nil;
         }
+        return [self timePeriodsForJson:json error:error];
     }
     return nil;
 }
 
-- (MGMWeeklyChart*) topWeeklyAlbums:(NSUInteger)count forTimePeriod:(MGMTimePeriod*)timePeriod
+- (MGMTimePeriod*) mostRecentTimePeriod:(NSError**)error
 {
-    NSUInteger from = timePeriod.startDate.timeIntervalSince1970;
-    NSUInteger to = timePeriod.endDate.timeIntervalSince1970;
-    NSString* urlString = [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, from, to, API_KEY];
-    NSError* error = nil;
-    NSData* jsonData = [self contentsOfUrl:urlString];
-    if (error == nil && jsonData)
+    return [[self weeklyTimePeriods:error] objectAtIndex:0];
+}
+
+- (MGMWeeklyChart*) topWeeklyAlbumsForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate error:(NSError**)error
+{
+    MGMWeeklyChart* chart = [self.coreDataDao fetchWeeklyChart:startDate endDate:endDate error:error];
+    if (error && *error != nil)
     {
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-        if (error == nil)
+        return nil;
+    }
+    
+    if (chart == nil)
+    {
+        NSUInteger from = startDate.timeIntervalSince1970;
+        NSUInteger to = endDate.timeIntervalSince1970;
+        NSString* urlString = [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, from, to, API_KEY];
+        NSData* jsonData = [self contentsOfUrl:urlString];
+        if (jsonData)
         {
-            MGMWeeklyChart* chart = [self.coreDataDao createNewWeeklyChart:&error];
-            chart.timePeriod = timePeriod;
-            [self addAlbums:count toChart:chart forJson:json];
+            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:error];
+            if (error && *error != nil)
+            {
+                return nil;
+            }
+
+            chart = [self.coreDataDao createNewWeeklyChart:error];
+            if (error && *error != nil)
+            {
+                return nil;
+            }
+
+            chart.startDate = startDate;
+            chart.endDate = endDate;
+            [self addAlbumsToChart:chart forJson:json error:error];
+            if (error && *error != nil)
+            {
+                return nil;
+            }
+
+            [self.coreDataDao persistChanges:error];
+            if (error && *error != nil)
+            {
+                return nil;
+            }
+
             return chart;
         }
+        return nil;
     }
-    return nil;
+    else
+    {
+        return chart;
+    }
 }
 
-- (MGMWeeklyChart*) topWeeklyAlbumsForMostRecentTimePeriod:(NSUInteger)count
-{
-    MGMTimePeriod* mostRecent = [[self weeklyTimePeriods] objectAtIndex:0];
-    return [self topWeeklyAlbums:count forTimePeriod:mostRecent];
-}
-
-- (void) updateAlbumInfo:(MGMAlbum*)album
+- (void) updateAlbumInfo:(MGMAlbum*)album error:(NSError**)error
 {
     NSString* urlString = [NSString stringWithFormat:ALBUM_INFO_URL, API_KEY, album.albumMbid];
-    NSError* error = nil;
     NSData* jsonData = [self contentsOfUrl:urlString];
-    if (error == nil && jsonData)
+    if (jsonData)
     {
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-        if (error == nil)
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:error];
+        if (error && *error != nil)
         {
-            [self updateAlbumInfo:album withJson:json];
+            return;
         }
+        [self updateAlbumInfo:album withJson:json error:error];
     }
 }
 
-- (NSArray*) timePeriodsForJson:(NSDictionary*)json
+- (NSArray*) timePeriodsForJson:(NSDictionary*)json error:(NSError**)error
 {
     NSDictionary* weeklychartlist = [json objectForKey:@"weeklychartlist"];
     NSArray* chart = [weeklychartlist objectForKey:@"chart"];
@@ -116,9 +146,29 @@
         NSUInteger to = [[period objectForKey:@"to"] intValue];
         NSDate* fromDate = [NSDate dateWithTimeIntervalSince1970:from];
         NSDate* toDate = [NSDate dateWithTimeIntervalSince1970:to];
-        MGMTimePeriod* timePeriod = [self.coreDataDao createNewMGMTimePeriod:nil];
-        timePeriod.startDate = fromDate;
-        timePeriod.endDate = toDate;
+        MGMTimePeriod* timePeriod = [self.coreDataDao fetchTimePeriod:fromDate endDate:toDate error:error];
+        if (error && *error != nil)
+        {
+            return nil;
+        }
+
+        if (!timePeriod)
+        {
+            timePeriod = [self.coreDataDao createNewTimePeriod:error];
+            if (error && *error != nil)
+            {
+                return nil;
+            }
+            
+            timePeriod.startDate = fromDate;
+            timePeriod.endDate = toDate;
+            [self.coreDataDao persistChanges:error];
+            if (error && *error != nil)
+            {
+                return nil;
+            }
+
+        }
         [results addObject:timePeriod];
     }
 
@@ -136,38 +186,70 @@
     return [reversed copy];
 }
 
-- (void) addAlbums:(NSUInteger)count toChart:(MGMWeeklyChart*)chart forJson:(NSDictionary*)json
+- (void) addAlbumsToChart:(MGMWeeklyChart*)chart forJson:(NSDictionary*)json error:(NSError**)error
 {
     NSDictionary* weeklyalbumchart = [json objectForKey:@"weeklyalbumchart"];
     NSArray* albums = [weeklyalbumchart objectForKey:@"album"];
-    NSUInteger cap = albums.count < count ? albums.count : count;
-    for (NSUInteger i = 0; i < cap; i++)
+    for (NSDictionary* album in albums)
     {
-        NSDictionary* album = [albums objectAtIndex:i];
-        MGMAlbum* converted = [self albumForJson:album];
-        [chart addAlbumsObject:converted];
+        MGMChartEntry* converted = [self albumForJson:album error:error];
+        [chart addChartEntriesObject:converted];
+        [self.coreDataDao persistChanges:error];
+        if (error && *error != nil)
+        {
+            return;
+        }
     }
 }
 
-- (MGMAlbum*) albumForJson:(NSDictionary*)json
+- (MGMChartEntry*) albumForJson:(NSDictionary*)json error:(NSError**)error
 {
-    MGMAlbum* album = [self.coreDataDao createNewAlbum:nil];
-    NSString* rank = [[json objectForKey:@"@attr"] objectForKey:@"rank"];
-    NSDictionary* artist = [json objectForKey:@"artist"];
-    NSString* artistName = [artist objectForKey:@"#text"];
-    NSString* albumMbid = [json objectForKey:@"mbid"];
-    NSString* albumName = [json objectForKey:@"name"];
-    NSString* listeners = [json objectForKey:@"playcount"];
+    MGMChartEntry* chartEntry = [self.coreDataDao createNewChartEntry:error];
+    if (error && *error != nil)
+    {
+        return nil;
+    }
 
-    album.rank = [self.numberFormatter numberFromString:rank];
-    album.artistName = artistName;
-    album.albumMbid = albumMbid;
-    album.albumName = albumName;
-    album.listeners = [self.numberFormatter numberFromString:listeners];
-    return album;
+    NSString* listeners = [json objectForKey:@"playcount"];
+    NSString* rank = [[json objectForKey:@"@attr"] objectForKey:@"rank"];
+    chartEntry.rank = [self.numberFormatter numberFromString:rank];
+    chartEntry.listeners = [self.numberFormatter numberFromString:listeners];
+
+    NSString* albumMbid = [json objectForKey:@"mbid"];
+    MGMAlbum* album = [self.coreDataDao fetchAlbum:albumMbid error:error];
+    if (error && *error != nil)
+    {
+        return nil;
+    }
+
+    if (album == nil)
+    {
+        album = [self.coreDataDao createNewAlbum:error];
+        if (error && *error != nil)
+        {
+            return nil;
+        }
+
+        NSDictionary* artist = [json objectForKey:@"artist"];
+        NSString* artistName = [artist objectForKey:@"#text"];
+        NSString* albumName = [json objectForKey:@"name"];
+        album.artistName = artistName;
+        album.albumMbid = albumMbid;
+        album.albumName = albumName;
+    }
+
+    chartEntry.album = album;
+    
+    [self.coreDataDao persistChanges:error];
+    if (error && *error != nil)
+    {
+        return nil;
+    }
+
+    return chartEntry;
 }
 
-- (void) updateAlbumInfo:(MGMAlbum*)album withJson:(NSDictionary*)json
+- (void) updateAlbumInfo:(MGMAlbum*)album withJson:(NSDictionary*)json error:(NSError**)error
 {
     NSDictionary* albumJson = [json objectForKey:@"album"];
     NSArray* images = [albumJson objectForKey:@"image"];
@@ -180,7 +262,30 @@
             MGMAlbumImageSize size = [self.sizeStrings indexOfObject:key];
             if (size != NSNotFound)
             {
-                [album setImageUrl:value forImageSize:size];
+                MGMAlbumImageUri* uri = [self.coreDataDao fetchAlbumImageUriForAlbum:album size:size error:error];
+                if (error && *error != nil)
+                {
+                    return;
+                }
+
+                if (uri == nil)
+                {
+                    uri = [self.coreDataDao createNewAlbumImageUri:error];
+                    if (error && *error != nil)
+                    {
+                        return;
+                    }
+
+                    uri.size = size;
+                    uri.uri = value;
+                    [album addImageUrisObject:uri];
+                    [self.coreDataDao persistChanges:error];
+
+                    if (error && *error != nil)
+                    {
+                        return;
+                    }
+                }
             }
         }
     }

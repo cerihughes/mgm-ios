@@ -51,7 +51,13 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
         // Search in a background thread...
-        self.events = [self.core.daoFactory.eventsDao events];
+        NSError* error = nil;
+        self.events = [self.core.daoFactory.eventsDao events:&error];
+        if (error)
+        {
+            [self handleError:error];
+            return;
+        }
 
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -120,7 +126,13 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
         {
             // Search in a background thread...
-            [self.core.daoFactory.lastFmDao updateAlbumInfo:event.classicAlbum];
+            NSError* error = nil;
+            [self.core.daoFactory.lastFmDao updateAlbumInfo:event.classicAlbum error:&error];
+            if (error != nil)
+            {
+                [self handleError:error];
+            }
+
             dispatch_async(dispatch_get_main_queue(), ^
             {
                 // ... but update the UI in the main thread...
@@ -140,9 +152,16 @@
     NSString* albumArtUri = [album bestTableImageUrl];
     if (albumArtUri)
     {
-        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
+        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
         {
-            cell.imageView.image = image;
+            if (error)
+            {
+                [self handleError:error];
+            }
+            else
+            {
+                cell.imageView.image = image;
+            }
         }];
     }
     else

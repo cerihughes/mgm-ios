@@ -11,11 +11,11 @@
 
 @interface MGMEvent : NSManagedObject
 
-@property (nonatomic, retain) NSDate* eventDate;
-@property (nonatomic, retain) NSNumber* eventNumber;
-@property (nonatomic, retain) NSString* spotifyPlaylistId;
-@property (nonatomic, retain) MGMAlbum* classicAlbum;
-@property (nonatomic, retain) MGMAlbum* newlyReleasedAlbum;
+@property (nonatomic, strong) NSDate* eventDate;
+@property (nonatomic, strong) NSNumber* eventNumber;
+@property (nonatomic, strong) NSString* spotifyPlaylistId;
+@property (nonatomic, strong) MGMAlbum* classicAlbum;
+@property (nonatomic, strong) MGMAlbum* newlyReleasedAlbum;
 
 - (NSString*) spotifyPlaylistUrl;
 - (NSString*) spotifyHttpUrl;

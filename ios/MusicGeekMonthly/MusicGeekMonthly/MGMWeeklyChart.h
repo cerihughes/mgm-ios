@@ -8,21 +8,20 @@
 
 #import <CoreData/CoreData.h>
 #import "MGMTimePeriod.h"
-#import "MGMAlbum.h"
+#import "MGMChartEntry.h"
 
 @interface MGMWeeklyChart : NSManagedObject
 
-@property (nonatomic, retain) NSOrderedSet *albums;
-@property (nonatomic, retain) MGMTimePeriod *timePeriod;
+@property (nonatomic, strong) NSDate* startDate;
+@property (nonatomic, strong) NSDate* endDate;
+@property (nonatomic, strong) NSOrderedSet* chartEntries;
 
 @end
 
-@interface MGMWeeklyChart (AlbumsAccessors)
+@interface MGMWeeklyChart (ChartEntriesAccessors)
 
-- (NSMutableSet*)primitiveAlbums;
-- (void)setPrimitiveAlbums:(NSMutableSet*)values;
-
-- (void) addAlbumsObject:(MGMAlbum*)value;
-- (void) addAlbums:(NSOrderedSet*)values;
+- (NSMutableOrderedSet*)primitiveChartEntries;
+- (void) addChartEntriesObject:(MGMChartEntry*)value;
 
 @end
+

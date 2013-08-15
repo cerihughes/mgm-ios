@@ -54,7 +54,13 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
         {
             // Search in a background thread...
-            [self.core.daoFactory.lastFmDao updateAlbumInfo:classicAlbum];
+            NSError* error = nil;
+            [self.core.daoFactory.lastFmDao updateAlbumInfo:classicAlbum error:&error];
+            if (error != nil)
+            {
+                [self handleError:error];
+            }
+            
             dispatch_async(dispatch_get_main_queue(), ^
             {
                 // ... but update the UI in the main thread...
@@ -79,7 +85,13 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
         {
             // Search in a background thread...
-            [self.core.daoFactory.lastFmDao updateAlbumInfo:newRelease];
+            NSError* error = nil;
+            [self.core.daoFactory.lastFmDao updateAlbumInfo:newRelease error:&error];
+            if (error != nil)
+            {
+                [self handleError:error];
+            }
+
             dispatch_async(dispatch_get_main_queue(), ^
             {
                 // ... but update the UI in the main thread...
@@ -98,10 +110,17 @@
     NSString* albumArtUri = [newRelease bestAlbumImageUrl];
     if (albumArtUri)
     {
-        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
+        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
          {
-             self.newlyReleasedAlbumView.activityInProgress = NO;
-             [self.newlyReleasedAlbumView renderImage:image];
+             if (error)
+             {
+                 [self handleError:error];
+             }
+             else
+             {
+                 self.newlyReleasedAlbumView.activityInProgress = NO;
+                 [self.newlyReleasedAlbumView renderImage:image];
+             }
          }];
     }
     else
@@ -116,10 +135,17 @@
     NSString* albumArtUri = [classicAlbum bestAlbumImageUrl];
     if (albumArtUri)
     {
-        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage *image)
+        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
          {
-             self.classicAlbumView.activityInProgress = NO;
-             [self.classicAlbumView renderImage:image];
+             if (error)
+             {
+                 [self handleError:error];
+             }
+             else
+             {
+                 self.classicAlbumView.activityInProgress = NO;
+                 [self.classicAlbumView renderImage:image];
+             }
          }];
     }
     else

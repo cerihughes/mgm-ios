@@ -14,6 +14,6 @@
 
 @property (strong) MGMDaoFactory* daoFactory;
 
-- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service;
+- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service error:(NSError**)error;
 
 @end

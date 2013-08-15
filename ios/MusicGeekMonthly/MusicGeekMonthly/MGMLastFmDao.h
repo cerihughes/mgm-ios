@@ -12,8 +12,8 @@
 
 @interface MGMLastFmDao : MGMAlbumMetadataDao
 
-- (NSArray*) weeklyTimePeriods;
-- (MGMWeeklyChart*) topWeeklyAlbums:(NSUInteger)count forTimePeriod:(MGMTimePeriod*)timePeriod;
-- (MGMWeeklyChart*) topWeeklyAlbumsForMostRecentTimePeriod:(NSUInteger)count;
+- (NSArray*) weeklyTimePeriods:(NSError**)error;
+- (MGMTimePeriod*) mostRecentTimePeriod:(NSError**)error;
+- (MGMWeeklyChart*) topWeeklyAlbumsForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate error:(NSError**)error;
 
 @end
