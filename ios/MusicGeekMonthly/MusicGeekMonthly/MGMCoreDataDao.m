@@ -19,11 +19,19 @@
 
 - (id) init
 {
+    return [self initWithStoreName:@"MusicGeekMonthly.sqlite"];
+}
+
+- (id) initWithStoreName:(NSString*)storeName
+{
     if (self = [super init])
     {
         NSError* error = nil;
-        self.managedObjectContext = [self createManagedObjectContext:&error];
-        // TODO : Deal with error
+        self.managedObjectContext = [self createManagedObjectContextWithStoreName:storeName error:&error];
+        if (error != nil)
+        {
+            NSLog(@"Error creating managed object context: %@", error);
+        }
     }
     return self;
 }
@@ -153,7 +161,7 @@
     [self.managedObjectContext save:error];
 }
 
-- (NSManagedObjectContext*) createManagedObjectContext:(NSError**)error
+- (NSManagedObjectContext*) createManagedObjectContextWithStoreName:(NSString*)storeName error:(NSError**)error
 {
     // Create the managed object model...
     NSString* path = [[NSBundle mainBundle] pathForResource:@"MusicGeekMonthly" ofType:@"momd"];
@@ -162,7 +170,7 @@
 
     // Create the persistent store co-ordinator...
     NSString* applicationDocumentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSURL* storeUrl = [NSURL fileURLWithPath:[applicationDocumentsDirectory stringByAppendingPathComponent:@"MusicGeekMonthly.sqlite"]];
+    NSURL* storeUrl = [NSURL fileURLWithPath:[applicationDocumentsDirectory stringByAppendingPathComponent:storeName]];
     NSPersistentStoreCoordinator* persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
     NSDictionary* options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
     if ([persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:options error:error])

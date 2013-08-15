@@ -14,6 +14,9 @@
 
 @interface MGMCoreDataDao : MGMDao
 
+- (id) init;
+- (id) initWithStoreName:(NSString*)storeName;
+
 - (MGMTimePeriod*) createNewTimePeriod:(NSError**)error;
 - (MGMWeeklyChart*) createNewWeeklyChart:(NSError**)error;
 - (MGMChartEntry*) createNewChartEntry:(NSError**)error;
