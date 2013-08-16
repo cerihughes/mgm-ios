@@ -75,6 +75,8 @@
 		65BEAF1217BE21AA00796D93 /* MGMWeeklyChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975C217B6CB1800CF53B2 /* MGMWeeklyChart.m */; };
 		65BEAF1517BE21AA00796D93 /* MGMAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975BC17B6CB1700CF53B2 /* MGMAlbum.m */; };
 		65BEAF1917BE21AA00796D93 /* MGMEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975BF17B6CB1800CF53B2 /* MGMEvent.m */; };
+		65BEAF2317BE397900796D93 /* MGMCoreDataDaoThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BEAF2217BE397900796D93 /* MGMCoreDataDaoThreadManager.m */; };
+		65BEAF2417BE397900796D93 /* MGMCoreDataDaoThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BEAF2217BE397900796D93 /* MGMCoreDataDaoThreadManager.m */; };
 		65CD17031785A66F0082168D /* MGMEventsDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CD17021785A66F0082168D /* MGMEventsDao.m */; };
 		65CD17041785A66F0082168D /* MGMEventsDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CD17021785A66F0082168D /* MGMEventsDao.m */; };
 		65D451501764F78800374C5F /* album2.png in Resources */ = {isa = PBXBuildFile; fileRef = 65D451491764F78800374C5F /* album2.png */; };
@@ -193,6 +195,8 @@
 		659F9F69175B928E000C413B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65BA8A2A17A434EF0054966B /* MGMURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMURLCache.h; sourceTree = "<group>"; };
 		65BA8A2B17A434EF0054966B /* MGMURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMURLCache.m; sourceTree = "<group>"; };
+		65BEAF2117BE397800796D93 /* MGMCoreDataDaoThreadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataDaoThreadManager.h; sourceTree = "<group>"; };
+		65BEAF2217BE397900796D93 /* MGMCoreDataDaoThreadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataDaoThreadManager.m; sourceTree = "<group>"; };
 		65CD17011785A66F0082168D /* MGMEventsDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMEventsDao.h; sourceTree = "<group>"; };
 		65CD17021785A66F0082168D /* MGMEventsDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventsDao.m; sourceTree = "<group>"; };
 		65D451491764F78800374C5F /* album2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = album2.png; path = MusicGeekMonthly/album2.png; sourceTree = "<group>"; };
@@ -381,6 +385,8 @@
 				65E975AD17B6A8FB00CF53B2 /* MGMHttpDao.m */,
 				65E975A917B6A8E100CF53B2 /* MGMCoreDataDao.h */,
 				65E975AA17B6A8E100CF53B2 /* MGMCoreDataDao.m */,
+				65BEAF2117BE397800796D93 /* MGMCoreDataDaoThreadManager.h */,
+				65BEAF2217BE397900796D93 /* MGMCoreDataDaoThreadManager.m */,
 				65E975C417B6CD5900CF53B2 /* MGMCoreDataAwareDao.h */,
 				65E975C517B6CD5900CF53B2 /* MGMCoreDataAwareDao.m */,
 				6509FF6C17AC5F4700DE68DE /* MGMAlbumMetadataDao.h */,
@@ -720,6 +726,7 @@
 				650BF24B17B97DAB00020C2B /* MGMChartEntry.m in Sources */,
 				650BEEFC17BBE212008A57AF /* MGMAlbumMetadata.m in Sources */,
 				650BEF0017BBE213008A57AF /* MGMAlbumImageUri.m in Sources */,
+				65BEAF2317BE397900796D93 /* MGMCoreDataDaoThreadManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +756,7 @@
 				650BEEFD17BBE212008A57AF /* MGMAlbumMetadata.m in Sources */,
 				65BEAF1917BE21AA00796D93 /* MGMEvent.m in Sources */,
 				65936A0917BCB1150070A9C6 /* MGMCoreDataTestCase.m in Sources */,
+				65BEAF2417BE397900796D93 /* MGMCoreDataDaoThreadManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

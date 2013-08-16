@@ -130,13 +130,14 @@
             event.spotifyPlaylistId = playlistId;
             event.classicAlbum = classicAlbum;
             event.newlyReleasedAlbum = newAlbum;
-            [self.coreDataDao persistChanges:error];
-            if (error && *error != nil)
-            {
-                return nil;
-            }
         }
         [results addObject:event];
+    }
+
+    [self.coreDataDao persistChanges:error];
+    if (error && *error != nil)
+    {
+        return nil;
     }
 
     return [results copy];
@@ -196,7 +197,6 @@
                 metadata.serviceType = serviceType;
                 metadata.value = obj;
                 [album addMetadataObject:metadata];
-                [self.coreDataDao persistChanges:error];
 
                 if (error && *error != nil)
                 {
