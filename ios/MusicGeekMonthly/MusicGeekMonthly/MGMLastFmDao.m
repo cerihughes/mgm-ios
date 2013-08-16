@@ -128,7 +128,15 @@
         {
             return;
         }
-        [self updateAlbumInfo:album withJson:json error:error];
+
+        // Get our own version of the album in case we're in a different thread.
+        MGMAlbum* threadAlbum = [self.coreDataDao fetchAlbum:album.albumMbid error:error];
+        if (error && *error != nil)
+        {
+            return;
+        }
+
+        [self updateAlbumInfo:threadAlbum withJson:json error:error];
     }
 }
 
