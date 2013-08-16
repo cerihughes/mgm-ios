@@ -64,6 +64,17 @@
 		659F9F62175B928E000C413B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F43175B928E000C413B /* Foundation.framework */; };
 		659F9F6A175B928E000C413B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F68175B928E000C413B /* InfoPlist.strings */; };
 		65BA8A2C17A434EF0054966B /* MGMURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BA8A2B17A434EF0054966B /* MGMURLCache.m */; };
+		65BEAEF917BE212A00796D93 /* MGMCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BC0175FDB4B005D372C /* MGMCore.m */; };
+		65BEAEFA17BE212E00796D93 /* MGMURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BA8A2B17A434EF0054966B /* MGMURLCache.m */; };
+		65BEAEFB17BE214B00796D93 /* MGMDaoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 65215F99176BA64300250168 /* MGMDaoFactory.m */; };
+		65BEAEFC17BE215200796D93 /* MGMHttpDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975AD17B6A8FB00CF53B2 /* MGMHttpDao.m */; };
+		65BEAEFD17BE215600796D93 /* MGMCoreDataDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975AA17B6A8E100CF53B2 /* MGMCoreDataDao.m */; };
+		65BEAEFF17BE216700796D93 /* MGMCoreDataAwareDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975C517B6CD5900CF53B2 /* MGMCoreDataAwareDao.m */; };
+		65BEAF0E17BE21AA00796D93 /* MusicGeekMonthly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65E975B517B6BD6F00CF53B2 /* MusicGeekMonthly.xcdatamodeld */; };
+		65BEAF1017BE21AA00796D93 /* MGMTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975B917B6CB1600CF53B2 /* MGMTimePeriod.m */; };
+		65BEAF1217BE21AA00796D93 /* MGMWeeklyChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975C217B6CB1800CF53B2 /* MGMWeeklyChart.m */; };
+		65BEAF1517BE21AA00796D93 /* MGMAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975BC17B6CB1700CF53B2 /* MGMAlbum.m */; };
+		65BEAF1917BE21AA00796D93 /* MGMEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975BF17B6CB1800CF53B2 /* MGMEvent.m */; };
 		65CD17031785A66F0082168D /* MGMEventsDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CD17021785A66F0082168D /* MGMEventsDao.m */; };
 		65CD17041785A66F0082168D /* MGMEventsDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CD17021785A66F0082168D /* MGMEventsDao.m */; };
 		65D451501764F78800374C5F /* album2.png in Resources */ = {isa = PBXBuildFile; fileRef = 65D451491764F78800374C5F /* album2.png */; };
@@ -716,16 +727,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65BEAEF917BE212A00796D93 /* MGMCore.m in Sources */,
+				65BEAEFA17BE212E00796D93 /* MGMURLCache.m in Sources */,
+				652FD00617722BFC00CF5F89 /* MGMGridManager.m in Sources */,
+				65ECD90517AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */,
+				65BEAEFB17BE214B00796D93 /* MGMDaoFactory.m in Sources */,
+				6508CB1B176BB05700594244 /* MGMDao.m in Sources */,
+				65BEAEFC17BE215200796D93 /* MGMHttpDao.m in Sources */,
+				65BEAEFD17BE215600796D93 /* MGMCoreDataDao.m in Sources */,
+				65BEAEFF17BE216700796D93 /* MGMCoreDataAwareDao.m in Sources */,
+				6509FF6F17AC5F4700DE68DE /* MGMAlbumMetadataDao.m in Sources */,
 				653B6BBC175FD13F005D372C /* MGMLastFmDao.m in Sources */,
 				6508CB17176BACF400594244 /* MGMSpotifyDao.m in Sources */,
-				6508CB1B176BB05700594244 /* MGMDao.m in Sources */,
-				652FD00617722BFC00CF5F89 /* MGMGridManager.m in Sources */,
 				65CD17041785A66F0082168D /* MGMEventsDao.m in Sources */,
-				65ECD90517AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */,
-				6509FF6F17AC5F4700DE68DE /* MGMAlbumMetadataDao.m in Sources */,
+				65BEAF0E17BE21AA00796D93 /* MusicGeekMonthly.xcdatamodeld in Sources */,
+				65BEAF1017BE21AA00796D93 /* MGMTimePeriod.m in Sources */,
+				65BEAF1217BE21AA00796D93 /* MGMWeeklyChart.m in Sources */,
 				650BF24C17B97DAB00020C2B /* MGMChartEntry.m in Sources */,
-				650BEEFD17BBE212008A57AF /* MGMAlbumMetadata.m in Sources */,
+				65BEAF1517BE21AA00796D93 /* MGMAlbum.m in Sources */,
 				650BEF0117BBE213008A57AF /* MGMAlbumImageUri.m in Sources */,
+				650BEEFD17BBE212008A57AF /* MGMAlbumMetadata.m in Sources */,
+				65BEAF1917BE21AA00796D93 /* MGMEvent.m in Sources */,
 				65936A0917BCB1150070A9C6 /* MGMCoreDataTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
