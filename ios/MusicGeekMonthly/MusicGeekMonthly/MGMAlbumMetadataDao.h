@@ -11,6 +11,6 @@
 
 @interface MGMAlbumMetadataDao : MGMHttpDao
 
-- (void) updateAlbumInfo:(MGMAlbum*)album error:(NSError**)error;
+- (void) updateAlbumInfo:(MGMAlbum*)album completion:(VOID_COMPLETION)completion;
 
 @end

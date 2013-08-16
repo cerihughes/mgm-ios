@@ -12,26 +12,32 @@
 #import "MGMAlbum.h"
 #import "MGMTimePeriod.h"
 
+typedef void (^VOID_COMPLETION)(NSError*);
+typedef void (^CREATION_COMPLETION)(id, NSError*);
+typedef void (^FETCH_MANY_COMPLETION)(NSArray*, NSError*);
+typedef CREATION_COMPLETION FETCH_COMPLETION;
+
 @interface MGMCoreDataDao : MGMDao
 
 - (id) init;
 - (id) initWithStoreName:(NSString*)storeName;
 
-- (MGMTimePeriod*) createNewTimePeriod:(NSError**)error;
-- (MGMWeeklyChart*) createNewWeeklyChart:(NSError**)error;
-- (MGMChartEntry*) createNewChartEntry:(NSError**)error;
-- (MGMAlbum*) createNewAlbum:(NSError**)error;
-- (MGMAlbumImageUri*) createNewAlbumImageUri:(NSError**)error;
-- (MGMAlbumMetadata*) createNewAlbumMetadata:(NSError**)error;
-- (MGMEvent*) createNewEvent:(NSError**)error;
+- (void) createNewTimePeriodForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(CREATION_COMPLETION)completion;
+- (void) createNewWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(CREATION_COMPLETION)completion;
+- (void) createNewChartEntryForRank:(NSNumber*)rank listeners:(NSNumber*)listeners completion:(CREATION_COMPLETION)completion;
+- (void) createNewAlbumForMbid:(NSString*)mbid artistName:(NSString*)artistName albumName:(NSString*)albumName score:(NSNumber*)score completion:(CREATION_COMPLETION)completion;
+- (void) createNewEventForEventNumber:(NSNumber*)eventNumber eventDate:(NSDate*)eventDate playlistId:(NSString*)playlistId completion:(CREATION_COMPLETION)completion;
 
-- (MGMTimePeriod*) fetchTimePeriod:(NSDate*)startDate endDate:(NSDate*)endDate error:(NSError**)error;
-- (MGMWeeklyChart*) fetchWeeklyChart:(NSDate*)startDate endDate:(NSDate*)endDate error:(NSError**)error;
-- (MGMAlbum*) fetchAlbum:(NSString*)albumMbid error:(NSError**)error;
-- (MGMAlbumImageUri*) fetchAlbumImageUriForAlbum:(MGMAlbum*)album size:(MGMAlbumImageSize)size error:(NSError**)error;
-- (MGMAlbumMetadata*) fetchAlbumMetadataForAlbum:(MGMAlbum*)album serviceType:(MGMAlbumServiceType)serviceType error:(NSError**)error;
-- (MGMEvent*) fetchEvent:(NSNumber*)eventNumber error:(NSError**)error;
+- (void) fetchAllTimePeriods:(FETCH_MANY_COMPLETION)completion;
+- (void) fetchWeeklyChart:(NSDate*)startDate endDate:(NSDate*)endDate completion:(FETCH_COMPLETION)completion;
+- (void) fetchAlbum:(NSString*)albumMbid completion:(FETCH_COMPLETION)completion;
+- (void) fetchEvent:(NSNumber*)eventNumber completion:(FETCH_COMPLETION)completion;
 
-- (void) persistChanges:(NSError**)error;
+- (void) addTimePeriods:(NSDictionary*)periods completion:(VOID_COMPLETION)completion;
+- (void) addImageUris:(NSDictionary*)uris toAlbum:(MGMAlbum*)album completion:(VOID_COMPLETION)completion;
+- (void) addMetadata:(NSDictionary*)metadata toAlbum:(MGMAlbum*)album completion:(VOID_COMPLETION)completion;
+
+- (void) persistChanges:(VOID_COMPLETION)completion;
 
 @end
+
