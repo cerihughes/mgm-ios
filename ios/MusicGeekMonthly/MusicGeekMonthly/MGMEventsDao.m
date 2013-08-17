@@ -25,6 +25,7 @@
 #define JSON_ELEMENT_SCORE @"score"
 #define JSON_ELEMENT_METADATA @"metadata"
 
+#define METADATA_KEY_NONE @"none"
 #define METADATA_KEY_LASTFM @"lastFm"
 #define METADATA_KEY_SPOTIFY @"spotify"
 #define METADATA_KEY_WIKIPEDIA @"wikipedia"
