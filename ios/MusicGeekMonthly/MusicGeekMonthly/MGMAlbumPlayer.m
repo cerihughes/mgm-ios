@@ -30,21 +30,33 @@
     return self;
 }
 
-- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service error:(NSError**)error
+- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service completion:(VOID_COMPLETION)completion
 {
     if ([album searchedServiceType:service] == NO)
     {
         NSLog(@"Updating album metadata: %@ - %@", album.artistName, album.albumName);
         MGMAlbumMetadataDao* dao = [self.daoFactory metadataDaoForServiceType:service];
-        [dao updateAlbumInfo:album error:error];
-        if (error && *error != nil)
+        [dao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
         {
-            return;
-        }
-        
-        [album setServiceTypeSearched:service];
+            if (updateError)
+            {
+                completion(updateError);
+            }
+            else
+            {
+                [self playFetchedAlbum:updatedAlbum onService:service];
+                completion(nil);
+            }
+        }];
     }
-    
+    else
+    {
+        [self playFetchedAlbum:album onService:service];
+        completion(nil);
+    }
+}
+- (void) playFetchedAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service
+{
     NSString* metadata = [album metadataForServiceType:service];
     if (metadata)
     {

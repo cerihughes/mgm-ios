@@ -11,6 +11,6 @@
 
 @interface MGMAlbumMetadataDao : MGMHttpDao
 
-- (void) updateAlbumInfo:(MGMAlbum*)album completion:(VOID_COMPLETION)completion;
+- (void) updateAlbumInfo:(MGMAlbum*)album completion:(FETCH_COMPLETION)completion;
 
 @end

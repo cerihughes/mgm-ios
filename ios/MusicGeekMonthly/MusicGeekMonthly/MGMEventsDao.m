@@ -7,7 +7,9 @@
 //
 
 #import "MGMEventsDao.h"
+
 #import "MGMAlbum.h"
+#import "MGMAlbumMetadataDto.h"
 
 #define EVENTS_URL @"http://music-geek-monthly.appspot.com/json/events.json"
 
@@ -48,45 +50,66 @@
     return self;
 }
 
-- (MGMEvent*) latestEvent:(NSError**)error
+- (void) fetchLatestEvent:(FETCH_COMPLETION)completion
 {
     NSData* jsonData = [self contentsOfUrl:EVENTS_URL];
     if (jsonData)
     {
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:error];
-        if (error && *error != nil)
+        NSError* jsonError = nil;
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
+        if (jsonError == nil)
         {
-            return nil;
+            NSArray* array = [self eventsForJson:json cap:1];
+            MGMEventDto* event = [array objectAtIndex:0];
+            [self.coreDataDao persistEvents:array completion:^(NSError* updateError)
+            {
+                if (updateError == nil)
+                {
+                    [self.coreDataDao fetchEventWithEventNumber:event.eventNumber completion:completion];
+                }
+                else
+                {
+                    completion(nil, updateError);
+                }
+            }];
         }
-
-        NSArray* array = [self eventsForJson:json cap:1 error:error];
-        if (error && *error != nil)
+        else
         {
-            return nil;
+            completion(nil, jsonError);
         }
-
-        return [array objectAtIndex:0];
     }
-    return nil;
 }
 
-- (NSArray*) events:(NSError**)error
+- (void) fetchAllEvents:(FETCH_MANY_COMPLETION)completion
 {
     NSData* jsonData = [self contentsOfUrl:EVENTS_URL];
     if (jsonData)
     {
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:error];
-        if (error && *error != nil)
+        NSError* jsonError = nil;
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
+        if (jsonError == nil)
         {
-            return nil;
+            NSArray* events = [self eventsForJson:json cap:0];
+            [self.coreDataDao persistEvents:events completion:^(NSError* updateError)
+            {
+                if (updateError == nil)
+                {
+                    [self.coreDataDao fetchAllEvents:completion];
+                }
+                else
+                {
+                    completion(nil, updateError);
+                }
+            }];
         }
-
-        return [self eventsForJson:json cap:0 error:error];
+        else
+        {
+            completion(nil, jsonError);
+        }
     }
-    return nil;
 }
 
-- (NSArray*) eventsForJson:(NSDictionary*)json cap:(NSUInteger)cap error:(NSError**)error
+- (NSArray*) eventsForJson:(NSDictionary*)json cap:(NSUInteger)cap
 {
     NSArray* events = [json objectForKey:JSON_ELEMENT_EVENTS];
     NSMutableArray* results = [NSMutableArray arrayWithCapacity:events.count];
@@ -99,51 +122,23 @@
         NSDate* date = [self.dateFormatter dateFromString:dateString];
         NSString* playlistId = [eventJson objectForKey:JSON_ELEMENT_PLAYLIST_ID];
 
-        MGMAlbum* classicAlbum = [self albumForJson:[eventJson objectForKey:JSON_ELEMENT_CLASSIC_ALBUM] error:error];
-        if (error && *error != nil)
-        {
-            return nil;
-        }
+        MGMAlbumDto* classicAlbum = [self albumForJson:[eventJson objectForKey:JSON_ELEMENT_CLASSIC_ALBUM]];
+        MGMAlbumDto* newAlbum = [self albumForJson:[eventJson objectForKey:JSON_ELEMENT_NEW_ALBUM]];
 
-        MGMAlbum* newAlbum = [self albumForJson:[eventJson objectForKey:JSON_ELEMENT_NEW_ALBUM] error:error];
-        if (error && *error != nil)
-        {
-            return nil;
-        }
+        MGMEventDto* event = [[MGMEventDto alloc] init];
+        event.eventNumber = eventNumber;
+        event.eventDate = date;
+        event.spotifyPlaylistId = playlistId;
+        event.classicAlbum = classicAlbum;
+        event.newlyReleasedAlbum = newAlbum;
 
-        MGMEvent* event = [self.coreDataDao fetchEvent:eventNumber error:error];
-        if (error && *error != nil)
-        {
-            return nil;
-        }
-        
-        if (event == nil)
-        {
-            event = [self.coreDataDao createNewEvent:error];
-            if (error && *error != nil)
-            {
-                return nil;
-            }
-
-            event.eventNumber = eventNumber;
-            event.eventDate = date;
-            event.spotifyPlaylistId = playlistId;
-            event.classicAlbum = classicAlbum;
-            event.newlyReleasedAlbum = newAlbum;
-        }
         [results addObject:event];
-    }
-
-    [self.coreDataDao persistChanges:error];
-    if (error && *error != nil)
-    {
-        return nil;
     }
 
     return [results copy];
 }
 
-- (MGMAlbum*) albumForJson:(NSDictionary*)json error:(NSError**)error
+- (MGMAlbumDto*) albumForJson:(NSDictionary*)json
 {
     NSString* artistName = [json objectForKey:JSON_ELEMENT_ARTIST_NAME];
     NSString* albumName = [json objectForKey:JSON_ELEMENT_ALBUM_NAME];
@@ -155,57 +150,23 @@
         metadata = [NSDictionary dictionary];
     }
 
-    MGMAlbum* album = [self.coreDataDao fetchAlbum:mbid error:error];
-    if (error && *error != nil)
-    {
-        return nil;
-    }
-    
-    if (album == nil)
-    {
-        album = [self.coreDataDao createNewAlbum:error];
-        if (error && *error != nil)
-        {
-            return nil;
-        }
-
-        album.artistName = artistName;
-        album.albumName = albumName;
-        album.albumMbid = mbid;
-        album.score = score;
-    }
+    MGMAlbumDto* album = [[MGMAlbumDto alloc] init];
+    album.artistName = artistName;
+    album.albumName = albumName;
+    album.albumMbid = mbid;
+    album.score = score;
 
     [metadata enumerateKeysAndObjectsUsingBlock:^(NSString* key, NSString* obj, BOOL *stop)
     {
         MGMAlbumServiceType serviceType = [self.serviceTypes indexOfObject:key];
         if (serviceType != NSNotFound)
         {
-            MGMAlbumMetadata* metadata = [self.coreDataDao fetchAlbumMetadataForAlbum:album serviceType:serviceType error:error];
-            if (error && *error != nil)
-            {
-                return;
-            }
-
-            if (metadata == nil)
-            {
-                metadata = [self.coreDataDao createNewAlbumMetadata:error];
-                if (error && *error != nil)
-                {
-                    return;
-                }
-
-                metadata.serviceType = serviceType;
-                metadata.value = obj;
-                [album addMetadataObject:metadata];
-
-                if (error && *error != nil)
-                {
-                    return;
-                }
-            }
+            MGMAlbumMetadataDto* metadata = [[MGMAlbumMetadataDto alloc] init];
+            metadata.serviceType = serviceType;
+            metadata.value = obj;
+            [album.metadata addObject:metadata];
         }
     }];
-    [self.coreDataDao persistChanges:error];
 
     return album;
 }

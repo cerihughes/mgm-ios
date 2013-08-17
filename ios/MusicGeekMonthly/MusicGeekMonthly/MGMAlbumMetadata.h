@@ -8,15 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
-typedef enum
-{
-    MGMAlbumServiceTypeLastFm = 1,
-    MGMAlbumServiceTypeSpotify = 2,
-    MGMAlbumServiceTypeWikipedia = 4,
-    MGMAlbumServiceTypeYouTube = 8
-}
-MGMAlbumServiceType;
+#import "MGMAlbumServiceType.h"
 
 @class MGMAlbum;
 

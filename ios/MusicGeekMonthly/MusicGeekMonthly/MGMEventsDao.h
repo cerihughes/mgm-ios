@@ -11,7 +11,7 @@
 
 @interface MGMEventsDao : MGMHttpDao
 
-- (MGMEvent*) latestEvent:(NSError**)error;
-- (NSArray*) events:(NSError**)error;
+- (void) fetchLatestEvent:(FETCH_COMPLETION)completion;
+- (void) fetchAllEvents:(FETCH_MANY_COMPLETION)completion;
 
 @end

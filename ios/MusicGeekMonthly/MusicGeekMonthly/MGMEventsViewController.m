@@ -48,14 +48,12 @@
     self.eventsTable.dataSource = self;
     self.eventsTable.delegate = self;
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    [self.core.daoFactory.eventsDao fetchAllEvents:^(NSArray* fetchedEvents, NSError* fetchError)
     {
-        // Search in a background thread...
-        NSError* error = nil;
-        self.events = [self.core.daoFactory.eventsDao events:&error];
-        if (error)
+        self.events = fetchedEvents;
+        if (fetchError)
         {
-            [self handleError:error];
+            [self handleError:fetchError];
             return;
         }
 
@@ -74,7 +72,7 @@
                 [self displayEvent:event];
             }
         });
-    });
+    }];
 }
 
 - (void) displayEvent:(MGMEvent*)event
@@ -123,22 +121,19 @@
 
     if ([event.classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+        [self.core.daoFactory.lastFmDao updateAlbumInfo:event.classicAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
         {
-            // Search in a background thread...
-            NSError* error = nil;
-            [self.core.daoFactory.lastFmDao updateAlbumInfo:event.classicAlbum error:&error];
-            if (error != nil)
+            if (updateError != nil)
             {
-                [self handleError:error];
+                [self handleError:updateError];
             }
 
             dispatch_async(dispatch_get_main_queue(), ^
             {
                 // ... but update the UI in the main thread...
-                [self addAlbumImage:event.classicAlbum toCell:cell];
+                [self addAlbumImage:updatedAlbum toCell:cell];
             });
-        });
+        }];
     }
     else
     {

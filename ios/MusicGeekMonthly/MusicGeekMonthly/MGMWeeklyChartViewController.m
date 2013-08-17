@@ -67,11 +67,9 @@
         [self.albumsView setupAlbumFrame:frame forRank:i + 1];
     }
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    [self.core.daoFactory.lastFmDao fetchAllTimePeriods:^(NSArray* timePeriods, NSError* error)
     {
-        // Search in a background thread...
-        NSError* error = nil;
-        self.timePeriods = [self.core.daoFactory.lastFmDao weeklyTimePeriods:&error];
+        self.timePeriods = timePeriods;
         if (error != nil)
         {
             [self handleError:error];
@@ -94,7 +92,7 @@
                 [self loadAlbumsForPeriod:timePeriod];
             }
         });
-    });
+    }];
 }
 
 - (void) processTimePeriods
@@ -132,13 +130,12 @@
         self.title = [self titleForTimePeriod:timePeriod];
     }
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMWeeklyChart* weeklyChart, NSError* fetchError)
     {
-        NSError* error = nil;
-        self.weeklyChart = [self.core.daoFactory.lastFmDao topWeeklyAlbumsForStartDate:timePeriod.startDate endDate:timePeriod.endDate error:&error];
-        if (error)
+        self.weeklyChart = weeklyChart;
+        if (fetchError)
         {
-            [self handleError:error];
+            [self handleError:fetchError];
             return;
         }
 
@@ -147,7 +144,7 @@
             // ... but update the UI in the main thread...
             [self reloadData];
         });
-    });
+    }];
 }
 
 - (void) reloadData
@@ -158,23 +155,30 @@
         [self.albumsView setActivityInProgress:YES forRank:entry.rank.intValue];
         if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
         {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+            [self.core.daoFactory.lastFmDao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* fetchError)
             {
-                // Search in a background thread...
-                NSError* error = nil;
-                [self.core.daoFactory.lastFmDao updateAlbumInfo:album error:&error];
-                if (error != nil)
+                if (fetchError != nil)
                 {
-                    [self handleError:error];
+                    [self handleError:fetchError];
                     return;
                 }
 
-                dispatch_async(dispatch_get_main_queue(), ^
+                // We need to get the updated chart entry that contains this album... Not sure I should be going directly to the core data dao here...
+                [self.core.daoFactory.coreDataDao fetchChartEntryWithWeeklyChart:self.weeklyChart rank:entry.rank completion:^(MGMChartEntry* updatedEntry, NSError* entryFetchError)
                 {
-                    // ... but update the UI in the main thread...
-                    [self renderChartEntry:entry];
-                });
-            });
+                    if (entryFetchError != nil)
+                    {
+                        [self handleError:entryFetchError];
+                        return;
+                    }
+
+                    dispatch_async(dispatch_get_main_queue(), ^
+                    {
+                        // ... but update the UI in the main thread...
+                        [self renderChartEntry:updatedEntry];
+                    });
+                }];
+            }];
         }
         else
         {

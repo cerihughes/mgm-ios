@@ -144,11 +144,13 @@
 - (void) albumSelected:(MGMAlbum*)album
 {
     NSError* error = nil;
-    [self.core.albumPlayer playAlbum:album onService:MGMAlbumServiceTypeSpotify error:&error];
-    if (error != nil)
+    [self.core.albumPlayer playAlbum:album onService:MGMAlbumServiceTypeSpotify completion:^(NSError* updateError)
     {
-        [self handleError:error];
-    }
+        if (error != nil)
+        {
+            [self handleError:error];
+        }
+    }];
 }
 
 - (void) detailSelected:(MGMAlbum*)album

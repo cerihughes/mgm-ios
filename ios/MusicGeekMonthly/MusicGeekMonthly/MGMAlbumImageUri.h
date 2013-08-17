@@ -8,17 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
-typedef enum
-{
-    MGMAlbumImageSizeNone = 0,
-    MGMAlbumImageSizeSmall = 1,
-    MGMAlbumImageSizeMedium = 2,
-    MGMAlbumImageSizeLarge = 3,
-    MGMAlbumImageSizeExtraLarge = 4,
-    MGMAlbumImageSizeMega = 5
-}
-MGMAlbumImageSize;
+#import "MGMAlbumImageSize.h"
 
 @class MGMAlbum;
 

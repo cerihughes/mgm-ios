@@ -44,14 +44,12 @@
     
     [self.albumsView setupAlbumsInRow:4];
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    [self.core.daoFactory.eventsDao fetchLatestEvent:^(MGMEvent* fetchedEvent, NSError* fetchError)
     {
-        // Search in a background thread...
-        NSError* error = nil;
-        self.event = [self.core.daoFactory.eventsDao latestEvent:&error];
-        if (error)
+        self.event = fetchedEvent;
+        if (fetchError)
         {
-            [self handleError:error];
+            [self handleError:fetchError];
             return;
         }
 
@@ -60,8 +58,7 @@
             // ... but update the UI in the main thread...
             [self displayEvent:self.event];
         });
-    });
-
+    }];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -92,91 +89,129 @@
 
 - (void) loadImages
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    NSUInteger albumsToRender = self.albumsView.albumCount;
+    if (self.backgroundChartEntries == nil)
     {
-        // Search in a background thread...
-        NSUInteger albumsToRender = self.albumsView.albumCount;
-        if (self.backgroundChartEntries == nil)
+        [self.core.daoFactory.lastFmDao fetchLatestTimePeriod:^(MGMTimePeriod* fetchedTimePeriod, NSError* timePeriodFetchError)
         {
-            NSError* error = nil;
-            MGMTimePeriod* mostRecent = [self.core.daoFactory.lastFmDao mostRecentTimePeriod:&error];
-            if (error)
+            if (timePeriodFetchError)
             {
-                [self handleError:error];
+                [self handleError:timePeriodFetchError];
                 return;
             }
 
-            self.backgroundChartEntries = [self shuffledArray:[self.core.daoFactory.lastFmDao topWeeklyAlbumsForStartDate:mostRecent.startDate endDate:mostRecent.endDate error:&error].chartEntries];
-            if (error)
+            [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:fetchedTimePeriod.startDate endDate:fetchedTimePeriod.endDate completion:^(MGMWeeklyChart* fetchedWeeklyChart, NSError* weeklyChartFetchError)
             {
-                [self handleError:error];
-                return;
-            }
-
-            NSMutableOrderedSet* indices = [NSMutableOrderedSet orderedSetWithCapacity:albumsToRender];
-            for (NSUInteger i = 0; i < albumsToRender; i++)
-            {
-                [indices addObject:[NSNumber numberWithInt:i]];
-            }
-            self.backgroundChartEntryViewIndices = [self shuffledArray:indices];
-            self.backgroundChartEntryIndex = 0;
-        }
-
-        for (NSNumber* albumViewIndex in self.backgroundChartEntryViewIndices)
-        {
-            NSString* albumArtUri = [self nextBackgroundAlbumArtUri];
-            if (albumArtUri)
-            {
-                NSError* error = nil;
-                UIImage* image = [MGMImageHelper imageFromUrl:albumArtUri error:&error];
-                if (error)
+                self.backgroundChartEntries = [self shuffledArray:fetchedWeeklyChart.chartEntries];
+                if (weeklyChartFetchError)
                 {
-                    [self handleError:error];
+                    [self handleError:weeklyChartFetchError];
                     return;
                 }
 
-                if (image == nil)
+                NSMutableOrderedSet* indices = [NSMutableOrderedSet orderedSetWithCapacity:albumsToRender];
+                for (NSUInteger i = 0; i < albumsToRender; i++)
                 {
-                    image = [UIImage imageNamed:@"album1.png"];
+                    [indices addObject:[NSNumber numberWithInt:i]];
                 }
-                dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    // ... but update the UI in the main thread...
-                    [self.albumsView renderImage:image atIndex:albumViewIndex.intValue];
-                });
-                // Sleep for a bit to give a tiling effect...
-                [NSThread sleepForTimeInterval:0.25];
-            }
-        }
-
-    });
+                self.backgroundChartEntryViewIndices = [self shuffledArray:indices];
+                self.backgroundChartEntryIndex = 0;
+                [self renderImages];
+            }];
+        }];
+    }
+    else
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+        {
+            // Search in a background thread...
+            [self renderImages];
+        });
+    }
 }
 
-- (NSString*) nextBackgroundAlbumArtUri
+- (void) renderImages
 {
-    NSUInteger howManyChecks = 0;
-    NSString* uri = nil;
-    while (howManyChecks < self.backgroundChartEntries.count && uri == nil)
+    for (NSNumber* albumViewIndex in self.backgroundChartEntryViewIndices)
+    {
+        [self nextBackgroundAlbumArtUri:^(NSString* uri, NSError* fetchError)
+        {
+            if (fetchError)
+            {
+                [self handleError:fetchError];
+                return;
+            }
+
+            UIImage* image = nil;
+            if (uri)
+            {
+                NSError* error = nil;
+                image = [MGMImageHelper imageFromUrl:uri error:&error];
+                if (error)
+                {
+                    [self handleError:error];
+                }
+            }
+            if (image == nil)
+            {
+                image = [UIImage imageNamed:@"album1.png"];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^
+            {
+                // ... but update the UI in the main thread...
+                [self.albumsView renderImage:image atIndex:albumViewIndex.intValue];
+            });
+        }];
+        // Sleep for a bit to give a tiling effect...
+        [NSThread sleepForTimeInterval:0.25];
+    }
+}
+
+- (void) nextBackgroundAlbumArtUri:(FETCH_COMPLETION)completion
+{
+    void (^processingBlock)(NSUInteger);
+    
+    void (^resultBlock)(MGMAlbum*, NSError*, NSUInteger) = ^(MGMAlbum* album, NSError* error, NSUInteger iterations)
+    {
+        if (error)
+        {
+            completion(nil, error);
+        }
+        else
+        {
+            if (self.backgroundChartEntryIndex == self.backgroundChartEntries.count)
+            {
+                self.backgroundChartEntryIndex = 0;
+            }
+
+            NSString* uri = [album bestAlbumImageUrl];
+            if (uri == nil && iterations < 10)
+            {
+                processingBlock(iterations + 1);
+            }
+            else
+            {
+                completion(uri, nil);
+            }
+        }
+    };
+
+    processingBlock = ^(NSUInteger iterations)
     {
         MGMChartEntry* chartEntry = [self.backgroundChartEntries objectAtIndex:self.backgroundChartEntryIndex++];
         MGMAlbum* album = chartEntry.album;
         if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
         {
-            NSError* error = nil;
-            [self.core.daoFactory.lastFmDao updateAlbumInfo:album error:&error];
-            if (error != nil)
+            [self.core.daoFactory.lastFmDao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
             {
-                [self handleError:error];
-            }
+                resultBlock(updatedAlbum, updateError, iterations);
+            }];
         }
-
-        if (self.backgroundChartEntryIndex == self.backgroundChartEntries.count)
+        else
         {
-            self.backgroundChartEntryIndex = 0;
+            resultBlock(album, nil, iterations);
         }
-        uri = [album bestAlbumImageUrl];
-    }
-    return uri;
+    };
 }
 
 - (NSArray*) shuffledArray:(NSOrderedSet*)input

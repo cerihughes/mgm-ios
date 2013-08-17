@@ -51,22 +51,21 @@
 
     if ([classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+        [self.core.daoFactory.lastFmDao updateAlbumInfo:classicAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
         {
-            // Search in a background thread...
-            NSError* error = nil;
-            [self.core.daoFactory.lastFmDao updateAlbumInfo:classicAlbum error:&error];
-            if (error != nil)
+            if (updateError != nil)
             {
-                [self handleError:error];
+                [self handleError:updateError];
             }
-            
-            dispatch_async(dispatch_get_main_queue(), ^
+            else
             {
-                // ... but update the UI in the main thread...
-                [self displayClassicAlbumImage:classicAlbum];
-            });
-        });
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    // ... but update the UI in the main thread...
+                    [self displayClassicAlbumImage:updatedAlbum];
+                });
+            }
+        }];
     }
     else
     {
@@ -82,22 +81,21 @@
 
     if ([newRelease searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+        [self.core.daoFactory.lastFmDao updateAlbumInfo:newRelease completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
         {
-            // Search in a background thread...
-            NSError* error = nil;
-            [self.core.daoFactory.lastFmDao updateAlbumInfo:newRelease error:&error];
-            if (error != nil)
+            if (updateError != nil)
             {
-                [self handleError:error];
+                [self handleError:updateError];
             }
-
-            dispatch_async(dispatch_get_main_queue(), ^
+            else
             {
-                // ... but update the UI in the main thread...
-                [self displayNewReleaseAlbumImage:newRelease];
-            });
-        });
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    // ... but update the UI in the main thread...
+                    [self displayNewReleaseAlbumImage:updatedAlbum];
+                });
+            }
+        }];
     }
     else
     {

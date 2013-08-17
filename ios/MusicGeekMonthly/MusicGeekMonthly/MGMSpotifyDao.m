@@ -8,6 +8,8 @@
 
 #import "MGMSpotifyDao.h"
 
+#import "MGMAlbumMetadataDto.h"
+
 @interface MGMSpotifyDao ()
 
 @property (strong) NSDictionary* acceptJson;
@@ -28,30 +30,39 @@
     return self;
 }
 
-- (void) updateAlbumInfo:(MGMAlbum *)album error:(NSError**)error
+- (void) updateAlbumInfo:(MGMAlbum *)album completion:(FETCH_COMPLETION)completion
 {
     NSString* searchString = [NSString stringWithFormat:@"%@ %@", album.artistName, album.albumName];
     NSString* urlString = [NSString stringWithFormat:ALBUM_SEARCH_URL, searchString];
     NSData* jsonData = [self contentsOfUrl:urlString withHttpHeaders:self.acceptJson];
     if (jsonData)
     {
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:error];
-        if (error  && *error != nil)
+        NSError* jsonError = nil;
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
+        if (jsonError == nil)
         {
-            return;
+            MGMAlbumMetadataDto* metadataDto = [self updateAlbumInfo:album withJson:json];
+            NSArray* metadataDtos = [NSArray arrayWithObject:metadataDto];
+            [self.coreDataDao addMetadata:metadataDtos toAlbumWithMbid:album.albumMbid updateServiceType:MGMAlbumServiceTypeSpotify completion:^(NSError* updateError)
+            {
+                if (updateError == nil)
+                {
+                    [self.coreDataDao fetchAlbumWithMbid:album.albumMbid completion:completion];
+                }
+                else
+                {
+                    completion(nil, updateError);
+                }
+            }];
         }
-
-        // Get our own version of the album in case we're in a different thread.
-        MGMAlbum* threadAlbum = [self.coreDataDao fetchAlbum:album.albumMbid error:error];
-        if (error && *error != nil)
+        else
         {
-            return;
+            completion(nil, jsonError);
         }
-        [self updateAlbumInfo:threadAlbum withJson:json error:error];
     }
 }
 
-- (void) updateAlbumInfo:(MGMAlbum*)album withJson:(NSDictionary*)json error:(NSError**)error
+- (MGMAlbumMetadataDto*) updateAlbumInfo:(MGMAlbum*)album withJson:(NSDictionary*)json
 {
     NSArray* albums = [json objectForKey:@"albums"];
     NSArray* available = [self availableAlbums:albums inTerritory:TERRITORY];
@@ -64,10 +75,10 @@
     {
         match = [self bestMatchForAlbum:album inAlbums:available];
     }
-    [self updateAlbumInfo:album withAlbumJson:match error:error];
+    return [self updateAlbumInfo:album withAlbumJson:match];
 }
 
-- (void) updateAlbumInfo:(MGMAlbum*)album withAlbumJson:(NSDictionary*)json error:(NSError**)error
+- (MGMAlbumMetadataDto*) updateAlbumInfo:(MGMAlbum*)album withAlbumJson:(NSDictionary*)json
 {
     NSString* href = [json objectForKey:@"href"];
     NSArray* splits = [href componentsSeparatedByString:@":"];
@@ -75,31 +86,12 @@
     {
         NSString* value = [splits objectAtIndex:2];
 
-        MGMAlbumMetadata* metadata = [self.coreDataDao fetchAlbumMetadataForAlbum:album serviceType:MGMAlbumServiceTypeSpotify error:error];
-        if (error && *error != nil)
-        {
-            return;
-        }
-
-        if (metadata == nil)
-        {
-            metadata = [self.coreDataDao createNewAlbumMetadata:error];
-            if (error && *error != nil)
-            {
-                return;
-            }
-
-            metadata.serviceType = MGMAlbumServiceTypeSpotify;
-            metadata.value = value;
-            [album addMetadataObject:metadata];
-            [self.coreDataDao persistChanges:error];
-
-            if (error && *error != nil)
-            {
-                return;
-            }
-        }
+        MGMAlbumMetadataDto* metadata = [[MGMAlbumMetadataDto alloc] init];
+        metadata.serviceType = MGMAlbumServiceTypeSpotify;
+        metadata.value = value;
+        return metadata;
     }
+    return nil;
 }
 
 - (NSArray*) availableAlbums:(NSArray*)albums inTerritory:(NSString*)territory

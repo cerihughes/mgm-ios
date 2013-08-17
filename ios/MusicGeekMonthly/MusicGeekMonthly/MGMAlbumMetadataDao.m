@@ -10,9 +10,9 @@
 
 @implementation MGMAlbumMetadataDao
 
-- (void) updateAlbumInfo:(MGMAlbum*)album error:(NSError**)error
+- (void) updateAlbumInfo:(MGMAlbum*)album completion:(FETCH_COMPLETION)completion
 {
-
+    completion(nil, nil);
 }
 
 @end

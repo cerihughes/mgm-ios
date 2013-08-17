@@ -13,6 +13,22 @@
 		6508CB1B176BB05700594244 /* MGMDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6508CB19176BB05700594244 /* MGMDao.m */; };
 		6509FF6E17AC5F4700DE68DE /* MGMAlbumMetadataDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509FF6D17AC5F4700DE68DE /* MGMAlbumMetadataDao.m */; };
 		6509FF6F17AC5F4700DE68DE /* MGMAlbumMetadataDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509FF6D17AC5F4700DE68DE /* MGMAlbumMetadataDao.m */; };
+		650B7B9F17BEBA5400B14305 /* MGMAlbumDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7B9E17BEBA5400B14305 /* MGMAlbumDto.m */; };
+		650B7BA017BEBA5400B14305 /* MGMAlbumDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7B9E17BEBA5400B14305 /* MGMAlbumDto.m */; };
+		650B7BA317BEBA7E00B14305 /* MGMTimePeriodDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BA217BEBA7E00B14305 /* MGMTimePeriodDto.m */; };
+		650B7BA417BEBA7E00B14305 /* MGMTimePeriodDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BA217BEBA7E00B14305 /* MGMTimePeriodDto.m */; };
+		650B7BA717BEBA9F00B14305 /* MGMWeeklyChartDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BA617BEBA9F00B14305 /* MGMWeeklyChartDto.m */; };
+		650B7BA817BEBA9F00B14305 /* MGMWeeklyChartDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BA617BEBA9F00B14305 /* MGMWeeklyChartDto.m */; };
+		650B7BAB17BEBAAF00B14305 /* MGMChartEntryDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BAA17BEBAAF00B14305 /* MGMChartEntryDto.m */; };
+		650B7BAC17BEBAAF00B14305 /* MGMChartEntryDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BAA17BEBAAF00B14305 /* MGMChartEntryDto.m */; };
+		650B7BAF17BEBAD300B14305 /* MGMEventDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BAE17BEBAD300B14305 /* MGMEventDto.m */; };
+		650B7BB017BEBAD300B14305 /* MGMEventDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BAE17BEBAD300B14305 /* MGMEventDto.m */; };
+		650B7BB317BEBAE200B14305 /* MGMAlbumImageUriDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BB217BEBAE200B14305 /* MGMAlbumImageUriDto.m */; };
+		650B7BB417BEBAE200B14305 /* MGMAlbumImageUriDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BB217BEBAE200B14305 /* MGMAlbumImageUriDto.m */; };
+		650B7BB717BEBAEF00B14305 /* MGMAlbumMetadataDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BB617BEBAEF00B14305 /* MGMAlbumMetadataDto.m */; };
+		650B7BB817BEBAEF00B14305 /* MGMAlbumMetadataDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BB617BEBAEF00B14305 /* MGMAlbumMetadataDto.m */; };
+		650B7BC317BEC03500B14305 /* MGMCoreDataDaoSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BC217BEC03500B14305 /* MGMCoreDataDaoSync.m */; };
+		650B7BC417BEC03500B14305 /* MGMCoreDataDaoSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 650B7BC217BEC03500B14305 /* MGMCoreDataDaoSync.m */; };
 		650BEEFC17BBE212008A57AF /* MGMAlbumMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 650BEEFB17BBE212008A57AF /* MGMAlbumMetadata.m */; };
 		650BEEFD17BBE212008A57AF /* MGMAlbumMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 650BEEFB17BBE212008A57AF /* MGMAlbumMetadata.m */; };
 		650BEF0017BBE213008A57AF /* MGMAlbumImageUri.m in Sources */ = {isa = PBXBuildFile; fileRef = 650BEEFF17BBE213008A57AF /* MGMAlbumImageUri.m */; };
@@ -123,6 +139,24 @@
 		6508CB19176BB05700594244 /* MGMDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDao.m; sourceTree = "<group>"; };
 		6509FF6C17AC5F4700DE68DE /* MGMAlbumMetadataDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumMetadataDao.h; sourceTree = "<group>"; };
 		6509FF6D17AC5F4700DE68DE /* MGMAlbumMetadataDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumMetadataDao.m; sourceTree = "<group>"; };
+		650B7B9D17BEBA5400B14305 /* MGMAlbumDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumDto.h; sourceTree = "<group>"; };
+		650B7B9E17BEBA5400B14305 /* MGMAlbumDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumDto.m; sourceTree = "<group>"; };
+		650B7BA117BEBA7E00B14305 /* MGMTimePeriodDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTimePeriodDto.h; sourceTree = "<group>"; };
+		650B7BA217BEBA7E00B14305 /* MGMTimePeriodDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTimePeriodDto.m; sourceTree = "<group>"; };
+		650B7BA517BEBA9F00B14305 /* MGMWeeklyChartDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWeeklyChartDto.h; sourceTree = "<group>"; };
+		650B7BA617BEBA9F00B14305 /* MGMWeeklyChartDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartDto.m; sourceTree = "<group>"; };
+		650B7BA917BEBAAF00B14305 /* MGMChartEntryDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMChartEntryDto.h; sourceTree = "<group>"; };
+		650B7BAA17BEBAAF00B14305 /* MGMChartEntryDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMChartEntryDto.m; sourceTree = "<group>"; };
+		650B7BAD17BEBAD300B14305 /* MGMEventDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMEventDto.h; sourceTree = "<group>"; };
+		650B7BAE17BEBAD300B14305 /* MGMEventDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventDto.m; sourceTree = "<group>"; };
+		650B7BB117BEBAE200B14305 /* MGMAlbumImageUriDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumImageUriDto.h; sourceTree = "<group>"; };
+		650B7BB217BEBAE200B14305 /* MGMAlbumImageUriDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumImageUriDto.m; sourceTree = "<group>"; };
+		650B7BB517BEBAEF00B14305 /* MGMAlbumMetadataDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumMetadataDto.h; sourceTree = "<group>"; };
+		650B7BB617BEBAEF00B14305 /* MGMAlbumMetadataDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumMetadataDto.m; sourceTree = "<group>"; };
+		650B7BB917BEBBA400B14305 /* MGMAlbumImageSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumImageSize.h; sourceTree = "<group>"; };
+		650B7BBD17BEBBBD00B14305 /* MGMAlbumServiceType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumServiceType.h; sourceTree = "<group>"; };
+		650B7BC117BEC03500B14305 /* MGMCoreDataDaoSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataDaoSync.h; sourceTree = "<group>"; };
+		650B7BC217BEC03500B14305 /* MGMCoreDataDaoSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataDaoSync.m; sourceTree = "<group>"; };
 		650BEEFA17BBE212008A57AF /* MGMAlbumMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumMetadata.h; sourceTree = "<group>"; };
 		650BEEFB17BBE212008A57AF /* MGMAlbumMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumMetadata.m; sourceTree = "<group>"; };
 		650BEEFE17BBE213008A57AF /* MGMAlbumImageUri.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumImageUri.h; sourceTree = "<group>"; };
@@ -265,6 +299,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		650B7B9C17BEBA2900B14305 /* Dto */ = {
+			isa = PBXGroup;
+			children = (
+				650B7BA117BEBA7E00B14305 /* MGMTimePeriodDto.h */,
+				650B7BA217BEBA7E00B14305 /* MGMTimePeriodDto.m */,
+				650B7BA517BEBA9F00B14305 /* MGMWeeklyChartDto.h */,
+				650B7BA617BEBA9F00B14305 /* MGMWeeklyChartDto.m */,
+				650B7BA917BEBAAF00B14305 /* MGMChartEntryDto.h */,
+				650B7BAA17BEBAAF00B14305 /* MGMChartEntryDto.m */,
+				650B7B9D17BEBA5400B14305 /* MGMAlbumDto.h */,
+				650B7B9E17BEBA5400B14305 /* MGMAlbumDto.m */,
+				650B7BB117BEBAE200B14305 /* MGMAlbumImageUriDto.h */,
+				650B7BB217BEBAE200B14305 /* MGMAlbumImageUriDto.m */,
+				650B7BB517BEBAEF00B14305 /* MGMAlbumMetadataDto.h */,
+				650B7BB617BEBAEF00B14305 /* MGMAlbumMetadataDto.m */,
+				650B7BAD17BEBAD300B14305 /* MGMEventDto.h */,
+				650B7BAE17BEBAD300B14305 /* MGMEventDto.m */,
+			);
+			name = Dto;
+			sourceTree = "<group>";
+		};
 		65291AF31775F658002595AC /* WeeklyChart */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,6 +378,7 @@
 				65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */,
 				65E8110B17AD040500FCBC9F /* MGMLogging.h */,
 				653B6BB8175FD12F005D372C /* Dao */,
+				650B7B9C17BEBA2900B14305 /* Dto */,
 				653B6BA7175FD073005D372C /* Model */,
 			);
 			name = Core;
@@ -360,8 +416,10 @@
 				650BF24A17B97DAB00020C2B /* MGMChartEntry.m */,
 				65E975BB17B6CB1700CF53B2 /* MGMAlbum.h */,
 				65E975BC17B6CB1700CF53B2 /* MGMAlbum.m */,
+				650B7BB917BEBBA400B14305 /* MGMAlbumImageSize.h */,
 				650BEEFE17BBE213008A57AF /* MGMAlbumImageUri.h */,
 				650BEEFF17BBE213008A57AF /* MGMAlbumImageUri.m */,
+				650B7BBD17BEBBBD00B14305 /* MGMAlbumServiceType.h */,
 				650BEEFA17BBE212008A57AF /* MGMAlbumMetadata.h */,
 				650BEEFB17BBE212008A57AF /* MGMAlbumMetadata.m */,
 				65E975BE17B6CB1800CF53B2 /* MGMEvent.h */,
@@ -381,6 +439,8 @@
 				65E975AD17B6A8FB00CF53B2 /* MGMHttpDao.m */,
 				65E975A917B6A8E100CF53B2 /* MGMCoreDataDao.h */,
 				65E975AA17B6A8E100CF53B2 /* MGMCoreDataDao.m */,
+				650B7BC117BEC03500B14305 /* MGMCoreDataDaoSync.h */,
+				650B7BC217BEC03500B14305 /* MGMCoreDataDaoSync.m */,
 				65E975C417B6CD5900CF53B2 /* MGMCoreDataAwareDao.h */,
 				65E975C517B6CD5900CF53B2 /* MGMCoreDataAwareDao.m */,
 				6509FF6C17AC5F4700DE68DE /* MGMAlbumMetadataDao.h */,
@@ -720,6 +780,14 @@
 				650BF24B17B97DAB00020C2B /* MGMChartEntry.m in Sources */,
 				650BEEFC17BBE212008A57AF /* MGMAlbumMetadata.m in Sources */,
 				650BEF0017BBE213008A57AF /* MGMAlbumImageUri.m in Sources */,
+				650B7B9F17BEBA5400B14305 /* MGMAlbumDto.m in Sources */,
+				650B7BA317BEBA7E00B14305 /* MGMTimePeriodDto.m in Sources */,
+				650B7BA717BEBA9F00B14305 /* MGMWeeklyChartDto.m in Sources */,
+				650B7BAB17BEBAAF00B14305 /* MGMChartEntryDto.m in Sources */,
+				650B7BAF17BEBAD300B14305 /* MGMEventDto.m in Sources */,
+				650B7BB317BEBAE200B14305 /* MGMAlbumImageUriDto.m in Sources */,
+				650B7BB717BEBAEF00B14305 /* MGMAlbumMetadataDto.m in Sources */,
+				650B7BC317BEC03500B14305 /* MGMCoreDataDaoSync.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +817,14 @@
 				650BEEFD17BBE212008A57AF /* MGMAlbumMetadata.m in Sources */,
 				65BEAF1917BE21AA00796D93 /* MGMEvent.m in Sources */,
 				65936A0917BCB1150070A9C6 /* MGMCoreDataTestCase.m in Sources */,
+				650B7BA017BEBA5400B14305 /* MGMAlbumDto.m in Sources */,
+				650B7BA417BEBA7E00B14305 /* MGMTimePeriodDto.m in Sources */,
+				650B7BA817BEBA9F00B14305 /* MGMWeeklyChartDto.m in Sources */,
+				650B7BAC17BEBAAF00B14305 /* MGMChartEntryDto.m in Sources */,
+				650B7BB017BEBAD300B14305 /* MGMEventDto.m in Sources */,
+				650B7BB417BEBAE200B14305 /* MGMAlbumImageUriDto.m in Sources */,
+				650B7BB817BEBAEF00B14305 /* MGMAlbumMetadataDto.m in Sources */,
+				650B7BC417BEC03500B14305 /* MGMCoreDataDaoSync.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,8 +12,8 @@
 
 @interface MGMLastFmDao : MGMAlbumMetadataDao
 
-- (void) weeklyTimePeriods:(FETCH_MANY_COMPLETION)completion;
-- (void) mostRecentTimePeriod:(FETCH_COMPLETION)completion;
-- (void) topWeeklyAlbumsForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(FETCH_COMPLETION)completion;
+- (void) fetchAllTimePeriods:(FETCH_MANY_COMPLETION)completion;
+- (void) fetchLatestTimePeriod:(FETCH_COMPLETION)completion;
+- (void) fetchWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(FETCH_COMPLETION)completion;
 
 @end
