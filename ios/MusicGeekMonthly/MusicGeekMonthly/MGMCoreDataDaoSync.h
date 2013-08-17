@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
+#import <CoreData/CoreData.h>
+#import "MGMChartEntry.h"
+#import "MGMEvent.h"
 #import "MGMTimePeriod.h"
 #import "MGMWeeklyChart.h"
 #import "MGMWeeklyChartDto.h"
-#import "MGMEvent.h"
 
 @interface MGMCoreDataDaoSync : NSObject
 

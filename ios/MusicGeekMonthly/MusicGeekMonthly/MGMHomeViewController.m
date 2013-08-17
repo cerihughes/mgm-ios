@@ -110,7 +110,7 @@
                         return;
                     }
 
-                    self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithWeeklyChart:fetchedWeeklyChart];
+                    self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithChartEntries:[fetchedWeeklyChart fetchChartEntries]];
                     self.artFetcher.lastFmDao = self.core.daoFactory.lastFmDao;
                     self.artFetcher.delegate = self;
                     [self renderImages];

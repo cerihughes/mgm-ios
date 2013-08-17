@@ -7,19 +7,17 @@
 //
 
 #import "MGMDao.h"
+
+#import "MGMAlbum.h"
+#import "MGMAlbumDto.h"
+#import "MGMChartEntry.h"
+#import "MGMCompletion.h"
+#import "MGMEvent.h"
+#import "MGMEventDto.h"
 #import "MGMTimePeriod.h"
 #import "MGMTimePeriodDto.h"
 #import "MGMWeeklyChart.h"
 #import "MGMWeeklyChartDto.h"
-#import "MGMAlbum.h"
-#import "MGMAlbumDto.h"
-#import "MGMEvent.h"
-#import "MGMEventDto.h"
-
-typedef void (^VOID_COMPLETION)(NSError*);
-typedef void (^CREATION_COMPLETION)(id, NSError*);
-typedef void (^FETCH_MANY_COMPLETION)(NSArray*, NSError*);
-typedef CREATION_COMPLETION FETCH_COMPLETION;
 
 @interface MGMCoreDataDao : MGMDao
 

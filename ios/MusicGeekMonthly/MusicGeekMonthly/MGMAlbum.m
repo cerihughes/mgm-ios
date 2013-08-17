@@ -8,6 +8,8 @@
 
 #import "MGMAlbum.h"
 
+#import "MGMAlbum+Relationships.h"
+
 @interface MGMAlbum ()
 
 @property (nonatomic, strong) NSNumber* searchedServiceTypesObject;
@@ -19,8 +21,6 @@
 @dynamic albumMbid;
 @dynamic albumName;
 @dynamic artistName;
-@dynamic imageUris;
-@dynamic metadata;
 @dynamic score;
 @dynamic searchedServiceTypesObject;
 
@@ -44,53 +44,44 @@
     self.searchedServiceTypes |= serviceType;
 }
 
-- (NSString*) imageUrlForImageSize:(MGMAlbumImageSize)size
+- (NSString*) fetchImageUrlForImageSize:(MGMAlbumImageSize)size
 {
-    for (MGMAlbumImageUri* imageUri in self.imageUris)
+    __block NSString* result;
+    [self.managedObjectContext performBlockAndWait:^
     {
-        if (imageUri.size == size)
-        {
-            return imageUri.uri;
-        }
-    }
-    return nil;
+        result = [self imageUrlForImageSize:size];
+    }];
+    return result;
 }
 
-- (NSString*) metadataForServiceType:(MGMAlbumServiceType)serviceType
+- (NSString*) fetchMetadataForServiceType:(MGMAlbumServiceType)serviceType
 {
-    for (MGMAlbumMetadata* metadata in self.metadata)
+    __block NSString* result;
+    [self.managedObjectContext performBlockAndWait:^
     {
-        if (metadata.serviceType == serviceType)
-        {
-            return metadata.value;
-        }
-    }
-    return nil;
+        result = [self metadataForServiceType:serviceType];
+    }];
+    return result;
 }
 
-- (NSString*) bestImageWithPreferences:(MGMAlbumImageSize[5])sizes
+- (NSString*) fetchBestAlbumImageUrl
 {
-    for (NSUInteger i = 0; i < 5; i++)
+    __block NSString* result;
+    [self.managedObjectContext performBlockAndWait:^
     {
-        NSString* uri = [self imageUrlForImageSize:sizes[i]];
-        if (uri)
-        {
-            return uri;
-        }
-    }
-    return nil;
+        result = [self bestAlbumImageUrl];
+    }];
+    return result;
 }
 
-- (NSString*) bestAlbumImageUrl
+- (NSString*) fetchBestTableImageUrl
 {
-    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeLarge, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
-    return [self bestImageWithPreferences:sizes];
-}
-
-- (NSString*) bestTableImageUrl
-{
-    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeSmall, MGMAlbumImageSizeMedium, MGMAlbumImageSizeLarge, MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega};
-    return [self bestImageWithPreferences:sizes];
+    __block NSString* result;
+    [self.managedObjectContext performBlockAndWait:^
+    {
+        result = [self bestTableImageUrl];
+    }];
+    return result;
 }
 
 @end

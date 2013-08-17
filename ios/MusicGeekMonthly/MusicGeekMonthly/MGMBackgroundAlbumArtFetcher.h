@@ -26,7 +26,7 @@
 
 @property (strong) MGMLastFmDao* lastFmDao;
 
-- (id) initWithWeeklyChart:(MGMWeeklyChart*)weeklyChart;
+- (id) initWithChartEntries:(NSOrderedSet*)chartEntries;
 - (void) generateImageAtIndex:(NSUInteger)index;
 
 @end

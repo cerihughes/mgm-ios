@@ -8,27 +8,41 @@
 
 #import "MGMChartEntry.h"
 
+#import "MGMChartEntry+Relationships.h"
+
 @implementation MGMChartEntry
 
-@dynamic weeklyChart;
-@dynamic album;
 @dynamic listeners;
 @dynamic rank;
 
-- (NSString*) bestAlbumImageUrl
+- (MGMAlbum*) fetchAlbum
 {
-    NSString* uri;
-    if (self.rank.intValue == 1 && (uri = [self.album imageUrlForImageSize:MGMAlbumImageSizeMega]) != nil)
+    __block MGMAlbum* result;
+    [self.managedObjectContext performBlockAndWait:^
     {
-        return uri;
-    }
-
-    return [self.album bestAlbumImageUrl];
+        result = self.album;
+    }];
+    return result;
 }
 
-- (NSString*) bestTableImageUrl
+- (NSString*) fetchBestAlbumImageUrl
 {
-    return [self.album bestTableImageUrl];
+    __block NSString* result;
+    [self.managedObjectContext performBlockAndWait:^
+    {
+        result = [self bestAlbumImageUrl];
+    }];
+    return result;
+}
+
+- (NSString*) fetchBestTableImageUrl
+{
+    __block NSString* result;
+    [self.managedObjectContext performBlockAndWait:^
+    {
+        result = [self bestTableImageUrl];
+    }];
+    return result;
 }
 
 @end

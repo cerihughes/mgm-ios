@@ -10,12 +10,9 @@
 #import <CoreData/CoreData.h>
 #import "MGMAlbumServiceType.h"
 
-@class MGMAlbum;
-
 @interface MGMAlbumMetadata : NSManagedObject
 
 @property (nonatomic, strong) NSString* value;
-@property (nonatomic, strong) MGMAlbum* album;
 
 @property (nonatomic) MGMAlbumServiceType serviceType;
 

@@ -7,15 +7,18 @@
 //
 
 #import <CoreData/CoreData.h>
+
 #import "MGMAlbum.h"
+#import "MGMCompletion.h"
 
 @interface MGMEvent : NSManagedObject
 
 @property (nonatomic, strong) NSDate* eventDate;
 @property (nonatomic, strong) NSNumber* eventNumber;
 @property (nonatomic, strong) NSString* spotifyPlaylistId;
-@property (nonatomic, strong) MGMAlbum* classicAlbum;
-@property (nonatomic, strong) MGMAlbum* newlyReleasedAlbum;
+
+- (MGMAlbum*) fetchClassicAlbum;
+- (MGMAlbum*) fetchNewlyReleasedAlbum;
 
 - (NSString*) spotifyPlaylistUrl;
 - (NSString*) spotifyHttpUrl;

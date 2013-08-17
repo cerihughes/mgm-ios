@@ -57,7 +57,7 @@
 }
 - (void) playFetchedAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service
 {
-    NSString* metadata = [album metadataForServiceType:service];
+    NSString* metadata = [album fetchMetadataForServiceType:service];
     if (metadata)
     {
         NSString* uriPattern = [self.patterns objectAtIndex:service];

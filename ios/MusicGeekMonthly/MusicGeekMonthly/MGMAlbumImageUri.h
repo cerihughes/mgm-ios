@@ -8,14 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "MGMAlbumImageSize.h"
 
-@class MGMAlbum;
+#import "MGMAlbumImageSize.h"
 
 @interface MGMAlbumImageUri : NSManagedObject
 
 @property (nonatomic, strong) NSString* uri;
-@property (nonatomic, strong) MGMAlbum* album;
 
 @property (nonatomic) MGMAlbumImageSize size;
 

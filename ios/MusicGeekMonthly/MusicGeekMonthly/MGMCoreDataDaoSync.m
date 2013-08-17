@@ -8,14 +8,16 @@
 
 #import "MGMCoreDataDaoSync.h"
 
-#import "MGMAlbum.h"
+#import "MGMAlbum+Relationships.h"
 #import "MGMAlbumDto.h"
 #import "MGMAlbumImageUriDto.h"
 #import "MGMAlbumMetadataDto.h"
+#import "MGMChartEntry+Relationships.h"
 #import "MGMChartEntryDto.h"
+#import "MGMEvent+Relationships.h"
 #import "MGMEventDto.h"
 #import "MGMTimePeriodDto.h"
-
+#import "MGMWeeklyChart+Relationships.h"
 
 @interface MGMCoreDataDaoSync ()
 

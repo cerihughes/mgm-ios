@@ -7,18 +7,17 @@
 //
 
 #import <CoreData/CoreData.h>
-#import "MGMAlbum.h"
 
-@class MGMWeeklyChart;
+#import "MGMAlbum.h"
+#import "MGMCompletion.h"
 
 @interface MGMChartEntry : NSManagedObject
 
-@property (nonatomic, strong) MGMWeeklyChart* weeklyChart;
-@property (nonatomic, strong) MGMAlbum* album;
 @property (nonatomic, strong) NSNumber* listeners;
 @property (nonatomic, strong) NSNumber* rank;
 
-- (NSString*) bestAlbumImageUrl;
-- (NSString*) bestTableImageUrl;
+- (MGMAlbum*) fetchAlbum;
+- (NSString*) fetchBestAlbumImageUrl;
+- (NSString*) fetchBestTableImageUrl;
 
 @end

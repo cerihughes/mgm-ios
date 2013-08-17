@@ -38,8 +38,8 @@
     self.classicAlbumView.activityInProgress = YES;
     self.newlyReleasedAlbumView.activityInProgress = YES;
 
-    [self displayClassicAlbum:event.classicAlbum];
-    [self displayNewRelease:event.newlyReleasedAlbum];
+    [self displayClassicAlbum:[event fetchClassicAlbum]];
+    [self displayNewRelease:[event fetchNewlyReleasedAlbum]];
 }
 
 - (void) displayClassicAlbum:(MGMAlbum*)classicAlbum
@@ -105,7 +105,7 @@
 
 - (void) displayNewReleaseAlbumImage:(MGMAlbum*)newRelease
 {
-    NSString* albumArtUri = [newRelease bestAlbumImageUrl];
+    NSString* albumArtUri = [newRelease fetchBestAlbumImageUrl];
     if (albumArtUri)
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
@@ -130,7 +130,7 @@
 
 - (void) displayClassicAlbumImage:(MGMAlbum*)classicAlbum
 {
-    NSString* albumArtUri = [classicAlbum bestAlbumImageUrl];
+    NSString* albumArtUri = [classicAlbum fetchBestAlbumImageUrl];
     if (albumArtUri)
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
@@ -158,7 +158,7 @@
 
 - (MGMAlbum*) albumForAlbumView:(MGMAlbumView*)albumView
 {
-    return albumView == self.classicAlbumView ? self.event.classicAlbum : self.event.newlyReleasedAlbum;
+    return albumView == self.classicAlbumView ? [self.event fetchClassicAlbum] : [self.event fetchNewlyReleasedAlbum];
 }
 
 - (void) albumPressed:(MGMAlbumView*)albumView

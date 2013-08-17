@@ -12,35 +12,19 @@
 
 @interface MGMBackgroundAlbumArtFetcher ()
 
-@property (strong) NSArray* backgroundChartEntries;
+@property (strong) NSOrderedSet* backgroundChartEntries;
 
 @end
 
 @implementation MGMBackgroundAlbumArtFetcher
 
-- (id) initWithWeeklyChart:(MGMWeeklyChart*)weeklyChart
+- (id) initWithChartEntries:(NSOrderedSet*)chartEntries
 {
     if (self = [super init])
     {
-        [self setup:weeklyChart];
+        self.backgroundChartEntries = chartEntries;
     }
     return self;
-}
-
-- (void) setup:(MGMWeeklyChart*)chart
-{
-    self.backgroundChartEntries = [self shuffledArray:chart.chartEntries];
-}
-
-- (NSArray*) shuffledArray:(NSOrderedSet*)input
-{
-    NSMutableArray* copy = [[input array] mutableCopy];
-    for (int i = [input count] - 1; i > 0; i--)
-    {
-        int j = arc4random() % (i + 1);
-        [copy exchangeObjectAtIndex:i withObjectAtIndex:j];
-    }
-    return [copy copy];
 }
 
 - (void) generateImageAtIndex:(NSUInteger)index
@@ -61,7 +45,7 @@
     {
         int randomIndex = arc4random() % (self.backgroundChartEntries.count);
         MGMChartEntry* randomEntry = [self.backgroundChartEntries objectAtIndex:randomIndex];
-        MGMAlbum* randomAlbum = randomEntry.album;
+        MGMAlbum* randomAlbum = [randomEntry fetchAlbum];
         [self fetchBestAlbumImage:randomAlbum completion:^(UIImage* image, NSError* error)
         {
             if (error)
@@ -98,7 +82,7 @@
     {
         if (updateError == nil)
         {
-            NSString* uri = [updatedAlbum bestAlbumImageUrl];
+            NSString* uri = [updatedAlbum fetchBestAlbumImageUrl];
             NSError* imageError = nil;
             UIImage* image = nil;
             if (uri)

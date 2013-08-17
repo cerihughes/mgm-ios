@@ -19,7 +19,6 @@
 
 @dynamic serviceTypeObject;
 @dynamic value;
-@dynamic album;
 
 - (MGMAlbumServiceType) serviceType
 {

@@ -119,9 +119,10 @@
 
     cell.textLabel.text = dateString;
 
-    if ([event.classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
+    MGMAlbum* classicAlbum = [event fetchClassicAlbum];
+    if ([classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
     {
-        [self.core.daoFactory.lastFmDao updateAlbumInfo:event.classicAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
+        [self.core.daoFactory.lastFmDao updateAlbumInfo:classicAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
         {
             if (updateError != nil)
             {
@@ -137,14 +138,14 @@
     }
     else
     {
-        [self addAlbumImage:event.classicAlbum toCell:cell];
+        [self addAlbumImage:classicAlbum toCell:cell];
     }
     return cell;
 }
 
 - (void) addAlbumImage:(MGMAlbum*)album toCell:(UITableViewCell*)cell
 {
-    NSString* albumArtUri = [album bestTableImageUrl];
+    NSString* albumArtUri = [album fetchBestTableImageUrl];
     if (albumArtUri)
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)

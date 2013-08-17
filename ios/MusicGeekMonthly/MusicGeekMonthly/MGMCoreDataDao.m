@@ -6,9 +6,12 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
 #import "MGMCoreDataDao.h"
+
 #import "MGMCoreDataDaoSync.h"
+#import "MGMChartEntry+Relationships.h"
+#import "MGMEvent+Relationships.h"
+#import "MGMWeeklyChart+Relationships.h"
 
 @interface MGMCoreDataDao ()
 
@@ -136,7 +139,12 @@
 
 - (void) fetchAllEvents:(FETCH_MANY_COMPLETION)completion
 {
-    
+    [self.moc performBlock:^
+    {
+        NSError* error = nil;
+        NSArray* events = [self.daoSync fetchAllEvents:&error];
+        completion(events, error);
+    }];
 }
 
 - (void) fetchEventWithEventNumber:(NSNumber*)eventNumber completion:(FETCH_COMPLETION)completion

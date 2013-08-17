@@ -7,21 +7,16 @@
 //
 
 #import <CoreData/CoreData.h>
-#import "MGMTimePeriod.h"
-#import "MGMChartEntry.h"
+
+#import "MGMCompletion.h"
 
 @interface MGMWeeklyChart : NSManagedObject
 
 @property (nonatomic, strong) NSDate* startDate;
 @property (nonatomic, strong) NSDate* endDate;
-@property (nonatomic, strong) NSOrderedSet* chartEntries;
+
+- (NSOrderedSet*) fetchChartEntries;
 
 @end
 
-@interface MGMWeeklyChart (ChartEntriesAccessors)
-
-- (NSMutableOrderedSet*)primitiveChartEntries;
-- (void) addChartEntriesObject:(MGMChartEntry*)value;
-
-@end
 
