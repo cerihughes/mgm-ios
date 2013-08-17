@@ -11,6 +11,7 @@
 #import <CoreData/CoreData.h>
 #import "MGMChartEntry.h"
 #import "MGMEvent.h"
+#import "MGMNextUrlAccess.h"
 #import "MGMTimePeriod.h"
 #import "MGMWeeklyChart.h"
 #import "MGMWeeklyChartDto.h"
@@ -18,6 +19,12 @@
 @interface MGMCoreDataDaoSync : NSObject
 
 - (id) initWithManagedObjectContext:(NSManagedObjectContext*)managedObjectContext;
+
+#pragma mark -
+#pragma mark MGMNextUrlAccess
+
+- (void) persistNextUrlAccess:(NSString*)identifier date:(NSDate *)date error:(NSError**)error;
+- (MGMNextUrlAccess*) fetchNextUrlAccessWithIdentifier:(NSString*)identifier error:(NSError**)error;
 
 #pragma mark -
 #pragma mark MGMTimePeriod

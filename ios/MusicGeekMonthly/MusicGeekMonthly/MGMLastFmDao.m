@@ -18,6 +18,7 @@
 #define GROUP_NAME @"Music+Geek+Monthly"
 #define API_KEY @"a854bc0fca8c0d316751ed4ed2082379"
 
+#define MAX_CHART_ENTRIES 50
 #define MAX_TIME_PERIODS 104
 
 #define IMAGE_SIZE_SMALL @"small"
@@ -141,8 +142,10 @@
 
             NSDictionary* weeklyalbumchart = [json objectForKey:@"weeklyalbumchart"];
             NSArray* albums = [weeklyalbumchart objectForKey:@"album"];
-            for (NSDictionary* album in albums)
+            NSUInteger cap = albums.count < MAX_CHART_ENTRIES ? albums.count : MAX_CHART_ENTRIES;
+            for (NSUInteger i = 0; i < cap; i++)
             {
+                NSDictionary* album = [albums objectAtIndex:i];
                 MGMChartEntryDto* converted = [self chartEntryForJson:album];
                 [weeklyChart.chartEntries addObject:converted];
             }

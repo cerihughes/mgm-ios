@@ -31,6 +31,8 @@
 #define METADATA_KEY_WIKIPEDIA @"wikipedia"
 #define METADATA_KEY_YOUTUBE @"youtube"
 
+#define REFRESH_IDENTIFIER_ALL_EVENTS @"REFRESH_IDENTIFIER_ALL_EVENTS"
+
 @interface MGMEventsDao ()
 
 @property (strong) NSArray* serviceTypes;
@@ -51,7 +53,26 @@
     return self;
 }
 
-- (void) fetchLatestEvent:(FETCH_COMPLETION)completion
+- (void) fetchAllEvents:(FETCH_MANY_COMPLETION)completion
+{
+    if ([self needsUrlRefresh:REFRESH_IDENTIFIER_ALL_EVENTS])
+    {
+        [self urlFetchAllEvents:^(NSArray* events, NSError* error)
+        {
+            if (error == nil)
+            {
+                [self setNextUrlRefresh:REFRESH_IDENTIFIER_ALL_EVENTS inDays:1];
+            }
+            completion(events, error);
+        }];
+    }
+    else
+    {
+        [self cdFetchAllEvents:completion];
+    }
+}
+
+- (void) urlFetchAllEvents:(FETCH_MANY_COMPLETION)completion
 {
     NSData* jsonData = [self contentsOfUrl:EVENTS_URL];
     if (jsonData)
@@ -60,13 +81,12 @@
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
         if (jsonError == nil)
         {
-            NSArray* array = [self eventsForJson:json cap:1];
-            MGMEventDto* event = [array objectAtIndex:0];
-            [self.coreDataDao persistEvents:array completion:^(NSError* updateError)
+            NSArray* events = [self eventsForJson:json cap:0];
+            [self.coreDataDao persistEvents:events completion:^(NSError* updateError)
             {
                 if (updateError == nil)
                 {
-                    [self.coreDataDao fetchEventWithEventNumber:event.eventNumber completion:completion];
+                    [self cdFetchAllEvents:completion];
                 }
                 else
                 {
@@ -81,33 +101,9 @@
     }
 }
 
-- (void) fetchAllEvents:(FETCH_MANY_COMPLETION)completion
+- (void) cdFetchAllEvents:(FETCH_MANY_COMPLETION)completion
 {
-    NSData* jsonData = [self contentsOfUrl:EVENTS_URL];
-    if (jsonData)
-    {
-        NSError* jsonError = nil;
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
-        if (jsonError == nil)
-        {
-            NSArray* events = [self eventsForJson:json cap:0];
-            [self.coreDataDao persistEvents:events completion:^(NSError* updateError)
-            {
-                if (updateError == nil)
-                {
-                    [self.coreDataDao fetchAllEvents:completion];
-                }
-                else
-                {
-                    completion(nil, updateError);
-                }
-            }];
-        }
-        else
-        {
-            completion(nil, jsonError);
-        }
-    }
+    [self.coreDataDao fetchAllEvents:completion];
 }
 
 - (NSArray*) eventsForJson:(NSDictionary*)json cap:(NSUInteger)cap

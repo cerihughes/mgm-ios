@@ -14,6 +14,7 @@
 #import "MGMCompletion.h"
 #import "MGMEvent.h"
 #import "MGMEventDto.h"
+#import "MGMNextUrlAccess.h"
 #import "MGMTimePeriod.h"
 #import "MGMTimePeriodDto.h"
 #import "MGMWeeklyChart.h"
@@ -24,12 +25,14 @@
 - (id) init;
 - (id) initWithStoreName:(NSString*)storeName;
 
+- (void) persistNextUrlAccess:(NSString*)identifier date:(NSDate*)date completion:(VOID_COMPLETION)completion;
 - (void) persistTimePeriods:(NSArray*)timePeriodDtos completion:(VOID_COMPLETION)completion;
 - (void) persistWeeklyChart:(MGMWeeklyChartDto*)weeklyChartDto completion:(VOID_COMPLETION)completion;
 - (void) persistEvents:(NSArray*)eventDtos completion:(VOID_COMPLETION)completion;
 - (void) addImageUris:(NSArray*)uriDtos toAlbumWithMbid:(NSString*)mbid updateServiceType:(MGMAlbumServiceType)serviceType completion:(VOID_COMPLETION)completion;
 - (void) addMetadata:(NSArray*)metadataDtos toAlbumWithMbid:(NSString*)mbid updateServiceType:(MGMAlbumServiceType)serviceType completion:(VOID_COMPLETION)completion;
 
+- (MGMNextUrlAccess*) fetchNextUrlAccessWithIdentifier:(NSString*)identifer error:(NSError**)error;
 - (void) fetchAllTimePeriods:(FETCH_MANY_COMPLETION)completion;
 - (void) fetchWeeklyChartWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(FETCH_COMPLETION)completion;
 - (void) fetchChartEntryWithWeeklyChart:(MGMWeeklyChart*)weeklyChart rank:(NSNumber*)rank completion:(FETCH_COMPLETION)completion;

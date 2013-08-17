@@ -46,6 +46,15 @@
     return self;
 }
 
+- (void) persistNextUrlAccess:(NSString*)identifier date:(NSDate*)date completion:(VOID_COMPLETION)completion
+{
+    [self.moc performBlock:^
+    {
+        NSError* error = nil;
+        [self.daoSync persistNextUrlAccess:identifier date:date error:&error];
+        completion(error);
+    }];
+}
 
 - (void) persistTimePeriods:(NSArray*)timePeriodDtos completion:(VOID_COMPLETION)completion
 {
@@ -95,6 +104,16 @@
         [self.daoSync addMetadata:metadataDtos toAlbumWithMbid:mbid updateServiceType:serviceType error:&error];
         completion(error);
     }];
+}
+
+- (MGMNextUrlAccess*) fetchNextUrlAccessWithIdentifier:(NSString*)identifer error:(NSError**)error
+{
+    __block MGMNextUrlAccess* result;
+    [self.moc performBlockAndWait:^
+    {
+        result = [self.daoSync fetchNextUrlAccessWithIdentifier:identifer error:error];
+    }];
+    return result;
 }
 
 - (void) fetchAllTimePeriods:(FETCH_MANY_COMPLETION)completion

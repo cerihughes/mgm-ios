@@ -44,13 +44,17 @@
     
     [self.albumsView setupAlbumsInRow:4];
 
-    [self.core.daoFactory.eventsDao fetchLatestEvent:^(MGMEvent* fetchedEvent, NSError* fetchError)
+    [self.core.daoFactory.eventsDao fetchAllEvents:^(NSArray* fetchedEvents, NSError* fetchError)
     {
-        self.event = fetchedEvent;
         if (fetchError)
         {
             [self handleError:fetchError];
             return;
+        }
+
+        if (fetchedEvents.count > 0)
+        {
+            self.event = [fetchedEvents objectAtIndex:0];
         }
 
         dispatch_async(dispatch_get_main_queue(), ^

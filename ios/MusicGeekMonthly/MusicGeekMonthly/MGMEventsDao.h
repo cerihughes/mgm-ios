@@ -11,7 +11,6 @@
 
 @interface MGMEventsDao : MGMHttpDao
 
-- (void) fetchLatestEvent:(FETCH_COMPLETION)completion;
 - (void) fetchAllEvents:(FETCH_MANY_COMPLETION)completion;
 
 @end

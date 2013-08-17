@@ -35,6 +35,10 @@
         <relationship name="classicAlbum" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMAlbum" inverseName="classicAlbumEvent" inverseEntity="MGMAlbum" syncable="YES"/>
         <relationship name="newlyReleasedAlbum" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMAlbum" inverseName="newlyReleasedAlbumEvent" inverseEntity="MGMAlbum" syncable="YES"/>
     </entity>
+    <entity name="MGMNextUrlAccess" representedClassName="MGMNextUrlAccess" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="MGMTimePeriod" representedClassName="MGMTimePeriod" syncable="YES">
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -52,5 +56,6 @@
         <element name="MGMEvent" positionX="358" positionY="9" width="128" height="118"/>
         <element name="MGMTimePeriod" positionX="-216" positionY="290" width="128" height="75"/>
         <element name="MGMWeeklyChart" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="MGMNextUrlAccess" positionX="160" positionY="192" width="128" height="75"/>
     </elements>
 </model>

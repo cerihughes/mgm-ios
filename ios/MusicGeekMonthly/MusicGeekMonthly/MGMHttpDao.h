@@ -10,6 +10,9 @@
 
 @interface MGMHttpDao : MGMCoreDataAwareDao
 
+- (BOOL) needsUrlRefresh:(NSString*)identifier;
+- (void) setNextUrlRefresh:(NSString*)identifier inDays:(NSUInteger)days;
+
 - (NSData*) contentsOfUrl:(NSString*)url;
 - (NSData*) contentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers;
 

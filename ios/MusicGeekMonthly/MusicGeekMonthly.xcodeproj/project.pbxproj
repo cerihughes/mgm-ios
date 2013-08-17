@@ -109,6 +109,8 @@
 		65DF2B9517BF990400BAF25A /* MGMAlbumMetadata+Relationships.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DF2B9317BF990300BAF25A /* MGMAlbumMetadata+Relationships.m */; };
 		65DF2B9817BF9BB900BAF25A /* MGMEvent+Relationships.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DF2B9717BF9BB800BAF25A /* MGMEvent+Relationships.m */; };
 		65DF2B9917BF9BB900BAF25A /* MGMEvent+Relationships.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DF2B9717BF9BB800BAF25A /* MGMEvent+Relationships.m */; };
+		65DF2BA017BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DF2B9F17BFBF8700BAF25A /* MGMNextUrlAccess.m */; };
+		65DF2BA117BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DF2B9F17BFBF8700BAF25A /* MGMNextUrlAccess.m */; };
 		65E53CE61785CACC001ECA79 /* MGMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E53CE51785CACC001ECA79 /* MGMNavigationViewController.m */; };
 		65E53CEC1785CF57001ECA79 /* MGMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E53CEB1785CF57001ECA79 /* MGMHomeViewController.m */; };
 		65E53CEE1785CF81001ECA79 /* MGMHomeViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CED1785CF81001ECA79 /* MGMHomeViewController~ipad.xib */; };
@@ -260,6 +262,8 @@
 		65DF2B9617BF9BB700BAF25A /* MGMEvent+Relationships.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MGMEvent+Relationships.h"; sourceTree = "<group>"; };
 		65DF2B9717BF9BB800BAF25A /* MGMEvent+Relationships.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MGMEvent+Relationships.m"; sourceTree = "<group>"; };
 		65DF2B9A17BFA41E00BAF25A /* MGMCompletion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCompletion.h; sourceTree = "<group>"; };
+		65DF2B9E17BFBF8500BAF25A /* MGMNextUrlAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMNextUrlAccess.h; sourceTree = "<group>"; };
+		65DF2B9F17BFBF8700BAF25A /* MGMNextUrlAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMNextUrlAccess.m; sourceTree = "<group>"; };
 		65E53CE41785CACC001ECA79 /* MGMNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMNavigationViewController.h; sourceTree = "<group>"; };
 		65E53CE51785CACC001ECA79 /* MGMNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMNavigationViewController.m; sourceTree = "<group>"; };
 		65E53CEA1785CF57001ECA79 /* MGMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMHomeViewController.h; sourceTree = "<group>"; };
@@ -437,6 +441,8 @@
 			isa = PBXGroup;
 			children = (
 				65E975B517B6BD6F00CF53B2 /* MusicGeekMonthly.xcdatamodeld */,
+				65DF2B9E17BFBF8500BAF25A /* MGMNextUrlAccess.h */,
+				65DF2B9F17BFBF8700BAF25A /* MGMNextUrlAccess.m */,
 				65E975B817B6CB1600CF53B2 /* MGMTimePeriod.h */,
 				65E975B917B6CB1600CF53B2 /* MGMTimePeriod.m */,
 				65E975C117B6CB1800CF53B2 /* MGMWeeklyChart.h */,
@@ -838,6 +844,7 @@
 				65DF2B9017BF98BF00BAF25A /* MGMAlbumImageUri+Relationships.m in Sources */,
 				65DF2B9417BF990400BAF25A /* MGMAlbumMetadata+Relationships.m in Sources */,
 				65DF2B9817BF9BB900BAF25A /* MGMEvent+Relationships.m in Sources */,
+				65DF2BA017BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -881,6 +888,7 @@
 				65DF2B9117BF98BF00BAF25A /* MGMAlbumImageUri+Relationships.m in Sources */,
 				65DF2B9517BF990400BAF25A /* MGMAlbumMetadata+Relationships.m in Sources */,
 				65DF2B9917BF9BB900BAF25A /* MGMEvent+Relationships.m in Sources */,
+				65DF2BA117BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

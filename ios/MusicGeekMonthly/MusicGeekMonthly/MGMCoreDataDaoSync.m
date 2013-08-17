@@ -42,6 +42,47 @@
 }
 
 #pragma mark -
+#pragma mark MGMNextUrlAccess
+
+- (void) persistNextUrlAccess:(NSString*)identifier date:(NSDate *)date error:(NSError**)error
+{
+    MGMNextUrlAccess* nextUrlAccess = [self fetchNextUrlAccessWithIdentifier:identifier error:error];
+    if (error && *error != nil)
+    {
+        [self rollbackChanges];
+        return;
+    }
+
+    if (nextUrlAccess == nil)
+    {
+        nextUrlAccess = [self createNewNextUrlAccess];
+        nextUrlAccess.identifier = identifier;
+    }
+
+    nextUrlAccess.date = date;
+
+    [self commitChanges:error];
+}
+
+- (MGMNextUrlAccess*) createNewNextUrlAccess
+{
+    return [self createNewManagedObjectWithName:@"MGMNextUrlAccess"];
+}
+
+- (MGMNextUrlAccess*) fetchNextUrlAccessWithIdentifier:(NSString*)identifier error:(NSError**)error
+{
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    request.entity = [NSEntityDescription entityForName:@"MGMNextUrlAccess" inManagedObjectContext:self.moc];
+    request.predicate = [NSPredicate predicateWithFormat:@"identifier = %@", identifier];
+    NSArray* results = [self.moc executeFetchRequest:request error:error];
+    if (results.count > 0)
+    {
+        return [results objectAtIndex:0];
+    }
+    return nil;
+}
+
+#pragma mark -
 #pragma mark MGMTimePeriod
 
 - (void) persistTimePeriods:(NSArray*)timePeriodDtos error:(NSError**)error

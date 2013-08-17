@@ -10,6 +10,32 @@
 
 @implementation MGMHttpDao
 
+- (BOOL) needsUrlRefresh:(NSString*)identifier
+{
+    NSError* error = nil;
+    MGMNextUrlAccess* nextAccess = [self.coreDataDao fetchNextUrlAccessWithIdentifier:identifier error:&error];
+    if (error == nil && nextAccess)
+    {
+        NSDate* nextAccessDate = nextAccess.date;
+        return ([[NSDate date] earlierDate:nextAccessDate] == nextAccessDate);
+    }
+    return YES;
+}
+
+- (void) setNextUrlRefresh:(NSString*)identifier inDays:(NSUInteger)days
+{
+    NSDateComponents* components = [[NSDateComponents alloc] init];
+    components.day = days;
+
+    NSDate* now = [NSDate date];
+    NSDate* then = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:now options:0];
+
+    [self.coreDataDao persistNextUrlAccess:identifier date:then completion:^(NSError* error)
+    {
+        // Swallow
+    }];
+}
+
 - (NSData*) contentsOfUrl:(NSString*)url
 {
     return [self contentsOfUrl:url withHttpHeaders:nil];
@@ -21,13 +47,14 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:encodedUrl] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [request setHTTPMethod: @"GET"];
     [headers enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
-     {
-         [request addValue:obj forHTTPHeaderField:key];
-     }];
+    {
+        [request addValue:obj forHTTPHeaderField:key];
+    }];
 
     NSError *requestError;
     NSURLResponse *urlResponse = nil;
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    NSLog(@"[%@] = [%@]", url, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     if (requestError == nil)
     {
         return data;
