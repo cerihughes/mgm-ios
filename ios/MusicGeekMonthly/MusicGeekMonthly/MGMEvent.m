@@ -8,9 +8,6 @@
 
 #import "MGMEvent.h"
 
-#import "NSManagedObjectContext+Debug.h"
-#import "MGMEvent+Relationships.h"
-
 #define SPOTIFY_PLAYLIST_URI_PATTERN @"spotify:user:%@:playlist:%@"
 #define HTTP_PLAYLIST_URI_PATTERN @"http://open.spotify.com/user/%@/playlist/%@"
 #define SPOTIFY_USER_ANDREW_JONES @"fuzzylogic1981"
@@ -20,6 +17,8 @@
 @dynamic eventDate;
 @dynamic eventNumber;
 @dynamic spotifyPlaylistId;
+@dynamic classicAlbum;
+@dynamic newlyReleasedAlbum;
 
 - (NSString*) spotifyPlaylistUrl
 {
@@ -37,42 +36,6 @@
         return [NSString stringWithFormat:HTTP_PLAYLIST_URI_PATTERN, SPOTIFY_USER_ANDREW_JONES, self.spotifyPlaylistId];
     }
     return nil;
-}
-
-- (MGMAlbum*) fetchClassicAlbum
-{
-    __block MGMAlbum* result;
-    [self.managedObjectContext debugPerformBlockAndWait:^
-    {
-        result = self.classicAlbum;
-    }];
-    return result;
-}
-
-- (MGMAlbum*) fetchNewlyReleasedAlbum
-{
-    __block MGMAlbum* result;
-    [self.managedObjectContext debugPerformBlockAndWait:^
-    {
-        result = self.newlyReleasedAlbum;
-    }];
-    return result;
-}
-
-- (void) persistClassicAlbum:(MGMAlbum*)album
-{
-    [self.managedObjectContext debugPerformBlockAndWait:^
-    {
-        self.classicAlbum = album;
-    }];
-}
-
-- (void) persistNewlyReleasedAlbum:(MGMAlbum*)album
-{
-    [self.managedObjectContext debugPerformBlockAndWait:^
-    {
-        self.newlyReleasedAlbum = album;
-    }];
 }
 
 @end

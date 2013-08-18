@@ -8,30 +8,22 @@
 
 #import "MGMWeeklyChart.h"
 
-#import "MGMWeeklyChart+Relationships.h"
-#import "NSManagedObjectContext+Debug.h"
-
 @implementation MGMWeeklyChart
 
 @dynamic startDate;
 @dynamic endDate;
+@dynamic chartEntries;
 
-- (NSOrderedSet*) fetchChartEntries
-{
-    __block NSOrderedSet* result;
-    [self.managedObjectContext debugPerformBlockAndWait:^
-    {
-        result = self.chartEntries;
-    }];
-    return result;
-}
+// Horseshit iOS doesn't implement these properly and Apple (naturally) don't advertise the bug: http://stackoverflow.com/questions/7385439/exception-thrown-in-nsorderedset-generated-accessors (not fixed in iOS6). Also https://devforums.apple.com/message/470731#470731
 
-- (void) persistChartEntry:(MGMChartEntry*)chartEntry
+- (void) addChartEntriesObject:(MGMChartEntry *)value
 {
-    [self.managedObjectContext debugPerformBlockAndWait:^
-    {
-        [self addChartEntriesObject:chartEntry];
-    }];
+    [self willAccessValueForKey:@"chartEntries"];
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:[[self primitiveChartEntries] count]];
+    [self didAccessValueForKey:@"chartEntries"];
+    [self willChange:NSKeyValueChangeInsertion valuesAtIndexes:indexSet forKey:@"chartEntries"];
+    [[self primitiveChartEntries] addObject:value];
+    [self didChange:NSKeyValueChangeInsertion valuesAtIndexes:indexSet forKey:@"chartEntries"];
 }
 
 @end

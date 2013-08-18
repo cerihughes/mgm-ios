@@ -8,48 +8,27 @@
 
 #import "MGMChartEntry.h"
 
-#import "MGMChartEntry+Relationships.h"
-#import "NSManagedObjectContext+Debug.h"
-
 @implementation MGMChartEntry
 
 @dynamic listeners;
 @dynamic rank;
+@dynamic weeklyChart;
+@dynamic album;
 
-- (MGMAlbum*) fetchAlbum
+- (NSString*) bestAlbumImageUrl
 {
-    __block MGMAlbum* result;
-    [self.managedObjectContext debugPerformBlockAndWait:^
-    {
-        result = self.album;
-    }];
-    return result;
-}
-
-- (void) persistAlbum:(MGMAlbum*)album
-{
-    [self.managedObjectContext debugPerformBlockAndWait:^
-    {
-        self.album = album;
-    }];
-}
-
-- (NSString*) fetchBestAlbumImageUrl
-{
-    MGMAlbum* album = [self fetchAlbum];
     NSString* uri;
-    if (self.rank.intValue == 1 && (uri = [album fetchImageUrlForImageSize:MGMAlbumImageSizeMega]) != nil)
+    if (self.rank.intValue == 1 && (uri = [self.album imageUrlForImageSize:MGMAlbumImageSizeMega]) != nil)
     {
         return uri;
     }
 
-    return [album fetchBestAlbumImageUrl];
+    return [self.album bestAlbumImageUrl];
 }
 
-- (NSString*) fetchBestTableImageUrl
+- (NSString*) bestTableImageUrl
 {
-    MGMAlbum* album = [self fetchAlbum];
-    return [album fetchBestTableImageUrl];
+    return [self.album bestTableImageUrl];
 }
 
 @end

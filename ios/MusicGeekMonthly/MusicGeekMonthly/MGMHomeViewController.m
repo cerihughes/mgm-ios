@@ -120,8 +120,8 @@
                         return;
                     }
 
-                    self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithChartEntries:[fetchedWeeklyChart fetchChartEntries]];
-                    self.artFetcher.lastFmDao = self.core.daoFactory.lastFmDao;
+                    self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithWeeklyChartMoid:fetchedWeeklyChart.objectID];
+                    self.artFetcher.daoFactory = self.core.daoFactory;
                     self.artFetcher.delegate = self;
                     [self renderImages];
                 }];

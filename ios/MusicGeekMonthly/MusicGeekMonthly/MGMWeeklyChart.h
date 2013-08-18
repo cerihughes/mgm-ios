@@ -15,10 +15,13 @@
 
 @property (nonatomic, strong) NSDate* startDate;
 @property (nonatomic, strong) NSDate* endDate;
-
-- (NSOrderedSet*) fetchChartEntries;
-- (void) persistChartEntry:(MGMChartEntry*)chartEntry;
+@property (nonatomic, strong) NSOrderedSet* chartEntries;
 
 @end
 
+@interface MGMWeeklyChart (ChartEntriesAccessors)
 
+- (NSMutableOrderedSet*)primitiveChartEntries;
+- (void) addChartEntriesObject:(MGMChartEntry*)value;
+
+@end

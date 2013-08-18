@@ -11,9 +11,12 @@
 
 #import "MGMAlbumImageSize.h"
 
+@class MGMAlbum;
+
 @interface MGMAlbumImageUri : NSManagedObject
 
 @property (nonatomic, strong) NSString* uri;
+@property (nonatomic, strong) MGMAlbum* album;
 
 @property (nonatomic) MGMAlbumImageSize size;
 

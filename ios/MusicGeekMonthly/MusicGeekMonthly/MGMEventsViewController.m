@@ -119,7 +119,7 @@
 
     cell.textLabel.text = dateString;
 
-    MGMAlbum* classicAlbum = [event fetchClassicAlbum];
+    MGMAlbum* classicAlbum = event.classicAlbum;
     if ([classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
     {
         [self.core.daoFactory.lastFmDao updateAlbumInfo:classicAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
@@ -145,7 +145,7 @@
 
 - (void) addAlbumImage:(MGMAlbum*)album toCell:(UITableViewCell*)cell
 {
-    NSString* albumArtUri = [album fetchBestTableImageUrl];
+    NSString* albumArtUri = [album bestTableImageUrl];
     if (albumArtUri)
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)

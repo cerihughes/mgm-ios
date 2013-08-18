@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MGMLastFmDao.h"
+#import "MGMDaoFactory.h"
 #import "MGMWeeklyChart.h"
 
 @class MGMBackgroundAlbumArtFetcher;
@@ -23,10 +23,9 @@
 @interface MGMBackgroundAlbumArtFetcher : NSObject
 
 @property (weak) id<MGMBackgroundAlbumArtFetcherDelegate> delegate;
+@property (strong) MGMDaoFactory* daoFactory;
 
-@property (strong) MGMLastFmDao* lastFmDao;
-
-- (id) initWithChartEntries:(NSOrderedSet*)chartEntries;
+- (id) initWithWeeklyChartMoid:(NSManagedObjectID*)weeklyChartMoid;
 - (void) generateImageAtIndex:(NSUInteger)index;
 
 @end

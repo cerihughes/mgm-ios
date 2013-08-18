@@ -172,7 +172,7 @@
         {
             chartEntry = [self createNewChartEntry];
             chartEntry.rank = chartEntryDto.rank;
-            [weeklyChart persistChartEntry:chartEntry];
+            [weeklyChart addChartEntriesObject:chartEntry];
         }
 
         chartEntry.listeners = chartEntryDto.listeners;
@@ -192,7 +192,7 @@
             return;
         }
 
-        [chartEntry persistAlbum:album];
+        chartEntry.album = album;
     }
 
     [self commitChanges:error];
@@ -332,7 +332,7 @@
         {
             uri = [self createNewAlbumImageUri];
             uri.size = uriDto.size;
-            [album persistImageUrisObject:uri];
+            [album addImageUrisObject:uri];
         }
         
         uri.uri = uriDto.uri;
@@ -396,7 +396,7 @@
         {
             metadata = [self createNewAlbumMetadata];
             metadata.serviceType = metadataDto.serviceType;
-            [album persistMetadataObject:metadata];
+            [album addMetadataObject:metadata];
         }
 
         metadata.value = metadataDto.value;
@@ -453,7 +453,7 @@
             return;
         }
 
-        [event persistClassicAlbum:classicAlbum];
+        event.classicAlbum = classicAlbum;
 
         MGMAlbumDto* newlyReleaseAlbumDto = eventDto.newlyReleasedAlbum;
         MGMAlbum* newlyReleasedAlbum = [self persistAlbumDto:newlyReleaseAlbumDto error:error];
@@ -463,7 +463,7 @@
             return;
         }
 
-        [event persistNewlyReleasedAlbum:newlyReleasedAlbum];
+        event.newlyReleasedAlbum = newlyReleasedAlbum;
     }
 
     [self commitChanges:error];

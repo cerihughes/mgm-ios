@@ -10,7 +10,6 @@
 
 #import "MGMCoreDataDaoSync.h"
 #import "MGMCoreDataThreadManager.h"
-#import "NSManagedObjectContext+Debug.h"
 
 @interface MGMCoreDataDao ()
 
@@ -44,132 +43,91 @@
 
 - (void) persistNextUrlAccess:(NSString*)identifier date:(NSDate*)date completion:(VOID_COMPLETION)completion
 {
-    [self.moc debugPerformBlock:^
-    {
-        NSError* error = nil;
-        [self.daoSync persistNextUrlAccess:identifier date:date error:&error];
-        completion(error);
-    }];
+    NSError* error = nil;
+    [self.daoSync persistNextUrlAccess:identifier date:date error:&error];
+    completion(error);
 }
 
 - (void) persistTimePeriods:(NSArray*)timePeriodDtos completion:(VOID_COMPLETION)completion
 {
-    [self.moc debugPerformBlock:^
-    {
-        NSError* error = nil;
-        [self.daoSync persistTimePeriods:timePeriodDtos error:&error];
-        completion(error);
-    }];
+    NSError* error = nil;
+    [self.daoSync persistTimePeriods:timePeriodDtos error:&error];
+    completion(error);
 }
 
 - (void) persistWeeklyChart:(MGMWeeklyChartDto*)weeklyChartDto completion:(VOID_COMPLETION)completion
 {
-    [self.moc debugPerformBlock:^
-    {
-        NSError* error = nil;
-        [self.daoSync persistWeeklyChart:weeklyChartDto error:&error];
-        completion(error);
-    }];
+    NSError* error = nil;
+    [self.daoSync persistWeeklyChart:weeklyChartDto error:&error];
+    completion(error);
 }
 
 - (void) persistEvents:(NSArray*)eventDtos completion:(VOID_COMPLETION)completion
 {
-    [self.moc debugPerformBlock:^
-    {
-        NSError* error = nil;
-        [self.daoSync persistEvents:eventDtos error:&error];
-        completion(error);
-    }];
+    NSError* error = nil;
+    [self.daoSync persistEvents:eventDtos error:&error];
+    completion(error);
 }
 
 - (void) addImageUris:(NSArray*)uriDtos toAlbumWithMbid:(NSString*)mbid updateServiceType:(MGMAlbumServiceType)serviceType completion:(VOID_COMPLETION)completion
 {
-    [self.moc debugPerformBlock:^
-    {
-        NSError* error = nil;
-        [self.daoSync addImageUris:uriDtos toAlbumWithMbid:mbid updateServiceType:serviceType error:&error];
-        completion(error);
-    }];
+    NSError* error = nil;
+    [self.daoSync addImageUris:uriDtos toAlbumWithMbid:mbid updateServiceType:serviceType error:&error];
+    completion(error);
 }
 
 - (void) addMetadata:(NSArray*)metadataDtos toAlbumWithMbid:(NSString*)mbid updateServiceType:(MGMAlbumServiceType)serviceType completion:(VOID_COMPLETION)completion
 {
-    [self.moc debugPerformBlock:^
-    {
-        NSError* error = nil;
-        [self.daoSync addMetadata:metadataDtos toAlbumWithMbid:mbid updateServiceType:serviceType error:&error];
-        completion(error);
-    }];
+    NSError* error = nil;
+    [self.daoSync addMetadata:metadataDtos toAlbumWithMbid:mbid updateServiceType:serviceType error:&error];
+    completion(error);
 }
 
 - (MGMNextUrlAccess*) fetchNextUrlAccessWithIdentifier:(NSString*)identifer error:(NSError**)error
 {
-    __block MGMNextUrlAccess* result;
-    [self.moc debugPerformBlockAndWait:^
-    {
-        result = [self.daoSync fetchNextUrlAccessWithIdentifier:identifer error:error];
-    }];
-    return result;
+    return [self.daoSync fetchNextUrlAccessWithIdentifier:identifer error:error];
 }
 
 - (void) fetchAllTimePeriods:(FETCH_MANY_COMPLETION)completion
 {
-    [self.moc debugPerformBlock:^
-    {
-        NSError* error = nil;
-        NSArray* timePeriods = [self.daoSync fetchAllTimePeriods:&error];
-        completion(timePeriods, error);
-    }];
+    NSError* error = nil;
+    NSArray* timePeriods = [self.daoSync fetchAllTimePeriods:&error];
+    completion(timePeriods, error);
 }
 
 - (void) fetchWeeklyChartWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(FETCH_COMPLETION)completion
 {
-    [self.moc debugPerformBlock:^
-    {
-        NSError* error = nil;
-        MGMWeeklyChart* weeklyChart = [self.daoSync fetchWeeklyChartWithStartDate:startDate endDate:endDate error:&error];
-        completion(weeklyChart, error);
-    }];
+    NSError* error = nil;
+    MGMWeeklyChart* weeklyChart = [self.daoSync fetchWeeklyChartWithStartDate:startDate endDate:endDate error:&error];
+    completion(weeklyChart, error);
 }
 
 - (void) fetchChartEntryWithWeeklyChart:(MGMWeeklyChart*)weeklyChart rank:(NSNumber*)rank completion:(FETCH_COMPLETION)completion
 {
-    [self.moc debugPerformBlock:^
-    {
-        NSError* error = nil;
-        MGMChartEntry* entry = [self.daoSync fetchChartEntryWithWeeklyChart:weeklyChart rank:rank error:&error];
-        completion(entry, error);
-    }];
+    NSError* error = nil;
+    MGMChartEntry* entry = [self.daoSync fetchChartEntryWithWeeklyChart:weeklyChart rank:rank error:&error];
+    completion(entry, error);
 }
 
 - (void) fetchAlbumWithMbid:(NSString*)mbid completion:(FETCH_COMPLETION)completion
 {
-    [self.moc debugPerformBlock:^
-    {
-        NSError* error = nil;
-        MGMAlbum* album = [self.daoSync fetchAlbumWithMbid:mbid error:&error];
-        completion(album, error);
-    }];
+    NSError* error = nil;
+    MGMAlbum* album = [self.daoSync fetchAlbumWithMbid:mbid error:&error];
+    completion(album, error);
 }
 
 - (void) fetchAllEvents:(FETCH_MANY_COMPLETION)completion
 {
-    [self.moc debugPerformBlock:^
-    {
-        NSError* error = nil;
-        NSArray* events = [self.daoSync fetchAllEvents:&error];
-        completion(events, error);
-    }];
+    NSError* error = nil;
+    NSArray* events = [self.daoSync fetchAllEvents:&error];
+    completion(events, error);
 }
 
 - (void) fetchEventWithEventNumber:(NSNumber*)eventNumber completion:(FETCH_COMPLETION)completion
 {
-    [self.moc debugPerformBlock:^
-    {
-        NSError* error = nil;
-        MGMEvent* event = [self.daoSync fetchEventWithEventNumber:eventNumber error:&error];
-        completion(event, error);
-    }];
+    NSError* error = nil;
+    MGMEvent* event = [self.daoSync fetchEventWithEventNumber:eventNumber error:&error];
+    completion(event, error);
 }
 
 - (id) threadVersion:(NSManagedObjectID *)moid

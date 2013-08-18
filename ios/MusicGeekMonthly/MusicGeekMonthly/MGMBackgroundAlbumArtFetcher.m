@@ -12,18 +12,18 @@
 
 @interface MGMBackgroundAlbumArtFetcher ()
 
-@property (strong) NSOrderedSet* backgroundChartEntries;
+@property (strong) NSManagedObjectID* weeklyChartMoid;
 @property (strong) NSOperationQueue* operationQueue;
 
 @end
 
 @implementation MGMBackgroundAlbumArtFetcher
 
-- (id) initWithChartEntries:(NSOrderedSet*)chartEntries
+- (id) initWithWeeklyChartMoid:(NSManagedObjectID*)weeklyChartMoid
 {
     if (self = [super init])
     {
-        self.backgroundChartEntries = chartEntries;
+        self.weeklyChartMoid = weeklyChartMoid;
         self.operationQueue = [[NSOperationQueue alloc] init];
         self.operationQueue.maxConcurrentOperationCount = 5;
     }
@@ -46,9 +46,11 @@
     }
     else
     {
-        int randomIndex = arc4random() % (self.backgroundChartEntries.count);
-        MGMChartEntry* randomEntry = [self.backgroundChartEntries objectAtIndex:randomIndex];
-        MGMAlbum* randomAlbum = [randomEntry fetchAlbum];
+        MGMWeeklyChart* chart = [self.daoFactory.coreDataDao threadVersion:self.weeklyChartMoid];
+        NSOrderedSet* entries = chart.chartEntries;
+        int randomIndex = arc4random() % (entries.count);
+        MGMChartEntry* randomEntry = [entries objectAtIndex:randomIndex];
+        MGMAlbum* randomAlbum = randomEntry.album;
         [self fetchBestAlbumImage:randomAlbum completion:^(UIImage* image, NSError* error)
         {
             if (error)
@@ -85,7 +87,7 @@
     {
         if (updateError == nil)
         {
-            NSString* uri = [updatedAlbum fetchBestAlbumImageUrl];
+            NSString* uri = [updatedAlbum bestAlbumImageUrl];
             NSError* imageError = nil;
             UIImage* image = nil;
             if (uri)
@@ -105,7 +107,7 @@
 {
     if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
     {
-        [self.lastFmDao updateAlbumInfo:album completion:completion];
+        [self.daoFactory.lastFmDao updateAlbumInfo:album completion:completion];
     }
     else
     {

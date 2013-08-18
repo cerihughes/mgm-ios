@@ -13,26 +13,30 @@
 #import "MGMAlbumMetadata.h"
 #import "MGMAlbumServiceType.h"
 
-
 @interface MGMAlbum : NSManagedObject
 
 @property (nonatomic, strong) NSString* albumMbid;
 @property (nonatomic, strong) NSString* albumName;
 @property (nonatomic, strong) NSString* artistName;
 @property (nonatomic, strong) NSNumber* score;
+@property (nonatomic, strong) NSSet* imageUris;
+@property (nonatomic, strong) NSSet* metadata;
 
 @property (nonatomic) NSUInteger searchedServiceTypes;
 
 - (BOOL) searchedServiceType:(MGMAlbumServiceType)serviceType;
 - (void) setServiceTypeSearched:(MGMAlbumServiceType)serviceType;
 
-- (void) persistImageUrisObject:(MGMAlbumImageUri*)value;
-- (void) persistMetadataObject:(MGMAlbumMetadata*)value;
+- (NSString*) bestAlbumImageUrl;
+- (NSString*) bestTableImageUrl;
+- (NSString*) imageUrlForImageSize:(MGMAlbumImageSize)size;
+- (NSString*) metadataForServiceType:(MGMAlbumServiceType)serviceType;
 
-- (NSString*) fetchImageUrlForImageSize:(MGMAlbumImageSize)size;
-- (NSString*) fetchMetadataForServiceType:(MGMAlbumServiceType)serviceType;
+@end
 
-- (NSString*) fetchBestAlbumImageUrl;
-- (NSString*) fetchBestTableImageUrl;
+@interface MGMAlbum (CoreDataGeneratedAccessors)
+
+- (void)addImageUrisObject:(MGMAlbumImageUri*)value;
+- (void)addMetadataObject:(MGMAlbumMetadata*)value;
 
 @end

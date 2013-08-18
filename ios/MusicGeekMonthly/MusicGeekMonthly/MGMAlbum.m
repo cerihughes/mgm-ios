@@ -8,9 +8,6 @@
 
 #import "MGMAlbum.h"
 
-#import "NSManagedObjectContext+Debug.h"
-#import "MGMAlbum+Relationships.h"
-
 @interface MGMAlbum ()
 
 @property (nonatomic, strong) NSNumber* searchedServiceTypesObject;
@@ -24,6 +21,8 @@
 @dynamic artistName;
 @dynamic score;
 @dynamic searchedServiceTypesObject;
+@dynamic imageUris;
+@dynamic metadata;
 
 - (NSUInteger) searchedServiceTypes
 {
@@ -45,27 +44,11 @@
     self.searchedServiceTypes |= serviceType;
 }
 
-- (void) persistImageUrisObject:(MGMAlbumImageUri*)value
-{
-    [self.managedObjectContext debugPerformBlockAndWait:^
-    {
-        [self addImageUrisObject:value];
-    }];
-}
-
-- (void) persistMetadataObject:(MGMAlbumMetadata*)value
-{
-    [self.managedObjectContext debugPerformBlockAndWait:^
-    {
-        [self addMetadataObject:value];
-    }];
-}
-
-- (NSString*) fetchBestImageWithPreferences:(MGMAlbumImageSize[5])sizes
+- (NSString*) bestImageWithPreferences:(MGMAlbumImageSize[5])sizes
 {
     for (NSUInteger i = 0; i < 5; i++)
     {
-        NSString* uri = [self fetchImageUrlForImageSize:sizes[i]];
+        NSString* uri = [self imageUrlForImageSize:sizes[i]];
         if (uri)
         {
             return uri;
@@ -74,27 +57,21 @@
     return nil;
 }
 
-- (NSString*) fetchBestAlbumImageUrl
+- (NSString*) bestAlbumImageUrl
 {
     MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeLarge, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
-    return [self fetchBestImageWithPreferences:sizes];
+    return [self bestImageWithPreferences:sizes];
 }
 
-- (NSString*) fetchBestTableImageUrl
+- (NSString*) bestTableImageUrl
 {
     MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeSmall, MGMAlbumImageSizeMedium, MGMAlbumImageSizeLarge, MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega};
-    return [self fetchBestImageWithPreferences:sizes];
+    return [self bestImageWithPreferences:sizes];
 }
 
-- (NSString*) fetchImageUrlForImageSize:(MGMAlbumImageSize)size
+- (NSString*) imageUrlForImageSize:(MGMAlbumImageSize)size
 {
-    __block NSSet* uriSet;
-    [self.managedObjectContext debugPerformBlockAndWait:^
-    {
-        uriSet = self.imageUris;
-    }];
-    
-    for (MGMAlbumImageUri* uri in uriSet)
+    for (MGMAlbumImageUri* uri in self.imageUris)
     {
         if (uri.size == size)
         {
@@ -104,15 +81,9 @@
     return nil;
 }
 
-- (NSString*) fetchMetadataForServiceType:(MGMAlbumServiceType)serviceType
+- (NSString*) metadataForServiceType:(MGMAlbumServiceType)serviceType
 {
-    __block NSSet* metadataSet;
-    [self.managedObjectContext debugPerformBlockAndWait:^
-    {
-        metadataSet = self.metadata;
-    }];
-
-    for (MGMAlbumMetadata* metadata in metadataSet)
+    for (MGMAlbumMetadata* metadata in self.metadata)
     {
         if (metadata.serviceType == serviceType)
         {
