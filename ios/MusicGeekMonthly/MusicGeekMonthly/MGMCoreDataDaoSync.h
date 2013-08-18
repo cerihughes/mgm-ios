@@ -31,6 +31,7 @@
 #pragma mark MGMTimePeriod
 
 - (void) persistTimePeriods:(NSArray*)timePeriodDtos error:(NSError**)error;
+- (NSFetchRequest*) timePeriodsFetchRequest;
 - (NSArray*) fetchAllTimePeriods:(NSError**)error;
 
 #pragma mark -
@@ -63,6 +64,7 @@
 #pragma mark MGMEvent
 
 - (void) persistEvents:(NSArray*)eventDtos error:(NSError**)error;
+- (NSFetchRequest*) eventsFetchRequest;
 - (NSArray*) fetchAllEvents:(NSError**)error;
 - (MGMEvent*) fetchEventWithEventNumber:(NSNumber*)eventNumber error:(NSError**)error;
 

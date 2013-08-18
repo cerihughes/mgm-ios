@@ -8,11 +8,16 @@
 
 #import <CoreData/CoreData.h>
 
+#import "MGMRenderable.h"
+
 @class MGMWeeklyChart;
 
-@interface MGMTimePeriod : NSManagedObject
+@interface MGMTimePeriod : NSManagedObject<MGMRenderable>
 
 @property (nonatomic, strong) NSDate* startDate;
 @property (nonatomic, strong) NSDate* endDate;
+
+@property (readonly) NSString* groupHeader;
+@property (readonly) NSString* groupValue;
 
 @end

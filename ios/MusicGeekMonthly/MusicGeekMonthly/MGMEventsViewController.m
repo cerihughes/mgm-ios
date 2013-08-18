@@ -7,16 +7,16 @@
 //
 
 #import "MGMEventsViewController.h"
+
+#import "MGMCoreDataTableViewDataSource.h"
 #import "MGMEvent.h"
 
-@interface MGMEventsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface MGMEventsViewController () <UITableViewDelegate>
 
 @property (strong) IBOutlet UITableView* eventsTable;
+@property (strong) MGMCoreDataTableViewDataSource* dataSource;
 @property (strong) IBOutlet UIWebView* playlistWebView;
 @property (strong) IBOutlet UIViewController* iPhone2ndController;
-
-@property (strong) NSDateFormatter* dateFormatter;
-@property (strong) NSArray* events;
 
 @end
 
@@ -27,59 +27,43 @@
 #define EVENT_TITLE_PATTERN @"MGM#%@ %@"
 #define WEB_URL_PATTERN @"https://embed.spotify.com/?uri=%@"
 
-- (id) init
-{
-    if (self = [super initWithNibName:nil bundle:nil])
-    {
-        // MMM yyyy
-        self.dateFormatter = [[NSDateFormatter alloc] init];
-        self.dateFormatter.dateFormat = @"MMM yyyy";
-    }
-    return self;
-}
-
 - (void) viewDidLoad
 {
     [super viewDidLoad];
 
+    NSFetchedResultsController* fetchedResultsController = [self.core.daoFactory.coreDataDao createEventsFetchedResultsController];
+    self.dataSource = [[MGMCoreDataTableViewDataSource alloc] initWithCellId:CELL_ID];
+    self.dataSource.fetchedResultsController = fetchedResultsController;
+
+    self.eventsTable.dataSource = self.dataSource;
+    self.eventsTable.delegate = self;
+
+    NSError* error = nil;
+    [fetchedResultsController performFetch:&error];
+    if (error != nil)
+    {
+        [self handleError:error];
+    }
+
+    [self.eventsTable reloadData];
+
     self.classicAlbumView.animationTime = 0.25;
     self.newlyReleasedAlbumView.animationTime = 0.25;
 
-    self.eventsTable.dataSource = self;
-    self.eventsTable.delegate = self;
-
-    [self.core.daoFactory.eventsDao fetchAllEvents:^(NSArray* fetchedEvents, NSError* fetchError)
+    if (self.iPhone2ndController == nil)
     {
-        self.events = fetchedEvents;
-        if (fetchError)
-        {
-            [self handleError:fetchError];
-            return;
-        }
-
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
-            // ... but update the UI in the main thread...
-            [self.eventsTable reloadData];
-            
-            if (self.iPhone2ndController == nil)
-            {
-                // Only auto-populate on iPad...
-                NSIndexPath* path = [NSIndexPath indexPathForRow:0 inSection:0];
-                [self.eventsTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
-
-                MGMEvent* event = [self.events objectAtIndex:0];
-                [self displayEvent:event];
-            }
-        });
-    }];
+        // Only auto-populate on iPad...
+        NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
+        [self.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+        [self tableView:self.eventsTable didSelectRowAtIndexPath:firstItem];
+    }
 }
 
 - (void) displayEvent:(MGMEvent*)event
 {
     [super displayEvent:event];
-    
-	NSString* dateString = [self.dateFormatter stringFromDate:event.eventDate];
+
+	NSString* dateString = event.groupValue;
     NSString* newTitle = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
 
     if (self.iPhone2ndController)
@@ -101,23 +85,10 @@
 #pragma mark -
 #pragma mark UITableViewDataSource
 
-- (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.events.count;
-}
-
 - (UITableViewCell*) tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID];
-    if (cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
-    }
-
-    MGMEvent* event = [self.events objectAtIndex:indexPath.row];
-	NSString* dateString = [self.dateFormatter stringFromDate:event.eventDate];
-
-    cell.textLabel.text = dateString;
+    UITableViewCell *cell = [self.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
+    MGMEvent* event = [self.dataSource.fetchedResultsController objectAtIndexPath:indexPath];
 
     MGMAlbum* classicAlbum = event.classicAlbum;
     if ([classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
@@ -171,7 +142,7 @@
 
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    MGMEvent* event = [self.events objectAtIndex:indexPath.row];
+    MGMEvent* event = [self.dataSource.fetchedResultsController objectAtIndexPath:indexPath];
     [self displayEvent:event];
 }
 

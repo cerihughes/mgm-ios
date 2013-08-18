@@ -115,7 +115,7 @@
     return [self createNewManagedObjectWithName:@"MGMTimePeriod"];
 }
 
-- (NSArray*) fetchAllTimePeriods:(NSError**)error
+- (NSFetchRequest*) timePeriodsFetchRequest
 {
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
@@ -123,6 +123,13 @@
     NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:NO];
     NSArray* sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.sortDescriptors = sortDescriptors;
+    return request;
+}
+
+- (NSArray*) fetchAllTimePeriods:(NSError**)error
+{
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    NSFetchRequest* request = [self timePeriodsFetchRequest];
     return [moc executeFetchRequest:request error:error];
 }
 
@@ -474,7 +481,7 @@
     return [self createNewManagedObjectWithName:@"MGMEvent"];
 }
 
-- (NSArray*) fetchAllEvents:(NSError**)error
+- (NSFetchRequest*) eventsFetchRequest
 {
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
@@ -482,6 +489,13 @@
     NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"eventNumber" ascending:NO];
     NSArray* sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.sortDescriptors = sortDescriptors;
+    return request;
+}
+
+- (NSArray*) fetchAllEvents:(NSError**)error
+{
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    NSFetchRequest* request = [self eventsFetchRequest];
     return [moc executeFetchRequest:request error:error];
 }
 

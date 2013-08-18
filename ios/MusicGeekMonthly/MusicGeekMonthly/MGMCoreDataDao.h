@@ -42,5 +42,8 @@
 
 - (id) threadVersion:(NSManagedObjectID*)moid;
 
+- (NSFetchedResultsController*) createEventsFetchedResultsController;
+- (NSFetchedResultsController*) createTimePeriodsFetchedResultsController;
+
 @end
 

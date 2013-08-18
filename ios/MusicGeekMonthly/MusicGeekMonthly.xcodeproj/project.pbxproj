@@ -79,6 +79,7 @@
 		659F9F61175B928E000C413B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F41175B928E000C413B /* UIKit.framework */; };
 		659F9F62175B928E000C413B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F43175B928E000C413B /* Foundation.framework */; };
 		659F9F6A175B928E000C413B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F68175B928E000C413B /* InfoPlist.strings */; };
+		65B782F017C1451C00608B3E /* MGMCoreDataTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B782EF17C1451C00608B3E /* MGMCoreDataTableViewDataSource.m */; };
 		65BA8A2C17A434EF0054966B /* MGMURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BA8A2B17A434EF0054966B /* MGMURLCache.m */; };
 		65BEAEF917BE212A00796D93 /* MGMCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BC0175FDB4B005D372C /* MGMCore.m */; };
 		65BEAEFA17BE212E00796D93 /* MGMURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BA8A2B17A434EF0054966B /* MGMURLCache.m */; };
@@ -230,6 +231,9 @@
 		659F9F5F175B928E000C413B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		659F9F67175B928E000C413B /* MusicGeekMonthlyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MusicGeekMonthlyTests-Info.plist"; sourceTree = "<group>"; };
 		659F9F69175B928E000C413B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		65B782EE17C1451C00608B3E /* MGMCoreDataTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataTableViewDataSource.h; sourceTree = "<group>"; };
+		65B782EF17C1451C00608B3E /* MGMCoreDataTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataTableViewDataSource.m; sourceTree = "<group>"; };
+		65B782F117C1469800608B3E /* MGMRenderable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGMRenderable.h; sourceTree = "<group>"; };
 		65BA8A2A17A434EF0054966B /* MGMURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMURLCache.h; sourceTree = "<group>"; };
 		65BA8A2B17A434EF0054966B /* MGMURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMURLCache.m; sourceTree = "<group>"; };
 		65CD17011785A66F0082168D /* MGMEventsDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMEventsDao.h; sourceTree = "<group>"; };
@@ -363,6 +367,8 @@
 				65ECD8FC17AC39C500701A00 /* MGMAlbumSelectionDelegate.h */,
 				651238C617B16C3300C5D353 /* MGMAbstractEventController.h */,
 				651238C717B16C3300C5D353 /* MGMAbstractEventController.m */,
+				65B782EE17C1451C00608B3E /* MGMCoreDataTableViewDataSource.h */,
+				65B782EF17C1451C00608B3E /* MGMCoreDataTableViewDataSource.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -421,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				65E975B517B6BD6F00CF53B2 /* MusicGeekMonthly.xcdatamodeld */,
+				65B782F117C1469800608B3E /* MGMRenderable.h */,
 				65DF2B9E17BFBF8500BAF25A /* MGMNextUrlAccess.h */,
 				65DF2B9F17BFBF8700BAF25A /* MGMNextUrlAccess.m */,
 				65E975B817B6CB1600CF53B2 /* MGMTimePeriod.h */,
@@ -810,6 +817,7 @@
 				65DF2B8117BF703C00BAF25A /* MGMBackgroundAlbumArtFetcher.m in Sources */,
 				65DF2BA017BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */,
 				65FAB9DE17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */,
+				65B782F017C1451C00608B3E /* MGMCoreDataTableViewDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

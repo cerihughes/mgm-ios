@@ -135,4 +135,18 @@
     return [self.moc objectWithID:moid];
 }
 
+- (NSFetchedResultsController*) createTimePeriodsFetchedResultsController
+{
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    NSFetchRequest* request = [self.daoSync timePeriodsFetchRequest];
+    return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:moc sectionNameKeyPath:@"groupHeader" cacheName:@"Root"];
+}
+
+- (NSFetchedResultsController*) createEventsFetchedResultsController
+{
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    NSFetchRequest* request = [self.daoSync eventsFetchRequest];
+    return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:moc sectionNameKeyPath:@"groupHeader" cacheName:@"Root"];
+}
+
 @end
