@@ -8,13 +8,13 @@
 
 #import "MGMEventsViewController.h"
 
-#import "MGMCoreDataTableViewDataSource.h"
+#import "MGMEventTableViewDataSource.h"
 #import "MGMEvent.h"
 
 @interface MGMEventsViewController () <UITableViewDelegate>
 
 @property (strong) IBOutlet UITableView* eventsTable;
-@property (strong) MGMCoreDataTableViewDataSource* dataSource;
+@property (strong) MGMEventTableViewDataSource* dataSource;
 @property (strong) IBOutlet UIWebView* playlistWebView;
 @property (strong) IBOutlet UIViewController* iPhone2ndController;
 
@@ -32,8 +32,9 @@
     [super viewDidLoad];
 
     NSFetchedResultsController* fetchedResultsController = [self.core.daoFactory.coreDataDao createEventsFetchedResultsController];
-    self.dataSource = [[MGMCoreDataTableViewDataSource alloc] initWithCellId:CELL_ID];
+    self.dataSource = [[MGMEventTableViewDataSource alloc] initWithCellId:CELL_ID];
     self.dataSource.fetchedResultsController = fetchedResultsController;
+    self.dataSource.lastFmDao = self.core.daoFactory.lastFmDao;
 
     self.eventsTable.dataSource = self.dataSource;
     self.eventsTable.delegate = self;
@@ -80,61 +81,6 @@
     NSURL* url = [NSURL URLWithString:urlString];
     NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [self.playlistWebView loadRequest:request];
-}
-
-#pragma mark -
-#pragma mark UITableViewDataSource
-
-- (UITableViewCell*) tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
-{
-    UITableViewCell *cell = [self.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
-    MGMEvent* event = [self.dataSource.fetchedResultsController objectAtIndexPath:indexPath];
-
-    MGMAlbum* classicAlbum = event.classicAlbum;
-    if ([classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
-    {
-        [self.core.daoFactory.lastFmDao updateAlbumInfo:classicAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
-        {
-            if (updateError != nil)
-            {
-                [self handleError:updateError];
-            }
-
-            dispatch_async(dispatch_get_main_queue(), ^
-            {
-                // ... but update the UI in the main thread...
-                [self addAlbumImage:updatedAlbum toCell:cell];
-            });
-        }];
-    }
-    else
-    {
-        [self addAlbumImage:classicAlbum toCell:cell];
-    }
-    return cell;
-}
-
-- (void) addAlbumImage:(MGMAlbum*)album toCell:(UITableViewCell*)cell
-{
-    NSString* albumArtUri = [album bestTableImageUrl];
-    if (albumArtUri)
-    {
-        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
-        {
-            if (error)
-            {
-                [self handleError:error];
-            }
-            else
-            {
-                cell.imageView.image = image;
-            }
-        }];
-    }
-    else
-    {
-        cell.imageView.image = [UIImage imageNamed:@"album1.png"];
-    }
 }
 
 #pragma mark -

@@ -93,9 +93,9 @@
 
 - (void) loadImages
 {
-    if (self.artFetcher == nil)
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+        if (self.artFetcher == nil)
         {
             // Search in a background thread...
             [self.core.daoFactory.lastFmDao fetchAllTimePeriods:^(NSArray* fetchedTimePeriods, NSError* timePeriodFetchError)
@@ -126,12 +126,12 @@
                     [self renderImages];
                 }];
             }];
-        });
-    }
-    else
-    {
-        [self renderImages];
-    }
+        }
+        else
+        {
+            [self renderImages];
+        }
+    });
 }
 
 - (void) renderImages
@@ -139,6 +139,7 @@
     for (int i = 0; i < self.albumsView.albumCount; i++)
     {
         [self.artFetcher generateImageAtIndex:i];
+        [NSThread sleepForTimeInterval:0.25];
     }
 }
 
