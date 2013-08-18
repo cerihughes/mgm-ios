@@ -6,7 +6,7 @@
         <attribute name="artistName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="score" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="searchedServiceTypesObject" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="chartEntries" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMChartEntry" inverseName="album" inverseEntity="MGMChartEntry" syncable="YES"/>
+        <relationship name="chartEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MGMChartEntry" inverseName="album" inverseEntity="MGMChartEntry" syncable="YES"/>
         <relationship name="classicAlbumEvent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMEvent" inverseName="classicAlbum" inverseEntity="MGMEvent" syncable="YES"/>
         <relationship name="imageUris" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MGMAlbumImageUri" inverseName="album" inverseEntity="MGMAlbumImageUri" syncable="YES"/>
         <relationship name="metadata" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MGMAlbumMetadata" inverseName="album" inverseEntity="MGMAlbumMetadata" syncable="YES"/>
@@ -54,8 +54,8 @@
         <element name="MGMAlbumMetadata" positionX="160" positionY="192" width="128" height="90"/>
         <element name="MGMChartEntry" positionX="160" positionY="192" width="128" height="105"/>
         <element name="MGMEvent" positionX="358" positionY="9" width="128" height="118"/>
+        <element name="MGMNextUrlAccess" positionX="160" positionY="192" width="128" height="75"/>
         <element name="MGMTimePeriod" positionX="-216" positionY="290" width="128" height="75"/>
         <element name="MGMWeeklyChart" positionX="160" positionY="192" width="128" height="90"/>
-        <element name="MGMNextUrlAccess" positionX="160" positionY="192" width="128" height="75"/>
     </elements>
 </model>
