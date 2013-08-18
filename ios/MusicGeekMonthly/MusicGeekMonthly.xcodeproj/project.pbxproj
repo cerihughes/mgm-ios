@@ -135,6 +135,9 @@
 		65ECD90117AC3B2F00701A00 /* MGMAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */; };
 		65ECD90417AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */; };
 		65ECD90517AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */; };
+		65FAB9C717C0FC5D00BCEA8E /* NSManagedObjectContext+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FAB9C617C0FC5C00BCEA8E /* NSManagedObjectContext+Debug.m */; };
+		65FAB9DE17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */; };
+		65FAB9DF17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -301,6 +304,10 @@
 		65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewController.m; sourceTree = "<group>"; };
 		65ECD90217AC3DCB00701A00 /* MGMAlbumPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumPlayer.h; sourceTree = "<group>"; };
 		65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumPlayer.m; sourceTree = "<group>"; };
+		65FAB9C517C0FC5C00BCEA8E /* NSManagedObjectContext+Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Debug.h"; sourceTree = "<group>"; };
+		65FAB9C617C0FC5C00BCEA8E /* NSManagedObjectContext+Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Debug.m"; sourceTree = "<group>"; };
+		65FAB9DC17C11CB200BCEA8E /* MGMCoreDataThreadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataThreadManager.h; sourceTree = "<group>"; };
+		65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataThreadManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -486,8 +493,12 @@
 				65E975AD17B6A8FB00CF53B2 /* MGMHttpDao.m */,
 				65E975A917B6A8E100CF53B2 /* MGMCoreDataDao.h */,
 				65E975AA17B6A8E100CF53B2 /* MGMCoreDataDao.m */,
+				65FAB9DC17C11CB200BCEA8E /* MGMCoreDataThreadManager.h */,
+				65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */,
 				650B7BC117BEC03500B14305 /* MGMCoreDataDaoSync.h */,
 				650B7BC217BEC03500B14305 /* MGMCoreDataDaoSync.m */,
+				65FAB9C517C0FC5C00BCEA8E /* NSManagedObjectContext+Debug.h */,
+				65FAB9C617C0FC5C00BCEA8E /* NSManagedObjectContext+Debug.m */,
 				65E975C417B6CD5900CF53B2 /* MGMCoreDataAwareDao.h */,
 				65E975C517B6CD5900CF53B2 /* MGMCoreDataAwareDao.m */,
 				6509FF6C17AC5F4700DE68DE /* MGMAlbumMetadataDao.h */,
@@ -845,6 +856,8 @@
 				65DF2B9417BF990400BAF25A /* MGMAlbumMetadata+Relationships.m in Sources */,
 				65DF2B9817BF9BB900BAF25A /* MGMEvent+Relationships.m in Sources */,
 				65DF2BA017BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */,
+				65FAB9C717C0FC5D00BCEA8E /* NSManagedObjectContext+Debug.m in Sources */,
+				65FAB9DE17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,6 +902,7 @@
 				65DF2B9517BF990400BAF25A /* MGMAlbumMetadata+Relationships.m in Sources */,
 				65DF2B9917BF9BB900BAF25A /* MGMEvent+Relationships.m in Sources */,
 				65DF2BA117BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */,
+				65FAB9DF17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

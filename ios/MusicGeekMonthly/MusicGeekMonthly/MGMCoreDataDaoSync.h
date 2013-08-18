@@ -10,6 +10,7 @@
 
 #import <CoreData/CoreData.h>
 #import "MGMChartEntry.h"
+#import "MGMCoreDataThreadManager.h"
 #import "MGMEvent.h"
 #import "MGMNextUrlAccess.h"
 #import "MGMTimePeriod.h"
@@ -18,7 +19,7 @@
 
 @interface MGMCoreDataDaoSync : NSObject
 
-- (id) initWithManagedObjectContext:(NSManagedObjectContext*)managedObjectContext;
+- (id) initWithThreadManager:(MGMCoreDataThreadManager*)threadManager;
 
 #pragma mark -
 #pragma mark MGMNextUrlAccess

@@ -9,6 +9,7 @@
 #import "MGMChartEntry.h"
 
 #import "MGMChartEntry+Relationships.h"
+#import "NSManagedObjectContext+Debug.h"
 
 @implementation MGMChartEntry
 
@@ -18,31 +19,37 @@
 - (MGMAlbum*) fetchAlbum
 {
     __block MGMAlbum* result;
-    [self.managedObjectContext performBlockAndWait:^
+    [self.managedObjectContext debugPerformBlockAndWait:^
     {
         result = self.album;
     }];
     return result;
 }
 
+- (void) persistAlbum:(MGMAlbum*)album
+{
+    [self.managedObjectContext debugPerformBlockAndWait:^
+    {
+        self.album = album;
+    }];
+}
+
 - (NSString*) fetchBestAlbumImageUrl
 {
-    __block NSString* result;
-    [self.managedObjectContext performBlockAndWait:^
+    MGMAlbum* album = [self fetchAlbum];
+    NSString* uri;
+    if (self.rank.intValue == 1 && (uri = [album fetchImageUrlForImageSize:MGMAlbumImageSizeMega]) != nil)
     {
-        result = [self bestAlbumImageUrl];
-    }];
-    return result;
+        return uri;
+    }
+
+    return [album fetchBestAlbumImageUrl];
 }
 
 - (NSString*) fetchBestTableImageUrl
 {
-    __block NSString* result;
-    [self.managedObjectContext performBlockAndWait:^
-    {
-        result = [self bestTableImageUrl];
-    }];
-    return result;
+    MGMAlbum* album = [self fetchAlbum];
+    return [album fetchBestTableImageUrl];
 }
 
 @end

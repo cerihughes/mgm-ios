@@ -139,9 +139,6 @@
     for (int i = 0; i < self.albumsView.albumCount; i++)
     {
         [self.artFetcher generateImageAtIndex:i];
-
-        // Sleep for a bit to give a tiling effect...
-        [NSThread sleepForTimeInterval:0.25];
     }
 }
 

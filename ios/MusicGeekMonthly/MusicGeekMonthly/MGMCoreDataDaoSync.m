@@ -8,37 +8,40 @@
 
 #import "MGMCoreDataDaoSync.h"
 
-#import "MGMAlbum+Relationships.h"
+#import "MGMAlbum.h"
 #import "MGMAlbumDto.h"
+#import "MGMAlbumImageUri.h"
 #import "MGMAlbumImageUriDto.h"
+#import "MGMAlbumMetadata.h"
 #import "MGMAlbumMetadataDto.h"
-#import "MGMChartEntry+Relationships.h"
+#import "MGMChartEntry.h"
 #import "MGMChartEntryDto.h"
-#import "MGMEvent+Relationships.h"
+#import "MGMEvent.h"
 #import "MGMEventDto.h"
 #import "MGMTimePeriodDto.h"
-#import "MGMWeeklyChart+Relationships.h"
+#import "MGMWeeklyChart.h"
 
 @interface MGMCoreDataDaoSync ()
 
-@property (strong) NSManagedObjectContext* moc;
+@property (weak) MGMCoreDataThreadManager* threadManager;
 
 @end
 
 @implementation MGMCoreDataDaoSync
 
-- (id) initWithManagedObjectContext:(NSManagedObjectContext*)managedObjectContext
+- (id) initWithThreadManager:(MGMCoreDataThreadManager*)threadManager
 {
     if (self = [super init])
     {
-        self.moc = managedObjectContext;
+        self.threadManager = threadManager;
     }
     return self;
 }
 
 - (id) createNewManagedObjectWithName:(NSString*)name
 {
-    return [NSEntityDescription insertNewObjectForEntityForName:name inManagedObjectContext:self.moc];
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    return [NSEntityDescription insertNewObjectForEntityForName:name inManagedObjectContext:moc];
 }
 
 #pragma mark -
@@ -71,10 +74,11 @@
 
 - (MGMNextUrlAccess*) fetchNextUrlAccessWithIdentifier:(NSString*)identifier error:(NSError**)error
 {
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    request.entity = [NSEntityDescription entityForName:@"MGMNextUrlAccess" inManagedObjectContext:self.moc];
+    request.entity = [NSEntityDescription entityForName:@"MGMNextUrlAccess" inManagedObjectContext:moc];
     request.predicate = [NSPredicate predicateWithFormat:@"identifier = %@", identifier];
-    NSArray* results = [self.moc executeFetchRequest:request error:error];
+    NSArray* results = [moc executeFetchRequest:request error:error];
     if (results.count > 0)
     {
         return [results objectAtIndex:0];
@@ -113,20 +117,22 @@
 
 - (NSArray*) fetchAllTimePeriods:(NSError**)error
 {
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    request.entity = [NSEntityDescription entityForName:@"MGMTimePeriod" inManagedObjectContext:self.moc];
+    request.entity = [NSEntityDescription entityForName:@"MGMTimePeriod" inManagedObjectContext:moc];
     NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:NO];
     NSArray* sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.sortDescriptors = sortDescriptors;
-    return [self.moc executeFetchRequest:request error:error];
+    return [moc executeFetchRequest:request error:error];
 }
 
 - (MGMTimePeriod*) fetchTimePeriodWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate error:(NSError**)error
 {
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    request.entity = [NSEntityDescription entityForName:@"MGMTimePeriod" inManagedObjectContext:self.moc];
+    request.entity = [NSEntityDescription entityForName:@"MGMTimePeriod" inManagedObjectContext:moc];
     request.predicate = [NSPredicate predicateWithFormat:@"(startDate = %@) AND (endDate = %@)", startDate, endDate];
-    NSArray* results = [self.moc executeFetchRequest:request error:error];
+    NSArray* results = [moc executeFetchRequest:request error:error];
     if (results.count > 0)
     {
         return [results objectAtIndex:0];
@@ -166,20 +172,27 @@
         {
             chartEntry = [self createNewChartEntry];
             chartEntry.rank = chartEntryDto.rank;
-            [weeklyChart addChartEntriesObject:chartEntry];
+            [weeklyChart persistChartEntry:chartEntry];
         }
 
         chartEntry.listeners = chartEntryDto.listeners;
 
         MGMAlbumDto* albumDto = chartEntryDto.album;
+
         MGMAlbum* album = [self persistAlbumDto:albumDto error:error];
+
+        if (album == nil)
+        {
+            NSLog(@"nil");
+        }
+
         if (error && *error != nil)
         {
             [self rollbackChanges];
             return;
         }
 
-        chartEntry.album = album;
+        [chartEntry persistAlbum:album];
     }
 
     [self commitChanges:error];
@@ -192,10 +205,11 @@
 
 - (MGMWeeklyChart*) fetchWeeklyChartWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate error:(NSError**)error
 {
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    request.entity = [NSEntityDescription entityForName:@"MGMWeeklyChart" inManagedObjectContext:self.moc];
+    request.entity = [NSEntityDescription entityForName:@"MGMWeeklyChart" inManagedObjectContext:moc];
     request.predicate = [NSPredicate predicateWithFormat:@"(startDate = %@) AND (endDate = %@)", startDate, endDate];
-    NSArray* results = [self.moc executeFetchRequest:request error:error];
+    NSArray* results = [moc executeFetchRequest:request error:error];
     if (results.count > 0)
     {
         return [results objectAtIndex:0];
@@ -213,10 +227,11 @@
 
 - (MGMChartEntry*) fetchChartEntryWithWeeklyChart:(MGMWeeklyChart*)weeklyChart rank:(NSNumber*)rank error:(NSError**)error
 {
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    request.entity = [NSEntityDescription entityForName:@"MGMChartEntry" inManagedObjectContext:self.moc];
+    request.entity = [NSEntityDescription entityForName:@"MGMChartEntry" inManagedObjectContext:moc];
     request.predicate = [NSPredicate predicateWithFormat:@"(weeklyChart = %@) AND (rank = %@)", weeklyChart, rank];
-    NSArray* results = [self.moc executeFetchRequest:request error:error];
+    NSArray* results = [moc executeFetchRequest:request error:error];
     if (results.count > 0)
     {
         return [results objectAtIndex:0];
@@ -267,10 +282,11 @@
 
 - (MGMAlbum*) fetchAlbumWithMbid:(NSString*)mbid error:(NSError**)error
 {
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    request.entity = [NSEntityDescription entityForName:@"MGMAlbum" inManagedObjectContext:self.moc];
+    request.entity = [NSEntityDescription entityForName:@"MGMAlbum" inManagedObjectContext:moc];
     request.predicate = [NSPredicate predicateWithFormat:@"albumMbid = %@", mbid];
-    NSArray* results = [self.moc executeFetchRequest:request error:error];
+    NSArray* results = [moc executeFetchRequest:request error:error];
     if (results.count > 0)
     {
         return [results objectAtIndex:0];
@@ -316,7 +332,7 @@
         {
             uri = [self createNewAlbumImageUri];
             uri.size = uriDto.size;
-            [album addImageUrisObject:uri];
+            [album persistImageUrisObject:uri];
         }
         
         uri.uri = uriDto.uri;
@@ -330,10 +346,11 @@
 
 - (MGMAlbumImageUri*) fetchAlbumImageUriWithAlbum:(MGMAlbum*)album size:(MGMAlbumImageSize)size error:(NSError**)error
 {
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    request.entity = [NSEntityDescription entityForName:@"MGMAlbumImageUri" inManagedObjectContext:self.moc];
+    request.entity = [NSEntityDescription entityForName:@"MGMAlbumImageUri" inManagedObjectContext:moc];
     request.predicate = [NSPredicate predicateWithFormat:@"(album = %@) AND (sizeObject = %d)", album, size];
-    NSArray* results = [self.moc executeFetchRequest:request error:error];
+    NSArray* results = [moc executeFetchRequest:request error:error];
     if (results.count > 0)
     {
         return [results objectAtIndex:0];
@@ -379,7 +396,7 @@
         {
             metadata = [self createNewAlbumMetadata];
             metadata.serviceType = metadataDto.serviceType;
-            [album addMetadataObject:metadata];
+            [album persistMetadataObject:metadata];
         }
 
         metadata.value = metadataDto.value;
@@ -393,10 +410,11 @@
 
 - (MGMAlbumMetadata*) fetchAlbumMetadataWithAlbum:(MGMAlbum*)album serviceType:(MGMAlbumServiceType)serviceType error:(NSError**)error
 {
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    request.entity = [NSEntityDescription entityForName:@"MGMAlbumMetadata" inManagedObjectContext:self.moc];
+    request.entity = [NSEntityDescription entityForName:@"MGMAlbumMetadata" inManagedObjectContext:moc];
     request.predicate = [NSPredicate predicateWithFormat:@"(album = %@) AND (serviceTypeObject = %d)", album, serviceType];
-    NSArray* results = [self.moc executeFetchRequest:request error:error];
+    NSArray* results = [moc executeFetchRequest:request error:error];
     if (results.count > 0)
     {
         return [results objectAtIndex:0];
@@ -435,7 +453,7 @@
             return;
         }
 
-        event.classicAlbum = classicAlbum;
+        [event persistClassicAlbum:classicAlbum];
 
         MGMAlbumDto* newlyReleaseAlbumDto = eventDto.newlyReleasedAlbum;
         MGMAlbum* newlyReleasedAlbum = [self persistAlbumDto:newlyReleaseAlbumDto error:error];
@@ -445,7 +463,7 @@
             return;
         }
 
-        event.newlyReleasedAlbum = newlyReleasedAlbum;
+        [event persistNewlyReleasedAlbum:newlyReleasedAlbum];
     }
 
     [self commitChanges:error];
@@ -458,20 +476,22 @@
 
 - (NSArray*) fetchAllEvents:(NSError**)error
 {
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    request.entity = [NSEntityDescription entityForName:@"MGMEvent" inManagedObjectContext:self.moc];
+    request.entity = [NSEntityDescription entityForName:@"MGMEvent" inManagedObjectContext:moc];
     NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"eventNumber" ascending:NO];
     NSArray* sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.sortDescriptors = sortDescriptors;
-    return [self.moc executeFetchRequest:request error:error];
+    return [moc executeFetchRequest:request error:error];
 }
 
 - (MGMEvent*) fetchEventWithEventNumber:(NSNumber*)eventNumber error:(NSError**)error
 {
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    request.entity = [NSEntityDescription entityForName:@"MGMEvent" inManagedObjectContext:self.moc];
+    request.entity = [NSEntityDescription entityForName:@"MGMEvent" inManagedObjectContext:moc];
     request.predicate = [NSPredicate predicateWithFormat:@"eventNumber = %@", eventNumber];
-    NSArray* results = [self.moc executeFetchRequest:request error:error];
+    NSArray* results = [moc executeFetchRequest:request error:error];
     if (results.count > 0)
     {
         return [results objectAtIndex:0];
@@ -484,12 +504,14 @@
 
 - (void) commitChanges:(NSError**)error
 {
-    [self.moc save:error];
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    [moc save:error];
 }
 
 - (void) rollbackChanges
 {
-    [self.moc rollback];
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    [moc rollback];
 }
 
 @end

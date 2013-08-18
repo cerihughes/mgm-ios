@@ -13,6 +13,7 @@
 @interface MGMBackgroundAlbumArtFetcher ()
 
 @property (strong) NSOrderedSet* backgroundChartEntries;
+@property (strong) NSOperationQueue* operationQueue;
 
 @end
 
@@ -23,16 +24,18 @@
     if (self = [super init])
     {
         self.backgroundChartEntries = chartEntries;
+        self.operationQueue = [[NSOperationQueue alloc] init];
+        self.operationQueue.maxConcurrentOperationCount = 5;
     }
     return self;
 }
 
 - (void) generateImageAtIndex:(NSUInteger)index
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    [self.operationQueue addOperationWithBlock:^
     {
         [self generateImageSyncAtIndex:index attempt:0];
-    });
+    }];
 }
 
 - (void) generateImageSyncAtIndex:(NSUInteger)index attempt:(NSUInteger)attempt

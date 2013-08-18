@@ -40,5 +40,7 @@
 - (void) fetchAllEvents:(FETCH_MANY_COMPLETION)completion;
 - (void) fetchEventWithEventNumber:(NSNumber*)eventNumber completion:(FETCH_COMPLETION)completion;
 
+- (id) threadVersion:(NSManagedObjectID*)moid;
+
 @end
 

@@ -17,6 +17,8 @@
 @property (nonatomic, strong) NSNumber* rank;
 
 - (MGMAlbum*) fetchAlbum;
+- (void) persistAlbum:(MGMAlbum*)album;
+
 - (NSString*) fetchBestAlbumImageUrl;
 - (NSString*) fetchBestTableImageUrl;
 

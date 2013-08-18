@@ -20,6 +20,9 @@
 - (MGMAlbum*) fetchClassicAlbum;
 - (MGMAlbum*) fetchNewlyReleasedAlbum;
 
+- (void) persistClassicAlbum:(MGMAlbum*)album;
+- (void) persistNewlyReleasedAlbum:(MGMAlbum*)album;
+
 - (NSString*) spotifyPlaylistUrl;
 - (NSString*) spotifyHttpUrl;
 

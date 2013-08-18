@@ -9,7 +9,10 @@
 #import <CoreData/CoreData.h>
 
 #import "MGMAlbumImageSize.h"
+#import "MGMAlbumImageUri.h"
+#import "MGMAlbumMetadata.h"
 #import "MGMAlbumServiceType.h"
+
 
 @interface MGMAlbum : NSManagedObject
 
@@ -22,6 +25,9 @@
 
 - (BOOL) searchedServiceType:(MGMAlbumServiceType)serviceType;
 - (void) setServiceTypeSearched:(MGMAlbumServiceType)serviceType;
+
+- (void) persistImageUrisObject:(MGMAlbumImageUri*)value;
+- (void) persistMetadataObject:(MGMAlbumMetadata*)value;
 
 - (NSString*) fetchImageUrlForImageSize:(MGMAlbumImageSize)size;
 - (NSString*) fetchMetadataForServiceType:(MGMAlbumServiceType)serviceType;

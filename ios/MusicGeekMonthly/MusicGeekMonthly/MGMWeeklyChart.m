@@ -9,6 +9,7 @@
 #import "MGMWeeklyChart.h"
 
 #import "MGMWeeklyChart+Relationships.h"
+#import "NSManagedObjectContext+Debug.h"
 
 @implementation MGMWeeklyChart
 
@@ -18,11 +19,19 @@
 - (NSOrderedSet*) fetchChartEntries
 {
     __block NSOrderedSet* result;
-    [self.managedObjectContext performBlockAndWait:^
+    [self.managedObjectContext debugPerformBlockAndWait:^
     {
         result = self.chartEntries;
     }];
     return result;
+}
+
+- (void) persistChartEntry:(MGMChartEntry*)chartEntry
+{
+    [self.managedObjectContext debugPerformBlockAndWait:^
+    {
+        [self addChartEntriesObject:chartEntry];
+    }];
 }
 
 @end

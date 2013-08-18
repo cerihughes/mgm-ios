@@ -8,6 +8,7 @@
 
 #import "MGMEvent.h"
 
+#import "NSManagedObjectContext+Debug.h"
 #import "MGMEvent+Relationships.h"
 
 #define SPOTIFY_PLAYLIST_URI_PATTERN @"spotify:user:%@:playlist:%@"
@@ -41,7 +42,7 @@
 - (MGMAlbum*) fetchClassicAlbum
 {
     __block MGMAlbum* result;
-    [self.managedObjectContext performBlockAndWait:^
+    [self.managedObjectContext debugPerformBlockAndWait:^
     {
         result = self.classicAlbum;
     }];
@@ -51,11 +52,27 @@
 - (MGMAlbum*) fetchNewlyReleasedAlbum
 {
     __block MGMAlbum* result;
-    [self.managedObjectContext performBlockAndWait:^
+    [self.managedObjectContext debugPerformBlockAndWait:^
     {
         result = self.newlyReleasedAlbum;
     }];
     return result;
+}
+
+- (void) persistClassicAlbum:(MGMAlbum*)album
+{
+    [self.managedObjectContext debugPerformBlockAndWait:^
+    {
+        self.classicAlbum = album;
+    }];
+}
+
+- (void) persistNewlyReleasedAlbum:(MGMAlbum*)album
+{
+    [self.managedObjectContext debugPerformBlockAndWait:^
+    {
+        self.newlyReleasedAlbum = album;
+    }];
 }
 
 @end
