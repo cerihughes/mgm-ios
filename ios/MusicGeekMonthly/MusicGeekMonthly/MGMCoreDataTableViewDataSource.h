@@ -12,6 +12,7 @@
 @interface MGMCoreDataTableViewDataSource : NSObject <UITableViewDataSource>
 
 @property (strong) NSFetchedResultsController* fetchedResultsController;
+@property (readonly) NSString* cellId;
 
 - (id) initWithCellId:(NSString*)cellId;
 

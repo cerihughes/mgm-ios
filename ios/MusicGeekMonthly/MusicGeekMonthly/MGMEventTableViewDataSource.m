@@ -9,14 +9,21 @@
 #import "MGMEventTableViewDataSource.h"
 
 #import "MGMEvent.h"
+#import "MGMEventTableCell.h"
 #import "MGMImageHelper.h"
 
 @implementation MGMEventTableViewDataSource
 
 - (UITableViewCell*) tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    MGMEvent* event = [super.fetchedResultsController objectAtIndexPath:indexPath];
+    MGMEventTableCell* cell = (MGMEventTableCell*) [tableView dequeueReusableCellWithIdentifier:self.cellId];
+    if (cell == nil)
+    {
+        cell = [[MGMEventTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.cellId];
+    }
+
+    MGMEvent* event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.eventTextLabel.text = event.groupValue;
 
     MGMAlbum* classicAlbum = event.classicAlbum;
     if ([classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
@@ -28,19 +35,40 @@
                 dispatch_async(dispatch_get_main_queue(), ^
                 {
                     // ... but update the UI in the main thread...
-                    [self addAlbumImage:updatedAlbum toCell:cell];
+                    [self addAlbumImage:updatedAlbum toCell:cell.classicAlbumImageView];
                 });
             }
          }];
     }
     else
     {
-        [self addAlbumImage:classicAlbum toCell:cell];
+        [self addAlbumImage:classicAlbum toCell:cell.classicAlbumImageView];
     }
+
+    MGMAlbum* newlyReleaseAlbum = event.newlyReleasedAlbum;
+    if ([newlyReleaseAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
+    {
+        [self.lastFmDao updateAlbumInfo:newlyReleaseAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
+        {
+            if (updateError == nil)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    // ... but update the UI in the main thread...
+                    [self addAlbumImage:updatedAlbum toCell:cell.newlyReleasedAlbumImageView];
+                });
+            }
+        }];
+    }
+    else
+    {
+        [self addAlbumImage:newlyReleaseAlbum toCell:cell.newlyReleasedAlbumImageView];
+    }
+
     return cell;
 }
 
-- (void) addAlbumImage:(MGMAlbum*)album toCell:(UITableViewCell*)cell
+- (void) addAlbumImage:(MGMAlbum*)album toCell:(UIImageView*)imageView
 {
     NSString* albumArtUri = [album bestTableImageUrl];
     if (albumArtUri)
@@ -49,17 +77,17 @@
         {
             if (error == nil)
             {
-                cell.imageView.image = image;
+                imageView.image = image;
             }
             else
             {
-                cell.imageView.image = [UIImage imageNamed:@"album1.png"];
+                imageView.image = [UIImage imageNamed:@"album1.png"];
             }
         }];
     }
     else
     {
-        cell.imageView.image = [UIImage imageNamed:@"album1.png"];
+        imageView.image = [UIImage imageNamed:@"album1.png"];
     }
 }
 

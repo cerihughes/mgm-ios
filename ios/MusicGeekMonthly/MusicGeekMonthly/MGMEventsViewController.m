@@ -31,6 +31,9 @@
 {
     [super viewDidLoad];
 
+    UINib* tableCellNib = [UINib nibWithNibName:@"MGMEventTableCell" bundle:nil];
+    [self.eventsTable registerNib:tableCellNib forCellReuseIdentifier:CELL_ID];
+
     NSFetchedResultsController* fetchedResultsController = [self.core.daoFactory.coreDataDao createEventsFetchedResultsController];
     self.dataSource = [[MGMEventTableViewDataSource alloc] initWithCellId:CELL_ID];
     self.dataSource.fetchedResultsController = fetchedResultsController;

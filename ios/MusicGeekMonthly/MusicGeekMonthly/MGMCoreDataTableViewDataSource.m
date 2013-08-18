@@ -11,7 +11,7 @@
 
 @interface MGMCoreDataTableViewDataSource ()
 
-@property (strong) NSString* cellId;
+@property (strong) NSString* internalCellId;
 
 @end
 
@@ -21,9 +21,14 @@
 {
     if (self = [super init])
     {
-        self.cellId = cellId;
+        self.internalCellId = cellId;
     }
     return self;
+}
+
+- (NSString*) cellId
+{
+    return self.internalCellId;
 }
 
 #pragma mark -
@@ -62,10 +67,10 @@
 
 - (UITableViewCell*) tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.cellId];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.internalCellId];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.cellId];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.internalCellId];
     }
 
     id<MGMRenderable> renderable = [self.fetchedResultsController objectAtIndexPath:indexPath];
