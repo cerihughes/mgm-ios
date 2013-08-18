@@ -179,10 +179,7 @@
             return;
         }
 
-        if (album)
-        {
-            chartEntry.album = album;
-        }
+        chartEntry.album = album;
     }
 
     [self commitChanges:error];
@@ -232,7 +229,6 @@
 
 - (MGMAlbum*) persistAlbumDto:(MGMAlbumDto*)albumDto error:(NSError**)error
 {
-    BOOL created = NO;
     MGMAlbum* album = [self fetchAlbumWithMbid:albumDto.albumMbid error:error];
     if (error && *error != nil)
     {
@@ -243,7 +239,6 @@
     {
         album = [self createNewAlbum];
         album.albumMbid = albumDto.albumMbid;
-        created = YES;
     }
 
     album.artistName = albumDto.artistName;
@@ -262,7 +257,7 @@
         return nil;
     }
 
-    return created ? album : nil;
+    return album;
 }
 
 - (MGMAlbum*) createNewAlbum
@@ -440,10 +435,7 @@
             return;
         }
 
-        if (classicAlbum)
-        {
-            event.classicAlbum = classicAlbum;
-        }
+        event.classicAlbum = classicAlbum;
 
         MGMAlbumDto* newlyReleaseAlbumDto = eventDto.newlyReleasedAlbum;
         MGMAlbum* newlyReleasedAlbum = [self persistAlbumDto:newlyReleaseAlbumDto error:error];
@@ -453,10 +445,7 @@
             return;
         }
 
-        if (newlyReleasedAlbum)
-        {
-            event.newlyReleasedAlbum = newlyReleasedAlbum;
-        }
+        event.newlyReleasedAlbum = newlyReleasedAlbum;
     }
 
     [self commitChanges:error];

@@ -98,12 +98,18 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
         {
             // Search in a background thread...
-            [self.core.daoFactory.lastFmDao fetchLatestTimePeriod:^(MGMTimePeriod* fetchedTimePeriod, NSError* timePeriodFetchError)
+            [self.core.daoFactory.lastFmDao fetchAllTimePeriods:^(NSArray* fetchedTimePeriods, NSError* timePeriodFetchError)
             {
                 if (timePeriodFetchError)
                 {
                     [self handleError:timePeriodFetchError];
                     return;
+                }
+
+                MGMTimePeriod* fetchedTimePeriod = nil;
+                if (fetchedTimePeriods.count > 0)
+                {
+                    fetchedTimePeriod = [fetchedTimePeriods objectAtIndex:0];
                 }
 
                 [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:fetchedTimePeriod.startDate endDate:fetchedTimePeriod.endDate completion:^(MGMWeeklyChart* fetchedWeeklyChart, NSError* weeklyChartFetchError)

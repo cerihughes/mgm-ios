@@ -27,6 +27,11 @@
 #define IMAGE_SIZE_EXTRA_LARGE @"extralarge"
 #define IMAGE_SIZE_MEGA @"mega"
 
+#define FAKE_MBID_PREPEND @"[MGMFAKEMBID]"
+
+#define REFRESH_IDENTIFIER_ALL_TIME_PERIODS @"REFRESH_IDENTIFIER_ALL_TIME_PERIODS"
+#define REFRESH_IDENTIFIER_WEEKLY_CHART @"REFRESH_IDENTIFIER_WEEKLY_CHART_%d_%d"
+
 @interface MGMLastFmDao ()
 
 @property (strong) NSArray* sizeStrings;
@@ -49,6 +54,26 @@
 
 - (void) fetchAllTimePeriods:(FETCH_MANY_COMPLETION)completion
 {
+    // TODO : THIS CAN ALL BE REFACTORED
+    if ([self needsUrlRefresh:REFRESH_IDENTIFIER_ALL_TIME_PERIODS])
+    {
+        [self urlFetchAllTimePeriods:^(NSArray* events, NSError* error)
+        {
+            if (error == nil)
+            {
+                [self setNextUrlRefresh:REFRESH_IDENTIFIER_ALL_TIME_PERIODS inDays:1];
+            }
+            completion(events, error);
+        }];
+    }
+    else
+    {
+        [self cdFetchAllTimePeriods:completion];
+    }
+}
+
+- (void) urlFetchAllTimePeriods:(FETCH_MANY_COMPLETION)completion
+{
     NSString* urlString = [NSString stringWithFormat:WEEKLY_PERIODS_URL, GROUP_NAME, API_KEY];
     NSData* jsonData = [self contentsOfUrl:urlString];
     if (jsonData)
@@ -62,7 +87,7 @@
             {
                 if (persistError == nil)
                 {
-                    [self.coreDataDao fetchAllTimePeriods:completion];
+                    [self cdFetchAllTimePeriods:completion];
                 }
                 else
                 {
@@ -77,17 +102,9 @@
     }
 }
 
-- (void) fetchLatestTimePeriod:(FETCH_COMPLETION)completion
+- (void) cdFetchAllTimePeriods:(FETCH_MANY_COMPLETION)completion
 {
-    [self fetchAllTimePeriods:^(NSArray* array, NSError* error)
-    {
-        MGMTimePeriod* timePeriod = nil;
-        if (error == nil && (array.count > 0))
-        {
-            timePeriod = [array objectAtIndex:0];
-        }
-        completion(timePeriod, error);
-    }];
+    [self.coreDataDao fetchAllTimePeriods:completion];
 }
 
 - (NSArray*) timePeriodsForJson:(NSDictionary*)json
@@ -126,6 +143,31 @@
 
 - (void) fetchWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(FETCH_COMPLETION)completion
 {
+    // TODO : THIS CAN ALL BE REFACTORED
+    NSUInteger from = startDate.timeIntervalSince1970;
+    NSUInteger to = endDate.timeIntervalSince1970;
+    NSString* identifier = [NSString stringWithFormat:REFRESH_IDENTIFIER_WEEKLY_CHART, from, to];
+
+    if ([self needsUrlRefresh:identifier])
+    {
+        [self urlFetchWeeklyChartForStartDate:startDate endDate:endDate completion:^(MGMWeeklyChart* weeklyChart, NSError* error)
+        {
+            if (error == nil)
+            {
+                [self setNextUrlRefresh:identifier inDays:21];
+            }
+            completion(weeklyChart, error);
+        }];
+    }
+    else
+    {
+        [self cdFetchWeeklyChartForStartDate:startDate endDate:endDate completion:completion];
+    }
+
+}
+
+- (void) urlFetchWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(FETCH_COMPLETION)completion
+{
     NSUInteger from = startDate.timeIntervalSince1970;
     NSUInteger to = endDate.timeIntervalSince1970;
     NSString* urlString = [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, from, to, API_KEY];
@@ -154,7 +196,7 @@
             {
                 if (persistError == nil)
                 {
-                    [self.coreDataDao fetchWeeklyChartWithStartDate:startDate endDate:endDate completion:completion];
+                    [self cdFetchWeeklyChartForStartDate:startDate endDate:endDate completion:completion];
                 }
                 else
                 {
@@ -167,6 +209,11 @@
             completion(nil, jsonError);
         }
     }
+}
+
+- (void) cdFetchWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(FETCH_COMPLETION)completion
+{
+    [self.coreDataDao fetchWeeklyChartWithStartDate:startDate endDate:endDate completion:completion];
 }
 
 - (MGMChartEntryDto*) chartEntryForJson:(NSDictionary*)json
@@ -191,6 +238,11 @@
     NSString* artistName = [artist objectForKey:@"#text"];
     NSString* albumName = [json objectForKey:@"name"];
 
+    if (mbid.length == 0)
+    {
+        mbid = [NSString stringWithFormat:@"%@[%@][%@]", FAKE_MBID_PREPEND, artistName, albumName];
+    }
+
     MGMAlbumDto* album = [[MGMAlbumDto alloc] init];
     album.albumMbid = mbid;
     album.artistName = artistName;
@@ -201,31 +253,44 @@
 
 - (void) updateAlbumInfo:(MGMAlbum*)album completion:(FETCH_COMPLETION)completion
 {
-    NSString* urlString = [NSString stringWithFormat:ALBUM_INFO_URL, API_KEY, album.albumMbid];
-    NSData* jsonData = [self contentsOfUrl:urlString];
-    if (jsonData)
+    NSString* mbid = album.albumMbid;
+    if ([mbid hasPrefix:FAKE_MBID_PREPEND])
     {
-        NSError* jsonError = nil;
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
-        if (jsonError == nil)
+        // Can't yet get info on fake mbids - just mark are searched.
+        [self.coreDataDao addImageUris:[NSArray array] toAlbumWithMbid:mbid updateServiceType:MGMAlbumServiceTypeLastFm completion:^(NSError* updateError)
         {
-            NSArray* imageUriDtos = [self imageUrisForJson:json];
-            [self.coreDataDao addImageUris:imageUriDtos toAlbumWithMbid:album.albumMbid updateServiceType:MGMAlbumServiceTypeLastFm completion:^(NSError* updateError)
+            completion(album, updateError);
+        }];
+    }
+    else
+    {
+        NSString* urlString = [NSString stringWithFormat:ALBUM_INFO_URL, API_KEY, mbid];
+        NSData* jsonData = [self contentsOfUrl:urlString];
+        if (jsonData)
+        {
+            NSError* jsonError = nil;
+            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
+            if (jsonError == nil)
             {
-                if (updateError == nil)
+                NSArray* imageUriDtos = [self imageUrisForJson:json];
+                [self.coreDataDao addImageUris:imageUriDtos toAlbumWithMbid:mbid updateServiceType:MGMAlbumServiceTypeLastFm completion:^(NSError* updateError)
                 {
-                    [self.coreDataDao fetchAlbumWithMbid:album.albumMbid completion:completion];
-                }
-                else
-                {
-                    completion(nil, updateError);
-                }
-            }];
+                    if (updateError == nil)
+                    {
+                        [self.coreDataDao fetchAlbumWithMbid:mbid completion:completion];
+                    }
+                    else
+                    {
+                        completion(nil, updateError);
+                    }
+                }];
+            }
+            else
+            {
+                completion(nil, jsonError);
+            }
         }
-        else
-        {
-            completion(nil, jsonError);
-        }
+
     }
 }
 
