@@ -110,6 +110,9 @@
 		65E53CF41785D27D001ECA79 /* button_blank_gray_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CF01785D27D001ECA79 /* button_blank_gray_01.png */; };
 		65E53CF51785D27D001ECA79 /* button_blank_red_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CF11785D27D001ECA79 /* button_blank_red_01.png */; };
 		65E53CF61785D27D001ECA79 /* button_blank_yellow_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CF21785D27D001ECA79 /* button_blank_yellow_01.png */; };
+		65E79B0517C2431D008CCDA3 /* MGMReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E79B0417C2431D008CCDA3 /* MGMReachabilityManager.m */; };
+		65E79B0617C2431D008CCDA3 /* MGMReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E79B0417C2431D008CCDA3 /* MGMReachabilityManager.m */; };
+		65E79B0817C2444C008CCDA3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */; };
 		65E8110617ACFF2100FCBC9F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E8110217ACFF2100FCBC9F /* libTestFlight.a */; };
 		65E8110717ACFF2100FCBC9F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 65E8110317ACFF2100FCBC9F /* README.md */; };
 		65E8110817ACFF2100FCBC9F /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 65E8110417ACFF2100FCBC9F /* release_notes.md */; };
@@ -263,6 +266,9 @@
 		65E53CF01785D27D001ECA79 /* button_blank_gray_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blank_gray_01.png; path = MusicGeekMonthly/button_blank_gray_01.png; sourceTree = "<group>"; };
 		65E53CF11785D27D001ECA79 /* button_blank_red_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blank_red_01.png; path = MusicGeekMonthly/button_blank_red_01.png; sourceTree = "<group>"; };
 		65E53CF21785D27D001ECA79 /* button_blank_yellow_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blank_yellow_01.png; path = MusicGeekMonthly/button_blank_yellow_01.png; sourceTree = "<group>"; };
+		65E79B0317C2431D008CCDA3 /* MGMReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMReachabilityManager.h; sourceTree = "<group>"; };
+		65E79B0417C2431D008CCDA3 /* MGMReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMReachabilityManager.m; sourceTree = "<group>"; };
+		65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		65E8110217ACFF2100FCBC9F /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		65E8110317ACFF2100FCBC9F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		65E8110417ACFF2100FCBC9F /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
@@ -303,6 +309,7 @@
 				65E975B417B6B43400CF53B2 /* CoreData.framework in Frameworks */,
 				659F9F46175B928E000C413B /* CoreGraphics.framework in Frameworks */,
 				659F9F44175B928E000C413B /* Foundation.framework in Frameworks */,
+				65E79B0817C2444C008CCDA3 /* SystemConfiguration.framework in Frameworks */,
 				659F9F42175B928E000C413B /* UIKit.framework in Frameworks */,
 				65E8110617ACFF2100FCBC9F /* libTestFlight.a in Frameworks */,
 				65E8110A17AD014800FCBC9F /* libz.dylib in Frameworks */,
@@ -396,6 +403,8 @@
 			children = (
 				653B6BBF175FDB4B005D372C /* MGMCore.h */,
 				653B6BC0175FDB4B005D372C /* MGMCore.m */,
+				65E79B0317C2431D008CCDA3 /* MGMReachabilityManager.h */,
+				65E79B0417C2431D008CCDA3 /* MGMReachabilityManager.m */,
 				65BA8A2A17A434EF0054966B /* MGMURLCache.h */,
 				65BA8A2B17A434EF0054966B /* MGMURLCache.m */,
 				652FD00317722BFC00CF5F89 /* MGMGridManager.h */,
@@ -513,6 +522,7 @@
 		659F9F35175B928E000C413B = {
 			isa = PBXGroup;
 			children = (
+				65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */,
 				65E8110017ACFF2100FCBC9F /* Libraries */,
 				65D451451764F54C00374C5F /* Resources */,
 				659F9F47175B928E000C413B /* MusicGeekMonthly */,
@@ -834,6 +844,7 @@
 				65B782F017C1451C00608B3E /* MGMCoreDataTableViewDataSource.m in Sources */,
 				65B782F417C1525D00608B3E /* MGMEventTableViewDataSource.m in Sources */,
 				65B782F917C155CE00608B3E /* MGMEventTableCell.m in Sources */,
+				65E79B0517C2431D008CCDA3 /* MGMReachabilityManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -873,6 +884,7 @@
 				650B7BC417BEC03500B14305 /* MGMCoreDataDaoSync.m in Sources */,
 				65DF2BA117BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */,
 				65FAB9DF17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */,
+				65E79B0617C2431D008CCDA3 /* MGMReachabilityManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
