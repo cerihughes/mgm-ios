@@ -8,7 +8,23 @@
 
 #import "MGMHttpDao.h"
 
+@interface MGMHttpDao ()
+
+@property (strong) NSDateFormatter* jsonDateFormatter;
+
+@end
+
 @implementation MGMHttpDao
+
+- (id) initWithCoreDataDao:(MGMCoreDataDao *)coreDataDao
+{
+    if (self = [super initWithCoreDataDao:coreDataDao])
+    {
+        self.jsonDateFormatter = [[NSDateFormatter alloc] init];
+        self.jsonDateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    }
+    return self;
+}
 
 - (BOOL) needsUrlRefresh:(NSString*)identifier
 {
@@ -40,12 +56,12 @@
     }];
 }
 
-- (NSData*) contentsOfUrl:(NSString*)url
+- (NSData*) contentsOfUrl:(NSString*)url error:(NSError**)error
 {
-    return [self contentsOfUrl:url withHttpHeaders:nil];
+    return [self contentsOfUrl:url withHttpHeaders:nil error:error];
 }
 
-- (NSData*) contentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers
+- (NSData*) contentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers error:(NSError**)error
 {
     NSString* encodedUrl = [url stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:encodedUrl] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
@@ -55,15 +71,15 @@
         [request addValue:obj forHTTPHeaderField:key];
     }];
 
-    NSError *requestError;
     NSURLResponse *urlResponse = nil;
-    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:error];
     NSLog(@"[%@] = [%@]", url, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-    if (requestError == nil)
-    {
-        return data;
-    }
-    return nil;
+    return data;
+}
+
+- (NSDate*) dateForJsonString:(NSString *)jsonString
+{
+    return [self.jsonDateFormatter dateFromString:jsonString];
 }
 
 @end

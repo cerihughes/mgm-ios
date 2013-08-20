@@ -11,6 +11,8 @@
 
 @interface MGMCoreDataAwareDao : MGMDao
 
-@property (weak) MGMCoreDataDao* coreDataDao;
+@property (readonly) MGMCoreDataDao* coreDataDao;
+
+- (id) initWithCoreDataDao:(MGMCoreDataDao*)coreDataDao;
 
 @end

@@ -8,6 +8,26 @@
 
 #import "MGMCoreDataAwareDao.h"
 
+@interface MGMCoreDataAwareDao ()
+
+@property (strong) MGMCoreDataDao* internalCoreDataDao;
+
+@end
+
 @implementation MGMCoreDataAwareDao
+
+- (id) initWithCoreDataDao:(MGMCoreDataDao*)coreDataDao
+{
+    if (self = [super init])
+    {
+        self.internalCoreDataDao = coreDataDao;
+    }
+    return self;
+}
+
+- (MGMCoreDataDao*) coreDataDao
+{
+    return self.internalCoreDataDao;
+}
 
 @end

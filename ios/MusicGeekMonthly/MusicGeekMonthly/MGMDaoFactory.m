@@ -22,13 +22,9 @@
 - (void) createInstances
 {
     self.coreDataDao = [[MGMCoreDataDao alloc] init];
-    self.lastFmDao = [[MGMLastFmDao alloc] init];
-    self.spotifyDao = [[MGMSpotifyDao alloc] init];
-    self.eventsDao = [[MGMEventsDao alloc] init];
-
-    self.lastFmDao.coreDataDao = self.coreDataDao;
-    self.spotifyDao.coreDataDao = self.coreDataDao;
-    self.eventsDao.coreDataDao = self.coreDataDao;
+    self.lastFmDao = [[MGMLastFmDao alloc] initWithCoreDataDao:self.coreDataDao];
+    self.spotifyDao = [[MGMSpotifyDao alloc] initWithCoreDataDao:self.coreDataDao];
+    self.eventsDao = [[MGMEventsDao alloc] initWithCoreDataDao:self.coreDataDao];
 }
 
 - (MGMAlbumMetadataDao*) metadataDaoForServiceType:(MGMAlbumServiceType)serviceType

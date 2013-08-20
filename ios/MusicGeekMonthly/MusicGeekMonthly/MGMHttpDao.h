@@ -13,7 +13,9 @@
 - (BOOL) needsUrlRefresh:(NSString*)identifier;
 - (void) setNextUrlRefresh:(NSString*)identifier inDays:(NSUInteger)days;
 
-- (NSData*) contentsOfUrl:(NSString*)url;
-- (NSData*) contentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers;
+- (NSData*) contentsOfUrl:(NSString*)url error:(NSError**)error;
+- (NSData*) contentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers error:(NSError**)error;
+
+- (NSDate*) dateForJsonString:(NSString*)jsonString;
 
 @end
