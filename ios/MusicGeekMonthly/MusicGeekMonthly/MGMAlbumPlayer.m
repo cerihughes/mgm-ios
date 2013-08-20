@@ -8,6 +8,7 @@
 
 #import "MGMAlbumPlayer.h"
 
+#define URI_PATTERN_NONE @"%@"
 #define URI_PATTERN_LASTFM @"http://www.youtube.com/watch?v=%@"
 #define URI_PATTERN_SPOTIFY @"spotify:album:%@"
 #define URI_PATTERN_WIKIPEDIA @"http://en.wikipedia.org/wiki/%@"
@@ -25,7 +26,7 @@
 {
     if (self = [super init])
     {
-        self.patterns = @[URI_PATTERN_LASTFM, URI_PATTERN_SPOTIFY, URI_PATTERN_WIKIPEDIA, URI_PATTERN_YOUTUBE];
+        self.patterns = @[URI_PATTERN_NONE, URI_PATTERN_LASTFM, URI_PATTERN_SPOTIFY, URI_PATTERN_WIKIPEDIA, URI_PATTERN_YOUTUBE];
     }
     return self;
 }

@@ -147,7 +147,8 @@ static NSDictionary* acceptJson;
 
 - (void) coreDataFetchWithData:(id)data completion:(FETCH_COMPLETION)completion
 {
-    [self.coreDataDao fetchAlbumWithMbid:data completion:completion];
+    MGMAlbum* album = data;
+    [self.coreDataDao fetchAlbumWithMbid:album.albumMbid completion:completion];
 }
 
 @end

@@ -27,9 +27,9 @@
 {
     if (self = [super initWithCoreDataDao:coreDataDao])
     {
-        self.fetchAlbumImageUrlsOperation = [[MGMFetchAlbumImageUrlsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:1];
+        self.fetchAlbumImageUrlsOperation = [[MGMFetchAlbumImageUrlsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:0];
         self.fetchAllTimePeriodsOperation = [[MGMFetchAllTimePeriodsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:1];
-        self.fetchWeeklyChartOperation = [[MGMFetchWeeklyChartOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:1];
+        self.fetchWeeklyChartOperation = [[MGMFetchWeeklyChartOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:21];
     }
     return self;
 }

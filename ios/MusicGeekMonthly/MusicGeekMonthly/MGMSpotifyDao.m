@@ -22,7 +22,7 @@
 {
     if (self = [super initWithCoreDataDao:coreDataDao])
     {
-        self.fetchSpotifyAlbumMetadataOperation = [[MGMFetchSpotifyAlbumMetadataOperation alloc] init];
+        self.fetchSpotifyAlbumMetadataOperation = [[MGMFetchSpotifyAlbumMetadataOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:0];
     }
     return self;
 }

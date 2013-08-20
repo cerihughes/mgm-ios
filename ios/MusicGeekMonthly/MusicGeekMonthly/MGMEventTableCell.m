@@ -12,14 +12,23 @@
 
 - (void) layoutSubviews
 {
-    CGFloat image1X = self.classicAlbumImageView.frame.origin.x;
-    CGFloat imageHeight = self.frame.size.height;
+    CGFloat image1X = 20;
 
-    CGRect image1Frame = CGRectMake(image1X, 0, imageHeight, imageHeight);
+    CGSize parentSize = self.frame.size;
+    CGFloat parentWidth = parentSize.width;
+    CGFloat parentHeight = parentSize.height;
+
+    CGFloat imageHeight = parentHeight - 4;
+
+    CGRect image1Frame = CGRectMake(image1X, 2, imageHeight, imageHeight);
     CGRect image2Frame = CGRectOffset(image1Frame, imageHeight + 4, 0);
+    CGRect labelFrame = CGRectOffset(image2Frame, imageHeight + 4, 0);
+
+    labelFrame.size.width = parentWidth - (image1X + (2 * imageHeight + 4));
 
     self.classicAlbumImageView.frame = image1Frame;
     self.newlyReleasedAlbumImageView.frame = image2Frame;
+    self.eventTextLabel.frame = labelFrame;
 }
 
 @end
