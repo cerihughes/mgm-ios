@@ -27,6 +27,8 @@
     {
         [self setupCore];
         [self setupControllers];
+        self.albumPlayer = [[MGMAlbumPlayer alloc] init];
+        self.albumPlayer.daoFactory = self.core.daoFactory;
     }
     return self;
 }
@@ -144,7 +146,7 @@
 - (void) albumSelected:(MGMAlbum*)album
 {
     NSError* error = nil;
-    [self.core.albumPlayer playAlbum:album onService:MGMAlbumServiceTypeSpotify completion:^(NSError* updateError)
+    [self.albumPlayer playAlbum:album onService:MGMAlbumServiceTypeSpotify completion:^(NSError* updateError)
     {
         if (error != nil)
         {
