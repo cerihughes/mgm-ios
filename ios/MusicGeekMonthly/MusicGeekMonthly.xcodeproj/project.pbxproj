@@ -78,6 +78,8 @@
 		659F9F60175B928E000C413B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F5F175B928E000C413B /* SenTestingKit.framework */; };
 		659F9F62175B928E000C413B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F43175B928E000C413B /* Foundation.framework */; };
 		659F9F6A175B928E000C413B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F68175B928E000C413B /* InfoPlist.strings */; };
+		65B7000017C4AAFC00D4173C /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EB123217C3FB66008EE886 /* libTestFlight.a */; };
+		65B7000117C4AB9800D4173C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */; };
 		65B782F017C1451C00608B3E /* MGMCoreDataTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B782EF17C1451C00608B3E /* MGMCoreDataTableViewDataSource.m */; };
 		65B782F417C1525D00608B3E /* MGMEventTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B782F317C1525D00608B3E /* MGMEventTableViewDataSource.m */; };
 		65B782F617C1552D00608B3E /* MGMEventTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65B782F517C1552D00608B3E /* MGMEventTableCell.xib */; };
@@ -138,7 +140,6 @@
 		65ECD8FB17AC2F4300701A00 /* MGMHomeViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65ECD8FA17AC2F4300701A00 /* MGMHomeViewController~iphone.xib */; };
 		65ECD90117AC3B2F00701A00 /* MGMAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */; };
 		65ECD90417AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */; };
-		65ECD90517AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */; };
 		65FAB9DE17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */; };
 		65FAB9DF17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */; };
 /* End PBXBuildFile section */
@@ -340,8 +341,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				65936A0A17BCB2840070A9C6 /* CoreData.framework in Frameworks */,
-				659F9F60175B928E000C413B /* SenTestingKit.framework in Frameworks */,
 				659F9F62175B928E000C413B /* Foundation.framework in Frameworks */,
+				659F9F60175B928E000C413B /* SenTestingKit.framework in Frameworks */,
+				65B7000117C4AB9800D4173C /* SystemConfiguration.framework in Frameworks */,
+				65B7000017C4AAFC00D4173C /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,7 +905,6 @@
 				65BEAEF917BE212A00796D93 /* MGMCore.m in Sources */,
 				65BEAEFA17BE212E00796D93 /* MGMURLCache.m in Sources */,
 				652FD00617722BFC00CF5F89 /* MGMGridManager.m in Sources */,
-				65ECD90517AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */,
 				65BEAEFB17BE214B00796D93 /* MGMDaoFactory.m in Sources */,
 				6508CB1B176BB05700594244 /* MGMDao.m in Sources */,
 				65BEAEFC17BE215200796D93 /* MGMHttpDao.m in Sources */,
@@ -1075,8 +1077,12 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusicGeekMonthly/MusicGeekMonthly-Prefix.pch";
+				HEADER_SEARCH_PATHS = MusicGeekMonthly/Libraries/TestFlightSDK2.0.0;
 				INFOPLIST_FILE = "MusicGeekMonthlyTests/MusicGeekMonthlyTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.0.0\"",
+				);
 				PRODUCT_NAME = MusicGeekMonthlyTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -1093,8 +1099,12 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusicGeekMonthly/MusicGeekMonthly-Prefix.pch";
+				HEADER_SEARCH_PATHS = MusicGeekMonthly/Libraries/TestFlightSDK2.0.0;
 				INFOPLIST_FILE = "MusicGeekMonthlyTests/MusicGeekMonthlyTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.0.0\"",
+				);
 				PRODUCT_NAME = MusicGeekMonthlyTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
