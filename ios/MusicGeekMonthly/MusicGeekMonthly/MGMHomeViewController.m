@@ -12,6 +12,7 @@
 #import "MGMBackgroundAlbumArtFetcher.h"
 #import "MGMEvent.h"
 #import "MGMPulsatingAlbumsView.h"
+#import "NSMutableArray+Shuffling.h"
 
 @interface MGMHomeViewController () <MGMBackgroundAlbumArtFetcherDelegate>
 
@@ -43,32 +44,37 @@
     [super viewDidLoad];
     
     [self.albumsView setupAlbumsInRow:4];
-
-    [self.core.daoFactory.eventsDao fetchAllEvents:^(NSArray* fetchedEvents, NSError* fetchError)
-    {
-        if (fetchError)
-        {
-            [self handleError:fetchError];
-            return;
-        }
-
-        if (fetchedEvents.count > 0)
-        {
-            self.event = [fetchedEvents objectAtIndex:0];
-        }
-
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
-            // ... but update the UI in the main thread...
-            [self displayEvent:self.event];
-        });
-    }];
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self loadImages];
+
+    if (self.event == nil)
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+        {
+            // Search in a background thread...
+            [self.core.daoFactory.eventsDao fetchAllEvents:^(NSArray* fetchedEvents, NSError* fetchError)
+            {
+                if (fetchError)
+                {
+                    [self handleError:fetchError];
+                }
+
+                if (fetchedEvents.count > 0)
+                {
+                    self.event = [fetchedEvents objectAtIndex:0];
+                    dispatch_async(dispatch_get_main_queue(), ^
+                    {
+                        // ... update the UI in the main thread...
+                        [self displayEvent:self.event];
+                    });
+                }
+            }];
+        });
+    }
 }
 
 - (void) displayEvent:(MGMEvent*)event
@@ -103,44 +109,58 @@
                 if (timePeriodFetchError)
                 {
                     [self handleError:timePeriodFetchError];
-                    return;
                 }
 
                 MGMTimePeriod* fetchedTimePeriod = nil;
                 if (fetchedTimePeriods.count > 0)
                 {
                     fetchedTimePeriod = [fetchedTimePeriods objectAtIndex:0];
-                }
-
-                [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:fetchedTimePeriod.startDate endDate:fetchedTimePeriod.endDate completion:^(MGMWeeklyChart* fetchedWeeklyChart, NSError* weeklyChartFetchError)
-                {
-                    if (weeklyChartFetchError)
+                    [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:fetchedTimePeriod.startDate endDate:fetchedTimePeriod.endDate completion:^(MGMWeeklyChart* fetchedWeeklyChart, NSError* weeklyChartFetchError)
                     {
-                        [self handleError:weeklyChartFetchError];
-                        return;
-                    }
+                        if (weeklyChartFetchError)
+                        {
+                            [self handleError:weeklyChartFetchError];
+                        }
 
-                    self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithWeeklyChartMoid:fetchedWeeklyChart.objectID];
-                    self.artFetcher.daoFactory = self.core.daoFactory;
-                    self.artFetcher.delegate = self;
-                    [self renderImages];
-                }];
+                        if (fetchedWeeklyChart)
+                        {
+                            self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithWeeklyChartMoid:fetchedWeeklyChart.objectID];
+                            self.artFetcher.daoFactory = self.core.daoFactory;
+                            self.artFetcher.delegate = self;
+                            [self renderImages:YES];
+                        }
+                    }];
+                }
             }];
         }
         else
         {
-            [self renderImages];
+            [self renderImages:NO];
         }
     });
 }
 
-- (void) renderImages
+- (void) renderImages:(BOOL)initialRender
 {
-    for (int i = 0; i < self.albumsView.albumCount; i++)
+    NSArray* shuffledIndicies = [self shuffledIndicies:self.albumsView.albumCount];
+    NSTimeInterval sleepTime = initialRender ? 0.1 : 2.0;
+    for (NSUInteger i = 0; i < self.albumsView.albumCount; i++)
     {
-        [self.artFetcher generateImageAtIndex:i];
-        [NSThread sleepForTimeInterval:0.25];
+        NSNumber* index = [shuffledIndicies objectAtIndex:i];
+        [self.artFetcher generateImageAtIndex:[index integerValue]];
+        [NSThread sleepForTimeInterval:sleepTime];
     }
+}
+
+- (NSArray*) shuffledIndicies:(NSUInteger)size
+{
+    NSMutableArray* array = [NSMutableArray arrayWithCapacity:size];
+    for (NSUInteger i = 0; i < self.albumsView.albumCount; i++)
+    {
+        [array addObject:[NSNumber numberWithInteger:i]];
+    }
+    [array shuffle];
+    return [array copy];
 }
 
 - (IBAction) previousEventsPressed:(id)sender
