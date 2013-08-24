@@ -89,21 +89,26 @@
         self.title = timePeriod.groupValue;
     }
 
-    [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMWeeklyChart* weeklyChart, NSError* fetchError)
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        self.weeklyChart = weeklyChart;
-        if (fetchError)
+        [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMWeeklyChart* weeklyChart, NSError* fetchError)
         {
-            [self handleError:fetchError];
-            return;
-        }
+            if (fetchError)
+            {
+                [self handleError:fetchError];
+            }
 
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
-            // ... but update the UI in the main thread...
-            [self reloadData];
-        });
-    }];
+            if (weeklyChart)
+            {
+                self.weeklyChart = weeklyChart;
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    // ... but update the UI in the main thread...
+                    [self reloadData];
+                });
+            }
+        }];
+    });
 }
 
 - (void) reloadData
@@ -119,24 +124,15 @@
                 if (fetchError != nil)
                 {
                     [self handleError:fetchError];
-                    return;
                 }
 
-                // We need to get the updated chart entry that contains this album... Not sure I should be going directly to the core data dao here...
-                [self.core.daoFactory.coreDataDao fetchChartEntryWithWeeklyChart:self.weeklyChart rank:entry.rank completion:^(MGMChartEntry* updatedEntry, NSError* entryFetchError)
-                {
-                    if (entryFetchError != nil)
-                    {
-                        [self handleError:entryFetchError];
-                        return;
-                    }
+                entry.album = updatedAlbum;
 
-                    dispatch_async(dispatch_get_main_queue(), ^
-                    {
-                        // ... but update the UI in the main thread...
-                        [self renderChartEntry:updatedEntry];
-                    });
-                }];
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    // ... but update the UI in the main thread...
+                    [self renderChartEntry:entry];
+                });
             }];
         }
         else
