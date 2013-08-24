@@ -47,6 +47,7 @@
     self.alphaOff = 0.0;
     self.alphaOn = 1.0;
     self.animationTime = 1;
+    self.backgroundColor = [UIColor clearColor];
     
     CGSize parentSize = self.frame.size;
     CGRect frame = CGRectMake(0, 0, parentSize.width, parentSize.height);
