@@ -14,7 +14,6 @@
 @interface MGMUI : NSObject
 
 @property (retain) MGMCore* core;
-//@property (retain) MGMTransitionViewController* parentViewController;
 @property (retain) UIViewController* parentViewController;
 @property (strong) MGMAlbumPlayer* albumPlayer;
 

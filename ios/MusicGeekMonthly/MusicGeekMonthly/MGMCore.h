@@ -16,9 +16,4 @@
  */
 - (void) enteredForeground;
 
-/**
- * Notifies the core that it's been woken up for periodic processing when in suspended mode.
- */
-- (void) keepAlive;
-
 @end

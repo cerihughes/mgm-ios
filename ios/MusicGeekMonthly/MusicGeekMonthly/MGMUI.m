@@ -69,9 +69,6 @@
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
 
     self.parentViewController = navigationController;
-
-//    self.parentViewController = [[MGMTransitionViewController alloc] init];
-//    self.parentViewController.initialViewController = homeViewController;
 }
 
 - (void) transition:(NSString *)transition
@@ -90,15 +87,6 @@
 - (void) enteringBackground
 {
     [self.core enteringBackground];
-
-	if ([[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^
-    {
-		NSLog(@"Keepalive handler running.");
-		[self.core keepAlive];
-	}])
-    {
-		NSLog(@"Registered keepalive handler.");
-	}
 }
 
 - (void) enteredForeground

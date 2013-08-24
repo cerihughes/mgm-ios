@@ -31,8 +31,4 @@
 {
 }
 
-- (void) keepAlive
-{
-}
-
 @end

@@ -16,7 +16,6 @@
 @property (strong) IBOutlet UITableView* eventsTable;
 @property (strong) MGMEventTableViewDataSource* dataSource;
 @property (strong) IBOutlet UIWebView* playlistWebView;
-@property (strong) IBOutlet UIViewController* iPhone2ndController;
 
 @end
 
@@ -26,6 +25,28 @@
 
 #define EVENT_TITLE_PATTERN @"MGM#%@ %@"
 #define WEB_URL_PATTERN @"https://embed.spotify.com/?uri=%@"
+
+- (id) init
+{
+    if (self = [super initWithNibName:nil bundle:nil])
+    {
+        UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithTitle:@"More..." style:UIBarButtonItemStylePlain target:self action:@selector(barButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = item;
+    }
+    return self;
+}
+
+- (void) barButtonPressed:(id)sender
+{
+    if ([self isPresentingModally])
+    {
+        [self dismissModalPresentation];
+    }
+    else
+    {
+        [self presentViewModally:self.eventsTable sender:sender];
+    }
+}
 
 - (void) viewDidLoad
 {
@@ -54,13 +75,10 @@
     self.classicAlbumView.animationTime = 0.25;
     self.newlyReleasedAlbumView.animationTime = 0.25;
 
-    if (self.iPhone2ndController == nil)
-    {
-        // Only auto-populate on iPad...
-        NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-        [self.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-        [self tableView:self.eventsTable didSelectRowAtIndexPath:firstItem];
-    }
+    // Auto-populate for 1st entry...
+    NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
+    [self.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+    [self tableView:self.eventsTable didSelectRowAtIndexPath:firstItem];
 }
 
 - (void) displayEvent:(MGMEvent*)event
@@ -69,16 +87,7 @@
 
 	NSString* dateString = event.groupValue;
     NSString* newTitle = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
-
-    if (self.iPhone2ndController)
-    {
-        [self.navigationController pushViewController:self.iPhone2ndController animated:YES];
-        self.iPhone2ndController.title = newTitle;
-    }
-    else
-    {
-        self.title = newTitle;
-    }
+    self.title = newTitle;
 
     NSString* urlString = [NSString stringWithFormat:WEB_URL_PATTERN, event.spotifyHttpUrl];
     NSURL* url = [NSURL URLWithString:urlString];
@@ -91,6 +100,7 @@
 
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
+    [self dismissModalPresentation];
     MGMEvent* event = [self.dataSource.fetchedResultsController objectAtIndexPath:indexPath];
     [self displayEvent:event];
 }

@@ -13,6 +13,10 @@
 
 @property (weak) MGMUI* ui;
 
+- (void) presentViewModally:(UIView*)view sender:(id)sender;
+- (void) dismissModalPresentation;
+- (BOOL) isPresentingModally;
+
 - (void) transitionCompleteWithState:(id)state;
 
 - (void) handleError:(NSError*)error;

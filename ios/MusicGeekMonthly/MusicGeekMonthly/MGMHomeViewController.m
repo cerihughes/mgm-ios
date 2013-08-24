@@ -53,8 +53,8 @@
 
     if (self.event == nil)
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-        {
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+//        {
             // Search in a background thread...
             [self.core.daoFactory.eventsDao fetchAllEvents:^(NSArray* fetchedEvents, NSError* fetchError)
             {
@@ -73,7 +73,7 @@
                     });
                 }
             }];
-        });
+//        });
     }
 }
 

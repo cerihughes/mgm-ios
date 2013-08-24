@@ -6,13 +6,10 @@
 #import "MGMImageHelper.h"
 #import "MGMWeeklyChartAlbumsView.h"
 
-#define ALBUMS_IN_CHART 15
-
 @interface MGMWeeklyChartViewController () <MGMWeeklyChartAlbumsViewDelegate, UITableViewDelegate>
 
 @property (strong) IBOutlet UITableView* timePeriodTable;
 @property (strong) IBOutlet MGMWeeklyChartAlbumsView* albumsView;
-@property (strong) IBOutlet UIViewController* iPhone2ndController;
 
 @property (strong) MGMCoreDataTableViewDataSource* dataSource;
 @property (strong) MGMWeeklyChart* weeklyChart;
@@ -31,8 +28,23 @@
         self.dateFormatter = [[NSDateFormatter alloc] init];
         self.dateFormatter.dateStyle = NSDateFormatterMediumStyle;
         self.dateFormatter.timeStyle = NSDateFormatterNoStyle;
+
+        UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithTitle:@"More..." style:UIBarButtonItemStylePlain target:self action:@selector(barButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = item;
     }
     return self;
+}
+
+- (void) barButtonPressed:(id)sender
+{
+    if ([self isPresentingModally])
+    {
+        [self dismissModalPresentation];
+    }
+    else
+    {
+        [self presentViewModally:self.timePeriodTable sender:sender];
+    }
 }
 
 - (void) viewDidLoad
@@ -57,37 +69,28 @@
     [self.timePeriodTable reloadData];
 
     BOOL iPad = self.view.frame.size.width > 320;
-    NSUInteger rowCount = iPad ? 3 : 2;
+    NSUInteger rowCount = iPad ? 4 : 2;
+    NSUInteger columnCount = iPad ? 7 : 9;
+    NSUInteger albumCount = iPad ? 25 : 15;
     CGFloat albumSize = self.albumsView.frame.size.width / rowCount;
-    NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:15 size:albumSize count:15];
+    NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];
 
-    for (NSUInteger i = 0; i < ALBUMS_IN_CHART; i++)
+    for (NSUInteger i = 0; i < albumCount; i++)
     {
         NSValue* value = [gridData objectAtIndex:i];
         CGRect frame = [value CGRectValue];
         [self.albumsView setupAlbumFrame:frame forRank:i + 1];
     }
 
-    if (self.iPhone2ndController == nil)
-    {
-        // Only auto-populate on iPad...
-        NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-        [self.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-        [self tableView:self.timePeriodTable didSelectRowAtIndexPath:firstItem];
-    }
+    // Auto-populate for 1st entry...
+    NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
+    [self.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+    [self tableView:self.timePeriodTable didSelectRowAtIndexPath:firstItem];
 }
 
 - (void) loadAlbumsForPeriod:(MGMTimePeriod*)timePeriod
 {
-    if (self.iPhone2ndController)
-    {
-        [self.navigationController pushViewController:self.iPhone2ndController animated:YES];
-        self.iPhone2ndController.title = timePeriod.groupValue;
-    }
-    else
-    {
-        self.title = timePeriod.groupValue;
-    }
+    self.title = timePeriod.groupValue;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
@@ -178,6 +181,7 @@
 
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
+    [self dismissModalPresentation];
     MGMTimePeriod* timePeriod = [self.dataSource.fetchedResultsController objectAtIndexPath:indexPath];
     [self loadAlbumsForPeriod:timePeriod];
 }
