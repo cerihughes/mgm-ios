@@ -30,13 +30,14 @@
     NSString* refreshIdentifier = [self refreshIdentifierForData:data];
     if ([self needsUrlRefresh:refreshIdentifier])
     {
-        NSError* error = nil;
         NSString* url = [self urlForData:data];
-        NSData* jsonData = [self contentsOfUrl:url withHttpHeaders:[self httpHeaders] error:&error];
-        if (error == nil && jsonData)
+        NSError* urlFetchError = nil;
+        NSData* jsonData = [self contentsOfUrl:url withHttpHeaders:[self httpHeaders] error:&urlFetchError];
+        if (urlFetchError == nil && jsonData)
         {
-            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-            if (error == nil && json)
+            NSError* jsonError = nil;
+            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
+            if (jsonError == nil && json)
             {
                 [self convertJsonData:json forData:data completion:^(id urlData, NSError* convertError)
                 {
@@ -47,34 +48,46 @@
                             if (coreDataPersistError == nil)
                             {
                                 [self coreDataFetchWithData:data completion:completion];
+                                [self setNextUrlRefresh:refreshIdentifier inDays:self.daysBetweenUrlFetch];
                             }
                             else
                             {
-                                completion(nil, coreDataPersistError);
+                                [self coreDataFetchWithData:data existingError:coreDataPersistError completion:completion];
                             }
                         }];
-                        [self setNextUrlRefresh:refreshIdentifier inDays:self.daysBetweenUrlFetch];
                     }
                     else
                     {
-                        completion(nil, convertError);
+                        [self coreDataFetchWithData:data existingError:convertError completion:completion];
                     }
                 }];
             }
             else
             {
-                completion(nil, error);
+                [self coreDataFetchWithData:data existingError:jsonError completion:completion];
             }
         }
         else
         {
-            completion(nil, error);
+            [self coreDataFetchWithData:data existingError:urlFetchError completion:completion];
         }
     }
     else
     {
         [self coreDataFetchWithData:data completion:completion];
     }
+}
+
+- (void) coreDataFetchWithData:(id)data existingError:(NSError*)existingError completion:(FETCH_COMPLETION)completion
+{
+    [self coreDataFetchWithData:data completion:^(id coreData, NSError* fetchError)
+    {
+        if (fetchError == nil)
+        {
+            fetchError = existingError;
+        }
+        completion(coreData, fetchError);
+    }];
 }
 
 #pragma mark -
