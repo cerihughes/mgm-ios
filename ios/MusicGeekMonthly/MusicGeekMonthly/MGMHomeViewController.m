@@ -20,7 +20,7 @@
 @property (strong) IBOutlet UILabel* nextEventDateLabel;
 
 @property (strong) MGMBackgroundAlbumArtFetcher* artFetcher;
-@property (strong) MGMEvent* event;
+@property (strong) NSManagedObjectID* eventMoid;
 
 - (IBAction) previousEventsPressed:(id)sender;
 - (IBAction) chartsPressed:(id)sender;
@@ -51,10 +51,10 @@
     [super viewDidAppear:animated];
     [self loadImages];
 
-    if (self.event == nil)
+    if (self.eventMoid == nil)
     {
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-//        {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+        {
             // Search in a background thread...
             [self.core.daoFactory.eventsDao fetchAllEvents:^(NSArray* fetchedEvents, NSError* fetchError)
             {
@@ -65,16 +65,23 @@
 
                 if (fetchedEvents.count > 0)
                 {
-                    self.event = [fetchedEvents objectAtIndex:0];
+                    MGMEvent* event = [fetchedEvents objectAtIndex:0];
+                    self.eventMoid = event.objectID;
                     dispatch_async(dispatch_get_main_queue(), ^
                     {
                         // ... update the UI in the main thread...
-                        [self displayEvent:self.event];
+                        [self displayEventWithMoid:self.eventMoid];
                     });
                 }
             }];
-//        });
+        });
     }
+}
+
+- (void) displayEventWithMoid:(NSManagedObjectID*)eventMoid
+{
+    MGMEvent* event = [self.core.daoFactory.coreDataDao threadVersion:eventMoid];
+    [self displayEvent:event];
 }
 
 - (void) displayEvent:(MGMEvent*)event
@@ -124,7 +131,7 @@
 
                         if (fetchedWeeklyChart)
                         {
-                            self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithWeeklyChartMoid:fetchedWeeklyChart.objectID];
+                            self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithChartEntryMoids:[self chartEntryMoidsForWeeklyChart:fetchedWeeklyChart]];
                             self.artFetcher.daoFactory = self.core.daoFactory;
                             self.artFetcher.delegate = self;
                             [self renderImages:YES];
@@ -140,10 +147,20 @@
     });
 }
 
+- (NSArray*) chartEntryMoidsForWeeklyChart:(MGMWeeklyChart*)weeklyChart
+{
+    NSMutableArray* array = [NSMutableArray arrayWithCapacity:weeklyChart.chartEntries.count];
+    for (MGMChartEntry* entry in weeklyChart.chartEntries)
+    {
+        [array addObject:entry.objectID];
+    }
+    return [array copy];
+}
+
 - (void) renderImages:(BOOL)initialRender
 {
     NSArray* shuffledIndicies = [self shuffledIndicies:self.albumsView.albumCount];
-    NSTimeInterval sleepTime = initialRender ? 0.1 : 2.0;
+    NSTimeInterval sleepTime = initialRender ? 0.1 : 1.0;
     for (NSUInteger i = 0; i < self.albumsView.albumCount; i++)
     {
         NSNumber* index = [shuffledIndicies objectAtIndex:i];

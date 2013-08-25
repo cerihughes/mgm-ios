@@ -12,18 +12,18 @@
 
 @interface MGMBackgroundAlbumArtFetcher ()
 
-@property (strong) NSManagedObjectID* weeklyChartMoid;
+@property (strong) NSArray* chartEntryMoids;
 @property (strong) NSOperationQueue* operationQueue;
 
 @end
 
 @implementation MGMBackgroundAlbumArtFetcher
 
-- (id) initWithWeeklyChartMoid:(NSManagedObjectID*)weeklyChartMoid
+- (id) initWithChartEntryMoids:(NSArray*)chartEntryMoids
 {
     if (self = [super init])
     {
-        self.weeklyChartMoid = weeklyChartMoid;
+        self.chartEntryMoids = chartEntryMoids;
         self.operationQueue = [[NSOperationQueue alloc] init];
         self.operationQueue.maxConcurrentOperationCount = 5;
     }
@@ -46,10 +46,9 @@
     }
     else
     {
-        MGMWeeklyChart* chart = [self.daoFactory.coreDataDao threadVersion:self.weeklyChartMoid];
-        NSOrderedSet* entries = chart.chartEntries;
-        int randomIndex = arc4random() % (entries.count);
-        MGMChartEntry* randomEntry = [entries objectAtIndex:randomIndex];
+        int randomIndex = arc4random() % (self.chartEntryMoids.count);
+        NSManagedObjectID* moid = [self.chartEntryMoids objectAtIndex:randomIndex];
+        MGMChartEntry* randomEntry = [self.daoFactory.coreDataDao threadVersion:moid];
         MGMAlbum* randomAlbum = randomEntry.album;
         [self fetchBestAlbumImage:randomAlbum completion:^(UIImage* image, NSError* error)
         {

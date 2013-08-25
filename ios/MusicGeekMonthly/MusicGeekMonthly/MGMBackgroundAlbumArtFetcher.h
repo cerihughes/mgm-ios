@@ -25,7 +25,7 @@
 @property (weak) id<MGMBackgroundAlbumArtFetcherDelegate> delegate;
 @property (strong) MGMDaoFactory* daoFactory;
 
-- (id) initWithWeeklyChartMoid:(NSManagedObjectID*)weeklyChartMoid;
+- (id) initWithChartEntryMoids:(NSArray*)chartEntryMoids;
 - (void) generateImageAtIndex:(NSUInteger)index;
 
 @end

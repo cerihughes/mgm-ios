@@ -12,7 +12,7 @@
 @property (strong) IBOutlet MGMWeeklyChartAlbumsView* albumsView;
 
 @property (strong) MGMCoreDataTableViewDataSource* dataSource;
-@property (strong) MGMWeeklyChart* weeklyChart;
+@property (strong) NSManagedObjectID* weeklyChartMoid;
 @property (strong) NSDateFormatter* dateFormatter;
 
 @end
@@ -103,7 +103,7 @@
 
             if (weeklyChart)
             {
-                self.weeklyChart = weeklyChart;
+                self.weeklyChartMoid = weeklyChart.objectID;
                 dispatch_async(dispatch_get_main_queue(), ^
                 {
                     // ... but update the UI in the main thread...
@@ -116,7 +116,8 @@
 
 - (void) reloadData
 {
-    for (MGMChartEntry* entry in self.weeklyChart.chartEntries)
+    MGMWeeklyChart* weeklyChart = [self.core.daoFactory.coreDataDao threadVersion:self.weeklyChartMoid];
+    for (MGMChartEntry* entry in weeklyChart.chartEntries)
     {
         MGMAlbum* album = entry.album;
         [self.albumsView setActivityInProgress:YES forRank:entry.rank.intValue];
@@ -191,13 +192,15 @@
 
 - (void) albumPressedWithRank:(NSUInteger)rank
 {
-    MGMChartEntry* entry = [self.weeklyChart.chartEntries objectAtIndex:rank - 1];
+    MGMWeeklyChart* weeklyChart = [self.core.daoFactory.coreDataDao threadVersion:self.weeklyChartMoid];
+    MGMChartEntry* entry = [weeklyChart.chartEntries objectAtIndex:rank - 1];
     [self.albumSelectionDelegate albumSelected:entry.album];
 }
 
 - (void) detailPressedWithRank:(NSUInteger)rank
 {
-    MGMChartEntry* entry = [self.weeklyChart.chartEntries objectAtIndex:rank - 1];
+    MGMWeeklyChart* weeklyChart = [self.core.daoFactory.coreDataDao threadVersion:self.weeklyChartMoid];
+    MGMChartEntry* entry = [weeklyChart.chartEntries objectAtIndex:rank - 1];
     [self.albumSelectionDelegate detailSelected:entry.album];
 }
 
