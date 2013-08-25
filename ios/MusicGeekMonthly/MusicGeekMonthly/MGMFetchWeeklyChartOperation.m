@@ -47,21 +47,32 @@ static NSNumberFormatter* numberFormatter;
 
 - (void) convertJsonData:(NSDictionary*)json forData:(id)data completion:(FETCH_COMPLETION)completion
 {
-    MGMFetchWeeklyChartOperationData* fetchData = data;
-    MGMWeeklyChartDto* weeklyChart = [[MGMWeeklyChartDto alloc] init];
-    weeklyChart.startDate = fetchData.startDate;
-    weeklyChart.endDate = fetchData.endDate;
-
-    NSDictionary* weeklyalbumchart = [json objectForKey:@"weeklyalbumchart"];
-    NSArray* albums = [weeklyalbumchart objectForKey:@"album"];
-    NSUInteger cap = albums.count < MAX_CHART_ENTRIES ? albums.count : MAX_CHART_ENTRIES;
-    for (NSUInteger i = 0; i < cap; i++)
+    id errorValue = [json objectForKey:@"error"];
+    if (errorValue != nil)
     {
-        NSDictionary* album = [albums objectAtIndex:i];
-        MGMChartEntryDto* converted = [self chartEntryForJson:album];
-        [weeklyChart.chartEntries addObject:converted];
+        NSString* message = [json objectForKey:@"message"];
+        NSDictionary* userInfo = [NSDictionary dictionaryWithObject:message forKey:NSLocalizedDescriptionKey];
+        NSError* error = [NSError errorWithDomain:@"uk.co.cerihughes.mgm" code:200 userInfo:userInfo];
+        completion(nil, error);
     }
-    completion(weeklyChart, nil);
+    else
+    {
+        MGMFetchWeeklyChartOperationData* fetchData = data;
+        MGMWeeklyChartDto* weeklyChart = [[MGMWeeklyChartDto alloc] init];
+        weeklyChart.startDate = fetchData.startDate;
+        weeklyChart.endDate = fetchData.endDate;
+
+        NSDictionary* weeklyalbumchart = [json objectForKey:@"weeklyalbumchart"];
+        NSArray* albums = [weeklyalbumchart objectForKey:@"album"];
+        NSUInteger cap = albums.count < MAX_CHART_ENTRIES ? albums.count : MAX_CHART_ENTRIES;
+        for (NSUInteger i = 0; i < cap; i++)
+        {
+            NSDictionary* album = [albums objectAtIndex:i];
+            MGMChartEntryDto* converted = [self chartEntryForJson:album];
+            [weeklyChart.chartEntries addObject:converted];
+        }
+        completion(weeklyChart, nil);
+    }
 }
 
 - (MGMChartEntryDto*) chartEntryForJson:(NSDictionary*)json

@@ -32,17 +32,24 @@
 
 - (void) generateImageAtIndex:(NSUInteger)index
 {
-    [self.operationQueue addOperationWithBlock:^
+    if (self.chartEntryMoids.count == 0)
     {
-        [self generateImageSyncAtIndex:index attempt:0];
-    }];
+        [self fireDelegateForImage:nil index:index];
+    }
+    else
+    {
+        [self.operationQueue addOperationWithBlock:^
+        {
+            [self generateImageSyncAtIndex:index attempt:0];
+        }];
+    }
 }
 
 - (void) generateImageSyncAtIndex:(NSUInteger)index attempt:(NSUInteger)attempt
 {
     if (attempt == 5)
     {
-        [self fireDelegateForImage:nil index:attempt];
+        [self fireDelegateForImage:nil index:index];
     }
     else
     {
