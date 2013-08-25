@@ -10,6 +10,7 @@
 #define TO_CHART @"TO_CHART"
 #define TO_PLAYLISTS @"TO_PLAYLISTS"
 #define TO_WEB @"TO_WEB"
+#define TO_ALBUM_DETAIL @"TO_ALBUM_DETAIL"
 
 @interface MGMUI : NSObject
 

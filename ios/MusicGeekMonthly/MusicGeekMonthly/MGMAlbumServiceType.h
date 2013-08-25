@@ -8,6 +8,7 @@
 
 typedef enum
 {
+    MGMAlbumServiceTypeNone = 0,
     MGMAlbumServiceTypeLastFm = 1,
     MGMAlbumServiceTypeSpotify = 2,
     MGMAlbumServiceTypeWikipedia = 4,

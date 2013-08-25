@@ -25,20 +25,12 @@
 #define JSON_ELEMENT_SCORE @"score"
 #define JSON_ELEMENT_METADATA @"metadata"
 
-#define METADATA_KEY_NONE @"none"
 #define METADATA_KEY_LASTFM @"lastFm"
 #define METADATA_KEY_SPOTIFY @"spotify"
 #define METADATA_KEY_WIKIPEDIA @"wikipedia"
 #define METADATA_KEY_YOUTUBE @"youtube"
 
 @implementation MGMFetchAllEventsOperation
-
-static NSArray* serviceTypes;
-
-+ (void) initialize
-{
-    serviceTypes = @[METADATA_KEY_LASTFM, METADATA_KEY_SPOTIFY, METADATA_KEY_WIKIPEDIA, METADATA_KEY_YOUTUBE];
-}
 
 - (NSString*) refreshIdentifierForData:(id)data
 {
@@ -103,8 +95,8 @@ static NSArray* serviceTypes;
 
     [metadata enumerateKeysAndObjectsUsingBlock:^(NSString* key, NSString* obj, BOOL *stop)
     {
-        MGMAlbumServiceType serviceType = [serviceTypes indexOfObject:key];
-        if (serviceType != NSNotFound)
+        MGMAlbumServiceType serviceType = [self serviceTypeForString:key];
+        if (serviceType != MGMAlbumServiceTypeNone)
         {
             MGMAlbumMetadataDto* metadata = [[MGMAlbumMetadataDto alloc] init];
             metadata.serviceType = serviceType;
@@ -114,6 +106,27 @@ static NSArray* serviceTypes;
     }];
     
     return album;
+}
+
+- (MGMAlbumServiceType) serviceTypeForString:(NSString*)string
+{
+    if ([string isEqualToString:METADATA_KEY_LASTFM])
+    {
+        return MGMAlbumServiceTypeLastFm;
+    }
+    if ([string isEqualToString:METADATA_KEY_SPOTIFY])
+    {
+        return MGMAlbumServiceTypeSpotify;
+    }
+    if ([string isEqualToString:METADATA_KEY_WIKIPEDIA])
+    {
+        return MGMAlbumServiceTypeWikipedia;
+    }
+    if ([string isEqualToString:METADATA_KEY_YOUTUBE])
+    {
+        return MGMAlbumServiceTypeYouTube;
+    }
+    return MGMAlbumServiceTypeNone;
 }
 
 - (void) coreDataPersistConvertedData:(id)convertedUrlData withData:(id)data completion:(VOID_COMPLETION)completion

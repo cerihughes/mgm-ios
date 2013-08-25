@@ -33,10 +33,10 @@
 
 - (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service completion:(VOID_COMPLETION)completion
 {
-    if ([album searchedServiceType:service] == NO)
+    MGMAlbumMetadataDao* dao = [self.daoFactory metadataDaoForServiceType:service];
+    if (dao && [album searchedServiceType:service] == NO)
     {
         NSLog(@"Updating album metadata: %@ - %@", album.artistName, album.albumName);
-        MGMAlbumMetadataDao* dao = [self.daoFactory metadataDaoForServiceType:service];
         [dao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
         {
             if (updateError)

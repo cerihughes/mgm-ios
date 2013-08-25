@@ -1,14 +1,14 @@
 
 #import "MGMUI.h"
 
-#import "UIViewController+MGMAdditions.h"
-
-#import "MGMTransitionViewController.h"
-#import "MGMHomeViewController.h"
-#import "MGMWeeklyChartViewController.h"
-#import "MGMEventsViewController.h"
-#import "MGMWebViewController.h"
+#import "MGMAlbumDetailViewController.h"
 #import "MGMAlbumSelectionDelegate.h"
+#import "MGMEventsViewController.h"
+#import "MGMHomeViewController.h"
+#import "MGMTransitionViewController.h"
+#import "MGMWebViewController.h"
+#import "MGMWeeklyChartViewController.h"
+#import "UIViewController+MGMAdditions.h"
 
 @interface MGMUI () <MGMHomeViewControllerDelegate, MGMAlbumSelectionDelegate>
 
@@ -65,6 +65,11 @@
     webViewController.ui = self;
     [self.transitions setObject:webViewController forKey:TO_WEB];
     webViewController.title = @"Web";
+
+    MGMAlbumDetailViewController* albumDetailViewController = [[MGMAlbumDetailViewController alloc] init];
+    albumDetailViewController.ui = self;
+    [self.transitions setObject:albumDetailViewController forKey:TO_ALBUM_DETAIL];
+    albumDetailViewController.title = @"Album Detail";
 
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
 
@@ -145,8 +150,28 @@
 
 - (void) detailSelected:(MGMAlbum*)album
 {
-    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+    {
+        [self ipadDetailSelected:album];
+    }
+    else
+    {
+        [self iphoneDetailSelected:album];
+    }
 }
 
+- (void) ipadDetailSelected:(MGMAlbum*)album
+{
+    UIViewController* nextController = [self.transitions objectForKey:TO_ALBUM_DETAIL];
+    [nextController transitionCompleteWithState:album];
+    UINavigationController* navigationController = (UINavigationController*)self.parentViewController;
+    nextController.modalPresentationStyle = UIModalPresentationFormSheet;
+    [navigationController presentViewController:nextController animated:YES completion:NULL];
+}
+
+- (void) iphoneDetailSelected:(MGMAlbum*)album
+{
+    [self transition:TO_ALBUM_DETAIL withState:album];
+}
 
 @end
