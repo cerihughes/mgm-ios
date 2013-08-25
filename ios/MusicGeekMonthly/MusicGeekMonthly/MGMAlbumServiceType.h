@@ -8,10 +8,11 @@
 
 typedef enum
 {
-    MGMAlbumServiceTypeNone = 0,
-    MGMAlbumServiceTypeLastFm = 1,
-    MGMAlbumServiceTypeSpotify = 2,
-    MGMAlbumServiceTypeWikipedia = 4,
-    MGMAlbumServiceTypeYouTube = 8
+    MGMAlbumServiceTypeNone =      0x00,
+    MGMAlbumServiceTypeLastFm =    0x01,
+    MGMAlbumServiceTypeSpotify =   0x02,
+    MGMAlbumServiceTypeWikipedia = 0x04,
+    MGMAlbumServiceTypeYouTube =   0x08,
+    MGMAlbumServiceTypeItunes =    0x10
 }
 MGMAlbumServiceType;

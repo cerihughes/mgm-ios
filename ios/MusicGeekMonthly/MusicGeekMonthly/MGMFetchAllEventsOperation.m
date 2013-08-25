@@ -29,6 +29,7 @@
 #define METADATA_KEY_SPOTIFY @"spotify"
 #define METADATA_KEY_WIKIPEDIA @"wikipedia"
 #define METADATA_KEY_YOUTUBE @"youtube"
+#define METADATA_KEY_ITUNES @"itunes"
 
 @implementation MGMFetchAllEventsOperation
 
@@ -104,7 +105,12 @@
             [album.metadata addObject:metadata];
         }
     }];
-    
+
+    MGMAlbumMetadataDto* lastfmMetadata = [[MGMAlbumMetadataDto alloc] init];
+    lastfmMetadata.serviceType = MGMAlbumServiceTypeLastFm;
+    lastfmMetadata.value = artistName;
+    [album.metadata addObject:lastfmMetadata];
+
     return album;
 }
 
@@ -125,6 +131,10 @@
     if ([string isEqualToString:METADATA_KEY_YOUTUBE])
     {
         return MGMAlbumServiceTypeYouTube;
+    }
+    if ([string isEqualToString:METADATA_KEY_ITUNES])
+    {
+        return MGMAlbumServiceTypeItunes;
     }
     return MGMAlbumServiceTypeNone;
 }

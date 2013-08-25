@@ -9,27 +9,17 @@
 #import "MGMAlbumPlayer.h"
 
 #define URI_PATTERN_NONE @"%@"
-#define URI_PATTERN_LASTFM @"http://www.youtube.com/watch?v=%@"
+#define URI_PATTERN_LASTFM @"lastfm://artist/%@/similarartists"
 #define URI_PATTERN_SPOTIFY @"spotify:album:%@"
 #define URI_PATTERN_WIKIPEDIA @"http://en.wikipedia.org/wiki/%@"
 #define URI_PATTERN_YOUTUBE @"http://www.youtube.com/watch?v=%@"
+#define URI_PATTERN_ITUNES @"https://itunes.apple.com/gb/album/%@?uo=4"
 
 @interface MGMAlbumPlayer ()
-
-@property (strong) NSArray* patterns;
 
 @end
 
 @implementation MGMAlbumPlayer
-
-- (id) init
-{
-    if (self = [super init])
-    {
-        self.patterns = @[URI_PATTERN_NONE, URI_PATTERN_LASTFM, URI_PATTERN_SPOTIFY, URI_PATTERN_WIKIPEDIA, URI_PATTERN_YOUTUBE];
-    }
-    return self;
-}
 
 - (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service completion:(VOID_COMPLETION)completion
 {
@@ -61,9 +51,10 @@
     NSString* metadata = [album metadataForServiceType:service];
     if (metadata)
     {
-        NSString* uriPattern = [self.patterns objectAtIndex:service];
+        NSString* uriPattern = [self uriPatternForServiceType:service];
         NSString* uriString = [NSString stringWithFormat:uriPattern, metadata];
-        NSURL* url = [NSURL URLWithString:uriString];
+        NSString* encoded = [uriString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSURL* url = [NSURL URLWithString:encoded];
         if ([[UIApplication sharedApplication] canOpenURL:url])
         {
             NSLog(@"Opening URL: %@", url);
@@ -73,6 +64,25 @@
         {
             NSLog(@"No handler for URL: %@", url);
         }
+    }
+}
+
+- (NSString*) uriPatternForServiceType:(MGMAlbumServiceType)serviceType
+{
+    switch (serviceType)
+    {
+        case MGMAlbumServiceTypeLastFm:
+            return URI_PATTERN_LASTFM;
+        case MGMAlbumServiceTypeSpotify:
+            return URI_PATTERN_SPOTIFY;
+        case MGMAlbumServiceTypeWikipedia:
+            return URI_PATTERN_WIKIPEDIA;
+        case MGMAlbumServiceTypeYouTube:
+            return URI_PATTERN_YOUTUBE;
+        case MGMAlbumServiceTypeItunes:
+            return URI_PATTERN_ITUNES;
+        default:
+            return nil;
     }
 }
 

@@ -8,6 +8,7 @@
 
 #import "MGMFetchWeeklyChartOperation.h"
 
+#import "MGMAlbumMetadataDto.h"
 #import "MGMChartEntryDto.h"
 #import "MGMLastFmConstants.h"
 
@@ -106,6 +107,11 @@ static NSNumberFormatter* numberFormatter;
     album.albumMbid = mbid;
     album.artistName = artistName;
     album.albumName = albumName;
+
+    MGMAlbumMetadataDto* lastfmMetadata = [[MGMAlbumMetadataDto alloc] init];
+    lastfmMetadata.serviceType = MGMAlbumServiceTypeLastFm;
+    lastfmMetadata.value = artistName;
+    [album.metadata addObject:lastfmMetadata];
 
     return album;
 }

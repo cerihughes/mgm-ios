@@ -68,7 +68,13 @@
             [array addObject:pair];
         }
     }
-    return [array copy];
+    NSArray* sorted = [array sortedArrayUsingComparator:^NSComparisonResult(MGMKeyValuePair* a, MGMKeyValuePair* b)
+    {
+        NSNumber* first = [NSNumber numberWithInteger:a.serviceType];
+        NSNumber* second = [NSNumber numberWithInteger:b.serviceType];
+        return [first compare:second];
+    }];
+    return sorted;
 }
 
 - (NSString*) stringForServiceType:(MGMAlbumServiceType)serviceType album:(MGMAlbum*)album
@@ -83,6 +89,8 @@
             return @"Read Wikipedia article";
         case MGMAlbumServiceTypeYouTube:
             return @"Play with YouTube";
+        case MGMAlbumServiceTypeItunes:
+            return @"Open with iTunes";
         default:
             return nil;
     }
@@ -125,6 +133,8 @@
             return [UIImage imageNamed:@"wikipedia.png"];
         case MGMAlbumServiceTypeYouTube:
             return [UIImage imageNamed:@"youtube.png"];
+        case MGMAlbumServiceTypeItunes:
+            return [UIImage imageNamed:@"itunes.png"];
         default:
             return nil;
     }
