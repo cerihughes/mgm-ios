@@ -2,13 +2,43 @@
 	"events" :
 	[
 		{
+			"id" : 33,
+			"date" : "2013-09-26T20:00:00.000+0100",
+			"classicAlbum" :
+			{
+				"artistName" : "James Brown & The Famous Flames",
+				"albumName" : "James Brown Live At The Apollo, 1962",
+				"mbid" : "17a99452-33f1-47cd-9690-478602b769a3",
+				"metadata" :
+				{
+					"spotify" : "2cBfHBgA6ask1jpMz2XASH",
+					"wikipedia" : "Live_at_the_Apollo_(James_Brown)",
+					"itunes" : "id14164467"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Laura Veirs",
+				"albumName" : "Warp & Weft",
+				"mbid" : "381bd5c5-7b97-43a6-9ba9-0c6a0d099373",
+				"metadata" :
+				{
+					"spotify" : "3mnRV6xwaO9vMJeeeI2QyJ",
+					"wikipedia" : "Warp_and_Weft",
+					"itunes" : "id670448494"
+				}
+			}
+		},
+		{
 			"id" : 32,
 			"date" : "2013-08-29T20:00:00.000+0100",
+			"spotifyPlaylistId" : "4HrQvKcD3HsSJGyNWnlhH9",
 			"classicAlbum" :
 			{
 				"artistName" : "Isaac Hayes",
 				"albumName" : "Hot Buttered Soul",
 				"mbid" : "ccd965f1-6292-43a6-b7af-1d07a21be0b8",
+				"score" : 7.2,
 				"metadata" :
 				{
 					"spotify" : "55115VABPbIk8cMqYcvcRv",
@@ -21,6 +51,7 @@
 				"artistName" : "Fuck Buttons",
 				"albumName" : "Slow Focus",
 				"mbid" : "8eb45cda-d436-4038-ae4e-7559798d1299",
+				"score" : 5.4,
 				"metadata" :
 				{
 					"spotify" : "2I1PxMR8wj1Y6k88bselsq",
