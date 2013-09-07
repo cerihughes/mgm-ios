@@ -170,6 +170,7 @@
             [self handleError:error];
         }
     }];
+    [self cancelPressed:nil];
 }
 
 @end
