@@ -39,7 +39,6 @@
             CGRect frame = CGRectMake(row * albumWidth, column * albumWidth, albumWidth, albumWidth);
             MGMAlbumView* imageView = [[MGMAlbumView alloc] initWithFrame:frame];
             imageView.alphaOn = 0.15;
-            imageView.alphaOff = 0;
             imageView.animationTime = 3;
             [self addSubview:imageView];
             [self.albumViews addObject:imageView];
@@ -51,7 +50,7 @@
 {
     if (index < self.albumCount)
     {
-        [[self.albumViews objectAtIndex:index] renderImage:image];
+        [[self.albumViews objectAtIndex:index] fadeOutAndRenderImage:image];
     }
 }
 

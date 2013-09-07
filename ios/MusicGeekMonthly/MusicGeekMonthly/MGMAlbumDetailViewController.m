@@ -9,6 +9,8 @@
 #import "MGMAlbumDetailViewController.h"
 
 #import "MGMAlbum.h"
+#import "MGMAlbumView.h"
+#import "MGMAlbumViewUtilities.h"
 
 #define CELL_ID @"ALBUM_DETAIL_CELL_ID"
 
@@ -25,6 +27,7 @@
 
 @interface MGMAlbumDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
+@property (strong) IBOutlet MGMAlbumView* albumView;
 @property (strong) IBOutlet UITableView* tableView;
 
 @property (strong) NSManagedObjectID* albumMoid;
@@ -44,6 +47,15 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
+    MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:self.albumMoid];
+    NSError* error = nil;
+    [MGMAlbumViewUtilities displayAlbum:album inAlbumView:self.albumView defaultImageName:@"album2.png" daoFactory:self.core.daoFactory error:&error];
+    if (error)
+    {
+        [self handleError:error];
+    }
+
     [self.tableView reloadData];
 }
 
@@ -94,7 +106,11 @@
         default:
             return nil;
     }
+}
 
+- (IBAction) cancelPressed:(id)sender
+{
+    [self.ui albumDetailDismissed];
 }
 
 #pragma mark -

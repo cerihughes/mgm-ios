@@ -21,7 +21,6 @@
 
 @property (weak) id<MGMAlbumViewDelegate> delegate;
 
-@property CGFloat alphaOff;
 @property CGFloat alphaOn;
 @property NSTimeInterval animationTime;
 @property BOOL pressable;
@@ -36,5 +35,6 @@
 
 - (void) renderImageWithNoAnimation:(UIImage*)image;
 - (void) renderImage:(UIImage*)image;
+- (void) fadeOutAndRenderImage:(UIImage*)image;
 
 @end

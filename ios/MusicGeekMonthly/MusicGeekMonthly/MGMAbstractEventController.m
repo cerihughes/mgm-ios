@@ -8,6 +8,8 @@
 
 #import "MGMAbstractEventController.h"
 
+#import "MGMAlbumViewUtilities.h"
+
 @interface MGMAbstractEventController ()
 
 @end
@@ -18,138 +20,35 @@
 {
     [super viewDidLoad];
 
-    self.classicAlbumView.alphaOff = 0;
     self.classicAlbumView.alphaOn = 1;
     self.classicAlbumView.animationTime = 0.25;
-    self.classicAlbumView.pressable = NO;
+    self.classicAlbumView.pressable = YES;
     self.classicAlbumView.delegate = self;
+    self.classicAlbumView.detailViewShowing = YES;
 
-    self.newlyReleasedAlbumView.alphaOff = 0;
     self.newlyReleasedAlbumView.alphaOn = 1;
     self.newlyReleasedAlbumView.animationTime = 0.25;
-    self.newlyReleasedAlbumView.pressable = NO;
+    self.newlyReleasedAlbumView.pressable = YES;
     self.newlyReleasedAlbumView.delegate = self;
+    self.newlyReleasedAlbumView.detailViewShowing = YES;
 }
 
 - (void) displayEvent:(MGMEvent*)event
 {
     self.event = event;
 
-    self.classicAlbumView.activityInProgress = YES;
-    self.newlyReleasedAlbumView.activityInProgress = YES;
-
-    [self displayClassicAlbum:event.classicAlbum];
-    [self displayNewRelease:event.newlyReleasedAlbum];
-}
-
-- (void) displayClassicAlbum:(MGMAlbum*)classicAlbum
-{
-    self.classicAlbumView.artistName = classicAlbum.artistName;
-    self.classicAlbumView.albumName = classicAlbum.albumName;
-    self.classicAlbumView.pressable = YES;
-    self.classicAlbumView.detailViewShowing = YES;
-
-    if ([classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
+    NSError* error1 = nil;
+    [MGMAlbumViewUtilities displayAlbum:event.classicAlbum inAlbumView:self.classicAlbumView defaultImageName:@"album3.png" daoFactory:self.core.daoFactory error:&error1];
+    if (error1)
     {
-        [self.core.daoFactory.lastFmDao updateAlbumInfo:classicAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
-        {
-            if (updateError != nil)
-            {
-                [self handleError:updateError];
-            }
-            else
-            {
-                dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    // ... but update the UI in the main thread...
-                    [self displayClassicAlbumImage:updatedAlbum];
-                });
-            }
-        }];
+        [self handleError:error1];
     }
-    else
+    
+    NSError* error2 = nil;
+    [MGMAlbumViewUtilities displayAlbum:event.newlyReleasedAlbum inAlbumView:self.newlyReleasedAlbumView defaultImageName:@"album1.png" daoFactory:self.core.daoFactory error:&error2];
+    if (error2)
     {
-        [self displayClassicAlbumImage:classicAlbum];
-    }
-}
-- (void) displayNewRelease:(MGMAlbum*)newRelease
-{
-    self.newlyReleasedAlbumView.artistName = newRelease.artistName;
-    self.newlyReleasedAlbumView.albumName = newRelease.albumName;
-    self.newlyReleasedAlbumView.pressable = YES;
-    self.newlyReleasedAlbumView.detailViewShowing = YES;
-
-    if ([newRelease searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
-    {
-        [self.core.daoFactory.lastFmDao updateAlbumInfo:newRelease completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
-        {
-            if (updateError != nil)
-            {
-                [self handleError:updateError];
-            }
-            else
-            {
-                dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    // ... but update the UI in the main thread...
-                    [self displayNewReleaseAlbumImage:updatedAlbum];
-                });
-            }
-        }];
-    }
-    else
-    {
-        [self displayNewReleaseAlbumImage:newRelease];
-    }
-}
-
-- (void) displayNewReleaseAlbumImage:(MGMAlbum*)newRelease
-{
-    NSString* albumArtUri = [newRelease bestAlbumImageUrl];
-    if (albumArtUri)
-    {
-        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
-         {
-             if (error)
-             {
-                 [self handleError:error];
-             }
-             else
-             {
-                 self.newlyReleasedAlbumView.activityInProgress = NO;
-                 [self.newlyReleasedAlbumView renderImage:image];
-             }
-         }];
-    }
-    else
-    {
-        self.newlyReleasedAlbumView.activityInProgress = NO;
-        [self.newlyReleasedAlbumView renderImage:[UIImage imageNamed:@"album1.png"]];
-    }
-}
-
-- (void) displayClassicAlbumImage:(MGMAlbum*)classicAlbum
-{
-    NSString* albumArtUri = [classicAlbum bestAlbumImageUrl];
-    if (albumArtUri)
-    {
-        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
-         {
-             if (error)
-             {
-                 [self handleError:error];
-             }
-             else
-             {
-                 self.classicAlbumView.activityInProgress = NO;
-                 [self.classicAlbumView renderImage:image];
-             }
-         }];
-    }
-    else
-    {
-        self.classicAlbumView.activityInProgress = NO;
-        [self.classicAlbumView renderImage:[UIImage imageNamed:@"album3.png"]];
+        [self handleError:error2];
     }
 }
 

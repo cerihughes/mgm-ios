@@ -160,6 +160,15 @@
     }
 }
 
+- (void) albumDetailDismissed
+{
+    // iphone is dealt with by the navigation back, so this never gets invoked.
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+    {
+        [self ipadDetailDismissed];
+    }
+}
+
 - (void) ipadDetailSelected:(MGMAlbum*)album
 {
     UIViewController* nextController = [self.transitions objectForKey:TO_ALBUM_DETAIL];
@@ -172,6 +181,12 @@
 - (void) iphoneDetailSelected:(MGMAlbum*)album
 {
     [self transition:TO_ALBUM_DETAIL withState:album];
+}
+
+- (void) ipadDetailDismissed
+{
+    UINavigationController* navigationController = (UINavigationController*)self.parentViewController;
+    [navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

@@ -104,11 +104,7 @@
             if (weeklyChart)
             {
                 self.weeklyChartMoid = weeklyChart.objectID;
-                dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    // ... but update the UI in the main thread...
-                    [self reloadData];
-                });
+                [self reloadData];
             }
         }];
     });
@@ -120,7 +116,10 @@
     for (MGMChartEntry* entry in weeklyChart.chartEntries)
     {
         MGMAlbum* album = entry.album;
-        [self.albumsView setActivityInProgress:YES forRank:entry.rank.intValue];
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            [self.albumsView setActivityInProgress:YES forRank:entry.rank.intValue];
+        });
         if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
         {
             [self.core.daoFactory.lastFmDao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* fetchError)
@@ -131,12 +130,7 @@
                 }
 
                 entry.album = updatedAlbum;
-
-                dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    // ... but update the UI in the main thread...
-                    [self renderChartEntry:entry];
-                });
+                [self renderChartEntry:entry];
             }];
         }
         else
@@ -163,8 +157,11 @@
             }
             else
             {
-                [self.albumsView setActivityInProgress:NO forRank:rank];
-                [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    [self.albumsView setActivityInProgress:NO forRank:rank];
+                    [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
+                });
             }
         }];
     }
@@ -173,7 +170,11 @@
         NSUInteger albumType = (rank % 3) + 1;
         NSString* imageName = [NSString stringWithFormat:@"album%d.png", albumType];
         UIImage* image = [UIImage imageNamed:imageName];
-        [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            [self.albumsView setActivityInProgress:NO forRank:rank];
+            [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
+        });
     }
 }
 

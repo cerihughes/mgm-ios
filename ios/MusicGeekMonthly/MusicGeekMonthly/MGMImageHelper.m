@@ -17,11 +17,7 @@
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse* response, NSData* data, NSError* error)
     {
         UIImage* image = [UIImage imageWithData:data];
-        // Respond in the main thread...
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
-            completion(image, error);
-        });
+        completion(image, error);
     }];
 }
 

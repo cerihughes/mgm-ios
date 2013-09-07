@@ -146,6 +146,8 @@
 		65ECD8FB17AC2F4300701A00 /* MGMHomeViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65ECD8FA17AC2F4300701A00 /* MGMHomeViewController~iphone.xib */; };
 		65ECD90117AC3B2F00701A00 /* MGMAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */; };
 		65ECD90417AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */; };
+		65F46CFA17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F46CF917DB96E200D38ED2 /* MGMAlbumViewUtilities.m */; };
+		65F46CFB17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F46CF917DB96E200D38ED2 /* MGMAlbumViewUtilities.m */; };
 		65FAB9DE17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */; };
 		65FAB9DF17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */; };
 /* End PBXBuildFile section */
@@ -330,6 +332,8 @@
 		65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewController.m; sourceTree = "<group>"; };
 		65ECD90217AC3DCB00701A00 /* MGMAlbumPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumPlayer.h; sourceTree = "<group>"; };
 		65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumPlayer.m; sourceTree = "<group>"; };
+		65F46CF817DB96E200D38ED2 /* MGMAlbumViewUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumViewUtilities.h; sourceTree = "<group>"; };
+		65F46CF917DB96E200D38ED2 /* MGMAlbumViewUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewUtilities.m; sourceTree = "<group>"; };
 		65FAB9DC17C11CB200BCEA8E /* MGMCoreDataThreadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataThreadManager.h; sourceTree = "<group>"; };
 		65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataThreadManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -409,10 +413,12 @@
 				653B6BC4175FDB4B005D372C /* MGMView.m */,
 				6594349F1777701C00DCA9DB /* MGMViewController.h */,
 				659434A01777701C00DCA9DB /* MGMViewController.m */,
-				65ECD8FF17AC3B2E00701A00 /* MGMAlbumViewController.h */,
-				65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */,
 				650F13C017AABB060048226A /* MGMAlbumView.h */,
 				650F13C117AABB060048226A /* MGMAlbumView.m */,
+				65ECD8FF17AC3B2E00701A00 /* MGMAlbumViewController.h */,
+				65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */,
+				65F46CF817DB96E200D38ED2 /* MGMAlbumViewUtilities.h */,
+				65F46CF917DB96E200D38ED2 /* MGMAlbumViewUtilities.m */,
 				65ECD8FC17AC39C500701A00 /* MGMAlbumSelectionDelegate.h */,
 				651238C617B16C3300C5D353 /* MGMAbstractEventController.h */,
 				651238C717B16C3300C5D353 /* MGMAbstractEventController.m */,
@@ -920,6 +926,7 @@
 				65EB124617C4077E008EE886 /* MGMFetchSpotifyAlbumMetadataOperation.m in Sources */,
 				650EBEC317C8CF0700D7EE88 /* NSMutableArray+Shuffling.m in Sources */,
 				65E9E3B317CA49880077BB78 /* MGMAlbumDetailViewController.m in Sources */,
+				65F46CFA17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -966,6 +973,7 @@
 				65EB124117C40025008EE886 /* MGMFetchAlbumImageUrlsOperation.m in Sources */,
 				65EB124717C4077E008EE886 /* MGMFetchSpotifyAlbumMetadataOperation.m in Sources */,
 				650EBEC417C8CF0700D7EE88 /* NSMutableArray+Shuffling.m in Sources */,
+				65F46CFB17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

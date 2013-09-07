@@ -12,6 +12,7 @@
 
 @interface MGMAlbumView ()
 
+@property CGFloat alphaOff;
 @property (strong) UIButton* button;
 @property (strong) UIButton* detailButton;
 @property (strong) UILabel* artistLabel;
@@ -44,7 +45,7 @@
 {
     [super commonInit];
     
-    self.alphaOff = 0.0;
+    self.alphaOff = 0.05;
     self.alphaOn = 1.0;
     self.animationTime = 1;
     self.backgroundColor = [UIColor clearColor];
@@ -92,9 +93,11 @@
     self.albumLabel = [MGMAlbumView createLabelWithRect:CGRectMake(2, textHeight, textWidth, textHeight) fontName:DEFAULT_FONT_MEDIUM fontSize:fontSize];
     self.listenersLabel = [MGMAlbumView createLabelWithRect:CGRectMake(2, 2 * textHeight, textWidth, textHeight) fontName:DEFAULT_FONT_ITALIC fontSize:fontSize];
 
-    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [self.activityIndicatorView setContentMode:UIViewContentModeCenter];
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityIndicatorView.frame = frame;
+    self.activityIndicatorView.userInteractionEnabled = NO;
     self.activityInProgress = NO;
+
 
     [self addSubview:self.button];
     [self.button addSubview:self.rankLabel];
@@ -155,14 +158,20 @@
 
 - (void) setActivityInProgress:(BOOL)activityInProgress
 {
-    if (activityInProgress)
+    [UIView animateWithDuration:self.animationTime animations:^
     {
-        [self.activityIndicatorView startAnimating];
-    }
-    else
-    {
-        [self.activityIndicatorView stopAnimating];
-    }
+        if (activityInProgress)
+        {
+            [self.activityIndicatorView startAnimating];
+            self.button.alpha = self.alphaOff;
+            self.backgroundColor = [UIColor blackColor];
+        }
+        else
+        {
+            [self.activityIndicatorView stopAnimating];
+            self.backgroundColor = [UIColor clearColor];
+        }
+    }];
 }
 
 - (BOOL) detailViewShowing
@@ -210,6 +219,14 @@
 {
     [UIView animateWithDuration:self.animationTime animations:^
     {
+        [self renderImageWithNoAnimation:image];
+    }];
+}
+
+- (void) fadeOutAndRenderImage:(UIImage*)image
+{
+    [UIView animateWithDuration:self.animationTime animations:^
+    {
         self.button.alpha = self.alphaOff;
     }
     completion:^(BOOL finished)
@@ -218,6 +235,7 @@
         {
             [self renderImageWithNoAnimation:image];
         }];
+        [self renderImageWithNoAnimation:image];
     }];
 }
 

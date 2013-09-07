@@ -35,7 +35,6 @@
 {
     MGMAlbumView* albumView = [[MGMAlbumView alloc] initWithFrame:frame];
     albumView.alphaOn = 1;
-    albumView.alphaOff = 0;
     albumView.animationTime = 0.5;
     albumView.rank = rank;
     albumView.detailViewShowing = NO;

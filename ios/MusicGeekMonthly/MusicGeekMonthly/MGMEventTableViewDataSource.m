@@ -28,17 +28,17 @@
     MGMAlbum* classicAlbum = event.classicAlbum;
     if ([classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
     {
-        [self.lastFmDao updateAlbumInfo:classicAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
-        {
-            if (updateError == nil)
-            {
-                dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    // ... but update the UI in the main thread...
-                    [self addAlbumImage:updatedAlbum toCell:cell.classicAlbumImageView];
-                });
-            }
-         }];
+//        [self.lastFmDao updateAlbumInfo:classicAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
+//        {
+//            if (updateError == nil)
+//            {
+//                dispatch_async(dispatch_get_main_queue(), ^
+//                {
+//                    // ... but update the UI in the main thread...
+//                    [self addAlbumImage:updatedAlbum toCell:cell.classicAlbumImageView];
+//                });
+//            }
+//         }];
     }
     else
     {
@@ -48,17 +48,17 @@
     MGMAlbum* newlyReleaseAlbum = event.newlyReleasedAlbum;
     if ([newlyReleaseAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
     {
-        [self.lastFmDao updateAlbumInfo:newlyReleaseAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
-        {
-            if (updateError == nil)
-            {
-                dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    // ... but update the UI in the main thread...
-                    [self addAlbumImage:updatedAlbum toCell:cell.newlyReleasedAlbumImageView];
-                });
-            }
-        }];
+//        [self.lastFmDao updateAlbumInfo:newlyReleaseAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
+//        {
+//            if (updateError == nil)
+//            {
+//                dispatch_async(dispatch_get_main_queue(), ^
+//                {
+//                    // ... but update the UI in the main thread...
+//                    [self addAlbumImage:updatedAlbum toCell:cell.newlyReleasedAlbumImageView];
+//                });
+//            }
+//        }];
     }
     else
     {
