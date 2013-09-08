@@ -63,15 +63,15 @@
     [fetchedResultsController performFetch:&error];
     if (error != nil)
     {
-        [self handleError:error];
+        [self showError:error];
     }
 
     [self.timePeriodTable reloadData];
 
     BOOL iPad = self.view.frame.size.width > 320;
+    NSUInteger albumCount = 25;
     NSUInteger rowCount = iPad ? 4 : 2;
-    NSUInteger columnCount = iPad ? 7 : 9;
-    NSUInteger albumCount = iPad ? 25 : 15;
+    NSUInteger columnCount = (albumCount + 3) / rowCount;
     CGFloat albumSize = self.albumsView.frame.size.width / rowCount;
     NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];
 
@@ -101,15 +101,19 @@
     {
         [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMWeeklyChart* weeklyChart, NSError* fetchError)
         {
-            if (fetchError)
+            if (fetchError && weeklyChart)
             {
-                [self handleError:fetchError];
+                [self logError:fetchError];
             }
 
             if (weeklyChart)
             {
                 self.weeklyChartMoid = weeklyChart.objectID;
                 [self reloadData];
+            }
+            else
+            {
+                [self showError:fetchError];
             }
         }];
     });
@@ -125,13 +129,20 @@
         {
             [self.core.daoFactory.lastFmDao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* fetchError)
             {
-                if (fetchError != nil)
+                if (fetchError && updatedAlbum)
                 {
-                    [self handleError:fetchError];
+                    [self logError:fetchError];
                 }
 
-                entry.album = updatedAlbum;
-                [self renderChartEntry:entry];
+                if (updatedAlbum)
+                {
+                    entry.album = updatedAlbum;
+                    [self renderChartEntry:entry];
+                }
+                else
+                {
+                    [self showError:fetchError];
+                }
             }];
         }
         else
@@ -154,29 +165,37 @@
         {
             if (error)
             {
-                [self handleError:error];
+                [self logError:error];
             }
-            else
+
+            if (image == nil)
             {
-                dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    [self.albumsView setActivityInProgress:NO forRank:rank];
-                    [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
-                });
+                image = [self defaultImageForRank:rank];
             }
+
+            dispatch_async(dispatch_get_main_queue(), ^
+            {
+                [self.albumsView setActivityInProgress:NO forRank:rank];
+                [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
+            });
         }];
     }
     else
     {
-        NSUInteger albumType = (rank % 3) + 1;
-        NSString* imageName = [NSString stringWithFormat:@"album%d.png", albumType];
-        UIImage* image = [UIImage imageNamed:imageName];
+        UIImage* image = [self defaultImageForRank:rank];
         dispatch_async(dispatch_get_main_queue(), ^
         {
             [self.albumsView setActivityInProgress:NO forRank:rank];
             [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
         });
     }
+}
+
+- (UIImage*) defaultImageForRank:(NSUInteger)rank
+{
+    NSUInteger albumType = (rank % 3) + 1;
+    NSString* imageName = [NSString stringWithFormat:@"album%d.png", albumType];
+    return [UIImage imageNamed:imageName];
 }
 
 #pragma mark -

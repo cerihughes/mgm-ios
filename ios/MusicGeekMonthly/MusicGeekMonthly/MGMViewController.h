@@ -19,6 +19,7 @@
 
 - (void) transitionCompleteWithState:(id)state;
 
-- (void) handleError:(NSError*)error;
+- (void) showError:(NSError*)error;
+- (void) logError:(NSError*)error;
 
 @end

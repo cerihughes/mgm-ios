@@ -120,7 +120,17 @@
     [self transition:TO_WEB withState:uri];
 }
 
-- (void) handleError:(NSError*)error
+- (void) showError:(NSError*)error
+{
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error" message: error.description delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    });
+    [self logError:error];
+}
+
+- (void) logError:(NSError*)error
 {
     NSLog(@"Error occurred: %@", error);
 }
@@ -143,7 +153,7 @@
     {
         if (error != nil)
         {
-            [self handleError:error];
+            [self showError:error];
         }
     }];
 }

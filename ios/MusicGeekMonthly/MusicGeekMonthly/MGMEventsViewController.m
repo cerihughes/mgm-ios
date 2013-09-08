@@ -67,7 +67,7 @@
     [fetchedResultsController performFetch:&error];
     if (error != nil)
     {
-        [self handleError:error];
+        [self showError:error];
     }
 
     [self.eventsTable reloadData];

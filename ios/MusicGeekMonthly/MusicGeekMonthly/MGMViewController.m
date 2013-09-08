@@ -27,9 +27,14 @@ static BOOL userInterfaceIdiomIpad;
 {
 }
 
-- (void) handleError:(NSError*)error
+- (void) showError:(NSError*)error
 {
-    [self.ui handleError:error];
+    [self.ui showError:error];
+}
+
+- (void) logError:(NSError*)error
+{
+    [self.ui logError:error];
 }
 
 - (void) presentViewModally:(UIView*)view sender:(id)sender

@@ -63,12 +63,11 @@
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
         {
-            // Search in a background thread...
             [self.core.daoFactory.eventsDao fetchAllEvents:^(NSArray* fetchedEvents, NSError* fetchError)
             {
-                if (fetchError)
+                if (fetchError && fetchedEvents)
                 {
-                    [self handleError:fetchError];
+                    [self logError:fetchError];
                 }
 
                 if (fetchedEvents.count > 0)
@@ -77,9 +76,12 @@
                     self.eventMoid = event.objectID;
                     dispatch_async(dispatch_get_main_queue(), ^
                     {
-                        // ... update the UI in the main thread...
                         [self displayEventWithMoid:self.eventMoid];
                     });
+                }
+                else
+                {
+                    [self showError:fetchError];
                 }
             }];
         });
@@ -121,20 +123,19 @@
             // Search in a background thread...
             [self.core.daoFactory.lastFmDao fetchAllTimePeriods:^(NSArray* fetchedTimePeriods, NSError* timePeriodFetchError)
             {
-                if (timePeriodFetchError)
+                if (timePeriodFetchError && fetchedTimePeriods)
                 {
-                    [self handleError:timePeriodFetchError];
+                    [self logError:timePeriodFetchError];
                 }
 
-                MGMTimePeriod* fetchedTimePeriod = nil;
                 if (fetchedTimePeriods.count > 0)
                 {
-                    fetchedTimePeriod = [fetchedTimePeriods objectAtIndex:0];
+                    MGMTimePeriod* fetchedTimePeriod = [fetchedTimePeriods objectAtIndex:0];
                     [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:fetchedTimePeriod.startDate endDate:fetchedTimePeriod.endDate completion:^(MGMWeeklyChart* fetchedWeeklyChart, NSError* weeklyChartFetchError)
                     {
-                        if (weeklyChartFetchError)
+                        if (weeklyChartFetchError && fetchedWeeklyChart)
                         {
-                            [self handleError:weeklyChartFetchError];
+                            [self logError:weeklyChartFetchError];
                         }
 
                         if (fetchedWeeklyChart)
@@ -144,7 +145,15 @@
                             self.artFetcher.delegate = self;
                             [self renderImages:YES];
                         }
+                        else
+                        {
+                            [self showError:weeklyChartFetchError];
+                        }
                     }];
+                }
+                else
+                {
+                    [self showError:timePeriodFetchError];
                 }
             }];
         }
@@ -213,7 +222,7 @@
 
 - (void) artFetcher:(MGMBackgroundAlbumArtFetcher*)fetcher errorOccured:(NSError*)error
 {
-    [self handleError:error];
+    [self logError:error];
 }
 
 @end

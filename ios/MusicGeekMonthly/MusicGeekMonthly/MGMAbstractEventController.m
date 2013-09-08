@@ -41,14 +41,14 @@
     [MGMAlbumViewUtilities displayAlbum:event.classicAlbum inAlbumView:self.classicAlbumView defaultImageName:@"album3.png" daoFactory:self.core.daoFactory error:&error1];
     if (error1)
     {
-        [self handleError:error1];
+        [self logError:error1];
     }
     
     NSError* error2 = nil;
     [MGMAlbumViewUtilities displayAlbum:event.newlyReleasedAlbum inAlbumView:self.newlyReleasedAlbumView defaultImageName:@"album1.png" daoFactory:self.core.daoFactory error:&error2];
     if (error2)
     {
-        [self handleError:error2];
+        [self logError:error2];
     }
 }
 

@@ -53,7 +53,7 @@
     [MGMAlbumViewUtilities displayAlbum:album inAlbumView:self.albumView defaultImageName:@"album2.png" daoFactory:self.core.daoFactory error:&error];
     if (error)
     {
-        [self handleError:error];
+        [self logError:error];
     }
 
     [self.tableView reloadData];
@@ -167,7 +167,7 @@
     {
         if (error)
         {
-            [self handleError:error];
+            [self showError:error];
         }
     }];
     [self cancelPressed:nil];
