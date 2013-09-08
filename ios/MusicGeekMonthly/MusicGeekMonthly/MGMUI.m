@@ -124,7 +124,8 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error" message: error.description delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        NSString* message = [NSString stringWithFormat:@"An error has prevented this operation from completing. The details have been sent to the developer for investigation.\n\n Details: %@", [error localizedDescription]];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     });
     [self logError:error];
