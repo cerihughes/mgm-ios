@@ -27,7 +27,9 @@
     labelFrame.size.width = parentWidth - (image1X + (2 * imageHeight + 4));
 
     self.classicAlbumImageView.frame = image1Frame;
+    self.classicAlbumActivityView.frame = image1Frame;
     self.newlyReleasedAlbumImageView.frame = image2Frame;
+    self.newlyReleasedAlbumActivityView.frame = image2Frame;
     self.eventTextLabel.frame = labelFrame;
 }
 

@@ -12,6 +12,7 @@
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
+			<string>IBUIActivityIndicatorView</string>
 			<string>IBUIImageView</string>
 			<string>IBUILabel</string>
 			<string>IBUITableViewCell</string>
@@ -40,13 +41,39 @@
 						<reference key="NSNextResponder" ref="718038231"/>
 						<int key="NSvFlags">256</int>
 						<array class="NSMutableArray" key="NSSubviews">
+							<object class="IBUIActivityIndicatorView" id="293904420">
+								<reference key="NSNextResponder" ref="256916961"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{19, 11}, {20, 20}}</string>
+								<reference key="NSSuperview" ref="256916961"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="4223663"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIHidesWhenStopped">NO</bool>
+								<int key="IBUIStyle">2</int>
+							</object>
+							<object class="IBUIActivityIndicatorView" id="1004940881">
+								<reference key="NSNextResponder" ref="256916961"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{63, 11}, {20, 20}}</string>
+								<reference key="NSSuperview" ref="256916961"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="937963854"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIHidesWhenStopped">NO</bool>
+								<int key="IBUIStyle">2</int>
+							</object>
 							<object class="IBUIImageView" id="328624806">
 								<reference key="NSNextResponder" ref="256916961"/>
 								<int key="NSvFlags">278</int>
 								<string key="NSFrame">{{7, 1}, {42, 42}}</string>
 								<reference key="NSSuperview" ref="256916961"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="4223663"/>
+								<reference key="NSNextKeyView" ref="293904420"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -57,7 +84,7 @@
 								<string key="NSFrame">{{51, 1}, {42, 42}}</string>
 								<reference key="NSSuperview" ref="256916961"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="937963854"/>
+								<reference key="NSNextKeyView" ref="1004940881"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -150,6 +177,22 @@
 					</object>
 					<int key="connectionID">30</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">classicAlbumActivityView</string>
+						<reference key="source" ref="718038231"/>
+						<reference key="destination" ref="293904420"/>
+					</object>
+					<int key="connectionID">34</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">newlyReleasedAlbumActivityView</string>
+						<reference key="source" ref="718038231"/>
+						<reference key="destination" ref="1004940881"/>
+					</object>
+					<int key="connectionID">35</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -177,6 +220,8 @@
 							<reference ref="937963854"/>
 							<reference ref="328624806"/>
 							<reference ref="4223663"/>
+							<reference ref="293904420"/>
+							<reference ref="1004940881"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -198,6 +243,16 @@
 						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="718038231"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">32</int>
+						<reference key="object" ref="293904420"/>
+						<reference key="parent" ref="718038231"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">33</int>
+						<reference key="object" ref="1004940881"/>
+						<reference key="parent" ref="718038231"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -209,12 +264,14 @@
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">30</int>
+			<int key="maxID">35</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -222,11 +279,17 @@
 					<string key="className">MGMEventTableCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="classicAlbumActivityView">UIActivityIndicatorView</string>
 						<string key="classicAlbumImageView">UIImageView</string>
 						<string key="eventTextLabel">UILabel</string>
+						<string key="newlyReleasedAlbumActivityView">UIActivityIndicatorView</string>
 						<string key="newlyReleasedAlbumImageView">UIImageView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="classicAlbumActivityView">
+							<string key="name">classicAlbumActivityView</string>
+							<string key="candidateClassName">UIActivityIndicatorView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="classicAlbumImageView">
 							<string key="name">classicAlbumImageView</string>
 							<string key="candidateClassName">UIImageView</string>
@@ -234,6 +297,10 @@
 						<object class="IBToOneOutletInfo" key="eventTextLabel">
 							<string key="name">eventTextLabel</string>
 							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="newlyReleasedAlbumActivityView">
+							<string key="name">newlyReleasedAlbumActivityView</string>
+							<string key="candidateClassName">UIActivityIndicatorView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="newlyReleasedAlbumImageView">
 							<string key="name">newlyReleasedAlbumImageView</string>

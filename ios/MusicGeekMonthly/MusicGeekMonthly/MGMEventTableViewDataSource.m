@@ -22,74 +22,74 @@
         cell = [[MGMEventTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.cellId];
     }
 
+    cell.classicAlbumImageView.image = nil;
+    cell.newlyReleasedAlbumImageView.image = nil;
+    [cell.classicAlbumActivityView startAnimating];
+    [cell.newlyReleasedAlbumActivityView startAnimating];
+
     MGMEvent* event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.eventTextLabel.text = event.groupValue;
 
-    MGMAlbum* classicAlbum = event.classicAlbum;
-    if ([classicAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
-    {
-//        [self.lastFmDao updateAlbumInfo:classicAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
-//        {
-//            if (updateError == nil)
-//            {
-//                dispatch_async(dispatch_get_main_queue(), ^
-//                {
-//                    // ... but update the UI in the main thread...
-//                    [self addAlbumImage:updatedAlbum toCell:cell.classicAlbumImageView];
-//                });
-//            }
-//         }];
-    }
-    else
-    {
-        [self addAlbumImage:classicAlbum toCell:cell.classicAlbumImageView];
-    }
-
-    MGMAlbum* newlyReleaseAlbum = event.newlyReleasedAlbum;
-    if ([newlyReleaseAlbum searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
-    {
-//        [self.lastFmDao updateAlbumInfo:newlyReleaseAlbum completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
-//        {
-//            if (updateError == nil)
-//            {
-//                dispatch_async(dispatch_get_main_queue(), ^
-//                {
-//                    // ... but update the UI in the main thread...
-//                    [self addAlbumImage:updatedAlbum toCell:cell.newlyReleasedAlbumImageView];
-//                });
-//            }
-//        }];
-    }
-    else
-    {
-        [self addAlbumImage:newlyReleaseAlbum toCell:cell.newlyReleasedAlbumImageView];
-    }
+    [self addAlbumImage:event.classicAlbum.objectID toImageView:cell.classicAlbumImageView withActivityView:cell.classicAlbumActivityView inCell:cell];
+    [self addAlbumImage:event.newlyReleasedAlbum.objectID toImageView:cell.newlyReleasedAlbumImageView withActivityView:cell.newlyReleasedAlbumActivityView inCell:cell];
 
     return cell;
 }
 
-- (void) addAlbumImage:(MGMAlbum*)album toCell:(UIImageView*)imageView
+- (void) addAlbumImage:(NSManagedObjectID*)albumMoid toImageView:(UIImageView*)imageView withActivityView:(UIActivityIndicatorView*)activityIndicatorView inCell:(MGMEventTableCell*)cell
 {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    {
+        MGMAlbum* album = [self.daoFactory.coreDataDao threadVersion:albumMoid];
+        if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
+        {
+            [self.daoFactory.lastFmDao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
+            {
+                if (updateError == nil)
+                {
+                    [self addAlbum:albumMoid toImageView:imageView withActivityView:activityIndicatorView inCell:cell];
+                }
+            }];
+        }
+        else
+        {
+            [self addAlbum:albumMoid toImageView:imageView withActivityView:activityIndicatorView inCell:cell];
+        }
+    });
+}
+
+- (void) addAlbum:(NSManagedObjectID*)albumMoid toImageView:(UIImageView*)imageView withActivityView:(UIActivityIndicatorView*)activityIndicatorView inCell:(MGMEventTableCell*)cell
+{
+    MGMAlbum* album = [self.daoFactory.coreDataDao threadVersion:albumMoid];
     NSString* albumArtUri = [album bestTableImageUrl];
     if (albumArtUri)
     {
         [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
         {
-            if (error == nil)
+            dispatch_async(dispatch_get_main_queue(), ^
             {
-                imageView.image = image;
-            }
-            else
-            {
-                imageView.image = [UIImage imageNamed:@"album1.png"];
-            }
+                [activityIndicatorView stopAnimating];
+                if (error == nil)
+                {
+                    imageView.image = image;
+                }
+                else
+                {
+                    imageView.image = [UIImage imageNamed:@"album1.png"];
+                }
+                [cell setNeedsDisplay];
+            });
         }];
     }
     else
     {
-        imageView.image = [UIImage imageNamed:@"album1.png"];
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            [activityIndicatorView stopAnimating];
+            imageView.image = [UIImage imageNamed:@"album1.png"];
+            [cell setNeedsDisplay];
+        });
     }
 }
-
 
 @end

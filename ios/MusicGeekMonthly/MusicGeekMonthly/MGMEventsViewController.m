@@ -58,7 +58,7 @@
     NSFetchedResultsController* fetchedResultsController = [self.core.daoFactory.coreDataDao createEventsFetchedResultsController];
     self.dataSource = [[MGMEventTableViewDataSource alloc] initWithCellId:CELL_ID];
     self.dataSource.fetchedResultsController = fetchedResultsController;
-    self.dataSource.lastFmDao = self.core.daoFactory.lastFmDao;
+    self.dataSource.daoFactory = self.core.daoFactory;
 
     self.eventsTable.dataSource = self.dataSource;
     self.eventsTable.delegate = self;

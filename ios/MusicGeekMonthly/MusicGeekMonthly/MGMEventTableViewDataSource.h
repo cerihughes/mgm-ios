@@ -8,10 +8,10 @@
 
 #import "MGMCoreDataTableViewDataSource.h"
 
-#import "MGMLastFmDao.h"
+#import "MGMDaoFactory.h"
 
 @interface MGMEventTableViewDataSource : MGMCoreDataTableViewDataSource
 
-@property (strong) MGMLastFmDao* lastFmDao;
+@property (strong) MGMDaoFactory* daoFactory;
 
 @end
