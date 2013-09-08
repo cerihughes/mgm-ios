@@ -92,6 +92,11 @@
 {
     self.title = timePeriod.groupValue;
 
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        [self.albumsView setActivityInProgressForAllRanks:YES];
+    });
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
         [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMWeeklyChart* weeklyChart, NSError* fetchError)
@@ -116,10 +121,6 @@
     for (MGMChartEntry* entry in weeklyChart.chartEntries)
     {
         MGMAlbum* album = entry.album;
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
-            [self.albumsView setActivityInProgress:YES forRank:entry.rank.intValue];
-        });
         if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
         {
             [self.core.daoFactory.lastFmDao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* fetchError)

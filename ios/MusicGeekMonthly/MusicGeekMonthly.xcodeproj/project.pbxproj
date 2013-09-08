@@ -389,7 +389,7 @@
 			name = Dto;
 			sourceTree = "<group>";
 		};
-		65291AF31775F658002595AC /* WeeklyChart */ = {
+		65291AF31775F658002595AC /* Weekly Chart */ = {
 			isa = PBXGroup;
 			children = (
 				653B6BBD175FDB4B005D372C /* MGMWeeklyChartViewController.h */,
@@ -399,7 +399,7 @@
 				65291B0517761A75002595AC /* MGMWeeklyChartViewController~iphone.xib */,
 				65291B0717762539002595AC /* MGMWeeklyChartViewController~ipad.xib */,
 			);
-			name = WeeklyChart;
+			name = "Weekly Chart";
 			sourceTree = "<group>";
 		};
 		65291B0217760CD6002595AC /* Common */ = {
@@ -467,7 +467,7 @@
 				65E53CE31785CAAE001ECA79 /* Navigation */,
 				65E53CE91785CF3D001ECA79 /* Home */,
 				6594349417776AB400DCA9DB /* Events */,
-				65291AF31775F658002595AC /* WeeklyChart */,
+				65291AF31775F658002595AC /* Weekly Chart */,
 				6576DDAF17AD11A200BCB00B /* Album Detail */,
 				652C8715179DD51D0059595E /* Web */,
 				653B6BC1175FDB4B005D372C /* MGMUI.h */,

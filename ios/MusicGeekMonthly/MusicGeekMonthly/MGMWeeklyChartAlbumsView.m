@@ -28,7 +28,7 @@
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:self.scrollView];
 
-    self.albumViews = [NSMutableArray arrayWithCapacity:15];
+    self.albumViews = [NSMutableArray arrayWithCapacity:25];
 }
 
 - (void) setupAlbumFrame:(CGRect)frame forRank:(NSUInteger)rank
@@ -45,6 +45,14 @@
     CGSize existingSize = self.scrollView.contentSize;
     CGRect existingContent = CGRectMake(0, 0, existingSize.width, existingSize.height);
     self.scrollView.contentSize = CGRectUnion(existingContent, frame).size;
+}
+
+- (void) setActivityInProgressForAllRanks:(BOOL)inProgress
+{
+    for (MGMAlbumView* albumView in self.albumViews)
+    {
+        albumView.activityInProgress = inProgress;
+    }
 }
 
 - (void) setActivityInProgress:(BOOL)inProgress forRank:(NSUInteger)rank
