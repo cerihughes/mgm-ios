@@ -45,8 +45,8 @@
 {
     [super commonInit];
     
-    self.alphaOff = 0.05;
-    self.alphaOn = 1.0;
+    self.alphaOff = 0.0f;
+    self.alphaOn = 1.0f;
     self.animationTime = 1;
     self.backgroundColor = [UIColor clearColor];
     
@@ -55,7 +55,7 @@
     self.button = [UIButton buttonWithType:UIButtonTypeCustom];
     self.button.frame = frame;
     self.button.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.button.alpha = self.alphaOff + 0.0001; // So that we initially animate...
+    self.button.alpha = self.alphaOff;
     [self.button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.pressable = NO;
 

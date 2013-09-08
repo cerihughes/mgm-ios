@@ -13,6 +13,6 @@
 @property (readonly) NSUInteger albumCount;
 
 - (void) setupAlbumsInRow:(NSUInteger)albumsInRow;
-- (void) renderImage:(UIImage*)image atIndex:(NSUInteger)index;
+- (void) renderImage:(UIImage*)image atIndex:(NSUInteger)index animation:(BOOL)animation;
 
 @end

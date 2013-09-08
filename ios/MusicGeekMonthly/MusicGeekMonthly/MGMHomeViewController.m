@@ -44,6 +44,14 @@
     [super viewDidLoad];
     
     [self.albumsView setupAlbumsInRow:4];
+
+    for (NSUInteger i = 0; i < self.albumsView.albumCount; i++)
+    {
+        NSUInteger index = (i % 3) + 1;
+        NSString* imageName = [NSString stringWithFormat:@"album%d.png", index];
+        UIImage* image = [UIImage imageNamed:imageName];
+        [self.albumsView renderImage:image atIndex:i animation:NO];
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -160,7 +168,7 @@
 - (void) renderImages:(BOOL)initialRender
 {
     NSArray* shuffledIndicies = [self shuffledIndicies:self.albumsView.albumCount];
-    NSTimeInterval sleepTime = initialRender ? 0.1 : 1.0;
+    NSTimeInterval sleepTime = initialRender ? 0.05 : 1.0;
     for (NSUInteger i = 0; i < self.albumsView.albumCount; i++)
     {
         NSNumber* index = [shuffledIndicies objectAtIndex:i];
@@ -200,7 +208,7 @@
         image = [UIImage imageNamed:@"album1.png"];
     }
 
-    [self.albumsView renderImage:image atIndex:index];
+    [self.albumsView renderImage:image atIndex:index animation:YES];
 }
 
 - (void) artFetcher:(MGMBackgroundAlbumArtFetcher*)fetcher errorOccured:(NSError*)error

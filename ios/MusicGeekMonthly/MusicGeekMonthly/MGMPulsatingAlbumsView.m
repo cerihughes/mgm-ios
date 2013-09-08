@@ -46,11 +46,18 @@
     }
 }
 
-- (void) renderImage:(UIImage*)image atIndex:(NSUInteger)index
+- (void) renderImage:(UIImage*)image atIndex:(NSUInteger)index animation:(BOOL)animation
 {
     if (index < self.albumCount)
     {
-        [[self.albumViews objectAtIndex:index] fadeOutAndRenderImage:image];
+        if (animation)
+        {
+            [[self.albumViews objectAtIndex:index] fadeOutAndRenderImage:image];
+        }
+        else
+        {
+            [[self.albumViews objectAtIndex:index] renderImageWithNoAnimation:image];
+        }
     }
 }
 
