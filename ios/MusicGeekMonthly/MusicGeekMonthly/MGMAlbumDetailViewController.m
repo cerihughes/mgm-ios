@@ -80,6 +80,18 @@
             [array addObject:pair];
         }
     }
+
+    // We implicitly support last.fm and spotify...
+    MGMKeyValuePair* lastFmPair = [[MGMKeyValuePair alloc] init];
+    lastFmPair.serviceType = MGMAlbumServiceTypeLastFm;
+    lastFmPair.displayString = [NSString stringWithFormat:@"Play %@ radio with Last.fm", album.artistName];
+    [array addObject:lastFmPair];
+
+    MGMKeyValuePair* spotifyPair = [[MGMKeyValuePair alloc] init];
+    spotifyPair.serviceType = MGMAlbumServiceTypeSpotify;
+    spotifyPair.displayString = @"Play with Spotify";
+    [array addObject:spotifyPair];
+
     NSArray* sorted = [array sortedArrayUsingComparator:^NSComparisonResult(MGMKeyValuePair* a, MGMKeyValuePair* b)
     {
         NSNumber* first = [NSNumber numberWithInteger:a.serviceType];
@@ -93,10 +105,6 @@
 {
     switch (serviceType)
     {
-        case MGMAlbumServiceTypeLastFm:
-            return [NSString stringWithFormat:@"Play %@ radio with Last.fm", album.artistName];
-        case MGMAlbumServiceTypeSpotify:
-            return @"Play with Spotify";
         case MGMAlbumServiceTypeWikipedia:
             return @"Read Wikipedia article";
         case MGMAlbumServiceTypeYouTube:
