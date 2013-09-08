@@ -29,7 +29,7 @@
         NSLog(@"Updating album metadata: %@ - %@", album.artistName, album.albumName);
         [dao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
         {
-            if (updateError)
+            if (updateError && !updatedAlbum)
             {
                 completion(updateError);
             }
