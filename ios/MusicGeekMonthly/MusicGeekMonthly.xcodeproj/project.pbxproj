@@ -106,10 +106,6 @@
 		65E53CE61785CACC001ECA79 /* MGMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E53CE51785CACC001ECA79 /* MGMNavigationViewController.m */; };
 		65E53CEC1785CF57001ECA79 /* MGMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E53CEB1785CF57001ECA79 /* MGMHomeViewController.m */; };
 		65E53CEE1785CF81001ECA79 /* MGMHomeViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CED1785CF81001ECA79 /* MGMHomeViewController~ipad.xib */; };
-		65E53CF31785D27D001ECA79 /* button_blank_blue_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CEF1785D27D001ECA79 /* button_blank_blue_01.png */; };
-		65E53CF41785D27D001ECA79 /* button_blank_gray_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CF01785D27D001ECA79 /* button_blank_gray_01.png */; };
-		65E53CF51785D27D001ECA79 /* button_blank_red_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CF11785D27D001ECA79 /* button_blank_red_01.png */; };
-		65E53CF61785D27D001ECA79 /* button_blank_yellow_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CF21785D27D001ECA79 /* button_blank_yellow_01.png */; };
 		65E79B0517C2431D008CCDA3 /* MGMReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E79B0417C2431D008CCDA3 /* MGMReachabilityManager.m */; };
 		65E79B0617C2431D008CCDA3 /* MGMReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E79B0417C2431D008CCDA3 /* MGMReachabilityManager.m */; };
 		65E79B0817C2444C008CCDA3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */; };
@@ -274,10 +270,6 @@
 		65E53CEA1785CF57001ECA79 /* MGMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMHomeViewController.h; sourceTree = "<group>"; };
 		65E53CEB1785CF57001ECA79 /* MGMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMHomeViewController.m; sourceTree = "<group>"; };
 		65E53CED1785CF81001ECA79 /* MGMHomeViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMHomeViewController~ipad.xib"; sourceTree = "<group>"; };
-		65E53CEF1785D27D001ECA79 /* button_blank_blue_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blank_blue_01.png; path = MusicGeekMonthly/button_blank_blue_01.png; sourceTree = "<group>"; };
-		65E53CF01785D27D001ECA79 /* button_blank_gray_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blank_gray_01.png; path = MusicGeekMonthly/button_blank_gray_01.png; sourceTree = "<group>"; };
-		65E53CF11785D27D001ECA79 /* button_blank_red_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blank_red_01.png; path = MusicGeekMonthly/button_blank_red_01.png; sourceTree = "<group>"; };
-		65E53CF21785D27D001ECA79 /* button_blank_yellow_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blank_yellow_01.png; path = MusicGeekMonthly/button_blank_yellow_01.png; sourceTree = "<group>"; };
 		65E79B0317C2431D008CCDA3 /* MGMReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMReachabilityManager.h; sourceTree = "<group>"; };
 		65E79B0417C2431D008CCDA3 /* MGMReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMReachabilityManager.m; sourceTree = "<group>"; };
 		65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -634,10 +626,6 @@
 				656D01B2176C5DB900B9B0B3 /* spotify.png */,
 				652C8711179DBC370059595E /* wikipedia.png */,
 				652C8713179DBDEB0059595E /* youtube.png */,
-				65E53CEF1785D27D001ECA79 /* button_blank_blue_01.png */,
-				65E53CF01785D27D001ECA79 /* button_blank_gray_01.png */,
-				65E53CF11785D27D001ECA79 /* button_blank_red_01.png */,
-				65E53CF21785D27D001ECA79 /* button_blank_yellow_01.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -795,10 +783,6 @@
 				65291B0817762539002595AC /* MGMWeeklyChartViewController~ipad.xib in Resources */,
 				659434A317777A9F00DCA9DB /* MGMEventsViewController~ipad.xib in Resources */,
 				65E53CEE1785CF81001ECA79 /* MGMHomeViewController~ipad.xib in Resources */,
-				65E53CF31785D27D001ECA79 /* button_blank_blue_01.png in Resources */,
-				65E53CF41785D27D001ECA79 /* button_blank_gray_01.png in Resources */,
-				65E53CF51785D27D001ECA79 /* button_blank_red_01.png in Resources */,
-				65E53CF61785D27D001ECA79 /* button_blank_yellow_01.png in Resources */,
 				652C8712179DBC370059595E /* wikipedia.png in Resources */,
 				652C8714179DBDEB0059595E /* youtube.png in Resources */,
 				6554DE3417A053F0006A2A29 /* MGM_icon.png in Resources */,
