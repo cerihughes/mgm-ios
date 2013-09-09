@@ -13,9 +13,11 @@
 
 @interface MGMEventsViewController () <UITableViewDelegate>
 
+@property (strong) IBOutlet UINavigationItem* eventNavigationItem;
 @property (strong) IBOutlet UITableView* eventsTable;
-@property (strong) MGMEventTableViewDataSource* dataSource;
 @property (strong) IBOutlet UIWebView* playlistWebView;
+
+@property (strong) MGMEventTableViewDataSource* dataSource;
 
 @end
 
@@ -30,13 +32,11 @@
 {
     if (self = [super initWithNibName:nil bundle:nil])
     {
-        UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithTitle:@"More..." style:UIBarButtonItemStylePlain target:self action:@selector(barButtonPressed:)];
-        self.navigationItem.rightBarButtonItem = item;
     }
     return self;
 }
 
-- (void) barButtonPressed:(id)sender
+- (IBAction) barButtonPressed:(id)sender
 {
     if ([self isPresentingModally])
     {
@@ -87,7 +87,7 @@
 
 	NSString* dateString = event.groupValue;
     NSString* newTitle = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
-    self.title = newTitle;
+    self.eventNavigationItem.title = newTitle;
 
     NSString* urlString = [NSString stringWithFormat:WEB_URL_PATTERN, event.spotifyHttpUrl];
     NSURL* url = [NSURL URLWithString:urlString];

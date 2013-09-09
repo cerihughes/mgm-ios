@@ -8,6 +8,7 @@
 
 @interface MGMWeeklyChartViewController () <MGMWeeklyChartAlbumsViewDelegate, UITableViewDelegate>
 
+@property (strong) IBOutlet UINavigationItem* weeklyChartNavigationItem;
 @property (strong) IBOutlet UITableView* timePeriodTable;
 @property (strong) IBOutlet MGMWeeklyChartAlbumsView* albumsView;
 
@@ -28,14 +29,11 @@
         self.dateFormatter = [[NSDateFormatter alloc] init];
         self.dateFormatter.dateStyle = NSDateFormatterMediumStyle;
         self.dateFormatter.timeStyle = NSDateFormatterNoStyle;
-
-        UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithTitle:@"More..." style:UIBarButtonItemStylePlain target:self action:@selector(barButtonPressed:)];
-        self.navigationItem.rightBarButtonItem = item;
     }
     return self;
 }
 
-- (void) barButtonPressed:(id)sender
+- (IBAction) barButtonPressed:(id)sender
 {
     if ([self isPresentingModally])
     {
@@ -90,7 +88,7 @@
 
 - (void) loadAlbumsForPeriod:(MGMTimePeriod*)timePeriod
 {
-    self.title = timePeriod.groupValue;
+    self.weeklyChartNavigationItem.title = timePeriod.groupValue;
 
     dispatch_async(dispatch_get_main_queue(), ^
     {

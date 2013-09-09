@@ -2,17 +2,13 @@
 #import <Foundation/Foundation.h>
 
 #import "MGMAlbumPlayer.h"
+#import "MGMAlbumSelectionDelegate.h"
 #import "MGMCore.h"
 #import "MGMImageHelper.h"
-#import "MGMTransitionViewController.h"
 
-#define TO_HOME @"TO_HOME"
-#define TO_CHART @"TO_CHART"
-#define TO_PLAYLISTS @"TO_PLAYLISTS"
-#define TO_WEB @"TO_WEB"
 #define TO_ALBUM_DETAIL @"TO_ALBUM_DETAIL"
 
-@interface MGMUI : NSObject
+@interface MGMUI : NSObject <MGMAlbumSelectionDelegate>
 
 @property (retain) MGMCore* core;
 @property (retain) UIViewController* parentViewController;

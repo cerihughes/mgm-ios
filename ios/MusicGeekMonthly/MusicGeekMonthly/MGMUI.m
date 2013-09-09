@@ -2,15 +2,10 @@
 #import "MGMUI.h"
 
 #import "MGMAlbumDetailViewController.h"
-#import "MGMAlbumSelectionDelegate.h"
-#import "MGMEventsViewController.h"
-#import "MGMHomeViewController.h"
-#import "MGMTransitionViewController.h"
-#import "MGMWebViewController.h"
-#import "MGMWeeklyChartViewController.h"
+#import "MGMNavigationViewController.h"
 #import "UIViewController+MGMAdditions.h"
 
-@interface MGMUI () <MGMHomeViewControllerDelegate, MGMAlbumSelectionDelegate>
+@interface MGMUI ()
 
 @property (retain) NSMutableDictionary* transitions;
 
@@ -42,36 +37,12 @@
 {
     self.transitions = [NSMutableDictionary dictionary];
 
-    MGMHomeViewController* homeViewController = [[MGMHomeViewController alloc] init];
-    homeViewController.ui = self;
-    [self.transitions setObject:homeViewController forKey:TO_HOME];
-    homeViewController.delegate = self;
-    homeViewController.title = @"Home";
-    homeViewController.albumSelectionDelegate = self;
-
-    MGMWeeklyChartViewController* weeklyChartViewController = [[MGMWeeklyChartViewController alloc] init];
-    weeklyChartViewController.ui = self;
-    [self.transitions setObject:weeklyChartViewController forKey:TO_CHART];
-    weeklyChartViewController.title = @"Weekly Charts";
-    weeklyChartViewController.albumSelectionDelegate = self;
-
-    MGMEventsViewController* eventsViewController = [[MGMEventsViewController alloc] init];
-    eventsViewController.ui = self;
-    [self.transitions setObject:eventsViewController forKey:TO_PLAYLISTS];
-    eventsViewController.title = @"Previous Events";
-    eventsViewController.albumSelectionDelegate = self;
-
-    MGMWebViewController* webViewController = [[MGMWebViewController alloc] init];
-    webViewController.ui = self;
-    [self.transitions setObject:webViewController forKey:TO_WEB];
-    webViewController.title = @"Web";
-
     MGMAlbumDetailViewController* albumDetailViewController = [[MGMAlbumDetailViewController alloc] init];
     albumDetailViewController.ui = self;
     [self.transitions setObject:albumDetailViewController forKey:TO_ALBUM_DETAIL];
     albumDetailViewController.title = @"Album Detail";
 
-    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    MGMNavigationViewController* navigationController = [[MGMNavigationViewController alloc] initWithUI:self];
 
     self.parentViewController = navigationController;
 }
@@ -103,23 +74,6 @@
 {
 }
 
-- (NSString*) transitionForOption:(MGMHomeViewControllerOption)option
-{
-    switch (option) {
-        case MGMHomeViewControllerOptionPreviousEvents:
-            return TO_PLAYLISTS;
-        case MGMHomeViewControllerOptionCharts:
-            return TO_CHART;
-        default:
-            return nil;
-    }
-}
-
-- (void) navigateToWebPanel:(NSString*)uri
-{
-    [self transition:TO_WEB withState:uri];
-}
-
 - (void) showError:(NSError*)error
 {
     dispatch_async(dispatch_get_main_queue(), ^
@@ -134,14 +88,6 @@
 - (void) logError:(NSError*)error
 {
     NSLog(@"Error occurred: %@", error);
-}
-
-#pragma mark -
-#pragma mark MGMHomeViewControllerDelegate
-
-- (void) optionSelected:(MGMHomeViewControllerOption)option
-{
-    [self transition:[self transitionForOption:option]];
 }
 
 #pragma mark -

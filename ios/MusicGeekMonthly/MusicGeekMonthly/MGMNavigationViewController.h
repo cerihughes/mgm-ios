@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MGMNavigationViewController : NSObject
+#import "MGMUI.h"
+
+@interface MGMNavigationViewController : UITabBarController
+
+- (id) initWithUI:(MGMUI*)ui;
 
 @end

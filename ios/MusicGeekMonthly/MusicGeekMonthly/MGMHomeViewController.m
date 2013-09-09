@@ -22,9 +22,6 @@
 @property (strong) MGMBackgroundAlbumArtFetcher* artFetcher;
 @property (strong) NSManagedObjectID* eventMoid;
 
-- (IBAction) previousEventsPressed:(id)sender;
-- (IBAction) chartsPressed:(id)sender;
-
 @end
 
 #define NEXT_EVENT_PATTERN @"The next event will be on %@ at %@"
@@ -195,16 +192,6 @@
     }
     [array shuffle];
     return [array copy];
-}
-
-- (IBAction) previousEventsPressed:(id)sender
-{
-    [self.delegate optionSelected:MGMHomeViewControllerOptionPreviousEvents];
-}
-
-- (IBAction) chartsPressed:(id)sender
-{
-    [self.delegate optionSelected:MGMHomeViewControllerOptionCharts];
 }
 
 #pragma mark -
