@@ -30,7 +30,6 @@
 @property (strong) IBOutlet MGMAlbumView* albumView;
 @property (strong) IBOutlet UITableView* tableView;
 
-@property (strong) NSManagedObjectID* albumMoid;
 @property (strong) NSArray* keyValuePairs;
 
 @end
@@ -56,14 +55,8 @@
         [self logError:error];
     }
 
-    [self.tableView reloadData];
-}
-
-- (void) transitionCompleteWithState:(id)state
-{
-    MGMAlbum* album = state;
-    self.albumMoid = album.objectID;
     self.keyValuePairs = [self optionsForAlbum:album];
+    [self.tableView reloadData];
 }
 
 - (NSArray*) optionsForAlbum:(MGMAlbum*)album
@@ -118,7 +111,7 @@
 
 - (IBAction) cancelPressed:(id)sender
 {
-    [self.ui albumDetailDismissed];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark -

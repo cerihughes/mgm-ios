@@ -14,10 +14,6 @@
 @property (retain) UIViewController* parentViewController;
 @property (strong) MGMAlbumPlayer* albumPlayer;
 
-- (void) transition:(NSString*)transition;
-- (void) transition:(NSString*)transition withState:(id)state;
-- (void) albumDetailDismissed;
-
 /**
  * Notifies the UI that it's entering background mode.
  */

@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "MGMAlbum.h"
 
+@class MGMViewController;
+
 @protocol MGMAlbumSelectionDelegate <NSObject>
 
 - (void) albumSelected:(MGMAlbum*)album;
-- (void) detailSelected:(MGMAlbum*)album;
+- (void) detailSelected:(MGMAlbum*)album sender:(MGMViewController*)sender;
 
 @end

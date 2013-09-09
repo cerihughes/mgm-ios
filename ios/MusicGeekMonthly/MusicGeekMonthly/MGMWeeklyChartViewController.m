@@ -220,7 +220,7 @@
 {
     MGMWeeklyChart* weeklyChart = [self.core.daoFactory.coreDataDao threadVersion:self.weeklyChartMoid];
     MGMChartEntry* entry = [weeklyChart.chartEntries objectAtIndex:rank - 1];
-    [self.albumSelectionDelegate detailSelected:entry.album];
+    [self.albumSelectionDelegate detailSelected:entry.album sender:self];
 }
 
 @end

@@ -10,4 +10,6 @@
 
 @interface MGMAlbumDetailViewController : MGMViewController
 
+@property (strong) NSManagedObjectID* albumMoid;
+
 @end

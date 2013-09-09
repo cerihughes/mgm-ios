@@ -7,7 +7,7 @@
 
 @interface MGMUI ()
 
-@property (retain) NSMutableDictionary* transitions;
+@property (strong) MGMAlbumDetailViewController* albumDetailViewController;
 
 - (void) setupCore;
 - (void) setupControllers;
@@ -35,29 +35,11 @@
 
 - (void) setupControllers
 {
-    self.transitions = [NSMutableDictionary dictionary];
-
-    MGMAlbumDetailViewController* albumDetailViewController = [[MGMAlbumDetailViewController alloc] init];
-    albumDetailViewController.ui = self;
-    [self.transitions setObject:albumDetailViewController forKey:TO_ALBUM_DETAIL];
-    albumDetailViewController.title = @"Album Detail";
+    self.albumDetailViewController = [[MGMAlbumDetailViewController alloc] init];
+    self.albumDetailViewController.ui = self;
 
     MGMNavigationViewController* navigationController = [[MGMNavigationViewController alloc] initWithUI:self];
-
     self.parentViewController = navigationController;
-}
-
-- (void) transition:(NSString *)transition
-{
-    [self transition:transition withState:nil];
-}
-
-- (void) transition:(NSString *)transition withState:(id)state
-{
-    UINavigationController* navigationController = (UINavigationController*)self.parentViewController;
-    UIViewController* nextController = [self.transitions objectForKey:transition];
-    [navigationController pushViewController:nextController animated:YES];
-    [nextController transitionCompleteWithState:state];
 }
 
 - (void) enteringBackground
@@ -105,45 +87,28 @@
     }];
 }
 
-- (void) detailSelected:(MGMAlbum*)album
+- (void) detailSelected:(MGMAlbum*)album sender:(MGMViewController*)sender
 {
+    self.albumDetailViewController.albumMoid = album.objectID;
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
     {
-        [self ipadDetailSelected:album];
+        [self ipadDetailSelected:album sender:sender];
     }
     else
     {
-        [self iphoneDetailSelected:album];
+        [self iphoneDetailSelected:album sender:sender];
     }
 }
 
-- (void) albumDetailDismissed
+- (void) ipadDetailSelected:(MGMAlbum*)album sender:(MGMViewController*)sender
 {
-    // iphone is dealt with by the navigation back, so this never gets invoked.
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
-    {
-        [self ipadDetailDismissed];
-    }
+    self.albumDetailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    [sender presentViewController:self.albumDetailViewController animated:YES completion:NULL];
 }
 
-- (void) ipadDetailSelected:(MGMAlbum*)album
+- (void) iphoneDetailSelected:(MGMAlbum*)album sender:(MGMViewController*)sender
 {
-    UIViewController* nextController = [self.transitions objectForKey:TO_ALBUM_DETAIL];
-    [nextController transitionCompleteWithState:album];
-    UINavigationController* navigationController = (UINavigationController*)self.parentViewController;
-    nextController.modalPresentationStyle = UIModalPresentationFormSheet;
-    [navigationController presentViewController:nextController animated:YES completion:NULL];
-}
-
-- (void) iphoneDetailSelected:(MGMAlbum*)album
-{
-    [self transition:TO_ALBUM_DETAIL withState:album];
-}
-
-- (void) ipadDetailDismissed
-{
-    UINavigationController* navigationController = (UINavigationController*)self.parentViewController;
-    [navigationController dismissViewControllerAnimated:YES completion:NULL];
+    [sender presentViewController:self.albumDetailViewController animated:YES completion:NULL];
 }
 
 @end

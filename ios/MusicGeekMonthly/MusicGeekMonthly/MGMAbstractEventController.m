@@ -67,7 +67,7 @@
 
 - (void) detailPressed:(MGMAlbumView*)albumView
 {
-    [self.albumSelectionDelegate detailSelected:[self albumForAlbumView:albumView]];
+    [self.albumSelectionDelegate detailSelected:[self albumForAlbumView:albumView] sender:self];
 }
 
 @end
