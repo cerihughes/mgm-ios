@@ -174,7 +174,7 @@
             dispatch_async(dispatch_get_main_queue(), ^
             {
                 [self.albumsView setActivityInProgress:NO forRank:rank];
-                [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
+                [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
             });
         }];
     }
@@ -184,7 +184,7 @@
         dispatch_async(dispatch_get_main_queue(), ^
         {
             [self.albumsView setActivityInProgress:NO forRank:rank];
-            [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners];
+            [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
         });
     }
 }

@@ -21,6 +21,8 @@
 		65A77A3817DA054C001F271C /* album3.png in Resources */ = {isa = PBXBuildFile; fileRef = 65A77A3517DA054C001F271C /* album3.png */; };
 		65A77A3B17DA059E001F271C /* MGMAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A77A3A17DA059E001F271C /* MGMAlbumView.m */; };
 		65A77A3E17DA05BF001F271C /* MGMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A77A3D17DA05BF001F271C /* MGMView.m */; };
+		65EBBF4117DFA8300012AF3D /* MGMAlbumScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EBBF4017DFA8300012AF3D /* MGMAlbumScoreView.m */; };
+		65EBBF4717DFB07A0012AF3D /* gold_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF4617DFB07A0012AF3D /* gold_bar.png */; };
 		65F9B6DB17DA54E000BE8072 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F9B6DA17DA54E000BE8072 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +47,9 @@
 		65A77A3A17DA059E001F271C /* MGMAlbumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGMAlbumView.m; path = ../../MusicGeekMonthly/MusicGeekMonthly/MGMAlbumView.m; sourceTree = "<group>"; };
 		65A77A3C17DA05BF001F271C /* MGMView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGMView.h; path = ../../MusicGeekMonthly/MusicGeekMonthly/MGMView.h; sourceTree = "<group>"; };
 		65A77A3D17DA05BF001F271C /* MGMView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGMView.m; path = ../../MusicGeekMonthly/MusicGeekMonthly/MGMView.m; sourceTree = "<group>"; };
+		65EBBF3F17DFA8300012AF3D /* MGMAlbumScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGMAlbumScoreView.h; path = ../../MusicGeekMonthly/MusicGeekMonthly/MGMAlbumScoreView.h; sourceTree = "<group>"; };
+		65EBBF4017DFA8300012AF3D /* MGMAlbumScoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGMAlbumScoreView.m; path = ../../MusicGeekMonthly/MusicGeekMonthly/MGMAlbumScoreView.m; sourceTree = "<group>"; };
+		65EBBF4617DFB07A0012AF3D /* gold_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gold_bar.png; path = ../../MusicGeekMonthly/MusicGeekMonthly/gold_bar.png; sourceTree = "<group>"; };
 		65F9B6D917DA54E000BE8072 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		65F9B6DA17DA54E000BE8072 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,6 +102,8 @@
 				65A77A2617DA0517001F271C /* AppDelegate.m */,
 				65F9B6D917DA54E000BE8072 /* ViewController.h */,
 				65F9B6DA17DA54E000BE8072 /* ViewController.m */,
+				65EBBF3F17DFA8300012AF3D /* MGMAlbumScoreView.h */,
+				65EBBF4017DFA8300012AF3D /* MGMAlbumScoreView.m */,
 				65A77A3C17DA05BF001F271C /* MGMView.h */,
 				65A77A3D17DA05BF001F271C /* MGMView.m */,
 				65A77A3917DA059E001F271C /* MGMAlbumView.h */,
@@ -112,6 +119,7 @@
 				65A77A3317DA054C001F271C /* album1.png */,
 				65A77A3417DA054C001F271C /* album2.png */,
 				65A77A3517DA054C001F271C /* album3.png */,
+				65EBBF4617DFB07A0012AF3D /* gold_bar.png */,
 				65A77A1E17DA0517001F271C /* MGMViewTest-Info.plist */,
 				65A77A1F17DA0517001F271C /* InfoPlist.strings */,
 				65A77A2217DA0517001F271C /* main.m */,
@@ -181,6 +189,7 @@
 				65A77A3617DA054C001F271C /* album1.png in Resources */,
 				65A77A3717DA054C001F271C /* album2.png in Resources */,
 				65A77A3817DA054C001F271C /* album3.png in Resources */,
+				65EBBF4717DFB07A0012AF3D /* gold_bar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +205,7 @@
 				65A77A3B17DA059E001F271C /* MGMAlbumView.m in Sources */,
 				65A77A3E17DA05BF001F271C /* MGMView.m in Sources */,
 				65F9B6DB17DA54E000BE8072 /* ViewController.m in Sources */,
+				65EBBF4117DFA8300012AF3D /* MGMAlbumScoreView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

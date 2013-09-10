@@ -8,6 +8,8 @@
 
 #import "MGMAlbumView.h"
 
+#import "MGMAlbumScoreView.h"
+
 #define LISTENERS_FORMAT @"%d geeks listening this week"
 
 @interface MGMAlbumView ()
@@ -20,12 +22,15 @@
 @property (strong) UIActivityIndicatorView* activityIndicatorView;
 @property (strong) UILabel* rankLabel;
 @property (strong) UILabel* listenersLabel;
+@property (strong) MGMAlbumScoreView* albumScoreView;
 
 @end
 
 @implementation MGMAlbumView
 {
+    NSUInteger _rank;
     NSUInteger _listeners;
+    CGFloat _score;
 }
 
 + (UILabel*) createLabelWithRect:(CGRect)rect fontName:(NSString*)fontName fontSize:(CGFloat)fontSize
@@ -68,6 +73,9 @@
     self.rankLabel.alpha = 0.75;
     self.rankLabel.textColor = [UIColor yellowColor];
 
+    self.albumScoreView = [[MGMAlbumScoreView alloc] initWithFrame:CGRectMake(parentSize.width * 0.375f, 0, parentSize.width * 0.25f, parentSize.height * 0.25f)];
+    self.albumScoreView.hidden = YES;
+
     self.detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     CGFloat detailWidth = 34;
     CGFloat detailHeight = detailWidth;
@@ -98,9 +106,9 @@
     self.activityIndicatorView.userInteractionEnabled = NO;
     self.activityInProgress = NO;
 
-
     [self addSubview:self.button];
     [self.button addSubview:self.rankLabel];
+    [self.button addSubview:self.albumScoreView];
 
     [self.button addSubview:textParentView];
     [textParentView addSubview:self.artistLabel];
@@ -188,13 +196,14 @@
 
 - (NSUInteger) rank
 {
-    return self.rankLabel.text.intValue;
+    return _rank;
 }
 
 - (void) setRank:(NSUInteger)rank
 {
     self.rankLabel.hidden = (rank == 0);
     self.rankLabel.text = [NSString stringWithFormat:@"%d", rank];
+    _rank = rank;
 }
 
 - (NSUInteger) listeners
@@ -207,6 +216,18 @@
     self.listenersLabel.hidden = (listeners == 0);
     self.listenersLabel.text = [NSString stringWithFormat:LISTENERS_FORMAT, listeners];
     _listeners = listeners;
+}
+
+- (CGFloat) score
+{
+    return _score;
+}
+
+- (void) setScore:(CGFloat)score
+{
+    self.albumScoreView.hidden = (score == 0.0f);
+    self.albumScoreView.score = [NSString stringWithFormat:@"%.1f", score];
+    _score = score;
 }
 
 - (void) renderImageWithNoAnimation:(UIImage*)image

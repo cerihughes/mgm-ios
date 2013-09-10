@@ -265,7 +265,10 @@
 
     album.artistName = albumDto.artistName;
     album.albumName = albumDto.albumName;
-    album.score = albumDto.score;
+    if (albumDto.score)
+    {
+        album.score = albumDto.score;
+    }
 
     [self addImageUris:albumDto.imageUris toAlbum:album error:error];
     if (error && *error != nil)

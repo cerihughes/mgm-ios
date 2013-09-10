@@ -29,6 +29,7 @@
 @property (strong) NSString* albumName;
 @property NSUInteger rank;
 @property NSUInteger listeners;
+@property CGFloat score;
 
 @property BOOL activityInProgress;
 @property BOOL detailViewShowing;

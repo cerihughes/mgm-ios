@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 #import "MGMAlbumView.h"
+#import "MGMAlbumScoreView.h"
 
 typedef enum
 {
@@ -37,14 +38,19 @@ AlbumState;
 
     self.albumView1 = [[MGMAlbumView alloc] initWithFrame:CGRectMake(10, 10, 200, 200)];
     self.albumView1.pressable = YES;
+    self.albumView1.score = 4.4;
     self.albumView1.delegate = self;
     
     self.albumView2 = [[MGMAlbumView alloc] initWithFrame:CGRectMake(20, 220, 200, 200)];
     self.albumView2.pressable = YES;
     self.albumView2.delegate = self;
 
+    MGMAlbumScoreView* albumScoreView = [[MGMAlbumScoreView alloc] initWithFrame:CGRectMake(20, 220, 171.0f/2.0f, 210.0f/2.0f)];
+    albumScoreView.score = @"9.9";
+
     [self.view addSubview:self.albumView1];
-    [self.view addSubview:self.albumView2];
+//    [self.view addSubview:self.albumView2];
+    [self.view addSubview:albumScoreView];
 
     [self albumView:self.albumView1 progressToState:AlbumStateFirstImage];
     [self albumView:self.albumView2 progressToState:AlbumStateSecondImage];

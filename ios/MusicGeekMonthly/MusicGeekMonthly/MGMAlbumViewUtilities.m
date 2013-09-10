@@ -19,6 +19,7 @@
         albumView.activityInProgress = YES;
         albumView.artistName = album.artistName;
         albumView.albumName = album.albumName;
+        albumView.score = [album.score floatValue];
     });
 
     if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
