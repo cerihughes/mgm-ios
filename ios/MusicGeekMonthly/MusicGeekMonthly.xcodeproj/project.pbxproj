@@ -136,6 +136,14 @@
 		65EB124117C40025008EE886 /* MGMFetchAlbumImageUrlsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EB123F17C40025008EE886 /* MGMFetchAlbumImageUrlsOperation.m */; };
 		65EB124617C4077E008EE886 /* MGMFetchSpotifyAlbumMetadataOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EB124517C4077E008EE886 /* MGMFetchSpotifyAlbumMetadataOperation.m */; };
 		65EB124717C4077E008EE886 /* MGMFetchSpotifyAlbumMetadataOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EB124517C4077E008EE886 /* MGMFetchSpotifyAlbumMetadataOperation.m */; };
+		65EBBF2B17DFA3660012AF3D /* chart_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF2917DFA3660012AF3D /* chart_line.png */; };
+		65EBBF2C17DFA3660012AF3D /* chart_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF2A17DFA3660012AF3D /* chart_line@2x.png */; };
+		65EBBF3217DFA37C0012AF3D /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF2D17DFA37C0012AF3D /* calendar.png */; };
+		65EBBF3317DFA37C0012AF3D /* calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF2E17DFA37C0012AF3D /* calendar@2x.png */; };
+		65EBBF3417DFA37C0012AF3D /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF2F17DFA37C0012AF3D /* home@2x.png */; };
+		65EBBF3517DFA37C0012AF3D /* ruler.png in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF3017DFA37C0012AF3D /* ruler.png */; };
+		65EBBF3617DFA37C0012AF3D /* ruler@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF3117DFA37C0012AF3D /* ruler@2x.png */; };
+		65EBBF3817DFA3850012AF3D /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF3717DFA3850012AF3D /* home.png */; };
 		65ECD8FB17AC2F4300701A00 /* MGMHomeViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65ECD8FA17AC2F4300701A00 /* MGMHomeViewController~iphone.xib */; };
 		65ECD90117AC3B2F00701A00 /* MGMAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */; };
 		65ECD90417AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */; };
@@ -310,6 +318,14 @@
 		65EB123F17C40025008EE886 /* MGMFetchAlbumImageUrlsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFetchAlbumImageUrlsOperation.m; sourceTree = "<group>"; };
 		65EB124417C4077E008EE886 /* MGMFetchSpotifyAlbumMetadataOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFetchSpotifyAlbumMetadataOperation.h; sourceTree = "<group>"; };
 		65EB124517C4077E008EE886 /* MGMFetchSpotifyAlbumMetadataOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFetchSpotifyAlbumMetadataOperation.m; sourceTree = "<group>"; };
+		65EBBF2917DFA3660012AF3D /* chart_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chart_line.png; path = MusicGeekMonthly/chart_line.png; sourceTree = "<group>"; };
+		65EBBF2A17DFA3660012AF3D /* chart_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chart_line@2x.png"; path = "MusicGeekMonthly/chart_line@2x.png"; sourceTree = "<group>"; };
+		65EBBF2D17DFA37C0012AF3D /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = calendar.png; path = MusicGeekMonthly/calendar.png; sourceTree = "<group>"; };
+		65EBBF2E17DFA37C0012AF3D /* calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "calendar@2x.png"; path = "MusicGeekMonthly/calendar@2x.png"; sourceTree = "<group>"; };
+		65EBBF2F17DFA37C0012AF3D /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "home@2x.png"; path = "MusicGeekMonthly/home@2x.png"; sourceTree = "<group>"; };
+		65EBBF3017DFA37C0012AF3D /* ruler.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ruler.png; path = MusicGeekMonthly/ruler.png; sourceTree = "<group>"; };
+		65EBBF3117DFA37C0012AF3D /* ruler@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ruler@2x.png"; path = "MusicGeekMonthly/ruler@2x.png"; sourceTree = "<group>"; };
+		65EBBF3717DFA3850012AF3D /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = MusicGeekMonthly/home.png; sourceTree = "<group>"; };
 		65ECD8FA17AC2F4300701A00 /* MGMHomeViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMHomeViewController~iphone.xib"; sourceTree = "<group>"; };
 		65ECD8FC17AC39C500701A00 /* MGMAlbumSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumSelectionDelegate.h; sourceTree = "<group>"; };
 		65ECD8FF17AC3B2E00701A00 /* MGMAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumViewController.h; sourceTree = "<group>"; };
@@ -626,6 +642,14 @@
 				656D01B2176C5DB900B9B0B3 /* spotify.png */,
 				652C8711179DBC370059595E /* wikipedia.png */,
 				652C8713179DBDEB0059595E /* youtube.png */,
+				65EBBF2917DFA3660012AF3D /* chart_line.png */,
+				65EBBF2A17DFA3660012AF3D /* chart_line@2x.png */,
+				65EBBF2D17DFA37C0012AF3D /* calendar.png */,
+				65EBBF2E17DFA37C0012AF3D /* calendar@2x.png */,
+				65EBBF3717DFA3850012AF3D /* home.png */,
+				65EBBF2F17DFA37C0012AF3D /* home@2x.png */,
+				65EBBF3017DFA37C0012AF3D /* ruler.png */,
+				65EBBF3117DFA37C0012AF3D /* ruler@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -792,6 +816,14 @@
 				65E9E3B517CA4B020077BB78 /* MGMAlbumDetailViewController~ipad.xib in Resources */,
 				65E9E3B717CA6DE40077BB78 /* MGMAlbumDetailViewController~iphone.xib in Resources */,
 				65E9E3B917CA70CD0077BB78 /* itunes.png in Resources */,
+				65EBBF2B17DFA3660012AF3D /* chart_line.png in Resources */,
+				65EBBF2C17DFA3660012AF3D /* chart_line@2x.png in Resources */,
+				65EBBF3217DFA37C0012AF3D /* calendar.png in Resources */,
+				65EBBF3317DFA37C0012AF3D /* calendar@2x.png in Resources */,
+				65EBBF3417DFA37C0012AF3D /* home@2x.png in Resources */,
+				65EBBF3517DFA37C0012AF3D /* ruler.png in Resources */,
+				65EBBF3617DFA37C0012AF3D /* ruler@2x.png in Resources */,
+				65EBBF3817DFA3850012AF3D /* home.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
