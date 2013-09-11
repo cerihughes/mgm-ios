@@ -146,6 +146,9 @@
 		65EBBF3817DFA3850012AF3D /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF3717DFA3850012AF3D /* home.png */; };
 		65EBBF3E17DFA81E0012AF3D /* MGMAlbumScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EBBF3D17DFA81E0012AF3D /* MGMAlbumScoreView.m */; };
 		65EBBF4517DFB0710012AF3D /* gold_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF4417DFB0710012AF3D /* gold_bar.png */; };
+		65EBBF4E17DFBF800012AF3D /* MGMAlbumScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EBBF4D17DFBF800012AF3D /* MGMAlbumScoresViewController.m */; };
+		65EBBF5117DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF4F17DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib */; };
+		65EBBF5217DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF5017DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib */; };
 		65ECD8FB17AC2F4300701A00 /* MGMHomeViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65ECD8FA17AC2F4300701A00 /* MGMHomeViewController~iphone.xib */; };
 		65ECD90117AC3B2F00701A00 /* MGMAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */; };
 		65ECD90417AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */; };
@@ -331,6 +334,10 @@
 		65EBBF3C17DFA81E0012AF3D /* MGMAlbumScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumScoreView.h; sourceTree = "<group>"; };
 		65EBBF3D17DFA81E0012AF3D /* MGMAlbumScoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumScoreView.m; sourceTree = "<group>"; };
 		65EBBF4417DFB0710012AF3D /* gold_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gold_bar.png; path = MusicGeekMonthly/gold_bar.png; sourceTree = "<group>"; };
+		65EBBF4C17DFBF800012AF3D /* MGMAlbumScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumScoresViewController.h; sourceTree = "<group>"; };
+		65EBBF4D17DFBF800012AF3D /* MGMAlbumScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumScoresViewController.m; sourceTree = "<group>"; };
+		65EBBF4F17DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMAlbumScoresViewController~ipad.xib"; sourceTree = "<group>"; };
+		65EBBF5017DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMAlbumScoresViewController~iphone.xib"; sourceTree = "<group>"; };
 		65ECD8FA17AC2F4300701A00 /* MGMHomeViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMHomeViewController~iphone.xib"; sourceTree = "<group>"; };
 		65ECD8FC17AC39C500701A00 /* MGMAlbumSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumSelectionDelegate.h; sourceTree = "<group>"; };
 		65ECD8FF17AC3B2E00701A00 /* MGMAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumViewController.h; sourceTree = "<group>"; };
@@ -463,6 +470,7 @@
 				65E53CE91785CF3D001ECA79 /* Home */,
 				6594349417776AB400DCA9DB /* Events */,
 				65291AF31775F658002595AC /* Weekly Chart */,
+				65EBBF4817DFBF250012AF3D /* Scores */,
 				6576DDAF17AD11A200BCB00B /* Album Detail */,
 				653B6BC1175FDB4B005D372C /* MGMUI.h */,
 				653B6BC2175FDB4B005D372C /* MGMUI.m */,
@@ -730,6 +738,17 @@
 			name = Events;
 			sourceTree = "<group>";
 		};
+		65EBBF4817DFBF250012AF3D /* Scores */ = {
+			isa = PBXGroup;
+			children = (
+				65EBBF4C17DFBF800012AF3D /* MGMAlbumScoresViewController.h */,
+				65EBBF4D17DFBF800012AF3D /* MGMAlbumScoresViewController.m */,
+				65EBBF4F17DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib */,
+				65EBBF5017DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib */,
+			);
+			name = Scores;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -833,6 +852,8 @@
 				65EBBF3617DFA37C0012AF3D /* ruler@2x.png in Resources */,
 				65EBBF3817DFA3850012AF3D /* home.png in Resources */,
 				65EBBF4517DFB0710012AF3D /* gold_bar.png in Resources */,
+				65EBBF5117DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib in Resources */,
+				65EBBF5217DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -929,6 +950,7 @@
 				65E9E3B317CA49880077BB78 /* MGMAlbumDetailViewController.m in Sources */,
 				65F46CFA17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */,
 				65EBBF3E17DFA81E0012AF3D /* MGMAlbumScoreView.m in Sources */,
+				65EBBF4E17DFBF800012AF3D /* MGMAlbumScoresViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
