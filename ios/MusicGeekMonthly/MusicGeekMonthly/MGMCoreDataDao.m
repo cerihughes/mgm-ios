@@ -130,6 +130,20 @@
     completion(event, error);
 }
 
+- (void) fetchAllClassicAlbums:(FETCH_MANY_COMPLETION)completion
+{
+    NSError* error = nil;
+    NSArray* albums = [self.daoSync fetchAllClassicAlbums:&error];
+    completion(albums, error);
+}
+
+- (void) fetchAllNewlyReleasedAlbums:(FETCH_MANY_COMPLETION)completion
+{
+    NSError* error = nil;
+    NSArray* albums = [self.daoSync fetchAllNewlyReleasedAlbums:&error];
+    completion(albums, error);
+}
+
 - (id) threadVersion:(NSManagedObjectID *)moid
 {
     return [self.moc objectWithID:moid];

@@ -516,6 +516,30 @@
     return nil;
 }
 
+- (NSArray*) fetchAllClassicAlbums:(NSError**)error
+{
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    request.entity = [NSEntityDescription entityForName:@"MGMAlbum" inManagedObjectContext:moc];
+    request.predicate = [NSPredicate predicateWithFormat:@"classicAlbumEvent != nil"];
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO];
+    NSArray* sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.sortDescriptors = sortDescriptors;
+    return [moc executeFetchRequest:request error:error];
+}
+
+- (NSArray*) fetchAllNewlyReleasedAlbums:(NSError**)error
+{
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    request.entity = [NSEntityDescription entityForName:@"MGMAlbum" inManagedObjectContext:moc];
+    request.predicate = [NSPredicate predicateWithFormat:@"newlyReleasedAlbumEvent != nil"];
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO];
+    NSArray* sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.sortDescriptors = sortDescriptors;
+    return [moc executeFetchRequest:request error:error];
+}
+
 #pragma mark -
 #pragma mark Transactional
 

@@ -12,5 +12,7 @@
 @interface MGMEventsDao : MGMHttpDao
 
 - (void) fetchAllEvents:(FETCH_MANY_COMPLETION)completion;
+- (void) fetchAllClassicAlbums:(FETCH_MANY_COMPLETION)completion;
+- (void) fetchAllNewlyReleasedAlbums:(FETCH_MANY_COMPLETION)completion;
 
 @end

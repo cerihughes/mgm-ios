@@ -8,6 +8,7 @@
 
 #import "MGMNavigationViewController.h"
 
+#import "MGMAlbumScoresViewController.h"
 #import "MGMEventsViewController.h"
 #import "MGMHomeViewController.h"
 #import "MGMWeeklyChartViewController.h"
@@ -54,7 +55,14 @@
     eventsViewController.tabBarItem.title = @"Previous Events";
     eventsViewController.tabBarItem.image = [UIImage imageNamed:@"calendar.png"];
 
-    [self setViewControllers: @[homeViewController, weeklyChartViewController, eventsViewController]];
+    MGMAlbumScoresViewController* albumScoresViewController = [[MGMAlbumScoresViewController alloc] init];
+    albumScoresViewController.ui = self.ui;
+    albumScoresViewController.title = @"Album Scores";
+    albumScoresViewController.albumSelectionDelegate = self.ui;
+    albumScoresViewController.tabBarItem.title = @"Album Scores";
+    albumScoresViewController.tabBarItem.image = [UIImage imageNamed:@"ruler.png"];
+
+    [self setViewControllers: @[homeViewController, weeklyChartViewController, eventsViewController, albumScoresViewController]];
 }
 
 @end

@@ -16,7 +16,6 @@
 @interface MGMAlbumScoresViewController () <MGMWeeklyChartAlbumsViewDelegate, UITableViewDelegate>
 
 @property (strong) IBOutlet MGMWeeklyChartAlbumsView* albumsView;
-
 @property (strong) NSArray* albums;
 
 @end
@@ -31,9 +30,9 @@
     return self;
 }
 
-- (IBAction) segmentSwitched:(id)sender
+- (IBAction) segmentSwitched:(UISegmentedControl*)sender
 {
-    
+    [self loadAlbumsForChoice:sender.selectedSegmentIndex];
 }
 
 - (void) viewDidLoad
@@ -57,7 +56,7 @@
     }
 }
 
-- (void) loadAlbumsForPeriod:(MGMTimePeriod*)timePeriod
+- (void) loadAlbumsForChoice:(NSInteger)choice
 {
     dispatch_async(dispatch_get_main_queue(), ^
     {
@@ -66,17 +65,17 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMWeeklyChart* weeklyChart, NSError* fetchError)
+        [self dataForChoice:choice completion:^(NSArray* albums, NSError* fetchError)
         {
-            if (fetchError && weeklyChart)
+            if (fetchError && albums)
             {
                 [self logError:fetchError];
             }
 
-            if (weeklyChart)
+            if (albums)
             {
-//                self.weeklyChartMoid = weeklyChart.objectID;
-                [self reloadData];
+                self.albums = albums;
+                [self reloadAlbums];
             }
             else
             {
@@ -86,7 +85,21 @@
     });
 }
 
-- (void) reloadData
+- (void) dataForChoice:(NSInteger)choice completion:(FETCH_MANY_COMPLETION)completion
+{
+    switch (choice) {
+        case 0:
+            [self.core.daoFactory.eventsDao fetchAllClassicAlbums:completion];
+            break;
+        case 1:
+            [self.core.daoFactory.eventsDao fetchAllNewlyReleasedAlbums:completion];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void) reloadAlbums
 {
     NSUInteger position = 1;
     for (MGMAlbum* album in self.albums)

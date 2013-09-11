@@ -103,6 +103,10 @@
 		65DF2B8117BF703C00BAF25A /* MGMBackgroundAlbumArtFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DF2B8017BF703C00BAF25A /* MGMBackgroundAlbumArtFetcher.m */; };
 		65DF2BA017BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DF2B9F17BFBF8700BAF25A /* MGMNextUrlAccess.m */; };
 		65DF2BA117BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DF2B9F17BFBF8700BAF25A /* MGMNextUrlAccess.m */; };
+		65E3BDFF17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E3BDFE17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m */; };
+		65E3BE0017E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E3BDFE17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m */; };
+		65E3BE0317E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E3BE0217E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m */; };
+		65E3BE0417E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E3BE0217E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m */; };
 		65E53CE61785CACC001ECA79 /* MGMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E53CE51785CACC001ECA79 /* MGMNavigationViewController.m */; };
 		65E53CEC1785CF57001ECA79 /* MGMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E53CEB1785CF57001ECA79 /* MGMHomeViewController.m */; };
 		65E53CEE1785CF81001ECA79 /* MGMHomeViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CED1785CF81001ECA79 /* MGMHomeViewController~ipad.xib */; };
@@ -278,6 +282,10 @@
 		65DF2B9A17BFA41E00BAF25A /* MGMCompletion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCompletion.h; sourceTree = "<group>"; };
 		65DF2B9E17BFBF8500BAF25A /* MGMNextUrlAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMNextUrlAccess.h; sourceTree = "<group>"; };
 		65DF2B9F17BFBF8700BAF25A /* MGMNextUrlAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMNextUrlAccess.m; sourceTree = "<group>"; };
+		65E3BDFD17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFetchAllClassicAlbumsOperation.h; sourceTree = "<group>"; };
+		65E3BDFE17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFetchAllClassicAlbumsOperation.m; sourceTree = "<group>"; };
+		65E3BE0117E0CD0F00085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFetchAllNewlyReleasedAlbumsOperation.h; sourceTree = "<group>"; };
+		65E3BE0217E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFetchAllNewlyReleasedAlbumsOperation.m; sourceTree = "<group>"; };
 		65E53CE41785CACC001ECA79 /* MGMNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMNavigationViewController.h; sourceTree = "<group>"; };
 		65E53CE51785CACC001ECA79 /* MGMNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMNavigationViewController.m; sourceTree = "<group>"; };
 		65E53CEA1785CF57001ECA79 /* MGMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMHomeViewController.h; sourceTree = "<group>"; };
@@ -734,6 +742,10 @@
 			children = (
 				65EB122817C3FB18008EE886 /* MGMFetchAllEventsOperation.h */,
 				65EB122917C3FB18008EE886 /* MGMFetchAllEventsOperation.m */,
+				65E3BDFD17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.h */,
+				65E3BDFE17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m */,
+				65E3BE0117E0CD0F00085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.h */,
+				65E3BE0217E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -951,6 +963,8 @@
 				65F46CFA17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */,
 				65EBBF3E17DFA81E0012AF3D /* MGMAlbumScoreView.m in Sources */,
 				65EBBF4E17DFBF800012AF3D /* MGMAlbumScoresViewController.m in Sources */,
+				65E3BDFF17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m in Sources */,
+				65E3BE0317E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -998,6 +1012,8 @@
 				65EB124717C4077E008EE886 /* MGMFetchSpotifyAlbumMetadataOperation.m in Sources */,
 				650EBEC417C8CF0700D7EE88 /* NSMutableArray+Shuffling.m in Sources */,
 				65F46CFB17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */,
+				65E3BE0017E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m in Sources */,
+				65E3BE0417E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1057,7 +1073,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1084,7 +1100,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
