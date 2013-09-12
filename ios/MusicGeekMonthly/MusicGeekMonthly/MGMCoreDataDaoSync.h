@@ -69,6 +69,7 @@
 - (MGMEvent*) fetchEventWithEventNumber:(NSNumber*)eventNumber error:(NSError**)error;
 - (NSArray*) fetchAllClassicAlbums:(NSError**)error;
 - (NSArray*) fetchAllNewlyReleasedAlbums:(NSError**)error;
+- (NSArray*) fetchAllEventAlbums:(NSError**)error;
 
 #pragma mark -
 #pragma mark #pragma mark Transactional

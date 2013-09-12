@@ -56,6 +56,8 @@
 		653B6BC8175FDB4B005D372C /* MGMCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BC0175FDB4B005D372C /* MGMCore.m */; };
 		653B6BC9175FDB4B005D372C /* MGMUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BC2175FDB4B005D372C /* MGMUI.m */; };
 		653B6BCA175FDB4B005D372C /* MGMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BC4175FDB4B005D372C /* MGMView.m */; };
+		65422A0F17E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65422A0E17E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m */; };
+		65422A1017E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65422A0E17E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m */; };
 		6554DE3417A053F0006A2A29 /* MGM_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6554DE3317A053F0006A2A29 /* MGM_icon.png */; };
 		656D01B3176C5DB900B9B0B3 /* lastfm.png in Resources */ = {isa = PBXBuildFile; fileRef = 656D01B1176C5DB900B9B0B3 /* lastfm.png */; };
 		656D01B4176C5DB900B9B0B3 /* spotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 656D01B2176C5DB900B9B0B3 /* spotify.png */; };
@@ -234,6 +236,8 @@
 		653B6BC2175FDB4B005D372C /* MGMUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMUI.m; sourceTree = "<group>"; };
 		653B6BC3175FDB4B005D372C /* MGMView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMView.h; sourceTree = "<group>"; };
 		653B6BC4175FDB4B005D372C /* MGMView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMView.m; sourceTree = "<group>"; };
+		65422A0D17E1BAF300465AD6 /* MGMFetchAllEventAlbumsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFetchAllEventAlbumsOperation.h; sourceTree = "<group>"; };
+		65422A0E17E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFetchAllEventAlbumsOperation.m; sourceTree = "<group>"; };
 		6554DE3317A053F0006A2A29 /* MGM_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MGM_icon.png; sourceTree = "<group>"; };
 		656D01B1176C5DB900B9B0B3 /* lastfm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lastfm.png; path = MusicGeekMonthly/lastfm.png; sourceTree = "<group>"; };
 		656D01B2176C5DB900B9B0B3 /* spotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spotify.png; path = MusicGeekMonthly/spotify.png; sourceTree = "<group>"; };
@@ -746,6 +750,8 @@
 				65E3BDFE17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m */,
 				65E3BE0117E0CD0F00085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.h */,
 				65E3BE0217E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m */,
+				65422A0D17E1BAF300465AD6 /* MGMFetchAllEventAlbumsOperation.h */,
+				65422A0E17E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -965,6 +971,7 @@
 				65EBBF4E17DFBF800012AF3D /* MGMAlbumScoresViewController.m in Sources */,
 				65E3BDFF17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m in Sources */,
 				65E3BE0317E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m in Sources */,
+				65422A0F17E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1014,6 +1021,7 @@
 				65F46CFB17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */,
 				65E3BE0017E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m in Sources */,
 				65E3BE0417E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m in Sources */,
+				65422A1017E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

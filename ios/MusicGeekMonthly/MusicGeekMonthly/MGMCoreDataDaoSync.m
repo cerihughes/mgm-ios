@@ -540,6 +540,18 @@
     return [moc executeFetchRequest:request error:error];
 }
 
+- (NSArray*) fetchAllEventAlbums:(NSError**)error
+{
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    request.entity = [NSEntityDescription entityForName:@"MGMAlbum" inManagedObjectContext:moc];
+    request.predicate = [NSPredicate predicateWithFormat:@"((newlyReleasedAlbumEvent != nil) OR (classicAlbumEvent != nil)) AND (score != nil) AND (score > 0)"];
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO];
+    NSArray* sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.sortDescriptors = sortDescriptors;
+    return [moc executeFetchRequest:request error:error];
+}
+
 #pragma mark -
 #pragma mark Transactional
 

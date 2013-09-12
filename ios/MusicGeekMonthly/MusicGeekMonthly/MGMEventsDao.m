@@ -9,6 +9,7 @@
 #import "MGMEventsDao.h"
 
 #import "MGMFetchAllClassicAlbumsOperation.h"
+#import "MGMFetchAllEventAlbumsOperation.h"
 #import "MGMFetchAllEventsOperation.h"
 #import "MGMFetchAllNewlyReleasedAlbumsOperation.h"
 
@@ -17,6 +18,7 @@
 @property (strong) MGMFetchAllEventsOperation* fetchAllEventsOperation;
 @property (strong) MGMFetchAllClassicAlbumsOperation* fetchAllClassicAlbumsOperation;
 @property (strong) MGMFetchAllNewlyReleasedAlbumsOperation* fetchAllNewlyReleasedAlbumsOperation;
+@property (strong) MGMFetchAllEventAlbumsOperation* fetchAllEventAlbumsOperation;
 
 @end
 
@@ -29,6 +31,7 @@
         self.fetchAllEventsOperation = [[MGMFetchAllEventsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:1];
         self.fetchAllClassicAlbumsOperation = [[MGMFetchAllClassicAlbumsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:1];
         self.fetchAllNewlyReleasedAlbumsOperation = [[MGMFetchAllNewlyReleasedAlbumsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:1];
+        self.fetchAllEventAlbumsOperation = [[MGMFetchAllEventAlbumsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:1];
     }
     return self;
 }
@@ -46,6 +49,11 @@
 - (void) fetchAllNewlyReleasedAlbums:(FETCH_MANY_COMPLETION)completion
 {
     [self.fetchAllNewlyReleasedAlbumsOperation executeWithData:nil completion:completion];
+}
+
+- (void) fetchAllEventAlbums:(FETCH_MANY_COMPLETION)completion
+{
+    [self.fetchAllEventAlbumsOperation executeWithData:nil completion:completion];
 }
 
 @end

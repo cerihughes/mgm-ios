@@ -120,6 +120,8 @@
         case 1:
             [self.core.daoFactory.eventsDao fetchAllNewlyReleasedAlbums:completion];
             break;
+        case 2:
+            [self.core.daoFactory.eventsDao fetchAllEventAlbums:completion];
         default:
             break;
     }

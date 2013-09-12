@@ -144,6 +144,13 @@
     completion(albums, error);
 }
 
+- (void) fetchAllEventAlbums:(FETCH_MANY_COMPLETION)completion
+{
+    NSError* error = nil;
+    NSArray* albums = [self.daoSync fetchAllEventAlbums:&error];
+    completion(albums, error);
+}
+
 - (id) threadVersion:(NSManagedObjectID *)moid
 {
     return [self.moc objectWithID:moid];
