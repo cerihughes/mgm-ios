@@ -41,6 +41,7 @@
 
     self.albumsView.delegate = self;
 
+    // Setup 25 albums so we can put them into "activity in progress" mode...
     BOOL iPad = self.view.frame.size.width > 320;
     NSUInteger albumCount = 25;
     NSUInteger rowCount = iPad ? 4 : 2;
@@ -54,6 +55,8 @@
         CGRect frame = [value CGRectValue];
         [self.albumsView setupAlbumFrame:frame forRank:i + 1];
     }
+
+    [self segmentSwitched:0];
 }
 
 - (void) loadAlbumsForChoice:(NSInteger)choice
@@ -67,6 +70,29 @@
     {
         [self dataForChoice:choice completion:^(NSArray* albums, NSError* fetchError)
         {
+            dispatch_async(dispatch_get_main_queue(), ^
+            {
+                // Resize the album view for new data...
+                [self.albumsView clearAllAlbumFrames];
+
+                BOOL iPad = self.view.frame.size.width > 320;
+                NSUInteger albumCount = albums.count;
+                NSUInteger rowCount = iPad ? 4 : 2;
+                NSUInteger columnCount = (albumCount + 3) / rowCount;
+                CGFloat albumSize = self.albumsView.frame.size.width / rowCount;
+                NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];
+
+                for (NSUInteger i = 0; i < albumCount; i++)
+                {
+                    NSValue* value = [gridData objectAtIndex:i];
+                    CGRect frame = [value CGRectValue];
+                    [self.albumsView setupAlbumFrame:frame forRank:i + 1];
+                }
+
+                [self.albumsView setActivityInProgressForAllRanks:YES];
+
+            });
+
             if (fetchError && albums)
             {
                 [self logError:fetchError];

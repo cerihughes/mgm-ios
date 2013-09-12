@@ -85,6 +85,15 @@
     return nil;
 }
 
+- (void) clearAllAlbumFrames
+{
+    for (MGMAlbumView* albumView in self.albumViews)
+    {
+        [albumView removeFromSuperview];
+    }
+    [self.albumViews removeAllObjects];
+}
+
 #pragma mark -
 #pragma mark MGMPressableAlbumViewDelegate
 

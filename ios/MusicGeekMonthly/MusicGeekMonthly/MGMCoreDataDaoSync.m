@@ -521,7 +521,7 @@
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     request.entity = [NSEntityDescription entityForName:@"MGMAlbum" inManagedObjectContext:moc];
-    request.predicate = [NSPredicate predicateWithFormat:@"classicAlbumEvent != nil"];
+    request.predicate = [NSPredicate predicateWithFormat:@"(classicAlbumEvent != nil) AND (score != nil) AND (score > 0)"];
     NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO];
     NSArray* sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.sortDescriptors = sortDescriptors;
@@ -533,7 +533,7 @@
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     request.entity = [NSEntityDescription entityForName:@"MGMAlbum" inManagedObjectContext:moc];
-    request.predicate = [NSPredicate predicateWithFormat:@"newlyReleasedAlbumEvent != nil"];
+    request.predicate = [NSPredicate predicateWithFormat:@"(newlyReleasedAlbumEvent != nil) AND (score != nil) AND (score > 0)"];
     NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO];
     NSArray* sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.sortDescriptors = sortDescriptors;
