@@ -104,6 +104,8 @@
             return @"Play with YouTube";
         case MGMAlbumServiceTypeItunes:
             return @"Open with iTunes";
+        case MGMAlbumServiceTypeDeezer:
+            return @"Open with Deezer";
         default:
             return nil;
     }
@@ -152,6 +154,8 @@
             return [UIImage imageNamed:@"youtube.png"];
         case MGMAlbumServiceTypeItunes:
             return [UIImage imageNamed:@"itunes.png"];
+        case MGMAlbumServiceTypeDeezer:
+            return [UIImage imageNamed:@"deezer.png"];
         default:
             return nil;
     }

@@ -14,6 +14,7 @@
 #define URI_PATTERN_WIKIPEDIA @"http://en.wikipedia.org/wiki/%@"
 #define URI_PATTERN_YOUTUBE @"http://www.youtube.com/watch?v=%@"
 #define URI_PATTERN_ITUNES @"https://itunes.apple.com/gb/album/%@?uo=4"
+#define URI_PATTERN_DEEZER @"deezer://www.deezer.com/album/%@"
 
 @interface MGMAlbumPlayer ()
 
@@ -81,6 +82,8 @@
             return URI_PATTERN_YOUTUBE;
         case MGMAlbumServiceTypeItunes:
             return URI_PATTERN_ITUNES;
+        case MGMAlbumServiceTypeDeezer:
+            return URI_PATTERN_DEEZER;
         default:
             return nil;
     }

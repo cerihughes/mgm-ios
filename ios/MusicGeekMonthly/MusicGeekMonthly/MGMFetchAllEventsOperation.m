@@ -30,6 +30,7 @@
 #define METADATA_KEY_WIKIPEDIA @"wikipedia"
 #define METADATA_KEY_YOUTUBE @"youtube"
 #define METADATA_KEY_ITUNES @"itunes"
+#define METADATA_KEY_DEEZER @"deezer"
 
 @implementation MGMFetchAllEventsOperation
 
@@ -135,6 +136,10 @@
     if ([string isEqualToString:METADATA_KEY_ITUNES])
     {
         return MGMAlbumServiceTypeItunes;
+    }
+    if ([string isEqualToString:METADATA_KEY_DEEZER])
+    {
+        return MGMAlbumServiceTypeDeezer;
     }
     return MGMAlbumServiceTypeNone;
 }

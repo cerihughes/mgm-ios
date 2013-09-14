@@ -13,6 +13,7 @@ typedef enum
     MGMAlbumServiceTypeSpotify =   0x02,
     MGMAlbumServiceTypeWikipedia = 0x04,
     MGMAlbumServiceTypeYouTube =   0x08,
-    MGMAlbumServiceTypeItunes =    0x10
+    MGMAlbumServiceTypeItunes =    0x10,
+    MGMAlbumServiceTypeDeezer =    0x20
 }
 MGMAlbumServiceType;
