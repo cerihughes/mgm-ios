@@ -44,9 +44,15 @@ static NSDictionary* acceptJson;
 {
     MGMAlbum* album = data;
     MGMAlbumMetadataDto* metadataDto = [self updateAlbumInfo:album withJson:json];
-    NSArray* metadataDtos = [NSArray arrayWithObject:metadataDto];
-
-    completion(metadataDtos, nil);
+    if (metadataDto)
+    {
+        NSArray* metadataDtos = [NSArray arrayWithObject:metadataDto];
+        completion(metadataDtos, nil);
+    }
+    else
+    {
+        completion(nil, nil);
+    }
 }
 
 - (MGMAlbumMetadataDto*) updateAlbumInfo:(MGMAlbum*)album withJson:(NSDictionary*)json

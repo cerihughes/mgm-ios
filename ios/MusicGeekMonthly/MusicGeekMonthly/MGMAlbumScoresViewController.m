@@ -16,7 +16,7 @@
 @interface MGMAlbumScoresViewController () <MGMWeeklyChartAlbumsViewDelegate, UITableViewDelegate>
 
 @property (strong) IBOutlet MGMWeeklyChartAlbumsView* albumsView;
-@property (strong) NSArray* albums;
+@property (strong) NSArray* albumMoids;
 
 @end
 
@@ -68,7 +68,7 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        [self dataForChoice:choice completion:^(NSArray* albums, NSError* fetchError)
+        [self dataForChoice:choice completion:^(NSArray* albumMoids, NSError* fetchError)
         {
             dispatch_async(dispatch_get_main_queue(), ^
             {
@@ -76,7 +76,7 @@
                 [self.albumsView clearAllAlbumFrames];
 
                 BOOL iPad = self.view.frame.size.width > 320;
-                NSUInteger albumCount = albums.count;
+                NSUInteger albumCount = albumMoids.count;
                 NSUInteger rowCount = iPad ? 4 : 2;
                 NSUInteger columnCount = ((albumCount + 3) / rowCount) + 1;
                 CGFloat albumSize = self.albumsView.frame.size.width / rowCount;
@@ -93,14 +93,14 @@
 
             });
 
-            if (fetchError && albums)
+            if (fetchError && albumMoids)
             {
                 [self logError:fetchError];
             }
 
-            if (albums)
+            if (albumMoids)
             {
-                self.albums = albums;
+                self.albumMoids = albumMoids;
                 [self reloadAlbums];
             }
             else
@@ -113,15 +113,26 @@
 
 - (void) dataForChoice:(NSInteger)choice completion:(FETCH_MANY_COMPLETION)completion
 {
+
+    FETCH_MANY_COMPLETION convertToMoids = ^(NSArray* albums, NSError* error)
+    {
+        NSMutableArray* albumMoids = [NSMutableArray arrayWithCapacity:albums.count];
+        for (MGMAlbum* album in albums)
+        {
+            [albumMoids addObject:album.objectID];
+        }
+        completion(albumMoids, error);
+    };
+
     switch (choice) {
         case 0:
-            [self.core.daoFactory.eventsDao fetchAllClassicAlbums:completion];
+            [self.core.daoFactory.eventsDao fetchAllClassicAlbums:convertToMoids];
             break;
         case 1:
-            [self.core.daoFactory.eventsDao fetchAllNewlyReleasedAlbums:completion];
+            [self.core.daoFactory.eventsDao fetchAllNewlyReleasedAlbums:convertToMoids];
             break;
         case 2:
-            [self.core.daoFactory.eventsDao fetchAllEventAlbums:completion];
+            [self.core.daoFactory.eventsDao fetchAllEventAlbums:convertToMoids];
         default:
             break;
     }
@@ -130,8 +141,9 @@
 - (void) reloadAlbums
 {
     NSUInteger position = 1;
-    for (MGMAlbum* album in self.albums)
+    for (NSManagedObjectID* albumMoid in self.albumMoids)
     {
+        MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:albumMoid];
         if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
         {
             [self.core.daoFactory.lastFmDao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* fetchError)
@@ -206,13 +218,15 @@
 
 - (void) albumPressedWithRank:(NSUInteger)rank
 {
-    MGMAlbum* album = [self.albums objectAtIndex:rank - 1];
+    NSManagedObjectID* albumMoid = [self.albumMoids objectAtIndex:rank - 1];
+    MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:albumMoid];
     [self.albumSelectionDelegate albumSelected:album];
 }
 
 - (void) detailPressedWithRank:(NSUInteger)rank
 {
-    MGMAlbum* album = [self.albums objectAtIndex:rank - 1];
+    NSManagedObjectID* albumMoid = [self.albumMoids objectAtIndex:rank - 1];
+    MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:albumMoid];
     [self.albumSelectionDelegate detailSelected:album sender:self];
 }
 
