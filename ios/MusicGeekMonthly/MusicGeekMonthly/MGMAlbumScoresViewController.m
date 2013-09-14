@@ -78,7 +78,7 @@
                 BOOL iPad = self.view.frame.size.width > 320;
                 NSUInteger albumCount = albums.count;
                 NSUInteger rowCount = iPad ? 4 : 2;
-                NSUInteger columnCount = (albumCount + 3) / rowCount;
+                NSUInteger columnCount = ((albumCount + 3) / rowCount) + 1;
                 CGFloat albumSize = self.albumsView.frame.size.width / rowCount;
                 NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];
 

@@ -92,6 +92,7 @@
         [albumView removeFromSuperview];
     }
     [self.albumViews removeAllObjects];
+    self.scrollView.contentSize = CGSizeZero;
 }
 
 #pragma mark -
