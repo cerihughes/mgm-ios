@@ -10,20 +10,27 @@
 
 @interface MGMHttpDao ()
 
+@property (strong) MGMReachabilityManager* internalReachabilityManager;
 @property (strong) NSDateFormatter* jsonDateFormatter;
 
 @end
 
 @implementation MGMHttpDao
 
-- (id) initWithCoreDataDao:(MGMCoreDataDao *)coreDataDao
+- (id) initWithCoreDataDao:(MGMCoreDataDao*)coreDataDao reachabilityManager:(MGMReachabilityManager*)reachabilityManager
 {
     if (self = [super initWithCoreDataDao:coreDataDao])
     {
+        self.internalReachabilityManager = reachabilityManager;
         self.jsonDateFormatter = [[NSDateFormatter alloc] init];
         self.jsonDateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     }
     return self;
+}
+
+- (MGMReachabilityManager*) reachabilityManager
+{
+    return self.internalReachabilityManager;
 }
 
 - (BOOL) needsUrlRefresh:(NSString*)identifier

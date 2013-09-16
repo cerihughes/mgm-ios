@@ -13,7 +13,9 @@
 
 @interface MGMDaoFetchOperation : MGMHttpDao
 
-- (id) initWithCoreDataDao:(MGMCoreDataDao*)coreDataDao daysBetweenUrlFetch:(NSUInteger)daysBetweenUrlFetch;
+@property (readonly) BOOL hasReachability;
+
+- (id) initWithCoreDataDao:(MGMCoreDataDao*)coreDataDao reachabilityManager:(MGMReachabilityManager*)reachabilityManager daysBetweenUrlFetch:(NSUInteger)daysBetweenUrlFetch;
 
 - (void) executeWithData:(id)data completion:(FETCH_COMPLETION)completion;
 

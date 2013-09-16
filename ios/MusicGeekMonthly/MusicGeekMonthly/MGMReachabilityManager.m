@@ -51,6 +51,7 @@ static void networkReachabilityCallBack(SCNetworkReachabilityRef target, SCNetwo
 - (void) addListener:(id<MGMReachabilityManagerListener>)listener
 {
     [self.listeners addObject:listener];
+    [listener reachabilityDetermined:(self.connectivity != MGMReachabilityManagerConnectivityNone)];
 }
 
 - (void) removeListener:(id<MGMReachabilityManagerListener>)listener

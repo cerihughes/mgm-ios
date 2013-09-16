@@ -24,14 +24,14 @@
 
 @implementation MGMEventsDao
 
-- (id) initWithCoreDataDao:(MGMCoreDataDao *)coreDataDao
+- (id) initWithCoreDataDao:(MGMCoreDataDao*)coreDataDao reachabilityManager:(MGMReachabilityManager*)reachabilityManager
 {
-    if (self = [super initWithCoreDataDao:coreDataDao])
+    if (self = [super initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager])
     {
-        self.fetchAllEventsOperation = [[MGMFetchAllEventsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:1];
-        self.fetchAllClassicAlbumsOperation = [[MGMFetchAllClassicAlbumsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:1];
-        self.fetchAllNewlyReleasedAlbumsOperation = [[MGMFetchAllNewlyReleasedAlbumsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:1];
-        self.fetchAllEventAlbumsOperation = [[MGMFetchAllEventAlbumsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:1];
+        self.fetchAllEventsOperation = [[MGMFetchAllEventsOperation alloc] initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager daysBetweenUrlFetch:1];
+        self.fetchAllClassicAlbumsOperation = [[MGMFetchAllClassicAlbumsOperation alloc] initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager daysBetweenUrlFetch:1];
+        self.fetchAllNewlyReleasedAlbumsOperation = [[MGMFetchAllNewlyReleasedAlbumsOperation alloc] initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager daysBetweenUrlFetch:1];
+        self.fetchAllEventAlbumsOperation = [[MGMFetchAllEventAlbumsOperation alloc] initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager daysBetweenUrlFetch:1];
     }
     return self;
 }

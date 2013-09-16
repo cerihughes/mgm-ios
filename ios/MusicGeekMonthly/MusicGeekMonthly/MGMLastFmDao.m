@@ -23,13 +23,13 @@
 
 @implementation MGMLastFmDao
 
-- (id) initWithCoreDataDao:(MGMCoreDataDao *)coreDataDao
+- (id) initWithCoreDataDao:(MGMCoreDataDao*)coreDataDao reachabilityManager:(MGMReachabilityManager*)reachabilityManager
 {
-    if (self = [super initWithCoreDataDao:coreDataDao])
+    if (self = [super initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager])
     {
-        self.fetchAlbumImageUrlsOperation = [[MGMFetchAlbumImageUrlsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:0];
-        self.fetchAllTimePeriodsOperation = [[MGMFetchAllTimePeriodsOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:1];
-        self.fetchWeeklyChartOperation = [[MGMFetchWeeklyChartOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:21];
+        self.fetchAlbumImageUrlsOperation = [[MGMFetchAlbumImageUrlsOperation alloc] initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager daysBetweenUrlFetch:0];
+        self.fetchAllTimePeriodsOperation = [[MGMFetchAllTimePeriodsOperation alloc] initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager daysBetweenUrlFetch:1];
+        self.fetchWeeklyChartOperation = [[MGMFetchWeeklyChartOperation alloc] initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager daysBetweenUrlFetch:21];
     }
     return self;
 }

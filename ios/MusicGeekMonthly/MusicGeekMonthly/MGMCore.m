@@ -1,6 +1,8 @@
 
 #import "MGMCore.h"
 
+#define REACHABILITY_END_POINT @"http://music-geek-monthly.appspot.com/"
+
 @interface MGMCore ()
 
 - (void) createInstances;
@@ -20,7 +22,9 @@
 
 - (void) createInstances
 {
-    self.daoFactory = [[MGMDaoFactory alloc] init];
+    self.reachabilityManager = [[MGMReachabilityManager alloc] init];
+    [self.reachabilityManager registerForReachabilityTo:REACHABILITY_END_POINT];
+    self.daoFactory = [[MGMDaoFactory alloc] initWithReachabilityManager:self.reachabilityManager];
 }
 
 - (void) enteredForeground

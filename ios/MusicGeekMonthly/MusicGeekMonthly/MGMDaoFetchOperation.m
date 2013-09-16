@@ -8,21 +8,35 @@
 
 #import "MGMDaoFetchOperation.h"
 
-@interface MGMDaoFetchOperation ()
+#import "MGMErrorCodes.h"
 
+@interface MGMDaoFetchOperation () <MGMReachabilityManagerListener>
+
+@property BOOL internalReachability;
 @property NSUInteger daysBetweenUrlFetch;
 
 @end
 
 @implementation MGMDaoFetchOperation
 
-- (id) initWithCoreDataDao:(MGMCoreDataDao *)coreDataDao daysBetweenUrlFetch:(NSUInteger)daysBetweenUrlFetch
+- (id) initWithCoreDataDao:(MGMCoreDataDao*)coreDataDao reachabilityManager:(MGMReachabilityManager*)reachabilityManager daysBetweenUrlFetch:(NSUInteger)daysBetweenUrlFetch
 {
-    if (self = [super initWithCoreDataDao:coreDataDao])
+    if (self = [super initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager])
     {
         self.daysBetweenUrlFetch = daysBetweenUrlFetch;
+        [reachabilityManager addListener:self];
     }
     return self;
+}
+
+- (void) dealloc
+{
+    [self.reachabilityManager removeListener:self];
+}
+
+- (BOOL) hasReachability
+{
+    return self.internalReachability;
 }
 
 - (void) executeWithData:(id)data completion:(FETCH_COMPLETION)completion
@@ -30,46 +44,54 @@
     NSString* refreshIdentifier = [self refreshIdentifierForData:data];
     if ([self needsUrlRefresh:refreshIdentifier])
     {
-        NSString* url = [self urlForData:data];
-        NSError* urlFetchError = nil;
-        NSData* jsonData = [self contentsOfUrl:url withHttpHeaders:[self httpHeaders] error:&urlFetchError];
-        if (urlFetchError == nil && jsonData)
+        if (self.hasReachability)
         {
-            NSError* jsonError = nil;
-            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
-            if (jsonError == nil && json)
+            NSString* url = [self urlForData:data];
+            NSError* urlFetchError = nil;
+            NSData* jsonData = [self contentsOfUrl:url withHttpHeaders:[self httpHeaders] error:&urlFetchError];
+            if (urlFetchError == nil && jsonData)
             {
-                [self convertJsonData:json forData:data completion:^(id urlData, NSError* convertError)
+                NSError* jsonError = nil;
+                NSDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
+                if (jsonError == nil && json)
                 {
-                    if (convertError == nil && urlData)
+                    [self convertJsonData:json forData:data completion:^(id urlData, NSError* convertError)
                     {
-                        [self coreDataPersistConvertedData:urlData withData:data completion:^(NSError* coreDataPersistError)
+                        if (convertError == nil && urlData)
                         {
-                            if (coreDataPersistError == nil)
+                            [self coreDataPersistConvertedData:urlData withData:data completion:^(NSError* coreDataPersistError)
                             {
-                                [self coreDataFetchWithData:data completion:completion];
-                                [self setNextUrlRefresh:refreshIdentifier inDays:self.daysBetweenUrlFetch];
-                            }
-                            else
-                            {
-                                [self coreDataFetchWithData:data existingError:coreDataPersistError completion:completion];
-                            }
-                        }];
-                    }
-                    else
-                    {
-                        [self coreDataFetchWithData:data existingError:convertError completion:completion];
-                    }
-                }];
+                                if (coreDataPersistError == nil)
+                                {
+                                    [self coreDataFetchWithData:data completion:completion];
+                                    [self setNextUrlRefresh:refreshIdentifier inDays:self.daysBetweenUrlFetch];
+                                }
+                                else
+                                {
+                                    [self coreDataFetchWithData:data existingError:coreDataPersistError completion:completion];
+                                }
+                            }];
+                        }
+                        else
+                        {
+                            [self coreDataFetchWithData:data existingError:convertError completion:completion];
+                        }
+                    }];
+                }
+                else
+                {
+                    [self coreDataFetchWithData:data existingError:jsonError completion:completion];
+                }
             }
             else
             {
-                [self coreDataFetchWithData:data existingError:jsonError completion:completion];
+                [self coreDataFetchWithData:data existingError:urlFetchError completion:completion];
             }
         }
         else
         {
-            [self coreDataFetchWithData:data existingError:urlFetchError completion:completion];
+            NSError* reachabilityError = [NSError errorWithDomain:ERROR_DOMAIN code:ERROR_CODE_NO_REACHABILITY userInfo:nil];
+            [self coreDataFetchWithData:data existingError:reachabilityError completion:completion];
         }
     }
     else
@@ -121,6 +143,14 @@
 - (void) coreDataFetchWithData:(id)data completion:(FETCH_COMPLETION)completion
 {
     completion(nil, nil);
+}
+
+#pragma mark -
+#pragma mark MGMReachabilityManagerListener
+
+- (void) reachabilityDetermined:(BOOL)reachability
+{
+    self.internalReachability = reachability;
 }
 
 @end

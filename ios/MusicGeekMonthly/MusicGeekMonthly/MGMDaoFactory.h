@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MGMLastFmDao.h"
-#import "MGMSpotifyDao.h"
-#import "MGMEventsDao.h"
+
 #import "MGMCoreDataDao.h"
+#import "MGMEventsDao.h"
+#import "MGMLastFmDao.h"
+#import "MGMReachabilityManager.h"
+#import "MGMSpotifyDao.h"
 
 @interface MGMDaoFactory : NSObject
 
@@ -18,6 +20,8 @@
 @property (strong) MGMLastFmDao* lastFmDao;
 @property (strong) MGMSpotifyDao* spotifyDao;
 @property (strong) MGMEventsDao* eventsDao;
+
+- (id) initWithReachabilityManager:(MGMReachabilityManager*)reachabilityManager;
 
 - (MGMAlbumMetadataDao*) metadataDaoForServiceType:(MGMAlbumServiceType)serviceType;
 

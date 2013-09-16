@@ -268,6 +268,7 @@
 		659F9F5F175B928E000C413B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		659F9F67175B928E000C413B /* MusicGeekMonthlyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MusicGeekMonthlyTests-Info.plist"; sourceTree = "<group>"; };
 		659F9F69175B928E000C413B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		65B33AEF17E77B1F0096C0A8 /* MGMErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMErrorCodes.h; sourceTree = "<group>"; };
 		65B782EE17C1451C00608B3E /* MGMCoreDataTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataTableViewDataSource.h; sourceTree = "<group>"; };
 		65B782EF17C1451C00608B3E /* MGMCoreDataTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataTableViewDataSource.m; sourceTree = "<group>"; };
 		65B782F117C1469800608B3E /* MGMRenderable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGMRenderable.h; sourceTree = "<group>"; };
@@ -469,6 +470,7 @@
 				65DF2B9A17BFA41E00BAF25A /* MGMCompletion.h */,
 				650EBEC117C8CF0700D7EE88 /* NSMutableArray+Shuffling.h */,
 				650EBEC217C8CF0700D7EE88 /* NSMutableArray+Shuffling.m */,
+				65B33AEF17E77B1F0096C0A8 /* MGMErrorCodes.h */,
 				653B6BB8175FD12F005D372C /* Dao */,
 				650B7B9C17BEBA2900B14305 /* Dto */,
 				653B6BA7175FD073005D372C /* Model */,

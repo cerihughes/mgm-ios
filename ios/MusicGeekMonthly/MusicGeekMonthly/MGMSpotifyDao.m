@@ -18,11 +18,11 @@
 
 @implementation MGMSpotifyDao
 
-- (id) initWithCoreDataDao:(MGMCoreDataDao *)coreDataDao
+- (id) initWithCoreDataDao:(MGMCoreDataDao*)coreDataDao reachabilityManager:(MGMReachabilityManager*)reachabilityManager
 {
-    if (self = [super initWithCoreDataDao:coreDataDao])
+    if (self = [super initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager])
     {
-        self.fetchSpotifyAlbumMetadataOperation = [[MGMFetchSpotifyAlbumMetadataOperation alloc] initWithCoreDataDao:coreDataDao daysBetweenUrlFetch:0];
+        self.fetchSpotifyAlbumMetadataOperation = [[MGMFetchSpotifyAlbumMetadataOperation alloc] initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager daysBetweenUrlFetch:0];
     }
     return self;
 }

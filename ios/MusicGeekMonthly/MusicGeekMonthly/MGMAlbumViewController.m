@@ -8,7 +8,7 @@
 
 #import "MGMAlbumViewController.h"
 
-@interface MGMAlbumViewController ()
+@interface MGMAlbumViewController () <MGMReachabilityManagerListener>
 
 @end
 
@@ -23,6 +23,18 @@
     return self;
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.core.reachabilityManager addListener:self];
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [self.core.reachabilityManager removeListener:self];
+    [super viewDidDisappear:animated];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -33,6 +45,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+#pragma mark MGMReachabilityManagerListener
+
+- (void) reachabilityDetermined:(BOOL)reachability
+{
+    // Override
 }
 
 @end

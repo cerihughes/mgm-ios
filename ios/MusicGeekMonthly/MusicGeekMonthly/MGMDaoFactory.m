@@ -10,21 +10,21 @@
 
 @implementation MGMDaoFactory
 
-- (id) init
+- (id) initWithReachabilityManager:(MGMReachabilityManager*)reachabilityManager
 {
     if (self = [super init])
     {
-        [self createInstances];
+        [self createInstances:reachabilityManager];
     }
     return self;
 }
 
-- (void) createInstances
+- (void) createInstances:(MGMReachabilityManager*)reachabilityManager
 {
     self.coreDataDao = [[MGMCoreDataDao alloc] init];
-    self.lastFmDao = [[MGMLastFmDao alloc] initWithCoreDataDao:self.coreDataDao];
-    self.spotifyDao = [[MGMSpotifyDao alloc] initWithCoreDataDao:self.coreDataDao];
-    self.eventsDao = [[MGMEventsDao alloc] initWithCoreDataDao:self.coreDataDao];
+    self.lastFmDao = [[MGMLastFmDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager];
+    self.spotifyDao = [[MGMSpotifyDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager];
+    self.eventsDao = [[MGMEventsDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager];
 }
 
 - (MGMAlbumMetadataDao*) metadataDaoForServiceType:(MGMAlbumServiceType)serviceType

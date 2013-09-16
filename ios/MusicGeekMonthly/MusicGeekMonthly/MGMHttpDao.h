@@ -8,7 +8,13 @@
 
 #import "MGMCoreDataAwareDao.h"
 
+#import "MGMReachabilityManager.h"
+
 @interface MGMHttpDao : MGMCoreDataAwareDao
+
+@property (readonly) MGMReachabilityManager* reachabilityManager;
+
+- (id) initWithCoreDataDao:(MGMCoreDataDao*)coreDataDao reachabilityManager:(MGMReachabilityManager*)reachabilityManager;
 
 - (BOOL) needsUrlRefresh:(NSString*)identifier;
 - (void) setNextUrlRefresh:(NSString*)identifier inDays:(NSUInteger)days;
