@@ -2,15 +2,49 @@
 	"events" :
 	[
 		{
+			"id" : 34,
+			"date" : "2013-10-24T20:00:00.000+0100",
+			"classicAlbum" :
+			{
+				"artistName" : "John Mayall & the Bluesbreakers",
+				"albumName" : "Blues Breakers with Eric Clapton",
+				"mbid" : "95227770-a951-4024-9da0-0836de1864e7",
+				"metadata" :
+				{
+					"deezer" : "218141",
+					"spotify" : "2O3N1Eh0Wz59fIVhKlkQ46",
+					"wikipedia" : "Blues_Breakers_with_Eric_Clapton",
+					"itunes" : "id164896946"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Janelle Monáe",
+				"albumName" : "The Electric Lady",
+				"mbid" : "694a93c5-835e-470e-a0d8-e42093eed9af",
+				"metadata" :
+				{
+					"deezer" : "6892390",
+					"spotify" : "3bnHtSmmsgJiG82hGCmsq9",
+					"wikipedia" : "The_Electric_Lady",
+					"youtube" : "s-kiMZvR6KA",
+					"itunes" : "id672514397"
+				}
+			}
+		},
+		{
 			"id" : 33,
 			"date" : "2013-09-26T20:00:00.000+0100",
+			"spotifyPlaylistId" : "7fvI4zIIXnFcztdIyzXv1y",
 			"classicAlbum" :
 			{
 				"artistName" : "James Brown & The Famous Flames",
 				"albumName" : "James Brown Live At The Apollo, 1962",
 				"mbid" : "17a99452-33f1-47cd-9690-478602b769a3",
+				"score" : 6.4,
 				"metadata" :
 				{
+					"deezer" : "120603",
 					"spotify" : "2cBfHBgA6ask1jpMz2XASH",
 					"wikipedia" : "Live_at_the_Apollo_(James_Brown)",
 					"itunes" : "id14164467"
@@ -21,8 +55,10 @@
 				"artistName" : "Laura Veirs",
 				"albumName" : "Warp & Weft",
 				"mbid" : "381bd5c5-7b97-43a6-9ba9-0c6a0d099373",
+				"score" : 7.0,
 				"metadata" :
 				{
+					"deezer" : "6858269",
 					"spotify" : "3mnRV6xwaO9vMJeeeI2QyJ",
 					"wikipedia" : "Warp_and_Weft",
 					"itunes" : "id670448494"
@@ -41,6 +77,7 @@
 				"score" : 7.2,
 				"metadata" :
 				{
+					"deezer" : "384236",
 					"spotify" : "55115VABPbIk8cMqYcvcRv",
 					"wikipedia" : "Hot_Buttered_Soul",
 					"itunes" : "id179835972"
@@ -54,6 +91,7 @@
 				"score" : 5.4,
 				"metadata" :
 				{
+					"deezer" : "6689418",
 					"spotify" : "2I1PxMR8wj1Y6k88bselsq",
 					"wikipedia" : "Slow_Focus",
 					"itunes" : "id661740939"
@@ -72,6 +110,7 @@
 				"score" : 7.5,
 				"metadata" :
 				{
+					"deezer" : "301050",
 					"spotify" : "4tfBE4zd8PUieuUNF0zd03",
 					"wikipedia" : "Young_Americans_(album)",
 					"youtube" : "eeJDyIkzqKE",
@@ -86,6 +125,7 @@
 				"score" : 6.8,
 				"metadata" :
 				{
+					"deezer" : "6618074",
 					"spotify" : "7H7UxuxjGSJuV7LcCFUxTD",
 					"wikipedia" : "Immunity_(Jon_Hopkins_album)",
 					"youtube" : "anA3HAJLNxI",
@@ -105,6 +145,7 @@
 				"score" : 8.6,
 				"metadata" :
 				{
+					"deezer" : "6387297",
 					"spotify" : "4Bxqc1pGokTgFSt50F7stT",
 					"wikipedia" : "The_Rite_of_Spring",
 					"youtube" : "aGFRwKQqbk4",
@@ -151,6 +192,7 @@
 				"score" : 5.8,
 				"metadata" :
 				{
+					"deezer" : "6483930",
 					"spotify" : "2pUYqGLp3aqokOxDWzcBZX",
 					"wikipedia" : "Shaking_the_Habitual",
 					"itunes" : "id595982181"
@@ -182,6 +224,7 @@
 				"score" : 7.4,
 				"metadata" :
 				{
+					"deezer" : "6357153",
 					"spotify" : "3DLpLtQHQDDahtWz8DA8HY",
 					"youtube" : "R6Ob3SgAY4k",
 					"itunes" : "id600608256"
@@ -200,6 +243,7 @@
 				"score" : 7.7,
 				"metadata" :
 				{
+					"deezer" : "912322",
 					"spotify" : "5WZFtmADuJUZPtt0NER0Qi",
 					"wikipedia" : "Beggars_Banquet",
 					"youtube" : "y7rN-imfu68",
@@ -275,6 +319,7 @@
 				"score" : 4.5,
 				"metadata" :
 				{
+					"deezer" : "6056116",
 					"spotify" : "1ZKo7vzlhAsZ76c1sih3Hm",
 					"itunes" : "id560415081"
 				}
@@ -292,6 +337,7 @@
 				"score" : 7.4,
 				"metadata" :
 				{
+					"deezer" : "302604",
 					"spotify" : "4si97m2YFhhUxllFaZxbST",
 					"wikipedia" : "Midnight_Cowboy",
 					"itunes" : "id290482018"
@@ -305,6 +351,7 @@
 				"score" : 7.6,
 				"metadata" :
 				{
+					"deezer" : "6158995",
 					"spotify" : "30bTXMxsMsYn7QbwmDW3rj",
 					"wikipedia" : "Allelujah!_Don%27t_Bend!_Ascend!",
 					"itunes" : "id567236854"
@@ -323,6 +370,7 @@
 				"score" : 4.1,
 				"metadata" :
 				{
+					"deezer" : "222898",
 					"spotify" : "3n1pYP0wv1XO92ab72e1EQ",
 					"wikipedia" : "First_Album_(Miss_Kittin_%26_The_Hacker_album)",
 					"itunes" : "id270122321"
@@ -336,6 +384,7 @@
 				"score" : 7.1,
 				"metadata" :
 				{
+					"deezer" : "5950719",
 					"spotify" : "57LAEzKL94ZHwbIkUWYCDY",
 					"wikipedia" : "Shields_(album)",
 					"itunes" : "id557858458"
@@ -354,6 +403,7 @@
 				"score" : 1.9,
 				"metadata" :
 				{
+					"deezer" : "212933",
 					"spotify" : "4AYU4g0aPveWCPxPedoBVV",
 					"wikipedia" : "Chocolate_Starfish_and_the_Hot_Dog_Flavored_Water",
 					"itunes" : "id14428878"
@@ -367,6 +417,7 @@
 				"score" : 5.8,
 				"metadata" :
 				{
+					"deezer" : "5326421",
 					"spotify" : "5z5YagYxozh7HiiUudIE5r",
 					"itunes" : "id539761044"
 				}
@@ -384,6 +435,7 @@
 				"score" : 6.3,
 				"metadata" :
 				{
+					"deezer" : "299486",
 					"spotify" : "1IMbtEVdtaFz0PPiq4brLZ",
 					"wikipedia" : "Taking_Tiger_Mountain_(By_Strategy)",
 					"itunes" : "id19501660"
@@ -397,6 +449,7 @@
 				"score" : 5.5,
 				"metadata" :
 				{
+					"deezer" : "3236211",
 					"spotify" : "46VScxfhUlqO6Hai39Dzkr",
 					"wikipedia" : "Pop_Tune",
 					"itunes" : "id528493623"
@@ -415,6 +468,7 @@
 				"score" : 6.8,
 				"metadata" :
 				{
+					"deezer" : "301468",
 					"spotify" : "1KkMseKFaUHN3TXrXF3jHT",
 					"wikipedia" : "Question:_Are_We_Not_Men%3F_Answer:_We_Are_Devo!",
 					"itunes" : "id14550467"
@@ -428,6 +482,7 @@
 				"score" : 7.5,
 				"metadata" :
 				{
+					"deezer" : "3238341",
 					"spotify" : "67epO9J9KoY8KSFA4xC4kA",
 					"wikipedia" : "Banga_(album)",
 					"itunes" : "id529605595"
@@ -446,6 +501,7 @@
 				"score" : 6.6,
 				"metadata" :
 				{
+					"deezer" : "98585",
 					"spotify" : "2l787tSnzSfpfvgPNsR5O2",
 					"wikipedia" : "Dusk_(The_The_album)",
 					"itunes" : "id211435580"
@@ -459,6 +515,7 @@
 				"score" : 6.7,
 				"metadata" :
 				{
+					"deezer" : "1700446",
 					"spotify" : "6xp40ZHvGtOB65FQx9ahT1",
 					"wikipedia" : "Standing_at_the_Sky%27s_Edge",
 					"itunes" : "id518163784"
@@ -489,6 +546,7 @@
 				"score" : 6.9,
 				"metadata" :
 				{
+					"deezer" : "1706810",
 					"spotify" : "69jrxUSjHoEu6PeBMq3273",
 					"wikipedia" : "Master_of_My_Make-Believe",
 					"itunes" : "id506649884"
@@ -507,6 +565,7 @@
 				"score" : 5.9,
 				"metadata" :
 				{
+					"deezer" : "225113",
 					"spotify" : "3vZQVeesxkzSRPtVLsrXKn",
 					"wikipedia" : "Dirty_(Sonic_Youth_album)",
 					"itunes" : "id216852851"
@@ -520,6 +579,7 @@
 				"score" : 5.7,
 				"metadata" :
 				{
+					"deezer" : "1548880",
 					"spotify" : "0KbQLhslfkYGJokYeqsrVO",
 					"itunes" : "id498559818"
 				}
@@ -537,6 +597,7 @@
 				"score" : 5.9,
 				"metadata" :
 				{
+					"deezer" : "1261415",
 					"spotify" : "1byP5MGkh5Pas7YuOtzd3I",
 					"wikipedia" : "Songs_of_love_and_hate",
 					"itunes" : "id283132309"
@@ -597,6 +658,7 @@
 				"score" : 6.1,
 				"metadata" :
 				{
+					"deezer" : "400359",
 					"spotify" : "54csKoPnQbDk0dh2Un2gl4",
 					"wikipedia" : "154_(album)",
 					"itunes" : "id334522014"
@@ -610,6 +672,7 @@
 				"score" : 6.6,
 				"metadata" :
 				{
+					"deezer" : "1276635",
 					"spotify" : "7JC1vAUtlOwe8AJ3hLmr91",
 					"wikipedia" : "Carrion_Crawler/The_Dream",
 					"itunes" : "id466652103"
@@ -628,6 +691,7 @@
 				"score" : 6.8,
 				"metadata" :
 				{
+					"deezer" : "77831",
 					"spotify" : "1T8usYsiGEMPMQOLFgJEbE",
 					"wikipedia" : "Desire_(Bob_Dylan_album)",
 					"itunes" : "id187462735"
@@ -641,6 +705,7 @@
 				"score" : 5.9,
 				"metadata" :
 				{
+					"deezer" : "1290359",
 					"spotify" : "2KTTWvdCwPakrp3AVcsUQC",
 					"wikipedia" : "Creatures_of_an_Hour",
 					"itunes" : "id465704207"
@@ -659,6 +724,7 @@
 				"score" : 6.9,
 				"metadata" :
 				{
+					"deezer" : "1262050",
 					"spotify" : "2uEf3r9i2bnxwJQsxQ0xQ7",
 					"wikipedia" : "Nevermind",
 					"itunes" : "id483164389"
@@ -672,6 +738,7 @@
 				"score" : 5.5,
 				"metadata" :
 				{
+					"deezer" : "1261967",
 					"spotify" : "77WMbPujQbxWvY6P6XO5aC",
 					"wikipedia" : "The_Whole_Love",
 					"itunes" : "id450974480"
@@ -690,6 +757,7 @@
 				"score" : 7.2,
 				"metadata" :
 				{
+					"deezer" : "162147",
 					"spotify" : "2aFWgTQdB8lG7DuMHIU6uw",
 					"wikipedia" : "The_Lexicon_of_Love",
 					"itunes" : "id7583873"
@@ -703,6 +771,7 @@
 				"score" : 6.2,
 				"metadata" :
 				{
+					"deezer" : "1227588",
 					"spotify" : "7ri0EOAjJuuyawBbbEyU2L",
 					"wikipedia" : "The_Rip_Tide",
 					"itunes" : "id447495892"
@@ -721,6 +790,7 @@
 				"score" : 6.2,
 				"metadata" :
 				{
+					"deezer" : "249616",
 					"spotify" : "51OTwBCtfrubk9HRlKKw41",
 					"wikipedia" : "What%27s_Going_On_(Marvin_Gaye_album)",
 					"itunes" : "id270109050"
@@ -734,6 +804,7 @@
 				"score" : 5.8,
 				"metadata" :
 				{
+					"deezer" : "1485335",
 					"spotify" : "5gsG3BIgvCXtYapJROhrWR",
 					"itunes" : "id450334329"
 				}
@@ -751,6 +822,7 @@
 				"score" : 6,
 				"metadata" :
 				{
+					"deezer" : "373797",
 					"spotify" : "7ligZljXfUtcKPCotWul5g",
 					"wikipedia" : "Jeff_Wayne%27s_Musical_Version_of_The_War_of_the_Worlds",
 					"itunes" : "id318725185"
@@ -781,6 +853,7 @@
 				"score" : 8.7,
 				"metadata" :
 				{
+					"deezer" : "2962141",
 					"spotify" : "0745mDdMqet9J5nO5x7IQS",
 					"wikipedia" : "The_Rise_and_Fall_of_Ziggy_Stardust_and_the_Spiders_from_Mars",
 					"itunes" : "id526786914"
@@ -812,6 +885,7 @@
 				"score" : 5.4,
 				"metadata" :
 				{
+					"deezer" : "356304",
 					"spotify" : "5bHkK1X4WEOzNvRhehvOcb",
 					"wikipedia" : "Déjà_Vu_(Crosby,_Stills,_Nash_%26_Young_album)",
 					"itunes" : "id321974224"
@@ -825,6 +899,7 @@
 				"score" : 7.2,
 				"metadata" :
 				{
+					"deezer" : "942258",
 					"spotify" : "2enp4ZpYtPpRuQ0g9FhRhj",
 					"wikipedia" : "Cat%27s_Eyes_(album)",
 					"itunes" : "id429751630"
@@ -856,6 +931,7 @@
 				"score" : 5.8,
 				"metadata" :
 				{
+					"deezer" : "1240363",
 					"spotify" : "0mIkXhPYg8uMiXWOhUDQFa",
 					"wikipedia" : "No_Witch",
 					"itunes" : "id445435321"
@@ -886,6 +962,7 @@
 				"score" : 6.6,
 				"metadata" :
 				{
+					"deezer" : "790506",
 					"spotify" : "7w4z35rOtFKt9gHRTU6Qil",
 					"wikipedia" : "Hardcore_Will_Never_Die,_But_You_Will",
 					"itunes" : "id415648271"
@@ -904,6 +981,7 @@
 				"score" : 6.7,
 				"metadata" :
 				{
+					"deezer" : "124787",
 					"spotify" : "0ekrCyUT01BzU89QbiKcaI",
 					"wikipedia" : "Songs_in_the_key_of_life",
 					"itunes" : "id15108172"
@@ -917,6 +995,7 @@
 				"score" : 6.6,
 				"metadata" :
 				{
+					"deezer" : "726094",
 					"spotify" : "7n8LCYB1fUiGSJI9BpIVFO",
 					"wikipedia" : "Ventriloquizzing",
 					"itunes" : "id410260331"
