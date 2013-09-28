@@ -69,6 +69,7 @@ static void networkReachabilityCallBack(SCNetworkReachabilityRef target, SCNetwo
 
 - (void) registerForReachabilityTo:(NSString *)url
 {
+    NSLog(@"Registering for reachability to %@", url);
     SCNetworkReachabilityRef proxyReachability = SCNetworkReachabilityCreateWithName(NULL, [url cStringUsingEncoding:NSUTF8StringEncoding]);
     if (proxyReachability != nil)
     {

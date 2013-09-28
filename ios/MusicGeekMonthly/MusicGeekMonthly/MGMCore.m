@@ -1,7 +1,7 @@
 
 #import "MGMCore.h"
 
-#define REACHABILITY_END_POINT @"http://music-geek-monthly.appspot.com/"
+#define REACHABILITY_END_POINT @"music-geek-monthly.appspot.com"
 
 @interface MGMCore ()
 

@@ -23,9 +23,6 @@
 {
     NSLog(@"application:didFinishLaunchingWithOptions:");
 
-    // TODO: - Use the next line only during beta
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-
     [TestFlight takeOff:@"6e488aaf-18dc-44b8-9421-7088b6651302"];
 
     MGMURLCache* cache = [[MGMURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:32 * 1024 * 1024 diskPath:nil];

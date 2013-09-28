@@ -62,7 +62,7 @@
         {
             [self.core.daoFactory.eventsDao fetchAllEvents:^(NSArray* fetchedEvents, NSError* fetchError)
             {
-                if (fetchError && fetchedEvents)
+                if (fetchError && fetchedEvents.count > 0)
                 {
                     [self logError:fetchError];
                 }

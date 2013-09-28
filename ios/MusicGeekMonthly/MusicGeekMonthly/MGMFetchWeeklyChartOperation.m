@@ -10,6 +10,7 @@
 
 #import "MGMAlbumMetadataDto.h"
 #import "MGMChartEntryDto.h"
+#import "MGMErrorCodes.h"
 #import "MGMLastFmConstants.h"
 
 #define REFRESH_IDENTIFIER_WEEKLY_CHART @"REFRESH_IDENTIFIER_WEEKLY_CHART_%d_%d"
@@ -53,7 +54,7 @@ static NSNumberFormatter* numberFormatter;
     {
         NSString* message = [json objectForKey:@"message"];
         NSDictionary* userInfo = [NSDictionary dictionaryWithObject:message forKey:NSLocalizedDescriptionKey];
-        NSError* error = [NSError errorWithDomain:@"uk.co.cerihughes.mgm" code:200 userInfo:userInfo];
+        NSError* error = [NSError errorWithDomain:ERROR_DOMAIN code:ERROR_CODE_LAST_FM_ERROR userInfo:userInfo];
         completion(nil, error);
     }
     else

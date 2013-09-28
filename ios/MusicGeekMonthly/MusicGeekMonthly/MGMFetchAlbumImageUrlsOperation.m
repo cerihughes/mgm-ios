@@ -44,7 +44,7 @@
         NSString* value = [image objectForKey:@"#text"];
         if (value && value.length > 0)
         {
-            MGMAlbumImageSize size = [IMAGE_SIZE_STRINGS indexOfObject:key];
+            NSUInteger size = [IMAGE_SIZE_STRINGS indexOfObject:key];
             if (size != NSNotFound)
             {
                 MGMAlbumImageUriDto* imageUri = [[MGMAlbumImageUriDto alloc] init];
