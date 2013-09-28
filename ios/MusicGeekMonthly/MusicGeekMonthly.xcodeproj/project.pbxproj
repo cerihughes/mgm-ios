@@ -109,6 +109,8 @@
 		65DF2B8117BF703C00BAF25A /* MGMBackgroundAlbumArtFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DF2B8017BF703C00BAF25A /* MGMBackgroundAlbumArtFetcher.m */; };
 		65DF2BA017BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DF2B9F17BFBF8700BAF25A /* MGMNextUrlAccess.m */; };
 		65DF2BA117BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DF2B9F17BFBF8700BAF25A /* MGMNextUrlAccess.m */; };
+		65E1A51517F70745006F8051 /* CKCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E1A50817F70745006F8051 /* CKCalendarView.m */; };
+		65E1A51E17F707BA006F8051 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E1A51D17F707BA006F8051 /* QuartzCore.framework */; };
 		65E3BDFF17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E3BDFE17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m */; };
 		65E3BE0017E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E3BDFE17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m */; };
 		65E3BE0317E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E3BE0217E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m */; };
@@ -296,6 +298,9 @@
 		65DF2B9A17BFA41E00BAF25A /* MGMCompletion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCompletion.h; sourceTree = "<group>"; };
 		65DF2B9E17BFBF8500BAF25A /* MGMNextUrlAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMNextUrlAccess.h; sourceTree = "<group>"; };
 		65DF2B9F17BFBF8700BAF25A /* MGMNextUrlAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMNextUrlAccess.m; sourceTree = "<group>"; };
+		65E1A50717F70745006F8051 /* CKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarView.h; sourceTree = "<group>"; };
+		65E1A50817F70745006F8051 /* CKCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarView.m; sourceTree = "<group>"; };
+		65E1A51D17F707BA006F8051 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		65E3BDFD17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFetchAllClassicAlbumsOperation.h; sourceTree = "<group>"; };
 		65E3BDFE17E0C9BA00085CB5 /* MGMFetchAllClassicAlbumsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFetchAllClassicAlbumsOperation.m; sourceTree = "<group>"; };
 		65E3BE0117E0CD0F00085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFetchAllNewlyReleasedAlbumsOperation.h; sourceTree = "<group>"; };
@@ -380,6 +385,7 @@
 				65E975B417B6B43400CF53B2 /* CoreData.framework in Frameworks */,
 				659F9F46175B928E000C413B /* CoreGraphics.framework in Frameworks */,
 				659F9F44175B928E000C413B /* Foundation.framework in Frameworks */,
+				65E1A51E17F707BA006F8051 /* QuartzCore.framework in Frameworks */,
 				65E79B0817C2444C008CCDA3 /* SystemConfiguration.framework in Frameworks */,
 				659F9F42175B928E000C413B /* UIKit.framework in Frameworks */,
 				65E8110A17AD014800FCBC9F /* libz.dylib in Frameworks */,
@@ -595,6 +601,7 @@
 		659F9F35175B928E000C413B = {
 			isa = PBXGroup;
 			children = (
+				65E1A4F517F70744006F8051 /* CKCalendar-master */,
 				65D451451764F54C00374C5F /* Resources */,
 				659F9F47175B928E000C413B /* MusicGeekMonthly */,
 				659F9F65175B928E000C413B /* MusicGeekMonthlyTests */,
@@ -618,6 +625,7 @@
 				65E975B317B6B43400CF53B2 /* CoreData.framework */,
 				659F9F45175B928E000C413B /* CoreGraphics.framework */,
 				659F9F43175B928E000C413B /* Foundation.framework */,
+				65E1A51D17F707BA006F8051 /* QuartzCore.framework */,
 				659F9F5F175B928E000C413B /* SenTestingKit.framework */,
 				65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */,
 				659F9F41175B928E000C413B /* UIKit.framework */,
@@ -704,6 +712,23 @@
 				65EBBF3117DFA37C0012AF3D /* ruler@2x.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		65E1A4F517F70744006F8051 /* CKCalendar-master */ = {
+			isa = PBXGroup;
+			children = (
+				65E1A50617F70745006F8051 /* Source */,
+			);
+			path = "CKCalendar-master";
+			sourceTree = "<group>";
+		};
+		65E1A50617F70745006F8051 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				65E1A50717F70745006F8051 /* CKCalendarView.h */,
+				65E1A50817F70745006F8051 /* CKCalendarView.m */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 		65E53CE31785CAAE001ECA79 /* Navigation */ = {
@@ -940,6 +965,7 @@
 				653B6BC8175FDB4B005D372C /* MGMCore.m in Sources */,
 				653B6BC9175FDB4B005D372C /* MGMUI.m in Sources */,
 				653B6BCA175FDB4B005D372C /* MGMView.m in Sources */,
+				65E1A51517F70745006F8051 /* CKCalendarView.m in Sources */,
 				65215F9A176BA64300250168 /* MGMDaoFactory.m in Sources */,
 				6508CB16176BACF400594244 /* MGMSpotifyDao.m in Sources */,
 				6508CB1A176BB05700594244 /* MGMDao.m in Sources */,

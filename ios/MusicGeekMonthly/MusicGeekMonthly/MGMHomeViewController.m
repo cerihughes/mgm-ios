@@ -9,22 +9,21 @@
 
 #import "MGMHomeViewController.h"
 
+#import "CKCalendarView.h"
 #import "MGMBackgroundAlbumArtFetcher.h"
 #import "MGMEvent.h"
 #import "MGMPulsatingAlbumsView.h"
 #import "NSMutableArray+Shuffling.h"
 
-@interface MGMHomeViewController () <MGMBackgroundAlbumArtFetcherDelegate>
+@interface MGMHomeViewController () <MGMBackgroundAlbumArtFetcherDelegate, CKCalendarDelegate>
 
 @property (strong) IBOutlet MGMPulsatingAlbumsView* albumsView;
-@property (strong) IBOutlet UILabel* nextEventDateLabel;
+@property (strong) IBOutlet CKCalendarView* calendarView;
 
 @property (strong) MGMBackgroundAlbumArtFetcher* artFetcher;
 @property (strong) NSManagedObjectID* eventMoid;
 
 @end
-
-#define NEXT_EVENT_PATTERN @"The next event will be on %@ at %@"
 
 @implementation MGMHomeViewController
 
@@ -49,6 +48,17 @@
         UIImage* image = [UIImage imageNamed:imageName];
         [self.albumsView renderImage:image atIndex:i animation:NO];
     }
+
+    BOOL iPad = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
+    CGFloat titleFontSize = iPad ? 20.0 : 14.0;
+    CGFloat dayFontSize = iPad ? 13.0 : 9.0;
+    CGFloat dateFontSize = iPad ? 18.0 : 13.0;
+
+    self.calendarView.hidden = YES;
+    self.calendarView.delegate = self;
+    self.calendarView.titleFont = [UIFont boldSystemFontOfSize:titleFontSize];
+    self.calendarView.dayOfWeekFont = [UIFont boldSystemFontOfSize:dayFontSize];
+    self.calendarView.dateFont = [UIFont boldSystemFontOfSize:dateFontSize];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -97,18 +107,9 @@
     
     if (event.eventDate)
     {
-        NSDateFormatter* eventDateFormatter = [[NSDateFormatter alloc] init];
-
-        [eventDateFormatter setTimeStyle:NSDateFormatterNoStyle];
-        [eventDateFormatter setDateStyle:NSDateFormatterMediumStyle];
-        NSString* dateString = [eventDateFormatter stringFromDate:event.eventDate];
-
-        [eventDateFormatter setDateStyle:NSDateFormatterNoStyle];
-        [eventDateFormatter setTimeStyle:NSDateFormatterMediumStyle];
-        NSString* timeString = [eventDateFormatter stringFromDate:event.eventDate];
-
-        self.nextEventDateLabel.text = [NSString stringWithFormat:NEXT_EVENT_PATTERN, dateString, timeString];
-    }    
+        self.calendarView.hidden = NO;
+        [self.calendarView selectDate:event.eventDate makeVisible:YES];
+    }
 }
 
 - (void) loadImages
@@ -210,6 +211,24 @@
 - (void) artFetcher:(MGMBackgroundAlbumArtFetcher*)fetcher errorOccured:(NSError*)error
 {
     [self logError:error];
+}
+
+#pragma mark -
+#pragma mark CKCalendarDelegate
+
+- (BOOL)calendar:(CKCalendarView*)calendar willSelectDate:(NSDate*)date
+{
+    return NO;
+}
+
+- (BOOL)calendar:(CKCalendarView*)calendar willDeselectDate:(NSDate*)date
+{
+    return NO;
+}
+
+- (BOOL)calendar:(CKCalendarView*)calendar willChangeToMonth:(NSDate*)date
+{
+    return NO;
 }
 
 @end
