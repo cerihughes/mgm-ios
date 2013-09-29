@@ -49,19 +49,7 @@
 
 - (void) updateAlbumInfo:(MGMAlbum*)album completion:(FETCH_COMPLETION)completion
 {
-    NSString* mbid = album.albumMbid;
-    if ([mbid hasPrefix:FAKE_MBID_PREPEND])
-    {
-        // Can't yet get info on fake mbids - just mark as searched.
-        [self.coreDataDao addImageUris:[NSArray array] toAlbumWithMbid:mbid updateServiceType:MGMAlbumServiceTypeLastFm completion:^(NSError* updateError)
-        {
-            completion(album, updateError);
-        }];
-    }
-    else
-    {
-        [self.fetchAlbumImageUrlsOperation executeWithData:album completion:completion];
-    }
+    [self.fetchAlbumImageUrlsOperation executeWithData:album completion:completion];
 }
 
 @end

@@ -24,14 +24,21 @@
 
     cell.classicAlbumImageView.image = nil;
     cell.newlyReleasedAlbumImageView.image = nil;
-    [cell.classicAlbumActivityView startAnimating];
-    [cell.newlyReleasedAlbumActivityView startAnimating];
 
     MGMEvent* event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.eventTextLabel.text = event.groupValue;
 
-    [self addAlbumImage:event.classicAlbum.objectID toImageView:cell.classicAlbumImageView withActivityView:cell.classicAlbumActivityView inCell:cell];
-    [self addAlbumImage:event.newlyReleasedAlbum.objectID toImageView:cell.newlyReleasedAlbumImageView withActivityView:cell.newlyReleasedAlbumActivityView inCell:cell];
+    if (event.classicAlbum)
+    {
+        [cell.classicAlbumActivityView startAnimating];
+        [self addAlbumImage:event.classicAlbum.objectID toImageView:cell.classicAlbumImageView withActivityView:cell.classicAlbumActivityView inCell:cell];
+    }
+
+    if (event.newlyReleasedAlbum)
+    {
+        [cell.newlyReleasedAlbumActivityView startAnimating];
+        [self addAlbumImage:event.newlyReleasedAlbum.objectID toImageView:cell.newlyReleasedAlbumImageView withActivityView:cell.newlyReleasedAlbumActivityView inCell:cell];
+    }
 
     return cell;
 }

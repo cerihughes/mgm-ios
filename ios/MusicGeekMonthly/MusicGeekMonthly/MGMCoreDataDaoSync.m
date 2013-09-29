@@ -18,6 +18,7 @@
 #import "MGMChartEntryDto.h"
 #import "MGMEvent.h"
 #import "MGMEventDto.h"
+#import "MGMLastFmConstants.h"
 #import "MGMTimePeriodDto.h"
 #import "MGMWeeklyChart.h"
 
@@ -251,7 +252,17 @@
 
 - (MGMAlbum*) persistAlbumDto:(MGMAlbumDto*)albumDto error:(NSError**)error
 {
-    MGMAlbum* album = [self fetchAlbumWithMbid:albumDto.albumMbid error:error];
+    MGMAlbum* album = nil;
+    NSString* mbid = albumDto.albumMbid;
+    if (mbid && ![mbid hasPrefix:FAKE_MBID_PREPEND])
+    {
+        album = [self fetchAlbumWithMbid:albumDto.albumMbid error:error];
+    }
+    else
+    {
+        album = [self fetchAlbumWithArtistName:albumDto.artistName albumName:albumDto.albumName error:error];
+    }
+
     if (error && *error != nil)
     {
         return nil;
@@ -296,6 +307,20 @@
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     request.entity = [NSEntityDescription entityForName:@"MGMAlbum" inManagedObjectContext:moc];
     request.predicate = [NSPredicate predicateWithFormat:@"albumMbid = %@", mbid];
+    NSArray* results = [moc executeFetchRequest:request error:error];
+    if (results.count > 0)
+    {
+        return [results objectAtIndex:0];
+    }
+    return nil;
+}
+
+- (MGMAlbum*) fetchAlbumWithArtistName:(NSString*)artistName albumName:(NSString*)albumName error:(NSError**)error
+{
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    request.entity = [NSEntityDescription entityForName:@"MGMAlbum" inManagedObjectContext:moc];
+    request.predicate = [NSPredicate predicateWithFormat:@"(artistName = %@) AND (albumName = %@)", artistName, albumName];
     NSArray* results = [moc executeFetchRequest:request error:error];
     if (results.count > 0)
     {
@@ -456,24 +481,28 @@
         event.spotifyPlaylistId = eventDto.spotifyPlaylistId;
 
         MGMAlbumDto* classicAlbumDto = eventDto.classicAlbum;
-        MGMAlbum* classicAlbum = [self persistAlbumDto:classicAlbumDto error:error];
-        if (error && *error != nil)
+        if (classicAlbumDto)
         {
-            [self rollbackChanges];
-            return;
+            MGMAlbum* classicAlbum = [self persistAlbumDto:classicAlbumDto error:error];
+            if (error && *error != nil)
+            {
+                [self rollbackChanges];
+                return;
+            }
+            event.classicAlbum = classicAlbum;
         }
-
-        event.classicAlbum = classicAlbum;
 
         MGMAlbumDto* newlyReleaseAlbumDto = eventDto.newlyReleasedAlbum;
-        MGMAlbum* newlyReleasedAlbum = [self persistAlbumDto:newlyReleaseAlbumDto error:error];
-        if (error && *error != nil)
+        if (newlyReleaseAlbumDto)
         {
-            [self rollbackChanges];
-            return;
+            MGMAlbum* newlyReleasedAlbum = [self persistAlbumDto:newlyReleaseAlbumDto error:error];
+            if (error && *error != nil)
+            {
+                [self rollbackChanges];
+                return;
+            }
+            event.newlyReleasedAlbum = newlyReleasedAlbum;
         }
-
-        event.newlyReleasedAlbum = newlyReleasedAlbum;
     }
 
     [self commitChanges:error];

@@ -151,9 +151,13 @@
     completion(albums, error);
 }
 
-- (id) threadVersion:(NSManagedObjectID *)moid
+- (id) threadVersion:(NSManagedObjectID*)moid
 {
-    return [self.moc objectWithID:moid];
+    if (moid)
+    {
+        return [self.moc objectWithID:moid];
+    }
+    return nil;
 }
 
 - (NSFetchedResultsController*) createTimePeriodsFetchedResultsController

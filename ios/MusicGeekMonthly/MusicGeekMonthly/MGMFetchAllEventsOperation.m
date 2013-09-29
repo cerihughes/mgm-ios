@@ -79,40 +79,44 @@
 
 - (MGMAlbumDto*) albumForJson:(NSDictionary*)json
 {
-    NSString* artistName = [json objectForKey:JSON_ELEMENT_ARTIST_NAME];
-    NSString* albumName = [json objectForKey:JSON_ELEMENT_ALBUM_NAME];
-    NSString* mbid = [json objectForKey:JSON_ELEMENT_MBID];
-    NSNumber* score = [json objectForKey:JSON_ELEMENT_SCORE];
-    NSDictionary* metadata = [json objectForKey:JSON_ELEMENT_METADATA];
-    if (metadata == nil)
+    if (json)
     {
-        metadata = [NSDictionary dictionary];
-    }
-
-    MGMAlbumDto* album = [[MGMAlbumDto alloc] init];
-    album.artistName = artistName;
-    album.albumName = albumName;
-    album.albumMbid = mbid;
-    album.score = score;
-
-    [metadata enumerateKeysAndObjectsUsingBlock:^(NSString* key, NSString* obj, BOOL *stop)
-    {
-        MGMAlbumServiceType serviceType = [self serviceTypeForString:key];
-        if (serviceType != MGMAlbumServiceTypeNone)
+        NSString* artistName = [json objectForKey:JSON_ELEMENT_ARTIST_NAME];
+        NSString* albumName = [json objectForKey:JSON_ELEMENT_ALBUM_NAME];
+        NSString* mbid = [json objectForKey:JSON_ELEMENT_MBID];
+        NSNumber* score = [json objectForKey:JSON_ELEMENT_SCORE];
+        NSDictionary* metadata = [json objectForKey:JSON_ELEMENT_METADATA];
+        if (metadata == nil)
         {
-            MGMAlbumMetadataDto* metadata = [[MGMAlbumMetadataDto alloc] init];
-            metadata.serviceType = serviceType;
-            metadata.value = obj;
-            [album.metadata addObject:metadata];
+            metadata = [NSDictionary dictionary];
         }
-    }];
 
-    MGMAlbumMetadataDto* lastfmMetadata = [[MGMAlbumMetadataDto alloc] init];
-    lastfmMetadata.serviceType = MGMAlbumServiceTypeLastFm;
-    lastfmMetadata.value = artistName;
-    [album.metadata addObject:lastfmMetadata];
+        MGMAlbumDto* album = [[MGMAlbumDto alloc] init];
+        album.artistName = artistName;
+        album.albumName = albumName;
+        album.albumMbid = mbid;
+        album.score = score;
 
-    return album;
+        [metadata enumerateKeysAndObjectsUsingBlock:^(NSString* key, NSString* obj, BOOL *stop)
+        {
+            MGMAlbumServiceType serviceType = [self serviceTypeForString:key];
+            if (serviceType != MGMAlbumServiceTypeNone)
+            {
+                MGMAlbumMetadataDto* metadata = [[MGMAlbumMetadataDto alloc] init];
+                metadata.serviceType = serviceType;
+                metadata.value = obj;
+                [album.metadata addObject:metadata];
+            }
+        }];
+
+        MGMAlbumMetadataDto* lastfmMetadata = [[MGMAlbumMetadataDto alloc] init];
+        lastfmMetadata.serviceType = MGMAlbumServiceTypeLastFm;
+        lastfmMetadata.value = artistName;
+        [album.metadata addObject:lastfmMetadata];
+        
+        return album;
+    }
+    return nil;
 }
 
 - (MGMAlbumServiceType) serviceTypeForString:(NSString*)string

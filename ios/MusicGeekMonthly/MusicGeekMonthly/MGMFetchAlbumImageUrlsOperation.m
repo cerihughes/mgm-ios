@@ -12,7 +12,8 @@
 #import "MGMLastFmConstants.h"
 
 #define REFRESH_IDENTIFIER_ALBUM_IMAGES @"REFRESH_IDENTIFIER_ALBUM_IMAGES_%@"
-#define ALBUM_INFO_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=%@&mbid=%@&format=json"
+#define ALBUM_INFO_MBID_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getInfo&api_key=%@&mbid=%@&format=json"
+#define ALBUM_INFO_TITLES_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getInfo&api_key=%@&artist=%@&album=%@&format=json"
 
 @implementation MGMFetchAlbumImageUrlsOperation
 
@@ -25,7 +26,19 @@
 - (NSString*) urlForData:(id)data
 {
     MGMAlbum* album = data;
-    return [NSString stringWithFormat:ALBUM_INFO_URL, API_KEY, album.albumMbid];
+    NSString* mbid = album.albumMbid;
+    if (mbid && ![mbid hasPrefix:FAKE_MBID_PREPEND])
+    {
+        return [NSString stringWithFormat:ALBUM_INFO_MBID_URL, API_KEY, mbid];
+    }
+    else
+    {
+        NSString* albumName = album.albumName;
+        albumName = [albumName stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+        NSString* artistName = album.artistName;
+        artistName = [artistName stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+        return [NSString stringWithFormat:ALBUM_INFO_TITLES_URL, API_KEY, artistName, albumName];
+    }
 }
 
 - (void) convertJsonData:(NSDictionary*)json forData:(id)data completion:(FETCH_COMPLETION)completion
