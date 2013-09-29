@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MGMWeeklyChartViewController">
             <connections>
                 <outlet property="albumsView" destination="12" id="22"/>
+                <outlet property="modalView" destination="4" id="VvT-8H-fzB"/>
                 <outlet property="timePeriodTable" destination="4" id="21"/>
                 <outlet property="view" destination="1" id="3"/>
                 <outlet property="weeklyChartNavigationItem" destination="29" id="31"/>

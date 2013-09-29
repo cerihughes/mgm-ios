@@ -104,11 +104,7 @@ static BOOL userInterfaceIdiomIpad;
     UIViewController* tempVC = [[UIViewController alloc] initWithNibName:nil bundle:nil];
     tempVC.view = view;
 
-    UINavigationController* tempNC = [[UINavigationController alloc] initWithRootViewController:tempVC];
-    UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(modalCancelPressed:)];
-    tempVC.navigationItem.rightBarButtonItem = bbi;
-
-    [self presentViewController:tempNC animated:YES completion:NULL];
+    [self presentViewController:tempVC animated:YES completion:NULL];
 }
 
 - (void) dismissIphoneModalPresentation
@@ -119,11 +115,6 @@ static BOOL userInterfaceIdiomIpad;
 - (BOOL) isIphonePresentingModally
 {
     return (self.presentedViewController != nil);
-}
-
-- (void) modalCancelPressed:(id)sender
-{
-    [self dismissIphoneModalPresentation];
 }
 
 #pragma mark -

@@ -10,6 +10,7 @@
                 <outlet property="classicAlbumView" destination="289" id="291"/>
                 <outlet property="eventNavigationItem" destination="298" id="302"/>
                 <outlet property="eventsTable" destination="5" id="253"/>
+                <outlet property="modalView" destination="5" id="yKf-EL-g71"/>
                 <outlet property="newlyReleasedAlbumView" destination="290" id="292"/>
                 <outlet property="playlistWebView" destination="187" id="217"/>
                 <outlet property="view" destination="3" id="25"/>

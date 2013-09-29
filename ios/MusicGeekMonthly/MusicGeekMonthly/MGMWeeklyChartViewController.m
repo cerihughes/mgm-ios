@@ -10,6 +10,7 @@
 
 @property (strong) IBOutlet UINavigationItem* weeklyChartNavigationItem;
 @property (strong) IBOutlet UITableView* timePeriodTable;
+@property (strong) IBOutlet UIView* modalView;
 @property (strong) IBOutlet MGMWeeklyChartAlbumsView* albumsView;
 
 @property (strong) MGMCoreDataTableViewDataSource* dataSource;
@@ -41,7 +42,7 @@
     }
     else
     {
-        [self presentViewModally:self.timePeriodTable sender:sender];
+        [self presentViewModally:self.modalView sender:sender];
     }
 }
 

@@ -15,6 +15,7 @@
 
 @property (strong) IBOutlet UINavigationItem* eventNavigationItem;
 @property (strong) IBOutlet UITableView* eventsTable;
+@property (strong) IBOutlet UIView* modalView;
 @property (strong) IBOutlet UIWebView* playlistWebView;
 
 @property (strong) MGMEventTableViewDataSource* dataSource;
@@ -44,7 +45,7 @@
     }
     else
     {
-        [self presentViewModally:self.eventsTable sender:sender];
+        [self presentViewModally:self.modalView sender:sender];
     }
 }
 
