@@ -43,7 +43,7 @@
 
         for (int i = 0; i < rows; i++)
         {
-            _grid[i] = (BOOL*) calloc(columns, sizeof(BOOL*));
+            _grid[i] = (BOOL*) calloc(columns, sizeof(BOOL));
         }
     }
     return self;
