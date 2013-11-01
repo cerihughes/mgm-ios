@@ -2,13 +2,46 @@
 	"events" :
 	[
 		{
+			"id" : 35,
+			"date" : "2013-11-28T20:00:00.000+0000",
+			"classicAlbum" :
+			{
+				"artistName" : "Steve Earle",
+				"albumName" : "Train a Comin'",
+				"mbid" : "60ada670-d690-42b4-9728-bdf3c67da19f",
+				"metadata" :
+				{
+					"deezer" : "613722",
+					"spotify" : "64DNjGvRmxv0GiDYqnrrqL",
+					"wikipedia" : "Train_a_Comin%27",
+					"itunes" : "id193010"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "of Montreal",
+				"albumName" : "Lousy with Sylvianbriar",
+				"mbid" : "82907832-2fca-4a1f-a8de-b2b4d0f719b7",
+				"metadata" :
+				{
+					"deezer" : "6976007",
+					"spotify" : "0NxEDUyECiqT6zkXL4qDnX",
+					"wikipedia" : "Lousy_with_Sylvianbriar",
+					"youtube" : "gBuIc2p3xXA",
+					"itunes" : "id678536010"
+				}
+			}
+		},
+		{
 			"id" : 34,
 			"date" : "2013-10-31T20:00:00.000+0000",
+			"spotifyPlaylistId" : "74cxlXQcI2LNjkY0RKEsHU",
 			"classicAlbum" :
 			{
 				"artistName" : "John Mayall & the Bluesbreakers",
 				"albumName" : "Blues Breakers with Eric Clapton",
 				"mbid" : "95227770-a951-4024-9da0-0836de1864e7",
+				"score" : 6.5,
 				"metadata" :
 				{
 					"deezer" : "218141",
@@ -22,6 +55,7 @@
 				"artistName" : "Janelle Monáe",
 				"albumName" : "The Electric Lady",
 				"mbid" : "694a93c5-835e-470e-a0d8-e42093eed9af",
+				"score" : 6.9,
 				"metadata" :
 				{
 					"deezer" : "6892390",
