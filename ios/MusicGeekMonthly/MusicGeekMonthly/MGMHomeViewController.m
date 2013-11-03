@@ -66,33 +66,26 @@
     [super viewDidAppear:animated];
     [self loadImages];
 
-    if (self.eventMoid == nil)
-    {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-        {
-            [self.core.daoFactory.eventsDao fetchAllEvents:^(NSArray* fetchedEvents, NSError* fetchError)
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^ {
+        [self.core.daoFactory.eventsDao fetchAllEvents:^(NSArray* fetchedEvents, NSError* fetchError) {
+            if (fetchError && fetchedEvents.count > 0)
             {
-                if (fetchError && fetchedEvents.count > 0)
-                {
-                    [self logError:fetchError];
-                }
+                [self logError:fetchError];
+            }
 
-                if (fetchedEvents.count > 0)
-                {
-                    MGMEvent* event = [fetchedEvents objectAtIndex:0];
-                    self.eventMoid = event.objectID;
-                    dispatch_async(dispatch_get_main_queue(), ^
-                    {
-                        [self displayEventWithMoid:self.eventMoid];
-                    });
-                }
-                else
-                {
-                    [self showError:fetchError];
-                }
-            }];
-        });
-    }
+            if (fetchedEvents.count > 0) {
+                MGMEvent* event = [fetchedEvents objectAtIndex:0];
+                self.eventMoid = event.objectID;
+                dispatch_async(dispatch_get_main_queue(), ^ {
+                    [self displayEventWithMoid:self.eventMoid];
+                });
+            }
+            else
+            {
+                [self showError:fetchError];
+            }
+        }];
+    });
 }
 
 - (void) displayEventWithMoid:(NSManagedObjectID*)eventMoid
@@ -104,7 +97,7 @@
 - (void) displayEvent:(MGMEvent*)event
 {
     [super displayEvent:event];
-    
+
     if (event.eventDate)
     {
         self.calendarView.hidden = NO;
