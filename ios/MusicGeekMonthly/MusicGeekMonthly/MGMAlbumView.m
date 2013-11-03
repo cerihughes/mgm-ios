@@ -17,6 +17,7 @@
 @property CGFloat alphaOff;
 @property (strong) UIButton* button;
 @property (strong) UIButton* detailButton;
+@property (strong) UIView* textParentView;
 @property (strong) UILabel* artistLabel;
 @property (strong) UILabel* albumLabel;
 @property (strong) UIActivityIndicatorView* activityIndicatorView;
@@ -33,14 +34,13 @@
     CGFloat _score;
 }
 
-+ (UILabel*) createLabelWithRect:(CGRect)rect fontName:(NSString*)fontName fontSize:(CGFloat)fontSize
++ (UILabel*) createLabel
 {
-    UILabel* label = [[UILabel alloc] initWithFrame:rect];
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.textAlignment = NSTextAlignmentCenter;
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
     label.shadowColor = [UIColor blackColor];
-    label.font = [UIFont fontWithName:fontName size:fontSize];
     label.shadowOffset = CGSizeMake(2, 2);
 
     return label;
@@ -64,42 +64,27 @@
     [self.button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.pressable = NO;
 
-    CGSize size = self.frame.size;
-    CGFloat width = size.width - 4;
-    CGFloat height = size.height - 4;
-
-    CGFloat fontSize = height / 4 / 1.25;
-    self.rankLabel = [MGMAlbumView createLabelWithRect:CGRectMake(2, 2, width / 4, height / 4) fontName:DEFAULT_FONT_BOLD fontSize:fontSize];
+    self.rankLabel = [MGMAlbumView createLabel];
     self.rankLabel.alpha = 0.75;
     self.rankLabel.textColor = [UIColor yellowColor];
 
-    self.albumScoreView = [[MGMAlbumScoreView alloc] initWithFrame:CGRectMake(parentSize.width * 0.375f, 0, parentSize.width * 0.25f, parentSize.height * 0.25f)];
+    self.albumScoreView = [[MGMAlbumScoreView alloc] initWithFrame:CGRectZero];
     self.albumScoreView.hidden = YES;
 
     self.detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    CGFloat detailWidth = 34;
-    CGFloat detailHeight = detailWidth;
-    CGFloat detailX = width - (detailWidth + 10);
-    CGFloat detailY = 10;
-    self.detailButton.frame = CGRectMake(detailX, detailY, detailWidth, detailHeight);
+    self.detailButton.frame = CGRectZero;
     self.detailButton.alpha = 0;
     self.detailViewShowing = NO;
     [self.detailButton addTarget:self action:@selector(detailPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    CGFloat textParentViewWidth = width - 4;
-    CGFloat textParentViewHeight = height / 4;
-    CGFloat y = height - textParentViewHeight - 2;
-    UIView* textParentView = [[UIView alloc] initWithFrame:CGRectMake(2, y, textParentViewWidth, textParentViewHeight)];
-    textParentView.autoresizesSubviews = YES;
-    textParentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    textParentView.backgroundColor = [UIColor clearColor];
+    self.textParentView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.textParentView.autoresizesSubviews = YES;
+    self.textParentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    self.textParentView.backgroundColor = [UIColor clearColor];
 
-    CGFloat textWidth = textParentViewWidth - 4;
-    CGFloat textHeight = textParentViewHeight / 3;
-    fontSize = textHeight / 1.25;
-    self.artistLabel = [MGMAlbumView createLabelWithRect:CGRectMake(2, 0, textWidth, textHeight) fontName:DEFAULT_FONT_BOLD fontSize:fontSize];
-    self.albumLabel = [MGMAlbumView createLabelWithRect:CGRectMake(2, textHeight, textWidth, textHeight) fontName:DEFAULT_FONT_MEDIUM fontSize:fontSize];
-    self.listenersLabel = [MGMAlbumView createLabelWithRect:CGRectMake(2, 2 * textHeight, textWidth, textHeight) fontName:DEFAULT_FONT_ITALIC fontSize:fontSize];
+    self.artistLabel = [MGMAlbumView createLabel];
+    self.albumLabel = [MGMAlbumView createLabel];
+    self.listenersLabel = [MGMAlbumView createLabel];
 
     self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     self.activityIndicatorView.frame = frame;
@@ -110,10 +95,10 @@
     [self.button addSubview:self.rankLabel];
     [self.button addSubview:self.albumScoreView];
 
-    [self.button addSubview:textParentView];
-    [textParentView addSubview:self.artistLabel];
-    [textParentView addSubview:self.albumLabel];
-    [textParentView addSubview:self.listenersLabel];
+    [self.button addSubview:self.textParentView];
+    [self.textParentView addSubview:self.artistLabel];
+    [self.textParentView addSubview:self.albumLabel];
+    [self.textParentView addSubview:self.listenersLabel];
 
     [self.button addSubview:self.detailButton];
     [self addSubview:self.activityIndicatorView];
@@ -258,6 +243,47 @@
         }];
         [self renderImageWithNoAnimation:image];
     }];
+}
+
+- (void) layoutSubviews
+{
+    [super layoutSubviews];
+
+    CGSize parentSize = self.frame.size;
+    CGRect frame = CGRectMake(0, 0, parentSize.width, parentSize.height);
+    self.button.frame = frame;
+
+    CGSize size = self.frame.size;
+    CGFloat width = size.width - 4;
+    CGFloat height = size.height - 4;
+
+    CGFloat fontSize = height / 4 / 1.25;
+    self.rankLabel.frame = CGRectMake(2, 2, width / 4, height / 4);
+    self.rankLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:fontSize];
+
+    self.albumScoreView.frame = CGRectMake(parentSize.width * 0.375f, 0, parentSize.width * 0.25f, parentSize.height * 0.25f);
+
+    CGFloat detailWidth = 34;
+    CGFloat detailHeight = detailWidth;
+    CGFloat detailX = width - (detailWidth + 10);
+    CGFloat detailY = 10;
+    self.detailButton.frame = CGRectMake(detailX, detailY, detailWidth, detailHeight);
+
+    CGFloat textParentViewWidth = width - 4;
+    CGFloat textParentViewHeight = height / 4;
+    CGFloat y = height - textParentViewHeight - 2;
+    self.textParentView.frame = CGRectMake(2, y, textParentViewWidth, textParentViewHeight);
+
+    CGFloat textWidth = textParentViewWidth - 4;
+    CGFloat textHeight = textParentViewHeight / 3;
+    fontSize = textHeight / 1.25;
+    self.artistLabel.frame = CGRectMake(2, 0, textWidth, textHeight);
+    self.albumLabel.frame = CGRectMake(2, textHeight, textWidth, textHeight);
+    self.listenersLabel.frame = CGRectMake(2, 2 * textHeight, textWidth, textHeight);
+
+    self.artistLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:fontSize];
+    self.albumLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:fontSize];
+    self.listenersLabel.font = [UIFont fontWithName:DEFAULT_FONT_ITALIC size:fontSize];
 }
 
 @end

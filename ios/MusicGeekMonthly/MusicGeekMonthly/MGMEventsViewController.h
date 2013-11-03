@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMAbstractEventController.h"
+#import "MGMAbstractEventViewController.h"
 
-@interface MGMEventsViewController : MGMAbstractEventController
+@interface MGMEventsViewController : MGMAbstractEventViewController
 
 @end

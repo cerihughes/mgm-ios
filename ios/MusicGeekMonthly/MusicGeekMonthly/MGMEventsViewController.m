@@ -73,8 +73,9 @@
 
     [self.eventsTable reloadData];
 
-    self.classicAlbumView.animationTime = 0.25;
-    self.newlyReleasedAlbumView.animationTime = 0.25;
+    // TODO: put this back
+//    self.classicAlbumView.animationTime = 0.25;
+//    self.newlyReleasedAlbumView.animationTime = 0.25;
 
     // Auto-populate for 1st entry...
     NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];

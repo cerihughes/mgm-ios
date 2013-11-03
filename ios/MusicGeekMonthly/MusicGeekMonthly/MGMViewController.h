@@ -13,6 +13,7 @@
 
 @property (weak) MGMUI* ui;
 
+- (CGRect) fullscreenRect;
 - (void) presentViewModally:(UIView*)view sender:(id)sender;
 - (void) dismissModalPresentation;
 - (BOOL) isPresentingModally;

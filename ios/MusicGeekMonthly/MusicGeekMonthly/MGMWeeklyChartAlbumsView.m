@@ -96,7 +96,7 @@
 }
 
 #pragma mark -
-#pragma mark MGMPressableAlbumViewDelegate
+#pragma mark MGMAlbumViewDelegate
 
 - (void) albumPressed:(MGMAlbumView *)albumView
 {

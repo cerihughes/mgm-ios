@@ -9,17 +9,14 @@
 
 #import "MGMHomeViewController.h"
 
-#import "CKCalendarView.h"
 #import "MGMBackgroundAlbumArtFetcher.h"
 #import "MGMEvent.h"
-#import "MGMPulsatingAlbumsView.h"
+#import "MGMHomeView.h"
 #import "NSMutableArray+Shuffling.h"
 
-@interface MGMHomeViewController () <MGMBackgroundAlbumArtFetcherDelegate, CKCalendarDelegate>
+@interface MGMHomeViewController () <MGMBackgroundAlbumArtFetcherDelegate>
 
-@property (strong) IBOutlet MGMPulsatingAlbumsView* albumsView;
-@property (strong) IBOutlet CKCalendarView* calendarView;
-
+@property NSUInteger backgroundAlbumCount;
 @property (strong) MGMBackgroundAlbumArtFetcher* artFetcher;
 @property (strong) NSManagedObjectID* eventMoid;
 
@@ -27,38 +24,23 @@
 
 @implementation MGMHomeViewController
 
-- (id) init
+- (void) loadView
 {
-    if (self = [super initWithNibName:nil bundle:nil])
-    {
-    }
-    return self;
-}
+    [super loadView];
 
-- (void) viewDidLoad
-{
-    [super viewDidLoad];
-    
-    [self.albumsView setupAlbumsInRow:4];
+    MGMHomeView* homeView = [[MGMHomeView alloc] initWithFrame:[self fullscreenRect]];
 
-    for (NSUInteger i = 0; i < self.albumsView.albumCount; i++)
+    self.backgroundAlbumCount = [homeView setBackgroundAlbumsInRow:4];
+
+    for (NSUInteger i = 0; i < self.backgroundAlbumCount; i++)
     {
         NSUInteger index = (i % 3) + 1;
         NSString* imageName = [NSString stringWithFormat:@"album%d.png", index];
         UIImage* image = [UIImage imageNamed:imageName];
-        [self.albumsView renderImage:image atIndex:i animation:NO];
+        [homeView renderBackgroundAlbumImage:image atIndex:i animation:NO];
     }
 
-    BOOL iPad = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
-    CGFloat titleFontSize = iPad ? 20.0 : 14.0;
-    CGFloat dayFontSize = iPad ? 13.0 : 9.0;
-    CGFloat dateFontSize = iPad ? 18.0 : 13.0;
-
-    self.calendarView.hidden = YES;
-    self.calendarView.delegate = self;
-    self.calendarView.titleFont = [UIFont boldSystemFontOfSize:titleFontSize];
-    self.calendarView.dayOfWeekFont = [UIFont boldSystemFontOfSize:dayFontSize];
-    self.calendarView.dateFont = [UIFont boldSystemFontOfSize:dateFontSize];
+    self.view = homeView;
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -98,11 +80,8 @@
 {
     [super displayEvent:event];
 
-    if (event.eventDate)
-    {
-        self.calendarView.hidden = NO;
-        [self.calendarView selectDate:event.eventDate makeVisible:YES];
-    }
+    MGMHomeView* homeView = (MGMHomeView*)self.view;
+    [homeView setNextEventDate:event.eventDate];
 }
 
 - (void) loadImages
@@ -167,9 +146,9 @@
 
 - (void) renderImages:(BOOL)initialRender
 {
-    NSArray* shuffledIndicies = [self shuffledIndicies:self.albumsView.albumCount];
+    NSArray* shuffledIndicies = [self shuffledIndicies:self.backgroundAlbumCount];
     NSTimeInterval sleepTime = initialRender ? 0.05 : 1.0;
-    for (NSUInteger i = 0; i < self.albumsView.albumCount; i++)
+    for (NSUInteger i = 0; i < self.backgroundAlbumCount; i++)
     {
         NSNumber* index = [shuffledIndicies objectAtIndex:i];
         [self.artFetcher generateImageAtIndex:[index integerValue]];
@@ -180,7 +159,7 @@
 - (NSArray*) shuffledIndicies:(NSUInteger)size
 {
     NSMutableArray* array = [NSMutableArray arrayWithCapacity:size];
-    for (NSUInteger i = 0; i < self.albumsView.albumCount; i++)
+    for (NSUInteger i = 0; i < self.backgroundAlbumCount; i++)
     {
         [array addObject:[NSNumber numberWithInteger:i]];
     }
@@ -198,30 +177,13 @@
         image = [UIImage imageNamed:@"album1.png"];
     }
 
-    [self.albumsView renderImage:image atIndex:index animation:YES];
+    MGMHomeView* homeView = (MGMHomeView*)self.view;
+    [homeView renderBackgroundAlbumImage:image atIndex:index animation:YES];
 }
 
 - (void) artFetcher:(MGMBackgroundAlbumArtFetcher*)fetcher errorOccured:(NSError*)error
 {
     [self logError:error];
-}
-
-#pragma mark -
-#pragma mark CKCalendarDelegate
-
-- (BOOL)calendar:(CKCalendarView*)calendar willSelectDate:(NSDate*)date
-{
-    return NO;
-}
-
-- (BOOL)calendar:(CKCalendarView*)calendar willDeselectDate:(NSDate*)date
-{
-    return NO;
-}
-
-- (BOOL)calendar:(CKCalendarView*)calendar willChangeToMonth:(NSDate*)date
-{
-    return NO;
 }
 
 @end

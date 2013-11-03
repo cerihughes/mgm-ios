@@ -27,6 +27,11 @@ static BOOL userInterfaceIdiomIpad;
 {
 }
 
+- (CGRect) fullscreenRect
+{
+    return [UIScreen mainScreen].bounds;
+}
+
 - (void) showError:(NSError*)error
 {
     [self.ui showError:error];
