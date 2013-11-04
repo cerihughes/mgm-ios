@@ -58,6 +58,7 @@
 		653B6BCA175FDB4B005D372C /* MGMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BC4175FDB4B005D372C /* MGMView.m */; };
 		65422A0F17E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65422A0E17E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m */; };
 		65422A1017E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65422A0E17E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m */; };
+		654F16901827FEF000C84698 /* MGMAlbumScoresView.m in Sources */ = {isa = PBXBuildFile; fileRef = 654F168F1827FEF000C84698 /* MGMAlbumScoresView.m */; };
 		6554DE3417A053F0006A2A29 /* MGM_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6554DE3317A053F0006A2A29 /* MGM_icon.png */; };
 		656D01B3176C5DB900B9B0B3 /* lastfm.png in Resources */ = {isa = PBXBuildFile; fileRef = 656D01B1176C5DB900B9B0B3 /* lastfm.png */; };
 		656D01B4176C5DB900B9B0B3 /* spotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 656D01B2176C5DB900B9B0B3 /* spotify.png */; };
@@ -155,8 +156,6 @@
 		65EBBF3E17DFA81E0012AF3D /* MGMAlbumScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EBBF3D17DFA81E0012AF3D /* MGMAlbumScoreView.m */; };
 		65EBBF4517DFB0710012AF3D /* gold_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF4417DFB0710012AF3D /* gold_bar.png */; };
 		65EBBF4E17DFBF800012AF3D /* MGMAlbumScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EBBF4D17DFBF800012AF3D /* MGMAlbumScoresViewController.m */; };
-		65EBBF5117DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF4F17DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib */; };
-		65EBBF5217DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF5017DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib */; };
 		65ECD90117AC3B2F00701A00 /* MGMAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */; };
 		65ECD90417AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */; };
 		65F46CFA17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F46CF917DB96E200D38ED2 /* MGMAlbumViewUtilities.m */; };
@@ -243,6 +242,8 @@
 		653B6BC4175FDB4B005D372C /* MGMView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMView.m; sourceTree = "<group>"; };
 		65422A0D17E1BAF300465AD6 /* MGMFetchAllEventAlbumsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFetchAllEventAlbumsOperation.h; sourceTree = "<group>"; };
 		65422A0E17E1BAF400465AD6 /* MGMFetchAllEventAlbumsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFetchAllEventAlbumsOperation.m; sourceTree = "<group>"; };
+		654F168E1827FEF000C84698 /* MGMAlbumScoresView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumScoresView.h; sourceTree = "<group>"; };
+		654F168F1827FEF000C84698 /* MGMAlbumScoresView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumScoresView.m; sourceTree = "<group>"; };
 		6554DE3317A053F0006A2A29 /* MGM_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MGM_icon.png; sourceTree = "<group>"; };
 		656D01B1176C5DB900B9B0B3 /* lastfm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lastfm.png; path = MusicGeekMonthly/lastfm.png; sourceTree = "<group>"; };
 		656D01B2176C5DB900B9B0B3 /* spotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spotify.png; path = MusicGeekMonthly/spotify.png; sourceTree = "<group>"; };
@@ -358,8 +359,6 @@
 		65EBBF4417DFB0710012AF3D /* gold_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gold_bar.png; path = MusicGeekMonthly/gold_bar.png; sourceTree = "<group>"; };
 		65EBBF4C17DFBF800012AF3D /* MGMAlbumScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumScoresViewController.h; sourceTree = "<group>"; };
 		65EBBF4D17DFBF800012AF3D /* MGMAlbumScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumScoresViewController.m; sourceTree = "<group>"; };
-		65EBBF4F17DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMAlbumScoresViewController~ipad.xib"; sourceTree = "<group>"; };
-		65EBBF5017DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMAlbumScoresViewController~iphone.xib"; sourceTree = "<group>"; };
 		65ECD8FC17AC39C500701A00 /* MGMAlbumSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumSelectionDelegate.h; sourceTree = "<group>"; };
 		65ECD8FF17AC3B2E00701A00 /* MGMAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumViewController.h; sourceTree = "<group>"; };
 		65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewController.m; sourceTree = "<group>"; };
@@ -815,8 +814,8 @@
 			children = (
 				65EBBF4C17DFBF800012AF3D /* MGMAlbumScoresViewController.h */,
 				65EBBF4D17DFBF800012AF3D /* MGMAlbumScoresViewController.m */,
-				65EBBF4F17DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib */,
-				65EBBF5017DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib */,
+				654F168E1827FEF000C84698 /* MGMAlbumScoresView.h */,
+				654F168F1827FEF000C84698 /* MGMAlbumScoresView.m */,
 			);
 			name = Scores;
 			sourceTree = "<group>";
@@ -919,8 +918,6 @@
 				65EBBF3617DFA37C0012AF3D /* ruler@2x.png in Resources */,
 				65EBBF3817DFA3850012AF3D /* home.png in Resources */,
 				65EBBF4517DFB0710012AF3D /* gold_bar.png in Resources */,
-				65EBBF5117DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib in Resources */,
-				65EBBF5217DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib in Resources */,
 				6523D22D17E4F4BD0030147C /* deezer.png in Resources */,
 				65B33AF817E7820F0096C0A8 /* MGMNoReachabilityViewController~iphone.xib in Resources */,
 				65B33AFA17E7822E0096C0A8 /* MGMNoReachabilityViewController~ipad.xib in Resources */,
@@ -1008,6 +1005,7 @@
 				650B7BB317BEBAE200B14305 /* MGMAlbumImageUriDto.m in Sources */,
 				650B7BB717BEBAEF00B14305 /* MGMAlbumMetadataDto.m in Sources */,
 				650B7BC317BEC03500B14305 /* MGMCoreDataDaoSync.m in Sources */,
+				654F16901827FEF000C84698 /* MGMAlbumScoresView.m in Sources */,
 				65DF2B8117BF703C00BAF25A /* MGMBackgroundAlbumArtFetcher.m in Sources */,
 				65DF2BA017BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */,
 				65FAB9DE17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */,

@@ -7,6 +7,10 @@
 
 @interface MGMView : UIView
 
+@property (readonly) CGFloat statusBarHeight;
+@property (readonly) CGFloat navigationBarHeight;
+@property (readonly) CGFloat tabBarHeight;
+
 + (UILabel*) boldLabelWithText:(NSString*)text;
 + (UILabel*) italicLabelWithText:(NSString*)text;
 

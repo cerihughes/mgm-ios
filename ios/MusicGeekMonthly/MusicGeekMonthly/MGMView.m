@@ -33,6 +33,28 @@ static BOOL _iPad;
     return label;
 }
 
+- (CGFloat) statusBarHeight
+{
+    return 20.0;
+}
+
+- (CGFloat) navigationBarHeight
+{
+    return 44.0;
+}
+
+- (CGFloat) tabBarHeight
+{
+    if (_iPad)
+    {
+        return 56.0;
+    }
+    else
+    {
+        return 49.0;
+    }
+}
+
 - (void) commonInit
 {
     if (_iPad)
