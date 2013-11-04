@@ -14,4 +14,12 @@
 
 - (void) displayEvent:(MGMEvent*)event;
 
+#pragma mark -
+#pragma mark MGMAlbumViewController
+
+- (void) classicAlbumPressed;
+- (void) classicAlbumDetailPressed;
+- (void) newlyReleasedAlbumPressed;
+- (void) newlyReleasedAlbumDetailPressed;
+
 @end

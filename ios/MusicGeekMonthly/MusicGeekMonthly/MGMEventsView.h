@@ -8,6 +8,17 @@
 
 #import "MGMAbstractEventView.h"
 
+@protocol MGMEventsViewDelegate <MGMAbstractEventViewDelegate>
+
+- (void) moreButtonPressed:(id)sender;
+
+@end
+
 @interface MGMEventsView : MGMAbstractEventView
+
+@property (weak) id<MGMEventsViewDelegate> delegate;
+
+- (void) setTitle:(NSString*)title;
+- (void) setPlaylistUrl:(NSString*)playlistUrl;
 
 @end

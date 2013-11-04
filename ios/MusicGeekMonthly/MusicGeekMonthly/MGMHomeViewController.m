@@ -14,7 +14,7 @@
 #import "MGMHomeView.h"
 #import "NSMutableArray+Shuffling.h"
 
-@interface MGMHomeViewController () <MGMBackgroundAlbumArtFetcherDelegate>
+@interface MGMHomeViewController () <MGMBackgroundAlbumArtFetcherDelegate, MGMAbstractEventViewDelegate>
 
 @property NSUInteger backgroundAlbumCount;
 @property (strong) MGMBackgroundAlbumArtFetcher* artFetcher;
@@ -40,6 +40,7 @@
         [homeView renderBackgroundAlbumImage:image atIndex:i animation:NO];
     }
 
+    homeView.delegate = self;
     self.view = homeView;
 }
 

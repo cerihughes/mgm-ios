@@ -8,15 +8,14 @@
 
 #import "MGMEventsViewController.h"
 
-#import "MGMEventTableViewDataSource.h"
 #import "MGMEvent.h"
+#import "MGMEventsView.h"
+#import "MGMEventsModalView.h"
+#import "MGMEventTableViewDataSource.h"
 
-@interface MGMEventsViewController () <UITableViewDelegate>
+@interface MGMEventsViewController () <UITableViewDelegate, MGMEventsViewDelegate, MGMEventsModalViewDelegate>
 
-@property (strong) IBOutlet UINavigationItem* eventNavigationItem;
-@property (strong) IBOutlet UITableView* eventsTable;
-@property (strong) IBOutlet UIView* modalView;
-@property (strong) IBOutlet UIWebView* playlistWebView;
+@property (strong) UIView* modalView;
 
 @property (strong) MGMEventTableViewDataSource* dataSource;
 
@@ -29,15 +28,78 @@
 #define EVENT_TITLE_PATTERN @"MGM#%@ %@"
 #define WEB_URL_PATTERN @"https://embed.spotify.com/?uri=%@"
 
-- (id) init
+- (MGMEventsModalView*) loadModalView
 {
-    if (self = [super initWithNibName:nil bundle:nil])
+    MGMEventsModalView* modalView = [[MGMEventsModalView alloc] initWithFrame:[self fullscreenRect]];
+    UINib* tableCellNib = [UINib nibWithNibName:@"MGMEventTableCell" bundle:nil];
+    [modalView.eventsTable registerNib:tableCellNib forCellReuseIdentifier:CELL_ID];
+    
+    NSFetchedResultsController* fetchedResultsController = [self.core.daoFactory.coreDataDao createEventsFetchedResultsController];
+    self.dataSource = [[MGMEventTableViewDataSource alloc] initWithCellId:CELL_ID];
+    self.dataSource.fetchedResultsController = fetchedResultsController;
+    self.dataSource.daoFactory = self.core.daoFactory;
+    
+    modalView.eventsTable.dataSource = self.dataSource;
+    modalView.eventsTable.delegate = self;
+    
+    NSError* error = nil;
+    [fetchedResultsController performFetch:&error];
+    if (error != nil)
     {
+        [self showError:error];
     }
-    return self;
+    
+    [modalView.eventsTable reloadData];
+    
+    // Auto-populate for 1st entry...
+    NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
+    [modalView.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+    [self tableView:modalView.eventsTable didSelectRowAtIndexPath:firstItem];
+    
+    modalView.delegate = self;
+
+    return modalView;
 }
 
-- (IBAction) barButtonPressed:(id)sender
+- (void) loadView
+{
+    MGMEventsView* eventsView = [[MGMEventsView alloc] initWithFrame:[self fullscreenRect]];
+    eventsView.classicAlbumView.animationTime = 0.25;
+    eventsView.newlyReleasedAlbumView.animationTime = 0.25;
+    
+    eventsView.delegate = self;
+    self.view = eventsView;
+    self.modalView = [self loadModalView];
+}
+
+- (void) displayEvent:(MGMEvent*)event
+{
+    [super displayEvent:event];
+
+    MGMEventsView* eventsView = (MGMEventsView*)self.view;
+
+	NSString* dateString = event.groupValue;
+    NSString* newTitle = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
+    [eventsView setTitle:newTitle];
+
+    NSString* urlString = [NSString stringWithFormat:WEB_URL_PATTERN, event.spotifyHttpUrl];
+    [eventsView setPlaylistUrl:urlString];
+}
+
+#pragma mark -
+#pragma mark UITableViewDelegate
+
+- (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    [self dismissModalPresentation];
+    MGMEvent* event = [self.dataSource.fetchedResultsController objectAtIndexPath:indexPath];
+    [self displayEvent:event];
+}
+
+#pragma mark -
+#pragma mark MGMEventsViewDelegate
+
+- (void) moreButtonPressed:(id)sender
 {
     if ([self isPresentingModally])
     {
@@ -49,62 +111,12 @@
     }
 }
 
-- (void) viewDidLoad
-{
-    [super viewDidLoad];
-
-    UINib* tableCellNib = [UINib nibWithNibName:@"MGMEventTableCell" bundle:nil];
-    [self.eventsTable registerNib:tableCellNib forCellReuseIdentifier:CELL_ID];
-
-    NSFetchedResultsController* fetchedResultsController = [self.core.daoFactory.coreDataDao createEventsFetchedResultsController];
-    self.dataSource = [[MGMEventTableViewDataSource alloc] initWithCellId:CELL_ID];
-    self.dataSource.fetchedResultsController = fetchedResultsController;
-    self.dataSource.daoFactory = self.core.daoFactory;
-
-    self.eventsTable.dataSource = self.dataSource;
-    self.eventsTable.delegate = self;
-
-    NSError* error = nil;
-    [fetchedResultsController performFetch:&error];
-    if (error != nil)
-    {
-        [self showError:error];
-    }
-
-    [self.eventsTable reloadData];
-
-    // TODO: put this back
-//    self.classicAlbumView.animationTime = 0.25;
-//    self.newlyReleasedAlbumView.animationTime = 0.25;
-
-    // Auto-populate for 1st entry...
-    NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-    [self.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-    [self tableView:self.eventsTable didSelectRowAtIndexPath:firstItem];
-}
-
-- (void) displayEvent:(MGMEvent*)event
-{
-    [super displayEvent:event];
-
-	NSString* dateString = event.groupValue;
-    NSString* newTitle = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
-    self.eventNavigationItem.title = newTitle;
-
-    NSString* urlString = [NSString stringWithFormat:WEB_URL_PATTERN, event.spotifyHttpUrl];
-    NSURL* url = [NSURL URLWithString:urlString];
-    NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [self.playlistWebView loadRequest:request];
-}
-
 #pragma mark -
-#pragma mark UITableViewDelegate
+#pragma mark MGMEventsModalViewDelegate
 
-- (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
+- (void) cancelButtonPressed:(id)sender
 {
-    [self dismissModalPresentation];
-    MGMEvent* event = [self.dataSource.fetchedResultsController objectAtIndexPath:indexPath];
-    [self displayEvent:event];
+    [self moreButtonPressed:sender];
 }
 
 @end

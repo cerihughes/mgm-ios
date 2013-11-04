@@ -38,12 +38,6 @@
     }
 }
 
-- (void) viewDidLoad
-{
-    MGMAbstractEventView* eventView = (MGMAbstractEventView*)self.view;
-    eventView.delegate = self;
-}
-
 #pragma mark -
 #pragma mark MGMAbstractEventViewDelegate
 
