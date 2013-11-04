@@ -77,7 +77,7 @@
     self.newlyReleasedAlbumView.frame = CGRectMake(160, 64, 160, 160);
     
     self.playlistLabel.frame = CGRectZero;
-    CGFloat remainingHeight = self.frame.size.height - (224 + self.tabBarHeight);
+    CGFloat remainingHeight = self.frame.size.height - (64 + 160 + self.tabBarHeight);
     self.playlistWebView.frame = CGRectMake(0, 224, 320, remainingHeight);
 }
 
