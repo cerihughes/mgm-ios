@@ -38,7 +38,7 @@
 		650EBEC317C8CF0700D7EE88 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = 650EBEC217C8CF0700D7EE88 /* NSMutableArray+Shuffling.m */; };
 		650EBEC417C8CF0700D7EE88 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = 650EBEC217C8CF0700D7EE88 /* NSMutableArray+Shuffling.m */; };
 		650F13C217AABB060048226A /* MGMAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 650F13C117AABB060048226A /* MGMAlbumView.m */; };
-		651238C817B16C3300C5D353 /* MGMAbstractEventController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651238C717B16C3300C5D353 /* MGMAbstractEventController.m */; };
+		651238C817B16C3300C5D353 /* MGMAbstractEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651238C717B16C3300C5D353 /* MGMAbstractEventViewController.m */; };
 		651CC69F176F9455007B7F0D /* MGMWeeklyChartAlbumsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 651CC69E176F9455007B7F0D /* MGMWeeklyChartAlbumsView.m */; };
 		65215F9A176BA64300250168 /* MGMDaoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 65215F99176BA64300250168 /* MGMDaoFactory.m */; };
 		6523827B17AD094E00FAE0B3 /* MGMEventsViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6523827A17AD094E00FAE0B3 /* MGMEventsViewController~iphone.xib */; };
@@ -117,7 +117,6 @@
 		65E3BE0417E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E3BE0217E0CD1000085CB5 /* MGMFetchAllNewlyReleasedAlbumsOperation.m */; };
 		65E53CE61785CACC001ECA79 /* MGMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E53CE51785CACC001ECA79 /* MGMNavigationViewController.m */; };
 		65E53CEC1785CF57001ECA79 /* MGMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E53CEB1785CF57001ECA79 /* MGMHomeViewController.m */; };
-		65E53CEE1785CF81001ECA79 /* MGMHomeViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E53CED1785CF81001ECA79 /* MGMHomeViewController~ipad.xib */; };
 		65E79B0517C2431D008CCDA3 /* MGMReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E79B0417C2431D008CCDA3 /* MGMReachabilityManager.m */; };
 		65E79B0617C2431D008CCDA3 /* MGMReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E79B0417C2431D008CCDA3 /* MGMReachabilityManager.m */; };
 		65E79B0817C2444C008CCDA3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */; };
@@ -161,13 +160,15 @@
 		65EBBF4E17DFBF800012AF3D /* MGMAlbumScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EBBF4D17DFBF800012AF3D /* MGMAlbumScoresViewController.m */; };
 		65EBBF5117DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF4F17DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib */; };
 		65EBBF5217DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65EBBF5017DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib */; };
-		65ECD8FB17AC2F4300701A00 /* MGMHomeViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65ECD8FA17AC2F4300701A00 /* MGMHomeViewController~iphone.xib */; };
 		65ECD90117AC3B2F00701A00 /* MGMAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */; };
 		65ECD90417AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */; };
 		65F46CFA17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F46CF917DB96E200D38ED2 /* MGMAlbumViewUtilities.m */; };
 		65F46CFB17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F46CF917DB96E200D38ED2 /* MGMAlbumViewUtilities.m */; };
 		65FAB9DE17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */; };
 		65FAB9DF17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */; };
+		F400AA351827A7E200DE33E6 /* MGMHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F400AA341827A7E200DE33E6 /* MGMHomeView.m */; };
+		F400AA381827A80E00DE33E6 /* MGMAbstractEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = F400AA371827A80E00DE33E6 /* MGMAbstractEventView.m */; };
+		F400AA3B1827AA6E00DE33E6 /* MGMEventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F400AA3A1827AA6E00DE33E6 /* MGMEventsView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -215,8 +216,8 @@
 		650EBEC217C8CF0700D7EE88 /* NSMutableArray+Shuffling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffling.m"; sourceTree = "<group>"; };
 		650F13C017AABB060048226A /* MGMAlbumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumView.h; sourceTree = "<group>"; };
 		650F13C117AABB060048226A /* MGMAlbumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumView.m; sourceTree = "<group>"; };
-		651238C617B16C3300C5D353 /* MGMAbstractEventController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAbstractEventController.h; sourceTree = "<group>"; };
-		651238C717B16C3300C5D353 /* MGMAbstractEventController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAbstractEventController.m; sourceTree = "<group>"; };
+		651238C617B16C3300C5D353 /* MGMAbstractEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAbstractEventViewController.h; sourceTree = "<group>"; };
+		651238C717B16C3300C5D353 /* MGMAbstractEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAbstractEventViewController.m; sourceTree = "<group>"; };
 		651CC69D176F9455007B7F0D /* MGMWeeklyChartAlbumsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWeeklyChartAlbumsView.h; sourceTree = "<group>"; };
 		651CC69E176F9455007B7F0D /* MGMWeeklyChartAlbumsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartAlbumsView.m; sourceTree = "<group>"; };
 		65215F98176BA64300250168 /* MGMDaoFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMDaoFactory.h; sourceTree = "<group>"; };
@@ -309,7 +310,6 @@
 		65E53CE51785CACC001ECA79 /* MGMNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMNavigationViewController.m; sourceTree = "<group>"; };
 		65E53CEA1785CF57001ECA79 /* MGMHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMHomeViewController.h; sourceTree = "<group>"; };
 		65E53CEB1785CF57001ECA79 /* MGMHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMHomeViewController.m; sourceTree = "<group>"; };
-		65E53CED1785CF81001ECA79 /* MGMHomeViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMHomeViewController~ipad.xib"; sourceTree = "<group>"; };
 		65E79B0317C2431D008CCDA3 /* MGMReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMReachabilityManager.h; sourceTree = "<group>"; };
 		65E79B0417C2431D008CCDA3 /* MGMReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMReachabilityManager.m; sourceTree = "<group>"; };
 		65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -365,7 +365,6 @@
 		65EBBF4D17DFBF800012AF3D /* MGMAlbumScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumScoresViewController.m; sourceTree = "<group>"; };
 		65EBBF4F17DFC0630012AF3D /* MGMAlbumScoresViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMAlbumScoresViewController~ipad.xib"; sourceTree = "<group>"; };
 		65EBBF5017DFC0630012AF3D /* MGMAlbumScoresViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMAlbumScoresViewController~iphone.xib"; sourceTree = "<group>"; };
-		65ECD8FA17AC2F4300701A00 /* MGMHomeViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMHomeViewController~iphone.xib"; sourceTree = "<group>"; };
 		65ECD8FC17AC39C500701A00 /* MGMAlbumSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumSelectionDelegate.h; sourceTree = "<group>"; };
 		65ECD8FF17AC3B2E00701A00 /* MGMAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumViewController.h; sourceTree = "<group>"; };
 		65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewController.m; sourceTree = "<group>"; };
@@ -375,6 +374,12 @@
 		65F46CF917DB96E200D38ED2 /* MGMAlbumViewUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewUtilities.m; sourceTree = "<group>"; };
 		65FAB9DC17C11CB200BCEA8E /* MGMCoreDataThreadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataThreadManager.h; sourceTree = "<group>"; };
 		65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataThreadManager.m; sourceTree = "<group>"; };
+		F400AA331827A7E200DE33E6 /* MGMHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMHomeView.h; sourceTree = "<group>"; };
+		F400AA341827A7E200DE33E6 /* MGMHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMHomeView.m; sourceTree = "<group>"; };
+		F400AA361827A80E00DE33E6 /* MGMAbstractEventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAbstractEventView.h; sourceTree = "<group>"; };
+		F400AA371827A80E00DE33E6 /* MGMAbstractEventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAbstractEventView.m; sourceTree = "<group>"; };
+		F400AA391827AA6E00DE33E6 /* MGMEventsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMEventsView.h; sourceTree = "<group>"; };
+		F400AA3A1827AA6E00DE33E6 /* MGMEventsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventsView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -460,8 +465,10 @@
 				65F46CF817DB96E200D38ED2 /* MGMAlbumViewUtilities.h */,
 				65F46CF917DB96E200D38ED2 /* MGMAlbumViewUtilities.m */,
 				65ECD8FC17AC39C500701A00 /* MGMAlbumSelectionDelegate.h */,
-				651238C617B16C3300C5D353 /* MGMAbstractEventController.h */,
-				651238C717B16C3300C5D353 /* MGMAbstractEventController.m */,
+				651238C617B16C3300C5D353 /* MGMAbstractEventViewController.h */,
+				651238C717B16C3300C5D353 /* MGMAbstractEventViewController.m */,
+				F400AA361827A80E00DE33E6 /* MGMAbstractEventView.h */,
+				F400AA371827A80E00DE33E6 /* MGMAbstractEventView.m */,
 				65B782EE17C1451C00608B3E /* MGMCoreDataTableViewDataSource.h */,
 				65B782EF17C1451C00608B3E /* MGMCoreDataTableViewDataSource.m */,
 			);
@@ -587,6 +594,8 @@
 			children = (
 				6594349817776BE800DCA9DB /* MGMEventsViewController.h */,
 				6594349917776BE800DCA9DB /* MGMEventsViewController.m */,
+				F400AA391827AA6E00DE33E6 /* MGMEventsView.h */,
+				F400AA3A1827AA6E00DE33E6 /* MGMEventsView.m */,
 				65B782F217C1525D00608B3E /* MGMEventTableViewDataSource.h */,
 				65B782F317C1525D00608B3E /* MGMEventTableViewDataSource.m */,
 				659434A217777A9F00DCA9DB /* MGMEventsViewController~ipad.xib */,
@@ -745,8 +754,8 @@
 			children = (
 				65E53CEA1785CF57001ECA79 /* MGMHomeViewController.h */,
 				65E53CEB1785CF57001ECA79 /* MGMHomeViewController.m */,
-				65E53CED1785CF81001ECA79 /* MGMHomeViewController~ipad.xib */,
-				65ECD8FA17AC2F4300701A00 /* MGMHomeViewController~iphone.xib */,
+				F400AA331827A7E200DE33E6 /* MGMHomeView.h */,
+				F400AA341827A7E200DE33E6 /* MGMHomeView.m */,
 				652ABF86179EFE59005C8501 /* MGMPulsatingAlbumsView.h */,
 				652ABF87179EFE59005C8501 /* MGMPulsatingAlbumsView.m */,
 				65DF2B7F17BF703C00BAF25A /* MGMBackgroundAlbumArtFetcher.h */,
@@ -900,11 +909,9 @@
 				65291B0617761A75002595AC /* MGMWeeklyChartViewController~iphone.xib in Resources */,
 				65291B0817762539002595AC /* MGMWeeklyChartViewController~ipad.xib in Resources */,
 				659434A317777A9F00DCA9DB /* MGMEventsViewController~ipad.xib in Resources */,
-				65E53CEE1785CF81001ECA79 /* MGMHomeViewController~ipad.xib in Resources */,
 				652C8712179DBC370059595E /* wikipedia.png in Resources */,
 				652C8714179DBDEB0059595E /* youtube.png in Resources */,
 				6554DE3417A053F0006A2A29 /* MGM_icon.png in Resources */,
-				65ECD8FB17AC2F4300701A00 /* MGMHomeViewController~iphone.xib in Resources */,
 				6523827B17AD094E00FAE0B3 /* MGMEventsViewController~iphone.xib in Resources */,
 				65B782F617C1552D00608B3E /* MGMEventTableCell.xib in Resources */,
 				65E9E3B517CA4B020077BB78 /* MGMAlbumDetailViewController~ipad.xib in Resources */,
@@ -961,6 +968,7 @@
 				659F9F4E175B928E000C413B /* main.m in Sources */,
 				659F9F52175B928E000C413B /* MGMAppDelegate.m in Sources */,
 				653B6BBB175FD13F005D372C /* MGMLastFmDao.m in Sources */,
+				F400AA3B1827AA6E00DE33E6 /* MGMEventsView.m in Sources */,
 				653B6BC7175FDB4B005D372C /* MGMWeeklyChartViewController.m in Sources */,
 				653B6BC8175FDB4B005D372C /* MGMCore.m in Sources */,
 				653B6BC9175FDB4B005D372C /* MGMUI.m in Sources */,
@@ -968,6 +976,7 @@
 				65E1A51517F70745006F8051 /* CKCalendarView.m in Sources */,
 				65215F9A176BA64300250168 /* MGMDaoFactory.m in Sources */,
 				6508CB16176BACF400594244 /* MGMSpotifyDao.m in Sources */,
+				F400AA351827A7E200DE33E6 /* MGMHomeView.m in Sources */,
 				6508CB1A176BB05700594244 /* MGMDao.m in Sources */,
 				656D01B7176C5EC500B9B0B3 /* MGMImageHelper.m in Sources */,
 				651CC69F176F9455007B7F0D /* MGMWeeklyChartAlbumsView.m in Sources */,
@@ -984,12 +993,13 @@
 				65ECD90117AC3B2F00701A00 /* MGMAlbumViewController.m in Sources */,
 				65ECD90417AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */,
 				6509FF6E17AC5F4700DE68DE /* MGMAlbumMetadataDao.m in Sources */,
-				651238C817B16C3300C5D353 /* MGMAbstractEventController.m in Sources */,
+				651238C817B16C3300C5D353 /* MGMAbstractEventViewController.m in Sources */,
 				65E975AB17B6A8E100CF53B2 /* MGMCoreDataDao.m in Sources */,
 				65E975AE17B6A8FB00CF53B2 /* MGMHttpDao.m in Sources */,
 				65E975B717B6BD6F00CF53B2 /* MusicGeekMonthly.xcdatamodeld in Sources */,
 				65E975BA17B6CB1600CF53B2 /* MGMTimePeriod.m in Sources */,
 				65E975BD17B6CB1700CF53B2 /* MGMAlbum.m in Sources */,
+				F400AA381827A80E00DE33E6 /* MGMAbstractEventView.m in Sources */,
 				65E975C017B6CB1800CF53B2 /* MGMEvent.m in Sources */,
 				65E975C317B6CB1800CF53B2 /* MGMWeeklyChart.m in Sources */,
 				65E975C617B6CD5A00CF53B2 /* MGMCoreDataAwareDao.m in Sources */,
