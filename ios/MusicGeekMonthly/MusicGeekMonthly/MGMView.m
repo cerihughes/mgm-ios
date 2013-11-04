@@ -35,6 +35,23 @@ static BOOL _iPad;
 
 - (void) commonInit
 {
+    if (_iPad)
+    {
+        [self commonInitIpad];
+    }
+    else
+    {
+        [self commonInitIphone];
+    }
+}
+
+- (void) commonInitIphone
+{
+    // Override
+}
+
+- (void) commonInitIpad
+{
     // Override
 }
 

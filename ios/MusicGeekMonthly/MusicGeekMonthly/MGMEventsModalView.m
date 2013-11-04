@@ -22,16 +22,20 @@
     [super commonInit];
     
     self.backgroundColor = [UIColor whiteColor];
-    
+    self.eventsTable = [[UITableView alloc] initWithFrame:CGRectZero];
+    [self addSubview:self.eventsTable];
+}
+
+- (void) commonInitIphone
+{
+    [super commonInitIphone];
+
     self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
     UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@"Previous Events"];
     UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed:)];
     [navigationItem setRightBarButtonItem:bbi];
     [self.navigationBar pushNavigationItem:navigationItem animated:YES];
     
-    self.eventsTable = [[UITableView alloc] initWithFrame:CGRectZero];
-    
-    [self addSubview:self.eventsTable];
     [self addSubview:self.navigationBar];
 }
 
@@ -48,6 +52,13 @@
     
     CGRect tableFrame = CGRectMake(0, 64, 320, self.frame.size.height - 64);
     self.eventsTable.frame = tableFrame;
+}
+
+- (void) layoutSubviewsIpad
+{
+    [super layoutSubviewsIpad];
+    
+    self.eventsTable.frame = self.frame;
 }
 
 @end

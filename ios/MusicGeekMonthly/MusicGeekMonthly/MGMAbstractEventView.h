@@ -23,7 +23,9 @@
 
 @property (weak) id<MGMAbstractEventViewDelegate> delegate;
 
+@property (readonly) UILabel* classicAlbumLabel;
 @property (readonly) MGMAlbumView* classicAlbumView;
+@property (readonly) UILabel* newlyReleasedAlbumLabel;
 @property (readonly) MGMAlbumView* newlyReleasedAlbumView;
 
 @end

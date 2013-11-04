@@ -8,7 +8,34 @@
 
 #import "MGMEventTableCell.h"
 
+#import "MGMView.h"
+
 @implementation MGMEventTableCell
+
+- (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void) commonInit
+{
+    self.classicAlbumImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    self.newlyReleasedAlbumImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    self.classicAlbumActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.newlyReleasedAlbumActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.eventTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.eventTextLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:17.0];
+
+    [self addSubview:self.classicAlbumImageView];
+    [self addSubview:self.newlyReleasedAlbumImageView];
+    [self addSubview:self.classicAlbumActivityView];
+    [self addSubview:self.newlyReleasedAlbumActivityView];
+    [self addSubview:self.eventTextLabel];
+}
 
 - (void) layoutSubviews
 {

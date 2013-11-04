@@ -15,8 +15,6 @@
 
 @property (strong) MGMPulsatingAlbumsView* albumsView;
 @property (strong) UILabel* titleLabel;
-@property (strong) UILabel* classicAlbumLabel;
-@property (strong) UILabel* newlyReleasedAlbumLabel;
 @property (strong) UILabel* nextMeetingLabel;
 @property (strong) CKCalendarView* calendarView;
 
@@ -42,8 +40,6 @@
     self.calendarView.delegate = self;
 
     self.titleLabel = [MGMView boldLabelWithText:@"This month we're listening to:"];
-    self.classicAlbumLabel = [MGMView italicLabelWithText:@"Classic Album"];
-    self.newlyReleasedAlbumLabel = [MGMView italicLabelWithText:@"New Album"];
     self.nextMeetingLabel = [MGMView boldLabelWithText:@"Next meeting:"];
 
     [self addSubview:self.albumsView];

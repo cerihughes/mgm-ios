@@ -11,6 +11,9 @@
 + (UILabel*) italicLabelWithText:(NSString*)text;
 
 - (void) commonInit;
+- (void) commonInitIphone;
+- (void) commonInitIpad;
+
 - (void) layoutSubviewsIphone;
 - (void) layoutSubviewsIpad;
 

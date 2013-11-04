@@ -10,7 +10,9 @@
 
 @interface MGMAbstractEventView () <MGMAlbumViewDelegate>
 
+@property (strong) UILabel* classicAlbumLabel;
 @property (strong) MGMAlbumView* classicAlbumView;
+@property (strong) UILabel* newlyReleasedAlbumLabel;
 @property (strong) MGMAlbumView* newlyReleasedAlbumView;
 
 @end
@@ -19,6 +21,9 @@
 
 - (void) commonInit
 {
+    self.classicAlbumLabel = [MGMView italicLabelWithText:@"Classic Album"];
+    self.newlyReleasedAlbumLabel = [MGMView italicLabelWithText:@"New Album"];
+
     self.classicAlbumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
     self.classicAlbumView.alphaOn = 1;
     self.classicAlbumView.animationTime = 0.25;

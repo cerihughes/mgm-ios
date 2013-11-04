@@ -31,8 +31,6 @@
 - (MGMEventsModalView*) loadModalView
 {
     MGMEventsModalView* modalView = [[MGMEventsModalView alloc] initWithFrame:[self fullscreenRect]];
-    UINib* tableCellNib = [UINib nibWithNibName:@"MGMEventTableCell" bundle:nil];
-    [modalView.eventsTable registerNib:tableCellNib forCellReuseIdentifier:CELL_ID];
     
     NSFetchedResultsController* fetchedResultsController = [self.core.daoFactory.coreDataDao createEventsFetchedResultsController];
     self.dataSource = [[MGMEventTableViewDataSource alloc] initWithCellId:CELL_ID];
