@@ -284,6 +284,8 @@
     self.artistLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:fontSize];
     self.albumLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:fontSize];
     self.listenersLabel.font = [UIFont fontWithName:DEFAULT_FONT_ITALIC size:fontSize];
+    
+    self.activityIndicatorView.frame = frame;
 }
 
 @end
