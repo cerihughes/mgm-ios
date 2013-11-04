@@ -51,9 +51,14 @@
 
 - (void) setPlaylistUrl:(NSString*)playlistUrl
 {
-    NSURL* url = [NSURL URLWithString:playlistUrl];
-    NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [self.playlistWebView loadRequest:request];
+    self.playlistLabel.hidden = (playlistUrl == nil);
+    self.playlistWebView.hidden = (playlistUrl == nil);
+    if (playlistUrl)
+    {
+        NSURL* url = [NSURL URLWithString:playlistUrl];
+        NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+        [self.playlistWebView loadRequest:request];
+    }
 }
 
 - (void) moreButtonPressed:(id)sender

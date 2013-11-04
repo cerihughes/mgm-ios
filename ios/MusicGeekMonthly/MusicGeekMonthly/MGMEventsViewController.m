@@ -80,7 +80,11 @@
     NSString* newTitle = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
     [eventsView setTitle:newTitle];
 
-    NSString* urlString = [NSString stringWithFormat:WEB_URL_PATTERN, event.spotifyHttpUrl];
+    NSString* urlString = nil;
+    if (event.spotifyHttpUrl)
+    {
+        urlString = [NSString stringWithFormat:WEB_URL_PATTERN, event.spotifyHttpUrl];
+    }
     [eventsView setPlaylistUrl:urlString];
 }
 
