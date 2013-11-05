@@ -10,6 +10,7 @@
 
 @interface MGMUI : NSObject <MGMAlbumSelectionDelegate>
 
+@property (readonly) BOOL ipad;
 @property (retain) MGMCore* core;
 @property (retain) UIViewController* parentViewController;
 @property (strong) MGMAlbumPlayer* albumPlayer;

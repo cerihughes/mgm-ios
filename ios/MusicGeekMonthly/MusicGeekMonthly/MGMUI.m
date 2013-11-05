@@ -16,6 +16,13 @@
 
 @implementation MGMUI
 
+static BOOL _isIpad;
+
++ (void) initialize
+{
+    _isIpad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
+}
+
 - (id) init
 {
     if (self = [super init])
@@ -26,6 +33,11 @@
         self.albumPlayer.daoFactory = self.core.daoFactory;
     }
     return self;
+}
+
+- (BOOL) ipad
+{
+    return _isIpad;
 }
 
 - (void) setupCore
@@ -90,7 +102,7 @@
 - (void) detailSelected:(MGMAlbum*)album sender:(MGMViewController*)sender
 {
     self.albumDetailViewController.albumMoid = album.objectID;
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+    if (self.ipad)
     {
         [self ipadDetailSelected:album sender:sender];
     }

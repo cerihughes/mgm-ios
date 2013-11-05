@@ -129,8 +129,6 @@
 		65E975C317B6CB1800CF53B2 /* MGMWeeklyChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975C217B6CB1800CF53B2 /* MGMWeeklyChart.m */; };
 		65E975C617B6CD5A00CF53B2 /* MGMCoreDataAwareDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975C517B6CD5900CF53B2 /* MGMCoreDataAwareDao.m */; };
 		65E9E3B317CA49880077BB78 /* MGMAlbumDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E9E3B217CA49880077BB78 /* MGMAlbumDetailViewController.m */; };
-		65E9E3B517CA4B020077BB78 /* MGMAlbumDetailViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E9E3B417CA4B020077BB78 /* MGMAlbumDetailViewController~ipad.xib */; };
-		65E9E3B717CA6DE40077BB78 /* MGMAlbumDetailViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E9E3B617CA6DE40077BB78 /* MGMAlbumDetailViewController~iphone.xib */; };
 		65E9E3B917CA70CD0077BB78 /* itunes.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E9E3B817CA70CD0077BB78 /* itunes.png */; };
 		65EB122C17C3FB18008EE886 /* MGMDaoFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EB122717C3FB18008EE886 /* MGMDaoFetchOperation.m */; };
 		65EB122D17C3FB18008EE886 /* MGMDaoFetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EB122717C3FB18008EE886 /* MGMDaoFetchOperation.m */; };
@@ -166,6 +164,8 @@
 		F400AA381827A80E00DE33E6 /* MGMAbstractEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = F400AA371827A80E00DE33E6 /* MGMAbstractEventView.m */; };
 		F400AA3B1827AA6E00DE33E6 /* MGMEventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F400AA3A1827AA6E00DE33E6 /* MGMEventsView.m */; };
 		F400AA3E1827AB4600DE33E6 /* MGMEventsModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = F400AA3D1827AB4600DE33E6 /* MGMEventsModalView.m */; };
+		F45479E618282EF200426AE3 /* MGMAlbumDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479E518282EF200426AE3 /* MGMAlbumDetailView.m */; };
+		F45479E9182838D400426AE3 /* MGMAlbumDetailTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479E8182838D400426AE3 /* MGMAlbumDetailTableCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -329,8 +329,6 @@
 		65E975C517B6CD5900CF53B2 /* MGMCoreDataAwareDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataAwareDao.m; sourceTree = "<group>"; };
 		65E9E3B117CA49880077BB78 /* MGMAlbumDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumDetailViewController.h; sourceTree = "<group>"; };
 		65E9E3B217CA49880077BB78 /* MGMAlbumDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumDetailViewController.m; sourceTree = "<group>"; };
-		65E9E3B417CA4B020077BB78 /* MGMAlbumDetailViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMAlbumDetailViewController~ipad.xib"; sourceTree = "<group>"; };
-		65E9E3B617CA6DE40077BB78 /* MGMAlbumDetailViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMAlbumDetailViewController~iphone.xib"; sourceTree = "<group>"; };
 		65E9E3B817CA70CD0077BB78 /* itunes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = itunes.png; path = MusicGeekMonthly/itunes.png; sourceTree = "<group>"; };
 		65EB122617C3FB18008EE886 /* MGMDaoFetchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMDaoFetchOperation.h; sourceTree = "<group>"; };
 		65EB122717C3FB18008EE886 /* MGMDaoFetchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDaoFetchOperation.m; sourceTree = "<group>"; };
@@ -376,6 +374,10 @@
 		F400AA3A1827AA6E00DE33E6 /* MGMEventsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventsView.m; sourceTree = "<group>"; };
 		F400AA3C1827AB4600DE33E6 /* MGMEventsModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMEventsModalView.h; sourceTree = "<group>"; };
 		F400AA3D1827AB4600DE33E6 /* MGMEventsModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventsModalView.m; sourceTree = "<group>"; };
+		F45479E418282EF200426AE3 /* MGMAlbumDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumDetailView.h; sourceTree = "<group>"; };
+		F45479E518282EF200426AE3 /* MGMAlbumDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumDetailView.m; sourceTree = "<group>"; };
+		F45479E7182838D400426AE3 /* MGMAlbumDetailTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumDetailTableCell.h; sourceTree = "<group>"; };
+		F45479E8182838D400426AE3 /* MGMAlbumDetailTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumDetailTableCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -579,8 +581,10 @@
 			children = (
 				65E9E3B117CA49880077BB78 /* MGMAlbumDetailViewController.h */,
 				65E9E3B217CA49880077BB78 /* MGMAlbumDetailViewController.m */,
-				65E9E3B417CA4B020077BB78 /* MGMAlbumDetailViewController~ipad.xib */,
-				65E9E3B617CA6DE40077BB78 /* MGMAlbumDetailViewController~iphone.xib */,
+				F45479E418282EF200426AE3 /* MGMAlbumDetailView.h */,
+				F45479E518282EF200426AE3 /* MGMAlbumDetailView.m */,
+				F45479E7182838D400426AE3 /* MGMAlbumDetailTableCell.h */,
+				F45479E8182838D400426AE3 /* MGMAlbumDetailTableCell.m */,
 			);
 			name = "Album Detail";
 			sourceTree = "<group>";
@@ -906,8 +910,6 @@
 				652C8712179DBC370059595E /* wikipedia.png in Resources */,
 				652C8714179DBDEB0059595E /* youtube.png in Resources */,
 				6554DE3417A053F0006A2A29 /* MGM_icon.png in Resources */,
-				65E9E3B517CA4B020077BB78 /* MGMAlbumDetailViewController~ipad.xib in Resources */,
-				65E9E3B717CA6DE40077BB78 /* MGMAlbumDetailViewController~iphone.xib in Resources */,
 				65E9E3B917CA70CD0077BB78 /* itunes.png in Resources */,
 				65EBBF2B17DFA3660012AF3D /* chart_line.png in Resources */,
 				65EBBF2C17DFA3660012AF3D /* chart_line@2x.png in Resources */,
@@ -964,6 +966,7 @@
 				653B6BC9175FDB4B005D372C /* MGMUI.m in Sources */,
 				653B6BCA175FDB4B005D372C /* MGMView.m in Sources */,
 				65E1A51517F70745006F8051 /* CKCalendarView.m in Sources */,
+				F45479E9182838D400426AE3 /* MGMAlbumDetailTableCell.m in Sources */,
 				65215F9A176BA64300250168 /* MGMDaoFactory.m in Sources */,
 				6508CB16176BACF400594244 /* MGMSpotifyDao.m in Sources */,
 				F400AA351827A7E200DE33E6 /* MGMHomeView.m in Sources */,
@@ -1002,6 +1005,7 @@
 				650B7BA717BEBA9F00B14305 /* MGMWeeklyChartDto.m in Sources */,
 				650B7BAB17BEBAAF00B14305 /* MGMChartEntryDto.m in Sources */,
 				650B7BAF17BEBAD300B14305 /* MGMEventDto.m in Sources */,
+				F45479E618282EF200426AE3 /* MGMAlbumDetailView.m in Sources */,
 				650B7BB317BEBAE200B14305 /* MGMAlbumImageUriDto.m in Sources */,
 				650B7BB717BEBAEF00B14305 /* MGMAlbumMetadataDto.m in Sources */,
 				650B7BC317BEC03500B14305 /* MGMCoreDataDaoSync.m in Sources */,

@@ -12,6 +12,7 @@
 @interface MGMViewController : UIViewController
 
 @property (weak) MGMUI* ui;
+@property (readonly) BOOL ipad;
 
 - (CGRect) fullscreenRect;
 - (void) presentViewModally:(UIView*)view sender:(id)sender;

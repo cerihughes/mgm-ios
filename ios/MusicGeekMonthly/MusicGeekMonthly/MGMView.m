@@ -3,11 +3,11 @@
 
 @implementation MGMView
 
-static BOOL _iPad;
+static BOOL _isIpad;
 
 + (void) initialize
 {
-    _iPad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
+    _isIpad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 }
 
 + (UILabel*) boldLabelWithText:(NSString *)text
@@ -28,9 +28,13 @@ static BOOL _iPad;
     label.textColor = [UIColor blackColor];
     label.backgroundColor = [UIColor clearColor];
 
-    BOOL iPad = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
-    label.font = [UIFont fontWithName:fontName size:(iPad ? 28.0 : 17.0)];
+    label.font = [UIFont fontWithName:fontName size:(_isIpad ? 28.0 : 17.0)];
     return label;
+}
+
+- (BOOL) ipad
+{
+    return _isIpad;
 }
 
 - (CGFloat) statusBarHeight
@@ -45,7 +49,7 @@ static BOOL _iPad;
 
 - (CGFloat) tabBarHeight
 {
-    if (_iPad)
+    if (self.ipad)
     {
         return 56.0;
     }
@@ -57,7 +61,7 @@ static BOOL _iPad;
 
 - (void) commonInit
 {
-    if (_iPad)
+    if (self.ipad)
     {
         [self commonInitIpad];
     }
@@ -97,7 +101,7 @@ static BOOL _iPad;
 
 - (void) layoutSubviews
 {
-    if (_iPad)
+    if (self.ipad)
     {
         [self layoutSubviewsIpad];
     }

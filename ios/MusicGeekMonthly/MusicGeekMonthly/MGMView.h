@@ -7,6 +7,7 @@
 
 @interface MGMView : UIView
 
+@property (readonly) BOOL ipad;
 @property (readonly) CGFloat statusBarHeight;
 @property (readonly) CGFloat navigationBarHeight;
 @property (readonly) CGFloat tabBarHeight;

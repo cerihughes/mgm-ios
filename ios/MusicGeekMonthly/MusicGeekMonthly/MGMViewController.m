@@ -16,11 +16,9 @@
 
 @implementation MGMViewController
 
-static BOOL userInterfaceIdiomIpad;
-
-+ (void) initialize
+- (BOOL) ipad
 {
-    userInterfaceIdiomIpad = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
+    return self.ui.ipad;
 }
 
 - (void) transitionCompleteWithState:(id)state
@@ -44,7 +42,7 @@ static BOOL userInterfaceIdiomIpad;
 
 - (void) presentViewModally:(UIView*)view sender:(id)sender
 {
-    if (userInterfaceIdiomIpad)
+    if (self.ipad)
     {
         [self presentIpadViewModally:view sender:sender];
     }
@@ -56,7 +54,7 @@ static BOOL userInterfaceIdiomIpad;
 
 - (void) dismissModalPresentation
 {
-    if (userInterfaceIdiomIpad)
+    if (self.ipad)
     {
         [self dismissIpadModalPresentation];
     }
@@ -68,7 +66,7 @@ static BOOL userInterfaceIdiomIpad;
 
 - (BOOL) isPresentingModally
 {
-    if (userInterfaceIdiomIpad)
+    if (self.ipad)
     {
         return [self isIpadPresentingModally];
     }

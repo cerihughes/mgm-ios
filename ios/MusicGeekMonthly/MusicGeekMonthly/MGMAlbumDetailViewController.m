@@ -9,7 +9,7 @@
 #import "MGMAlbumDetailViewController.h"
 
 #import "MGMAlbum.h"
-#import "MGMAlbumView.h"
+#import "MGMAlbumDetailView.h"
 #import "MGMAlbumViewUtilities.h"
 
 #define CELL_ID @"ALBUM_DETAIL_CELL_ID"
@@ -25,10 +25,7 @@
 
 @end
 
-@interface MGMAlbumDetailViewController () <UITableViewDataSource, UITableViewDelegate>
-
-@property (strong) IBOutlet MGMAlbumView* albumView;
-@property (strong) IBOutlet UITableView* tableView;
+@interface MGMAlbumDetailViewController () <UITableViewDataSource, UITableViewDelegate, MGMAlbumDetailViewDelegate>
 
 @property (strong) NSArray* keyValuePairs;
 
@@ -36,27 +33,32 @@
 
 @implementation MGMAlbumDetailViewController
 
-- (void) viewDidLoad
+- (void) loadView
 {
-    [super viewDidLoad];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
+    MGMAlbumDetailView* detailView = [[MGMAlbumDetailView alloc] initWithFrame:[self fullscreenRect]];
+    detailView.delegate = self;
+    detailView.tableView.dataSource = self;
+    detailView.tableView.delegate = self;
+    
+    self.view = detailView;
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
 
+    MGMAlbumDetailView* detailView = (MGMAlbumDetailView*)self.view;
+
     MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:self.albumMoid];
     NSError* error = nil;
-    [MGMAlbumViewUtilities displayAlbum:album inAlbumView:self.albumView defaultImageName:@"album2.png" daoFactory:self.core.daoFactory error:&error];
+    [MGMAlbumViewUtilities displayAlbum:album inAlbumView:detailView.albumView defaultImageName:@"album2.png" daoFactory:self.core.daoFactory error:&error];
     if (error)
     {
         [self logError:error];
     }
 
     self.keyValuePairs = [self optionsForAlbum:album];
-    [self.tableView reloadData];
+    [detailView.tableView reloadData];
 }
 
 - (NSArray*) optionsForAlbum:(MGMAlbum*)album
@@ -111,11 +113,6 @@
     }
 }
 
-- (IBAction) cancelPressed:(id)sender
-{
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
-}
-
 #pragma mark -
 #pragma mark UITableViewDataSource
 
@@ -131,6 +128,7 @@
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+        cell.textLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:self.ipad ? 22.0 : 14.0];
     }
 
     MGMKeyValuePair* pair = [self.keyValuePairs objectAtIndex:indexPath.row];
@@ -164,6 +162,11 @@
 #pragma mark -
 #pragma mark UITableViewDelegate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return self.ipad ? 42.0 : 28.0;
+}
+
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     MGMKeyValuePair* pair = [self.keyValuePairs objectAtIndex:indexPath.row];
@@ -175,7 +178,15 @@
             [self showError:error];
         }
     }];
-    [self cancelPressed:nil];
+    [self cancelButtonPressed:nil];
+}
+
+#pragma mark -
+#pragma mark MGMAlbumDetailViewDelegate
+
+- (void) cancelButtonPressed:(id)sender
+{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

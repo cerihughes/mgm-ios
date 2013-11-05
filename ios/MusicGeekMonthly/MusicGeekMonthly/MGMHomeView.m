@@ -30,10 +30,9 @@
 
     self.albumsView = [[MGMPulsatingAlbumsView alloc] initWithFrame:self.frame];
     self.calendarView = [[CKCalendarView  alloc] initWithFrame:CGRectZero];
-    BOOL iPad = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
-    CGFloat titleFontSize = iPad ? 20.0 : 14.0;
-    CGFloat dayFontSize = iPad ? 13.0 : 9.0;
-    CGFloat dateFontSize = iPad ? 18.0 : 13.0;
+    CGFloat titleFontSize = self.ipad ? 20.0 : 14.0;
+    CGFloat dayFontSize = self.ipad ? 13.0 : 9.0;
+    CGFloat dateFontSize = self.ipad ? 18.0 : 13.0;
     self.calendarView.titleFont = [UIFont boldSystemFontOfSize:titleFontSize];
     self.calendarView.dayOfWeekFont = [UIFont boldSystemFontOfSize:dayFontSize];
     self.calendarView.dateFont = [UIFont boldSystemFontOfSize:dateFontSize];
