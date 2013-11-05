@@ -35,9 +35,8 @@
     MGMAlbumScoresView* scoresView = (MGMAlbumScoresView*)self.view;
 
     // Setup 25 albums so we can put them into "activity in progress" mode...
-    BOOL iPad = self.view.frame.size.width > 320;
     NSUInteger albumCount = 25;
-    NSUInteger rowCount = iPad ? 4 : 2;
+    NSUInteger rowCount = self.ipad ? 4 : 2;
     NSUInteger columnCount = (albumCount + 3) / rowCount;
     CGFloat albumSize = scoresView.albumsView.frame.size.width / rowCount;
     NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];

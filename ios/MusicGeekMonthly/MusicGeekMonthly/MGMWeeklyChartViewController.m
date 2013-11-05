@@ -4,14 +4,12 @@
 #import "MGMCoreDataTableViewDataSource.h"
 #import "MGMGridManager.h"
 #import "MGMImageHelper.h"
-#import "MGMWeeklyChartAlbumsView.h"
+#import "MGMWeeklyChartModalView.h"
+#import "MGMWeeklyChartView.h"
 
-@interface MGMWeeklyChartViewController () <MGMWeeklyChartAlbumsViewDelegate, UITableViewDelegate>
+@interface MGMWeeklyChartViewController () <MGMWeeklyChartAlbumsViewDelegate, UITableViewDelegate, MGMWeeklyChartViewDelegate, MGMWeeklyChartModalViewDelegate>
 
-@property (strong) IBOutlet UINavigationItem* weeklyChartNavigationItem;
-@property (strong) IBOutlet UITableView* timePeriodTable;
-@property (strong) IBOutlet UIView* modalView;
-@property (strong) IBOutlet MGMWeeklyChartAlbumsView* albumsView;
+@property (strong) UIView* modalView;
 
 @property (strong) MGMCoreDataTableViewDataSource* dataSource;
 @property (strong) NSManagedObjectID* weeklyChartMoid;
@@ -34,29 +32,17 @@
     return self;
 }
 
-- (IBAction) barButtonPressed:(id)sender
+- (MGMWeeklyChartModalView*) loadModalView
 {
-    if ([self isPresentingModally])
-    {
-        [self dismissModalPresentation];
-    }
-    else
-    {
-        [self presentViewModally:self.modalView sender:sender];
-    }
-}
-
-- (void) viewDidLoad
-{
-    [super viewDidLoad];
+    MGMWeeklyChartModalView* modalView = [[MGMWeeklyChartModalView alloc] initWithFrame:[self fullscreenRect]];
 
     NSFetchedResultsController* fetchedResultsController = [self.core.daoFactory.coreDataDao createTimePeriodsFetchedResultsController];
     self.dataSource = [[MGMCoreDataTableViewDataSource alloc] initWithCellId:CELL_ID];
     self.dataSource.fetchedResultsController = fetchedResultsController;
 
-    self.albumsView.delegate = self;
-    self.timePeriodTable.dataSource = self.dataSource;
-    self.timePeriodTable.delegate = self;
+    modalView.delegate = self;
+    modalView.timePeriodTable.dataSource = self.dataSource;
+    modalView.timePeriodTable.delegate = self;
 
     NSError* error = nil;
     [fetchedResultsController performFetch:&error];
@@ -65,35 +51,53 @@
         [self showError:error];
     }
 
-    [self.timePeriodTable reloadData];
+    [modalView.timePeriodTable reloadData];
 
-    BOOL iPad = self.view.frame.size.width > 320;
+    // Auto-populate for 1st entry...
+    NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
+    [modalView.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+    [self tableView:modalView.timePeriodTable didSelectRowAtIndexPath:firstItem];
+
+    return modalView;
+}
+
+- (void) loadView
+{
+    MGMWeeklyChartView* weeklyChartView = [[MGMWeeklyChartView alloc] initWithFrame:[self fullscreenRect]];
+    weeklyChartView.delegate = self;
+    weeklyChartView.albumsView.delegate = self;
+
+    self.view = weeklyChartView;
+    self.modalView = [self loadModalView];
+}
+
+- (void) viewDidLoad
+{
+    MGMWeeklyChartView* weeklyChartView = (MGMWeeklyChartView*)self.view;
+
     NSUInteger albumCount = 25;
-    NSUInteger rowCount = iPad ? 4 : 2;
+    NSUInteger rowCount = self.ipad ? 4 : 2;
     NSUInteger columnCount = (albumCount + 3) / rowCount;
-    CGFloat albumSize = self.albumsView.frame.size.width / rowCount;
+    CGFloat albumSize = weeklyChartView.albumsView.frame.size.width / rowCount;
     NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];
 
     for (NSUInteger i = 0; i < albumCount; i++)
     {
         NSValue* value = [gridData objectAtIndex:i];
         CGRect frame = [value CGRectValue];
-        [self.albumsView setupAlbumFrame:frame forRank:i + 1];
+        [weeklyChartView.albumsView setupAlbumFrame:frame forRank:i + 1];
     }
-
-    // Auto-populate for 1st entry...
-    NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-    [self.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-    [self tableView:self.timePeriodTable didSelectRowAtIndexPath:firstItem];
 }
 
 - (void) loadAlbumsForPeriod:(MGMTimePeriod*)timePeriod
 {
-    self.weeklyChartNavigationItem.title = timePeriod.groupValue;
+    MGMWeeklyChartView* weeklyChartView = (MGMWeeklyChartView*)self.view;
+
+    [weeklyChartView setTitle:timePeriod.groupValue];
 
     dispatch_async(dispatch_get_main_queue(), ^
     {
-        [self.albumsView setActivityInProgressForAllRanks:YES];
+        [weeklyChartView.albumsView setActivityInProgressForAllRanks:YES];
     });
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
@@ -153,6 +157,8 @@
 
 - (void) renderChartEntry:(MGMChartEntry*)chartEntry
 {
+    MGMWeeklyChartView* weeklyChartView = (MGMWeeklyChartView*)self.view;
+
     NSUInteger rank = chartEntry.rank.intValue;
     NSUInteger listeners = chartEntry.listeners.intValue;
 
@@ -174,8 +180,8 @@
 
             dispatch_async(dispatch_get_main_queue(), ^
             {
-                [self.albumsView setActivityInProgress:NO forRank:rank];
-                [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
+                [weeklyChartView.albumsView setActivityInProgress:NO forRank:rank];
+                [weeklyChartView.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
             });
         }];
     }
@@ -184,8 +190,8 @@
         UIImage* image = [self defaultImageForRank:rank];
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            [self.albumsView setActivityInProgress:NO forRank:rank];
-            [self.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
+            [weeklyChartView.albumsView setActivityInProgress:NO forRank:rank];
+            [weeklyChartView.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
         });
     }
 }
@@ -222,6 +228,29 @@
     MGMWeeklyChart* weeklyChart = [self.core.daoFactory.coreDataDao threadVersion:self.weeklyChartMoid];
     MGMChartEntry* entry = [weeklyChart.chartEntries objectAtIndex:rank - 1];
     [self.albumSelectionDelegate detailSelected:entry.album sender:self];
+}
+
+#pragma mark -
+#pragma mark MGMWeeklyChartViewDelegate
+
+- (void) moreButtonPressed:(id)sender
+{
+    if ([self isPresentingModally])
+    {
+        [self dismissModalPresentation];
+    }
+    else
+    {
+        [self presentViewModally:self.modalView sender:sender];
+    }
+}
+
+#pragma mark -
+#pragma mark MGMWeeklyChartModalViewDelegate
+
+- (void) cancelButtonPressed:(id)sender
+{
+    [self moreButtonPressed:sender];
 }
 
 @end
