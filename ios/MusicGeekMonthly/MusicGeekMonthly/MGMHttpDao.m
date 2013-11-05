@@ -70,7 +70,7 @@
 
 - (NSData*) contentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers error:(NSError**)error
 {
-    NSString* encodedUrl = [url stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    NSString* encodedUrl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:encodedUrl] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [request setHTTPMethod: @"GET"];
     [headers enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
@@ -78,9 +78,9 @@
         [request addValue:obj forHTTPHeaderField:key];
     }];
 
-    NSURLResponse *urlResponse = nil;
+    NSHTTPURLResponse *urlResponse = nil;
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:error];
-    NSLog(@"[%@] = [%@]", url, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    NSLog(@"[%@] = [%d]", url, urlResponse.statusCode);
     return data;
 }
 

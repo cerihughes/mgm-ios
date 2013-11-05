@@ -45,26 +45,22 @@
 - (NSUInteger)memoryCapacity
 {
     NSUInteger result = [super memoryCapacity];
-    NSLog(@"%s called. Returning (%d).", __FUNCTION__, result);
     return result;
 }
 
 - (NSUInteger)diskCapacity
 {
     NSUInteger result = [super diskCapacity];
-    NSLog(@"%s called. Returning (%d).", __FUNCTION__, result);
     return result;
 }
 
 - (void)setMemoryCapacity:(NSUInteger)memoryCapacity
 {
-    NSLog(@"%s called with parameter (%d).", __FUNCTION__, memoryCapacity);
     [super setMemoryCapacity:memoryCapacity];
 }
 
 - (void)setDiskCapacity:(NSUInteger)diskCapacity
 {
-    NSLog(@"%s called with parameter (%d).", __FUNCTION__, diskCapacity);
     [super setDiskCapacity:diskCapacity];
 }
 
