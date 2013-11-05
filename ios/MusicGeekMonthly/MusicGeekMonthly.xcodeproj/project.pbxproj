@@ -78,8 +78,6 @@
 		659F9F62175B928E000C413B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F43175B928E000C413B /* Foundation.framework */; };
 		659F9F6A175B928E000C413B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F68175B928E000C413B /* InfoPlist.strings */; };
 		65B33AF617E781A30096C0A8 /* MGMNoReachabilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B33AF517E781A30096C0A8 /* MGMNoReachabilityViewController.m */; };
-		65B33AF817E7820F0096C0A8 /* MGMNoReachabilityViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65B33AF717E7820F0096C0A8 /* MGMNoReachabilityViewController~iphone.xib */; };
-		65B33AFA17E7822E0096C0A8 /* MGMNoReachabilityViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65B33AF917E7822D0096C0A8 /* MGMNoReachabilityViewController~ipad.xib */; };
 		65B7000017C4AAFC00D4173C /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EB123217C3FB66008EE886 /* libTestFlight.a */; };
 		65B7000117C4AB9800D4173C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */; };
 		65B782F017C1451C00608B3E /* MGMCoreDataTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B782EF17C1451C00608B3E /* MGMCoreDataTableViewDataSource.m */; };
@@ -166,6 +164,7 @@
 		F45479E9182838D400426AE3 /* MGMAlbumDetailTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479E8182838D400426AE3 /* MGMAlbumDetailTableCell.m */; };
 		F45479EC1828FA9700426AE3 /* MGMWeeklyChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479EB1828FA9700426AE3 /* MGMWeeklyChartView.m */; };
 		F45479EF1828FAAC00426AE3 /* MGMWeeklyChartModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479EE1828FAAC00426AE3 /* MGMWeeklyChartModalView.m */; };
+		F45479F21829085000426AE3 /* MGMNoReachabilityView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479F11829085000426AE3 /* MGMNoReachabilityView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -272,8 +271,6 @@
 		65B33AEF17E77B1F0096C0A8 /* MGMErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMErrorCodes.h; sourceTree = "<group>"; };
 		65B33AF417E781A30096C0A8 /* MGMNoReachabilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMNoReachabilityViewController.h; sourceTree = "<group>"; };
 		65B33AF517E781A30096C0A8 /* MGMNoReachabilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMNoReachabilityViewController.m; sourceTree = "<group>"; };
-		65B33AF717E7820F0096C0A8 /* MGMNoReachabilityViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMNoReachabilityViewController~iphone.xib"; sourceTree = "<group>"; };
-		65B33AF917E7822D0096C0A8 /* MGMNoReachabilityViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MGMNoReachabilityViewController~ipad.xib"; sourceTree = "<group>"; };
 		65B782EE17C1451C00608B3E /* MGMCoreDataTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataTableViewDataSource.h; sourceTree = "<group>"; };
 		65B782EF17C1451C00608B3E /* MGMCoreDataTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataTableViewDataSource.m; sourceTree = "<group>"; };
 		65B782F117C1469800608B3E /* MGMRenderable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGMRenderable.h; sourceTree = "<group>"; };
@@ -380,6 +377,8 @@
 		F45479EB1828FA9700426AE3 /* MGMWeeklyChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartView.m; sourceTree = "<group>"; };
 		F45479ED1828FAAC00426AE3 /* MGMWeeklyChartModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWeeklyChartModalView.h; sourceTree = "<group>"; };
 		F45479EE1828FAAC00426AE3 /* MGMWeeklyChartModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartModalView.m; sourceTree = "<group>"; };
+		F45479F01829085000426AE3 /* MGMNoReachabilityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMNoReachabilityView.h; sourceTree = "<group>"; };
+		F45479F11829085000426AE3 /* MGMNoReachabilityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMNoReachabilityView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -694,8 +693,8 @@
 			children = (
 				65B33AF417E781A30096C0A8 /* MGMNoReachabilityViewController.h */,
 				65B33AF517E781A30096C0A8 /* MGMNoReachabilityViewController.m */,
-				65B33AF917E7822D0096C0A8 /* MGMNoReachabilityViewController~ipad.xib */,
-				65B33AF717E7820F0096C0A8 /* MGMNoReachabilityViewController~iphone.xib */,
+				F45479F01829085000426AE3 /* MGMNoReachabilityView.h */,
+				F45479F11829085000426AE3 /* MGMNoReachabilityView.m */,
 			);
 			name = "No Reachability";
 			sourceTree = "<group>";
@@ -923,8 +922,6 @@
 				65EBBF3817DFA3850012AF3D /* home.png in Resources */,
 				65EBBF4517DFB0710012AF3D /* gold_bar.png in Resources */,
 				6523D22D17E4F4BD0030147C /* deezer.png in Resources */,
-				65B33AF817E7820F0096C0A8 /* MGMNoReachabilityViewController~iphone.xib in Resources */,
-				65B33AFA17E7822E0096C0A8 /* MGMNoReachabilityViewController~ipad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -995,6 +992,7 @@
 				65E975B717B6BD6F00CF53B2 /* MusicGeekMonthly.xcdatamodeld in Sources */,
 				65E975BA17B6CB1600CF53B2 /* MGMTimePeriod.m in Sources */,
 				65E975BD17B6CB1700CF53B2 /* MGMAlbum.m in Sources */,
+				F45479F21829085000426AE3 /* MGMNoReachabilityView.m in Sources */,
 				F400AA381827A80E00DE33E6 /* MGMAbstractEventView.m in Sources */,
 				65E975C017B6CB1800CF53B2 /* MGMEvent.m in Sources */,
 				65E975C317B6CB1800CF53B2 /* MGMWeeklyChart.m in Sources */,

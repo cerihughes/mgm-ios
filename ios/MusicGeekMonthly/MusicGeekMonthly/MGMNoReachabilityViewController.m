@@ -8,18 +8,19 @@
 
 #import "MGMNoReachabilityViewController.h"
 
+#import "MGMNoReachabilityView.h"
+
 @interface MGMNoReachabilityViewController ()
 
 @end
 
 @implementation MGMNoReachabilityViewController
 
-- (id)init
+- (void) loadView
 {
-    if (self = [super initWithNibName:nil bundle:nil])
-    {
-    }
-    return self;
+    MGMNoReachabilityView* view = [[MGMNoReachabilityView alloc] initWithFrame:[self fullscreenRect]];
+
+    self.view = view;
 }
 
 @end
