@@ -12,7 +12,4 @@
 
 - (void) setNextEventDate:(NSDate *)nextEventDate;
 
-- (NSUInteger) setBackgroundAlbumsInRow:(NSUInteger)albumsInRow;
-- (void) renderBackgroundAlbumImage:(UIImage*)image atIndex:(NSUInteger)index animation:(BOOL)animation;
-
 @end

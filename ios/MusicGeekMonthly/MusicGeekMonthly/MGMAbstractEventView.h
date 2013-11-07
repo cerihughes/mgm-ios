@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMView.h"
+#import "MGMTabbedView.h"
 
 #import "MGMAlbumView.h"
 
@@ -19,7 +19,7 @@
 
 @end
 
-@interface MGMAbstractEventView : MGMView
+@interface MGMAbstractEventView : MGMTabbedView
 
 @property (weak) id<MGMAbstractEventViewDelegate> delegate;
 

@@ -61,6 +61,7 @@
     self.button.frame = frame;
     self.button.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.button.alpha = self.alphaOff;
+    self.button.backgroundColor = [UIColor whiteColor];
     [self.button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.pressable = NO;
 

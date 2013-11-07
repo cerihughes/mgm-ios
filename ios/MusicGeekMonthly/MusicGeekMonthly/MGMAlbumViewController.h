@@ -6,10 +6,11 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMViewController.h"
+#import "MGMTabbedViewController.h"
+
 #import "MGMAlbumSelectionDelegate.h"
 
-@interface MGMAlbumViewController : MGMViewController
+@interface MGMAlbumViewController : MGMTabbedViewController
 
 @property (weak) id<MGMAlbumSelectionDelegate> albumSelectionDelegate;
 

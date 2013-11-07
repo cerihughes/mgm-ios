@@ -165,6 +165,8 @@
 		F45479EC1828FA9700426AE3 /* MGMWeeklyChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479EB1828FA9700426AE3 /* MGMWeeklyChartView.m */; };
 		F45479EF1828FAAC00426AE3 /* MGMWeeklyChartModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479EE1828FAAC00426AE3 /* MGMWeeklyChartModalView.m */; };
 		F45479F21829085000426AE3 /* MGMNoReachabilityView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479F11829085000426AE3 /* MGMNoReachabilityView.m */; };
+		F4A1C26F182A434F00C1C0C3 /* MGMTabbedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A1C26E182A434F00C1C0C3 /* MGMTabbedViewController.m */; };
+		F4A1C272182A460100C1C0C3 /* MGMTabbedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A1C271182A460100C1C0C3 /* MGMTabbedView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -379,6 +381,10 @@
 		F45479EE1828FAAC00426AE3 /* MGMWeeklyChartModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartModalView.m; sourceTree = "<group>"; };
 		F45479F01829085000426AE3 /* MGMNoReachabilityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMNoReachabilityView.h; sourceTree = "<group>"; };
 		F45479F11829085000426AE3 /* MGMNoReachabilityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMNoReachabilityView.m; sourceTree = "<group>"; };
+		F4A1C26D182A434F00C1C0C3 /* MGMTabbedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTabbedViewController.h; sourceTree = "<group>"; };
+		F4A1C26E182A434F00C1C0C3 /* MGMTabbedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTabbedViewController.m; sourceTree = "<group>"; };
+		F4A1C270182A460100C1C0C3 /* MGMTabbedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTabbedView.h; sourceTree = "<group>"; };
+		F4A1C271182A460100C1C0C3 /* MGMTabbedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTabbedView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -457,6 +463,10 @@
 				653B6BC4175FDB4B005D372C /* MGMView.m */,
 				6594349F1777701C00DCA9DB /* MGMViewController.h */,
 				659434A01777701C00DCA9DB /* MGMViewController.m */,
+				F4A1C26D182A434F00C1C0C3 /* MGMTabbedViewController.h */,
+				F4A1C26E182A434F00C1C0C3 /* MGMTabbedViewController.m */,
+				F4A1C270182A460100C1C0C3 /* MGMTabbedView.h */,
+				F4A1C271182A460100C1C0C3 /* MGMTabbedView.m */,
 				65EBBF3C17DFA81E0012AF3D /* MGMAlbumScoreView.h */,
 				65EBBF3D17DFA81E0012AF3D /* MGMAlbumScoreView.m */,
 				650F13C017AABB060048226A /* MGMAlbumView.h */,
@@ -964,6 +974,7 @@
 				653B6BC8175FDB4B005D372C /* MGMCore.m in Sources */,
 				653B6BC9175FDB4B005D372C /* MGMUI.m in Sources */,
 				653B6BCA175FDB4B005D372C /* MGMView.m in Sources */,
+				F4A1C272182A460100C1C0C3 /* MGMTabbedView.m in Sources */,
 				65E1A51517F70745006F8051 /* CKCalendarView.m in Sources */,
 				F45479E9182838D400426AE3 /* MGMAlbumDetailTableCell.m in Sources */,
 				65215F9A176BA64300250168 /* MGMDaoFactory.m in Sources */,
@@ -995,6 +1006,7 @@
 				F45479F21829085000426AE3 /* MGMNoReachabilityView.m in Sources */,
 				F400AA381827A80E00DE33E6 /* MGMAbstractEventView.m in Sources */,
 				65E975C017B6CB1800CF53B2 /* MGMEvent.m in Sources */,
+				F4A1C26F182A434F00C1C0C3 /* MGMTabbedViewController.m in Sources */,
 				65E975C317B6CB1800CF53B2 /* MGMWeeklyChart.m in Sources */,
 				65E975C617B6CD5A00CF53B2 /* MGMCoreDataAwareDao.m in Sources */,
 				650BF24B17B97DAB00020C2B /* MGMChartEntry.m in Sources */,

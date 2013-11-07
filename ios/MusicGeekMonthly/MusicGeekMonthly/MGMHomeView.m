@@ -9,11 +9,9 @@
 #import "MGMHomeView.h"
 
 #import "CKCalendarView.h"
-#import "MGMPulsatingAlbumsView.h"
 
 @interface MGMHomeView () <CKCalendarDelegate>
 
-@property (strong) MGMPulsatingAlbumsView* albumsView;
 @property (strong) UILabel* titleLabel;
 @property (strong) UILabel* nextMeetingLabel;
 @property (strong) CKCalendarView* calendarView;
@@ -28,7 +26,6 @@
 
     self.backgroundColor = [UIColor whiteColor];
 
-    self.albumsView = [[MGMPulsatingAlbumsView alloc] initWithFrame:self.frame];
     self.calendarView = [[CKCalendarView  alloc] initWithFrame:CGRectZero];
     CGFloat titleFontSize = self.ipad ? 20.0 : 14.0;
     CGFloat dayFontSize = self.ipad ? 13.0 : 9.0;
@@ -41,7 +38,6 @@
     self.titleLabel = [MGMView boldLabelWithText:@"This month we're listening to:"];
     self.nextMeetingLabel = [MGMView boldLabelWithText:@"Next meeting:"];
 
-    [self addSubview:self.albumsView];
     [self addSubview:self.titleLabel];
     [self addSubview:self.classicAlbumView];
     [self addSubview:self.newlyReleasedAlbumView];
@@ -59,22 +55,9 @@
     [self.calendarView selectDate:nextEventDate makeVisible:YES];
 }
 
-- (NSUInteger) setBackgroundAlbumsInRow:(NSUInteger)albumsInRow
-{
-    [self.albumsView setupAlbumsInRow:4];
-    return self.albumsView.albumCount;
-}
-
-- (void) renderBackgroundAlbumImage:(UIImage *)image atIndex:(NSUInteger)index animation:(BOOL)animation
-{
-    [self.albumsView renderImage:image atIndex:index animation:YES];
-}
-
 - (void) layoutSubviewsIphone
 {
     [super layoutSubviewsIphone];
-
-    self.albumsView.frame = self.frame;
 
     self.titleLabel.frame = CGRectMake(20, 20, 280, 21);
     self.classicAlbumView.frame = CGRectMake(0, 49, 160, 160);
@@ -99,8 +82,6 @@
 - (void) layoutSubviewsIpad
 {
     [super layoutSubviewsIpad];
-
-    self.albumsView.frame = self.frame;
 
     self.titleLabel.frame = CGRectMake(20, 42, 728, 49);
     self.classicAlbumView.frame = CGRectMake(55, 135, 300, 300);

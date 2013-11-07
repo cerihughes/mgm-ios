@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMView.h"
+#import "MGMTabbedView.h"
 
 #import "MGMWeeklyChartAlbumsView.h"
 
@@ -16,7 +16,7 @@
 
 @end
 
-@interface MGMWeeklyChartView : MGMView
+@interface MGMWeeklyChartView : MGMTabbedView
 
 @property (weak) id<MGMWeeklyChartViewDelegate> delegate;
 

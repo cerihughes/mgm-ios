@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMView.h"
+#import "MGMTabbedView.h"
 
 #import "MGMWeeklyChartAlbumsView.h"
 
@@ -24,7 +24,7 @@ MGMAlbumScoresViewSelection;
 
 @end
 
-@interface MGMAlbumScoresView : MGMView
+@interface MGMAlbumScoresView : MGMTabbedView
 
 @property (weak) id<MGMAlbumScoresViewDelegate> delegate;
 

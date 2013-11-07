@@ -21,6 +21,8 @@
 
 - (void) commonInit
 {
+    [super commonInit];
+    
     self.classicAlbumLabel = [MGMView italicLabelWithText:@"Classic Album"];
     self.newlyReleasedAlbumLabel = [MGMView italicLabelWithText:@"New Album"];
 
