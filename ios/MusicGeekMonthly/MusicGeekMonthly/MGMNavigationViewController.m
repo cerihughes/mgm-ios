@@ -120,7 +120,7 @@
             [self.core.daoFactory.lastFmDao fetchAllTimePeriods:^(NSArray* fetchedTimePeriods, NSError* timePeriodFetchError) {
                 if (timePeriodFetchError && fetchedTimePeriods)
                 {
-                    [self logError:timePeriodFetchError];
+                    [self.ui logError:timePeriodFetchError];
                 }
 
                 if (fetchedTimePeriods.count > 0)
@@ -129,7 +129,7 @@
                     [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:fetchedTimePeriod.startDate endDate:fetchedTimePeriod.endDate completion:^(MGMWeeklyChart* fetchedWeeklyChart, NSError* weeklyChartFetchError) {
                         if (weeklyChartFetchError && fetchedWeeklyChart)
                         {
-                            [self logError:weeklyChartFetchError];
+                            [self.ui logError:weeklyChartFetchError];
                         }
 
                         if (fetchedWeeklyChart)
@@ -141,13 +141,13 @@
                         }
                         else
                         {
-                            [self showError:weeklyChartFetchError];
+                            [self.ui showError:weeklyChartFetchError];
                         }
                     }];
                 }
                 else
                 {
-                    [self showError:timePeriodFetchError];
+                    [self.ui showError:timePeriodFetchError];
                 }
             }];
         }
@@ -191,16 +191,6 @@
     return [array copy];
 }
 
-- (void) logError:(NSError*)error
-{
-
-}
-
-- (void) showError:(NSError*)error
-{
-    
-}
-
 #pragma mark -
 #pragma mark MGMBackgroundAlbumArtFetcherDelegate
 
@@ -212,11 +202,21 @@
     }
 
     [self renderBackgroundAlbumImage:image atIndex:index animation:YES];
+
+    if (index == self.backgroundAlbumCount - 1)
+    {
+        NSLog(@"Scheduling new set of background album images.");
+        double delayInSeconds = self.backgroundAlbumCount * 2;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self loadImages];
+        });
+    }
 }
 
 - (void) artFetcher:(MGMBackgroundAlbumArtFetcher*)fetcher errorOccured:(NSError*)error
 {
-    [self logError:error];
+    [self.ui logError:error];
 }
 
 #pragma mark -
