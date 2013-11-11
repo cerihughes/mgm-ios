@@ -14,6 +14,8 @@
 
 @property (strong) MGMDaoFactory* daoFactory;
 
+- (NSUInteger) determineCapabilities;
+
 - (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service completion:(VOID_COMPLETION)completion;
 
 @end

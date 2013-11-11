@@ -22,6 +22,36 @@
 
 @implementation MGMAlbumPlayer
 
+- (NSUInteger) determineCapabilities
+{
+    NSUInteger capabiliies = MGMAlbumServiceTypeNone;
+
+    [self processCapability:MGMAlbumServiceTypeLastFm forValue:&capabiliies];
+    [self processCapability:MGMAlbumServiceTypeSpotify forValue:&capabiliies];
+    [self processCapability:MGMAlbumServiceTypeWikipedia forValue:&capabiliies];
+    [self processCapability:MGMAlbumServiceTypeYouTube forValue:&capabiliies];
+    [self processCapability:MGMAlbumServiceTypeItunes forValue:&capabiliies];
+    [self processCapability:MGMAlbumServiceTypeDeezer forValue:&capabiliies];
+
+    return capabiliies;
+}
+
+- (BOOL) hasCapability:(MGMAlbumServiceType)serviceType
+{
+    NSString* pattern = [self uriPatternForServiceType:serviceType];
+    NSString* encoded = [pattern stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL* url = [NSURL URLWithString:encoded];
+    return [[UIApplication sharedApplication] canOpenURL:url];
+}
+
+- (void) processCapability:(MGMAlbumServiceType)serviceType forValue:(NSUInteger*)value
+{
+    if ([self hasCapability:serviceType])
+    {
+        *value |= serviceType;
+    }
+}
+
 - (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service completion:(VOID_COMPLETION)completion
 {
     MGMAlbumMetadataDao* dao = [self.daoFactory metadataDaoForServiceType:service];
