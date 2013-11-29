@@ -2,13 +2,45 @@
 	"events" :
 	[
 		{
+			"id" : 36,
+			"date" : "2014-01-30T20:00:00.000+0000",
+			"classicAlbum" :
+			{
+				"artistName" : "Elliott Smith",
+				"albumName" : "From a Basement on the Hill",
+				"mbid" : "88ba92e5-5de3-4ff2-a9fc-5016fed6af40",
+				"metadata" :
+				{
+					"deezer" : "401337",
+					"spotify" : "5mrfMNpgwxV1bDYxm3QPxd",
+					"wikipedia" : "From_a_Basement_on_the_Hill",
+					"youtube" : "kHK6ffo4770",
+					"itunes" : "id309180434"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Throwing Muses",
+				"albumName" : "Purgatory/Paradise",
+				"mbid" : "40bcaf9f-040f-4405-8eea-77da6f5999e0",
+				"metadata" :
+				{
+					"deezer" : "7096423",
+					"spotify" : "202dPyTbmkn9I8PzGHyMil",
+					"itunes" : "id735077327"
+				}
+			}
+		},
+		{
 			"id" : 35,
 			"date" : "2013-11-28T20:00:00.000+0000",
+			"spotifyPlaylistId" : "1fIt9o44mrNPyy5hR6uY73",
 			"classicAlbum" :
 			{
 				"artistName" : "Steve Earle",
 				"albumName" : "Train a Comin'",
 				"mbid" : "60ada670-d690-42b4-9728-bdf3c67da19f",
+				"score" : 5.8,
 				"metadata" :
 				{
 					"deezer" : "613722",
@@ -22,6 +54,7 @@
 				"artistName" : "of Montreal",
 				"albumName" : "Lousy with Sylvianbriar",
 				"mbid" : "82907832-2fca-4a1f-a8de-b2b4d0f719b7",
+				"score" : 7.4,
 				"metadata" :
 				{
 					"deezer" : "6976007",
