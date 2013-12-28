@@ -3,11 +3,13 @@
 
 #import "MGMAlbumDetailViewController.h"
 #import "MGMNavigationViewController.h"
+#import "MGMPlayerSelectionViewController.h"
 #import "UIViewController+MGMAdditions.h"
 
 @interface MGMUI ()
 
 @property (strong) MGMAlbumDetailViewController* albumDetailViewController;
+@property (strong) MGMPlayerSelectionViewController* playerSelectionViewController;
 
 - (void) setupCore;
 - (void) setupControllers;
@@ -50,22 +52,99 @@ static BOOL _isIpad;
     self.albumDetailViewController = [[MGMAlbumDetailViewController alloc] init];
     self.albumDetailViewController.ui = self;
 
+    self.playerSelectionViewController = [[MGMPlayerSelectionViewController alloc] init];
+    self.playerSelectionViewController.ui = self;
+
+    if (self.ipad)
+    {
+        self.albumDetailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        self.playerSelectionViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
+
     MGMNavigationViewController* navigationController = [[MGMNavigationViewController alloc] initWithUI:self];
     self.parentViewController = navigationController;
 }
 
-- (void) enteringBackground
+- (void) start
 {
-    [self.core enteringBackground];
+    // Determine if a default player has been set...
+    MGMAlbumServiceType defaultServiceType = self.core.daoFactory.settingsDao.defaultServiceType;
+
+    MGMPlayerSelectionMode playerSelectionMode = MGMPlayerSelectionModeNone;
+
+    if (defaultServiceType == MGMAlbumServiceTypeNone)
+    {
+        // None set yet - 1st launch...
+        playerSelectionMode = MGMPlayerSelectionModeNoPlayer;
+    }
+    else
+    {
+        // Check that the selected service type is still available...
+        NSUInteger lastCapabilities = self.core.daoFactory.settingsDao.lastCapabilities;
+        NSUInteger newCapabilities = [self.albumPlayer determineCapabilities];
+        self.core.daoFactory.settingsDao.lastCapabilities = newCapabilities;
+        if (newCapabilities & defaultServiceType)
+        {
+            // Service type still available. Finally check for new service types...
+            if (newCapabilities != lastCapabilities)
+            {
+                playerSelectionMode = MGMPlayerSelectionModeNewPlayers;
+            }
+        }
+        else
+        {
+            // Service type no longer available.
+            playerSelectionMode = MGMPlayerSelectionModePlayerRemoved;
+        }
+    }
+
+    if (playerSelectionMode != MGMPlayerSelectionModeNone)
+    {
+        self.playerSelectionViewController.mode = playerSelectionMode;
+        [self.parentViewController presentViewController:self.playerSelectionViewController animated:YES completion:NULL];
+    }
 }
 
-- (void) enteredForeground
+- (NSString*) labelForServiceType:(MGMAlbumServiceType)serviceType
 {
-    [self.core enteredForeground];
+    switch (serviceType)
+    {
+        case MGMAlbumServiceTypeLastFm:
+            return @"last.fm";
+        case MGMAlbumServiceTypeSpotify:
+            return @"Spotify";
+        case MGMAlbumServiceTypeWikipedia:
+            return @"Wikipedia";
+        case MGMAlbumServiceTypeYouTube:
+            return @"YouTube";
+        case MGMAlbumServiceTypeItunes:
+            return @"iTunes";
+        case MGMAlbumServiceTypeDeezer:
+            return @"Deezer";
+        default:
+            return nil;
+    }
 }
 
-- (void) timeChanged
+- (UIImage*) imageForServiceType:(MGMAlbumServiceType)serviceType
 {
+    switch (serviceType)
+    {
+        case MGMAlbumServiceTypeLastFm:
+            return [UIImage imageNamed:@"lastfm.png"];
+        case MGMAlbumServiceTypeSpotify:
+            return [UIImage imageNamed:@"spotify.png"];
+        case MGMAlbumServiceTypeWikipedia:
+            return [UIImage imageNamed:@"wikipedia.png"];
+        case MGMAlbumServiceTypeYouTube:
+            return [UIImage imageNamed:@"youtube.png"];
+        case MGMAlbumServiceTypeItunes:
+            return [UIImage imageNamed:@"itunes.png"];
+        case MGMAlbumServiceTypeDeezer:
+            return [UIImage imageNamed:@"deezer.png"];
+        default:
+            return nil;
+    }
 }
 
 - (void) showError:(NSError*)error
@@ -89,37 +168,30 @@ static BOOL _isIpad;
 
 - (void) albumSelected:(MGMAlbum*)album
 {
-    NSError* error = nil;
-    [self.albumPlayer playAlbum:album onService:MGMAlbumServiceTypeSpotify completion:^(NSError* updateError)
+    MGMAlbumServiceType defaultServiceType = self.core.daoFactory.settingsDao.defaultServiceType;
+    NSString* metadata = [album metadataForServiceType:defaultServiceType];
+    if (metadata)
     {
-        if (error != nil)
-        {
-            [self showError:error];
-        }
-    }];
+        NSError* error = nil;
+        [self.albumPlayer playAlbum:album onService:defaultServiceType completion:^(NSError* updateError)
+         {
+             if (error != nil)
+             {
+                 [self showError:error];
+             }
+         }];
+    }
+    else
+    {
+        NSString* message = [NSString stringWithFormat:@"This album cannot be opened with %@. Press the album info button for more options.", [self labelForServiceType:defaultServiceType]];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Cannot Open" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (void) detailSelected:(MGMAlbum*)album sender:(MGMViewController*)sender
 {
     self.albumDetailViewController.albumMoid = album.objectID;
-    if (self.ipad)
-    {
-        [self ipadDetailSelected:album sender:sender];
-    }
-    else
-    {
-        [self iphoneDetailSelected:album sender:sender];
-    }
-}
-
-- (void) ipadDetailSelected:(MGMAlbum*)album sender:(MGMViewController*)sender
-{
-    self.albumDetailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-    [sender presentViewController:self.albumDetailViewController animated:YES completion:NULL];
-}
-
-- (void) iphoneDetailSelected:(MGMAlbum*)album sender:(MGMViewController*)sender
-{
     [sender presentViewController:self.albumDetailViewController animated:YES completion:NULL];
 }
 

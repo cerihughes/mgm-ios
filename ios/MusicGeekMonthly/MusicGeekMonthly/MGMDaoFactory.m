@@ -8,6 +8,16 @@
 
 #import "MGMDaoFactory.h"
 
+@interface MGMDaoFactory ()
+
+@property (strong) MGMCoreDataDao* coreDataDao;
+@property (strong) MGMLastFmDao* lastFmDao;
+@property (strong) MGMSpotifyDao* spotifyDao;
+@property (strong) MGMEventsDao* eventsDao;
+@property (strong) MGMSettingsDao* settingsDao;
+
+@end
+
 @implementation MGMDaoFactory
 
 - (id) initWithReachabilityManager:(MGMReachabilityManager*)reachabilityManager
@@ -25,6 +35,7 @@
     self.lastFmDao = [[MGMLastFmDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager];
     self.spotifyDao = [[MGMSpotifyDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager];
     self.eventsDao = [[MGMEventsDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager];
+    self.settingsDao = [[MGMSettingsDao alloc] init];
 }
 
 - (MGMAlbumMetadataDao*) metadataDaoForServiceType:(MGMAlbumServiceType)serviceType

@@ -15,21 +15,9 @@
 @property (retain) UIViewController* parentViewController;
 @property (strong) MGMAlbumPlayer* albumPlayer;
 
-/**
- * Notifies the UI that it's entering background mode.
- */
-- (void) enteringBackground;
-
-/**
- * Notifies the UI that it's entered foreground mode.
- */
-- (void) enteredForeground;
-
-/**
- * Notifies the UI when the time changes "considerably" (e.g. at midnight, at daylight savings or manual / carrier-based system time changes.
- */
-- (void) timeChanged;
-
+- (void) start;
+- (NSString*) labelForServiceType:(MGMAlbumServiceType)serviceType;
+- (UIImage*) imageForServiceType:(MGMAlbumServiceType)serviceType;
 - (void) showError:(NSError*)error;
 - (void) logError:(NSError*)error;
 

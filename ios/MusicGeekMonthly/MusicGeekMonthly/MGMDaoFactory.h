@@ -12,14 +12,16 @@
 #import "MGMEventsDao.h"
 #import "MGMLastFmDao.h"
 #import "MGMReachabilityManager.h"
+#import "MGMSettingsDao.h"
 #import "MGMSpotifyDao.h"
 
 @interface MGMDaoFactory : NSObject
 
-@property (strong) MGMCoreDataDao* coreDataDao;
-@property (strong) MGMLastFmDao* lastFmDao;
-@property (strong) MGMSpotifyDao* spotifyDao;
-@property (strong) MGMEventsDao* eventsDao;
+@property (readonly) MGMCoreDataDao* coreDataDao;
+@property (readonly) MGMLastFmDao* lastFmDao;
+@property (readonly) MGMSpotifyDao* spotifyDao;
+@property (readonly) MGMEventsDao* eventsDao;
+@property (readonly) MGMSettingsDao* settingsDao;
 
 - (id) initWithReachabilityManager:(MGMReachabilityManager*)reachabilityManager;
 

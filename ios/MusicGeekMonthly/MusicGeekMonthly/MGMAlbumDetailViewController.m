@@ -63,29 +63,41 @@
 
 - (NSArray*) optionsForAlbum:(MGMAlbum*)album
 {
+    NSUInteger capabilities = self.core.daoFactory.settingsDao.lastCapabilities;
+
     NSMutableArray* array = [NSMutableArray array];
     for (MGMAlbumMetadata* metadata in album.metadata)
     {
-        NSString* displayString = [self stringForServiceType:metadata.serviceType album:album];
-        if (displayString)
+        MGMAlbumServiceType serviceType = metadata.serviceType;
+        if (capabilities & serviceType)
         {
-            MGMKeyValuePair* pair = [[MGMKeyValuePair alloc] init];
-            pair.serviceType = metadata.serviceType;
-            pair.displayString = displayString;
-            [array addObject:pair];
+            NSString* displayString = [self stringForServiceType:serviceType album:album];
+            if (displayString)
+            {
+                MGMKeyValuePair* pair = [[MGMKeyValuePair alloc] init];
+                pair.serviceType = serviceType;
+                pair.displayString = displayString;
+                [array addObject:pair];
+            }
         }
     }
 
     // We implicitly support last.fm and spotify...
-    MGMKeyValuePair* lastFmPair = [[MGMKeyValuePair alloc] init];
-    lastFmPair.serviceType = MGMAlbumServiceTypeLastFm;
-    lastFmPair.displayString = [NSString stringWithFormat:@"Play %@ radio with Last.fm", album.artistName];
-    [array addObject:lastFmPair];
+    if (capabilities & MGMAlbumServiceTypeLastFm)
+    {
+        MGMKeyValuePair* lastFmPair = [[MGMKeyValuePair alloc] init];
+        lastFmPair.serviceType = MGMAlbumServiceTypeLastFm;
+        lastFmPair.displayString = [NSString stringWithFormat:@"Play %@ radio with Last.fm", album.artistName];
+        [array addObject:lastFmPair];
+    }
 
-    MGMKeyValuePair* spotifyPair = [[MGMKeyValuePair alloc] init];
-    spotifyPair.serviceType = MGMAlbumServiceTypeSpotify;
-    spotifyPair.displayString = @"Play with Spotify";
-    [array addObject:spotifyPair];
+    if (capabilities & MGMAlbumServiceTypeSpotify)
+    {
+        MGMKeyValuePair* spotifyPair = [[MGMKeyValuePair alloc] init];
+        spotifyPair.serviceType = MGMAlbumServiceTypeSpotify;
+        spotifyPair.displayString = @"Play with Spotify";
+        [array addObject:spotifyPair];
+    }
 
     NSArray* sorted = [array sortedArrayUsingComparator:^NSComparisonResult(MGMKeyValuePair* a, MGMKeyValuePair* b)
     {
@@ -133,30 +145,9 @@
 
     MGMKeyValuePair* pair = [self.keyValuePairs objectAtIndex:indexPath.row];
     cell.textLabel.text = pair.displayString;
-    cell.imageView.image = [self imageForServiceType:pair.serviceType];
+    cell.imageView.image = [self.ui imageForServiceType:pair.serviceType];
 
     return cell;
-}
-
-- (UIImage*) imageForServiceType:(MGMAlbumServiceType)serviceType
-{
-    switch (serviceType)
-    {
-        case MGMAlbumServiceTypeLastFm:
-            return [UIImage imageNamed:@"lastfm.png"];
-        case MGMAlbumServiceTypeSpotify:
-            return [UIImage imageNamed:@"spotify.png"];
-        case MGMAlbumServiceTypeWikipedia:
-            return [UIImage imageNamed:@"wikipedia.png"];
-        case MGMAlbumServiceTypeYouTube:
-            return [UIImage imageNamed:@"youtube.png"];
-        case MGMAlbumServiceTypeItunes:
-            return [UIImage imageNamed:@"itunes.png"];
-        case MGMAlbumServiceTypeDeezer:
-            return [UIImage imageNamed:@"deezer.png"];
-        default:
-            return nil;
-    }
 }
 
 #pragma mark -
@@ -170,8 +161,11 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     MGMKeyValuePair* pair = [self.keyValuePairs objectAtIndex:indexPath.row];
+    MGMAlbumServiceType serviceType = pair.serviceType;
+    self.core.daoFactory.settingsDao.defaultServiceType = serviceType;
+
     MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:self.albumMoid];
-    [self.ui.albumPlayer playAlbum:album onService:pair.serviceType completion:^(NSError* error)
+    [self.ui.albumPlayer playAlbum:album onService:serviceType completion:^(NSError* error)
     {
         if (error)
         {

@@ -27,12 +27,4 @@
     self.daoFactory = [[MGMDaoFactory alloc] initWithReachabilityManager:self.reachabilityManager];
 }
 
-- (void) enteredForeground
-{
-}
-
-- (void) enteringBackground
-{
-}
-
 @end

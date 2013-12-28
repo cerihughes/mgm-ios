@@ -34,6 +34,7 @@
     self.playlistLabel = [MGMView italicLabelWithText:@"Playlist"];
 
     self.playlistWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    self.playlistWebView.backgroundColor = [UIColor clearColor];
 
     [self addSubview:self.navigationBar];
     [self addSubview:self.classicAlbumLabel];
@@ -78,7 +79,7 @@
     
     self.playlistLabel.frame = CGRectZero;
     CGFloat remainingHeight = self.frame.size.height - (64 + 160 + self.tabBarHeight);
-    self.playlistWebView.frame = CGRectMake(0, 224, 320, remainingHeight);
+    self.playlistWebView.frame = CGRectMake(10, 224, 300, remainingHeight);
 }
 
 - (void) layoutSubviewsIpad
@@ -91,7 +92,7 @@
     self.newlyReleasedAlbumLabel.frame = CGRectMake(384, 90, 364, 30);;
     self.newlyReleasedAlbumView.frame = CGRectMake(468, 130, 196, 196);
     self.playlistLabel.frame = CGRectMake(20, 360, 728, 30);
-    self.playlistWebView.frame = CGRectMake(20, 395, 728, 555);
+    self.playlistWebView.frame = CGRectMake((768 - 300) / 2, 395, 300, 555);
 }
 
 @end

@@ -32,6 +32,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	self.window.rootViewController = self.ui.parentViewController;
     [self.window makeKeyAndVisible];
+    [self.ui start];
+
     return YES;
 }
 
@@ -44,7 +46,6 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     NSLog(@"applicationWillResignActive:");
-    [self.ui enteringBackground];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -60,7 +61,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     NSLog(@"applicationDidBecomeActive:");
-    [self.ui enteredForeground];
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
@@ -76,7 +76,6 @@
 - (void)applicationSignificantTimeChange:(UIApplication *)application
 {
     NSLog(@"applicationSignificantTimeChange:");
-    [self.ui timeChanged];
 }
 
 @end
