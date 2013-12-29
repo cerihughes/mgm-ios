@@ -44,10 +44,10 @@
 
 + (void) displayAlbumImage:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
 {
-    NSString* albumArtUri = [album bestAlbumImageUrl];
-    if (albumArtUri)
+    NSArray* albumArtUrls = [album bestAlbumImageUrls];
+    if (albumArtUrls.count > 0)
     {
-        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* imageError)
+        [MGMImageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* imageError)
         {
             if (imageError)
             {
@@ -55,6 +55,10 @@
             }
             else
             {
+                if (image == nil)
+                {
+                    image = [UIImage imageNamed:defaultName];
+                }
                 [MGMAlbumViewUtilities renderImage:image inAlbumView:albumView];
             }
         }];

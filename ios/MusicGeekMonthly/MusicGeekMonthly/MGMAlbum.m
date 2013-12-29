@@ -44,41 +44,39 @@
     self.searchedServiceTypes |= serviceType;
 }
 
-- (NSString*) bestImageWithPreferences:(MGMAlbumImageSize[5])sizes
+- (NSArray*) bestImagesWithPreferences:(MGMAlbumImageSize[5])sizes
 {
+    NSMutableArray* array = [NSMutableArray array];
     for (NSUInteger i = 0; i < 5; i++)
     {
-        NSString* uri = [self imageUrlForImageSize:sizes[i]];
-        if (uri)
-        {
-            return uri;
-        }
+        [array addObjectsFromArray:[self imageUrlsForImageSize:sizes[i]]];
     }
-    return nil;
+    return [array copy];
 }
 
-- (NSString*) bestAlbumImageUrl
+- (NSArray*) bestAlbumImageUrls
 {
     MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeLarge, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
-    return [self bestImageWithPreferences:sizes];
+    return [self bestImagesWithPreferences:sizes];
 }
 
-- (NSString*) bestTableImageUrl
+- (NSArray*) bestTableImageUrls
 {
     MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeSmall, MGMAlbumImageSizeMedium, MGMAlbumImageSizeLarge, MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega};
-    return [self bestImageWithPreferences:sizes];
+    return [self bestImagesWithPreferences:sizes];
 }
 
-- (NSString*) imageUrlForImageSize:(MGMAlbumImageSize)size
+- (NSArray*) imageUrlsForImageSize:(MGMAlbumImageSize)size
 {
+    NSMutableArray* array = [NSMutableArray array];
     for (MGMAlbumImageUri* uri in self.imageUris)
     {
         if (uri.size == size)
         {
-            return uri.uri;
+            [array addObject:uri.uri];
         }
     }
-    return nil;
+    return [array copy];
 }
 
 - (NSString*) metadataForServiceType:(MGMAlbumServiceType)serviceType

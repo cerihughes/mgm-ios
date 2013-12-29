@@ -14,6 +14,7 @@
 #define REFRESH_IDENTIFIER_ALBUM_IMAGES @"REFRESH_IDENTIFIER_ALBUM_IMAGES_%@"
 #define ALBUM_INFO_MBID_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getInfo&api_key=%@&mbid=%@&format=json"
 #define ALBUM_INFO_TITLES_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getInfo&api_key=%@&artist=%@&album=%@&format=json"
+#define MUSIC_BRAINZ_IMAGE_URL @"http://coverartarchive.org/release/%@/front-%d.jpg"
 
 @implementation MGMFetchAlbumImageUrlsOperation
 
@@ -43,10 +44,12 @@
 
 - (void) convertJsonData:(NSDictionary*)json forData:(id)data completion:(FETCH_COMPLETION)completion
 {
-    completion([self imageUrisForJson:json], nil);
+    MGMAlbum* album = data;
+    NSString* mbid = album.albumMbid;
+    completion([self imageUrisForJson:json mbid:mbid], nil);
 }
 
-- (NSArray*) imageUrisForJson:(NSDictionary*)json
+- (NSArray*) imageUrisForJson:(NSDictionary*)json mbid:(NSString*)mbid
 {
     NSMutableArray* imageUris = [NSMutableArray array];
     NSDictionary* albumJson = [json objectForKey:@"album"];
@@ -66,6 +69,19 @@
                 [imageUris addObject:imageUri];
             }
         }
+    }
+
+    if (mbid && ![mbid hasPrefix:FAKE_MBID_PREPEND])
+    {
+        MGMAlbumImageUriDto* albumUri = [[MGMAlbumImageUriDto alloc] init];
+        albumUri.size = MGMAlbumImageSizeLarge;
+        albumUri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, 500];
+        [imageUris addObject:albumUri];
+
+        albumUri = [[MGMAlbumImageUriDto alloc] init];
+        albumUri.size = MGMAlbumImageSizeMedium;
+        albumUri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, 250];
+        [imageUris addObject:albumUri];
     }
 
     return [imageUris copy];

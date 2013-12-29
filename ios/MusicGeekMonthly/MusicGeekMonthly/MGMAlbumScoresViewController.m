@@ -169,10 +169,10 @@
 {
     MGMAlbumScoresView* scoresView = (MGMAlbumScoresView*)self.view;
 
-    NSString* albumArtUri = [album bestAlbumImageUrl];
-    if (albumArtUri)
+    NSArray* albumArtUrls = [album bestAlbumImageUrls];
+    if (albumArtUrls.count > 0)
     {
-        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
+        [MGMImageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error)
         {
             if (error)
             {

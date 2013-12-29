@@ -15,20 +15,20 @@
 @dynamic weeklyChart;
 @dynamic album;
 
-- (NSString*) bestAlbumImageUrl
+- (NSArray*) bestAlbumImageUrls
 {
-    NSString* uri;
-    if (self.rank.intValue == 1 && (uri = [self.album imageUrlForImageSize:MGMAlbumImageSizeMega]) != nil)
+    NSArray* urls;
+    if (self.rank.intValue == 1 && (urls = [self.album imageUrlsForImageSize:MGMAlbumImageSizeMega]) != nil)
     {
-        return uri;
+        return urls;
     }
 
-    return [self.album bestAlbumImageUrl];
+    return [self.album bestAlbumImageUrls];
 }
 
-- (NSString*) bestTableImageUrl
+- (NSArray*) bestTableImageUrls
 {
-    return [self.album bestTableImageUrl];
+    return [self.album bestTableImageUrls];
 }
 
 @end

@@ -93,12 +93,12 @@
     {
         if (updateError == nil)
         {
-            NSString* uri = [updatedAlbum bestAlbumImageUrl];
+            NSArray* urls = [updatedAlbum bestAlbumImageUrls];
             NSError* imageError = nil;
             UIImage* image = nil;
-            if (uri)
+            if (urls.count > 0)
             {
-                image = [MGMImageHelper imageFromUrl:uri error:&imageError];
+                image = [MGMImageHelper imageFromUrls:urls error:&imageError];
             }
             completion(image, imageError);
         }

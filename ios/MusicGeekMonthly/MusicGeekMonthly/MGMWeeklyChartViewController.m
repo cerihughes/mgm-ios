@@ -162,11 +162,11 @@
     NSUInteger rank = chartEntry.rank.intValue;
     NSUInteger listeners = chartEntry.listeners.intValue;
 
-    NSString* albumArtUri = [chartEntry bestAlbumImageUrl];
+    NSArray* albumArtUrls = [chartEntry bestAlbumImageUrls];
     MGMAlbum* album = chartEntry.album;
-    if (albumArtUri)
+    if (albumArtUrls.count > 0)
     {
-        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
+        [MGMImageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error)
         {
             if (error)
             {

@@ -70,6 +70,11 @@ static BOOL _isIpad;
     // Determine if a default player has been set...
     MGMAlbumServiceType defaultServiceType = self.core.daoFactory.settingsDao.defaultServiceType;
 
+    // Determine current capabilities...
+    NSUInteger lastCapabilities = self.core.daoFactory.settingsDao.lastCapabilities;
+    NSUInteger newCapabilities = [self.albumPlayer determineCapabilities];
+    self.core.daoFactory.settingsDao.lastCapabilities = newCapabilities;
+
     MGMPlayerSelectionMode playerSelectionMode = MGMPlayerSelectionModeNone;
 
     if (defaultServiceType == MGMAlbumServiceTypeNone)
@@ -80,9 +85,6 @@ static BOOL _isIpad;
     else
     {
         // Check that the selected service type is still available...
-        NSUInteger lastCapabilities = self.core.daoFactory.settingsDao.lastCapabilities;
-        NSUInteger newCapabilities = [self.albumPlayer determineCapabilities];
-        self.core.daoFactory.settingsDao.lastCapabilities = newCapabilities;
         if (newCapabilities & defaultServiceType)
         {
             // Service type still available. Finally check for new service types...

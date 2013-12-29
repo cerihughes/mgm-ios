@@ -10,7 +10,7 @@
 
 @interface MGMImageHelper : NSObject
 
-+ (void) asyncImageFromUrl:(NSString *)url completion:(void (^)(UIImage*, NSError*))completion;
-+ (UIImage*) imageFromUrl:(NSString *)url error:(NSError**)error;
++ (void) asyncImageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion;
++ (UIImage*) imageFromUrls:(NSArray *)urls error:(NSError**)error;
 
 @end

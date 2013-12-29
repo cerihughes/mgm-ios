@@ -68,10 +68,10 @@
 - (void) addAlbum:(NSManagedObjectID*)albumMoid toImageView:(UIImageView*)imageView withActivityView:(UIActivityIndicatorView*)activityIndicatorView inCell:(MGMEventTableCell*)cell
 {
     MGMAlbum* album = [self.daoFactory.coreDataDao threadVersion:albumMoid];
-    NSString* albumArtUri = [album bestTableImageUrl];
-    if (albumArtUri)
+    NSArray* albumArtUrls = [album bestTableImageUrls];
+    if (albumArtUrls.count > 0)
     {
-        [MGMImageHelper asyncImageFromUrl:albumArtUri completion:^(UIImage* image, NSError* error)
+        [MGMImageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error)
         {
             dispatch_async(dispatch_get_main_queue(), ^
             {

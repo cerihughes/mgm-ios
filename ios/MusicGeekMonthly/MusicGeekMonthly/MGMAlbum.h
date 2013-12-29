@@ -27,9 +27,9 @@
 - (BOOL) searchedServiceType:(MGMAlbumServiceType)serviceType;
 - (void) setServiceTypeSearched:(MGMAlbumServiceType)serviceType;
 
-- (NSString*) bestAlbumImageUrl;
-- (NSString*) bestTableImageUrl;
-- (NSString*) imageUrlForImageSize:(MGMAlbumImageSize)size;
+- (NSArray*) bestAlbumImageUrls;
+- (NSArray*) bestTableImageUrls;
+- (NSArray*) imageUrlsForImageSize:(MGMAlbumImageSize)size;
 - (NSString*) metadataForServiceType:(MGMAlbumServiceType)serviceType;
 
 @end

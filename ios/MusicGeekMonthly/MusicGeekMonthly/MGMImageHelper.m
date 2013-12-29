@@ -10,22 +10,28 @@
 
 @implementation MGMImageHelper
 
-+ (void) asyncImageFromUrl:(NSString *)url completion:(void (^)(UIImage*, NSError*))completion
++ (void) asyncImageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion
 {
-    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse* response, NSData* data, NSError* error)
-    {
-        UIImage* image = [UIImage imageWithData:data];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError* error = nil;
+        UIImage* image = [self imageFromUrls:urls error:&error];
         completion(image, error);
-    }];
+    });
 }
 
-+ (UIImage*) imageFromUrl:(NSString *)url error:(NSError**)error
++ (UIImage*) imageFromUrls:(NSArray *)urls error:(NSError**)error
 {
-    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:error];
-    return [UIImage imageWithData:data];
+    for (NSString* url in urls)
+    {
+        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+        NSHTTPURLResponse* response = nil;
+        NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:error];
+        if (response.statusCode == 200 && data.length > 0)
+        {
+            return [UIImage imageWithData:data];
+        }
+    }
+    return nil;
 }
 
 @end
