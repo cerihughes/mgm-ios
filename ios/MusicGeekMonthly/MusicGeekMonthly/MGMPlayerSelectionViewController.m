@@ -27,18 +27,15 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     MGMPlayerSelectionView* view = (MGMPlayerSelectionView*)self.view;
-    [view clearAvailableServiceTypes];
+    [view clearServiceTypes];
 
     NSUInteger capabilities = [self.ui.albumPlayer determineCapabilities];
     MGMAlbumServiceType serviceType = MGMAlbumServiceTypeLastFm;
     while (serviceType <= MGMAlbumServiceTypeDeezer)
     {
-        if (capabilities & serviceType)
-        {
-            NSString* label = [self.ui labelForServiceType:serviceType];
-            UIImage* image = [self.ui imageForServiceType:serviceType];
-            [view addAvailableServiceType:serviceType text:label image:image];
-        }
+        NSString* label = [self.ui labelForServiceType:serviceType];
+        UIImage* image = [self.ui imageForServiceType:serviceType];
+        [view addServiceType:serviceType text:label image:image available:(capabilities & serviceType)];
         serviceType = serviceType << 1;
     }
 
@@ -61,11 +58,13 @@
 #pragma mark -
 #pragma mark MGMPlayerSelectionViewDelegate
 
-- (void) playerSelectionComplete
+- (void) playerSelectionComplete:(MGMAlbumServiceType)selectedServiceType
 {
-    MGMPlayerSelectionView* view = (MGMPlayerSelectionView*)self.view;
-    self.core.daoFactory.settingsDao.defaultServiceType = view.selectedServiceType;
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    if (selectedServiceType != MGMAlbumServiceTypeNone)
+    {
+        self.core.daoFactory.settingsDao.defaultServiceType = selectedServiceType;
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    }
 }
 
 @end

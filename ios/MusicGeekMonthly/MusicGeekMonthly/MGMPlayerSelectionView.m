@@ -8,6 +8,8 @@
 
 #import "MGMPlayerSelectionView.h"
 
+#import "MGMPlayerGroupView.h"
+
 #define NO_PLAYER_TEXT @"Welcome to the Music Geek Monthly app. Please choose a default app for playing music."
 #define DELETED_PLAYER_TEXT @"Your default music player has been removed. Please choose a new default app for playing music."
 #define NEW_PLAYERS_TEXT @"New music players detected. Select this from the following if you'd like to make it the default player."
@@ -26,21 +28,18 @@
 
 @end
 
-@interface MGMPlayerSelectionView () <UITableViewDataSource>
-
-@property (strong) NSMutableArray* tableData;
+@interface MGMPlayerSelectionView () <MGMPlayerGroupViewDelegate>
 
 @property (strong) UINavigationBar* navigationBar;
 @property (strong) UIButton* closeButton;
 @property (strong) UILabel* titleLabel;
-@property (strong) UITableView* tableView;
+@property (strong) MGMPlayerGroupView* groupView;
 
 @end
 
 @implementation MGMPlayerSelectionView
 {
     MGMPlayerSelectionMode _mode;
-    MGMAlbumServiceType _selectedServiceType;
 }
 
 - (void) commonInit
@@ -49,14 +48,12 @@
 
     self.backgroundColor = [UIColor whiteColor];
 
-    self.tableData = [NSMutableArray array];
-
     self.titleLabel = [MGMView boldLabelWithText:@""];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero];
-    self.tableView.dataSource = self;
+    self.groupView = [[MGMPlayerGroupView alloc] initWithFrame:CGRectZero];
+    self.groupView.delegate = self;
 
     [self addSubview:self.titleLabel];
-    [self addSubview:self.tableView];
+    [self addSubview:self.groupView];
 }
 
 - (void) commonInitIphone
@@ -113,47 +110,23 @@
     self.titleLabel.text = text;
 }
 
-- (MGMAlbumServiceType) selectedServiceType
-{
-    NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
-    NSUInteger index = [indexPath indexAtPosition:1];
-    if (index != NSNotFound)
-    {
-        MGMPlayerSelectionViewTableData* tableData = [self.tableData objectAtIndex:index];
-        if (tableData)
-        {
-            return tableData.serviceType;
-        }
-    }
-    return MGMAlbumServiceTypeNone;
-}
-
 - (void) setSelectedServiceType:(MGMAlbumServiceType)selectedServiceType
 {
-    _selectedServiceType = selectedServiceType;
-    [self.tableView reloadData];
 }
 
-- (void) clearAvailableServiceTypes
+- (void) clearServiceTypes
 {
-    self.tableData = [NSMutableArray array];
-    [self.tableView reloadData];
+    [self.groupView clearAll];
 }
 
-- (void) addAvailableServiceType:(MGMAlbumServiceType)serviceType text:(NSString *)text image:(UIImage *)image
+- (void) addServiceType:(MGMAlbumServiceType)serviceType text:(NSString*)text image:(UIImage*)image available:(BOOL)available
 {
-    MGMPlayerSelectionViewTableData* tableData = [[MGMPlayerSelectionViewTableData alloc] init];
-    tableData.serviceType = serviceType;
-    tableData.text = text;
-    tableData.image = image;
-
-    [self.tableData addObject:tableData];
-    [self.tableView reloadData];
+    [self.groupView addServiceType:serviceType withImage:image label:text available:available];
 }
 
 - (void) closeButtonPressed:(UIButton*)sender
 {
-    [self.delegate playerSelectionComplete];
+    [self.delegate playerSelectionComplete:(MGMAlbumServiceTypeNone)];
 }
 
 - (void) layoutSubviews
@@ -173,7 +146,7 @@
     self.navigationBar.frame = CGRectMake(0, 20, 320, 44);
 
     CGFloat remainingHeight = self.frame.size.height - (65 + 240);
-    self.tableView.frame = CGRectMake(0, 65 + 240, 320, remainingHeight);
+    self.groupView.frame = CGRectMake(0, 65 + 240, 320, remainingHeight);
 }
 
 - (void) layoutSubviewsIpad
@@ -181,32 +154,15 @@
     [super layoutSubviewsIpad];
 
     self.closeButton.frame = CGRectMake(447, 20, 74, 44);
-    self.tableView.frame = CGRectMake(0, 291, 540, 329);
+    self.groupView.frame = CGRectMake(0, 291, 540, 329);
 }
 
 #pragma mark -
-#pragma mark UITableViewDataSource
+#pragma mark MGMPlayerGroupViewDelegate
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (void) serviceTypeSelected:(MGMAlbumServiceType)serviceType
 {
-    return self.tableData.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID];
-
-    if (cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
-        cell.textLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:self.ipad ? 22.0 : 14.0];
-    }
-
-    MGMPlayerSelectionViewTableData* tableData = [self.tableData objectAtIndex:indexPath.row];
-    cell.textLabel.text = tableData.text;
-    cell.imageView.image = tableData.image;
-
-    return cell;
+    [self.delegate playerSelectionComplete:serviceType];
 }
 
 @end

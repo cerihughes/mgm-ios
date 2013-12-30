@@ -67,6 +67,7 @@
 		65936A0A17BCB2840070A9C6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E975B317B6B43400CF53B2 /* CoreData.framework */; };
 		6594349A17776BE800DCA9DB /* MGMEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6594349917776BE800DCA9DB /* MGMEventsViewController.m */; };
 		659434A11777701C00DCA9DB /* MGMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659434A01777701C00DCA9DB /* MGMViewController.m */; };
+		6594C4041871D7FC00825A57 /* MGMPlayerGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6594C4031871D7FC00825A57 /* MGMPlayerGroupView.m */; };
 		659F9F42175B928E000C413B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F41175B928E000C413B /* UIKit.framework */; };
 		659F9F44175B928E000C413B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F43175B928E000C413B /* Foundation.framework */; };
 		659F9F46175B928E000C413B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F45175B928E000C413B /* CoreGraphics.framework */; };
@@ -261,6 +262,8 @@
 		6594349917776BE800DCA9DB /* MGMEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventsViewController.m; sourceTree = "<group>"; };
 		6594349F1777701C00DCA9DB /* MGMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMViewController.h; sourceTree = "<group>"; };
 		659434A01777701C00DCA9DB /* MGMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMViewController.m; sourceTree = "<group>"; };
+		6594C4021871D7FC00825A57 /* MGMPlayerGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlayerGroupView.h; sourceTree = "<group>"; };
+		6594C4031871D7FC00825A57 /* MGMPlayerGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlayerGroupView.m; sourceTree = "<group>"; };
 		659F9F3E175B928E000C413B /* MusicGeekMonthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicGeekMonthly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		659F9F41175B928E000C413B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		659F9F43175B928E000C413B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -731,6 +734,8 @@
 				658634BC184A39FD00B3844A /* MGMPlayerSelectionViewController.m */,
 				658634BE184A3EDC00B3844A /* MGMPlayerSelectionView.h */,
 				658634BF184A3EDC00B3844A /* MGMPlayerSelectionView.m */,
+				6594C4021871D7FC00825A57 /* MGMPlayerGroupView.h */,
+				6594C4031871D7FC00825A57 /* MGMPlayerGroupView.m */,
 			);
 			name = "Player Selection";
 			sourceTree = "<group>";
@@ -993,6 +998,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				659F9F4E175B928E000C413B /* main.m in Sources */,
+				6594C4041871D7FC00825A57 /* MGMPlayerGroupView.m in Sources */,
 				659F9F52175B928E000C413B /* MGMAppDelegate.m in Sources */,
 				653B6BBB175FD13F005D372C /* MGMLastFmDao.m in Sources */,
 				F400AA3B1827AA6E00DE33E6 /* MGMEventsView.m in Sources */,

@@ -13,7 +13,7 @@
 
 @protocol MGMPlayerSelectionViewDelegate <NSObject>
 
-- (void) playerSelectionComplete;
+- (void) playerSelectionComplete:(MGMAlbumServiceType)selectedServiceType;
 
 @end
 
@@ -21,9 +21,9 @@
 
 @property (weak) id<MGMPlayerSelectionViewDelegate> delegate;
 @property MGMPlayerSelectionMode mode;
-@property MGMAlbumServiceType selectedServiceType;
 
-- (void) clearAvailableServiceTypes;
-- (void) addAvailableServiceType:(MGMAlbumServiceType)serviceType text:(NSString*)text image:(UIImage*)image;
+- (void) clearServiceTypes;
+- (void) addServiceType:(MGMAlbumServiceType)serviceType text:(NSString*)text image:(UIImage*)image available:(BOOL)available;
+- (void) setSelectedServiceType:(MGMAlbumServiceType)serviceType;
 
 @end
