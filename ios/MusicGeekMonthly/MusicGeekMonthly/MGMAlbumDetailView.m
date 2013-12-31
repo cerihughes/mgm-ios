@@ -13,7 +13,6 @@
 @property (strong) UINavigationBar* navigationBar;
 @property (strong) UIButton* cancelButton;
 @property (strong) MGMAlbumView* albumView;
-@property (strong) UITableView* tableView;
 
 @end
 
@@ -25,10 +24,9 @@
     
     self.backgroundColor = [UIColor whiteColor];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero];
     self.albumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
     
-    [self addSubview:self.tableView];
+    [self addSubview:self.groupView];
     [self addSubview:self.albumView];
 }
 
@@ -69,7 +67,7 @@
     self.albumView.frame = CGRectMake(40, 65, 240, 240);
 
     CGFloat remainingHeight = self.frame.size.height - (65 + 240);
-    self.tableView.frame = CGRectMake(0, 65 + 240, 320, remainingHeight);
+    self.groupView.frame = CGRectMake(0, 65 + 240, 320, remainingHeight);
 }
 
 - (void) layoutSubviewsIpad
@@ -78,7 +76,7 @@
 
     self.cancelButton.frame = CGRectMake(447, 20, 74, 44);
     self.albumView.frame = CGRectMake(145, 20, 250, 250);
-    self.tableView.frame = CGRectMake(0, 291, 540, 329);
+    self.groupView.frame = CGRectMake(0, 291, 540, 329);
 }
 
 @end

@@ -157,6 +157,8 @@
 		65EBBF4E17DFBF800012AF3D /* MGMAlbumScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EBBF4D17DFBF800012AF3D /* MGMAlbumScoresViewController.m */; };
 		65ECD90117AC3B2F00701A00 /* MGMAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */; };
 		65ECD90417AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */; };
+		65EE7801187308A500E38094 /* MGMAbstractPlayerSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EE7800187308A500E38094 /* MGMAbstractPlayerSelectionViewController.m */; };
+		65EE7804187308DB00E38094 /* MGMAbstractPlayerSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EE7803187308DB00E38094 /* MGMAbstractPlayerSelectionView.m */; };
 		65F46CFA17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F46CF917DB96E200D38ED2 /* MGMAlbumViewUtilities.m */; };
 		65F46CFB17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F46CF917DB96E200D38ED2 /* MGMAlbumViewUtilities.m */; };
 		65FAB9DE17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FAB9DD17C11CB200BCEA8E /* MGMCoreDataThreadManager.m */; };
@@ -166,7 +168,6 @@
 		F400AA3B1827AA6E00DE33E6 /* MGMEventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F400AA3A1827AA6E00DE33E6 /* MGMEventsView.m */; };
 		F400AA3E1827AB4600DE33E6 /* MGMEventsModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = F400AA3D1827AB4600DE33E6 /* MGMEventsModalView.m */; };
 		F45479E618282EF200426AE3 /* MGMAlbumDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479E518282EF200426AE3 /* MGMAlbumDetailView.m */; };
-		F45479E9182838D400426AE3 /* MGMAlbumDetailTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479E8182838D400426AE3 /* MGMAlbumDetailTableCell.m */; };
 		F45479EC1828FA9700426AE3 /* MGMWeeklyChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479EB1828FA9700426AE3 /* MGMWeeklyChartView.m */; };
 		F45479EF1828FAAC00426AE3 /* MGMWeeklyChartModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479EE1828FAAC00426AE3 /* MGMWeeklyChartModalView.m */; };
 		F45479F21829085000426AE3 /* MGMNoReachabilityView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45479F11829085000426AE3 /* MGMNoReachabilityView.m */; };
@@ -373,6 +374,10 @@
 		65ECD90017AC3B2F00701A00 /* MGMAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewController.m; sourceTree = "<group>"; };
 		65ECD90217AC3DCB00701A00 /* MGMAlbumPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumPlayer.h; sourceTree = "<group>"; };
 		65ECD90317AC3DCB00701A00 /* MGMAlbumPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumPlayer.m; sourceTree = "<group>"; };
+		65EE77FF187308A500E38094 /* MGMAbstractPlayerSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAbstractPlayerSelectionViewController.h; sourceTree = "<group>"; };
+		65EE7800187308A500E38094 /* MGMAbstractPlayerSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAbstractPlayerSelectionViewController.m; sourceTree = "<group>"; };
+		65EE7802187308DB00E38094 /* MGMAbstractPlayerSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAbstractPlayerSelectionView.h; sourceTree = "<group>"; };
+		65EE7803187308DB00E38094 /* MGMAbstractPlayerSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAbstractPlayerSelectionView.m; sourceTree = "<group>"; };
 		65F46CF817DB96E200D38ED2 /* MGMAlbumViewUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumViewUtilities.h; sourceTree = "<group>"; };
 		65F46CF917DB96E200D38ED2 /* MGMAlbumViewUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewUtilities.m; sourceTree = "<group>"; };
 		65FAB9DC17C11CB200BCEA8E /* MGMCoreDataThreadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataThreadManager.h; sourceTree = "<group>"; };
@@ -387,8 +392,6 @@
 		F400AA3D1827AB4600DE33E6 /* MGMEventsModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventsModalView.m; sourceTree = "<group>"; };
 		F45479E418282EF200426AE3 /* MGMAlbumDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumDetailView.h; sourceTree = "<group>"; };
 		F45479E518282EF200426AE3 /* MGMAlbumDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumDetailView.m; sourceTree = "<group>"; };
-		F45479E7182838D400426AE3 /* MGMAlbumDetailTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumDetailTableCell.h; sourceTree = "<group>"; };
-		F45479E8182838D400426AE3 /* MGMAlbumDetailTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumDetailTableCell.m; sourceTree = "<group>"; };
 		F45479EA1828FA9700426AE3 /* MGMWeeklyChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWeeklyChartView.h; sourceTree = "<group>"; };
 		F45479EB1828FA9700426AE3 /* MGMWeeklyChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartView.m; sourceTree = "<group>"; };
 		F45479ED1828FAAC00426AE3 /* MGMWeeklyChartModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWeeklyChartModalView.h; sourceTree = "<group>"; };
@@ -471,6 +474,7 @@
 		65291B0217760CD6002595AC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				65EE7805187308EE00E38094 /* Player Selection */,
 				65291AFF177606E2002595AC /* UIViewController+MGMAdditions.h */,
 				65291B00177606E2002595AC /* UIViewController+MGMAdditions.m */,
 				653B6BC3175FDB4B005D372C /* MGMView.h */,
@@ -613,8 +617,6 @@
 				65E9E3B217CA49880077BB78 /* MGMAlbumDetailViewController.m */,
 				F45479E418282EF200426AE3 /* MGMAlbumDetailView.h */,
 				F45479E518282EF200426AE3 /* MGMAlbumDetailView.m */,
-				F45479E7182838D400426AE3 /* MGMAlbumDetailTableCell.h */,
-				F45479E8182838D400426AE3 /* MGMAlbumDetailTableCell.m */,
 			);
 			name = "Album Detail";
 			sourceTree = "<group>";
@@ -734,8 +736,6 @@
 				658634BC184A39FD00B3844A /* MGMPlayerSelectionViewController.m */,
 				658634BE184A3EDC00B3844A /* MGMPlayerSelectionView.h */,
 				658634BF184A3EDC00B3844A /* MGMPlayerSelectionView.m */,
-				6594C4021871D7FC00825A57 /* MGMPlayerGroupView.h */,
-				6594C4031871D7FC00825A57 /* MGMPlayerGroupView.m */,
 			);
 			name = "Player Selection";
 			sourceTree = "<group>";
@@ -866,6 +866,19 @@
 				654F168F1827FEF000C84698 /* MGMAlbumScoresView.m */,
 			);
 			name = Scores;
+			sourceTree = "<group>";
+		};
+		65EE7805187308EE00E38094 /* Player Selection */ = {
+			isa = PBXGroup;
+			children = (
+				6594C4021871D7FC00825A57 /* MGMPlayerGroupView.h */,
+				6594C4031871D7FC00825A57 /* MGMPlayerGroupView.m */,
+				65EE77FF187308A500E38094 /* MGMAbstractPlayerSelectionViewController.h */,
+				65EE7800187308A500E38094 /* MGMAbstractPlayerSelectionViewController.m */,
+				65EE7802187308DB00E38094 /* MGMAbstractPlayerSelectionView.h */,
+				65EE7803187308DB00E38094 /* MGMAbstractPlayerSelectionView.m */,
+			);
+			name = "Player Selection";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1009,7 +1022,6 @@
 				F4A1C272182A460100C1C0C3 /* MGMTabbedView.m in Sources */,
 				658634C0184A3EDC00B3844A /* MGMPlayerSelectionView.m in Sources */,
 				65E1A51517F70745006F8051 /* CKCalendarView.m in Sources */,
-				F45479E9182838D400426AE3 /* MGMAlbumDetailTableCell.m in Sources */,
 				65215F9A176BA64300250168 /* MGMDaoFactory.m in Sources */,
 				6508CB16176BACF400594244 /* MGMSpotifyDao.m in Sources */,
 				F400AA351827A7E200DE33E6 /* MGMHomeView.m in Sources */,
@@ -1059,9 +1071,11 @@
 				654F16901827FEF000C84698 /* MGMAlbumScoresView.m in Sources */,
 				65DF2B8117BF703C00BAF25A /* MGMBackgroundAlbumArtFetcher.m in Sources */,
 				65DF2BA017BFBF8800BAF25A /* MGMNextUrlAccess.m in Sources */,
+				65EE7804187308DB00E38094 /* MGMAbstractPlayerSelectionView.m in Sources */,
 				65FAB9DE17C11CB300BCEA8E /* MGMCoreDataThreadManager.m in Sources */,
 				65B782F017C1451C00608B3E /* MGMCoreDataTableViewDataSource.m in Sources */,
 				65B782F417C1525D00608B3E /* MGMEventTableViewDataSource.m in Sources */,
+				65EE7801187308A500E38094 /* MGMAbstractPlayerSelectionViewController.m in Sources */,
 				F45479EC1828FA9700426AE3 /* MGMWeeklyChartView.m in Sources */,
 				65B782F917C155CE00608B3E /* MGMEventTableCell.m in Sources */,
 				65E79B0517C2431D008CCDA3 /* MGMReachabilityManager.m in Sources */,

@@ -11,7 +11,7 @@
 #import "MGMAlbumServiceType.h"
 #import "MGMPlayerSelectionView.h"
 
-@interface MGMPlayerSelectionViewController () <MGMPlayerSelectionViewDelegate>
+@interface MGMPlayerSelectionViewController () <MGMAbstractPlayerSelectionViewDelegate>
 
 @end
 
@@ -56,7 +56,7 @@
 }
 
 #pragma mark -
-#pragma mark MGMPlayerSelectionViewDelegate
+#pragma mark MGMAbstractPlayerSelectionViewDelegate
 
 - (void) playerSelectionComplete:(MGMAlbumServiceType)selectedServiceType
 {

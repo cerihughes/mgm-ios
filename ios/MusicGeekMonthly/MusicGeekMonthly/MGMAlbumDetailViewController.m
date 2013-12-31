@@ -25,9 +25,7 @@
 
 @end
 
-@interface MGMAlbumDetailViewController () <UITableViewDataSource, UITableViewDelegate, MGMAlbumDetailViewDelegate>
-
-@property (strong) NSArray* keyValuePairs;
+@interface MGMAlbumDetailViewController () <MGMAlbumDetailViewDelegate>
 
 @end
 
@@ -37,9 +35,7 @@
 {
     MGMAlbumDetailView* detailView = [[MGMAlbumDetailView alloc] initWithFrame:[self fullscreenRect]];
     detailView.delegate = self;
-    detailView.tableView.dataSource = self;
-    detailView.tableView.delegate = self;
-    
+
     self.view = detailView;
 }
 
@@ -57,116 +53,41 @@
         [self logError:error];
     }
 
-    self.keyValuePairs = [self optionsForAlbum:album];
-    [detailView.tableView reloadData];
-}
+    [detailView clearServiceTypes];
 
-- (NSArray*) optionsForAlbum:(MGMAlbum*)album
-{
-    NSUInteger capabilities = self.core.daoFactory.settingsDao.lastCapabilities;
-
-    NSMutableArray* array = [NSMutableArray array];
+    NSUInteger metadataServiceTypes = 0;
     for (MGMAlbumMetadata* metadata in album.metadata)
     {
         MGMAlbumServiceType serviceType = metadata.serviceType;
-        if (capabilities & serviceType)
-        {
-            NSString* displayString = [self stringForServiceType:serviceType album:album];
-            if (displayString)
-            {
-                MGMKeyValuePair* pair = [[MGMKeyValuePair alloc] init];
-                pair.serviceType = serviceType;
-                pair.displayString = displayString;
-                [array addObject:pair];
-            }
-        }
+        metadataServiceTypes |= serviceType;
     }
-
     // We implicitly support last.fm and spotify...
-    if (capabilities & MGMAlbumServiceTypeLastFm)
+    metadataServiceTypes |= MGMAlbumServiceTypeLastFm;
+    metadataServiceTypes |= MGMAlbumServiceTypeSpotify;
+
+    NSUInteger deviceCapabilities = [self.ui.albumPlayer determineCapabilities];
+    MGMAlbumServiceType serviceType = MGMAlbumServiceTypeLastFm;
+    while (serviceType <= MGMAlbumServiceTypeDeezer)
     {
-        MGMKeyValuePair* lastFmPair = [[MGMKeyValuePair alloc] init];
-        lastFmPair.serviceType = MGMAlbumServiceTypeLastFm;
-        lastFmPair.displayString = [NSString stringWithFormat:@"Play %@ radio with Last.fm", album.artistName];
-        [array addObject:lastFmPair];
+        NSString* label = [self.ui labelForServiceType:serviceType];
+        UIImage* image = [self.ui imageForServiceType:serviceType];
+        [detailView addServiceType:serviceType text:label image:image available:(metadataServiceTypes & deviceCapabilities & serviceType)];
+        serviceType = serviceType << 1;
     }
 
-    if (capabilities & MGMAlbumServiceTypeSpotify)
-    {
-        MGMKeyValuePair* spotifyPair = [[MGMKeyValuePair alloc] init];
-        spotifyPair.serviceType = MGMAlbumServiceTypeSpotify;
-        spotifyPair.displayString = @"Play with Spotify";
-        [array addObject:spotifyPair];
-    }
-
-    NSArray* sorted = [array sortedArrayUsingComparator:^NSComparisonResult(MGMKeyValuePair* a, MGMKeyValuePair* b)
-    {
-        NSNumber* first = [NSNumber numberWithInteger:a.serviceType];
-        NSNumber* second = [NSNumber numberWithInteger:b.serviceType];
-        return [first compare:second];
-    }];
-    return sorted;
-}
-
-- (NSString*) stringForServiceType:(MGMAlbumServiceType)serviceType album:(MGMAlbum*)album
-{
-    switch (serviceType)
-    {
-        case MGMAlbumServiceTypeWikipedia:
-            return @"Read Wikipedia article";
-        case MGMAlbumServiceTypeYouTube:
-            return @"Play with YouTube";
-        case MGMAlbumServiceTypeItunes:
-            return @"Open with iTunes";
-        case MGMAlbumServiceTypeDeezer:
-            return @"Open with Deezer";
-        default:
-            return nil;
-    }
+    MGMAlbumServiceType defaultServiceType = self.core.daoFactory.settingsDao.defaultServiceType;
+    detailView.selectedServiceType = defaultServiceType;
 }
 
 #pragma mark -
-#pragma mark UITableViewDataSource
+#pragma mark MGMAlbumDetailViewDelegate
 
-- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
+- (void) playerSelectionComplete:(MGMAlbumServiceType)selectedServiceType
 {
-    return self.keyValuePairs.count;
-}
-
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
-{
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID];
-
-    if (cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
-        cell.textLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:self.ipad ? 22.0 : 14.0];
-    }
-
-    MGMKeyValuePair* pair = [self.keyValuePairs objectAtIndex:indexPath.row];
-    cell.textLabel.text = pair.displayString;
-    cell.imageView.image = [self.ui imageForServiceType:pair.serviceType];
-
-    return cell;
-}
-
-#pragma mark -
-#pragma mark UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return self.ipad ? 42.0 : 28.0;
-}
-
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
-{
-    MGMKeyValuePair* pair = [self.keyValuePairs objectAtIndex:indexPath.row];
-    MGMAlbumServiceType serviceType = pair.serviceType;
-    self.core.daoFactory.settingsDao.defaultServiceType = serviceType;
+    self.core.daoFactory.settingsDao.defaultServiceType = selectedServiceType;
 
     MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:self.albumMoid];
-    [self.ui.albumPlayer playAlbum:album onService:serviceType completion:^(NSError* error)
-    {
+    [self.ui.albumPlayer playAlbum:album onService:selectedServiceType completion:^(NSError* error) {
         if (error)
         {
             [self showError:error];
@@ -174,9 +95,6 @@
     }];
     [self cancelButtonPressed:nil];
 }
-
-#pragma mark -
-#pragma mark MGMAlbumDetailViewDelegate
 
 - (void) cancelButtonPressed:(id)sender
 {

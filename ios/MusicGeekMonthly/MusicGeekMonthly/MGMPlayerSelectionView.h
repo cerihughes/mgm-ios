@@ -6,24 +6,13 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMView.h"
+#import "MGMAbstractPlayerSelectionView.h"
 
 #import "MGMAlbumServiceType.h"
 #import "MGMPlayerSelectionMode.h"
 
-@protocol MGMPlayerSelectionViewDelegate <NSObject>
+@interface MGMPlayerSelectionView : MGMAbstractPlayerSelectionView
 
-- (void) playerSelectionComplete:(MGMAlbumServiceType)selectedServiceType;
-
-@end
-
-@interface MGMPlayerSelectionView : MGMView
-
-@property (weak) id<MGMPlayerSelectionViewDelegate> delegate;
 @property MGMPlayerSelectionMode mode;
-
-- (void) clearServiceTypes;
-- (void) addServiceType:(MGMAlbumServiceType)serviceType text:(NSString*)text image:(UIImage*)image available:(BOOL)available;
-- (void) setSelectedServiceType:(MGMAlbumServiceType)serviceType;
 
 @end

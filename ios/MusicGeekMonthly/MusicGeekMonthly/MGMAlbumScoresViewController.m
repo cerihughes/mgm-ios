@@ -107,7 +107,6 @@
 
 - (void) dataForChoice:(NSInteger)choice completion:(FETCH_MANY_COMPLETION)completion
 {
-
     FETCH_MANY_COMPLETION convertToMoids = ^(NSArray* albums, NSError* error)
     {
         NSMutableArray* albumMoids = [NSMutableArray arrayWithCapacity:albums.count];

@@ -71,7 +71,7 @@
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
 
-    UIImage* greyscaleImage = [UIImage imageWithCGImage:bwImage]; // This is result B/W image.
+    UIImage* greyscaleImage = [UIImage imageWithCGImage:bwImage];
     CGImageRelease(bwImage);
     return greyscaleImage;
 }

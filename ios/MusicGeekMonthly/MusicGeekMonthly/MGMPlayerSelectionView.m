@@ -8,8 +8,6 @@
 
 #import "MGMPlayerSelectionView.h"
 
-#import "MGMPlayerGroupView.h"
-
 #define NO_PLAYER_TEXT @"Welcome to the Music Geek Monthly app. Please choose a default app for playing music."
 #define DELETED_PLAYER_TEXT @"Your default music player has been removed. Please choose a new default app for playing music."
 #define NEW_PLAYERS_TEXT @"New music players detected. Select this from the following if you'd like to make it the default player."
@@ -28,12 +26,11 @@
 
 @end
 
-@interface MGMPlayerSelectionView () <MGMPlayerGroupViewDelegate>
+@interface MGMPlayerSelectionView ()
 
 @property (strong) UINavigationBar* navigationBar;
 @property (strong) UIButton* closeButton;
 @property (strong) UILabel* titleLabel;
-@property (strong) MGMPlayerGroupView* groupView;
 
 @end
 
@@ -49,8 +46,6 @@
     self.backgroundColor = [UIColor whiteColor];
 
     self.titleLabel = [MGMView boldLabelWithText:@""];
-    self.groupView = [[MGMPlayerGroupView alloc] initWithFrame:CGRectZero];
-    self.groupView.delegate = self;
 
     [self addSubview:self.titleLabel];
     [self addSubview:self.groupView];
@@ -110,20 +105,6 @@
     self.titleLabel.text = text;
 }
 
-- (void) setSelectedServiceType:(MGMAlbumServiceType)selectedServiceType
-{
-}
-
-- (void) clearServiceTypes
-{
-    [self.groupView clearAll];
-}
-
-- (void) addServiceType:(MGMAlbumServiceType)serviceType text:(NSString*)text image:(UIImage*)image available:(BOOL)available
-{
-    [self.groupView addServiceType:serviceType withImage:image label:text available:available];
-}
-
 - (void) closeButtonPressed:(UIButton*)sender
 {
     [self.delegate playerSelectionComplete:(MGMAlbumServiceTypeNone)];
@@ -155,14 +136,6 @@
 
     self.closeButton.frame = CGRectMake(447, 20, 74, 44);
     self.groupView.frame = CGRectMake(0, 291, 540, 329);
-}
-
-#pragma mark -
-#pragma mark MGMPlayerGroupViewDelegate
-
-- (void) serviceTypeSelected:(MGMAlbumServiceType)serviceType
-{
-    [self.delegate playerSelectionComplete:serviceType];
 }
 
 @end

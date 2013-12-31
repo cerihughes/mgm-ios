@@ -6,21 +6,21 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMView.h"
+#import "MGMAbstractPlayerSelectionView.h"
 
+#import "MGMAlbumServiceType.h"
 #import "MGMAlbumView.h"
 
-@protocol MGMAlbumDetailViewDelegate <NSObject>
+@protocol MGMAlbumDetailViewDelegate <MGMAbstractPlayerSelectionViewDelegate>
 
 - (void) cancelButtonPressed:(id)sender;
 
 @end
 
-@interface MGMAlbumDetailView : MGMView
+@interface MGMAlbumDetailView : MGMAbstractPlayerSelectionView
 
 @property (weak) id<MGMAlbumDetailViewDelegate> delegate;
 
 @property (readonly) MGMAlbumView* albumView;
-@property (readonly) UITableView* tableView;
 
 @end
