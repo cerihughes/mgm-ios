@@ -2,14 +2,16 @@
 #import "MGMUI.h"
 
 #import "MGMAlbumDetailViewController.h"
+#import "MGMExampleAlbumViewController.h"
 #import "MGMNavigationViewController.h"
 #import "MGMPlayerSelectionViewController.h"
 #import "UIViewController+MGMAdditions.h"
 
-@interface MGMUI ()
+@interface MGMUI () <MGMPlayerSelectionViewControllerDelegate>
 
 @property (strong) MGMAlbumDetailViewController* albumDetailViewController;
 @property (strong) MGMPlayerSelectionViewController* playerSelectionViewController;
+@property (strong) MGMExampleAlbumViewController* exampleAlbumViewController;
 
 - (void) setupCore;
 - (void) setupControllers;
@@ -54,11 +56,16 @@ static BOOL _isIpad;
 
     self.playerSelectionViewController = [[MGMPlayerSelectionViewController alloc] init];
     self.playerSelectionViewController.ui = self;
+    self.playerSelectionViewController.delegate = self;
+
+    self.exampleAlbumViewController = [[MGMExampleAlbumViewController alloc] init];
+    self.exampleAlbumViewController.ui = self;
 
     if (self.ipad)
     {
         self.albumDetailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
         self.playerSelectionViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        self.exampleAlbumViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     }
 
     MGMNavigationViewController* navigationController = [[MGMNavigationViewController alloc] initWithUI:self];
@@ -102,6 +109,7 @@ static BOOL _isIpad;
 
     if (playerSelectionMode != MGMPlayerSelectionModeNone)
     {
+        self.playerSelectionViewController.existingServiceType = defaultServiceType;
         self.playerSelectionViewController.mode = playerSelectionMode;
         [self.parentViewController presentViewController:self.playerSelectionViewController animated:YES completion:NULL];
     }
@@ -195,6 +203,18 @@ static BOOL _isIpad;
 {
     self.albumDetailViewController.albumMoid = album.objectID;
     [sender presentViewController:self.albumDetailViewController animated:YES completion:NULL];
+}
+
+#pragma mark -
+#pragma mark MGMPlayerSelectionViewControllerDelegate
+
+- (void) playerSelectionChangedFrom:(MGMAlbumServiceType)oldSelection to:(MGMAlbumServiceType)newSelection
+{
+    if (oldSelection == MGMAlbumServiceTypeNone)
+    {
+        // 1st run...
+        [self.parentViewController presentViewController:self.exampleAlbumViewController animated:YES completion:NULL];
+    }
 }
 
 @end

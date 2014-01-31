@@ -32,7 +32,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	self.window.rootViewController = self.ui.parentViewController;
     [self.window makeKeyAndVisible];
-    [self.ui start];
 
     return YES;
 }
@@ -61,6 +60,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     NSLog(@"applicationDidBecomeActive:");
+    [self.ui performSelector:@selector(start) withObject:nil afterDelay:2];
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application

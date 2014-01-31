@@ -35,8 +35,8 @@
     self.calendarView.dateFont = [UIFont boldSystemFontOfSize:dateFontSize];
     self.calendarView.delegate = self;
 
-    self.titleLabel = [MGMView boldLabelWithText:@"This month we're listening to:"];
-    self.nextMeetingLabel = [MGMView boldLabelWithText:@"Next meeting:"];
+    self.titleLabel = [MGMView boldTitleLabelWithText:@"This month we're listening to:"];
+    self.nextMeetingLabel = [MGMView boldTitleLabelWithText:@"Next meeting:"];
 
     [self addSubview:self.titleLabel];
     [self addSubview:self.classicAlbumView];

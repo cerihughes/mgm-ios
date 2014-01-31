@@ -8,9 +8,14 @@
 
 #import "MGMPlayerSelectionView.h"
 
-#define NO_PLAYER_TEXT @"Welcome to the Music Geek Monthly app. Please choose a default app for playing music."
-#define DELETED_PLAYER_TEXT @"Your default music player has been removed. Please choose a new default app for playing music."
-#define NEW_PLAYERS_TEXT @"New music players detected. Select this from the following if you'd like to make it the default player."
+#define NO_PLAYER_TITLE @"Welcome to the Music Geek Monthly app"
+#define NO_PLAYER_SUBTITLE @"Please choose a default app for playing music"
+
+#define DELETED_PLAYER_TITLE @"Your default music player has been removed"
+#define DELETED_PLAYER_SUBTITLE @"Please choose a new default app for playing music"
+
+#define NEW_PLAYERS_TITLE @"New music players detected"
+#define NEW_PLAYERS_SUBTITLE @"Select it to make it the default player"
 
 #define CELL_ID @"PLAYER_SELECTION_CELL_ID"
 
@@ -31,6 +36,7 @@
 @property (strong) UINavigationBar* navigationBar;
 @property (strong) UIButton* closeButton;
 @property (strong) UILabel* titleLabel;
+@property (strong) UILabel* subtitleLabel;
 
 @end
 
@@ -45,9 +51,11 @@
 
     self.backgroundColor = [UIColor whiteColor];
 
-    self.titleLabel = [MGMView boldLabelWithText:@""];
+    self.titleLabel = [MGMView boldSubtitleLabelWithText:@""];
+    self.subtitleLabel = [MGMView italicSubtitleLabelWithText:@""];
 
     [self addSubview:self.titleLabel];
+    [self addSubview:self.subtitleLabel];
     [self addSubview:self.groupView];
 }
 
@@ -84,25 +92,30 @@
 {
     _mode = mode;
 
-    NSString* text;
+    NSString* title;
+    NSString* subtitle;
     switch (mode)
     {
         case MGMPlayerSelectionModeNone:
         default:
-            text = @"";
+            title = @"";
             break;
         case MGMPlayerSelectionModeNoPlayer:
-            text = NO_PLAYER_TEXT;
+            title = NO_PLAYER_TITLE;
+            subtitle = NO_PLAYER_SUBTITLE;
             break;
         case MGMPlayerSelectionModePlayerRemoved:
-            text = DELETED_PLAYER_TEXT;
+            title = DELETED_PLAYER_TITLE;
+            subtitle = DELETED_PLAYER_SUBTITLE;
             break;
         case MGMPlayerSelectionModeNewPlayers:
-            text = NEW_PLAYERS_TEXT;
+            title = NEW_PLAYERS_TITLE;
+            subtitle = NEW_PLAYERS_SUBTITLE;
             break;
     }
 
-    self.titleLabel.text = text;
+    self.titleLabel.text = title;
+    self.subtitleLabel.text = subtitle;
 }
 
 - (void) closeButtonPressed:(UIButton*)sender
@@ -118,6 +131,7 @@
     CGFloat width = size.width;
 
     self.titleLabel.frame = CGRectMake(20, 60, width - 40, 60);
+    self.subtitleLabel.frame = CGRectMake(20, 120, width - 40, 60);
 }
 
 - (void) layoutSubviewsIphone
@@ -135,7 +149,7 @@
     [super layoutSubviewsIpad];
 
     self.closeButton.frame = CGRectMake(447, 20, 74, 44);
-    self.groupView.frame = CGRectMake(0, 291, 540, 329);
+    self.groupView.frame = CGRectMake(0, 250, 540, 320);
 }
 
 @end

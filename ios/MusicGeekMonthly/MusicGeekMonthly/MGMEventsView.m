@@ -31,7 +31,7 @@
     [self.navigationItem setRightBarButtonItem:bbi];
     [self.navigationBar pushNavigationItem:self.navigationItem animated:YES];
     
-    self.playlistLabel = [MGMView italicLabelWithText:@"Playlist"];
+    self.playlistLabel = [MGMView italicTitleLabelWithText:@"Playlist"];
 
     self.playlistWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
     self.playlistWebView.backgroundColor = [UIColor clearColor];

@@ -12,8 +12,12 @@
 @property (readonly) CGFloat navigationBarHeight;
 @property (readonly) CGFloat tabBarHeight;
 
-+ (UILabel*) boldLabelWithText:(NSString*)text;
-+ (UILabel*) italicLabelWithText:(NSString*)text;
++ (UILabel*) boldTitleLabelWithText:(NSString*)text;
++ (UILabel*) boldSubtitleLabelWithText:(NSString*)text;
++ (UILabel*) italicTitleLabelWithText:(NSString*)text;
++ (UILabel*) italicSubtitleLabelWithText:(NSString*)text;
++ (UIButton*) shadowedButtonWithText:(NSString*)text image:(UIImage*)image;
++ (UIButton*) buttonWithText:(NSString*)text image:(UIImage*)image;
 
 - (void) commonInit;
 - (void) commonInitIphone;

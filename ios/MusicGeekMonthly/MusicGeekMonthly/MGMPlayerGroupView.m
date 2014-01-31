@@ -37,18 +37,12 @@
 
 - (void) addServiceType:(MGMAlbumServiceType)serviceType withImage:(UIImage *)image label:(NSString *)label available:(BOOL)available
 {
-    UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-
     if (!available)
     {
         image = [self greyscaleImage:image];
     }
 
-    [button setBackgroundImage:image forState:UIControlStateNormal];
-    [button setTitle:label forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    button.titleLabel.shadowColor = [UIColor blackColor];
-    button.titleLabel.shadowOffset = CGSizeMake(2, 2);
+    UIButton* button = [MGMView shadowedButtonWithText:label image:image];
     button.alpha = available ? 1.0 : 0.1;
     button.userInteractionEnabled = available;
     button.tag = serviceType;

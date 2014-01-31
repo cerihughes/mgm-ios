@@ -23,8 +23,8 @@
 {
     [super commonInit];
     
-    self.classicAlbumLabel = [MGMView italicLabelWithText:@"Classic Album"];
-    self.newlyReleasedAlbumLabel = [MGMView italicLabelWithText:@"New Album"];
+    self.classicAlbumLabel = [MGMView italicTitleLabelWithText:@"Classic Album"];
+    self.newlyReleasedAlbumLabel = [MGMView italicTitleLabelWithText:@"New Album"];
 
     self.classicAlbumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
     self.classicAlbumView.alphaOn = 1;

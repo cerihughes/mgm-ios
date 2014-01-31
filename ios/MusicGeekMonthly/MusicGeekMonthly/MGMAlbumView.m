@@ -10,6 +10,7 @@
 
 #import "MGMAlbumScoreView.h"
 
+#define LISTENER_FORMAT @"%d geek listening this week"
 #define LISTENERS_FORMAT @"%d geeks listening this week"
 
 @interface MGMAlbumView ()
@@ -42,7 +43,6 @@
     label.textColor = [UIColor whiteColor];
     label.shadowColor = [UIColor blackColor];
     label.shadowOffset = CGSizeMake(2, 2);
-
     return label;
 }
 
@@ -57,7 +57,7 @@
     
     CGSize parentSize = self.frame.size;
     CGRect frame = CGRectMake(0, 0, parentSize.width, parentSize.height);
-    self.button = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.button = [MGMView shadowedButtonWithText:nil image:nil];
     self.button.frame = frame;
     self.button.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.button.alpha = self.alphaOff;
@@ -163,7 +163,7 @@
         else
         {
             [self.activityIndicatorView stopAnimating];
-            self.backgroundColor = [UIColor clearColor];
+            self.backgroundColor = [UIColor whiteColor];
         }
     }];
 }
@@ -200,7 +200,8 @@
 - (void) setListeners:(NSUInteger)listeners
 {
     self.listenersLabel.hidden = (listeners == 0);
-    self.listenersLabel.text = [NSString stringWithFormat:LISTENERS_FORMAT, listeners];
+    NSString* format = (listeners == 1) ? LISTENER_FORMAT : LISTENERS_FORMAT;
+    self.listenersLabel.text = [NSString stringWithFormat:format, listeners];
     _listeners = listeners;
 }
 
@@ -270,12 +271,11 @@
     CGFloat detailY = 10;
     self.detailButton.frame = CGRectMake(detailX, detailY, detailWidth, detailHeight);
 
-    CGFloat textParentViewWidth = width - 4;
     CGFloat textParentViewHeight = height / 4;
     CGFloat y = height - textParentViewHeight - 2;
-    self.textParentView.frame = CGRectMake(2, y, textParentViewWidth, textParentViewHeight);
+    self.textParentView.frame = CGRectMake(2, y, width, textParentViewHeight);
 
-    CGFloat textWidth = textParentViewWidth - 4;
+    CGFloat textWidth = width - 4;
     CGFloat textHeight = textParentViewHeight / 3;
     fontSize = textHeight / 1.25;
     self.artistLabel.frame = CGRectMake(2, 0, textWidth, textHeight);
