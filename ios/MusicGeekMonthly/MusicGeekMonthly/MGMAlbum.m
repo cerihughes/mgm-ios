@@ -56,7 +56,7 @@
 
 - (NSArray*) bestAlbumImageUrls
 {
-    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeLarge, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
+    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeLarge, MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
     return [self bestImagesWithPreferences:sizes];
 }
 

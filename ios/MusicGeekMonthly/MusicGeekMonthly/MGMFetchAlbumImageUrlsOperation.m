@@ -74,12 +74,12 @@
     if (mbid && ![mbid hasPrefix:FAKE_MBID_PREPEND])
     {
         MGMAlbumImageUriDto* albumUri = [[MGMAlbumImageUriDto alloc] init];
-        albumUri.size = MGMAlbumImageSizeLarge;
+        albumUri.size = MGMAlbumImageSizeMega;
         albumUri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, 500];
         [imageUris addObject:albumUri];
 
         albumUri = [[MGMAlbumImageUriDto alloc] init];
-        albumUri.size = MGMAlbumImageSizeMedium;
+        albumUri.size = MGMAlbumImageSizeExtraLarge;
         albumUri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, 250];
         [imageUris addObject:albumUri];
     }

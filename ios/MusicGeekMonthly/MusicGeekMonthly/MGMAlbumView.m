@@ -219,7 +219,7 @@
 
 - (void) renderImageWithNoAnimation:(UIImage*)image
 {
-    [self.button setImage:image forState:UIControlStateNormal];
+    [self.button setBackgroundImage:image forState:UIControlStateNormal];
     self.button.alpha = self.alphaOn;
 }
 
