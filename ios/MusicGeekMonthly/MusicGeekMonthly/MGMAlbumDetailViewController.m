@@ -17,7 +17,7 @@
 @interface MGMKeyValuePair : NSObject
 
 @property MGMAlbumServiceType serviceType;
-@property (strong) NSString* displayString;
+@property (copy) NSString* displayString;
 
 @end
 

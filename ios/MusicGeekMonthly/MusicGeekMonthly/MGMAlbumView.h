@@ -25,8 +25,8 @@
 @property NSTimeInterval animationTime;
 @property BOOL pressable;
 
-@property (strong) NSString* artistName;
-@property (strong) NSString* albumName;
+@property (copy) NSString* artistName;
+@property (copy) NSString* albumName;
 @property NSUInteger rank;
 @property NSUInteger listeners;
 @property CGFloat score;

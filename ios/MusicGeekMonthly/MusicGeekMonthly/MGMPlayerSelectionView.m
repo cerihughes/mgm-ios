@@ -22,7 +22,7 @@
 @interface MGMPlayerSelectionViewTableData : NSObject
 
 @property MGMAlbumServiceType serviceType;
-@property (strong) NSString* text;
+@property (copy) NSString* text;
 @property (strong) UIImage* image;
 
 @end

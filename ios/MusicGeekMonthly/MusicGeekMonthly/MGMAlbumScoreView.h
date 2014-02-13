@@ -10,6 +10,6 @@
 
 @interface MGMAlbumScoreView : MGMView
 
-@property (strong) NSString* score;
+@property (copy) NSString* score;
 
 @end

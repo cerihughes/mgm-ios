@@ -11,7 +11,7 @@
 
 @interface MGMCoreDataTableViewDataSource ()
 
-@property (strong) NSString* internalCellId;
+@property (copy) NSString* internalCellId;
 
 @end
 
