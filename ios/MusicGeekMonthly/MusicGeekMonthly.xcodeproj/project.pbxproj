@@ -90,9 +90,7 @@
 		65B782F017C1451C00608B3E /* MGMCoreDataTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B782EF17C1451C00608B3E /* MGMCoreDataTableViewDataSource.m */; };
 		65B782F417C1525D00608B3E /* MGMEventTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B782F317C1525D00608B3E /* MGMEventTableViewDataSource.m */; };
 		65B782F917C155CE00608B3E /* MGMEventTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B782F817C155CD00608B3E /* MGMEventTableCell.m */; };
-		65BA8A2C17A434EF0054966B /* MGMURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BA8A2B17A434EF0054966B /* MGMURLCache.m */; };
 		65BEAEF917BE212A00796D93 /* MGMCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B6BC0175FDB4B005D372C /* MGMCore.m */; };
-		65BEAEFA17BE212E00796D93 /* MGMURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BA8A2B17A434EF0054966B /* MGMURLCache.m */; };
 		65BEAEFB17BE214B00796D93 /* MGMDaoFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 65215F99176BA64300250168 /* MGMDaoFactory.m */; };
 		65BEAEFC17BE215200796D93 /* MGMHttpDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975AD17B6A8FB00CF53B2 /* MGMHttpDao.m */; };
 		65BEAEFD17BE215600796D93 /* MGMCoreDataDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E975AA17B6A8E100CF53B2 /* MGMCoreDataDao.m */; };
@@ -301,8 +299,6 @@
 		65B782F317C1525D00608B3E /* MGMEventTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventTableViewDataSource.m; sourceTree = "<group>"; };
 		65B782F717C155CD00608B3E /* MGMEventTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMEventTableCell.h; sourceTree = "<group>"; };
 		65B782F817C155CD00608B3E /* MGMEventTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventTableCell.m; sourceTree = "<group>"; };
-		65BA8A2A17A434EF0054966B /* MGMURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMURLCache.h; sourceTree = "<group>"; };
-		65BA8A2B17A434EF0054966B /* MGMURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMURLCache.m; sourceTree = "<group>"; };
 		65CD17011785A66F0082168D /* MGMEventsDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMEventsDao.h; sourceTree = "<group>"; };
 		65CD17021785A66F0082168D /* MGMEventsDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventsDao.m; sourceTree = "<group>"; };
 		65D25EA21848F7AA00CC6CFD /* MGMSettingsDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMSettingsDao.h; sourceTree = "<group>"; };
@@ -539,8 +535,6 @@
 				653B6BC0175FDB4B005D372C /* MGMCore.m */,
 				65E79B0317C2431D008CCDA3 /* MGMReachabilityManager.h */,
 				65E79B0417C2431D008CCDA3 /* MGMReachabilityManager.m */,
-				65BA8A2A17A434EF0054966B /* MGMURLCache.h */,
-				65BA8A2B17A434EF0054966B /* MGMURLCache.m */,
 				652FD00317722BFC00CF5F89 /* MGMGridManager.h */,
 				652FD00417722BFC00CF5F89 /* MGMGridManager.m */,
 				65E8110B17AD040500FCBC9F /* MGMLogging.h */,
@@ -1075,7 +1069,6 @@
 				65D25EA41848F7AA00CC6CFD /* MGMSettingsDao.m in Sources */,
 				65E53CEC1785CF57001ECA79 /* MGMHomeViewController.m in Sources */,
 				652ABF88179EFE59005C8501 /* MGMPulsatingAlbumsView.m in Sources */,
-				65BA8A2C17A434EF0054966B /* MGMURLCache.m in Sources */,
 				650F13C217AABB060048226A /* MGMAlbumView.m in Sources */,
 				65ECD90117AC3B2F00701A00 /* MGMAlbumViewController.m in Sources */,
 				65ECD90417AC3DCB00701A00 /* MGMAlbumPlayer.m in Sources */,
@@ -1142,7 +1135,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				65BEAEF917BE212A00796D93 /* MGMCore.m in Sources */,
-				65BEAEFA17BE212E00796D93 /* MGMURLCache.m in Sources */,
 				652FD00617722BFC00CF5F89 /* MGMGridManager.m in Sources */,
 				65BEAEFB17BE214B00796D93 /* MGMDaoFactory.m in Sources */,
 				6508CB1B176BB05700594244 /* MGMDao.m in Sources */,

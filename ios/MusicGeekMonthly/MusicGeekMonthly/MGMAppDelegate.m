@@ -8,7 +8,6 @@
 
 #import "MGMAppDelegate.h"
 #import "MGMUI.h"
-#import "MGMURLCache.h"
 #import "TestFlight.h"
 
 @interface MGMAppDelegate ()
@@ -25,7 +24,7 @@
 
     [TestFlight takeOff:@"6e488aaf-18dc-44b8-9421-7088b6651302"];
 
-    MGMURLCache* cache = [[MGMURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:32 * 1024 * 1024 diskPath:nil];
+    NSURLCache* cache = [[NSURLCache alloc] initWithMemoryCapacity:16 * 1024 * 1024 diskCapacity:128 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
 
     self.ui = [[MGMUI alloc] init];
