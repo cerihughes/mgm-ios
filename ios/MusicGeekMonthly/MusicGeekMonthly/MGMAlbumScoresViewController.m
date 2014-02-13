@@ -9,6 +9,7 @@
 #import "MGMAlbumScoresViewController.h"
 
 #import "MGMAlbumScoresView.h"
+#import "MGMAlbumViewUtilities.h"
 #import "MGMCoreDataTableViewDataSource.h"
 #import "MGMGridManager.h"
 #import "MGMImageHelper.h"
@@ -168,7 +169,9 @@
 {
     MGMAlbumScoresView* scoresView = (MGMAlbumScoresView*)self.view;
 
-    NSArray* albumArtUrls = [album bestAlbumImageUrls];
+    CGSize size = [scoresView.albumsView sizeOfRank:position];
+    MGMAlbumImageSize preferredSize = [MGMAlbumViewUtilities preferredImageSizeForViewSize:size];
+    NSArray* albumArtUrls = [album bestAlbumImageUrlsWithPreferredSize:preferredSize];
     if (albumArtUrls.count > 0)
     {
         [MGMImageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error)

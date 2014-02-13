@@ -15,15 +15,9 @@
 @dynamic weeklyChart;
 @dynamic album;
 
-- (NSArray*) bestAlbumImageUrls
+- (NSArray*) bestAlbumImageUrlsWithPreferredSize:(MGMAlbumImageSize)preferredSize
 {
-    NSArray* urls;
-    if (self.rank.intValue == 1 && (urls = [self.album imageUrlsForImageSize:MGMAlbumImageSize512]) != nil)
-    {
-        return urls;
-    }
-
-    return [self.album bestAlbumImageUrls];
+    return [self.album bestAlbumImageUrlsWithPreferredSize:preferredSize];
 }
 
 - (NSArray*) bestTableImageUrls

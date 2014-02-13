@@ -46,6 +46,16 @@
     }
 }
 
+- (CGSize) albumSize
+{
+    if (self.albumViews.count > 0)
+    {
+        MGMAlbumView* view = [self.albumViews objectAtIndex:0];
+        return view.frame.size;
+    }
+    return CGSizeZero;
+}
+
 - (void) renderImage:(UIImage*)image atIndex:(NSUInteger)index animation:(BOOL)animation
 {
     if (index < self.albumCount)

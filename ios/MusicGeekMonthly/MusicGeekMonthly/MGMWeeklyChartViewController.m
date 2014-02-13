@@ -1,6 +1,7 @@
 
 #import "MGMWeeklyChartViewController.h"
 
+#import "MGMAlbumViewUtilities.h"
 #import "MGMCoreDataTableViewDataSource.h"
 #import "MGMGridManager.h"
 #import "MGMImageHelper.h"
@@ -159,7 +160,9 @@
     NSUInteger rank = chartEntry.rank.intValue;
     NSUInteger listeners = chartEntry.listeners.intValue;
 
-    NSArray* albumArtUrls = [chartEntry bestAlbumImageUrls];
+    CGSize size = [weeklyChartView.albumsView sizeOfRank:rank];
+    MGMAlbumImageSize preferredSize = [MGMAlbumViewUtilities preferredImageSizeForViewSize:size];
+    NSArray* albumArtUrls = [chartEntry bestAlbumImageUrlsWithPreferredSize:preferredSize];
     MGMAlbum* album = chartEntry.album;
     if (albumArtUrls.count > 0)
     {

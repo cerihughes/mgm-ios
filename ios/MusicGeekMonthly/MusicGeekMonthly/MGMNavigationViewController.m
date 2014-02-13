@@ -9,6 +9,7 @@
 #import "MGMNavigationViewController.h"
 
 #import "MGMAlbumScoresViewController.h"
+#import "MGMAlbumViewUtilities.h"
 #import "MGMBackgroundAlbumArtFetcher.h"
 #import "MGMEventsViewController.h"
 #import "MGMHomeViewController.h"
@@ -137,6 +138,9 @@
                             self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithChartEntryMoids:[self chartEntryMoidsForWeeklyChart:fetchedWeeklyChart]];
                             self.artFetcher.daoFactory = self.core.daoFactory;
                             self.artFetcher.delegate = self;
+                            CGSize size = [self.albumsView albumSize];
+                            MGMAlbumImageSize preferredSize = [MGMAlbumViewUtilities preferredImageSizeForViewSize:size];
+                            self.artFetcher.preferredSize = preferredSize;
                             [self renderImages:YES];
                         }
                         else

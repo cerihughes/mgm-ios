@@ -24,6 +24,7 @@
 
 @property (weak) id<MGMBackgroundAlbumArtFetcherDelegate> delegate;
 @property (strong) MGMDaoFactory* daoFactory;
+@property MGMAlbumImageSize preferredSize;
 
 - (id) initWithChartEntryMoids:(NSArray*)chartEntryMoids;
 - (void) generateImageAtIndex:(NSUInteger)index;

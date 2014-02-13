@@ -46,6 +46,16 @@
     self.scrollView.contentSize = CGRectUnion(existingContent, frame).size;
 }
 
+- (CGSize) sizeOfRank:(NSUInteger)rank
+{
+    MGMAlbumView* albumView = [self albumViewForRank:rank];
+    if (albumView)
+    {
+        return albumView.frame.size;
+    }
+    return CGSizeZero;
+}
+
 - (void) setActivityInProgressForAllRanks:(BOOL)inProgress
 {
     for (MGMAlbumView* albumView in self.albumViews)

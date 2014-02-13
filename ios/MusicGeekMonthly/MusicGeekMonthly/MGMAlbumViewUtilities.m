@@ -13,6 +13,32 @@
 
 @implementation MGMAlbumViewUtilities
 
++ (MGMAlbumImageSize) preferredImageSizeForViewSize:(CGSize)viewSize
+{
+    CGFloat width = viewSize.width;
+    if (width > 512)
+    {
+        return MGMAlbumImageSize512;
+    }
+    if (width > 256)
+    {
+        return MGMAlbumImageSize256;
+    }
+    else if (width > 128)
+    {
+        return MGMAlbumImageSize128;
+    }
+    else if (width > 64)
+    {
+        return MGMAlbumImageSize64;
+    }
+    else if (width > 32)
+    {
+        return MGMAlbumImageSize32;
+    }
+    return MGMAlbumImageSizeNone;
+}
+
 + (void) displayAlbum:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -22,16 +48,17 @@
         albumView.score = [album.score floatValue];
     });
 
-    NSArray* albumArtUrls = [self bestAlbumImageUrlsForAlbum:album];
+    MGMAlbumImageSize preferredSize = [self preferredImageSizeForViewSize:albumView.frame.size];
+    NSArray* albumArtUrls = [self bestAlbumImageUrlsForAlbum:album preferredSize:preferredSize];
     [self displayAlbumImages:albumArtUrls inAlbumView:albumView defaultImageName:defaultName error:error];
 }
 
-+ (NSArray*) bestAlbumImageUrlsForAlbum:(MGMAlbumDto*)album
++ (NSArray*) bestAlbumImageUrlsForAlbum:(MGMAlbumDto*)album preferredSize:(MGMAlbumImageSize)size
 {
     NSMutableArray* array = [NSMutableArray array];
 
-    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSize128, MGMAlbumImageSize256, MGMAlbumImageSize512, MGMAlbumImageSize64, MGMAlbumImageSize32};
-    for (NSUInteger i = 0; i < 5; i++)
+    MGMAlbumImageSize sizes[6] = {size, MGMAlbumImageSize128, MGMAlbumImageSize256, MGMAlbumImageSize512, MGMAlbumImageSize64, MGMAlbumImageSize32};
+    for (NSUInteger i = 0; i < 6; i++)
     {
         for (MGMAlbumImageUriDto* uri in album.imageUris)
         {
@@ -76,7 +103,8 @@
 
 + (void) displayAlbumImage:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
 {
-    NSArray* albumArtUrls = [album bestAlbumImageUrls];
+    MGMAlbumImageSize preferredSize = [self preferredImageSizeForViewSize:albumView.frame.size];
+    NSArray* albumArtUrls = [album bestAlbumImageUrlsWithPreferredSize:preferredSize];
     [self displayAlbumImages:albumArtUrls inAlbumView:albumView defaultImageName:defaultName error:error];
 }
 

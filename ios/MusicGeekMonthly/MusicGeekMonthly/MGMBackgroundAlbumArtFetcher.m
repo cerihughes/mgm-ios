@@ -93,7 +93,7 @@
     {
         if (updateError == nil)
         {
-            NSArray* urls = [updatedAlbum bestAlbumImageUrls];
+            NSArray* urls = [updatedAlbum bestAlbumImageUrlsWithPreferredSize:self.preferredSize];
             NSError* imageError = nil;
             UIImage* image = nil;
             if (urls.count > 0)

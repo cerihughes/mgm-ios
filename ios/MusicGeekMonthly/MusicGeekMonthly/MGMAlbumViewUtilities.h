@@ -15,6 +15,7 @@
 
 @interface MGMAlbumViewUtilities : NSObject
 
++ (MGMAlbumImageSize) preferredImageSizeForViewSize:(CGSize)viewSize;
 + (void) displayAlbum:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error;
 + (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName daoFactory:(MGMDaoFactory*)daoFactory error:(NSError**)error;
 
