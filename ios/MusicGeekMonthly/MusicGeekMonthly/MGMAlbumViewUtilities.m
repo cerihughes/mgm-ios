@@ -30,7 +30,7 @@
 {
     NSMutableArray* array = [NSMutableArray array];
 
-    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeLarge, MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
+    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSize128, MGMAlbumImageSize256, MGMAlbumImageSize512, MGMAlbumImageSize64, MGMAlbumImageSize32};
     for (NSUInteger i = 0; i < 5; i++)
     {
         for (MGMAlbumImageUriDto* uri in album.imageUris)

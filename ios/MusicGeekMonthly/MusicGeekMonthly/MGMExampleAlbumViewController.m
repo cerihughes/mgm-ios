@@ -44,7 +44,7 @@
     exampleAlbum.artistName = @"Sigur Rós";
 
     MGMAlbumImageUriDto* uri = [[MGMAlbumImageUriDto alloc] init];
-    uri.size = MGMAlbumImageSizeExtraLarge;
+    uri.size = MGMAlbumImageSize256;
     uri.uri = @"http://userserve-ak.last.fm/serve/300x300/30803371.png";
     [exampleAlbum.imageUris addObject:uri];
 

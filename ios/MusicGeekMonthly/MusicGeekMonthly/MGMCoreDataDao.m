@@ -23,7 +23,7 @@
 
 - (id) init
 {
-    return [self initWithStoreName:@"MusicGeekMonthly.sqlite"];
+    return [self initWithStoreName:@"MusicGeekMonthly2.sqlite"];
 }
 
 - (id) initWithStoreName:(NSString*)storeName

@@ -9,10 +9,10 @@
 typedef enum
 {
     MGMAlbumImageSizeNone = 0,
-    MGMAlbumImageSizeSmall = 1,
-    MGMAlbumImageSizeMedium = 2,
-    MGMAlbumImageSizeLarge = 3,
-    MGMAlbumImageSizeExtraLarge = 4,
-    MGMAlbumImageSizeMega = 5
+    MGMAlbumImageSize32 = 32,
+    MGMAlbumImageSize64 = 64,
+    MGMAlbumImageSize128 = 128,
+    MGMAlbumImageSize256 = 256,
+    MGMAlbumImageSize512 = 512
 }
 MGMAlbumImageSize;

@@ -18,7 +18,7 @@
 - (NSArray*) bestAlbumImageUrls
 {
     NSArray* urls;
-    if (self.rank.intValue == 1 && (urls = [self.album imageUrlsForImageSize:MGMAlbumImageSizeMega]) != nil)
+    if (self.rank.intValue == 1 && (urls = [self.album imageUrlsForImageSize:MGMAlbumImageSize512]) != nil)
     {
         return urls;
     }

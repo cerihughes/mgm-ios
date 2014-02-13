@@ -56,13 +56,13 @@
 
 - (NSArray*) bestAlbumImageUrls
 {
-    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeLarge, MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega, MGMAlbumImageSizeMedium, MGMAlbumImageSizeSmall};
+    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSize128, MGMAlbumImageSize256, MGMAlbumImageSize512, MGMAlbumImageSize64, MGMAlbumImageSize32};
     return [self bestImagesWithPreferences:sizes];
 }
 
 - (NSArray*) bestTableImageUrls
 {
-    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSizeSmall, MGMAlbumImageSizeMedium, MGMAlbumImageSizeLarge, MGMAlbumImageSizeExtraLarge, MGMAlbumImageSizeMega};
+    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSize32, MGMAlbumImageSize64, MGMAlbumImageSize128, MGMAlbumImageSize256, MGMAlbumImageSize512};
     return [self bestImagesWithPreferences:sizes];
 }
 
