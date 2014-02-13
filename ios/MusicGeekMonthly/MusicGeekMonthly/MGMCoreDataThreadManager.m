@@ -47,7 +47,6 @@
         // We've not seen this thread before...
         NSString* uuid = [[NSUUID UUID] UUIDString];
         [td setObject:uuid forKey:THREAD_UUID_KEY];
-        NSLog(@"Creating new moc for thread %@ with uuid %@", thread, uuid);
         NSManagedObjectContext* moc = [self createManagedObjectContextsWithPersistentStoreCoordinator:self.psc];
         @synchronized(self)
         {
@@ -94,7 +93,6 @@
     if (uuid)
     {
         // This is one of ours...
-        NSLog(@"Releasing moc for thread %@ with uuid %@", thread, uuid);
         @synchronized(self)
         {
             [self.threadUuidsToMocs removeObjectForKey:uuid];

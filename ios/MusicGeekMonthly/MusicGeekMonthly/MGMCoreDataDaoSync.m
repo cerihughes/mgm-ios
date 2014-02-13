@@ -189,11 +189,6 @@
 
         MGMAlbum* album = [self persistAlbumDto:albumDto error:error];
 
-        if (album == nil)
-        {
-            NSLog(@"nil");
-        }
-
         if (error && *error != nil)
         {
             [self rollbackChanges];

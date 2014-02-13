@@ -40,10 +40,8 @@
     if (error == nil && nextAccess)
     {
         NSDate* nextAccessDate = nextAccess.date;
-        NSLog(@"Next access date for %@ is %@.", identifier, nextAccessDate);
         return ([[NSDate date] earlierDate:nextAccessDate] == nextAccessDate);
     }
-    NSLog(@"No next access date for %@.", identifier);
     return YES;
 }
 
@@ -54,8 +52,6 @@
 
     NSDate* now = [NSDate date];
     NSDate* then = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:now options:0];
-
-    NSLog(@"Setting next access date for %@ to %@.", identifier, then);
 
     [self.coreDataDao persistNextUrlAccess:identifier date:then completion:^(NSError* error)
     {

@@ -12,7 +12,6 @@
 
 - (id)initWithMemoryCapacity:(NSUInteger)memoryCapacity diskCapacity:(NSUInteger)diskCapacity diskPath:(NSString *)path
 {
-    NSLog(@"%s called with parameters (%d, %d, %@).", __FUNCTION__, memoryCapacity, diskCapacity, path);
     if (self = [super initWithMemoryCapacity:memoryCapacity diskCapacity:diskCapacity diskPath:path])
     {
     }
@@ -26,7 +25,6 @@
 
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request
 {
-//    NSLog(@"%s called with parameters (%@, %@).", __FUNCTION__, cachedResponse, request);
     [super storeCachedResponse:cachedResponse forRequest:request];
 }
 
