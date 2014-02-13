@@ -13,9 +13,6 @@
 @property (strong) MGMPlayerSelectionViewController* playerSelectionViewController;
 @property (strong) MGMExampleAlbumViewController* exampleAlbumViewController;
 
-- (void) setupCore;
-- (void) setupControllers;
-
 @end
 
 @implementation MGMUI

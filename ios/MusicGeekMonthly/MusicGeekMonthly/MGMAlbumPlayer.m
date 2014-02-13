@@ -16,10 +16,6 @@
 #define URI_PATTERN_ITUNES @"https://itunes.apple.com/gb/album/%@?uo=4"
 #define URI_PATTERN_DEEZER @"deezer://www.deezer.com/album/%@"
 
-@interface MGMAlbumPlayer ()
-
-@end
-
 @implementation MGMAlbumPlayer
 
 - (NSUInteger) determineCapabilities

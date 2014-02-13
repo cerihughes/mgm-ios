@@ -10,10 +10,6 @@
 
 #import "MGMNoReachabilityView.h"
 
-@interface MGMNoReachabilityViewController ()
-
-@end
-
 @implementation MGMNoReachabilityViewController
 
 - (void) loadView

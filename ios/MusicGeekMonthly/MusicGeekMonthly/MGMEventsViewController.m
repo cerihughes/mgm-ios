@@ -16,7 +16,6 @@
 @interface MGMEventsViewController () <UITableViewDelegate, MGMEventsViewDelegate, MGMEventsModalViewDelegate>
 
 @property (strong) UIView* modalView;
-
 @property (strong) MGMEventTableViewDataSource* dataSource;
 
 @end

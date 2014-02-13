@@ -12,7 +12,6 @@
 @interface MGMWeeklyChartAlbumsView () <MGMAlbumViewDelegate>
 
 @property (strong) UIScrollView* scrollView;
-
 @property (strong) NSMutableArray* albumViews;
 
 @end

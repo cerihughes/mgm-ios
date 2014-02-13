@@ -10,7 +10,6 @@
 @interface MGMWeeklyChartViewController () <MGMWeeklyChartAlbumsViewDelegate, UITableViewDelegate, MGMWeeklyChartViewDelegate, MGMWeeklyChartModalViewDelegate>
 
 @property (strong) UIView* modalView;
-
 @property (strong) MGMCoreDataTableViewDataSource* dataSource;
 @property (strong) NSManagedObjectID* weeklyChartMoid;
 @property (strong) NSDateFormatter* dateFormatter;

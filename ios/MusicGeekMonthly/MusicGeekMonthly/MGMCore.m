@@ -3,12 +3,6 @@
 
 #define REACHABILITY_END_POINT @"music-geek-monthly.appspot.com"
 
-@interface MGMCore ()
-
-- (void) createInstances;
-
-@end
-
 @implementation MGMCore
 
 - (id) init

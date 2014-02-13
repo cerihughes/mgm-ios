@@ -10,10 +10,6 @@
 
 #import "MGMTabbedView.h"
 
-@interface MGMTabbedViewController ()
-
-@end
-
 @implementation MGMTabbedViewController
 
 - (void) assignBackgroundView:(UIView *)backgroundView

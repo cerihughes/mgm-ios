@@ -8,10 +8,6 @@
 
 #import "MGMAbstractPlayerSelectionViewController.h"
 
-@interface MGMAbstractPlayerSelectionViewController ()
-
-@end
-
 @implementation MGMAbstractPlayerSelectionViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
