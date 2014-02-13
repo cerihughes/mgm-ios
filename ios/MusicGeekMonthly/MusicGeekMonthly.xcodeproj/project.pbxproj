@@ -1287,11 +1287,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusicGeekMonthly/MusicGeekMonthly-Prefix.pch";
-				HEADER_SEARCH_PATHS = MusicGeekMonthly/Libraries/TestFlightSDK2.0.0;
+				HEADER_SEARCH_PATHS = MusicGeekMonthly/Libraries/TestFlightSDK2.2.1;
 				INFOPLIST_FILE = "MusicGeekMonthly/MusicGeekMonthly-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.0.0\"",
+					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.2.1\"",
 				);
 				PRODUCT_NAME = MusicGeekMonthly;
 				PROVISIONING_PROFILE = "";
@@ -1306,11 +1306,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusicGeekMonthly/MusicGeekMonthly-Prefix.pch";
-				HEADER_SEARCH_PATHS = MusicGeekMonthly/Libraries/TestFlightSDK2.0.0;
+				HEADER_SEARCH_PATHS = MusicGeekMonthly/Libraries/TestFlightSDK2.2.1;
 				INFOPLIST_FILE = "MusicGeekMonthly/MusicGeekMonthly-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.0.0\"",
+					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.2.1\"",
 				);
 				PRODUCT_NAME = MusicGeekMonthly;
 				PROVISIONING_PROFILE = "";
