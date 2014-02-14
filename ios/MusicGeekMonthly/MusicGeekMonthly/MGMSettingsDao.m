@@ -37,7 +37,7 @@
     NSNumber* value = [defaults valueForKey:DEFAULT_SERVICE_TYPE_KEY];
     if (value)
     {
-        return value.integerValue;
+        return (MGMAlbumServiceType)value.integerValue;
     }
     return MGMAlbumServiceTypeNone;
 }

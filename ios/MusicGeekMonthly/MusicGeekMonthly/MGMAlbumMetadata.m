@@ -23,7 +23,7 @@
 
 - (MGMAlbumServiceType) serviceType
 {
-    return [self.serviceTypeObject integerValue];
+    return (MGMAlbumServiceType)[self.serviceTypeObject integerValue];
 }
 
 - (void) setServiceType:(MGMAlbumServiceType)serviceType

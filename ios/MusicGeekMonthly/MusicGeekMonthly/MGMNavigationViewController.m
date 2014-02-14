@@ -53,7 +53,7 @@
     for (NSUInteger i = 0; i < self.backgroundAlbumCount; i++)
     {
         NSUInteger index = (i % 3) + 1;
-        NSString* imageName = [NSString stringWithFormat:@"album%d.png", index];
+        NSString* imageName = [NSString stringWithFormat:@"album%lu.png", (unsigned long)index];
         UIImage* image = [UIImage imageNamed:imageName];
         [self renderBackgroundAlbumImage:image atIndex:i animation:NO];
     }

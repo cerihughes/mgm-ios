@@ -188,7 +188,7 @@
 - (void) setRank:(NSUInteger)rank
 {
     self.rankLabel.hidden = (rank == 0);
-    self.rankLabel.text = [NSString stringWithFormat:@"%d", rank];
+    self.rankLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)rank];
     _rank = rank;
 }
 

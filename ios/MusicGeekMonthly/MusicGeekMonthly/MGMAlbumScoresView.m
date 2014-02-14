@@ -39,7 +39,7 @@
 
 - (void) controlChanged:(UISegmentedControl*)sender
 {
-    [self.delegate selectionChanged:sender.selectedSegmentIndex];
+    [self.delegate selectionChanged:(MGMAlbumScoresViewSelection)sender.selectedSegmentIndex];
 }
 
 - (void) setSelection:(MGMAlbumScoresViewSelection)selection

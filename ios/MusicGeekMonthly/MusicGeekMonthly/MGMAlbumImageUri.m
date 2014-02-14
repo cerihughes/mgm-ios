@@ -23,7 +23,7 @@
 
 - (MGMAlbumImageSize) size
 {
-    return [self.sizeObject integerValue];
+    return (MGMAlbumImageSize)[self.sizeObject integerValue];
 }
 
 - (void) setSize:(MGMAlbumImageSize)size

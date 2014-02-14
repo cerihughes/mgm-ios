@@ -199,7 +199,7 @@
 - (UIImage*) defaultImageForRank:(NSUInteger)rank
 {
     NSUInteger albumType = (rank % 3) + 1;
-    NSString* imageName = [NSString stringWithFormat:@"album%d.png", albumType];
+    NSString* imageName = [NSString stringWithFormat:@"album%lu.png", (unsigned long)albumType];
     return [UIImage imageNamed:imageName];
 }
 

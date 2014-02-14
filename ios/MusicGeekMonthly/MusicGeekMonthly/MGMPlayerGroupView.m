@@ -72,7 +72,7 @@
 
 - (void) buttonPressed:(UIButton*)pressed
 {
-    MGMAlbumServiceType serviceType = pressed.tag;
+    MGMAlbumServiceType serviceType = (MGMAlbumServiceType)pressed.tag;
     [self.delegate serviceTypeSelected:serviceType];
 }
 

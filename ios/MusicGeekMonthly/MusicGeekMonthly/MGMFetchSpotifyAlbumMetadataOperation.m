@@ -105,7 +105,7 @@ static NSDictionary* acceptJson;
 
 - (NSDictionary*) bestMatchForAlbum:(MGMAlbum*)album inAlbums:(NSArray*)albumsJson
 {
-    NSLog(@"Found %d matches in Spotify.", albumsJson.count);
+    NSLog(@"Found %lu matches in Spotify.", albumsJson.count);
     float mostPopularValue = 0;
     NSDictionary* mostPopularAlbum = nil;
     for (NSDictionary* albumJson in albumsJson)

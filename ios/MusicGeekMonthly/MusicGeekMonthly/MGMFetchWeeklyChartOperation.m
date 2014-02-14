@@ -13,8 +13,8 @@
 #import "MGMErrorCodes.h"
 #import "MGMLastFmConstants.h"
 
-#define REFRESH_IDENTIFIER_WEEKLY_CHART @"REFRESH_IDENTIFIER_WEEKLY_CHART_%d_%d"
-#define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&from=%d&to=%d&api_key=%@&format=json"
+#define REFRESH_IDENTIFIER_WEEKLY_CHART @"REFRESH_IDENTIFIER_WEEKLY_CHART_%lu_%lu"
+#define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&from=%lu&to=%lu&api_key=%@&format=json"
 #define MAX_CHART_ENTRIES 50
 
 @implementation MGMFetchWeeklyChartOperationData
@@ -36,7 +36,7 @@ static NSNumberFormatter* numberFormatter;
     MGMFetchWeeklyChartOperationData* fetchData = data;
     NSUInteger from = fetchData.startDate.timeIntervalSince1970;
     NSUInteger to = fetchData.endDate.timeIntervalSince1970;
-    return [NSString stringWithFormat:REFRESH_IDENTIFIER_WEEKLY_CHART, from, to];
+    return [NSString stringWithFormat:REFRESH_IDENTIFIER_WEEKLY_CHART, (unsigned long)from, (unsigned long)to];
 }
 
 - (NSString*) urlForData:(id)data
@@ -44,7 +44,7 @@ static NSNumberFormatter* numberFormatter;
     MGMFetchWeeklyChartOperationData* fetchData = data;
     NSUInteger from = fetchData.startDate.timeIntervalSince1970;
     NSUInteger to = fetchData.endDate.timeIntervalSince1970;
-    return [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, from, to, API_KEY];
+    return [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, (unsigned long)from, (unsigned long)to, API_KEY];
 }
 
 - (void) convertJsonData:(NSDictionary*)json forData:(id)data completion:(FETCH_COMPLETION)completion
