@@ -10,13 +10,12 @@
 
 #import "MGMWeeklyChartAlbumsView.h"
 
-typedef enum
+typedef NS_ENUM(NSUInteger, MGMAlbumScoresViewSelection)
 {
     MGMAlbumScoresViewSelectionClassicAlbums,
     MGMAlbumScoresViewSelectionNewAlbums,
     MGMAlbumScoresViewSelectionAllAlbums
-}
-MGMAlbumScoresViewSelection;
+};
 
 @protocol MGMAlbumScoresViewDelegate <NSObject>
 

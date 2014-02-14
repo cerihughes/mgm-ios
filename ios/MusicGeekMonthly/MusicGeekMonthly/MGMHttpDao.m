@@ -76,7 +76,7 @@
 
     NSHTTPURLResponse *urlResponse = nil;
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:error];
-    NSLog(@"[%@] = [%ld]", url, urlResponse.statusCode);
+    NSLog(@"[%@] = [%ld]", url, (long)urlResponse.statusCode);
     return data;
 }
 

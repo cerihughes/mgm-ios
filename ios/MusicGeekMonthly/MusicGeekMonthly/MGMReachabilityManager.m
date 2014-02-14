@@ -10,13 +10,12 @@
 
 #import <SystemConfiguration/SCNetworkReachability.h>
 
-typedef enum
+typedef NS_ENUM(NSUInteger, MGMReachabilityManagerConnectivity)
 {
 	MGMReachabilityManagerConnectivityNone,
 	MGMReachabilityManagerConnectivityWifi,
 	MGMReachabilityManagerConnectivityWwan
-}
-MGMReachabilityManagerConnectivity;
+};
 
 @interface MGMReachabilityManager()
 

@@ -6,11 +6,10 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-typedef enum
+typedef NS_ENUM(NSUInteger, MGMPlayerSelectionMode)
 {
     MGMPlayerSelectionModeNone,
     MGMPlayerSelectionModeNoPlayer,
     MGMPlayerSelectionModePlayerRemoved,
     MGMPlayerSelectionModeNewPlayers
-}
-MGMPlayerSelectionMode;
+};

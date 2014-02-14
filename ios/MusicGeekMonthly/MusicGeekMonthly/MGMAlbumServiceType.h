@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-typedef enum
+typedef NS_ENUM(NSUInteger, MGMAlbumServiceType)
 {
     MGMAlbumServiceTypeNone =      0x00,
     MGMAlbumServiceTypeLastFm =    0x01,
@@ -15,5 +15,4 @@ typedef enum
     MGMAlbumServiceTypeYouTube =   0x08,
     MGMAlbumServiceTypeItunes =    0x10,
     MGMAlbumServiceTypeDeezer =    0x20
-}
-MGMAlbumServiceType;
+};

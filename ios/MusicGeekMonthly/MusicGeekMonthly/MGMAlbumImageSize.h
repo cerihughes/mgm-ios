@@ -6,13 +6,12 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-typedef enum
+typedef NS_ENUM(NSUInteger, MGMAlbumImageSize)
 {
     MGMAlbumImageSizeNone = 0,
-    MGMAlbumImageSize32 = 32,
-    MGMAlbumImageSize64 = 64,
-    MGMAlbumImageSize128 = 128,
-    MGMAlbumImageSize256 = 256,
-    MGMAlbumImageSize512 = 512
-}
-MGMAlbumImageSize;
+    MGMAlbumImageSize32   = 32,
+    MGMAlbumImageSize64   = 64,
+    MGMAlbumImageSize128  = 128,
+    MGMAlbumImageSize256  = 256,
+    MGMAlbumImageSize512  = 512
+};
