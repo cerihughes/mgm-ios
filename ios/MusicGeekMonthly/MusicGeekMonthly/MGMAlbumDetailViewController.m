@@ -55,16 +55,7 @@
 
     [detailView clearServiceTypes];
 
-    NSUInteger metadataServiceTypes = 0;
-    for (MGMAlbumMetadata* metadata in album.metadata)
-    {
-        MGMAlbumServiceType serviceType = metadata.serviceType;
-        metadataServiceTypes |= serviceType;
-    }
-    // We implicitly support last.fm and spotify...
-    metadataServiceTypes |= MGMAlbumServiceTypeLastFm;
-    metadataServiceTypes |= MGMAlbumServiceTypeSpotify;
-
+    NSUInteger metadataServiceTypes = [self.core.daoFactory serviceTypesThatPlayAlbum:album];
     NSUInteger deviceCapabilities = [self.ui.albumPlayer determineCapabilities];
     MGMAlbumServiceType serviceType = MGMAlbumServiceTypeLastFm;
     while (serviceType <= MGMAlbumServiceTypeDeezer)

@@ -32,6 +32,7 @@ static BOOL _isIpad;
         [self setupControllers];
         self.albumPlayer = [[MGMAlbumPlayer alloc] init];
         self.albumPlayer.daoFactory = self.core.daoFactory;
+        self.albumPlayer.ui = self;
     }
     return self;
 }

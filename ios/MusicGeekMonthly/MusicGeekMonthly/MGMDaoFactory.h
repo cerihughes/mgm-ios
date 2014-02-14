@@ -14,6 +14,7 @@
 #import "MGMReachabilityManager.h"
 #import "MGMSettingsDao.h"
 #import "MGMSpotifyDao.h"
+#import "MGMWebsiteAlbumMetadataDao.h"
 
 @interface MGMDaoFactory : NSObject
 
@@ -22,9 +23,14 @@
 @property (readonly) MGMSpotifyDao* spotifyDao;
 @property (readonly) MGMEventsDao* eventsDao;
 @property (readonly) MGMSettingsDao* settingsDao;
+@property (readonly) MGMWebsiteAlbumMetadataDao* deezerDao;
+@property (readonly) MGMWebsiteAlbumMetadataDao* itunesDao;
+@property (readonly) MGMWebsiteAlbumMetadataDao* wikipediaDao;
+@property (readonly) MGMWebsiteAlbumMetadataDao* youtubeDao;
 
 - (id) initWithReachabilityManager:(MGMReachabilityManager*)reachabilityManager;
 
 - (MGMAlbumMetadataDao*) metadataDaoForServiceType:(MGMAlbumServiceType)serviceType;
+- (NSUInteger) serviceTypesThatPlayAlbum:(MGMAlbum*)album;
 
 @end

@@ -67,6 +67,8 @@
 		656D01B7176C5EC500B9B0B3 /* MGMImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 656D01B6176C5EC500B9B0B3 /* MGMImageHelper.m */; };
 		658634BD184A39FD00B3844A /* MGMPlayerSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 658634BC184A39FD00B3844A /* MGMPlayerSelectionViewController.m */; };
 		658634C0184A3EDC00B3844A /* MGMPlayerSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 658634BF184A3EDC00B3844A /* MGMPlayerSelectionView.m */; };
+		659083D418AE77EC0056EE80 /* MGMWebsiteAlbumMetadataDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 659083D318AE77EC0056EE80 /* MGMWebsiteAlbumMetadataDao.m */; };
+		659083D518AE77EC0056EE80 /* MGMWebsiteAlbumMetadataDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 659083D318AE77EC0056EE80 /* MGMWebsiteAlbumMetadataDao.m */; };
 		65936A0917BCB1150070A9C6 /* MGMCoreDataTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65936A0817BCB1150070A9C6 /* MGMCoreDataTestCase.m */; };
 		65936A0A17BCB2840070A9C6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E975B317B6B43400CF53B2 /* CoreData.framework */; };
 		6594349A17776BE800DCA9DB /* MGMEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6594349917776BE800DCA9DB /* MGMEventsViewController.m */; };
@@ -265,6 +267,8 @@
 		658634BC184A39FD00B3844A /* MGMPlayerSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlayerSelectionViewController.m; sourceTree = "<group>"; };
 		658634BE184A3EDC00B3844A /* MGMPlayerSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlayerSelectionView.h; sourceTree = "<group>"; };
 		658634BF184A3EDC00B3844A /* MGMPlayerSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlayerSelectionView.m; sourceTree = "<group>"; };
+		659083D218AE77EC0056EE80 /* MGMWebsiteAlbumMetadataDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWebsiteAlbumMetadataDao.h; sourceTree = "<group>"; };
+		659083D318AE77EC0056EE80 /* MGMWebsiteAlbumMetadataDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWebsiteAlbumMetadataDao.m; sourceTree = "<group>"; };
 		65936A0817BCB1150070A9C6 /* MGMCoreDataTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataTestCase.m; sourceTree = "<group>"; };
 		6594349817776BE800DCA9DB /* MGMEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMEventsViewController.h; sourceTree = "<group>"; };
 		6594349917776BE800DCA9DB /* MGMEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventsViewController.m; sourceTree = "<group>"; };
@@ -620,6 +624,8 @@
 				65E975C517B6CD5900CF53B2 /* MGMCoreDataAwareDao.m */,
 				6509FF6C17AC5F4700DE68DE /* MGMAlbumMetadataDao.h */,
 				6509FF6D17AC5F4700DE68DE /* MGMAlbumMetadataDao.m */,
+				659083D218AE77EC0056EE80 /* MGMWebsiteAlbumMetadataDao.h */,
+				659083D318AE77EC0056EE80 /* MGMWebsiteAlbumMetadataDao.m */,
 				653B6BB9175FD13F005D372C /* MGMLastFmDao.h */,
 				653B6BBA175FD13F005D372C /* MGMLastFmDao.m */,
 				6508CB14176BACF400594244 /* MGMSpotifyDao.h */,
@@ -1086,6 +1092,7 @@
 				65E975BD17B6CB1700CF53B2 /* MGMAlbum.m in Sources */,
 				6523EE7E189BEECA000D1D31 /* MGMExampleAlbumViewController.m in Sources */,
 				F45479F21829085000426AE3 /* MGMNoReachabilityView.m in Sources */,
+				659083D418AE77EC0056EE80 /* MGMWebsiteAlbumMetadataDao.m in Sources */,
 				F400AA381827A80E00DE33E6 /* MGMAbstractEventView.m in Sources */,
 				65E975C017B6CB1800CF53B2 /* MGMEvent.m in Sources */,
 				F4A1C26F182A434F00C1C0C3 /* MGMTabbedViewController.m in Sources */,
@@ -1176,6 +1183,7 @@
 				65EB123117C3FB18008EE886 /* MGMFetchAllTimePeriodsOperation.m in Sources */,
 				65EB123817C3FC0F008EE886 /* MGMFetchWeeklyChartOperation.m in Sources */,
 				65EB124117C40025008EE886 /* MGMFetchAlbumImageUrlsOperation.m in Sources */,
+				659083D518AE77EC0056EE80 /* MGMWebsiteAlbumMetadataDao.m in Sources */,
 				65EB124717C4077E008EE886 /* MGMFetchSpotifyAlbumMetadataOperation.m in Sources */,
 				650EBEC417C8CF0700D7EE88 /* NSMutableArray+Shuffling.m in Sources */,
 				65F46CFB17DB96E200D38ED2 /* MGMAlbumViewUtilities.m in Sources */,

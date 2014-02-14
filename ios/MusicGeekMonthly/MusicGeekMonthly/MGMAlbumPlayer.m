@@ -10,14 +10,6 @@
 
 #import "MGMUI.h"
 
-#define URI_PATTERN_NONE @"%@"
-#define URI_PATTERN_LASTFM @"lastfm://artist/%@/similarartists"
-#define URI_PATTERN_SPOTIFY @"spotify:album:%@"
-#define URI_PATTERN_WIKIPEDIA @"http://en.wikipedia.org/wiki/%@"
-#define URI_PATTERN_YOUTUBE @"http://www.youtube.com/watch?v=%@"
-#define URI_PATTERN_ITUNES @"https://itunes.apple.com/gb/album/%@?uo=4"
-#define URI_PATTERN_DEEZER @"deezer://www.deezer.com/album/%@"
-
 @implementation MGMAlbumPlayer
 
 - (NSUInteger) determineCapabilities
@@ -36,8 +28,9 @@
 
 - (BOOL) hasCapability:(MGMAlbumServiceType)serviceType
 {
-    NSString* pattern = [self uriPatternForServiceType:serviceType];
-    NSString* encoded = [pattern stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    MGMAlbumMetadataDao* dao = [self.daoFactory metadataDaoForServiceType:serviceType];
+    NSString* urlString = [dao serviceAvailabilityUrl];
+    NSString* encoded = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL* url = [NSURL URLWithString:encoded];
     return [[UIApplication sharedApplication] canOpenURL:url];
 }
@@ -64,25 +57,23 @@
             }
             else
             {
-                [self playFetchedAlbum:updatedAlbum onService:service];
+                [self playFetchedAlbum:updatedAlbum dao:dao];
                 completion(nil);
             }
         }];
     }
     else
     {
-        [self playFetchedAlbum:album onService:service];
+        [self playFetchedAlbum:album dao:dao];
         completion(nil);
     }
 }
-- (void) playFetchedAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service
+- (void) playFetchedAlbum:(MGMAlbum*)album dao:(MGMAlbumMetadataDao*)dao
 {
-    NSString* metadata = [album metadataForServiceType:service];
-    if (metadata)
+    NSString* urlString = [dao urlForAlbum:album];
+    if (urlString)
     {
-        NSString* uriPattern = [self uriPatternForServiceType:service];
-        NSString* uriString = [NSString stringWithFormat:uriPattern, metadata];
-        NSString* encoded = [uriString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString* encoded = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL* url = [NSURL URLWithString:encoded];
         if ([[UIApplication sharedApplication] canOpenURL:url])
         {
@@ -92,35 +83,21 @@
         else
         {
             NSLog(@"No handler for URL: %@", url);
+            [self cantOpenUrlForDao:dao];
         }
     }
     else
     {
-        NSString* message = [NSString stringWithFormat:@"This album cannot be opened with %@. Press the album info button for more options.", [self.ui labelForServiceType:service]];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Cannot Open" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        [self cantOpenUrlForDao:dao];
     }
 }
 
-- (NSString*) uriPatternForServiceType:(MGMAlbumServiceType)serviceType
+- (void) cantOpenUrlForDao:(MGMAlbumMetadataDao*)dao
 {
-    switch (serviceType)
-    {
-        case MGMAlbumServiceTypeLastFm:
-            return URI_PATTERN_LASTFM;
-        case MGMAlbumServiceTypeSpotify:
-            return URI_PATTERN_SPOTIFY;
-        case MGMAlbumServiceTypeWikipedia:
-            return URI_PATTERN_WIKIPEDIA;
-        case MGMAlbumServiceTypeYouTube:
-            return URI_PATTERN_YOUTUBE;
-        case MGMAlbumServiceTypeItunes:
-            return URI_PATTERN_ITUNES;
-        case MGMAlbumServiceTypeDeezer:
-            return URI_PATTERN_DEEZER;
-        default:
-            return nil;
-    }
+    MGMAlbumServiceType serviceType = dao.serviceType;
+    NSString* message = [NSString stringWithFormat:@"This album cannot be opened with %@. Press the album info button for more options.", [self.ui labelForServiceType:serviceType]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Cannot Open" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

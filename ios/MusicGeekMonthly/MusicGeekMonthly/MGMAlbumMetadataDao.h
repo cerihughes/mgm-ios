@@ -7,10 +7,16 @@
 //
 
 #import "MGMHttpDao.h"
+
 #import "MGMAlbum.h"
+#import "MGMAlbumServiceType.h"
 
 @interface MGMAlbumMetadataDao : MGMHttpDao
 
+@property (readonly) MGMAlbumServiceType serviceType;
+
 - (void) updateAlbumInfo:(MGMAlbum*)album completion:(FETCH_COMPLETION)completion;
+- (NSString*) serviceAvailabilityUrl;
+- (NSString*) urlForAlbum:(MGMAlbum*)album;
 
 @end

@@ -8,6 +8,15 @@
 
 #import "MGMDaoFactory.h"
 
+#define ALBUM_PATTERN_WIKIPEDIA @"http://en.wikipedia.org/wiki/%@"
+//#define SEARCH_PATTERN_WIKIPEDIA @"http://en.wikipedia.org/wiki/%@"
+#define ALBUM_PATTERN_YOUTUBE @"http://www.youtube.com/watch?v=%@"
+//#define SEARCH_PATTERN_YOUTUBE @"http://www.youtube.com/watch?v=%@"
+#define ALBUM_PATTERN_ITUNES @"https://itunes.apple.com/gb/album/%@?uo=4"
+//#define SEARCH_PATTERN_ITUNES @"https://itunes.apple.com/gb/album/%@?uo=4"
+#define ALBUM_PATTERN_DEEZER @"deezer://www.deezer.com/album/%@"
+//#define SEARCH_PATTERN_DEEZER @"deezer-query://www.deezer.com/search/?query=%@ %@"
+
 @interface MGMDaoFactory ()
 
 @property (strong) MGMCoreDataDao* coreDataDao;
@@ -15,6 +24,11 @@
 @property (strong) MGMSpotifyDao* spotifyDao;
 @property (strong) MGMEventsDao* eventsDao;
 @property (strong) MGMSettingsDao* settingsDao;
+@property (strong) MGMWebsiteAlbumMetadataDao* deezerDao;
+@property (strong) MGMWebsiteAlbumMetadataDao* itunesDao;
+@property (strong) MGMWebsiteAlbumMetadataDao* wikipediaDao;
+@property (strong) MGMWebsiteAlbumMetadataDao* youtubeDao;
+@property (strong) NSArray* albumMetadataDaos;
 
 @end
 
@@ -36,19 +50,38 @@
     self.spotifyDao = [[MGMSpotifyDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager];
     self.eventsDao = [[MGMEventsDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager];
     self.settingsDao = [[MGMSettingsDao alloc] init];
+    self.deezerDao = [[MGMWebsiteAlbumMetadataDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager urlPattern:ALBUM_PATTERN_DEEZER serviceType:MGMAlbumServiceTypeDeezer];
+    self.itunesDao = [[MGMWebsiteAlbumMetadataDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager urlPattern:ALBUM_PATTERN_ITUNES serviceType:MGMAlbumServiceTypeItunes];
+    self.wikipediaDao = [[MGMWebsiteAlbumMetadataDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager urlPattern:ALBUM_PATTERN_WIKIPEDIA serviceType:MGMAlbumServiceTypeWikipedia];
+    self.youtubeDao = [[MGMWebsiteAlbumMetadataDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager urlPattern:ALBUM_PATTERN_WIKIPEDIA serviceType:MGMAlbumServiceTypeYouTube];
+    self.albumMetadataDaos = @[self.lastFmDao, self.spotifyDao, self.deezerDao, self.itunesDao, self.wikipediaDao, self.youtubeDao];
 }
 
 - (MGMAlbumMetadataDao*) metadataDaoForServiceType:(MGMAlbumServiceType)serviceType
 {
-    switch (serviceType)
+    for (MGMAlbumMetadataDao* metadataDao in self.albumMetadataDaos)
     {
-        case MGMAlbumServiceTypeLastFm:
-            return self.lastFmDao;
-        case MGMAlbumServiceTypeSpotify:
-            return self.spotifyDao;
-        default:
-            return nil;
+        if (metadataDao.serviceType == serviceType)
+        {
+            return metadataDao;
+        }
     }
+    return nil;
+}
+
+- (NSUInteger) serviceTypesThatPlayAlbum:(MGMAlbum*)album
+{
+    NSUInteger metadataServiceTypes = 0;
+    for (MGMAlbumMetadataDao* metadataDao in self.albumMetadataDaos)
+    {
+        NSString* urlString = [metadataDao urlForAlbum:album];
+        if (urlString)
+        {
+            MGMAlbumServiceType serviceType = metadataDao.serviceType;
+            metadataServiceTypes |= serviceType;
+        }
+    }
+    return metadataServiceTypes;
 }
 
 @end

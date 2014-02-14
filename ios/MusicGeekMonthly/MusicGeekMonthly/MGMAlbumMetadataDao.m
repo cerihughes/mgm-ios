@@ -12,7 +12,20 @@
 
 - (void) updateAlbumInfo:(MGMAlbum*)album completion:(FETCH_COMPLETION)completion
 {
+    // OVERRIDE
     completion(nil, nil);
+}
+
+- (NSString*) serviceAvailabilityUrl
+{
+    // OVERRIDE
+    return nil;
+}
+
+- (NSString*) urlForAlbum:(MGMAlbum*)album
+{
+    // OVERRIDE
+    return nil;
 }
 
 @end

@@ -13,6 +13,8 @@
 #import "MGMFetchWeeklyChartOperation.h"
 #import "MGMLastFmConstants.h"
 
+#define ARTIST_URI @"lastfm://artist/%@/similarartists"
+
 @interface MGMLastFmDao ()
 
 @property (strong) MGMFetchAlbumImageUrlsOperation* fetchAlbumImageUrlsOperation;
@@ -47,9 +49,24 @@
     [self.fetchWeeklyChartOperation executeWithData:data completion:completion];
 }
 
+- (MGMAlbumServiceType) serviceType
+{
+    return MGMAlbumServiceTypeLastFm;
+}
+
 - (void) updateAlbumInfo:(MGMAlbum*)album completion:(FETCH_COMPLETION)completion
 {
     [self.fetchAlbumImageUrlsOperation executeWithData:album completion:completion];
+}
+
+- (NSString*) serviceAvailabilityUrl
+{
+    return ARTIST_URI;
+}
+
+- (NSString*) urlForAlbum:(MGMAlbum*)album
+{
+    return [NSString stringWithFormat:ARTIST_URI, album.artistName];
 }
 
 @end

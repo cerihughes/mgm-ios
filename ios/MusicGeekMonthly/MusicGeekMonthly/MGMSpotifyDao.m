@@ -10,6 +10,9 @@
 
 #import "MGMFetchSpotifyAlbumMetadataOperation.h"
 
+#define ALBUM_URI @"spotify:album:%@"
+#define SEARCH_URI @"spotify:search:%@ %@"
+
 @interface MGMSpotifyDao ()
 
 @property (strong) MGMFetchSpotifyAlbumMetadataOperation* fetchSpotifyAlbumMetadataOperation;
@@ -27,9 +30,32 @@
     return self;
 }
 
+- (MGMAlbumServiceType) serviceType
+{
+    return MGMAlbumServiceTypeSpotify;
+}
+
 - (void) updateAlbumInfo:(MGMAlbum*)album completion:(FETCH_COMPLETION)completion
 {
     [self.fetchSpotifyAlbumMetadataOperation executeWithData:album completion:completion];
+}
+
+- (NSString*) serviceAvailabilityUrl
+{
+    return ALBUM_URI;
+}
+
+- (NSString*) urlForAlbum:(MGMAlbum*)album
+{
+    NSString* metadata = [album metadataForServiceType:MGMAlbumServiceTypeSpotify];
+    if (metadata)
+    {
+        return [NSString stringWithFormat:ALBUM_URI, metadata];
+    }
+    else
+    {
+        return [NSString stringWithFormat:SEARCH_URI, album.artistName, album.albumName];
+    }
 }
 
 @end
