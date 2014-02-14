@@ -52,7 +52,9 @@
     self.backgroundColor = [UIColor whiteColor];
 
     self.titleLabel = [MGMView boldSubtitleLabelWithText:@""];
+    self.titleLabel.numberOfLines = 2;
     self.subtitleLabel = [MGMView italicSubtitleLabelWithText:@""];
+    self.subtitleLabel.numberOfLines = 2;
 
     [self addSubview:self.titleLabel];
     [self addSubview:self.subtitleLabel];
@@ -123,30 +125,30 @@
     [self.delegate playerSelectionComplete:(MGMAlbumServiceTypeNone)];
 }
 
-- (void) layoutSubviews
-{
-    [super layoutSubviews];
-
-    CGSize size = self.frame.size;
-    CGFloat width = size.width;
-
-    self.titleLabel.frame = CGRectMake(20, 60, width - 40, 60);
-    self.subtitleLabel.frame = CGRectMake(20, 120, width - 40, 60);
-}
-
 - (void) layoutSubviewsIphone
 {
     [super layoutSubviewsIphone];
 
     self.navigationBar.frame = CGRectMake(0, 20, 320, 44);
 
-    CGFloat remainingHeight = self.frame.size.height - (65 + 240);
-    self.groupView.frame = CGRectMake(0, 65 + 240, 320, remainingHeight);
+    CGSize size = self.frame.size;
+    CGFloat width = size.width;
+    self.titleLabel.frame = CGRectMake(20, 100, width - 40, 60);
+    self.subtitleLabel.frame = CGRectMake(20, 160, width - 40, 60);
+
+    CGFloat remainingHeight = self.frame.size.height - 220;
+    CGFloat groupY = 220 + ((remainingHeight - 200) / 2);
+    self.groupView.frame = CGRectMake(0, groupY, 320, 200);
 }
 
 - (void) layoutSubviewsIpad
 {
     [super layoutSubviewsIpad];
+
+    CGSize size = self.frame.size;
+    CGFloat width = size.width;
+    self.titleLabel.frame = CGRectMake(20, 60, width - 40, 60);
+    self.subtitleLabel.frame = CGRectMake(20, 120, width - 40, 60);
 
     self.closeButton.frame = CGRectMake(447, 20, 74, 44);
     self.groupView.frame = CGRectMake(0, 250, 540, 320);

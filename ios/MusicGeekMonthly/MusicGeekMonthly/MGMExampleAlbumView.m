@@ -78,7 +78,11 @@
     [super layoutSubviewsIphone];
 
     self.navigationBar.frame = CGRectMake(0, 20, 320, 44);
-    self.albumView.frame = CGRectMake(40, 65, 240, 240);
+    self.albumView.frame = CGRectMake(40, 90, 240, 240);
+    self.imageView.frame = CGRectMake(100, 35, 105*1.5, 235*1.5);
+
+    CGSize size = self.frame.size;
+    self.label.frame = CGRectMake(10, 320, size.width - 20, 150);
 }
 
 - (void) layoutSubviewsIpad
