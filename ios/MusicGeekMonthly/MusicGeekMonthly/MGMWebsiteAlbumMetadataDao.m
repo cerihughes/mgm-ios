@@ -11,17 +11,19 @@
 @interface MGMWebsiteAlbumMetadataDao ()
 
 @property MGMAlbumServiceType internalServiceType;
-@property (copy) NSString* urlPattern;
+@property (copy) NSString* albumUrlPattern;
+@property (copy) NSString* searchUrlPattern;
 
 @end
 
 @implementation MGMWebsiteAlbumMetadataDao
 
-- (id) initWithCoreDataDao:(MGMCoreDataDao *)coreDataDao reachabilityManager:(MGMReachabilityManager *)reachabilityManager urlPattern:(NSString *)urlPattern serviceType:(MGMAlbumServiceType)serviceType
+- (id) initWithCoreDataDao:(MGMCoreDataDao *)coreDataDao reachabilityManager:(MGMReachabilityManager *)reachabilityManager albumUrlPattern:(NSString*)albumUrlPattern searchUrlPattern:(NSString*)searchUrlPattern serviceType:(MGMAlbumServiceType)serviceType
 {
     if (self = [super initWithCoreDataDao:coreDataDao reachabilityManager:reachabilityManager])
     {
-        self.urlPattern = urlPattern;
+        self.albumUrlPattern = albumUrlPattern;
+        self.searchUrlPattern = searchUrlPattern;
         self.internalServiceType = serviceType;
     }
     return self;
@@ -39,7 +41,7 @@
 
 - (NSString*) serviceAvailabilityUrl
 {
-    return self.urlPattern;
+    return self.albumUrlPattern;
 }
 
 - (NSString*) urlForAlbum:(MGMAlbum*)album
@@ -47,12 +49,15 @@
     NSString* metadata = [album metadataForServiceType:self.internalServiceType];
     if (metadata)
     {
-        return [NSString stringWithFormat:self.urlPattern, metadata];
+        return [NSString stringWithFormat:self.albumUrlPattern, metadata];
     }
-    else
+
+    if (self.searchUrlPattern)
     {
-        return nil;
+        return [NSString stringWithFormat:self.searchUrlPattern, album.artistName, album.albumName];
     }
+
+    return nil;
 }
 
 @end

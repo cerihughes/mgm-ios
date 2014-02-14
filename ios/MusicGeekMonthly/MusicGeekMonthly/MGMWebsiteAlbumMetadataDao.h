@@ -10,6 +10,6 @@
 
 @interface MGMWebsiteAlbumMetadataDao : MGMAlbumMetadataDao
 
-- (id) initWithCoreDataDao:(MGMCoreDataDao *)coreDataDao reachabilityManager:(MGMReachabilityManager *)reachabilityManager urlPattern:(NSString*)urlPattern serviceType:(MGMAlbumServiceType)serviceType;
+- (id) initWithCoreDataDao:(MGMCoreDataDao *)coreDataDao reachabilityManager:(MGMReachabilityManager *)reachabilityManager albumUrlPattern:(NSString*)albumUrlPattern searchUrlPattern:(NSString*)searchUrlPattern serviceType:(MGMAlbumServiceType)serviceType;
 
 @end

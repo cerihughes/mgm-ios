@@ -9,13 +9,12 @@
 #import "MGMDaoFactory.h"
 
 #define ALBUM_PATTERN_WIKIPEDIA @"http://en.wikipedia.org/wiki/%@"
-//#define SEARCH_PATTERN_WIKIPEDIA @"http://en.wikipedia.org/wiki/%@"
+#define SEARCH_PATTERN_WIKIPEDIA @"http://en.wikipedia.org/wiki/index.php?search=%@ %@"
 #define ALBUM_PATTERN_YOUTUBE @"http://www.youtube.com/watch?v=%@"
-//#define SEARCH_PATTERN_YOUTUBE @"http://www.youtube.com/watch?v=%@"
+#define SEARCH_PATTERN_YOUTUBE @"http://www.youtube.com/results?search_query=%@ %@"
 #define ALBUM_PATTERN_ITUNES @"https://itunes.apple.com/gb/album/%@?uo=4"
-//#define SEARCH_PATTERN_ITUNES @"https://itunes.apple.com/gb/album/%@?uo=4"
 #define ALBUM_PATTERN_DEEZER @"deezer://www.deezer.com/album/%@"
-//#define SEARCH_PATTERN_DEEZER @"deezer-query://www.deezer.com/search/?query=%@ %@"
+#define SEARCH_PATTERN_DEEZER @"deezer-query://www.deezer.com/album/?query=%@ %@"
 
 @interface MGMDaoFactory ()
 
@@ -50,10 +49,10 @@
     self.spotifyDao = [[MGMSpotifyDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager];
     self.eventsDao = [[MGMEventsDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager];
     self.settingsDao = [[MGMSettingsDao alloc] init];
-    self.deezerDao = [[MGMWebsiteAlbumMetadataDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager urlPattern:ALBUM_PATTERN_DEEZER serviceType:MGMAlbumServiceTypeDeezer];
-    self.itunesDao = [[MGMWebsiteAlbumMetadataDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager urlPattern:ALBUM_PATTERN_ITUNES serviceType:MGMAlbumServiceTypeItunes];
-    self.wikipediaDao = [[MGMWebsiteAlbumMetadataDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager urlPattern:ALBUM_PATTERN_WIKIPEDIA serviceType:MGMAlbumServiceTypeWikipedia];
-    self.youtubeDao = [[MGMWebsiteAlbumMetadataDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager urlPattern:ALBUM_PATTERN_WIKIPEDIA serviceType:MGMAlbumServiceTypeYouTube];
+    self.deezerDao = [[MGMWebsiteAlbumMetadataDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager albumUrlPattern:ALBUM_PATTERN_DEEZER searchUrlPattern:SEARCH_PATTERN_DEEZER serviceType:MGMAlbumServiceTypeDeezer];
+    self.itunesDao = [[MGMWebsiteAlbumMetadataDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager albumUrlPattern:ALBUM_PATTERN_ITUNES searchUrlPattern:nil serviceType:MGMAlbumServiceTypeItunes];
+    self.wikipediaDao = [[MGMWebsiteAlbumMetadataDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager albumUrlPattern:ALBUM_PATTERN_WIKIPEDIA searchUrlPattern:SEARCH_PATTERN_WIKIPEDIA serviceType:MGMAlbumServiceTypeWikipedia];
+    self.youtubeDao = [[MGMWebsiteAlbumMetadataDao alloc] initWithCoreDataDao:self.coreDataDao reachabilityManager:reachabilityManager albumUrlPattern:ALBUM_PATTERN_WIKIPEDIA searchUrlPattern:SEARCH_PATTERN_YOUTUBE serviceType:MGMAlbumServiceTypeYouTube];
     self.albumMetadataDaos = @[self.lastFmDao, self.spotifyDao, self.deezerDao, self.itunesDao, self.wikipediaDao, self.youtubeDao];
 }
 
