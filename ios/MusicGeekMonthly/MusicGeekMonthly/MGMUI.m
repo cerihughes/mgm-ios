@@ -182,24 +182,13 @@ static BOOL _isIpad;
     }
     else
     {
-        NSString* metadata = [album metadataForServiceType:defaultServiceType];
-        if (metadata)
-        {
-            NSError* error = nil;
-            [self.albumPlayer playAlbum:album onService:defaultServiceType completion:^(NSError* updateError)
-             {
-                 if (error != nil)
-                 {
-                     [self showError:error];
-                 }
-             }];
-        }
-        else
-        {
-            NSString* message = [NSString stringWithFormat:@"This album cannot be opened with %@. Press the album info button for more options.", [self labelForServiceType:defaultServiceType]];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Cannot Open" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-        }
+        NSError* error = nil;
+        [self.albumPlayer playAlbum:album onService:defaultServiceType completion:^(NSError* updateError) {
+            if (error != nil)
+            {
+                [self showError:error];
+            }
+        }];
     }
 }
 

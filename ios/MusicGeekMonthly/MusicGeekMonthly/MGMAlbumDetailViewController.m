@@ -87,12 +87,7 @@
     self.core.daoFactory.settingsDao.defaultServiceType = selectedServiceType;
 
     MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:self.albumMoid];
-    [self.ui.albumPlayer playAlbum:album onService:selectedServiceType completion:^(NSError* error) {
-        if (error)
-        {
-            [self showError:error];
-        }
-    }];
+    [self.ui albumSelected:album];
     [self cancelButtonPressed:nil];
 }
 

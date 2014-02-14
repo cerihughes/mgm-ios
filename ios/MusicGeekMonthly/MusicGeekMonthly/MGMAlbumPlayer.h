@@ -10,8 +10,11 @@
 #import "MGMDaoFactory.h"
 #import "MGMAlbum.h"
 
+@class MGMUI;
+
 @interface MGMAlbumPlayer : NSObject
 
+@property (weak) MGMUI* ui;
 @property (strong) MGMDaoFactory* daoFactory;
 
 - (NSUInteger) determineCapabilities;

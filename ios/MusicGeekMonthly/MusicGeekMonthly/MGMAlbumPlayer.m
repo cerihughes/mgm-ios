@@ -8,6 +8,8 @@
 
 #import "MGMAlbumPlayer.h"
 
+#import "MGMUI.h"
+
 #define URI_PATTERN_NONE @"%@"
 #define URI_PATTERN_LASTFM @"lastfm://artist/%@/similarartists"
 #define URI_PATTERN_SPOTIFY @"spotify:album:%@"
@@ -91,6 +93,12 @@
         {
             NSLog(@"No handler for URL: %@", url);
         }
+    }
+    else
+    {
+        NSString* message = [NSString stringWithFormat:@"This album cannot be opened with %@. Press the album info button for more options.", [self.ui labelForServiceType:service]];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Cannot Open" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
     }
 }
 
