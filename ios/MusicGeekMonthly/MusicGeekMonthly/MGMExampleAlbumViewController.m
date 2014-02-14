@@ -48,6 +48,11 @@
     uri.uri = @"http://userserve-ak.last.fm/serve/300x300/30803371.png";
     [exampleAlbum.imageUris addObject:uri];
 
+    uri = [[MGMAlbumImageUriDto alloc] init];
+    uri.size = MGMAlbumImageSize128;
+    uri.uri = @"http://userserve-ak.last.fm/serve/126/30803371.png";
+    [exampleAlbum.imageUris addObject:uri];
+
     MGMAlbumMetadataDto* lastfmMetadata = [[MGMAlbumMetadataDto alloc] init];
     lastfmMetadata.serviceType = MGMAlbumServiceTypeLastFm;
     lastfmMetadata.value = mbid;
