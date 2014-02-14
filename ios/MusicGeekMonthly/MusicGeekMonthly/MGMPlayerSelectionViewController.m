@@ -60,13 +60,10 @@
 
 - (void) playerSelectionComplete:(MGMAlbumServiceType)selectedServiceType
 {
-    if (selectedServiceType != MGMAlbumServiceTypeNone)
-    {
-        self.core.daoFactory.settingsDao.defaultServiceType = selectedServiceType;
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-            [self.delegate playerSelectionChangedFrom:self.existingServiceType to:selectedServiceType];
-        }];
-    }
+    self.core.daoFactory.settingsDao.defaultServiceType = selectedServiceType;
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+        [self.delegate playerSelectionChangedFrom:self.existingServiceType to:selectedServiceType];
+    }];
 }
 
 @end

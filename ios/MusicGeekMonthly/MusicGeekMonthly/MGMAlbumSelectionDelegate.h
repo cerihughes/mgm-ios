@@ -14,6 +14,6 @@
 @protocol MGMAlbumSelectionDelegate <NSObject>
 
 - (void) albumSelected:(MGMAlbum*)album;
-- (void) detailSelected:(MGMAlbum*)album sender:(MGMViewController*)sender;
+- (void) detailSelected:(MGMAlbum*)album sender:(UIViewController*)sender;
 
 @end

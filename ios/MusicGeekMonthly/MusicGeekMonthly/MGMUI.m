@@ -176,27 +176,34 @@ static BOOL _isIpad;
 - (void) albumSelected:(MGMAlbum*)album
 {
     MGMAlbumServiceType defaultServiceType = self.core.daoFactory.settingsDao.defaultServiceType;
-    NSString* metadata = [album metadataForServiceType:defaultServiceType];
-    if (metadata)
+    if (defaultServiceType == MGMAlbumServiceTypeNone)
     {
-        NSError* error = nil;
-        [self.albumPlayer playAlbum:album onService:defaultServiceType completion:^(NSError* updateError)
-         {
-             if (error != nil)
-             {
-                 [self showError:error];
-             }
-         }];
+        [self detailSelected:album sender:self.parentViewController];
     }
     else
     {
-        NSString* message = [NSString stringWithFormat:@"This album cannot be opened with %@. Press the album info button for more options.", [self labelForServiceType:defaultServiceType]];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Cannot Open" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        NSString* metadata = [album metadataForServiceType:defaultServiceType];
+        if (metadata)
+        {
+            NSError* error = nil;
+            [self.albumPlayer playAlbum:album onService:defaultServiceType completion:^(NSError* updateError)
+             {
+                 if (error != nil)
+                 {
+                     [self showError:error];
+                 }
+             }];
+        }
+        else
+        {
+            NSString* message = [NSString stringWithFormat:@"This album cannot be opened with %@. Press the album info button for more options.", [self labelForServiceType:defaultServiceType]];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Cannot Open" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
     }
 }
 
-- (void) detailSelected:(MGMAlbum*)album sender:(MGMViewController*)sender
+- (void) detailSelected:(MGMAlbum*)album sender:(UIViewController*)sender
 {
     self.albumDetailViewController.albumMoid = album.objectID;
     [sender presentViewController:self.albumDetailViewController animated:YES completion:NULL];
