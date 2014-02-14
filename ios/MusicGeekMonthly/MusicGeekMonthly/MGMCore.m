@@ -21,4 +21,9 @@
     self.daoFactory = [[MGMDaoFactory alloc] initWithReachabilityManager:self.reachabilityManager];
 }
 
+- (MGMCoreBackgroundFetchResult) performBackgroundFetch
+{
+    return MGMCoreBackgroundFetchResultNoData;
+}
+
 @end

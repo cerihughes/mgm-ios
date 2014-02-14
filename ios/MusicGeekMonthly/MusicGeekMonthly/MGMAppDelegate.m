@@ -22,6 +22,8 @@
 {
     NSLog(@"application:didFinishLaunchingWithOptions:");
 
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+
     [TestFlight takeOff:@"6e488aaf-18dc-44b8-9421-7088b6651302"];
 
     NSURLCache* cache = [[NSURLCache alloc] initWithMemoryCapacity:16 * 1024 * 1024 diskCapacity:128 * 1024 * 1024 diskPath:nil];
@@ -75,6 +77,26 @@
 - (void)applicationSignificantTimeChange:(UIApplication *)application
 {
     NSLog(@"applicationSignificantTimeChange:");
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler
+{
+    NSLog(@"application:performFetchWithCompletionHandler:");
+    MGMCoreBackgroundFetchResult coreFetchResult = [self.ui.core performBackgroundFetch];
+    UIBackgroundFetchResult uiFetchResult = [self uiFetchResultForCoreFetchResult:coreFetchResult];
+    completionHandler(uiFetchResult);
+}
+
+- (UIBackgroundFetchResult) uiFetchResultForCoreFetchResult:(MGMCoreBackgroundFetchResult)coreFetchResult
+{
+    switch (coreFetchResult) {
+        case MGMCoreBackgroundFetchResultNoData:
+            return UIBackgroundFetchResultNoData;
+        case MGMCoreBackgroundFetchResultNewData:
+            return UIBackgroundFetchResultNewData;
+        case MGMCoreBackgroundFetchResultFailed:
+            return UIBackgroundFetchResultFailed;
+    }
 }
 
 @end
