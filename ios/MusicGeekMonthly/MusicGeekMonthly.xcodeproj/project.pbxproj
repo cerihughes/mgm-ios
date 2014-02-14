@@ -353,7 +353,7 @@
 		65EB122917C3FB18008EE886 /* MGMFetchAllEventsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFetchAllEventsOperation.m; sourceTree = "<group>"; };
 		65EB122A17C3FB18008EE886 /* MGMFetchAllTimePeriodsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFetchAllTimePeriodsOperation.h; sourceTree = "<group>"; };
 		65EB122B17C3FB18008EE886 /* MGMFetchAllTimePeriodsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFetchAllTimePeriodsOperation.m; sourceTree = "<group>"; };
-		65EB123217C3FB66008EE886 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = MusicGeekMonthly/Libraries/TestFlightSDK2.0.0/libTestFlight.a; sourceTree = "<group>"; };
+		65EB123217C3FB66008EE886 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = MusicGeekMonthly/Libraries/TestFlightSDK2.2.1/libTestFlight.a; sourceTree = "<group>"; };
 		65EB123517C3FC0F008EE886 /* MGMFetchWeeklyChartOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFetchWeeklyChartOperation.h; sourceTree = "<group>"; };
 		65EB123617C3FC0F008EE886 /* MGMFetchWeeklyChartOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFetchWeeklyChartOperation.m; sourceTree = "<group>"; };
 		65EB123917C3FCFB008EE886 /* MGMLastFmConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMLastFmConstants.h; sourceTree = "<group>"; };
@@ -1320,11 +1320,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusicGeekMonthly/MusicGeekMonthly-Prefix.pch";
-				HEADER_SEARCH_PATHS = MusicGeekMonthly/Libraries/TestFlightSDK2.0.0;
+				HEADER_SEARCH_PATHS = MusicGeekMonthly/Libraries/TestFlightSDK2.2.1;
 				INFOPLIST_FILE = "MusicGeekMonthlyTests/MusicGeekMonthlyTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.0.0\"",
+					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.2.1\"",
 				);
 				PRODUCT_NAME = MusicGeekMonthlyTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1342,11 +1342,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusicGeekMonthly/MusicGeekMonthly-Prefix.pch";
-				HEADER_SEARCH_PATHS = MusicGeekMonthly/Libraries/TestFlightSDK2.0.0;
+				HEADER_SEARCH_PATHS = MusicGeekMonthly/Libraries/TestFlightSDK2.2.1;
 				INFOPLIST_FILE = "MusicGeekMonthlyTests/MusicGeekMonthlyTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.0.0\"",
+					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.2.1\"",
 				);
 				PRODUCT_NAME = MusicGeekMonthlyTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
