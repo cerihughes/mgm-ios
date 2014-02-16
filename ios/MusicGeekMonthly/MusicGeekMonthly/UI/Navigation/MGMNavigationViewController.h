@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MGMUI.h"
+@class MGMUI;
 
 @interface MGMNavigationViewController : UITabBarController
 
 - (id) init __unavailable;
 - (id) initWithUI:(MGMUI*)ui;
+
+- (void) startRending;
 
 @end

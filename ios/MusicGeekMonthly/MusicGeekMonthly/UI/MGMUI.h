@@ -3,9 +3,10 @@
 
 #import "MGMAlbumPlayer.h"
 #import "MGMAlbumSelectionDelegate.h"
+#import "MGMAlbumViewUtilities.h"
 #import "MGMCore.h"
 #import "MGMImageHelper.h"
-#import "MGMAlbumViewUtilities.h"
+#import "MGMNavigationViewController.h"
 
 #define TO_ALBUM_DETAIL @"TO_ALBUM_DETAIL"
 
@@ -13,12 +14,16 @@
 
 @property (readonly) BOOL ipad;
 @property (readonly) MGMCore* core;
-@property (readonly) UIViewController* parentViewController;
+@property (readonly) MGMNavigationViewController* parentViewController;
 @property (readonly) MGMAlbumPlayer* albumPlayer;
 @property (readonly) MGMImageHelper* imageHelper;
 @property (readonly) MGMAlbumViewUtilities* viewUtilities;
 
-- (void) start;
+- (void) uiWillResignActive;
+- (void) uiDidEnterBackground;
+- (void) uiWillEnterForeground;
+- (void) uiDidBecomeActive;
+
 - (NSString*) labelForServiceType:(MGMAlbumServiceType)serviceType;
 - (UIImage*) imageForServiceType:(MGMAlbumServiceType)serviceType;
 - (void) showError:(NSError*)error;

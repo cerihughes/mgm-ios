@@ -3,7 +3,6 @@
 
 #import "MGMAlbumDetailViewController.h"
 #import "MGMExampleAlbumViewController.h"
-#import "MGMNavigationViewController.h"
 #import "MGMPlayerSelectionViewController.h"
 #import "UIViewController+MGMAdditions.h"
 
@@ -64,7 +63,22 @@ static BOOL _isIpad;
     return _isIpad;
 }
 
-- (void) start
+- (void) uiWillResignActive
+{
+
+}
+
+- (void) uiDidEnterBackground
+{
+
+}
+
+- (void) uiWillEnterForeground
+{
+
+}
+
+- (void) uiDidBecomeActive
 {
     // Determine if a default player has been set...
     MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
@@ -105,6 +119,8 @@ static BOOL _isIpad;
         self.playerSelectionViewController.mode = playerSelectionMode;
         [self.parentViewController presentViewController:self.playerSelectionViewController animated:YES completion:NULL];
     }
+
+    [self.parentViewController startRending];
 }
 
 - (NSString*) labelForServiceType:(MGMAlbumServiceType)serviceType

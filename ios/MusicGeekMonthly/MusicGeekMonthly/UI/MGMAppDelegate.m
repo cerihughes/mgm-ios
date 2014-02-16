@@ -46,22 +46,25 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     NSLog(@"applicationWillResignActive:");
+    [self.ui uiWillResignActive];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     NSLog(@"applicationDidEnterBackground:");
+    [self.ui uiDidEnterBackground];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     NSLog(@"applicationWillEnterForeground:");
+    [self.ui uiWillEnterForeground];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     NSLog(@"applicationDidBecomeActive:");
-    [self.ui performSelector:@selector(start) withObject:nil afterDelay:2];
+    [self.ui uiDidBecomeActive];
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application

@@ -27,6 +27,7 @@
 @property (weak) MGMUI* ui;
 @property NSUInteger backgroundAlbumCount;
 @property (strong) MGMBackgroundAlbumArtFetcher* artFetcher;
+@property BOOL renderingImages;
 
 @end
 
@@ -60,10 +61,12 @@
     }
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void) startRending
 {
-    [super viewDidAppear:animated];
-    [self loadImages];
+    if (self.renderingImages == NO)
+    {
+        [self loadImages];
+    }
 }
 
 - (NSUInteger) setBackgroundAlbumsInRow:(NSUInteger)albumsInRow
@@ -179,14 +182,22 @@
 
 - (void) renderImages:(BOOL)initialRender
 {
+    self.renderingImages = YES;
     NSArray* shuffledIndicies = [self shuffledIndicies:self.backgroundAlbumCount];
-    NSTimeInterval sleepTime = initialRender ? 0.05 : 1.0;
+    NSTimeInterval sleepTime = initialRender ? 0.05 : 2.0;
     for (NSUInteger i = 0; i < self.backgroundAlbumCount; i++)
     {
         NSNumber* index = [shuffledIndicies objectAtIndex:i];
         [self.artFetcher generateImageAtIndex:[index integerValue]];
         [NSThread sleepForTimeInterval:sleepTime];
     }
+
+    if (initialRender)
+    {
+        [self renderImages:NO];
+    }
+
+    self.renderingImages = NO;
 }
 
 - (NSArray*) shuffledIndicies:(NSUInteger)size
@@ -211,15 +222,6 @@
     }
 
     [self renderBackgroundAlbumImage:image atIndex:index animation:YES];
-
-    if (index == self.backgroundAlbumCount - 1)
-    {
-        double delayInSeconds = self.backgroundAlbumCount * 2;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self loadImages];
-        });
-    }
 }
 
 - (void) artFetcher:(MGMBackgroundAlbumArtFetcher*)fetcher errorOccured:(NSError*)error
