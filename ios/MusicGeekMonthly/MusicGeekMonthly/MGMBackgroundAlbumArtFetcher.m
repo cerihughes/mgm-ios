@@ -55,7 +55,7 @@
     {
         int randomIndex = arc4random() % (self.chartEntryMoids.count);
         NSManagedObjectID* moid = [self.chartEntryMoids objectAtIndex:randomIndex];
-        MGMChartEntry* randomEntry = [self.daoFactory.coreDataDao threadVersion:moid];
+        MGMChartEntry* randomEntry = [self.coreDataAccess threadVersion:moid];
         MGMAlbum* randomAlbum = randomEntry.album;
         [self fetchBestAlbumImage:randomAlbum completion:^(UIImage* image, NSError* error)
         {
@@ -89,35 +89,22 @@
 
 - (void) fetchBestAlbumImage:(MGMAlbum*)album completion:(FETCH_COMPLETION)completion
 {
-    [self updateAlbum:album completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
+    NSError* refreshError = nil;
+    [self.albumRenderService refreshAlbumImages:album error:&refreshError];
+    if (refreshError == nil)
     {
-        if (updateError == nil)
+        NSArray* urls = [album bestAlbumImageUrlsWithPreferredSize:self.preferredSize];
+        NSError* imageError = nil;
+        UIImage* image = nil;
+        if (urls.count > 0)
         {
-            NSArray* urls = [updatedAlbum bestAlbumImageUrlsWithPreferredSize:self.preferredSize];
-            NSError* imageError = nil;
-            UIImage* image = nil;
-            if (urls.count > 0)
-            {
-                image = [MGMImageHelper imageFromUrls:urls error:&imageError];
-            }
-            completion(image, imageError);
+            image = [MGMImageHelper imageFromUrls:urls error:&imageError];
         }
-        else
-        {
-            completion(nil, updateError);
-        }
-    }];
-}
-
-- (void) updateAlbum:(MGMAlbum*)album completion:(FETCH_COMPLETION)completion
-{
-    if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
-    {
-        [self.daoFactory.lastFmDao updateAlbumInfo:album completion:completion];
+        completion(image, imageError);
     }
     else
     {
-        completion(album, nil);
+        completion(nil, refreshError);
     }
 }
 

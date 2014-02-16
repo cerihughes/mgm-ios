@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMDao.h"
+#import <Foundation/Foundation.h>
 
 #import "MGMAlbumServiceType.h"
 
-@interface MGMSettingsDao : MGMDao
+@interface MGMSettingsDao : NSObject
 
 @property NSUInteger lastCapabilities;
 @property MGMAlbumServiceType defaultServiceType;

@@ -8,10 +8,12 @@
 
 #import "MGMCoreDataTableViewDataSource.h"
 
-#import "MGMDaoFactory.h"
+#import "MGMCoreDataAccess.h"
+#import "MGMAlbumRenderService.h"
 
 @interface MGMEventTableViewDataSource : MGMCoreDataTableViewDataSource
 
-@property (strong) MGMDaoFactory* daoFactory;
+@property (strong) MGMCoreDataAccess* coreDataAccess;
+@property (strong) MGMAlbumRenderService* albumRenderService;
 
 @end

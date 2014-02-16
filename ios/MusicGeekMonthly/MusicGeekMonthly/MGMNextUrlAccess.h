@@ -13,5 +13,6 @@
 
 @property (nonatomic, retain) NSString* identifier;
 @property (nonatomic, retain) NSDate* date;
+@property (nonatomic, retain) NSString* checksum;
 
 @end

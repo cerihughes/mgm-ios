@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5059" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="MGMAlbum" representedClassName="MGMAlbum" syncable="YES">
         <attribute name="albumMbid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="albumName" optional="YES" attributeType="String" syncable="YES"/>
@@ -36,6 +36,7 @@
         <relationship name="newlyReleasedAlbum" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMAlbum" inverseName="newlyReleasedAlbumEvent" inverseEntity="MGMAlbum" syncable="YES"/>
     </entity>
     <entity name="MGMNextUrlAccess" representedClassName="MGMNextUrlAccess" syncable="YES">
+        <attribute name="checksum" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -54,7 +55,7 @@
         <element name="MGMAlbumMetadata" positionX="160" positionY="192" width="128" height="90"/>
         <element name="MGMChartEntry" positionX="160" positionY="192" width="128" height="105"/>
         <element name="MGMEvent" positionX="358" positionY="9" width="128" height="118"/>
-        <element name="MGMNextUrlAccess" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="MGMNextUrlAccess" positionX="160" positionY="192" width="128" height="90"/>
         <element name="MGMTimePeriod" positionX="-216" positionY="290" width="128" height="75"/>
         <element name="MGMWeeklyChart" positionX="160" positionY="192" width="128" height="90"/>
     </elements>

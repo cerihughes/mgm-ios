@@ -5,6 +5,7 @@
 #import "MGMCoreDataTableViewDataSource.h"
 #import "MGMGridManager.h"
 #import "MGMImageHelper.h"
+#import "MGMTimePeriod.h"
 #import "MGMWeeklyChartModalView.h"
 #import "MGMWeeklyChartView.h"
 
@@ -36,7 +37,7 @@
 {
     MGMWeeklyChartModalView* modalView = [[MGMWeeklyChartModalView alloc] initWithFrame:[self fullscreenRect]];
 
-    NSFetchedResultsController* fetchedResultsController = [self.core.daoFactory.coreDataDao createTimePeriodsFetchedResultsController];
+    NSFetchedResultsController* fetchedResultsController = [self.core.coreDataAccess createTimePeriodsFetchedResultsController];
     self.dataSource = [[MGMCoreDataTableViewDataSource alloc] initWithCellId:CELL_ID];
     self.dataSource.fetchedResultsController = fetchedResultsController;
 
@@ -100,56 +101,39 @@
     });
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMWeeklyChart* weeklyChart, NSError* fetchError)
+        MGMDaoData* data = [self.core.dao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate];
+        NSError* fetchError = data.error;
+        MGMWeeklyChart* weeklyChart = data.data;
+        if (fetchError && weeklyChart)
         {
-            if (fetchError && weeklyChart)
-            {
-                [self logError:fetchError];
-            }
+            [self logError:fetchError];
+        }
 
-            if (weeklyChart)
-            {
-                self.weeklyChartMoid = weeklyChart.objectID;
-                [self reloadData];
-            }
-            else
-            {
-                [self showError:fetchError];
-            }
-        }];
+        if (weeklyChart)
+        {
+            self.weeklyChartMoid = weeklyChart.objectID;
+            [self reloadData];
+        }
+        else
+        {
+            [self showError:fetchError];
+        }
     });
 }
 
 - (void) reloadData
 {
-    MGMWeeklyChart* weeklyChart = [self.core.daoFactory.coreDataDao threadVersion:self.weeklyChartMoid];
+    MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess threadVersion:self.weeklyChartMoid];
     for (MGMChartEntry* entry in weeklyChart.chartEntries)
     {
         MGMAlbum* album = entry.album;
-        if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
+        NSError* refreshError = nil;
+        [self.core.albumRenderService refreshAlbumImages:album error:&refreshError];
+        if (refreshError)
         {
-            [self.core.daoFactory.lastFmDao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* fetchError)
-            {
-                if (fetchError && updatedAlbum)
-                {
-                    [self logError:fetchError];
-                }
-
-                if (updatedAlbum)
-                {
-                    entry.album = updatedAlbum;
-                    [self renderChartEntry:entry];
-                }
-                else
-                {
-                    [self showError:fetchError];
-                }
-            }];
+            [self logError:refreshError];
         }
-        else
-        {
-            [self renderChartEntry:entry];
-        }
+        [self renderChartEntry:entry];
     }
 }
 
@@ -218,14 +202,14 @@
 
 - (void) albumPressedWithRank:(NSUInteger)rank
 {
-    MGMWeeklyChart* weeklyChart = [self.core.daoFactory.coreDataDao threadVersion:self.weeklyChartMoid];
+    MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess threadVersion:self.weeklyChartMoid];
     MGMChartEntry* entry = [weeklyChart.chartEntries objectAtIndex:rank - 1];
     [self.albumSelectionDelegate albumSelected:entry.album];
 }
 
 - (void) detailPressedWithRank:(NSUInteger)rank
 {
-    MGMWeeklyChart* weeklyChart = [self.core.daoFactory.coreDataDao threadVersion:self.weeklyChartMoid];
+    MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess threadVersion:self.weeklyChartMoid];
     MGMChartEntry* entry = [weeklyChart.chartEntries objectAtIndex:rank - 1];
     [self.albumSelectionDelegate detailSelected:entry.album sender:self];
 }

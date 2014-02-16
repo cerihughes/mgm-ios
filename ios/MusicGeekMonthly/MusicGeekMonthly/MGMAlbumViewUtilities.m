@@ -72,7 +72,7 @@
     return [array copy];
 }
 
-+ (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName daoFactory:(MGMDaoFactory*)daoFactory error:(NSError**)error
++ (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName renderService:(MGMAlbumRenderService*)renderService error:(NSError**)error
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         albumView.activityInProgress = YES;
@@ -81,24 +81,8 @@
         albumView.score = [album.score floatValue];
     });
 
-    if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
-    {
-        [daoFactory.lastFmDao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
-        {
-            if (updateError)
-            {
-                *error = updateError;
-            }
-            else
-            {
-                [MGMAlbumViewUtilities displayAlbumImage:updatedAlbum inAlbumView:albumView defaultImageName:defaultName error:error];
-            }
-        }];
-    }
-    else
-    {
-        [MGMAlbumViewUtilities displayAlbumImage:album inAlbumView:albumView defaultImageName:defaultName error:error];
-    }
+    [renderService refreshAlbumImages:album error:error];
+    [MGMAlbumViewUtilities displayAlbumImage:album inAlbumView:albumView defaultImageName:defaultName error:error];
 }
 
 + (void) displayAlbumImage:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error

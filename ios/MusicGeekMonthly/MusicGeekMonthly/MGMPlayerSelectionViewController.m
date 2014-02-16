@@ -39,7 +39,7 @@
         serviceType = serviceType << 1;
     }
 
-    MGMAlbumServiceType defaultServiceType = self.core.daoFactory.settingsDao.defaultServiceType;
+    MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
     view.selectedServiceType = defaultServiceType;
 }
 
@@ -60,7 +60,7 @@
 
 - (void) playerSelectionComplete:(MGMAlbumServiceType)selectedServiceType
 {
-    self.core.daoFactory.settingsDao.defaultServiceType = selectedServiceType;
+    self.core.settingsDao.defaultServiceType = selectedServiceType;
     [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
         [self.delegate playerSelectionChangedFrom:self.existingServiceType to:selectedServiceType];
     }];

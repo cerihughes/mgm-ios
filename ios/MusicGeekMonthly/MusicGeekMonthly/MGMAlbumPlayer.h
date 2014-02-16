@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MGMDaoFactory.h"
+#import "MGMAlbumServiceManager.h"
 #import "MGMAlbum.h"
 
 @class MGMUI;
@@ -15,10 +15,10 @@
 @interface MGMAlbumPlayer : NSObject
 
 @property (weak) MGMUI* ui;
-@property (strong) MGMDaoFactory* daoFactory;
+@property (strong) MGMAlbumServiceManager* serviceManager;
 
 - (NSUInteger) determineCapabilities;
 
-- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service completion:(VOID_COMPLETION)completion;
+- (BOOL) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service error:(NSError**)error;
 
 @end

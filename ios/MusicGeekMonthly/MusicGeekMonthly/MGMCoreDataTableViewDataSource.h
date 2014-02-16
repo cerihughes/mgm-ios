@@ -14,6 +14,7 @@
 @property (strong) NSFetchedResultsController* fetchedResultsController;
 @property (readonly) NSString* cellId;
 
+- (id) init __unavailable;
 - (id) initWithCellId:(NSString*)cellId;
 
 @end

@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MGMDaoFactory.h"
-#import "MGMWeeklyChart.h"
+#import "MGMAlbumImageSize.h"
+#import "MGMAlbumRenderService.h"
+#import "MGMCoreDataAccess.h"
 
 @class MGMBackgroundAlbumArtFetcher;
 
@@ -23,9 +24,11 @@
 @interface MGMBackgroundAlbumArtFetcher : NSObject
 
 @property (weak) id<MGMBackgroundAlbumArtFetcherDelegate> delegate;
-@property (strong) MGMDaoFactory* daoFactory;
+@property (strong) MGMCoreDataAccess* coreDataAccess;
+@property (strong) MGMAlbumRenderService* albumRenderService;
 @property MGMAlbumImageSize preferredSize;
 
+- (id) init __unavailable;
 - (id) initWithChartEntryMoids:(NSArray*)chartEntryMoids;
 - (void) generateImageAtIndex:(NSUInteger)index;
 

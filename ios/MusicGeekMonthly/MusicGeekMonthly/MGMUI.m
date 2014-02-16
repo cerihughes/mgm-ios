@@ -31,7 +31,7 @@ static BOOL _isIpad;
         [self setupCore];
         [self setupControllers];
         self.albumPlayer = [[MGMAlbumPlayer alloc] init];
-        self.albumPlayer.daoFactory = self.core.daoFactory;
+        self.albumPlayer.serviceManager = self.core.serviceManager;
         self.albumPlayer.ui = self;
     }
     return self;
@@ -73,12 +73,12 @@ static BOOL _isIpad;
 - (void) start
 {
     // Determine if a default player has been set...
-    MGMAlbumServiceType defaultServiceType = self.core.daoFactory.settingsDao.defaultServiceType;
+    MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
 
     // Determine current capabilities...
-    NSUInteger lastCapabilities = self.core.daoFactory.settingsDao.lastCapabilities;
+    NSUInteger lastCapabilities = self.core.settingsDao.lastCapabilities;
     NSUInteger newCapabilities = [self.albumPlayer determineCapabilities];
-    self.core.daoFactory.settingsDao.lastCapabilities = newCapabilities;
+    self.core.settingsDao.lastCapabilities = newCapabilities;
 
     MGMPlayerSelectionMode playerSelectionMode = MGMPlayerSelectionModeNone;
 
@@ -176,7 +176,7 @@ static BOOL _isIpad;
 
 - (void) albumSelected:(MGMAlbum*)album
 {
-    MGMAlbumServiceType defaultServiceType = self.core.daoFactory.settingsDao.defaultServiceType;
+    MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
     if (defaultServiceType == MGMAlbumServiceTypeNone)
     {
         [self detailSelected:album sender:self.parentViewController];
@@ -184,12 +184,12 @@ static BOOL _isIpad;
     else
     {
         NSError* error = nil;
-        [self.albumPlayer playAlbum:album onService:defaultServiceType completion:^(NSError* updateError) {
-            if (error != nil)
-            {
-                [self showError:error];
-            }
-        }];
+        // TODO: Make this asynchronous?
+        [self.albumPlayer playAlbum:album onService:defaultServiceType error:&error];
+        if (error != nil)
+        {
+            [self showError:error];
+        }
     }
 }
 

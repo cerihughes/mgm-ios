@@ -35,30 +35,32 @@
     [super viewDidAppear:animated];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^ {
-        [self.core.daoFactory.eventsDao fetchAllEvents:^(NSArray* fetchedEvents, NSError* fetchError) {
-            if (fetchError && fetchedEvents.count > 0)
-            {
-                [self logError:fetchError];
-            }
+        MGMDaoData* data = [self.core.dao fetchAllEvents];
+        NSError* fetchError = data.error;
+        NSArray* fetchedEvents = data.data;
 
-            if (fetchedEvents.count > 0) {
-                MGMEvent* event = [fetchedEvents objectAtIndex:0];
-                self.eventMoid = event.objectID;
-                dispatch_async(dispatch_get_main_queue(), ^ {
-                    [self displayEventWithMoid:self.eventMoid];
-                });
-            }
-            else
-            {
-                [self showError:fetchError];
-            }
-        }];
+        if (fetchError && fetchedEvents.count > 0)
+        {
+            [self logError:fetchError];
+        }
+
+        if (fetchedEvents.count > 0) {
+            MGMEvent* event = [fetchedEvents objectAtIndex:0];
+            self.eventMoid = event.objectID;
+            dispatch_async(dispatch_get_main_queue(), ^ {
+                [self displayEventWithMoid:self.eventMoid];
+            });
+        }
+        else
+        {
+            [self showError:fetchError];
+        }
     });
 }
 
 - (void) displayEventWithMoid:(NSManagedObjectID*)eventMoid
 {
-    MGMEvent* event = [self.core.daoFactory.coreDataDao threadVersion:eventMoid];
+    MGMEvent* event = [self.core.coreDataAccess threadVersion:eventMoid];
     [self displayEvent:event];
 }
 

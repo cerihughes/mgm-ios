@@ -15,6 +15,7 @@
 #import "MGMHomeViewController.h"
 #import "MGMPulsatingAlbumsView.h"
 #import "MGMTabbedViewController.h"
+#import "MGMTimePeriod.h"
 #import "MGMWeeklyChartViewController.h"
 #import "NSMutableArray+Shuffling.h"
 #import "UIViewController+MGMAdditions.h"
@@ -117,43 +118,47 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^ {
         if (self.artFetcher == nil)
         {
-            // Search in a background thread...
-            [self.core.daoFactory.lastFmDao fetchAllTimePeriods:^(NSArray* fetchedTimePeriods, NSError* timePeriodFetchError) {
-                if (timePeriodFetchError && fetchedTimePeriods)
+            MGMDaoData* data = [self.core.dao fetchAllTimePeriods];
+            NSArray* fetchedTimePeriods = data.data;
+            NSError* timePeriodFetchError = data.error;
+
+            if (timePeriodFetchError && fetchedTimePeriods)
+            {
+                [self.ui logError:timePeriodFetchError];
+            }
+
+            if (fetchedTimePeriods.count > 0)
+            {
+                MGMTimePeriod* fetchedTimePeriod = [fetchedTimePeriods objectAtIndex:0];
+                MGMDaoData* data = [self.core.dao fetchWeeklyChartForStartDate:fetchedTimePeriod.startDate endDate:fetchedTimePeriod.endDate];
+                MGMWeeklyChart* fetchedWeeklyChart = data.data;
+                NSError* weeklyChartFetchError = data.error;
+
+                if (weeklyChartFetchError && fetchedWeeklyChart)
                 {
-                    [self.ui logError:timePeriodFetchError];
+                    [self.ui logError:weeklyChartFetchError];
                 }
 
-                if (fetchedTimePeriods.count > 0)
+                if (fetchedWeeklyChart)
                 {
-                    MGMTimePeriod* fetchedTimePeriod = [fetchedTimePeriods objectAtIndex:0];
-                    [self.core.daoFactory.lastFmDao fetchWeeklyChartForStartDate:fetchedTimePeriod.startDate endDate:fetchedTimePeriod.endDate completion:^(MGMWeeklyChart* fetchedWeeklyChart, NSError* weeklyChartFetchError) {
-                        if (weeklyChartFetchError && fetchedWeeklyChart)
-                        {
-                            [self.ui logError:weeklyChartFetchError];
-                        }
-
-                        if (fetchedWeeklyChart)
-                        {
-                            self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithChartEntryMoids:[self chartEntryMoidsForWeeklyChart:fetchedWeeklyChart]];
-                            self.artFetcher.daoFactory = self.core.daoFactory;
-                            self.artFetcher.delegate = self;
-                            CGSize size = [self.albumsView albumSize];
-                            MGMAlbumImageSize preferredSize = [MGMAlbumViewUtilities preferredImageSizeForViewSize:size];
-                            self.artFetcher.preferredSize = preferredSize;
-                            [self renderImages:YES];
-                        }
-                        else
-                        {
-                            [self.ui showError:weeklyChartFetchError];
-                        }
-                    }];
+                    self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithChartEntryMoids:[self chartEntryMoidsForWeeklyChart:fetchedWeeklyChart]];
+                    self.artFetcher.coreDataAccess = self.core.coreDataAccess;
+                    self.artFetcher.albumRenderService = self.core.albumRenderService;
+                    self.artFetcher.delegate = self;
+                    CGSize size = [self.albumsView albumSize];
+                    MGMAlbumImageSize preferredSize = [MGMAlbumViewUtilities preferredImageSizeForViewSize:size];
+                    self.artFetcher.preferredSize = preferredSize;
+                    [self renderImages:YES];
                 }
                 else
                 {
-                    [self.ui showError:timePeriodFetchError];
+                    [self.ui showError:weeklyChartFetchError];
                 }
-            }];
+            }
+            else
+            {
+                [self.ui showError:timePeriodFetchError];
+            }
         }
         else
         {

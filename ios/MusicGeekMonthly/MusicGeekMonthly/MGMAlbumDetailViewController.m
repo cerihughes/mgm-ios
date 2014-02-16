@@ -45,9 +45,9 @@
 
     MGMAlbumDetailView* detailView = (MGMAlbumDetailView*)self.view;
 
-    MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:self.albumMoid];
+    MGMAlbum* album = [self.core.coreDataAccess threadVersion:self.albumMoid];
     NSError* error = nil;
-    [MGMAlbumViewUtilities displayAlbum:album inAlbumView:detailView.albumView defaultImageName:@"album2.png" daoFactory:self.core.daoFactory error:&error];
+    [MGMAlbumViewUtilities displayAlbum:album inAlbumView:detailView.albumView defaultImageName:@"album2.png" renderService:self.core.albumRenderService error:&error];
     if (error)
     {
         [self logError:error];
@@ -55,7 +55,7 @@
 
     [detailView clearServiceTypes];
 
-    NSUInteger metadataServiceTypes = [self.core.daoFactory serviceTypesThatPlayAlbum:album];
+    NSUInteger metadataServiceTypes = [self.core.serviceManager serviceTypesThatPlayAlbum:album];
     NSUInteger deviceCapabilities = [self.ui.albumPlayer determineCapabilities];
     MGMAlbumServiceType serviceType = MGMAlbumServiceTypeLastFm;
     while (serviceType <= MGMAlbumServiceTypeDeezer)
@@ -66,7 +66,7 @@
         serviceType = serviceType << 1;
     }
 
-    MGMAlbumServiceType defaultServiceType = self.core.daoFactory.settingsDao.defaultServiceType;
+    MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
     detailView.selectedServiceType = defaultServiceType;
 }
 
@@ -75,9 +75,9 @@
 
 - (void) playerSelectionComplete:(MGMAlbumServiceType)selectedServiceType
 {
-    self.core.daoFactory.settingsDao.defaultServiceType = selectedServiceType;
+    self.core.settingsDao.defaultServiceType = selectedServiceType;
 
-    MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:self.albumMoid];
+    MGMAlbum* album = [self.core.coreDataAccess threadVersion:self.albumMoid];
     [self.ui albumSelected:album];
     [self cancelButtonPressed:nil];
 }

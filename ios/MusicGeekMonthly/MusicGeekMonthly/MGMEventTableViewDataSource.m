@@ -47,56 +47,39 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        MGMAlbum* album = [self.daoFactory.coreDataDao threadVersion:albumMoid];
-        if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
+        MGMAlbum* album = [self.coreDataAccess threadVersion:albumMoid];
+        NSError* refreshError = nil;
+        [self.albumRenderService refreshAlbumImages:album error:&refreshError];
+        if (refreshError == nil)
         {
-            [self.daoFactory.lastFmDao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
+            NSArray* albumArtUrls = [album bestTableImageUrls];
+            if (albumArtUrls.count > 0)
             {
-                if (updateError == nil)
-                {
-                    [self addAlbum:albumMoid toImageView:imageView withActivityView:activityIndicatorView inCell:cell];
-                }
-            }];
-        }
-        else
-        {
-            [self addAlbum:albumMoid toImageView:imageView withActivityView:activityIndicatorView inCell:cell];
+                [MGMImageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [activityIndicatorView stopAnimating];
+                        if (error == nil)
+                        {
+                            imageView.image = image;
+                        }
+                        else
+                        {
+                            imageView.image = [UIImage imageNamed:@"album1.png"];
+                        }
+                        [cell setNeedsDisplay];
+                    });
+                }];
+            }
+            else
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [activityIndicatorView stopAnimating];
+                    imageView.image = [UIImage imageNamed:@"album1.png"];
+                    [cell setNeedsDisplay];
+                });
+            }
         }
     });
-}
-
-- (void) addAlbum:(NSManagedObjectID*)albumMoid toImageView:(UIImageView*)imageView withActivityView:(UIActivityIndicatorView*)activityIndicatorView inCell:(MGMEventTableCell*)cell
-{
-    MGMAlbum* album = [self.daoFactory.coreDataDao threadVersion:albumMoid];
-    NSArray* albumArtUrls = [album bestTableImageUrls];
-    if (albumArtUrls.count > 0)
-    {
-        [MGMImageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^
-            {
-                [activityIndicatorView stopAnimating];
-                if (error == nil)
-                {
-                    imageView.image = image;
-                }
-                else
-                {
-                    imageView.image = [UIImage imageNamed:@"album1.png"];
-                }
-                [cell setNeedsDisplay];
-            });
-        }];
-    }
-    else
-    {
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
-            [activityIndicatorView stopAnimating];
-            imageView.image = [UIImage imageNamed:@"album1.png"];
-            [cell setNeedsDisplay];
-        });
-    }
 }
 
 @end

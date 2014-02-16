@@ -28,8 +28,7 @@
 
 - (BOOL) hasCapability:(MGMAlbumServiceType)serviceType
 {
-    MGMAlbumMetadataDao* dao = [self.daoFactory metadataDaoForServiceType:serviceType];
-    NSString* urlString = [dao serviceAvailabilityUrl];
+    NSString* urlString = [self.serviceManager serviceAvailabilityUrlForServiceType:serviceType];
     NSString* encoded = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL* url = [NSURL URLWithString:encoded];
     return [[UIApplication sharedApplication] canOpenURL:url];
@@ -43,34 +42,10 @@
     }
 }
 
-- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service completion:(VOID_COMPLETION)completion
+- (BOOL) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)serviceType error:(NSError**)error;
 {
-    MGMAlbumMetadataDao* dao = [self.daoFactory metadataDaoForServiceType:service];
-    if (dao && [album searchedServiceType:service] == NO)
-    {
-        NSLog(@"Updating album metadata: %@ - %@", album.artistName, album.albumName);
-        [dao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* updateError)
-        {
-            if (updateError && !updatedAlbum)
-            {
-                completion(updateError);
-            }
-            else
-            {
-                [self playFetchedAlbum:updatedAlbum dao:dao];
-                completion(nil);
-            }
-        }];
-    }
-    else
-    {
-        [self playFetchedAlbum:album dao:dao];
-        completion(nil);
-    }
-}
-- (void) playFetchedAlbum:(MGMAlbum*)album dao:(MGMAlbumMetadataDao*)dao
-{
-    NSString* urlString = [dao urlForAlbum:album];
+    [self.serviceManager refreshAlbumMetadata:album forServiceType:serviceType error:error];
+    NSString* urlString = [self.serviceManager urlForAlbum:album forServiceType:serviceType];
     if (urlString)
     {
         NSString* encoded = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -83,18 +58,18 @@
         else
         {
             NSLog(@"No handler for URL: %@", url);
-            [self cantOpenUrlForDao:dao];
+            [self cantOpenUrlForServiceType:serviceType];
         }
     }
     else
     {
-        [self cantOpenUrlForDao:dao];
+        [self cantOpenUrlForServiceType:serviceType];
     }
+    return MGM_NO_ERROR(&error);
 }
 
-- (void) cantOpenUrlForDao:(MGMAlbumMetadataDao*)dao
+- (void) cantOpenUrlForServiceType:(MGMAlbumServiceType)serviceType
 {
-    MGMAlbumServiceType serviceType = dao.serviceType;
     NSString* message = [NSString stringWithFormat:@"This album cannot be opened with %@. Press the album info button for more options.", [self.ui labelForServiceType:serviceType]];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Cannot Open" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];

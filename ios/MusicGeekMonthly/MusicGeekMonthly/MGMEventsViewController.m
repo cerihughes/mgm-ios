@@ -31,10 +31,11 @@
 {
     MGMEventsModalView* modalView = [[MGMEventsModalView alloc] initWithFrame:[self fullscreenRect]];
     
-    NSFetchedResultsController* fetchedResultsController = [self.core.daoFactory.coreDataDao createEventsFetchedResultsController];
+    NSFetchedResultsController* fetchedResultsController = [self.core.coreDataAccess createEventsFetchedResultsController];
     self.dataSource = [[MGMEventTableViewDataSource alloc] initWithCellId:CELL_ID];
     self.dataSource.fetchedResultsController = fetchedResultsController;
-    self.dataSource.daoFactory = self.core.daoFactory;
+    self.dataSource.coreDataAccess = self.core.coreDataAccess;
+    self.dataSource.albumRenderService = self.core.albumRenderService;
     
     modalView.eventsTable.dataSource = self.dataSource;
     modalView.eventsTable.delegate = self;

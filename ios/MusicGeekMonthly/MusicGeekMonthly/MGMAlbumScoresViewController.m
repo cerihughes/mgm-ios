@@ -63,73 +63,72 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        [self dataForChoice:choice completion:^(NSArray* albumMoids, NSError* fetchError)
+        MGMDaoData* data = [self dataForChoice:choice];
+        NSArray* albumMoids = data.data;
+        NSError* fetchError = data.error;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Resize the album view for new data...
+            [scoresView.albumsView clearAllAlbumFrames];
+
+            BOOL iPad = self.view.frame.size.width > 320;
+            NSUInteger albumCount = albumMoids.count;
+            NSUInteger rowCount = iPad ? 4 : 2;
+            NSUInteger columnCount = ((albumCount + 3) / rowCount) + 1;
+            CGFloat albumSize = scoresView.albumsView.frame.size.width / rowCount;
+            NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];
+
+            for (NSUInteger i = 0; i < albumCount; i++)
+            {
+                NSValue* value = [gridData objectAtIndex:i];
+                CGRect frame = [value CGRectValue];
+                [scoresView.albumsView setupAlbumFrame:frame forRank:i + 1];
+            }
+
+            [scoresView.albumsView setActivityInProgressForAllRanks:YES];
+
+        });
+
+        if (fetchError && albumMoids)
         {
-            dispatch_async(dispatch_get_main_queue(), ^
-            {
-                // Resize the album view for new data...
-                [scoresView.albumsView clearAllAlbumFrames];
+            [self logError:fetchError];
+        }
 
-                BOOL iPad = self.view.frame.size.width > 320;
-                NSUInteger albumCount = albumMoids.count;
-                NSUInteger rowCount = iPad ? 4 : 2;
-                NSUInteger columnCount = ((albumCount + 3) / rowCount) + 1;
-                CGFloat albumSize = scoresView.albumsView.frame.size.width / rowCount;
-                NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];
-
-                for (NSUInteger i = 0; i < albumCount; i++)
-                {
-                    NSValue* value = [gridData objectAtIndex:i];
-                    CGRect frame = [value CGRectValue];
-                    [scoresView.albumsView setupAlbumFrame:frame forRank:i + 1];
-                }
-
-                [scoresView.albumsView setActivityInProgressForAllRanks:YES];
-
-            });
-
-            if (fetchError && albumMoids)
-            {
-                [self logError:fetchError];
-            }
-
-            if (albumMoids)
-            {
-                self.albumMoids = albumMoids;
-                [self reloadAlbums];
-            }
-            else
-            {
-                [self showError:fetchError];
-            }
-        }];
+        if (albumMoids)
+        {
+            self.albumMoids = albumMoids;
+            [self reloadAlbums];
+        }
+        else
+        {
+            [self showError:fetchError];
+        }
     });
 }
 
-- (void) dataForChoice:(NSInteger)choice completion:(FETCH_MANY_COMPLETION)completion
+- (MGMDaoData*) dataForChoice:(NSInteger)choice
 {
-    FETCH_MANY_COMPLETION convertToMoids = ^(NSArray* albums, NSError* error)
-    {
-        NSMutableArray* albumMoids = [NSMutableArray arrayWithCapacity:albums.count];
-        for (MGMAlbum* album in albums)
-        {
-            [albumMoids addObject:album.objectID];
-        }
-        completion(albumMoids, error);
-    };
-
+    MGMDaoData* data = nil;
     switch (choice) {
         case 0:
-            [self.core.daoFactory.eventsDao fetchAllClassicAlbums:convertToMoids];
+            data = [self.core.dao fetchAllClassicAlbums];
             break;
         case 1:
-            [self.core.daoFactory.eventsDao fetchAllNewlyReleasedAlbums:convertToMoids];
+            data = [self.core.dao fetchAllNewlyReleasedAlbums];
             break;
         case 2:
-            [self.core.daoFactory.eventsDao fetchAllEventAlbums:convertToMoids];
+            data = [self.core.dao fetchAllEventAlbums];
         default:
             break;
     }
+
+    NSArray* albums = data.data;
+    NSMutableArray* albumMoids = [NSMutableArray arrayWithCapacity:albums.count];
+    for (MGMAlbum* album in albums)
+    {
+        [albumMoids addObject:album.objectID];
+    }
+    data.data = [albumMoids copy];
+    return data;
 }
 
 - (void) reloadAlbums
@@ -137,30 +136,17 @@
     NSUInteger position = 1;
     for (NSManagedObjectID* albumMoid in self.albumMoids)
     {
-        MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:albumMoid];
-        if ([album searchedServiceType:MGMAlbumServiceTypeLastFm] == NO)
-        {
-            [self.core.daoFactory.lastFmDao updateAlbumInfo:album completion:^(MGMAlbum* updatedAlbum, NSError* fetchError)
-            {
-                if (fetchError && updatedAlbum)
-                {
-                    [self logError:fetchError];
-                }
+        MGMAlbum* album = [self.core.coreDataAccess threadVersion:albumMoid];
+        NSError* refreshError = nil;
+        [self.core.albumRenderService refreshAlbumImages:album error:&refreshError];
 
-                if (updatedAlbum)
-                {
-                    [self renderAlbum:album atPostion:position];
-                }
-                else
-                {
-                    [self showError:fetchError];
-                }
-            }];
-        }
-        else
+        if (refreshError)
         {
-            [self renderAlbum:album atPostion:position];
+            [self logError:refreshError];
         }
+
+        [self renderAlbum:album atPostion:position];
+
         position++;
     }
 }
@@ -217,14 +203,14 @@
 - (void) albumPressedWithRank:(NSUInteger)rank
 {
     NSManagedObjectID* albumMoid = [self.albumMoids objectAtIndex:rank - 1];
-    MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:albumMoid];
+    MGMAlbum* album = [self.core.coreDataAccess threadVersion:albumMoid];
     [self.albumSelectionDelegate albumSelected:album];
 }
 
 - (void) detailPressedWithRank:(NSUInteger)rank
 {
     NSManagedObjectID* albumMoid = [self.albumMoids objectAtIndex:rank - 1];
-    MGMAlbum* album = [self.core.daoFactory.coreDataDao threadVersion:albumMoid];
+    MGMAlbum* album = [self.core.coreDataAccess threadVersion:albumMoid];
     [self.albumSelectionDelegate detailSelected:album sender:self];
 }
 

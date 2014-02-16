@@ -12,6 +12,7 @@
 
 @interface MGMNavigationViewController : UITabBarController
 
+- (id) init __unavailable;
 - (id) initWithUI:(MGMUI*)ui;
 
 @end
