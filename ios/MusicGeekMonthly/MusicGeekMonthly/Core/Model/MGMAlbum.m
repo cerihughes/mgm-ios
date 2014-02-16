@@ -11,6 +11,7 @@
 @interface MGMAlbum ()
 
 @property (nonatomic, strong) NSNumber* searchedServiceTypesObject;
+@property (nonatomic, strong) NSNumber* searchedImagesObject;
 
 @end
 
@@ -21,6 +22,7 @@
 @dynamic artistName;
 @dynamic score;
 @dynamic searchedServiceTypesObject;
+@dynamic searchedImagesObject;
 @dynamic imageUris;
 @dynamic metadata;
 
@@ -32,6 +34,16 @@
 - (void) setSearchedServiceTypes:(NSUInteger)searchedServiceTypes
 {
     self.searchedServiceTypesObject = [NSNumber numberWithInteger:searchedServiceTypes];
+}
+
+- (BOOL) searchedImages
+{
+    return [self.searchedImagesObject boolValue];
+}
+
+- (void) setSearchedImages:(BOOL)searchedImages
+{
+    self.searchedImagesObject = [NSNumber numberWithBool:searchedImages];
 }
 
 - (BOOL) searchedServiceType:(MGMAlbumServiceType)serviceType

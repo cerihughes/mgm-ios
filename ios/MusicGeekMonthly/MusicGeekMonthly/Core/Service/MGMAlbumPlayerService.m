@@ -30,11 +30,8 @@
     if ([album metadataForServiceType:self.serviceType] == nil && [album searchedServiceType:self.serviceType] == NO)
     {
         MGMAlbumMetadataDto* metadata = [self metadataForAlbum:album];
-        if (metadata)
-        {
-            [self.coreDataAccess addMetadata:metadata toAlbum:album error:error];
-            return MGM_NO_ERROR(&error);
-        }
+        [self.coreDataAccess addMetadata:metadata toAlbum:album error:error];
+        return MGM_NO_ERROR(&error);
     }
     return YES;
 }

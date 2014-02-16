@@ -5,6 +5,7 @@
         <attribute name="albumName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="artistName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="score" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="searchedImagesObject" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="searchedServiceTypesObject" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="chartEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MGMChartEntry" inverseName="album" inverseEntity="MGMChartEntry" syncable="YES"/>
         <relationship name="classicAlbumEvent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MGMEvent" inverseName="classicAlbum" inverseEntity="MGMEvent" syncable="YES"/>
@@ -50,7 +51,7 @@
         <relationship name="chartEntries" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="MGMChartEntry" inverseName="weeklyChart" inverseEntity="MGMChartEntry" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MGMAlbum" positionX="-225" positionY="-81" width="128" height="195"/>
+        <element name="MGMAlbum" positionX="-225" positionY="-81" width="128" height="210"/>
         <element name="MGMAlbumImageUri" positionX="160" positionY="192" width="128" height="90"/>
         <element name="MGMAlbumMetadata" positionX="160" positionY="192" width="128" height="90"/>
         <element name="MGMChartEntry" positionX="160" positionY="192" width="128" height="105"/>

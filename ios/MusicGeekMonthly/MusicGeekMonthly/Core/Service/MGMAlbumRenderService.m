@@ -34,7 +34,7 @@
 
 - (BOOL) refreshAlbumImages:(MGMAlbum*)album error:(NSError**)error
 {
-    if (album.imageUris.count == 0)
+    if (album.searchedImages == NO && album.imageUris.count == 0)
     {
         NSArray* imageUris = [self imageUrlsForAlbum:album];
         [self.coreDataAccess addImageUris:imageUris toAlbum:album error:error];

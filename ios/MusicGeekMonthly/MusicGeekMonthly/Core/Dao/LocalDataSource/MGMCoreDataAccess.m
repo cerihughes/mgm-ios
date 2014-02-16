@@ -336,7 +336,13 @@
 
 - (BOOL) addImageUris:(NSArray*)uriDtos toAlbum:(MGMAlbum*)album error:(NSError**)error
 {
-    [self internal_addImageUris:uriDtos toAlbum:album error:error];
+    album.searchedImages = YES;
+
+    if (uriDtos.count > 0)
+    {
+        [self internal_addImageUris:uriDtos toAlbum:album error:error];
+    }
+
     if (MGM_ERROR(error))
     {
         return [self rollbackChanges];
@@ -392,7 +398,11 @@
 {
     [album setServiceTypeSearched:metadataDto.serviceType];
 
-    [self internal_addMetadata:@[metadataDto] toAlbum:album error:error];
+    if (metadataDto)
+    {
+        [self internal_addMetadata:@[metadataDto] toAlbum:album error:error];
+    }
+    
     if (MGM_ERROR(error))
     {
         return [self rollbackChanges];

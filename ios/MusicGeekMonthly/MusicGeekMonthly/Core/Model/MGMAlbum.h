@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSSet* metadata;
 
 @property (nonatomic) NSUInteger searchedServiceTypes;
+@property (nonatomic) BOOL searchedImages;
 
 - (BOOL) searchedServiceType:(MGMAlbumServiceType)serviceType;
 - (void) setServiceTypeSearched:(MGMAlbumServiceType)serviceType;
