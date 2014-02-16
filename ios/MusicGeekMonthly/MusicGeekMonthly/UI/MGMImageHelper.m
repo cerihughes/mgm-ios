@@ -23,10 +23,9 @@
 {
     for (NSString* url in urls)
     {
-        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-        NSHTTPURLResponse* response = nil;
-        NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:error];
-        if (response.statusCode == 200 && data.length > 0)
+        NSInteger response = 0;
+        NSData* data = [self contentsOfUrl:url responseCode:&response error:error];
+        if (response == 200 && data.length > 0)
         {
             return [UIImage imageWithData:data];
         }

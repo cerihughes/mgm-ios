@@ -13,6 +13,9 @@
 @property (readonly) BOOL hasReachability;
 
 - (NSData*) contentsOfUrl:(NSString*)url error:(NSError**)error;
+- (NSData*) contentsOfUrl:(NSString*)url responseCode:(out NSInteger*)responseCode error:(NSError**)error;
+
 - (NSData*) contentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers error:(NSError**)error;
+- (NSData*) contentsOfUrl:(NSString*)url withHttpHeaders:(NSDictionary*)headers responseCode:(out NSInteger*)responseCode error:(NSError**)error;
 
 @end
