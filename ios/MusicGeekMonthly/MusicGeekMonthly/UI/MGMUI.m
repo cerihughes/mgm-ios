@@ -80,6 +80,14 @@ static BOOL _isIpad;
 
 - (void) uiDidBecomeActive
 {
+    [self.parentViewController startRending];
+
+    // This should be driven from a callback?
+    [self performSelector:@selector(checkPlayer) withObject:nil afterDelay:2.0];
+}
+
+- (void) checkPlayer
+{
     // Determine if a default player has been set...
     MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
 
@@ -119,8 +127,6 @@ static BOOL _isIpad;
         self.playerSelectionViewController.mode = playerSelectionMode;
         [self.parentViewController presentViewController:self.playerSelectionViewController animated:YES completion:NULL];
     }
-
-    [self.parentViewController startRending];
 }
 
 - (NSString*) labelForServiceType:(MGMAlbumServiceType)serviceType
