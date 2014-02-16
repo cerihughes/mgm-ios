@@ -117,7 +117,10 @@
          {
              if (imageError)
              {
-                 *error = imageError;
+                 if (error)
+                 {
+                     *error = imageError;
+                 }
              }
              else
              {
