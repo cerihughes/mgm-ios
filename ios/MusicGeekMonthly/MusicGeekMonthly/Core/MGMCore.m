@@ -8,6 +8,8 @@
 
 #import "MGMCore.h"
 
+#import "MGMTimePeriod.h"
+
 #define REACHABILITY_END_POINT @"music-geek-monthly.appspot.com"
 
 @implementation MGMCore
@@ -30,7 +32,28 @@
 
 - (MGMCoreBackgroundFetchResult) performBackgroundFetch
 {
-    return MGMCoreBackgroundFetchResultNoData;
+    MGMDaoData* eventData = [self.dao fetchAllEvents];
+    MGMDaoData* timePeriodsData = [self.dao fetchAllTimePeriods];
+    NSArray* timePeriods = timePeriodsData.data;
+    if (timePeriods.count > 0)
+    {
+        MGMTimePeriod* timePeriod = [timePeriods objectAtIndex:0];
+        MGMDaoData* chartData = [self.dao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate];
+        if (eventData.isNew || timePeriodsData.isNew || chartData.isNew)
+        {
+            return MGMCoreBackgroundFetchResultNewData;
+        }
+
+        if (eventData.error || timePeriodsData.error || chartData.error)
+        {
+            return MGMCoreBackgroundFetchResultFailed;
+        }
+        return MGMCoreBackgroundFetchResultNoData;
+    }
+    else
+    {
+        return MGMCoreBackgroundFetchResultFailed;
+    }
 }
 
 @end

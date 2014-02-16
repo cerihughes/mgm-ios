@@ -84,6 +84,7 @@
     NSLog(@"application:performFetchWithCompletionHandler:");
     MGMCoreBackgroundFetchResult coreFetchResult = [self.ui.core performBackgroundFetch];
     UIBackgroundFetchResult uiFetchResult = [self uiFetchResultForCoreFetchResult:coreFetchResult];
+    NSLog(@"application:performFetchWithCompletionHandler: completed with %lu", (unsigned long)uiFetchResult);
     completionHandler(uiFetchResult);
 }
 
