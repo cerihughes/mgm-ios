@@ -9,6 +9,7 @@
 #import "MGMAlbumRenderService.h"
 
 #import "MGMAlbumImageUriDto.h"
+#import "MGMErrorCodes.h"
 #import "MGMLastFmConstants.h"
 
 @interface MGMAlbumRenderService ()
@@ -72,11 +73,55 @@
 
 - (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key
 {
+    MGMRemoteData* remoteData = [[MGMRemoteData alloc] init];
+
+    NSMutableArray* imageUris = [NSMutableArray array];
+    NSNumber* errorJson = [json objectForKey:@"error"];
+    if (errorJson)
+    {
+        NSString* errorMessage = [json objectForKey:@"message"];
+        NSDictionary* userInfo = @{NSLocalizedDescriptionKey:errorMessage};
+        remoteData.error = [NSError errorWithDomain:ERROR_DOMAIN code:ERROR_CODE_LAST_FM_ERROR userInfo:userInfo];
+    }
+
+    NSDictionary* albumJson = [json objectForKey:@"album"];
+    if (albumJson)
+    {
+        NSArray* images = [albumJson objectForKey:@"image"];
+        for (NSDictionary* image in images)
+        {
+            NSString* key = [image objectForKey:@"size"];
+            NSString* value = [image objectForKey:@"#text"];
+            if (value && value.length > 0)
+            {
+                MGMAlbumImageSize size = [self sizeForString:key];
+                if (size != MGMAlbumImageSizeNone)
+                {
+                    MGMAlbumImageUriDto* imageUri = [[MGMAlbumImageUriDto alloc] init];
+                    imageUri.size = size;
+                    imageUri.uri = value;
+                    [imageUris addObject:imageUri];
+                }
+            }
+        }
+    }
+
     MGMAlbum* album = key;
     NSString* mbid = album.albumMbid;
-    NSArray* imageUrls = [self imageUrisForJson:json mbid:mbid];
-    MGMRemoteData* remoteData = [[MGMRemoteData alloc] init];
-    remoteData.data = imageUrls;
+    if (mbid && ![mbid hasPrefix:FAKE_MBID_PREPEND])
+    {
+        MGMAlbumImageUriDto* albumUri = [[MGMAlbumImageUriDto alloc] init];
+        albumUri.size = MGMAlbumImageSize512;
+        albumUri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, 500];
+        [imageUris addObject:albumUri];
+
+        albumUri = [[MGMAlbumImageUriDto alloc] init];
+        albumUri.size = MGMAlbumImageSize256;
+        albumUri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, 250];
+        [imageUris addObject:albumUri];
+    }
+
+    remoteData.data = [imageUris copy];
     return remoteData;
 }
 
@@ -103,44 +148,6 @@
         return MGMAlbumImageSize512;
     }
     return MGMAlbumImageSizeNone;
-}
-
-- (NSArray*) imageUrisForJson:(NSDictionary*)json mbid:(NSString*)mbid
-{
-    NSMutableArray* imageUris = [NSMutableArray array];
-    NSDictionary* albumJson = [json objectForKey:@"album"];
-    NSArray* images = [albumJson objectForKey:@"image"];
-    for (NSDictionary* image in images)
-    {
-        NSString* key = [image objectForKey:@"size"];
-        NSString* value = [image objectForKey:@"#text"];
-        if (value && value.length > 0)
-        {
-            MGMAlbumImageSize size = [self sizeForString:key];
-            if (size != MGMAlbumImageSizeNone)
-            {
-                MGMAlbumImageUriDto* imageUri = [[MGMAlbumImageUriDto alloc] init];
-                imageUri.size = size;
-                imageUri.uri = value;
-                [imageUris addObject:imageUri];
-            }
-        }
-    }
-
-    if (mbid && ![mbid hasPrefix:FAKE_MBID_PREPEND])
-    {
-        MGMAlbumImageUriDto* albumUri = [[MGMAlbumImageUriDto alloc] init];
-        albumUri.size = MGMAlbumImageSize512;
-        albumUri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, 500];
-        [imageUris addObject:albumUri];
-
-        albumUri = [[MGMAlbumImageUriDto alloc] init];
-        albumUri.size = MGMAlbumImageSize256;
-        albumUri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, 250];
-        [imageUris addObject:albumUri];
-    }
-
-    return [imageUris copy];
 }
 
 @end
