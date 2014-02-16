@@ -11,62 +11,106 @@
 
 @interface MGMPulsatingAlbumsView ()
 
-@property (strong) NSMutableArray* albumViews;
+@property (readonly) NSLock* albumViewsLock;
+@property (readonly) NSMutableArray* albumViews;
 
 @end
 
 @implementation MGMPulsatingAlbumsView
 
+- (id) initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame])
+    {
+        _albumViewsLock = [[NSLock alloc] init];
+        _albumViews = [NSMutableArray array];
+    }
+    return self;
+}
+
 - (NSUInteger) albumCount
 {
-    return self.albumViews.count;
+    [self.albumViewsLock lock];
+    @try
+    {
+        return self.albumViews.count;
+    }
+    @finally
+    {
+        [self.albumViewsLock unlock];
+    }
 }
 
 - (void) setupAlbumsInRow:(NSUInteger)albumsInRow
 {
-    self.albumViews = [NSMutableArray array];
-    
     CGSize size = self.frame.size;
     CGFloat width = size.width;
     CGFloat height = size.height;
     CGFloat albumWidth = width / albumsInRow;
     NSUInteger albumsInColumn = (height / albumWidth) + 1;
 
-    for (NSUInteger row = 0; row < albumsInRow; row++)
+    [self.albumViewsLock lock];
+    @try
     {
-        for (NSUInteger column = 0; column < albumsInColumn; column++)
+        for (NSUInteger row = 0; row < albumsInRow; row++)
         {
-            CGRect frame = CGRectMake(row * albumWidth, column * albumWidth, albumWidth, albumWidth);
-            MGMAlbumView* imageView = [[MGMAlbumView alloc] initWithFrame:frame];
-            imageView.alphaOn = 0.15;
-            imageView.animationTime = 3;
-            [self addSubview:imageView];
-            [self.albumViews addObject:imageView];
+            for (NSUInteger column = 0; column < albumsInColumn; column++)
+            {
+                CGRect frame = CGRectMake(row * albumWidth, column * albumWidth, albumWidth, albumWidth);
+                MGMAlbumView* imageView = [[MGMAlbumView alloc] initWithFrame:frame];
+                imageView.alphaOn = 0.15;
+                imageView.animationTime = 3;
+                [self addSubview:imageView];
+                [self.albumViews addObject:imageView];
+            }
         }
+    }
+    @finally
+    {
+        [self.albumViewsLock unlock];
     }
 }
 
 - (CGSize) albumSize
 {
-    if (self.albumViews.count > 0)
+    [self.albumViewsLock lock];
+    @try
     {
-        MGMAlbumView* view = [self.albumViews objectAtIndex:0];
-        return view.frame.size;
+        if (self.albumViews.count > 0)
+        {
+            MGMAlbumView* view = [self.albumViews objectAtIndex:0];
+            return view.frame.size;
+        }
+        return CGSizeZero;
     }
-    return CGSizeZero;
+    @finally
+    {
+        [self.albumViewsLock unlock];
+    }
 }
 
 - (void) renderImage:(UIImage*)image atIndex:(NSUInteger)index animation:(BOOL)animation
 {
     if (index < self.albumCount)
     {
+        [self.albumViewsLock lock];
+        MGMAlbumView* albumView;
+        @try
+        {
+            albumView = [self.albumViews objectAtIndex:index];
+        }
+        @finally
+        {
+            [self.albumViewsLock unlock];
+        }
+
         if (animation)
         {
-            [[self.albumViews objectAtIndex:index] fadeOutAndRenderImage:image];
+            [albumView fadeOutAndRenderImage:image];
         }
         else
         {
-            [[self.albumViews objectAtIndex:index] renderImageWithNoAnimation:image];
+            [albumView renderImageWithNoAnimation:image];
         }
     }
 }
