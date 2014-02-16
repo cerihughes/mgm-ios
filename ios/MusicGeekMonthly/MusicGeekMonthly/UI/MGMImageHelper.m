@@ -10,7 +10,7 @@
 
 @implementation MGMImageHelper
 
-+ (void) asyncImageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion
+- (void) asyncImageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError* error = nil;
@@ -19,7 +19,7 @@
     });
 }
 
-+ (UIImage*) imageFromUrls:(NSArray *)urls error:(NSError**)error
+- (UIImage*) imageFromUrls:(NSArray *)urls error:(NSError**)error
 {
     for (NSString* url in urls)
     {

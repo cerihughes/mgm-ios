@@ -36,6 +36,7 @@
     self.dataSource.fetchedResultsController = fetchedResultsController;
     self.dataSource.coreDataAccess = self.core.coreDataAccess;
     self.dataSource.albumRenderService = self.core.albumRenderService;
+    self.dataSource.imageHelper = self.ui.imageHelper;
     
     modalView.eventsTable.dataSource = self.dataSource;
     modalView.eventsTable.delegate = self;

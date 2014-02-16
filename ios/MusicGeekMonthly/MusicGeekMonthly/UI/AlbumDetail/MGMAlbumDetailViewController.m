@@ -47,7 +47,7 @@
 
     MGMAlbum* album = [self.core.coreDataAccess threadVersion:self.albumMoid];
     NSError* error = nil;
-    [MGMAlbumViewUtilities displayAlbum:album inAlbumView:detailView.albumView defaultImageName:@"album2.png" renderService:self.core.albumRenderService error:&error];
+    [self.ui.viewUtilities displayAlbum:album inAlbumView:detailView.albumView defaultImageName:@"album2.png" error:&error];
     if (error)
     {
         [self logError:error];

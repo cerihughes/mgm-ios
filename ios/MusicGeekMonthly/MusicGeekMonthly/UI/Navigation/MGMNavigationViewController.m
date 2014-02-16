@@ -141,12 +141,12 @@
 
                 if (fetchedWeeklyChart)
                 {
-                    self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithChartEntryMoids:[self chartEntryMoidsForWeeklyChart:fetchedWeeklyChart]];
+                    self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithImageHelper:self.ui.imageHelper chartEntryMoids:[self chartEntryMoidsForWeeklyChart:fetchedWeeklyChart]];
                     self.artFetcher.coreDataAccess = self.core.coreDataAccess;
                     self.artFetcher.albumRenderService = self.core.albumRenderService;
                     self.artFetcher.delegate = self;
                     CGSize size = [self.albumsView albumSize];
-                    MGMAlbumImageSize preferredSize = [MGMAlbumViewUtilities preferredImageSizeForViewSize:size];
+                    MGMAlbumImageSize preferredSize = [self.ui.viewUtilities preferredImageSizeForViewSize:size];
                     self.artFetcher.preferredSize = preferredSize;
                     [self renderImages:YES];
                 }

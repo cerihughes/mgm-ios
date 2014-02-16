@@ -9,9 +9,9 @@
 
 @interface MGMUI () <MGMPlayerSelectionViewControllerDelegate>
 
-@property (strong) MGMAlbumDetailViewController* albumDetailViewController;
-@property (strong) MGMPlayerSelectionViewController* playerSelectionViewController;
-@property (strong) MGMExampleAlbumViewController* exampleAlbumViewController;
+@property (readonly) MGMAlbumDetailViewController* albumDetailViewController;
+@property (readonly) MGMPlayerSelectionViewController* playerSelectionViewController;
+@property (readonly) MGMExampleAlbumViewController* exampleAlbumViewController;
 
 @end
 
@@ -28,11 +28,33 @@ static BOOL _isIpad;
 {
     if (self = [super init])
     {
-        [self setupCore];
-        [self setupControllers];
-        self.albumPlayer = [[MGMAlbumPlayer alloc] init];
-        self.albumPlayer.serviceManager = self.core.serviceManager;
-        self.albumPlayer.ui = self;
+        _core = [[MGMCore alloc] init];
+
+        _albumDetailViewController = [[MGMAlbumDetailViewController alloc] init];
+        _albumDetailViewController.ui = self;
+
+        _playerSelectionViewController = [[MGMPlayerSelectionViewController alloc] init];
+        _playerSelectionViewController.ui = self;
+        _playerSelectionViewController.delegate = self;
+
+        _exampleAlbumViewController = [[MGMExampleAlbumViewController alloc] init];
+        _exampleAlbumViewController.ui = self;
+
+        if (_isIpad)
+        {
+            _albumDetailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+            _playerSelectionViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+            _exampleAlbumViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        }
+
+        _parentViewController = [[MGMNavigationViewController alloc] initWithUI:self];;
+
+        _albumPlayer = [[MGMAlbumPlayer alloc] init];
+        _albumPlayer.serviceManager = self.core.serviceManager;
+        _albumPlayer.ui = self;
+
+        _imageHelper = [[MGMImageHelper alloc] init];
+        _viewUtilities = [[MGMAlbumViewUtilities alloc] initWithImageHelper:_imageHelper renderService:_core.albumRenderService];
     }
     return self;
 }
@@ -40,34 +62,6 @@ static BOOL _isIpad;
 - (BOOL) ipad
 {
     return _isIpad;
-}
-
-- (void) setupCore
-{
-    self.core = [[MGMCore alloc] init];
-}
-
-- (void) setupControllers
-{
-    self.albumDetailViewController = [[MGMAlbumDetailViewController alloc] init];
-    self.albumDetailViewController.ui = self;
-
-    self.playerSelectionViewController = [[MGMPlayerSelectionViewController alloc] init];
-    self.playerSelectionViewController.ui = self;
-    self.playerSelectionViewController.delegate = self;
-
-    self.exampleAlbumViewController = [[MGMExampleAlbumViewController alloc] init];
-    self.exampleAlbumViewController.ui = self;
-
-    if (self.ipad)
-    {
-        self.albumDetailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-        self.playerSelectionViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-        self.exampleAlbumViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-    }
-
-    MGMNavigationViewController* navigationController = [[MGMNavigationViewController alloc] initWithUI:self];
-    self.parentViewController = navigationController;
 }
 
 - (void) start

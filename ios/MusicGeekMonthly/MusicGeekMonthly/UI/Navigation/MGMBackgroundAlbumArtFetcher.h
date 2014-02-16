@@ -11,6 +11,7 @@
 #import "MGMAlbumImageSize.h"
 #import "MGMAlbumRenderService.h"
 #import "MGMCoreDataAccess.h"
+#import "MGMImageHelper.h"
 
 @class MGMBackgroundAlbumArtFetcher;
 
@@ -29,7 +30,7 @@
 @property MGMAlbumImageSize preferredSize;
 
 - (id) init __unavailable;
-- (id) initWithChartEntryMoids:(NSArray*)chartEntryMoids;
+- (id) initWithImageHelper:(MGMImageHelper*)imageHelper chartEntryMoids:(NSArray*)chartEntryMoids;
 - (void) generateImageAtIndex:(NSUInteger)index;
 
 @end

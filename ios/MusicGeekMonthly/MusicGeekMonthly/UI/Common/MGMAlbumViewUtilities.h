@@ -12,11 +12,15 @@
 #import "MGMAlbumDto.h"
 #import "MGMAlbumRenderService.h"
 #import "MGMAlbumView.h"
+#import "MGMImageHelper.h"
 
 @interface MGMAlbumViewUtilities : NSObject
 
-+ (MGMAlbumImageSize) preferredImageSizeForViewSize:(CGSize)viewSize;
-+ (void) displayAlbum:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error;
-+ (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName renderService:(MGMAlbumRenderService*)renderService error:(NSError**)error;
+- (id) init __unavailable;
+- (id) initWithImageHelper:(MGMImageHelper*)imageHelper renderService:(MGMAlbumRenderService*)renderService;
+
+- (MGMAlbumImageSize) preferredImageSizeForViewSize:(CGSize)viewSize;
+- (void) displayAlbumDto:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error;
+- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error;
 
 @end

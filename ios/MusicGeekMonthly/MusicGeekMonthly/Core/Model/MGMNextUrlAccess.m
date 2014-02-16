@@ -12,5 +12,6 @@
 
 @dynamic identifier;
 @dynamic date;
+@dynamic checksum;
 
 @end

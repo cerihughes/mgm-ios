@@ -145,12 +145,12 @@
     NSUInteger listeners = chartEntry.listeners.intValue;
 
     CGSize size = [weeklyChartView.albumsView sizeOfRank:rank];
-    MGMAlbumImageSize preferredSize = [MGMAlbumViewUtilities preferredImageSizeForViewSize:size];
+    MGMAlbumImageSize preferredSize = [self.ui.viewUtilities preferredImageSizeForViewSize:size];
     NSArray* albumArtUrls = [chartEntry bestAlbumImageUrlsWithPreferredSize:preferredSize];
     MGMAlbum* album = chartEntry.album;
     if (albumArtUrls.count > 0)
     {
-        [MGMImageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error)
+        [self.ui.imageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error)
         {
             if (error)
             {

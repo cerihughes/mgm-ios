@@ -156,11 +156,11 @@
     MGMAlbumScoresView* scoresView = (MGMAlbumScoresView*)self.view;
 
     CGSize size = [scoresView.albumsView sizeOfRank:position];
-    MGMAlbumImageSize preferredSize = [MGMAlbumViewUtilities preferredImageSizeForViewSize:size];
+    MGMAlbumImageSize preferredSize = [self.ui.viewUtilities preferredImageSizeForViewSize:size];
     NSArray* albumArtUrls = [album bestAlbumImageUrlsWithPreferredSize:preferredSize];
     if (albumArtUrls.count > 0)
     {
-        [MGMImageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error)
+        [self.ui.imageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error)
         {
             if (error)
             {

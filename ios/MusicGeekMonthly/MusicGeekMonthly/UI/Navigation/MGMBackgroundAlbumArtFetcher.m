@@ -12,20 +12,22 @@
 
 @interface MGMBackgroundAlbumArtFetcher ()
 
-@property (strong) NSArray* chartEntryMoids;
-@property (strong) NSOperationQueue* operationQueue;
+@property (readonly) NSArray* chartEntryMoids;
+@property (readonly) MGMImageHelper* imageHelper;
+@property (readonly) NSOperationQueue* operationQueue;
 
 @end
 
 @implementation MGMBackgroundAlbumArtFetcher
 
-- (id) initWithChartEntryMoids:(NSArray*)chartEntryMoids
+- (id) initWithImageHelper:(MGMImageHelper*)imageHelper chartEntryMoids:(NSArray*)chartEntryMoids
 {
     if (self = [super init])
     {
-        self.chartEntryMoids = chartEntryMoids;
-        self.operationQueue = [[NSOperationQueue alloc] init];
-        self.operationQueue.maxConcurrentOperationCount = 5;
+        _chartEntryMoids = chartEntryMoids;
+        _imageHelper = imageHelper;
+        _operationQueue = [[NSOperationQueue alloc] init];
+        _operationQueue.maxConcurrentOperationCount = 5;
     }
     return self;
 }
@@ -98,7 +100,7 @@
         UIImage* image = nil;
         if (urls.count > 0)
         {
-            image = [MGMImageHelper imageFromUrls:urls error:&imageError];
+            image = [self.imageHelper imageFromUrls:urls error:&imageError];
         }
         completion(image, imageError);
     }

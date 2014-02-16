@@ -55,7 +55,7 @@
             NSArray* albumArtUrls = [album bestTableImageUrls];
             if (albumArtUrls.count > 0)
             {
-                [MGMImageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error) {
+                [self.imageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [activityIndicatorView stopAnimating];
                         if (error == nil)

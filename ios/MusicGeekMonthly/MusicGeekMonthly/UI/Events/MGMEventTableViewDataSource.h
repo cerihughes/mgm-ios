@@ -8,12 +8,14 @@
 
 #import "MGMCoreDataTableViewDataSource.h"
 
-#import "MGMCoreDataAccess.h"
 #import "MGMAlbumRenderService.h"
+#import "MGMCoreDataAccess.h"
+#import "MGMImageHelper.h"
 
 @interface MGMEventTableViewDataSource : MGMCoreDataTableViewDataSource
 
 @property (strong) MGMCoreDataAccess* coreDataAccess;
 @property (strong) MGMAlbumRenderService* albumRenderService;
+@property (strong) MGMImageHelper* imageHelper;
 
 @end

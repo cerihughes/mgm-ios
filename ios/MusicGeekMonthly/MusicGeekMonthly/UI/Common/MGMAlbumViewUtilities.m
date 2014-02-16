@@ -11,9 +11,26 @@
 #import "MGMAlbumImageUriDto.h"
 #import "MGMImageHelper.h"
 
+@interface MGMAlbumViewUtilities ()
+
+@property (readonly) MGMImageHelper* imageHelper;
+@property (readonly) MGMAlbumRenderService* renderService;
+
+@end
+
 @implementation MGMAlbumViewUtilities
 
-+ (MGMAlbumImageSize) preferredImageSizeForViewSize:(CGSize)viewSize
+- (id) initWithImageHelper:(MGMImageHelper*)imageHelper renderService:(MGMAlbumRenderService *)renderService
+{
+    if (self = [super init])
+    {
+        _imageHelper = imageHelper;
+        _renderService = renderService;
+    }
+    return self;
+}
+
+- (MGMAlbumImageSize) preferredImageSizeForViewSize:(CGSize)viewSize
 {
     CGFloat width = viewSize.width;
     if (width > 512)
@@ -39,7 +56,7 @@
     return MGMAlbumImageSizeNone;
 }
 
-+ (void) displayAlbum:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
+- (void) displayAlbumDto:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         albumView.activityInProgress = YES;
@@ -53,7 +70,7 @@
     [self displayAlbumImages:albumArtUrls inAlbumView:albumView defaultImageName:defaultName error:error];
 }
 
-+ (NSArray*) bestAlbumImageUrlsForAlbum:(MGMAlbumDto*)album preferredSize:(MGMAlbumImageSize)size
+- (NSArray*) bestAlbumImageUrlsForAlbum:(MGMAlbumDto*)album preferredSize:(MGMAlbumImageSize)size
 {
     NSMutableArray* array = [NSMutableArray array];
 
@@ -72,7 +89,7 @@
     return [array copy];
 }
 
-+ (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName renderService:(MGMAlbumRenderService*)renderService error:(NSError**)error
+- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         albumView.activityInProgress = YES;
@@ -81,22 +98,22 @@
         albumView.score = [album.score floatValue];
     });
 
-    [renderService refreshAlbumImages:album error:error];
-    [MGMAlbumViewUtilities displayAlbumImage:album inAlbumView:albumView defaultImageName:defaultName error:error];
+    [self.renderService refreshAlbumImages:album error:error];
+    [self displayAlbumImage:album inAlbumView:albumView defaultImageName:defaultName error:error];
 }
 
-+ (void) displayAlbumImage:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
+- (void) displayAlbumImage:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
 {
     MGMAlbumImageSize preferredSize = [self preferredImageSizeForViewSize:albumView.frame.size];
     NSArray* albumArtUrls = [album bestAlbumImageUrlsWithPreferredSize:preferredSize];
     [self displayAlbumImages:albumArtUrls inAlbumView:albumView defaultImageName:defaultName error:error];
 }
 
-+ (void) displayAlbumImages:(NSArray*)albumArtUrls inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
+- (void) displayAlbumImages:(NSArray*)albumArtUrls inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
 {
     if (albumArtUrls.count > 0)
     {
-        [MGMImageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* imageError)
+        [self.imageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* imageError)
          {
              if (imageError)
              {
@@ -108,17 +125,17 @@
                  {
                      image = [UIImage imageNamed:defaultName];
                  }
-                 [MGMAlbumViewUtilities renderImage:image inAlbumView:albumView];
+                 [self renderImage:image inAlbumView:albumView];
              }
          }];
     }
     else
     {
-        [MGMAlbumViewUtilities renderImage:[UIImage imageNamed:defaultName] inAlbumView:albumView];
+        [self renderImage:[UIImage imageNamed:defaultName] inAlbumView:albumView];
     }
 }
 
-+ (void) renderImage:(UIImage*)image inAlbumView:(MGMAlbumView*)albumView
+- (void) renderImage:(UIImage*)image inAlbumView:(MGMAlbumView*)albumView
 {
     dispatch_async(dispatch_get_main_queue(), ^
     {

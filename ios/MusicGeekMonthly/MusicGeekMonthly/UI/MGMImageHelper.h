@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "MGMHttpDataSource.h"
 
 @interface MGMImageHelper : NSObject
 
-+ (void) asyncImageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion;
-+ (UIImage*) imageFromUrls:(NSArray *)urls error:(NSError**)error;
+- (void) asyncImageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion;
+- (UIImage*) imageFromUrls:(NSArray *)urls error:(NSError**)error;
 
 @end
