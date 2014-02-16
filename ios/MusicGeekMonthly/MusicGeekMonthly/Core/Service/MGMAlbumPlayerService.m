@@ -27,14 +27,16 @@
 
 - (BOOL) refreshAlbumMetadata:(MGMAlbum*)album error:(NSError**)error
 {
-    if ([album searchedServiceType:self.serviceType] == NO)
+    if ([album metadataForServiceType:self.serviceType] == nil && [album searchedServiceType:self.serviceType] == NO)
     {
         MGMAlbumMetadataDto* metadata = [self metadataForAlbum:album];
-        [self.coreDataAccess addMetadata:metadata toAlbum:album error:error];
-        return MGM_NO_ERROR(&error);
+        if (metadata)
+        {
+            [self.coreDataAccess addMetadata:metadata toAlbum:album error:error];
+            return MGM_NO_ERROR(&error);
+        }
     }
     return YES;
-
 }
 
 - (MGMAlbumMetadataDto*) metadataForAlbum:(MGMAlbum*)album

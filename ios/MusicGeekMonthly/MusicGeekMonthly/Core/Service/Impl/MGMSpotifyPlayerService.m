@@ -22,11 +22,9 @@
 #define ALBUM_URI @"spotify:album:%@"
 #define SEARCH_URI @"spotify:search:%@ %@"
 
-static NSDictionary* acceptJson;
-
-- (id) init
+- (id) initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess
 {
-    if (self = [super init])
+    if (self = [super initWithCoreDataAccess:coreDataAccess])
     {
         self.acceptJson = [NSDictionary dictionaryWithObject:@"application/json" forKey:@"Accept"];
     }
