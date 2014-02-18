@@ -8,6 +8,11 @@
 
 #import "MGMDaoOperation.h"
 
+#define ALL_EVENTS_KEY @"ALL_EVENTS_KEY"
+#define ALL_CLASSIC_ALBUMS_KEY @"ALL_CLASSIC_ALBUMS_KEY"
+#define ALL_NEWLY_RELEASED_ALBUMS_KEY @"ALL_NEWLY_RELEASED_ALBUMS_KEY"
+#define ALL_EVENT_ALBUMS_KEY @"ALL_EVENT_ALBUMS_KEY"
+
 @interface MGMAllEventsDaoOperation : MGMDaoOperation
 
 - (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;

@@ -8,20 +8,14 @@
 
 #import "MGMDao.h"
 
-#import "MGMAllClassicAlbumsDaoOperation.h"
-#import "MGMAllEventAlbumsDaoOperation.h"
 #import "MGMAllEventsDaoOperation.h"
-#import "MGMAllNewlyReleasedAlbumsDaoOperation.h"
 #import "MGMAllTimePeriodsDaoOperation.h"
 #import "MGMCoreDataAccess.h"
 #import "MGMWeeklyChartDaoOperation.h"
 
 @interface MGMDao ()
 
-@property (readonly) MGMAllEventsDaoOperation* fetchAllEventsOperation;
-@property (readonly) MGMAllClassicAlbumsDaoOperation* fetchAllClassicAlbumsOperation;
-@property (readonly) MGMAllNewlyReleasedAlbumsDaoOperation* fetchAllNewlyReleasedAlbumsOperation;
-@property (readonly) MGMAllEventAlbumsDaoOperation* fetchAllEventAlbumsOperation;
+@property (readonly) MGMAllEventsDaoOperation* fetchEventDataOperation;
 @property (readonly) MGMAllTimePeriodsDaoOperation* fetchAllTimePeriodsOperation;
 @property (readonly) MGMWeeklyChartDaoOperation* fetchWeeklyChartOperation;
 
@@ -33,10 +27,7 @@
 {
     if (self = [super init])
     {
-        _fetchAllEventsOperation = [[MGMAllEventsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
-        _fetchAllClassicAlbumsOperation = [[MGMAllClassicAlbumsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
-        _fetchAllNewlyReleasedAlbumsOperation = [[MGMAllNewlyReleasedAlbumsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
-        _fetchAllEventAlbumsOperation = [[MGMAllEventAlbumsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
+        _fetchEventDataOperation = [[MGMAllEventsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
         _fetchAllTimePeriodsOperation = [[MGMAllTimePeriodsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
         _fetchWeeklyChartOperation = [[MGMWeeklyChartDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
     }
@@ -45,22 +36,22 @@
 
 - (MGMDaoData*) fetchAllEvents
 {
-    return [self.fetchAllEventsOperation fetchData:nil];
+    return [self.fetchEventDataOperation fetchData:ALL_EVENTS_KEY];
 }
 
 - (MGMDaoData*) fetchAllClassicAlbums
 {
-    return [self.fetchAllClassicAlbumsOperation fetchData:nil];
+    return [self.fetchEventDataOperation fetchData:ALL_CLASSIC_ALBUMS_KEY];
 }
 
 - (MGMDaoData*) fetchAllNewlyReleasedAlbums
 {
-    return [self.fetchAllNewlyReleasedAlbumsOperation fetchData:nil];
+    return [self.fetchEventDataOperation fetchData:ALL_NEWLY_RELEASED_ALBUMS_KEY];
 }
 
 - (MGMDaoData*) fetchAllEventAlbums
 {
-    return [self.fetchAllEventAlbumsOperation fetchData:nil];
+    return [self.fetchEventDataOperation fetchData:ALL_EVENT_ALBUMS_KEY];
 }
 
 - (MGMDaoData*) fetchAllTimePeriods

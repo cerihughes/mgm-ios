@@ -36,7 +36,22 @@
 {
     MGMLocalData* localData = [[MGMLocalData alloc] init];
     NSError* error = nil;
-    localData.data = [self.coreDataAccess fetchAllEvents:&error];
+    if ([key isEqualToString:ALL_EVENTS_KEY])
+    {
+        localData.data = [self.coreDataAccess fetchAllEvents:&error];
+    }
+    else if ([key isEqualToString:ALL_CLASSIC_ALBUMS_KEY])
+    {
+        localData.data = [self.coreDataAccess fetchAllClassicAlbums:&error];
+    }
+    else if ([key isEqualToString:ALL_NEWLY_RELEASED_ALBUMS_KEY])
+    {
+        localData.data = [self.coreDataAccess fetchAllNewlyReleasedAlbums:&error];
+    }
+    else if ([key isEqualToString:ALL_EVENT_ALBUMS_KEY])
+    {
+        localData.data = [self.coreDataAccess fetchAllEventAlbums:&error];
+    }
     localData.error = error;
     return localData;
 }
