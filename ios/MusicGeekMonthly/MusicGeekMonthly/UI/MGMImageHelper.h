@@ -12,5 +12,6 @@
 
 - (void) asyncImageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion;
 - (UIImage*) imageFromUrls:(NSArray *)urls error:(NSError**)error;
+- (UIImage*) nextDefaultImage;
 
 @end

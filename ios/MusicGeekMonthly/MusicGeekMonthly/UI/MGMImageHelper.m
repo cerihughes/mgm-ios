@@ -8,7 +8,24 @@
 
 #import "MGMImageHelper.h"
 
+@interface MGMImageHelper ()
+
+@property (readonly) NSLock* defaultImageLock;
+@property NSUInteger defaultImageSuffix;
+
+@end
+
 @implementation MGMImageHelper
+
+- (id) init
+{
+    if (self = [super init])
+    {
+        _defaultImageLock = [[NSLock alloc] init];
+        _defaultImageSuffix = 1;
+    }
+    return self;
+}
 
 - (void) asyncImageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion
 {
@@ -31,6 +48,24 @@
         }
     }
     return nil;
+}
+
+- (UIImage*) nextDefaultImage
+{
+    [self.defaultImageLock lock];
+    @try
+    {
+        NSString* imageName = [NSString stringWithFormat:@"album%lu.png", (unsigned long)self.defaultImageSuffix++];
+        if (self.defaultImageSuffix == 4)
+        {
+            self.defaultImageSuffix = 1;
+        }
+        return [UIImage imageNamed:imageName];
+    }
+    @finally
+    {
+        [self.defaultImageLock unlock];
+    }
 }
 
 @end

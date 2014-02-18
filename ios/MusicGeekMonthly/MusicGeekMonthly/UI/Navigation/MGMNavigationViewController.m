@@ -54,9 +54,7 @@
 
     for (NSUInteger i = 0; i < self.backgroundAlbumCount; i++)
     {
-        NSUInteger index = (i % 3) + 1;
-        NSString* imageName = [NSString stringWithFormat:@"album%lu.png", (unsigned long)index];
-        UIImage* image = [UIImage imageNamed:imageName];
+        UIImage* image = [self.ui.imageHelper nextDefaultImage];
         [self renderBackgroundAlbumImage:image atIndex:i animation:NO];
     }
 }
@@ -218,7 +216,7 @@
 {
     if (image == nil)
     {
-        image = [UIImage imageNamed:@"album1.png"];
+        image = [self.ui.imageHelper nextDefaultImage];
     }
 
     [self renderBackgroundAlbumImage:image atIndex:index animation:YES];

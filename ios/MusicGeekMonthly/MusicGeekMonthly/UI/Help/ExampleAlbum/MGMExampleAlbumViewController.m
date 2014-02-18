@@ -90,7 +90,7 @@
 {
     MGMExampleAlbumView* exampleAlbumView = (MGMExampleAlbumView*)self.view;
     MGMAlbumDto* exampleAlbum = [self createExampleData];
-    [self.ui.viewUtilities displayAlbumDto:exampleAlbum inAlbumView:exampleAlbumView.albumView defaultImageName:@"album3.png" error:nil];
+    [self.ui.viewUtilities displayAlbumDto:exampleAlbum inAlbumView:exampleAlbumView.albumView error:nil];
 }
 
 - (void) gotIt

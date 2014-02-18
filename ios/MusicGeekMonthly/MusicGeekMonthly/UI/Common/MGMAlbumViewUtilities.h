@@ -20,7 +20,7 @@
 - (id) initWithImageHelper:(MGMImageHelper*)imageHelper renderService:(MGMAlbumRenderService*)renderService;
 
 - (MGMAlbumImageSize) preferredImageSizeForViewSize:(CGSize)viewSize;
-- (void) displayAlbumDto:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error;
-- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error;
+- (void) displayAlbumDto:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error;
+- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error;
 
 @end

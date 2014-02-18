@@ -159,7 +159,7 @@
 
             if (image == nil)
             {
-                image = [self defaultImageForRank:rank];
+                image = [self.ui.imageHelper nextDefaultImage];
             }
 
             dispatch_async(dispatch_get_main_queue(), ^
@@ -171,20 +171,13 @@
     }
     else
     {
-        UIImage* image = [self defaultImageForRank:rank];
+        UIImage* image = [self.ui.imageHelper nextDefaultImage];
         dispatch_async(dispatch_get_main_queue(), ^
         {
             [weeklyChartView.albumsView setActivityInProgress:NO forRank:rank];
             [weeklyChartView.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
         });
     }
-}
-
-- (UIImage*) defaultImageForRank:(NSUInteger)rank
-{
-    NSUInteger albumType = (rank % 3) + 1;
-    NSString* imageName = [NSString stringWithFormat:@"album%lu.png", (unsigned long)albumType];
-    return [UIImage imageNamed:imageName];
 }
 
 #pragma mark -

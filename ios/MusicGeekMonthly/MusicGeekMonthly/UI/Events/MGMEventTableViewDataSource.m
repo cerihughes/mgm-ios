@@ -58,13 +58,13 @@
                 [self.imageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [activityIndicatorView stopAnimating];
-                        if (error == nil)
+                        if (image && error == nil)
                         {
                             imageView.image = image;
                         }
                         else
                         {
-                            imageView.image = [UIImage imageNamed:@"album1.png"];
+                            imageView.image = [self.imageHelper nextDefaultImage];
                         }
                         [cell setNeedsDisplay];
                     });
@@ -74,7 +74,7 @@
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [activityIndicatorView stopAnimating];
-                    imageView.image = [UIImage imageNamed:@"album1.png"];
+                    imageView.image = [self.imageHelper nextDefaultImage];
                     [cell setNeedsDisplay];
                 });
             }

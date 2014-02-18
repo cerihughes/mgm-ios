@@ -56,7 +56,7 @@
     return MGMAlbumImageSizeNone;
 }
 
-- (void) displayAlbumDto:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
+- (void) displayAlbumDto:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         albumView.activityInProgress = YES;
@@ -67,7 +67,7 @@
 
     MGMAlbumImageSize preferredSize = [self preferredImageSizeForViewSize:albumView.frame.size];
     NSArray* albumArtUrls = [self bestAlbumImageUrlsForAlbum:album preferredSize:preferredSize];
-    [self displayAlbumImages:albumArtUrls inAlbumView:albumView defaultImageName:defaultName error:error];
+    [self displayAlbumImages:albumArtUrls inAlbumView:albumView error:error];
 }
 
 - (NSArray*) bestAlbumImageUrlsForAlbum:(MGMAlbumDto*)album preferredSize:(MGMAlbumImageSize)size
@@ -89,7 +89,7 @@
     return [array copy];
 }
 
-- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
+- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         albumView.activityInProgress = YES;
@@ -99,17 +99,17 @@
     });
 
     [self.renderService refreshAlbumImages:album error:error];
-    [self displayAlbumImage:album inAlbumView:albumView defaultImageName:defaultName error:error];
+    [self displayAlbumImage:album inAlbumView:albumView error:error];
 }
 
-- (void) displayAlbumImage:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
+- (void) displayAlbumImage:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error
 {
     MGMAlbumImageSize preferredSize = [self preferredImageSizeForViewSize:albumView.frame.size];
     NSArray* albumArtUrls = [album bestAlbumImageUrlsWithPreferredSize:preferredSize];
-    [self displayAlbumImages:albumArtUrls inAlbumView:albumView defaultImageName:defaultName error:error];
+    [self displayAlbumImages:albumArtUrls inAlbumView:albumView error:error];
 }
 
-- (void) displayAlbumImages:(NSArray*)albumArtUrls inAlbumView:(MGMAlbumView*)albumView defaultImageName:(NSString*)defaultName error:(NSError**)error
+- (void) displayAlbumImages:(NSArray*)albumArtUrls inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error
 {
     if (albumArtUrls.count > 0)
     {
@@ -126,7 +126,7 @@
              {
                  if (image == nil)
                  {
-                     image = [UIImage imageNamed:defaultName];
+                     image = [self.imageHelper nextDefaultImage];
                  }
                  [self renderImage:image inAlbumView:albumView];
              }
@@ -134,7 +134,7 @@
     }
     else
     {
-        [self renderImage:[UIImage imageNamed:defaultName] inAlbumView:albumView];
+        [self renderImage:[self.imageHelper nextDefaultImage] inAlbumView:albumView];
     }
 }
 

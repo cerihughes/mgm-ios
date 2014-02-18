@@ -24,14 +24,14 @@
     MGMAbstractEventView* eventView = (MGMAbstractEventView*)self.view;
 
     NSError* error1 = nil;
-    [self.ui.viewUtilities displayAlbum:event.classicAlbum inAlbumView:eventView.classicAlbumView defaultImageName:@"album3.png" error:&error1];
+    [self.ui.viewUtilities displayAlbum:event.classicAlbum inAlbumView:eventView.classicAlbumView error:&error1];
     if (error1)
     {
         [self logError:error1];
     }
     
     NSError* error2 = nil;
-    [self.ui.viewUtilities displayAlbum:event.newlyReleasedAlbum inAlbumView:eventView.newlyReleasedAlbumView defaultImageName:@"album1.png" error:&error2];
+    [self.ui.viewUtilities displayAlbum:event.newlyReleasedAlbum inAlbumView:eventView.newlyReleasedAlbumView error:&error2];
     if (error2)
     {
         [self logError:error2];
