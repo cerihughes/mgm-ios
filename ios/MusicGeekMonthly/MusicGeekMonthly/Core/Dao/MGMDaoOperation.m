@@ -10,6 +10,7 @@
 
 @interface MGMDaoOperation ()
 
+@property (readonly) NSLock* operationLock;
 @property (readonly) MGMCoreDataAccess* coreDataAccess;
 @property (readonly) MGMLocalDataSource* localDataSource;
 @property (readonly) MGMRemoteDataSource* remoteDataSource;
@@ -23,6 +24,7 @@
 {
     if (self = [super init])
     {
+        _operationLock = [[NSLock alloc] init];
         _coreDataAccess = coreDataAccess;
         _localDataSource = localDataSource;
         _remoteDataSource = remoteDataSource;
@@ -32,6 +34,19 @@
 }
 
 - (MGMDaoData*) fetchData:(id)key
+{
+    [self.operationLock lock];
+    @try
+    {
+        return [self synchonizedFetchData:key];
+    }
+    @finally
+    {
+        [self.operationLock unlock];
+    }
+}
+
+- (MGMDaoData*) synchonizedFetchData:(id)key
 {
     NSString* refreshIdentifier = [self refreshIdentifierForKey:key];
 

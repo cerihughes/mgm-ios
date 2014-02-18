@@ -83,7 +83,7 @@ static BOOL _isIpad;
     [self.parentViewController startRending];
 
     // This should be driven from a callback?
-    [self performSelector:@selector(checkPlayer) withObject:nil afterDelay:2.0];
+    [self performSelector:@selector(checkPlayer) withObject:nil afterDelay:0.5];
 }
 
 - (void) checkPlayer
