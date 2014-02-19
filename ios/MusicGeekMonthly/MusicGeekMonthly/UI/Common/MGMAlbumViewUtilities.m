@@ -113,24 +113,20 @@
 {
     if (albumArtUrls.count > 0)
     {
-        [self.imageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* imageError)
-         {
-             if (imageError)
-             {
-                 if (error)
-                 {
-                     *error = imageError;
-                 }
-             }
-             else
-             {
-                 if (image == nil)
-                 {
-                     image = [self.imageHelper nextDefaultImage];
-                 }
-                 [self renderImage:image inAlbumView:albumView];
-             }
-         }];
+        [self.imageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* imageError) {
+            if (imageError)
+            {
+                if (error)
+                {
+                    *error = imageError;
+                }
+            }
+            if (image == nil)
+            {
+                image = [self.imageHelper nextDefaultImage];
+            }
+            [self renderImage:image inAlbumView:albumView];
+        }];
     }
     else
     {

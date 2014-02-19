@@ -49,12 +49,15 @@
     }
     
     [modalView.eventsTable reloadData];
-    
-    // Auto-populate for 1st entry...
-    NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-    [modalView.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-    [self tableView:modalView.eventsTable didSelectRowAtIndexPath:firstItem];
-    
+
+    if (fetchedResultsController.fetchedObjects.count > 0)
+    {
+        // Auto-populate for 1st entry...
+        NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
+        [modalView.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+        [self tableView:modalView.eventsTable didSelectRowAtIndexPath:firstItem];
+    }
+
     modalView.delegate = self;
 
     return modalView;

@@ -54,11 +54,13 @@
 
     [modalView.timePeriodTable reloadData];
 
-    // Auto-populate for 1st entry...
-    NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-    [modalView.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-    [self tableView:modalView.timePeriodTable didSelectRowAtIndexPath:firstItem];
-
+    if (fetchedResultsController.fetchedObjects.count > 0)
+    {
+        // Auto-populate for 1st entry...
+        NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
+        [modalView.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+        [self tableView:modalView.timePeriodTable didSelectRowAtIndexPath:firstItem];
+    }
     return modalView;
 }
 

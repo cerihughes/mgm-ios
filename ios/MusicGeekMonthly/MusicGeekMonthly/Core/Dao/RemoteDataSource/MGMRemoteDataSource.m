@@ -14,7 +14,7 @@
 
 - (MGMRemoteData*) fetchRemoteData:(id)key
 {
-    if (self.hasReachability)
+    if (self.reachability)
     {
         NSDictionary* json = nil;
         NSString* url = [self urlForKey:key];

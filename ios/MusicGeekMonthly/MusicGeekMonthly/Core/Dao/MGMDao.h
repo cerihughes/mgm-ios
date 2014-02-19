@@ -13,6 +13,8 @@
 
 @interface MGMDao : NSObject
 
+@property BOOL reachability;
+
 - (id) init __unavailable;
 - (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
 

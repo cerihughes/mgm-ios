@@ -10,15 +10,6 @@
 
 @implementation MGMHttpDataSource
 
-- (id) init
-{
-    if (self = [super init])
-    {
-        _hasReachability = YES;
-    }
-    return self;
-}
-
 - (NSData*) contentsOfUrl:(NSString*)url error:(NSError**)error
 {
     return [self contentsOfUrl:url withHttpHeaders:nil responseCode:nil error:error];

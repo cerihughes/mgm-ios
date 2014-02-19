@@ -34,6 +34,18 @@
     return self;
 }
 
+- (BOOL) reachability
+{
+    return self.fetchEventDataOperation.reachability;
+}
+
+- (void) setReachability:(BOOL)reachability
+{
+    self.fetchEventDataOperation.reachability = reachability;
+    self.fetchAllTimePeriodsOperation.reachability = reachability;
+    self.fetchWeeklyChartOperation.reachability = reachability;
+}
+
 - (MGMDaoData*) fetchAllEvents
 {
     return [self.fetchEventDataOperation fetchData:ALL_EVENTS_KEY];

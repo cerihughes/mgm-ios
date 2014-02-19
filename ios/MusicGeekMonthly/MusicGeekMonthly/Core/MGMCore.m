@@ -10,22 +10,27 @@
 
 #import "MGMTimePeriod.h"
 
-#define REACHABILITY_END_POINT @"music-geek-monthly.appspot.com"
+@interface MGMCore () <MGMReachabilityManagerListener>
+
+@end
 
 @implementation MGMCore
+
+#define REACHABILITY_END_POINT @"music-geek-monthly.appspot.com"
 
 - (id) init
 {
     if (self = [super init])
     {
-        _reachabilityManager = [[MGMReachabilityManager alloc] init];
-        [_reachabilityManager registerForReachabilityTo:REACHABILITY_END_POINT];
-
         _coreDataAccess = [[MGMCoreDataAccess alloc] init];
         _dao = [[MGMDao alloc] initWithCoreDataAccess:_coreDataAccess];
         _settingsDao = [[MGMSettingsDao alloc] init];
         _albumRenderService = [[MGMAlbumRenderService alloc] initWithCoreDataAccess:_coreDataAccess];
         _serviceManager = [[MGMAlbumServiceManager alloc] initWithCoreDataAccess:_coreDataAccess];
+
+        _reachabilityManager = [[MGMReachabilityManager alloc] init];
+        [_reachabilityManager registerForReachabilityTo:REACHABILITY_END_POINT];
+        [_reachabilityManager addListener:self];
     }
     return self;
 }
@@ -54,6 +59,16 @@
     {
         return MGMCoreBackgroundFetchResultFailed;
     }
+}
+
+#pragma mark -
+#pragma mark MGMReachabilityManagerListener
+
+- (void) reachabilityDetermined:(BOOL)reachability
+{
+    self.dao.reachability = reachability;
+    self.albumRenderService.reachability = reachability;
+    self.serviceManager.reachability = reachability;
 }
 
 @end

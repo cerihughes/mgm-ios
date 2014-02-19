@@ -49,6 +49,21 @@
     return self;
 }
 
+- (BOOL) reachability
+{
+    return self.lastFmService.reachability;
+}
+
+- (void) setReachability:(BOOL)reachability
+{
+    self.lastFmService.reachability = reachability;
+    self.spotifyService.reachability = reachability;
+    self.deezerService.reachability = reachability;
+    self.itunesService.reachability = reachability;
+    self.wikipediaService.reachability = reachability;
+    self.youtubeService.reachability = reachability;
+}
+
 - (NSUInteger) serviceTypesThatPlayAlbum:(MGMAlbum*)album
 {
     NSUInteger metadataServiceTypes = 0;

@@ -127,7 +127,7 @@ static void networkReachabilityCallBack(SCNetworkReachabilityRef target, SCNetwo
     MGMReachabilityManagerConnectivity nwc;
     [self logNetworkFlags:flags];
 
-    if ((flags == 0) | (flags & (kSCNetworkReachabilityFlagsConnectionRequired |kSCNetworkReachabilityFlagsConnectionOnTraffic)))
+    if ((flags == 0) | (flags & (kSCNetworkReachabilityFlagsConnectionRequired | kSCNetworkReachabilityFlagsConnectionOnTraffic)))
     {
         nwc = MGMReachabilityManagerConnectivityNone;
     }
@@ -140,7 +140,10 @@ static void networkReachabilityCallBack(SCNetworkReachabilityRef target, SCNetwo
 
     if (self.connectivity != nwc)
     {
-        [self informListenersOfReachability:NO];
+        if (self.connectivity != MGMReachabilityManagerConnectivityNone)
+        {
+            [self informListenersOfReachability:NO];
+        }
         if (nwc != MGMReachabilityManagerConnectivityNone)
         {
             [self informListenersOfReachability:YES];
