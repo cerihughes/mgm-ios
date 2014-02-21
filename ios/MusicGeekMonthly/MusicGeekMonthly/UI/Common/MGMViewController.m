@@ -23,6 +23,7 @@
 
 - (void) transitionCompleteWithState:(id)state
 {
+    // OVERRIDE
 }
 
 - (CGRect) fullscreenRect
