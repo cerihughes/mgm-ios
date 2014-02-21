@@ -15,7 +15,7 @@
 
 @interface MGMEventsViewController () <UITableViewDelegate, MGMEventsViewDelegate, MGMEventsModalViewDelegate>
 
-@property (strong) UIView* modalView;
+@property (strong) MGMEventsModalView* modalView;
 @property (strong) MGMEventTableViewDataSource* dataSource;
 
 @end
@@ -27,51 +27,45 @@
 #define EVENT_TITLE_PATTERN @"MGM#%@ %@"
 #define WEB_URL_PATTERN @"https://embed.spotify.com/?uri=%@"
 
-- (MGMEventsModalView*) loadModalView
-{
-    MGMEventsModalView* modalView = [[MGMEventsModalView alloc] initWithFrame:[self fullscreenRect]];
-    
-    NSFetchedResultsController* fetchedResultsController = [self.core.coreDataAccess createEventsFetchedResultsController];
-    self.dataSource = [[MGMEventTableViewDataSource alloc] initWithCellId:CELL_ID];
-    self.dataSource.fetchedResultsController = fetchedResultsController;
-    self.dataSource.coreDataAccess = self.core.coreDataAccess;
-    self.dataSource.albumRenderService = self.core.albumRenderService;
-    self.dataSource.imageHelper = self.ui.imageHelper;
-    
-    modalView.eventsTable.dataSource = self.dataSource;
-    modalView.eventsTable.delegate = self;
-    
-    NSError* error = nil;
-    [fetchedResultsController performFetch:&error];
-    if (error != nil)
-    {
-        [self showError:error];
-    }
-    
-    [modalView.eventsTable reloadData];
-
-    if (fetchedResultsController.fetchedObjects.count > 0)
-    {
-        // Auto-populate for 1st entry...
-        NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-        [modalView.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-        [self tableView:modalView.eventsTable didSelectRowAtIndexPath:firstItem];
-    }
-
-    modalView.delegate = self;
-
-    return modalView;
-}
-
 - (void) loadView
 {
     MGMEventsView* eventsView = [[MGMEventsView alloc] initWithFrame:[self fullscreenRect]];
     eventsView.classicAlbumView.animationTime = 0.25;
     eventsView.newlyReleasedAlbumView.animationTime = 0.25;
-    
     eventsView.delegate = self;
+
+    self.dataSource = [[MGMEventTableViewDataSource alloc] initWithCellId:CELL_ID];
+    self.dataSource.fetchedResultsController = [self.core.coreDataAccess createEventsFetchedResultsController];
+    self.dataSource.coreDataAccess = self.core.coreDataAccess;
+    self.dataSource.albumRenderService = self.core.albumRenderService;
+    self.dataSource.imageHelper = self.ui.imageHelper;
+
+    self.modalView = [[MGMEventsModalView alloc] initWithFrame:[self fullscreenRect]];
+    self.modalView.eventsTable.dataSource = self.dataSource;
+    self.modalView.eventsTable.delegate = self;
+    self.modalView.delegate = self;
+
     self.view = eventsView;
-    self.modalView = [self loadModalView];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    NSError* error = nil;
+    [self.dataSource.fetchedResultsController performFetch:&error];
+    if (error != nil)
+    {
+        [self showError:error];
+    }
+    
+    [self.modalView.eventsTable reloadData];
+
+    if (self.event == nil && self.dataSource.fetchedResultsController.fetchedObjects.count > 0)
+    {
+        // Auto-populate for 1st entry...
+        NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
+        [self.modalView.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+        [self tableView:self.modalView.eventsTable didSelectRowAtIndexPath:firstItem];
+    }
 }
 
 - (void) displayEvent:(MGMEvent*)event

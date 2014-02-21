@@ -11,7 +11,7 @@
 
 @interface MGMWeeklyChartViewController () <MGMWeeklyChartAlbumsViewDelegate, UITableViewDelegate, MGMWeeklyChartViewDelegate, MGMWeeklyChartModalViewDelegate>
 
-@property (strong) UIView* modalView;
+@property (strong) MGMWeeklyChartModalView* modalView;
 @property (strong) MGMCoreDataTableViewDataSource* dataSource;
 @property (strong) NSManagedObjectID* weeklyChartMoid;
 @property (strong) NSDateFormatter* dateFormatter;
@@ -33,45 +33,21 @@
     return self;
 }
 
-- (MGMWeeklyChartModalView*) loadModalView
-{
-    MGMWeeklyChartModalView* modalView = [[MGMWeeklyChartModalView alloc] initWithFrame:[self fullscreenRect]];
-
-    NSFetchedResultsController* fetchedResultsController = [self.core.coreDataAccess createTimePeriodsFetchedResultsController];
-    self.dataSource = [[MGMCoreDataTableViewDataSource alloc] initWithCellId:CELL_ID];
-    self.dataSource.fetchedResultsController = fetchedResultsController;
-
-    modalView.delegate = self;
-    modalView.timePeriodTable.dataSource = self.dataSource;
-    modalView.timePeriodTable.delegate = self;
-
-    NSError* error = nil;
-    [fetchedResultsController performFetch:&error];
-    if (error != nil)
-    {
-        [self showError:error];
-    }
-
-    [modalView.timePeriodTable reloadData];
-
-    if (fetchedResultsController.fetchedObjects.count > 0)
-    {
-        // Auto-populate for 1st entry...
-        NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-        [modalView.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-        [self tableView:modalView.timePeriodTable didSelectRowAtIndexPath:firstItem];
-    }
-    return modalView;
-}
-
 - (void) loadView
 {
     MGMWeeklyChartView* weeklyChartView = [[MGMWeeklyChartView alloc] initWithFrame:[self fullscreenRect]];
     weeklyChartView.delegate = self;
     weeklyChartView.albumsView.delegate = self;
 
+    self.dataSource = [[MGMCoreDataTableViewDataSource alloc] initWithCellId:CELL_ID];
+    self.dataSource.fetchedResultsController = [self.core.coreDataAccess createTimePeriodsFetchedResultsController];
+
+    self.modalView = [[MGMWeeklyChartModalView alloc] initWithFrame:[self fullscreenRect]];
+    self.modalView.delegate = self;
+    self.modalView.timePeriodTable.dataSource = self.dataSource;
+    self.modalView.timePeriodTable.delegate = self;
+
     self.view = weeklyChartView;
-    self.modalView = [self loadModalView];
 }
 
 - (void) viewDidLoad
@@ -89,6 +65,26 @@
         NSValue* value = [gridData objectAtIndex:i];
         CGRect frame = [value CGRectValue];
         [weeklyChartView.albumsView setupAlbumFrame:frame forRank:i + 1];
+    }
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    NSError* error = nil;
+    [self.dataSource.fetchedResultsController performFetch:&error];
+    if (error != nil)
+    {
+        [self showError:error];
+    }
+
+    [self.modalView.timePeriodTable reloadData];
+
+    if (self.weeklyChartMoid == nil && self.dataSource.fetchedResultsController.fetchedObjects.count > 0)
+    {
+        // Auto-populate for 1st entry...
+        NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
+        [self.modalView.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+        [self tableView:self.modalView.timePeriodTable didSelectRowAtIndexPath:firstItem];
     }
 }
 

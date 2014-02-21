@@ -46,10 +46,14 @@
 
         if (fetchedEvents.count > 0) {
             MGMEvent* event = [fetchedEvents objectAtIndex:0];
-            self.eventMoid = event.objectID;
-            dispatch_async(dispatch_get_main_queue(), ^ {
-                [self displayEventWithMoid:self.eventMoid];
-            });
+            NSManagedObjectID* moid = event.objectID;
+            if ([self.eventMoid isEqual:moid] == NO)
+            {
+                self.eventMoid = moid;
+                dispatch_async(dispatch_get_main_queue(), ^ {
+                    [self displayEventWithMoid:self.eventMoid];
+                });
+            }
         }
         else
         {
