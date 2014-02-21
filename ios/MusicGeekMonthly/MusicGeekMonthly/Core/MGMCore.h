@@ -11,7 +11,6 @@
 #import "MGMAlbumRenderService.h"
 #import "MGMAlbumServiceManager.h"
 #import "MGMDao.h"
-#import "MGMReachabilityManager.h"
 #import "MGMSettingsDao.h"
 
 typedef NS_ENUM(NSUInteger, MGMCoreBackgroundFetchResult)
@@ -23,12 +22,13 @@ typedef NS_ENUM(NSUInteger, MGMCoreBackgroundFetchResult)
 
 @interface MGMCore : NSObject
 
-@property (readonly) MGMReachabilityManager* reachabilityManager;
 @property (readonly) MGMCoreDataAccess* coreDataAccess;
 @property (readonly) MGMDao* dao;
 @property (readonly) MGMSettingsDao* settingsDao;
 @property (readonly) MGMAlbumRenderService* albumRenderService;
 @property (readonly) MGMAlbumServiceManager* serviceManager;
+
+- (void) setReachability:(BOOL)reachability;
 
 - (MGMCoreBackgroundFetchResult) performBackgroundFetch;
 

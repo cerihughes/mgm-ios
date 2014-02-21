@@ -13,10 +13,10 @@
 
 @interface MGMDao : NSObject
 
-@property BOOL reachability;
-
 - (id) init __unavailable;
 - (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
+
+- (void) setReachability:(BOOL)reachability;
 
 - (MGMDaoData*) fetchAllEvents;
 - (MGMDaoData*) fetchAllClassicAlbums;

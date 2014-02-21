@@ -15,10 +15,10 @@
 
 @interface MGMDaoOperation : NSObject
 
-@property BOOL reachability;
-
 - (id) init __unavailable;
 - (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess localDataSource:(MGMLocalDataSource*)localDataSource remoteDataSource:(MGMRemoteDataSource*)remoteDataSource daysBetweenRemoteFetch:(NSUInteger)daysBetweenRemoteFetch;
+
+- (void) setReachability:(BOOL)reachability;
 
 - (MGMDaoData*) fetchData:(id)key;
 

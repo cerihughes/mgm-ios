@@ -13,10 +13,10 @@
 
 @interface MGMAlbumServiceManager : NSObject
 
-@property BOOL reachability;
-
 - (id) init __unavailable;
 - (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
+
+- (void) setReachability:(BOOL)reachability;
 
 - (NSUInteger) serviceTypesThatPlayAlbum:(MGMAlbum*)album;
 - (NSString*) serviceAvailabilityUrlForServiceType:(MGMAlbumServiceType)serviceType;

@@ -49,11 +49,6 @@
     return self;
 }
 
-- (BOOL) reachability
-{
-    return self.lastFmService.reachability;
-}
-
 - (void) setReachability:(BOOL)reachability
 {
     self.lastFmService.reachability = reachability;

@@ -34,11 +34,6 @@
     return self;
 }
 
-- (BOOL) reachability
-{
-    return self.fetchEventDataOperation.reachability;
-}
-
 - (void) setReachability:(BOOL)reachability
 {
     self.fetchEventDataOperation.reachability = reachability;

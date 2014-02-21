@@ -33,11 +33,6 @@
     return self;
 }
 
-- (BOOL) reachability
-{
-    return self.remoteDataSource.reachability;
-}
-
 - (void) setReachability:(BOOL)reachability
 {
     self.remoteDataSource.reachability = reachability;
