@@ -10,7 +10,6 @@
 
 #import "MGMLastFmConstants.h"
 #import "MGMEventDto.h"
-#import "MGMRemoteDataSource+Protected.h"
 
 @implementation MGMAllEventsDaoOperation
 

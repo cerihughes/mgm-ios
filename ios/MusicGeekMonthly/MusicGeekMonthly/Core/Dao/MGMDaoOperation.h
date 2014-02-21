@@ -23,3 +23,9 @@
 - (MGMDaoData*) fetchData:(id)key;
 
 @end
+
+@interface MGMDaoOperation (Protected)
+
+- (NSString*) refreshIdentifierForKey:(id)key;
+
+@end

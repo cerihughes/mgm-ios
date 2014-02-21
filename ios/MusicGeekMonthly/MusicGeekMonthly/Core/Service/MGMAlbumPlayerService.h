@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMRemoteDataSource+Protected.h"
+#import "MGMRemoteJsonDataSource.h"
 
 #import "MGMAlbum.h"
 #import "MGMAlbumMetadataDto.h"
 #import "MGMCoreDataAccess.h"
 
-@interface MGMAlbumPlayerService : MGMRemoteDataSource
+@interface MGMAlbumPlayerService : MGMRemoteJsonDataSource
 
 @property (readonly) MGMAlbumServiceType serviceType;
 

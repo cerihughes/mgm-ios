@@ -15,3 +15,14 @@
 - (MGMRemoteData*) fetchRemoteData:(id)key;
 
 @end
+
+@interface MGMRemoteDataSource (Protected)
+
+#pragma mark -
+#pragma mark Override the following
+
+- (NSString*) urlForKey:(id)key;
+- (NSDictionary*) httpHeaders;
+- (MGMRemoteData*) convertRemoteData:(NSData*)remoteData key:(id)key;
+
+@end

@@ -8,6 +8,8 @@
 
 #import "MGMDaoOperation.h"
 
+#import "MGMRemoteJsonDataSource.h"
+
 #define ALL_EVENTS_KEY @"ALL_EVENTS_KEY"
 #define ALL_CLASSIC_ALBUMS_KEY @"ALL_CLASSIC_ALBUMS_KEY"
 #define ALL_NEWLY_RELEASED_ALBUMS_KEY @"ALL_NEWLY_RELEASED_ALBUMS_KEY"
@@ -23,6 +25,6 @@
 
 @end
 
-@interface MGMAllEventsRemoteDataSource : MGMRemoteDataSource
+@interface MGMAllEventsRemoteDataSource : MGMRemoteJsonDataSource
 
 @end
