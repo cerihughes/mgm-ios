@@ -27,9 +27,10 @@
     self.backgroundColor = [UIColor whiteColor];
 
     self.calendarView = [[CKCalendarView  alloc] initWithFrame:CGRectZero];
-    CGFloat titleFontSize = self.ipad ? 20.0 : 14.0;
-    CGFloat dayFontSize = self.ipad ? 13.0 : 9.0;
-    CGFloat dateFontSize = self.ipad ? 18.0 : 13.0;
+    BOOL ipad = self.screenSize == MGMViewScreenSizeiPad;
+    CGFloat titleFontSize = ipad ? 20.0 : 14.0;
+    CGFloat dayFontSize = ipad ? 13.0 : 9.0;
+    CGFloat dateFontSize = ipad ? 18.0 : 13.0;
     self.calendarView.titleFont = [UIFont boldSystemFontOfSize:titleFontSize];
     self.calendarView.dayOfWeekFont = [UIFont boldSystemFontOfSize:dayFontSize];
     self.calendarView.dateFont = [UIFont boldSystemFontOfSize:dateFontSize];

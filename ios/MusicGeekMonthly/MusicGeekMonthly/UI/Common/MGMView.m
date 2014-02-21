@@ -3,11 +3,25 @@
 
 @implementation MGMView
 
-static BOOL _isIpad;
+static MGMViewScreenSize _screenSize;
 
 + (void) initialize
 {
-    _isIpad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+    {
+        _screenSize = MGMViewScreenSizeiPad;
+    }
+    else
+    {
+        if ([UIScreen mainScreen].bounds.size.height > 480)
+        {
+            _screenSize = MGMViewScreenSizeiPhone576;
+        }
+        else
+        {
+            _screenSize = MGMViewScreenSizeiPhone480;
+        }
+    }
 }
 
 + (UILabel*) boldTitleLabelWithText:(NSString *)text
@@ -32,12 +46,12 @@ static BOOL _isIpad;
 
 + (CGFloat) titleTextSize
 {
-    return (_isIpad ? 28.0 : 17.0);
+    return (_screenSize == MGMViewScreenSizeiPad ? 28.0 : 17.0);
 }
 
 + (CGFloat) subtitleTextSize
 {
-    return (_isIpad ? 20.0 : 13.0);
+    return (_screenSize == MGMViewScreenSizeiPad ? 20.0 : 13.0);
 }
 
 + (UILabel*) labelWithText:(NSString *)text fontName:(NSString*)fontName size:(CGFloat)size
@@ -54,7 +68,7 @@ static BOOL _isIpad;
 + (UIButton*) buttonWithText:(NSString*)text image:(UIImage*)image;
 {
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:(_isIpad ? 20.0 : 12.0)];
+    button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:(_screenSize == MGMViewScreenSizeiPad ? 20.0 : 12.0)];
     if (image)
     {
         [button setBackgroundImage:image forState:UIControlStateNormal];
@@ -75,9 +89,9 @@ static BOOL _isIpad;
     return button;
 }
 
-- (BOOL) ipad
+- (MGMViewScreenSize) screenSize
 {
-    return _isIpad;
+    return _screenSize;
 }
 
 - (CGFloat) statusBarHeight
@@ -92,7 +106,7 @@ static BOOL _isIpad;
 
 - (CGFloat) tabBarHeight
 {
-    if (self.ipad)
+    if (_screenSize == MGMViewScreenSizeiPad)
     {
         return 56.0;
     }
@@ -104,7 +118,7 @@ static BOOL _isIpad;
 
 - (void) commonInit
 {
-    if (self.ipad)
+    if (_screenSize == MGMViewScreenSizeiPad)
     {
         [self commonInitIpad];
     }
@@ -144,7 +158,7 @@ static BOOL _isIpad;
 
 - (void) layoutSubviews
 {
-    if (self.ipad)
+    if (_screenSize == MGMViewScreenSizeiPad)
     {
         [self layoutSubviewsIpad];
     }
