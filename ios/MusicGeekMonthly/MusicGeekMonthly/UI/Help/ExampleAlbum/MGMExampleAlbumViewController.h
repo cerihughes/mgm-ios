@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMAlbumViewController.h"
+#import "MGMViewController.h"
 
-@interface MGMExampleAlbumViewController : MGMAlbumViewController
+@interface MGMExampleAlbumViewController : MGMViewController
 
 @end
