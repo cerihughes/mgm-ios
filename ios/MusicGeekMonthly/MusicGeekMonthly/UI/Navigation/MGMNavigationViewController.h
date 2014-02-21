@@ -15,6 +15,8 @@
 - (id) init __unavailable;
 - (id) initWithUI:(MGMUI*)ui;
 
+- (void) setReachability:(BOOL)reachability;
+
 - (void) startRending;
 
 @end
