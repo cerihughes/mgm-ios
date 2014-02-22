@@ -10,4 +10,13 @@
 
 @implementation MGMPlaylistDto
 
+- (id) init
+{
+    if (self = [super init])
+    {
+        self.playlistItems = [NSMutableArray array];
+    }
+    return self;
+}
+
 @end

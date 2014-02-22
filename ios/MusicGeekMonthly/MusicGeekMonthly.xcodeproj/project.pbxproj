@@ -173,6 +173,11 @@
 		65E8110A17AD014800FCBC9F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E8110917AD014800FCBC9F /* libz.dylib */; };
 		65E975B417B6B43400CF53B2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E975B317B6B43400CF53B2 /* CoreData.framework */; };
 		65EB123317C3FB66008EE886 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EB123217C3FB66008EE886 /* libTestFlight.a */; };
+		65EC948E18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC948D18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m */; };
+		65EC949118B8C9A300B1AFFE /* MGMXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949018B8C9A300B1AFFE /* MGMXmlParser.m */; };
+		65EC949218B8C9A300B1AFFE /* MGMXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949018B8C9A300B1AFFE /* MGMXmlParser.m */; };
+		65EC949518B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m */; };
+		65EC949618B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m */; };
 		65F89A4718B7BCB1003C5803 /* MGMPlaylistDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A4618B7BCB1003C5803 /* MGMPlaylistDto.m */; };
 		65F89A4818B7BCB1003C5803 /* MGMPlaylistDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A4618B7BCB1003C5803 /* MGMPlaylistDto.m */; };
 		65F89A4B18B7BCC3003C5803 /* MGMPlaylistItemDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A4A18B7BCC3003C5803 /* MGMPlaylistItemDto.m */; };
@@ -414,6 +419,12 @@
 		65E8110917AD014800FCBC9F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		65E975B317B6B43400CF53B2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		65EB123217C3FB66008EE886 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = MusicGeekMonthly/Libraries/TestFlightSDK2.2.1/libTestFlight.a; sourceTree = "<group>"; };
+		65EC948C18B8C49500B1AFFE /* MGMPlaylistDaoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylistDaoOperation.h; sourceTree = "<group>"; };
+		65EC948D18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlaylistDaoOperation.m; sourceTree = "<group>"; };
+		65EC948F18B8C9A300B1AFFE /* MGMXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMXmlParser.h; sourceTree = "<group>"; };
+		65EC949018B8C9A300B1AFFE /* MGMXmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMXmlParser.m; sourceTree = "<group>"; };
+		65EC949318B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteXmlDataSource.h; sourceTree = "<group>"; };
+		65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteXmlDataSource.m; sourceTree = "<group>"; };
 		65F89A4518B7BCB1003C5803 /* MGMPlaylistDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylistDto.h; sourceTree = "<group>"; };
 		65F89A4618B7BCB1003C5803 /* MGMPlaylistDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlaylistDto.m; sourceTree = "<group>"; };
 		65F89A4918B7BCC3003C5803 /* MGMPlaylistItemDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylistItemDto.h; sourceTree = "<group>"; };
@@ -517,6 +528,8 @@
 				658D30DA18B112E3007A4D98 /* MGMAllTimePeriodsDaoOperation.h */,
 				658D30DB18B112E3007A4D98 /* MGMAllTimePeriodsDaoOperation.m */,
 				658D30DC18B112E3007A4D98 /* MGMLastFmConstants.h */,
+				65EC948C18B8C49500B1AFFE /* MGMPlaylistDaoOperation.h */,
+				65EC948D18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m */,
 				658D30DD18B112E3007A4D98 /* MGMWeeklyChartDaoOperation.h */,
 				658D30DE18B112E3007A4D98 /* MGMWeeklyChartDaoOperation.m */,
 			);
@@ -546,6 +559,10 @@
 				658D30F318B112E3007A4D98 /* MGMRemoteDataSource.m */,
 				65F89A5118B7BEC3003C5803 /* MGMRemoteJsonDataSource.h */,
 				65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataSource.m */,
+				65EC949318B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.h */,
+				65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m */,
+				65EC948F18B8C9A300B1AFFE /* MGMXmlParser.h */,
+				65EC949018B8C9A300B1AFFE /* MGMXmlParser.m */,
 			);
 			path = RemoteDataSource;
 			sourceTree = "<group>";
@@ -1087,6 +1104,7 @@
 			files = (
 				658D316E18B112E3007A4D98 /* MGMAlbumMetadata.m in Sources */,
 				658D328718B1147C007A4D98 /* MGMCoreDataTableViewDataSource.m in Sources */,
+				65EC948E18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m in Sources */,
 				658D317818B112E3007A4D98 /* MGMWeeklyChart.m in Sources */,
 				658D328F18B1147C007A4D98 /* UIViewController+MGMAdditions.m in Sources */,
 				658D329318B1147C007A4D98 /* MGMEventTableCell.m in Sources */,
@@ -1105,6 +1123,7 @@
 				658D315E18B112E3007A4D98 /* MGMEventDto.m in Sources */,
 				658D328518B1147C007A4D98 /* MGMAlbumViewController.m in Sources */,
 				658D317C18B112E3007A4D98 /* NSMutableArray+Shuffling.m in Sources */,
+				65EC949518B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m in Sources */,
 				658D32A018B1147C007A4D98 /* MGMPlayerSelectionView.m in Sources */,
 				659F9F4E175B928E000C413B /* main.m in Sources */,
 				658D328C18B1147C007A4D98 /* MGMAbstractPlayerSelectionView.m in Sources */,
@@ -1168,6 +1187,7 @@
 				658D329218B1147C007A4D98 /* MGMEventsViewController.m in Sources */,
 				658D328A18B1147C007A4D98 /* MGMView.m in Sources */,
 				658D329A18B1147C007A4D98 /* MGMAppDelegate.m in Sources */,
+				65EC949118B8C9A300B1AFFE /* MGMXmlParser.m in Sources */,
 				658D315218B112E3007A4D98 /* MGMHttpDataSource.m in Sources */,
 				658D32A118B1147C007A4D98 /* MGMPlayerSelectionViewController.m in Sources */,
 				658D317618B112E3007A4D98 /* MGMTimePeriod.m in Sources */,
@@ -1194,6 +1214,7 @@
 				658D316318B112E3007A4D98 /* MGMWeeklyChartDto.m in Sources */,
 				658D313318B112E3007A4D98 /* MGMDaoData.m in Sources */,
 				65F89A4818B7BCB1003C5803 /* MGMPlaylistDto.m in Sources */,
+				65EC949618B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m in Sources */,
 				658D317718B112E3007A4D98 /* MGMTimePeriod.m in Sources */,
 				658D316B18B112E3007A4D98 /* MGMAlbum.m in Sources */,
 				658D314918B112E3007A4D98 /* MGMLocalDataSource.m in Sources */,
@@ -1212,6 +1233,7 @@
 				658D317F18B112E3007A4D98 /* MGMLastFmPlayerService.m in Sources */,
 				658D315D18B112E3007A4D98 /* MGMChartEntryDto.m in Sources */,
 				65936A0917BCB1150070A9C6 /* MGMCoreDataTestCase.m in Sources */,
+				65EC949218B8C9A300B1AFFE /* MGMXmlParser.m in Sources */,
 				658D314B18B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m in Sources */,
 				658D315118B112E3007A4D98 /* MGMSettingsDao.m in Sources */,
 				658D318318B112E3007A4D98 /* MGMWebsitePlayerService.m in Sources */,

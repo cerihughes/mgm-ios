@@ -22,7 +22,4 @@
 @property (readonly) NSString* groupHeader;
 @property (readonly) NSString* groupValue;
 
-- (NSString*) spotifyPlaylistUrl;
-- (NSString*) spotifyHttpUrl;
-
 @end

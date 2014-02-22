@@ -10,6 +10,7 @@
 
 #import "MGMAbstractEventView.h"
 #import "MGMAlbumViewUtilities.h"
+#import "MGMPlaylistDto.h"
 
 @interface MGMAbstractEventViewController () <MGMAbstractEventViewDelegate>
 
@@ -20,6 +21,22 @@
 - (void) displayEvent:(MGMEvent*)event
 {
     self.event = event;
+
+    if (event.spotifyPlaylistId)
+    {
+        MGMDaoData* data = [self.core.dao fetchPlaylist:event.spotifyPlaylistId];
+        MGMPlaylistDto* playlist = data.data;
+        NSError* playlistError = data.error;
+
+        if (playlistError)
+        {
+            [self logError:playlistError];
+        }
+
+        if (playlist)
+        {
+        }
+    }
 
     MGMAbstractEventView* eventView = (MGMAbstractEventView*)self.view;
 

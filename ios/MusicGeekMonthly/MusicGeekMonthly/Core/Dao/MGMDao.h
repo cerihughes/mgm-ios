@@ -26,4 +26,6 @@
 - (MGMDaoData*) fetchAllTimePeriods;
 - (MGMDaoData*) fetchWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate;
 
+- (MGMDaoData*) fetchPlaylist:(NSString*)playlistId;
+
 @end

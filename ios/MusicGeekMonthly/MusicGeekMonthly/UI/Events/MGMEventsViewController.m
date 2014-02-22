@@ -25,7 +25,6 @@
 #define CELL_ID @"MGMEventsViewControllerCellId"
 
 #define EVENT_TITLE_PATTERN @"MGM#%@ %@"
-#define WEB_URL_PATTERN @"https://embed.spotify.com/?uri=%@"
 
 - (void) loadView
 {
@@ -77,13 +76,6 @@
 	NSString* dateString = event.groupValue;
     NSString* newTitle = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
     [eventsView setTitle:newTitle];
-
-    NSString* urlString = nil;
-    if (event.spotifyHttpUrl)
-    {
-        urlString = [NSString stringWithFormat:WEB_URL_PATTERN, event.spotifyHttpUrl];
-    }
-    [eventsView setPlaylistUrl:urlString];
 }
 
 #pragma mark -

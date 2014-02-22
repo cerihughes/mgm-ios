@@ -19,6 +19,5 @@
 @property (weak) id<MGMEventsViewDelegate> delegate;
 
 - (void) setTitle:(NSString*)title;
-- (void) setPlaylistUrl:(NSString*)playlistUrl;
 
 @end

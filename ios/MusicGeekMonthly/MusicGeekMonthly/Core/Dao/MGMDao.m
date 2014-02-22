@@ -11,13 +11,15 @@
 #import "MGMAllEventsDaoOperation.h"
 #import "MGMAllTimePeriodsDaoOperation.h"
 #import "MGMCoreDataAccess.h"
+#import "MGMPlaylistDaoOperation.h"
 #import "MGMWeeklyChartDaoOperation.h"
 
 @interface MGMDao ()
 
-@property (readonly) MGMAllEventsDaoOperation* fetchEventDataOperation;
-@property (readonly) MGMAllTimePeriodsDaoOperation* fetchAllTimePeriodsOperation;
-@property (readonly) MGMWeeklyChartDaoOperation* fetchWeeklyChartOperation;
+@property (readonly) MGMAllEventsDaoOperation* eventDaoOperation;
+@property (readonly) MGMAllTimePeriodsDaoOperation* timePeriodDaoOperation;
+@property (readonly) MGMWeeklyChartDaoOperation* weeklyChartDaoOperation;
+@property (readonly) MGMPlaylistDaoOperation* playlistDaoOperation;
 
 @end
 
@@ -27,43 +29,45 @@
 {
     if (self = [super init])
     {
-        _fetchEventDataOperation = [[MGMAllEventsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
-        _fetchAllTimePeriodsOperation = [[MGMAllTimePeriodsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
-        _fetchWeeklyChartOperation = [[MGMWeeklyChartDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
+        _eventDaoOperation = [[MGMAllEventsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
+        _timePeriodDaoOperation = [[MGMAllTimePeriodsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
+        _weeklyChartDaoOperation = [[MGMWeeklyChartDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
+        _playlistDaoOperation = [[MGMPlaylistDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
     }
     return self;
 }
 
 - (void) setReachability:(BOOL)reachability
 {
-    self.fetchEventDataOperation.reachability = reachability;
-    self.fetchAllTimePeriodsOperation.reachability = reachability;
-    self.fetchWeeklyChartOperation.reachability = reachability;
+    self.eventDaoOperation.reachability = reachability;
+    self.timePeriodDaoOperation.reachability = reachability;
+    self.weeklyChartDaoOperation.reachability = reachability;
+    self.playlistDaoOperation.reachability = reachability;
 }
 
 - (MGMDaoData*) fetchAllEvents
 {
-    return [self.fetchEventDataOperation fetchData:ALL_EVENTS_KEY];
+    return [self.eventDaoOperation fetchData:ALL_EVENTS_KEY];
 }
 
 - (MGMDaoData*) fetchAllClassicAlbums
 {
-    return [self.fetchEventDataOperation fetchData:ALL_CLASSIC_ALBUMS_KEY];
+    return [self.eventDaoOperation fetchData:ALL_CLASSIC_ALBUMS_KEY];
 }
 
 - (MGMDaoData*) fetchAllNewlyReleasedAlbums
 {
-    return [self.fetchEventDataOperation fetchData:ALL_NEWLY_RELEASED_ALBUMS_KEY];
+    return [self.eventDaoOperation fetchData:ALL_NEWLY_RELEASED_ALBUMS_KEY];
 }
 
 - (MGMDaoData*) fetchAllEventAlbums
 {
-    return [self.fetchEventDataOperation fetchData:ALL_EVENT_ALBUMS_KEY];
+    return [self.eventDaoOperation fetchData:ALL_EVENT_ALBUMS_KEY];
 }
 
 - (MGMDaoData*) fetchAllTimePeriods
 {
-    return [self.fetchAllTimePeriodsOperation fetchData:nil];
+    return [self.timePeriodDaoOperation fetchData:nil];
 }
 
 - (MGMDaoData*) fetchWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate
@@ -71,7 +75,12 @@
     MGMWeeklyChartData* data = [[MGMWeeklyChartData alloc] init];
     data.startDate = startDate;
     data.endDate = endDate;
-    return [self.fetchWeeklyChartOperation fetchData:data];
+    return [self.weeklyChartDaoOperation fetchData:data];
+}
+
+- (MGMDaoData*) fetchPlaylist:(NSString*)playlistId
+{
+    return [self.playlistDaoOperation fetchData:playlistId];
 }
 
 @end
