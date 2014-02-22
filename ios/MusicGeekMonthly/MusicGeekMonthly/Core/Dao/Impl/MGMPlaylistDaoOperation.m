@@ -8,6 +8,7 @@
 
 #import "MGMPlaylistDaoOperation.h"
 
+#import "MGMAlbumImageUriDto.h"
 #import "MGMErrorCodes.h"
 #import "MGMPlaylistDto.h"
 #import "MGMPlaylistItemDto.h"
@@ -122,6 +123,9 @@
 
 - (MGMPlaylistItemDto*) playlistItemForLi:(NSDictionary*)li
 {
+    NSString* smallUrl = [li objectForKey:@"data-small-ca"];
+    NSString* largeUrl = [li objectForKey:@"data-ca"];
+
     NSDictionary* trackUl = [li objectForKeyedSubscript:@"ul"];
     NSArray* trackLiArray = [trackUl objectForKeyedSubscript:@"li"];
 
@@ -136,6 +140,18 @@
     MGMPlaylistItemDto* playlistItem = [[MGMPlaylistItemDto alloc] init];
     playlistItem.title = title;
     playlistItem.artist = artist;
+
+    MGMAlbumImageUriDto* smallImageUri = [[MGMAlbumImageUriDto alloc] init];
+    smallImageUri.uri = smallUrl;
+    smallImageUri.size = MGMAlbumImageSize64;
+
+    MGMAlbumImageUriDto* largeImageUri = [[MGMAlbumImageUriDto alloc] init];
+    largeImageUri.uri = largeUrl;
+    largeImageUri.size = MGMAlbumImageSize512;
+
+    [playlistItem.imageUris addObject:smallImageUri];
+    [playlistItem.imageUris addObject:largeImageUri];
+
     return playlistItem;
 }
 

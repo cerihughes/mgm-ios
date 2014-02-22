@@ -10,6 +10,7 @@
 
 @interface MGMPlaylistItemDto : NSObject
 
+@property (nonatomic, strong) NSMutableArray* imageUris;
 @property (nonatomic, strong) NSString* artist;
 @property (nonatomic, strong) NSString* album;
 @property (nonatomic, strong) NSString* title;
