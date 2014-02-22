@@ -9,7 +9,7 @@
 #import "MGMWeeklyChartModalView.h"
 #import "MGMWeeklyChartView.h"
 
-@interface MGMWeeklyChartViewController () <MGMWeeklyChartAlbumsViewDelegate, UITableViewDelegate, MGMWeeklyChartViewDelegate, MGMWeeklyChartModalViewDelegate>
+@interface MGMWeeklyChartViewController () <MGMAlbumGridViewDelegate, UITableViewDelegate, MGMWeeklyChartViewDelegate, MGMWeeklyChartModalViewDelegate>
 
 @property (strong) MGMWeeklyChartModalView* modalView;
 @property (strong) MGMCoreDataTableViewDataSource* dataSource;
@@ -37,7 +37,7 @@
 {
     MGMWeeklyChartView* weeklyChartView = [[MGMWeeklyChartView alloc] initWithFrame:[self fullscreenRect]];
     weeklyChartView.delegate = self;
-    weeklyChartView.albumsView.delegate = self;
+    weeklyChartView.albumGridView.delegate = self;
 
     self.dataSource = [[MGMCoreDataTableViewDataSource alloc] initWithCellId:CELL_ID];
     self.dataSource.fetchedResultsController = [self.core.coreDataAccess createTimePeriodsFetchedResultsController];
@@ -57,14 +57,14 @@
     NSUInteger albumCount = 25;
     NSUInteger rowCount = self.ipad ? 4 : 2;
     NSUInteger columnCount = (albumCount + 3) / rowCount;
-    CGFloat albumSize = weeklyChartView.albumsView.frame.size.width / rowCount;
+    CGFloat albumSize = weeklyChartView.albumGridView.frame.size.width / rowCount;
     NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];
 
     for (NSUInteger i = 0; i < albumCount; i++)
     {
         NSValue* value = [gridData objectAtIndex:i];
         CGRect frame = [value CGRectValue];
-        [weeklyChartView.albumsView setupAlbumFrame:frame forRank:i + 1];
+        [weeklyChartView.albumGridView setupAlbumFrame:frame forRank:i + 1];
     }
 }
 
@@ -95,7 +95,7 @@
     [weeklyChartView setTitle:timePeriod.groupValue];
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weeklyChartView.albumsView setActivityInProgressForAllRanks:YES];
+        [weeklyChartView.albumGridView setActivityInProgressForAllRanks:YES];
     });
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -142,7 +142,7 @@
     NSUInteger rank = chartEntry.rank.intValue;
     NSUInteger listeners = chartEntry.listeners.intValue;
 
-    CGSize size = [weeklyChartView.albumsView sizeOfRank:rank];
+    CGSize size = [weeklyChartView.albumGridView sizeOfRank:rank];
     MGMAlbumImageSize preferredSize = [self.ui.viewUtilities preferredImageSizeForViewSize:size];
     NSArray* albumArtUrls = [chartEntry bestAlbumImageUrlsWithPreferredSize:preferredSize];
     MGMAlbum* album = chartEntry.album;
@@ -162,8 +162,8 @@
 
             dispatch_async(dispatch_get_main_queue(), ^
             {
-                [weeklyChartView.albumsView setActivityInProgress:NO forRank:rank];
-                [weeklyChartView.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
+                [weeklyChartView.albumGridView setActivityInProgress:NO forRank:rank];
+                [weeklyChartView.albumGridView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
             });
         }];
     }
@@ -172,8 +172,8 @@
         UIImage* image = [self.ui.imageHelper nextDefaultImage];
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            [weeklyChartView.albumsView setActivityInProgress:NO forRank:rank];
-            [weeklyChartView.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
+            [weeklyChartView.albumGridView setActivityInProgress:NO forRank:rank];
+            [weeklyChartView.albumGridView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
         });
     }
 }
@@ -189,7 +189,7 @@
 }
 
 #pragma mark -
-#pragma mark MGMWeeklyChartAlbumsViewDelegate
+#pragma mark MGMAlbumGridViewDelegate
 
 - (void) albumPressedWithRank:(NSUInteger)rank
 {

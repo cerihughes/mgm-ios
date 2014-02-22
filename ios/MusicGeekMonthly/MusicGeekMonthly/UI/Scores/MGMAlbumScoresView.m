@@ -12,7 +12,7 @@
 
 @property (strong) UINavigationBar* navigationBar;
 @property (strong) UISegmentedControl* segmentedControl;
-@property (strong) MGMWeeklyChartAlbumsView* albumsView;
+@property (strong) MGMAlbumGridView* albumGridView;
 
 @end
 
@@ -31,9 +31,9 @@
     navigationItem.titleView = self.segmentedControl;
     [self.navigationBar pushNavigationItem:navigationItem animated:YES];
 
-    self.albumsView = [[MGMWeeklyChartAlbumsView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y + 64, self.frame.size.width, self.frame.size.height - (64 + self.tabBarHeight))];
+    self.albumGridView = [[MGMAlbumGridView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y + 64, self.frame.size.width, self.frame.size.height - (64 + self.tabBarHeight))];
 
-    [self addSubview:self.albumsView];
+    [self addSubview:self.albumGridView];
     [self addSubview:self.navigationBar];
 }
 

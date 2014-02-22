@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, MGMAlbumScoresViewSelection)
 
 @property (weak) id<MGMAlbumScoresViewDelegate> delegate;
 
-@property (readonly) MGMWeeklyChartAlbumsView* albumsView;
+@property (readonly) MGMAlbumGridView* albumGridView;
 
 - (void) setSelection:(MGMAlbumScoresViewSelection)selection;
 

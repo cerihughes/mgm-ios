@@ -9,7 +9,7 @@
 #import "MGMWeeklyChartAlbumsView.h"
 #import "MGMAlbumView.h"
 
-@interface MGMWeeklyChartAlbumsView () <MGMAlbumViewDelegate>
+@interface MGMAlbumGridView () <MGMAlbumViewDelegate>
 
 @property (strong) UIScrollView* scrollView;
 @property (readonly) NSLock* albumViewsLock;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation MGMWeeklyChartAlbumsView
+@implementation MGMAlbumGridView
 
 - (id) initWithFrame:(CGRect)frame
 {

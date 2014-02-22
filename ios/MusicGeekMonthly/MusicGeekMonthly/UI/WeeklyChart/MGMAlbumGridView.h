@@ -8,16 +8,16 @@
 
 #import "MGMView.h"
 
-@protocol MGMWeeklyChartAlbumsViewDelegate <NSObject>
+@protocol MGMAlbumGridViewDelegate <NSObject>
 
 - (void) albumPressedWithRank:(NSUInteger)rank;
 - (void) detailPressedWithRank:(NSUInteger)rank;
 
 @end
 
-@interface MGMWeeklyChartAlbumsView : MGMView
+@interface MGMAlbumGridView : MGMView
 
-@property (weak) id<MGMWeeklyChartAlbumsViewDelegate> delegate;
+@property (weak) id<MGMAlbumGridViewDelegate> delegate;
 
 - (void) setupAlbumFrame:(CGRect)frame forRank:(NSUInteger)rank;
 - (CGSize) sizeOfRank:(NSUInteger)rank;

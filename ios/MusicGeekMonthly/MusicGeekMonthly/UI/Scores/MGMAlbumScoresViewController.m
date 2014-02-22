@@ -14,7 +14,7 @@
 #import "MGMGridManager.h"
 #import "MGMImageHelper.h"
 
-@interface MGMAlbumScoresViewController () <MGMWeeklyChartAlbumsViewDelegate, MGMAlbumScoresViewDelegate>
+@interface MGMAlbumScoresViewController () <MGMAlbumGridViewDelegate, MGMAlbumScoresViewDelegate>
 
 @property (strong) NSArray* albumMoids;
 
@@ -25,7 +25,7 @@
 - (void) loadView
 {
     MGMAlbumScoresView* scoresView = [[MGMAlbumScoresView alloc] initWithFrame:[self fullscreenRect]];
-    scoresView.albumsView.delegate = self;
+    scoresView.albumGridView.delegate = self;
     scoresView.delegate = self;
 
     self.view = scoresView;
@@ -39,14 +39,14 @@
     NSUInteger albumCount = 25;
     NSUInteger rowCount = self.ipad ? 4 : 2;
     NSUInteger columnCount = (albumCount + 3) / rowCount;
-    CGFloat albumSize = scoresView.albumsView.frame.size.width / rowCount;
+    CGFloat albumSize = scoresView.albumGridView.frame.size.width / rowCount;
     NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];
 
     for (NSUInteger i = 0; i < albumCount; i++)
     {
         NSValue* value = [gridData objectAtIndex:i];
         CGRect frame = [value CGRectValue];
-        [scoresView.albumsView setupAlbumFrame:frame forRank:i + 1];
+        [scoresView.albumGridView setupAlbumFrame:frame forRank:i + 1];
     }
 
     [scoresView setSelection:MGMAlbumScoresViewSelectionClassicAlbums];
@@ -58,7 +58,7 @@
 
     dispatch_async(dispatch_get_main_queue(), ^
     {
-        [scoresView.albumsView setActivityInProgressForAllRanks:YES];
+        [scoresView.albumGridView setActivityInProgressForAllRanks:YES];
     });
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
@@ -68,23 +68,23 @@
         NSError* fetchError = data.error;
         dispatch_async(dispatch_get_main_queue(), ^{
             // Resize the album view for new data...
-            [scoresView.albumsView clearAllAlbumFrames];
+            [scoresView.albumGridView clearAllAlbumFrames];
 
             BOOL iPad = self.view.frame.size.width > 320;
             NSUInteger albumCount = albumMoids.count;
             NSUInteger rowCount = iPad ? 4 : 2;
             NSUInteger columnCount = ((albumCount + 3) / rowCount) + 1;
-            CGFloat albumSize = scoresView.albumsView.frame.size.width / rowCount;
+            CGFloat albumSize = scoresView.albumGridView.frame.size.width / rowCount;
             NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];
 
             for (NSUInteger i = 0; i < albumCount; i++)
             {
                 NSValue* value = [gridData objectAtIndex:i];
                 CGRect frame = [value CGRectValue];
-                [scoresView.albumsView setupAlbumFrame:frame forRank:i + 1];
+                [scoresView.albumGridView setupAlbumFrame:frame forRank:i + 1];
             }
 
-            [scoresView.albumsView setActivityInProgressForAllRanks:YES];
+            [scoresView.albumGridView setActivityInProgressForAllRanks:YES];
 
         });
 
@@ -155,7 +155,7 @@
 {
     MGMAlbumScoresView* scoresView = (MGMAlbumScoresView*)self.view;
 
-    CGSize size = [scoresView.albumsView sizeOfRank:position];
+    CGSize size = [scoresView.albumGridView sizeOfRank:position];
     MGMAlbumImageSize preferredSize = [self.ui.viewUtilities preferredImageSizeForViewSize:size];
     NSArray* albumArtUrls = [album bestAlbumImageUrlsWithPreferredSize:preferredSize];
     if (albumArtUrls.count > 0)
@@ -174,8 +174,8 @@
 
             dispatch_async(dispatch_get_main_queue(), ^
             {
-                [scoresView.albumsView setActivityInProgress:NO forRank:position];
-                [scoresView.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:position listeners:0 score:[album.score floatValue]];
+                [scoresView.albumGridView setActivityInProgress:NO forRank:position];
+                [scoresView.albumGridView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:position listeners:0 score:[album.score floatValue]];
             });
         }];
     }
@@ -184,14 +184,14 @@
         UIImage* image = [self.ui.imageHelper nextDefaultImage];
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            [scoresView.albumsView setActivityInProgress:NO forRank:position];
-            [scoresView.albumsView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:position listeners:0 score:[album.score floatValue]];
+            [scoresView.albumGridView setActivityInProgress:NO forRank:position];
+            [scoresView.albumGridView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:position listeners:0 score:[album.score floatValue]];
         });
     }
 }
 
 #pragma mark -
-#pragma mark MGMWeeklyChartAlbumsViewDelegate
+#pragma mark MGMAlbumGridViewDelegate
 
 - (void) albumPressedWithRank:(NSUInteger)rank
 {

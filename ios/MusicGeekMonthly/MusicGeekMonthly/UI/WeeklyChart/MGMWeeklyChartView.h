@@ -20,7 +20,7 @@
 
 @property (weak) id<MGMWeeklyChartViewDelegate> delegate;
 
-@property (readonly) MGMWeeklyChartAlbumsView* albumsView;
+@property (readonly) MGMAlbumGridView* albumGridView;
 
 - (void) setTitle:(NSString*)title;
 
