@@ -39,32 +39,64 @@
     [self addSubview:self.scrollView];
 }
 
-- (void) setupAlbumFrame:(CGRect)frame forRank:(NSUInteger)rank
+- (void) setAlbumCount:(NSUInteger)albumCount
 {
-    MGMAlbumView* albumView = [[MGMAlbumView alloc] initWithFrame:frame];
-    albumView.alphaOn = 1;
-    albumView.animationTime = 0.5;
-    albumView.rank = rank;
-    albumView.detailViewShowing = NO;
-    albumView.delegate = self;
-    albumView.pressable = NO;
+    if (self.albumViews.count != albumCount)
+    {
+        [self.albumViewsLock lock];
+        @try
+        {
+            for (NSUInteger i = albumCount; i < self.albumViews.count; i++)
+            {
+                MGMAlbumView* albumView = [self internal_albumViewForRank:i];
+                albumView.frame = CGRectZero;
+            }
 
-    [self.albumViewsLock lock];
-    @try
-    {
-        [self.scrollView addSubview:albumView];
-        [self.albumViews addObject:albumView];
-        CGSize existingSize = self.scrollView.contentSize;
-        CGRect existingContent = CGRectMake(0, 0, existingSize.width, existingSize.height);
-        self.scrollView.contentSize = CGRectUnion(existingContent, frame).size;
-    }
-    @finally
-    {
-        [self.albumViewsLock unlock];
+            for (NSUInteger i = self.albumViews.count; i < albumCount; i++)
+            {
+                MGMAlbumView* albumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
+                albumView.alphaOn = 1;
+                albumView.animationTime = 0.5;
+                albumView.rank = i + 1;
+                albumView.detailViewShowing = NO;
+                albumView.delegate = self;
+                albumView.pressable = NO;
+
+                [self.scrollView addSubview:albumView];
+                [self.albumViews addObject:albumView];
+            }
+        }
+        @finally
+        {
+            [self.albumViewsLock unlock];
+        }
+
+        self.scrollView.contentSize = CGSizeZero;
     }
 }
 
-- (CGSize) sizeOfRank:(NSUInteger)rank
+- (void) setAlbumFrame:(CGRect)frame forRank:(NSUInteger)rank
+{
+    MGMAlbumView* albumView = [self albumViewForRank:rank];
+    albumView.frame = frame;
+    [albumView setNeedsLayout];
+
+    CGSize existingSize = self.scrollView.contentSize;
+    CGRect existingContent = CGRectMake(0, 0, existingSize.width, existingSize.height);
+    self.scrollView.contentSize = CGRectUnion(existingContent, frame).size;
+}
+
+- (void) updateContentSize
+{
+    CGRect rect = CGRectZero;
+    for (MGMAlbumView* albumView in self.albumViews)
+    {
+        rect = CGRectUnion(rect, albumView.frame);
+    }
+    self.scrollView.contentSize = rect.size;
+}
+
+- (CGSize) albumFrameForRank:(NSUInteger)rank
 {
     MGMAlbumView* albumView = [self albumViewForRank:rank];
     if (albumView)
@@ -113,14 +145,7 @@
     [self.albumViewsLock lock];
     @try
     {
-        for (MGMAlbumView* view in self.albumViews)
-        {
-            if (view.rank == rank)
-            {
-                return view;
-            }
-        }
-        return nil;
+        return [self internal_albumViewForRank:rank];
     }
     @finally
     {
@@ -128,22 +153,16 @@
     }
 }
 
-- (void) clearAllAlbumFrames
+- (MGMAlbumView*) internal_albumViewForRank:(NSUInteger)rank
 {
-    [self.albumViewsLock lock];
-    @try
+    for (MGMAlbumView* view in self.albumViews)
     {
-        for (MGMAlbumView* albumView in self.albumViews)
+        if (view.rank == rank)
         {
-            [albumView removeFromSuperview];
+            return view;
         }
-        [self.albumViews removeAllObjects];
-        self.scrollView.contentSize = CGSizeZero;
     }
-    @finally
-    {
-        [self.albumViewsLock unlock];
-    }
+    return nil;
 }
 
 #pragma mark -

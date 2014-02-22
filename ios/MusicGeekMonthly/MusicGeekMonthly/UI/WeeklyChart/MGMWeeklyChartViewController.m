@@ -55,6 +55,7 @@
     MGMWeeklyChartView* weeklyChartView = (MGMWeeklyChartView*)self.view;
 
     NSUInteger albumCount = 25;
+    [weeklyChartView.albumGridView setAlbumCount:albumCount];
     NSUInteger rowCount = self.ipad ? 4 : 2;
     NSUInteger columnCount = (albumCount + 3) / rowCount;
     CGFloat albumSize = weeklyChartView.albumGridView.frame.size.width / rowCount;
@@ -64,7 +65,7 @@
     {
         NSValue* value = [gridData objectAtIndex:i];
         CGRect frame = [value CGRectValue];
-        [weeklyChartView.albumGridView setupAlbumFrame:frame forRank:i + 1];
+        [weeklyChartView.albumGridView setAlbumFrame:frame forRank:i + 1];
     }
 }
 
@@ -142,7 +143,7 @@
     NSUInteger rank = chartEntry.rank.intValue;
     NSUInteger listeners = chartEntry.listeners.intValue;
 
-    CGSize size = [weeklyChartView.albumGridView sizeOfRank:rank];
+    CGSize size = [weeklyChartView.albumGridView albumFrameForRank:rank];
     MGMAlbumImageSize preferredSize = [self.ui.viewUtilities preferredImageSizeForViewSize:size];
     NSArray* albumArtUrls = [chartEntry bestAlbumImageUrlsWithPreferredSize:preferredSize];
     MGMAlbum* album = chartEntry.album;

@@ -37,6 +37,7 @@
 
     // Setup 25 albums so we can put them into "activity in progress" mode...
     NSUInteger albumCount = 25;
+    [scoresView.albumGridView setAlbumCount:albumCount];
     NSUInteger rowCount = self.ipad ? 4 : 2;
     NSUInteger columnCount = (albumCount + 3) / rowCount;
     CGFloat albumSize = scoresView.albumGridView.frame.size.width / rowCount;
@@ -46,7 +47,7 @@
     {
         NSValue* value = [gridData objectAtIndex:i];
         CGRect frame = [value CGRectValue];
-        [scoresView.albumGridView setupAlbumFrame:frame forRank:i + 1];
+        [scoresView.albumGridView setAlbumFrame:frame forRank:i + 1];
     }
 
     [scoresView setSelection:MGMAlbumScoresViewSelectionClassicAlbums];
@@ -68,11 +69,9 @@
         NSError* fetchError = data.error;
         dispatch_async(dispatch_get_main_queue(), ^{
             // Resize the album view for new data...
-            [scoresView.albumGridView clearAllAlbumFrames];
-
-            BOOL iPad = self.view.frame.size.width > 320;
             NSUInteger albumCount = albumMoids.count;
-            NSUInteger rowCount = iPad ? 4 : 2;
+            [scoresView.albumGridView setAlbumCount:albumCount];
+            NSUInteger rowCount = self.ipad ? 4 : 2;
             NSUInteger columnCount = ((albumCount + 3) / rowCount) + 1;
             CGFloat albumSize = scoresView.albumGridView.frame.size.width / rowCount;
             NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];
@@ -81,7 +80,7 @@
             {
                 NSValue* value = [gridData objectAtIndex:i];
                 CGRect frame = [value CGRectValue];
-                [scoresView.albumGridView setupAlbumFrame:frame forRank:i + 1];
+                [scoresView.albumGridView setAlbumFrame:frame forRank:i + 1];
             }
 
             [scoresView.albumGridView setActivityInProgressForAllRanks:YES];
@@ -155,7 +154,7 @@
 {
     MGMAlbumScoresView* scoresView = (MGMAlbumScoresView*)self.view;
 
-    CGSize size = [scoresView.albumGridView sizeOfRank:position];
+    CGSize size = [scoresView.albumGridView albumFrameForRank:position];
     MGMAlbumImageSize preferredSize = [self.ui.viewUtilities preferredImageSizeForViewSize:size];
     NSArray* albumArtUrls = [album bestAlbumImageUrlsWithPreferredSize:preferredSize];
     if (albumArtUrls.count > 0)

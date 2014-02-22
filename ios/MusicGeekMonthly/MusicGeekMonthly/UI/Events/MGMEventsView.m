@@ -8,6 +8,8 @@
 
 #import "MGMEventsView.h"
 
+#import "MGMGridManager.h"
+
 @interface MGMEventsView ()
 
 @property (strong) UINavigationBar* navigationBar;
@@ -47,10 +49,31 @@
     [self.delegate moreButtonPressed:sender];
 }
 
+- (void) layoutSubviews
+{
+    [super layoutSubviews];
+
+    // Resize the album view for new data...
+    NSUInteger albumCount = self.screenSize == MGMViewScreenSizeiPad ? 16 : 9;
+    NSUInteger rowCount = self.screenSize == MGMViewScreenSizeiPad ? 4 : 3;
+    CGFloat albumSize = self.playlistView.frame.size.width / rowCount;
+    NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:rowCount size:albumSize count:albumCount];
+
+    for (NSUInteger i = 0; i < albumCount; i++)
+    {
+        NSValue* value = [gridData objectAtIndex:i];
+        CGRect frame = [value CGRectValue];
+        [self.playlistView setAlbumFrame:frame forRank:i + 1];
+    }
+
+    [self.playlistView setActivityInProgressForAllRanks:YES];
+
+}
+
 - (void) layoutSubviewsIphone
 {
     [super layoutSubviewsIphone];
-    
+
     self.navigationBar.frame = CGRectMake(0, 20, 320, 44);
     self.classicAlbumLabel.frame = CGRectZero;
     self.classicAlbumView.frame = CGRectMake(0, 64, 160, 160);
@@ -69,6 +92,7 @@
     self.newlyReleasedAlbumLabel.frame = CGRectMake(384, 90, 364, 30);;
     self.newlyReleasedAlbumView.frame = CGRectMake(468, 130, 196, 196);
     self.playlistLabel.frame = CGRectMake(20, 360, 728, 30);
+    self.playlistView.frame = CGRectMake(92, 420, 584, 584);
 }
 
 @end
