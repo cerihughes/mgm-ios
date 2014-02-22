@@ -8,7 +8,7 @@
 
 #import "MGMTabbedView.h"
 
-#import "MGMWeeklyChartAlbumsView.h"
+#import "MGMAlbumGridView.h"
 
 @protocol MGMWeeklyChartViewDelegate <NSObject>
 

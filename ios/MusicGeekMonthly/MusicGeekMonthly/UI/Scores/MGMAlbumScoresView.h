@@ -8,7 +8,7 @@
 
 #import "MGMTabbedView.h"
 
-#import "MGMWeeklyChartAlbumsView.h"
+#import "MGMAlbumGridView.h"
 
 typedef NS_ENUM(NSUInteger, MGMAlbumScoresViewSelection)
 {

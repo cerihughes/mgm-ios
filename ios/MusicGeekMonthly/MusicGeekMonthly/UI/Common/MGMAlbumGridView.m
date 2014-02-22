@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMWeeklyChartAlbumsView.h"
+#import "MGMAlbumGridView.h"
 #import "MGMAlbumView.h"
 
 @interface MGMAlbumGridView () <MGMAlbumViewDelegate>
