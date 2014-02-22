@@ -68,7 +68,7 @@
 
 - (MGMDaoData*) fetchWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate
 {
-    MGMFetchWeeklyChartData* data = [[MGMFetchWeeklyChartData alloc] init];
+    MGMWeeklyChartData* data = [[MGMWeeklyChartData alloc] init];
     data.startDate = startDate;
     data.endDate = endDate;
     return [self.fetchWeeklyChartOperation fetchData:data];

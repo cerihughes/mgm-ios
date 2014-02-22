@@ -13,7 +13,7 @@
 #import "MGMErrorCodes.h"
 #import "MGMLastFmConstants.h"
 
-@implementation MGMFetchWeeklyChartData
+@implementation MGMWeeklyChartData
 
 @end
 
@@ -30,7 +30,7 @@
 
 - (NSString*) refreshIdentifierForKey:(id)key
 {
-    MGMFetchWeeklyChartData* data = key;
+    MGMWeeklyChartData* data = key;
     NSUInteger from = data.startDate.timeIntervalSince1970;
     NSUInteger to = data.endDate.timeIntervalSince1970;
     return [NSString stringWithFormat:REFRESH_IDENTIFIER_WEEKLY_CHART, (unsigned long)from, (unsigned long)to];
@@ -42,7 +42,7 @@
 
 - (MGMLocalData*) fetchLocalData:(id)key
 {
-    MGMFetchWeeklyChartData* data = key;
+    MGMWeeklyChartData* data = key;
 
     MGMLocalData* localData = [[MGMLocalData alloc] init];
     NSError* error = nil;
@@ -81,7 +81,7 @@
 
 - (NSString*) urlForKey:(id)key
 {
-    MGMFetchWeeklyChartData* data = key;
+    MGMWeeklyChartData* data = key;
     NSUInteger from = data.startDate.timeIntervalSince1970;
     NSUInteger to = data.endDate.timeIntervalSince1970;
     return [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, (unsigned long)from, (unsigned long)to, API_KEY];
@@ -99,7 +99,7 @@
     }
     else
     {
-        MGMFetchWeeklyChartData* data = key;
+        MGMWeeklyChartData* data = key;
         MGMWeeklyChartDto* weeklyChart = [[MGMWeeklyChartDto alloc] init];
         weeklyChart.startDate = data.startDate;
         weeklyChart.endDate = data.endDate;

@@ -10,7 +10,7 @@
 
 #import "MGMRemoteJsonDataSource.h"
 
-@interface MGMFetchWeeklyChartData : NSObject
+@interface MGMWeeklyChartData : NSObject
 
 @property (strong) NSDate* startDate;
 @property (strong) NSDate* endDate;
