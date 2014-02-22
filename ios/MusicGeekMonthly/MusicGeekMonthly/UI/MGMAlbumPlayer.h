@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "MGMAlbumServiceManager.h"
 #import "MGMAlbum.h"
+#import "MGMPlaylistDto.h"
 
 @class MGMUI;
 
@@ -19,6 +21,7 @@
 
 - (NSUInteger) determineCapabilities;
 
-- (BOOL) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)service error:(NSError**)error;
+- (BOOL) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)serviceType error:(NSError**)error;
+- (BOOL) playPlaylist:(MGMPlaylistDto*)playlist onService:(MGMAlbumServiceType)serviceType error:(NSError**)error;
 
 @end

@@ -15,12 +15,13 @@
 
 + (NSArray*) rectsForRows:(NSUInteger)rows columns:(NSUInteger)columns size:(CGFloat)size count:(NSUInteger)count
 {
+    BOOL equalSizes = ((rows * columns) == count);
     NSMutableArray* array = [NSMutableArray arrayWithCapacity:count];
     MGMGridManager* mananger = [[MGMGridManager alloc] initWithRows:rows columns:columns];
     
     for (int i = 0; i < count; i++)
     {
-        NSUInteger blockCount = (i == 0) ? 2 : 1;
+        NSUInteger blockCount = !equalSizes && (i == 0) ? 2 : 1;
         CGPoint location = [mananger nextEmptyLocationWithBlockCount:blockCount];
         CGFloat rectSize = size * blockCount;
         CGFloat rectX = size * location.x;

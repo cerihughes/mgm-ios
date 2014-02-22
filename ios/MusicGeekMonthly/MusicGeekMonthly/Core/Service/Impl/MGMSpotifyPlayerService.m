@@ -8,6 +8,8 @@
 
 #import "MGMSpotifyPlayerService.h"
 
+#import "MGMSpotifyConstants.h"
+
 @interface MGMSpotifyPlayerService ()
 
 @property (strong) NSDictionary* acceptJson;
@@ -52,6 +54,15 @@
     {
         return [NSString stringWithFormat:SEARCH_URI, album.artistName, album.albumName];
     }
+}
+
+- (NSString*) urlForPlaylist:(MGMPlaylistDto*)playlist
+{
+    if (playlist.spotifyPlaylistId)
+    {
+        return [NSString stringWithFormat:SPOTIFY_PLAYLIST_URI_PATTERN, SPOTIFY_USER_ANDREW_JONES, playlist.spotifyPlaylistId];
+    }
+    return nil;
 }
 
 #pragma mark -

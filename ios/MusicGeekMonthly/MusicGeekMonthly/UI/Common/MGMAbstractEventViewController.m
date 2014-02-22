@@ -11,6 +11,7 @@
 #import "MGMAbstractEventView.h"
 #import "MGMAlbumViewUtilities.h"
 #import "MGMPlaylistDto.h"
+#import "MGMPlaylistItemDto.h"
 
 @interface MGMAbstractEventViewController () <MGMAbstractEventViewDelegate>
 
@@ -18,27 +19,27 @@
 
 @implementation MGMAbstractEventViewController
 
-- (void) displayEvent:(MGMEvent*)event
+- (void) displayEvent:(MGMEvent*)event playlist:(MGMPlaylistDto*)playlist
 {
-    self.event = event;
-
-    if (event.spotifyPlaylistId)
-    {
-        MGMDaoData* data = [self.core.dao fetchPlaylist:event.spotifyPlaylistId];
-        MGMPlaylistDto* playlist = data.data;
-        NSError* playlistError = data.error;
-
-        if (playlistError)
-        {
-            [self logError:playlistError];
-        }
-
-        if (playlist)
-        {
-        }
-    }
+    _event = event;
+    _playlist = playlist;
 
     MGMAbstractEventView* eventView = (MGMAbstractEventView*)self.view;
+
+    NSUInteger rank = 1;
+    if (playlist)
+    {
+        for (MGMPlaylistItemDto* item in playlist.playlistItems)
+        {
+            MGMAlbumView* albumView = [eventView.playlistView albumViewForRank:rank++];
+            NSError* error = nil;
+            [self.ui.viewUtilities displayPlaylistItemDto:item inAlbumView:albumView error:&error];
+            if (error)
+            {
+                [self.ui logError:error];
+            }
+        }
+    }
 
     NSError* error1 = nil;
     [self.ui.viewUtilities displayAlbum:event.classicAlbum inAlbumView:eventView.classicAlbumView error:&error1];
@@ -76,6 +77,11 @@
 - (void) newlyReleasedAlbumDetailPressed
 {
     [self.albumSelectionDelegate detailSelected:self.event.newlyReleasedAlbum sender:self];
+}
+
+- (void) playlistPressed
+{
+    [self.playlistSelectionDelegate playlistSelected:self.playlist];
 }
 
 @end

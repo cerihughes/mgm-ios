@@ -89,6 +89,7 @@
     homeViewController.ui = self.ui;
     homeViewController.title = @"Home";
     homeViewController.albumSelectionDelegate = self.ui;
+    homeViewController.playlistSelectionDelegate = self.ui;
     homeViewController.tabBarItem.title = @"Home";
     homeViewController.tabBarItem.image = [UIImage imageNamed:@"home.png"];
 
@@ -103,6 +104,7 @@
     eventsViewController.ui = self.ui;
     eventsViewController.title = @"Previous Events";
     eventsViewController.albumSelectionDelegate = self.ui;
+    eventsViewController.playlistSelectionDelegate = self.ui;
     eventsViewController.tabBarItem.title = @"Previous Events";
     eventsViewController.tabBarItem.image = [UIImage imageNamed:@"calendar.png"];
 
@@ -121,7 +123,7 @@
 
 - (void) loadImages
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^ {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if (self.artFetcher == nil)
         {
             MGMDaoData* data = [self.core.dao fetchAllTimePeriods];

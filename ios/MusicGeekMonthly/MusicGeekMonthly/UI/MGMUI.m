@@ -231,6 +231,20 @@ static BOOL _isIpad;
 }
 
 #pragma mark -
+#pragma mark MGMPlaylistSelectionDelegate
+
+- (void) playlistSelected:(MGMPlaylistDto*)playlist
+{
+    NSError* error = nil;
+    // TODO: Make this asynchronous?
+    [self.albumPlayer playPlaylist:playlist onService:MGMAlbumServiceTypeSpotify error:&error];
+    if (error != nil)
+    {
+        [self showError:error];
+    }
+}
+
+#pragma mark -
 #pragma mark MGMPlayerSelectionViewControllerDelegate
 
 - (void) playerSelectionChangedFrom:(MGMAlbumServiceType)oldSelection to:(MGMAlbumServiceType)newSelection

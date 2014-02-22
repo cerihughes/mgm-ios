@@ -69,13 +69,36 @@
 
 - (void) displayEvent:(MGMEvent*)event
 {
-    [super displayEvent:event];
-
     MGMEventsView* eventsView = (MGMEventsView*)self.view;
 
 	NSString* dateString = event.groupValue;
     NSString* newTitle = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
     [eventsView setTitle:newTitle];
+
+    NSString* playlistId = event.spotifyPlaylistId;
+    if (playlistId)
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            MGMPlaylistDto* playlist = nil;
+            MGMDaoData* playlistData = [self.core.dao fetchPlaylist:playlistId];
+            if (playlistData.error)
+            {
+                [self logError:playlistData.error];
+            }
+            if (playlistData.data)
+            {
+                playlist = playlistData.data;
+            }
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self displayEvent:event playlist:playlist];
+            });
+        });
+    }
+    else
+    {
+        [super displayEvent:event playlist:nil];
+    }
 }
 
 #pragma mark -

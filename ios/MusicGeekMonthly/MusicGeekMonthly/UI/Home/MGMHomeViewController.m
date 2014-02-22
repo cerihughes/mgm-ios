@@ -34,10 +34,10 @@
 {
     [super viewDidAppear:animated];
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^ {
-        MGMDaoData* data = [self.core.dao fetchAllEvents];
-        NSError* fetchError = data.error;
-        NSArray* fetchedEvents = data.data;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        MGMDaoData* eventsData = [self.core.dao fetchAllEvents];
+        NSError* fetchError = eventsData.error;
+        NSArray* fetchedEvents = eventsData.data;
 
         if (fetchError && fetchedEvents.count > 0)
         {
@@ -50,8 +50,23 @@
             if ([self.eventMoid isEqual:moid] == NO)
             {
                 self.eventMoid = moid;
-                dispatch_async(dispatch_get_main_queue(), ^ {
-                    [self displayEventWithMoid:self.eventMoid];
+
+                MGMPlaylistDto* playlist = nil;
+//                if (event.spotifyPlaylistId)
+//                {
+//                    MGMDaoData* playlistData = [self.core.dao fetchAllEvents];
+//                    if (playlistData.error)
+//                    {
+//                        [self logError:playlistData.error];
+//                    }
+//                    if (playlistData.data)
+//                    {
+//                        playlist = playlistData.data;
+//                    }
+//                }
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self displayEventWithMoid:self.eventMoid playlist:playlist];
                 });
             }
         }
@@ -62,15 +77,15 @@
     });
 }
 
-- (void) displayEventWithMoid:(NSManagedObjectID*)eventMoid
+- (void) displayEventWithMoid:(NSManagedObjectID*)eventMoid playlist:(MGMPlaylistDto*)playlist
 {
     MGMEvent* event = [self.core.coreDataAccess threadVersion:eventMoid];
-    [self displayEvent:event];
+    [self displayEvent:event playlist:playlist];
 }
 
-- (void) displayEvent:(MGMEvent*)event
+- (void) displayEvent:(MGMEvent*)event playlist:(MGMPlaylistDto*)playlist
 {
-    [super displayEvent:event];
+    [super displayEvent:event playlist:playlist];
 
     MGMHomeView* homeView = (MGMHomeView*)self.view;
     [homeView setNextEventDate:event.eventDate];

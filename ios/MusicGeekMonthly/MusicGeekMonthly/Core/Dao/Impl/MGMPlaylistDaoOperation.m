@@ -12,6 +12,14 @@
 #import "MGMErrorCodes.h"
 #import "MGMPlaylistDto.h"
 #import "MGMPlaylistItemDto.h"
+#import "MGMSpotifyConstants.h"
+
+@interface MGMPlaylistDaoOperation ()
+
+// TODO: Remove this when core data working properly...
+@property (readonly) NSMutableArray* refreshIdentifiers;
+
+@end
 
 @implementation MGMPlaylistDaoOperation
 
@@ -19,6 +27,7 @@
 
 - (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
 {
+    _refreshIdentifiers = [NSMutableArray array];
     MGMLocalDataSource* localDataSource = [[MGMPlaylistLocalDataSource alloc] initWithCoreDataAccess:coreDataAccess];
     MGMRemoteDataSource* remoteDataSource = [[MGMPlaylistRemoteDataSource alloc] init];
     return [super initWithCoreDataAccess:coreDataAccess localDataSource:localDataSource remoteDataSource:remoteDataSource daysBetweenRemoteFetch:7];
@@ -28,6 +37,17 @@
 {
     NSString* data = key;
     return [NSString stringWithFormat:REFRESH_IDENTIFIER_PLAYLIST, data];
+}
+
+- (BOOL) needsRefresh:(MGMNextUrlAccess*)nextAccess
+{
+    return [self.refreshIdentifiers containsObject:nextAccess.identifier] == NO;
+}
+
+- (BOOL) setNextRefresh:(NSString*)identifier inDays:(NSUInteger)days error:(NSError**)error
+{
+    [self.refreshIdentifiers addObject:identifier];
+    return YES;
 }
 
 @end
@@ -66,8 +86,6 @@
 
 @implementation MGMPlaylistRemoteDataSource
 
-#define SPOTIFY_PLAYLIST_URI_PATTERN @"spotify:user:%@:playlist:%@"
-#define SPOTIFY_USER_ANDREW_JONES @"fuzzylogic1981"
 #define EMBEDDED_PLAYLIST_URL @"https://embed.spotify.com/?uri=%@"
 
 - (NSString*) urlForKey:(id)key
@@ -156,7 +174,7 @@
 
     MGMAlbumImageUriDto* smallImageUri = [[MGMAlbumImageUriDto alloc] init];
     smallImageUri.uri = smallUrl;
-    smallImageUri.size = MGMAlbumImageSize64;
+    smallImageUri.size = MGMAlbumImageSize128;
 
     MGMAlbumImageUriDto* largeImageUri = [[MGMAlbumImageUriDto alloc] init];
     largeImageUri.uri = largeUrl;

@@ -54,4 +54,10 @@
     return nil;
 }
 
+- (NSString*) urlForPlaylist:(MGMPlaylistDto*)playlist
+{
+    // OVERRIDE
+    return nil;
+}
+
 @end

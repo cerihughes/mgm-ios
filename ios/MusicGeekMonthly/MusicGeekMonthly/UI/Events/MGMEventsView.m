@@ -14,6 +14,7 @@
 
 @property (strong) UINavigationBar* navigationBar;
 @property (strong) UINavigationItem* navigationItem;
+@property NSUInteger playlistViewRowCount;
 
 @end
 
@@ -30,13 +31,17 @@
     UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"More..." style:UIBarButtonItemStyleBordered target:self action:@selector(moreButtonPressed:)];
     [self.navigationItem setRightBarButtonItem:bbi];
     [self.navigationBar pushNavigationItem:self.navigationItem animated:YES];
-    
+
+    self.playlistViewRowCount = self.screenSize == MGMViewScreenSizeiPad ? 5 : 3;
+    [self.playlistView setAlbumCount:self.playlistViewRowCount * self.playlistViewRowCount];
+
     [self addSubview:self.navigationBar];
     [self addSubview:self.classicAlbumLabel];
     [self addSubview:self.classicAlbumView];
     [self addSubview:self.newlyReleasedAlbumLabel];
     [self addSubview:self.newlyReleasedAlbumView];
     [self addSubview:self.playlistLabel];
+    [self addSubview:self.playlistView];
 }
 
 - (void) setTitle:(NSString*)title
@@ -54,8 +59,8 @@
     [super layoutSubviews];
 
     // Resize the album view for new data...
-    NSUInteger albumCount = self.screenSize == MGMViewScreenSizeiPad ? 16 : 9;
-    NSUInteger rowCount = self.screenSize == MGMViewScreenSizeiPad ? 4 : 3;
+    NSUInteger rowCount = self.playlistViewRowCount;
+    NSUInteger albumCount = self.playlistViewRowCount * self.playlistViewRowCount;
     CGFloat albumSize = self.playlistView.frame.size.width / rowCount;
     NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:rowCount size:albumSize count:albumCount];
 
@@ -65,9 +70,6 @@
         CGRect frame = [value CGRectValue];
         [self.playlistView setAlbumFrame:frame forRank:i + 1];
     }
-
-    [self.playlistView setActivityInProgressForAllRanks:YES];
-
 }
 
 - (void) layoutSubviewsIphone
@@ -79,7 +81,15 @@
     self.classicAlbumView.frame = CGRectMake(0, 64, 160, 160);
     self.newlyReleasedAlbumLabel.frame = CGRectZero;
     self.newlyReleasedAlbumView.frame = CGRectMake(160, 64, 160, 160);
-    self.playlistLabel.frame = CGRectZero;
+    self.playlistLabel.frame = CGRectMake(0, 235, 320, 21);
+    if (self.screenSize == MGMViewScreenSizeiPhone480)
+    {
+        self.playlistView.frame = CGRectMake(83, 265, 154, 154);
+    }
+    else
+    {
+        self.playlistView.frame = CGRectMake(50, 265, 220, 220);
+    }
 }
 
 - (void) layoutSubviewsIpad
@@ -92,7 +102,7 @@
     self.newlyReleasedAlbumLabel.frame = CGRectMake(384, 90, 364, 30);;
     self.newlyReleasedAlbumView.frame = CGRectMake(468, 130, 196, 196);
     self.playlistLabel.frame = CGRectMake(20, 360, 728, 30);
-    self.playlistView.frame = CGRectMake(92, 420, 584, 584);
+    self.playlistView.frame = CGRectMake(120, 420, 528, 528);
 }
 
 @end

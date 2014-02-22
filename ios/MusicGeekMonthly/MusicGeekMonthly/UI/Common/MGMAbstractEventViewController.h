@@ -8,11 +8,16 @@
 
 #import "MGMAlbumViewController.h"
 
+#import "MGMPlaylistDto.h"
+
 @interface MGMAbstractEventViewController : MGMAlbumViewController
 
-@property (strong) MGMEvent* event;
+@property (weak) id<MGMPlaylistSelectionDelegate> playlistSelectionDelegate;
 
-- (void) displayEvent:(MGMEvent*)event;
+@property (readonly) MGMEvent* event;
+@property (readonly) MGMPlaylistDto* playlist;
+
+- (void) displayEvent:(MGMEvent*)event playlist:(MGMPlaylistDto*)playlist;
 
 #pragma mark -
 #pragma mark MGMAlbumViewController
@@ -21,5 +26,6 @@
 - (void) classicAlbumDetailPressed;
 - (void) newlyReleasedAlbumPressed;
 - (void) newlyReleasedAlbumDetailPressed;
+- (void) playlistPressed;
 
 @end

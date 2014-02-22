@@ -98,6 +98,12 @@
     return [service urlForAlbum:album];
 }
 
+- (NSString*) urlForPlaylist:(MGMPlaylistDto*)playlist forServiceType:(MGMAlbumServiceType)serviceType
+{
+    MGMAlbumPlayerService* service = [self playerServiceForServiceType:serviceType];
+    return [service urlForPlaylist:playlist];
+}
+
 - (BOOL) refreshAlbumMetadata:(MGMAlbum*)album forServiceType:(MGMAlbumServiceType)serviceType error:(NSError**)error
 {
     MGMAlbumPlayerService* service = [self playerServiceForServiceType:serviceType];

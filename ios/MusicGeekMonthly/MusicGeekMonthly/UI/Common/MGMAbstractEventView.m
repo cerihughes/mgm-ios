@@ -8,7 +8,7 @@
 
 #import "MGMAbstractEventView.h"
 
-@interface MGMAbstractEventView () <MGMAlbumViewDelegate>
+@interface MGMAbstractEventView () <MGMAlbumViewDelegate, MGMAlbumGridViewDelegate>
 
 @property (strong) UILabel* classicAlbumLabel;
 @property (strong) MGMAlbumView* classicAlbumView;
@@ -44,6 +44,7 @@
     self.newlyReleasedAlbumView.detailViewShowing = YES;
 
     self.playlistView = [[MGMAlbumGridView alloc] initWithFrame:CGRectZero];
+    self.playlistView.delegate = self;
 }
 
 #pragma mark -
@@ -73,5 +74,17 @@
     }
 }
 
+#pragma mark -
+#pragma mark MGMAlbumGridViewDelegate
+
+- (void) albumPressedWithRank:(NSUInteger)rank
+{
+    [self.delegate playlistPressed];
+}
+
+- (void) detailPressedWithRank:(NSUInteger)rank
+{
+    [self.delegate playlistPressed];
+}
 
 @end

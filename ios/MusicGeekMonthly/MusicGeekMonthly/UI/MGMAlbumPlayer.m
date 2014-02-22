@@ -58,19 +58,51 @@
         else
         {
             NSLog(@"No handler for URL: %@", url);
-            [self cantOpenUrlForServiceType:serviceType];
+            [self cantOpenAlbumForServiceType:serviceType];
         }
     }
     else
     {
-        [self cantOpenUrlForServiceType:serviceType];
+        [self cantOpenAlbumForServiceType:serviceType];
     }
     return MGM_NO_ERROR(&error);
 }
 
-- (void) cantOpenUrlForServiceType:(MGMAlbumServiceType)serviceType
+- (BOOL) playPlaylist:(MGMPlaylistDto*)playlist onService:(MGMAlbumServiceType)serviceType error:(NSError**)error
+{
+    NSString* urlString = [self.serviceManager urlForPlaylist:playlist forServiceType:serviceType];
+    if (urlString)
+    {
+        NSString* encoded = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSURL* url = [NSURL URLWithString:encoded];
+        if ([[UIApplication sharedApplication] canOpenURL:url])
+        {
+            NSLog(@"Opening URL: %@", url);
+            [[UIApplication sharedApplication] openURL:url];
+        }
+        else
+        {
+            NSLog(@"No handler for URL: %@", url);
+            [self cantOpenPlaylistForServiceType:serviceType];
+        }
+    }
+    else
+    {
+        [self cantOpenPlaylistForServiceType:serviceType];
+    }
+    return MGM_NO_ERROR(&error);
+}
+
+- (void) cantOpenAlbumForServiceType:(MGMAlbumServiceType)serviceType
 {
     NSString* message = [NSString stringWithFormat:@"This album cannot be opened with %@. Press the album info button for more options.", [self.ui labelForServiceType:serviceType]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Cannot Open" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void) cantOpenPlaylistForServiceType:(MGMAlbumServiceType)serviceType
+{
+    NSString* message = [NSString stringWithFormat:@"This playlist cannot be opened with %@.", [self.ui labelForServiceType:serviceType]];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Cannot Open" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
 }

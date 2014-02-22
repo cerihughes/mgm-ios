@@ -66,18 +66,40 @@
     });
 
     MGMAlbumImageSize preferredSize = [self preferredImageSizeForViewSize:albumView.frame.size];
-    NSArray* albumArtUrls = [self bestAlbumImageUrlsForAlbum:album preferredSize:preferredSize];
+    NSArray* albumArtUrls = [self bestImageUrlsForAlbum:album preferredSize:preferredSize];
     [self displayAlbumImages:albumArtUrls inAlbumView:albumView error:error];
 }
 
-- (NSArray*) bestAlbumImageUrlsForAlbum:(MGMAlbumDto*)album preferredSize:(MGMAlbumImageSize)size
+- (void) displayPlaylistItemDto:(MGMPlaylistItemDto*)playlistItem inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        albumView.activityInProgress = YES;
+        albumView.rank = 0;
+    });
+
+    MGMAlbumImageSize preferredSize = [self preferredImageSizeForViewSize:albumView.frame.size];
+    NSArray* albumArtUrls = [self bestImageUrlsForPlaylistItem:playlistItem preferredSize:preferredSize];
+    [self displayAlbumImages:albumArtUrls inAlbumView:albumView error:error];
+}
+
+- (NSArray*) bestImageUrlsForAlbum:(MGMAlbumDto*)album preferredSize:(MGMAlbumImageSize)size
+{
+    return [self bestAlbumImageUrlsForAlbumImageUris:album.imageUris preferredSize:size];
+}
+
+- (NSArray*) bestImageUrlsForPlaylistItem:(MGMPlaylistItemDto*)playlistItem preferredSize:(MGMAlbumImageSize)size
+{
+    return [self bestAlbumImageUrlsForAlbumImageUris:playlistItem.imageUris preferredSize:size];
+}
+
+- (NSArray*) bestAlbumImageUrlsForAlbumImageUris:(NSArray*)imageUriDtos preferredSize:(MGMAlbumImageSize)size
 {
     NSMutableArray* array = [NSMutableArray array];
 
     MGMAlbumImageSize sizes[6] = {size, MGMAlbumImageSize128, MGMAlbumImageSize256, MGMAlbumImageSize512, MGMAlbumImageSize64, MGMAlbumImageSize32};
     for (NSUInteger i = 0; i < 6; i++)
     {
-        for (MGMAlbumImageUriDto* uri in album.imageUris)
+        for (MGMAlbumImageUriDto* uri in imageUriDtos)
         {
             if (uri.size == sizes[i])
             {

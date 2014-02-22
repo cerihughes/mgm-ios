@@ -11,7 +11,7 @@
 
 #define TO_ALBUM_DETAIL @"TO_ALBUM_DETAIL"
 
-@interface MGMUI : NSObject <MGMAlbumSelectionDelegate>
+@interface MGMUI : NSObject <MGMAlbumSelectionDelegate, MGMPlaylistSelectionDelegate>
 
 @property (readonly) BOOL ipad;
 @property (readonly) MGMCore* core;

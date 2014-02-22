@@ -17,6 +17,7 @@
 - (void) classicAlbumDetailPressed;
 - (void) newlyReleasedAlbumPressed;
 - (void) newlyReleasedAlbumDetailPressed;
+- (void) playlistPressed;
 
 @end
 

@@ -59,7 +59,7 @@
                 albumView.rank = i + 1;
                 albumView.detailViewShowing = NO;
                 albumView.delegate = self;
-                albumView.pressable = NO;
+                albumView.pressable = YES;
 
                 [self.scrollView addSubview:albumView];
                 [self.albumViews addObject:albumView];
@@ -111,24 +111,6 @@
     }
 }
 
-- (void) setActivityInProgress:(BOOL)inProgress forRank:(NSUInteger)rank
-{
-    MGMAlbumView* albumView = [self albumViewForRank:rank];
-    albumView.activityInProgress = inProgress;
-}
-
-- (void) setAlbumImage:(UIImage*)albumImage artistName:(NSString*)artistName albumName:(NSString*)albumName rank:(NSUInteger)rank listeners:(NSUInteger)listeners score:(CGFloat)score
-{
-    MGMAlbumView* albumView = [self albumViewForRank:rank];
-    albumView.pressable = YES;
-    albumView.detailViewShowing = YES;
-    albumView.artistName = artistName;
-    albumView.albumName = albumName;
-    albumView.listeners = listeners;
-    albumView.score = score;
-    [albumView renderImage:albumImage];
-}
-
 - (MGMAlbumView*) albumViewForRank:(NSUInteger)rank
 {
     [self.albumViewsLock lock];
@@ -150,6 +132,12 @@
         {
             return view;
         }
+    }
+
+    // None of these views have ranks, so let's return the index in the array...
+    if (self.albumViews.count >= rank)
+    {
+        return self.albumViews[rank - 1];
     }
     return nil;
 }
