@@ -14,6 +14,8 @@
 @property (strong) MGMAlbumView* classicAlbumView;
 @property (strong) UILabel* newlyReleasedAlbumLabel;
 @property (strong) MGMAlbumView* newlyReleasedAlbumView;
+@property (strong) UILabel* playlistLabel;
+@property (strong) MGMAlbumGridView* playlistView;
 
 @end
 
@@ -25,6 +27,7 @@
     
     self.classicAlbumLabel = [MGMView italicTitleLabelWithText:@"Classic Album"];
     self.newlyReleasedAlbumLabel = [MGMView italicTitleLabelWithText:@"New Album"];
+    self.playlistLabel = [MGMView italicTitleLabelWithText:@"Playlist"];
 
     self.classicAlbumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
     self.classicAlbumView.alphaOn = 1;
@@ -39,6 +42,8 @@
     self.newlyReleasedAlbumView.pressable = YES;
     self.newlyReleasedAlbumView.delegate = self;
     self.newlyReleasedAlbumView.detailViewShowing = YES;
+
+    self.playlistView = [[MGMAlbumGridView alloc] initWithFrame:CGRectZero];
 }
 
 #pragma mark -

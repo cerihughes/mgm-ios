@@ -466,6 +466,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6545477B18B904F5008CDAD3 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				658D322118B1147C007A4D98 /* MGMAbstractEventView.h */,
+				658D322218B1147C007A4D98 /* MGMAbstractEventView.m */,
+				658D322318B1147C007A4D98 /* MGMAbstractEventViewController.h */,
+				658D322418B1147C007A4D98 /* MGMAbstractEventViewController.m */,
+				6545477818B90444008CDAD3 /* MGMAlbumGridView.h */,
+				6545477918B90444008CDAD3 /* MGMAlbumGridView.m */,
+			);
+			name = Events;
+			sourceTree = "<group>";
+		};
+		6545477C18B9055A008CDAD3 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				658D323018B1147C007A4D98 /* MGMTabbedView.h */,
+				658D323118B1147C007A4D98 /* MGMTabbedView.m */,
+				658D323218B1147C007A4D98 /* MGMTabbedViewController.h */,
+				658D323318B1147C007A4D98 /* MGMTabbedViewController.m */,
+			);
+			name = Navigation;
+			sourceTree = "<group>";
+		};
 		658D30C618B112E3007A4D98 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -687,12 +711,8 @@
 		658D322018B1147C007A4D98 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				658D322118B1147C007A4D98 /* MGMAbstractEventView.h */,
-				658D322218B1147C007A4D98 /* MGMAbstractEventView.m */,
-				658D322318B1147C007A4D98 /* MGMAbstractEventViewController.h */,
-				658D322418B1147C007A4D98 /* MGMAbstractEventViewController.m */,
-				6545477818B90444008CDAD3 /* MGMAlbumGridView.h */,
-				6545477918B90444008CDAD3 /* MGMAlbumGridView.m */,
+				6545477C18B9055A008CDAD3 /* Navigation */,
+				6545477B18B904F5008CDAD3 /* Events */,
 				658D322518B1147C007A4D98 /* MGMAlbumScoreView.h */,
 				658D322618B1147C007A4D98 /* MGMAlbumScoreView.m */,
 				658D322718B1147C007A4D98 /* MGMAlbumSelectionDelegate.h */,
@@ -704,10 +724,6 @@
 				658D322D18B1147C007A4D98 /* MGMAlbumViewUtilities.m */,
 				658D322E18B1147C007A4D98 /* MGMCoreDataTableViewDataSource.h */,
 				658D322F18B1147C007A4D98 /* MGMCoreDataTableViewDataSource.m */,
-				658D323018B1147C007A4D98 /* MGMTabbedView.h */,
-				658D323118B1147C007A4D98 /* MGMTabbedView.m */,
-				658D323218B1147C007A4D98 /* MGMTabbedViewController.h */,
-				658D323318B1147C007A4D98 /* MGMTabbedViewController.m */,
 				658D323418B1147C007A4D98 /* MGMView.h */,
 				658D323518B1147C007A4D98 /* MGMView.m */,
 				658D323618B1147C007A4D98 /* MGMViewController.h */,

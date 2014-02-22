@@ -12,7 +12,6 @@
 
 @property (strong) UINavigationBar* navigationBar;
 @property (strong) UINavigationItem* navigationItem;
-@property (strong) UILabel* playlistLabel;
 
 @end
 
@@ -30,8 +29,6 @@
     [self.navigationItem setRightBarButtonItem:bbi];
     [self.navigationBar pushNavigationItem:self.navigationItem animated:YES];
     
-    self.playlistLabel = [MGMView italicTitleLabelWithText:@"Playlist"];
-
     [self addSubview:self.navigationBar];
     [self addSubview:self.classicAlbumLabel];
     [self addSubview:self.classicAlbumView];

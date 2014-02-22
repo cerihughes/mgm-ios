@@ -8,6 +8,7 @@
 
 #import "MGMTabbedView.h"
 
+#import "MGMAlbumGridView.h"
 #import "MGMAlbumView.h"
 
 @protocol MGMAbstractEventViewDelegate <NSObject>
@@ -27,5 +28,7 @@
 @property (readonly) MGMAlbumView* classicAlbumView;
 @property (readonly) UILabel* newlyReleasedAlbumLabel;
 @property (readonly) MGMAlbumView* newlyReleasedAlbumView;
+@property (readonly) UILabel* playlistLabel;
+@property (readonly) MGMAlbumGridView* playlistView;
 
 @end
