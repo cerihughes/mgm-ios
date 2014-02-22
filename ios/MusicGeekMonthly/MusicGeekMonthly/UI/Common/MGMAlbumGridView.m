@@ -7,7 +7,6 @@
 //
 
 #import "MGMAlbumGridView.h"
-#import "MGMAlbumView.h"
 
 @interface MGMAlbumGridView () <MGMAlbumViewDelegate>
 
@@ -94,16 +93,6 @@
         rect = CGRectUnion(rect, albumView.frame);
     }
     self.scrollView.contentSize = rect.size;
-}
-
-- (CGSize) albumFrameForRank:(NSUInteger)rank
-{
-    MGMAlbumView* albumView = [self albumViewForRank:rank];
-    if (albumView)
-    {
-        return albumView.frame.size;
-    }
-    return CGSizeZero;
 }
 
 - (void) setActivityInProgressForAllRanks:(BOOL)inProgress

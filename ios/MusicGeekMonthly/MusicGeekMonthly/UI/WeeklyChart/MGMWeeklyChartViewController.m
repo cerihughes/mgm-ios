@@ -143,39 +143,12 @@
     NSUInteger rank = chartEntry.rank.intValue;
     NSUInteger listeners = chartEntry.listeners.intValue;
 
-    CGSize size = [weeklyChartView.albumGridView albumFrameForRank:rank];
-    MGMAlbumImageSize preferredSize = [self.ui.viewUtilities preferredImageSizeForViewSize:size];
-    NSArray* albumArtUrls = [chartEntry bestAlbumImageUrlsWithPreferredSize:preferredSize];
-    MGMAlbum* album = chartEntry.album;
-    if (albumArtUrls.count > 0)
+    MGMAlbumView* albumView = [weeklyChartView.albumGridView albumViewForRank:rank];
+    NSError* error = nil;
+    [self.ui.viewUtilities displayAlbum:chartEntry.album inAlbumView:albumView rank:rank listeners:listeners error:&error];
+    if (error)
     {
-        [self.ui.imageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error)
-        {
-            if (error)
-            {
-                [self logError:error];
-            }
-
-            if (image == nil)
-            {
-                image = [self.ui.imageHelper nextDefaultImage];
-            }
-
-            dispatch_async(dispatch_get_main_queue(), ^
-            {
-                [weeklyChartView.albumGridView setActivityInProgress:NO forRank:rank];
-                [weeklyChartView.albumGridView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
-            });
-        }];
-    }
-    else
-    {
-        UIImage* image = [self.ui.imageHelper nextDefaultImage];
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
-            [weeklyChartView.albumGridView setActivityInProgress:NO forRank:rank];
-            [weeklyChartView.albumGridView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:rank listeners:listeners score:[album.score floatValue]];
-        });
+        [self.ui logError:error];
     }
 }
 

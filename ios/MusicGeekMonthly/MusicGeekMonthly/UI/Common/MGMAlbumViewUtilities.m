@@ -91,11 +91,23 @@
 
 - (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error
 {
+    [self displayAlbum:album inAlbumView:albumView rank:0 listeners:0 error:error];
+}
+
+- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView rank:(NSUInteger)rank error:(NSError**)error
+{
+    [self displayAlbum:album inAlbumView:albumView rank:rank listeners:0 error:error];
+}
+
+- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView rank:(NSUInteger)rank listeners:(NSUInteger)listeners error:(NSError**)error
+{
     dispatch_async(dispatch_get_main_queue(), ^{
         albumView.activityInProgress = YES;
         albumView.artistName = album.artistName;
         albumView.albumName = album.albumName;
         albumView.score = [album.score floatValue];
+        albumView.rank = rank;
+        albumView.listeners = listeners;
     });
 
     [self.renderService refreshAlbumImages:album error:error];

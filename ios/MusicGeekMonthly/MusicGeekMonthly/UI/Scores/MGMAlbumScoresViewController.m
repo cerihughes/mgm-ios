@@ -153,39 +153,12 @@
 - (void) renderAlbum:(MGMAlbum*)album atPostion:(NSUInteger)position
 {
     MGMAlbumScoresView* scoresView = (MGMAlbumScoresView*)self.view;
-
-    CGSize size = [scoresView.albumGridView albumFrameForRank:position];
-    MGMAlbumImageSize preferredSize = [self.ui.viewUtilities preferredImageSizeForViewSize:size];
-    NSArray* albumArtUrls = [album bestAlbumImageUrlsWithPreferredSize:preferredSize];
-    if (albumArtUrls.count > 0)
+    MGMAlbumView* albumView = [scoresView.albumGridView albumViewForRank:position];
+    NSError* error = nil;
+    [self.ui.viewUtilities displayAlbum:album inAlbumView:albumView rank:position error:&error];
+    if (error)
     {
-        [self.ui.imageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error)
-        {
-            if (error)
-            {
-                [self logError:error];
-            }
-
-            if (image == nil)
-            {
-                image = [self.ui.imageHelper nextDefaultImage];
-            }
-
-            dispatch_async(dispatch_get_main_queue(), ^
-            {
-                [scoresView.albumGridView setActivityInProgress:NO forRank:position];
-                [scoresView.albumGridView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:position listeners:0 score:[album.score floatValue]];
-            });
-        }];
-    }
-    else
-    {
-        UIImage* image = [self.ui.imageHelper nextDefaultImage];
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
-            [scoresView.albumGridView setActivityInProgress:NO forRank:position];
-            [scoresView.albumGridView setAlbumImage:image artistName:album.artistName albumName:album.albumName rank:position listeners:0 score:[album.score floatValue]];
-        });
+        [self.ui logError:error];
     }
 }
 
