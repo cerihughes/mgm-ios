@@ -98,15 +98,18 @@
     {
         NSDictionary* html = [xml objectForKey:@"html"];
         NSDictionary* body = [html objectForKey:@"body"];
-        NSDictionary* div1 = [body objectForKey:@"div"][0];
-        NSDictionary* div2 = [div1 objectForKey:@"div"];
-        NSDictionary* div3 = [div2 objectForKey:@"div"][2];
-        NSDictionary* ul = [div3 objectForKey:@"ul"];
+        NSDictionary* outerWidgetContainerDiv = [body objectForKey:@"div"][0];
+        NSDictionary* widgetContainerDiv = [outerWidgetContainerDiv objectForKey:@"div"];
+        NSDictionary* playerDiv = [widgetContainerDiv objectForKey:@"div"][1];
+        NSString* playlistTitle = [self titleForPlayerDiv:playerDiv];
+        NSDictionary* mainContainerDiv = [widgetContainerDiv objectForKey:@"div"][2];
+        NSDictionary* ul = [mainContainerDiv objectForKey:@"ul"];
         NSArray* liArray = [ul objectForKey:@"li"];
 
         MGMRemoteData* data = [[MGMRemoteData alloc] init];
         MGMPlaylistDto* playlist = [[MGMPlaylistDto alloc] init];
         playlist.spotifyPlaylistId = key;
+        playlist.name = playlistTitle;
         for (NSDictionary* li in liArray)
         {
             [playlist.playlistItems addObject:[self playlistItemForLi:li]];
@@ -119,6 +122,16 @@
         NSError* error = [NSError errorWithDomain:ERROR_DOMAIN code:ERROR_CODE_PLAYLIST_PARSE_ERROR userInfo:ex.userInfo];
         return [MGMRemoteData dataWithError:error];
     }
+}
+
+- (NSString*) titleForPlayerDiv:(NSDictionary*)playerDiv
+{
+    NSDictionary* metaDiv = [playerDiv objectForKey:@"div"][2];
+    NSDictionary* progressBarContainerDiv = [metaDiv objectForKey:@"div"][2];
+    NSDictionary* contextTitleDiv = [progressBarContainerDiv objectForKey:@"div"][1];
+    NSDictionary* titleContentDiv = [contextTitleDiv objectForKey:@"div"][1];
+    NSString* title = [titleContentDiv objectForKey:kXMLReaderTextNodeKey];
+    return [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 - (MGMPlaylistItemDto*) playlistItemForLi:(NSDictionary*)li
