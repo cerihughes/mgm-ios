@@ -125,7 +125,14 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         albumView.activityInProgress = YES;
-        albumView.artistName = album.artistName;
+        if (album)
+        {
+            albumView.artistName = album.artistName;
+        }
+        else
+        {
+            albumView.artistName = @"NO ALBUM";
+        }
         albumView.albumName = album.albumName;
         albumView.score = [album.score floatValue];
         albumView.rank = rank;

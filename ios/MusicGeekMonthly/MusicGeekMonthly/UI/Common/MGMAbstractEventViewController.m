@@ -42,7 +42,6 @@
     }
     eventView.playlistView.hidden = (playlist == nil);
     eventView.playlistLabel.hidden = (playlist == nil);
-    [eventView setNeedsLayout];
 
     NSError* error1 = nil;
     [self.ui.viewUtilities displayAlbum:event.classicAlbum inAlbumView:eventView.classicAlbumView error:&error1];
@@ -57,6 +56,8 @@
     {
         [self logError:error2];
     }
+
+    [eventView setNeedsLayout];
 }
 
 #pragma mark -
@@ -64,27 +65,42 @@
 
 - (void) classicAlbumPressed
 {
-    [self.albumSelectionDelegate albumSelected:self.event.classicAlbum];
+    if (self.event.classicAlbum)
+    {
+        [self.albumSelectionDelegate albumSelected:self.event.classicAlbum];
+    }
 }
 
 - (void) classicAlbumDetailPressed
 {
-    [self.albumSelectionDelegate detailSelected:self.event.classicAlbum sender:self];
+    if (self.event.classicAlbum)
+    {
+        [self.albumSelectionDelegate detailSelected:self.event.classicAlbum sender:self];
+    }
 }
 
 - (void) newlyReleasedAlbumPressed
 {
-    [self.albumSelectionDelegate albumSelected:self.event.newlyReleasedAlbum];
+    if (self.event.newlyReleasedAlbum)
+    {
+        [self.albumSelectionDelegate albumSelected:self.event.newlyReleasedAlbum];
+    }
 }
 
 - (void) newlyReleasedAlbumDetailPressed
 {
-    [self.albumSelectionDelegate detailSelected:self.event.newlyReleasedAlbum sender:self];
+    if (self.event.newlyReleasedAlbum)
+    {
+        [self.albumSelectionDelegate detailSelected:self.event.newlyReleasedAlbum sender:self];
+    }
 }
 
 - (void) playlistPressed
 {
-    [self.playlistSelectionDelegate playlistSelected:self.playlist];
+    if (self.playlist)
+    {
+        [self.playlistSelectionDelegate playlistSelected:self.playlist];
+    }
 }
 
 @end
