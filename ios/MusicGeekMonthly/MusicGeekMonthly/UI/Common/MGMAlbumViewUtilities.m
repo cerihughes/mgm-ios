@@ -145,26 +145,29 @@
 
 - (void) displayAlbumImages:(NSArray*)albumArtUrls inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error
 {
-    if (albumArtUrls.count > 0)
+    if (albumView)
     {
-        [self.imageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* imageError) {
-            if (imageError)
-            {
-                if (error)
+        if (albumArtUrls.count > 0)
+        {
+            [self.imageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* imageError) {
+                if (imageError)
                 {
-                    *error = imageError;
+                    if (error)
+                    {
+                        *error = imageError;
+                    }
                 }
-            }
-            if (image == nil)
-            {
-                image = [self.imageHelper nextDefaultImage];
-            }
-            [self renderImage:image inAlbumView:albumView];
-        }];
-    }
-    else
-    {
-        [self renderImage:[self.imageHelper nextDefaultImage] inAlbumView:albumView];
+                if (image == nil)
+                {
+                    image = [self.imageHelper nextDefaultImage];
+                }
+                [self renderImage:image inAlbumView:albumView];
+            }];
+        }
+        else
+        {
+            [self renderImage:[self.imageHelper nextDefaultImage] inAlbumView:albumView];
+        }
     }
 }
 
