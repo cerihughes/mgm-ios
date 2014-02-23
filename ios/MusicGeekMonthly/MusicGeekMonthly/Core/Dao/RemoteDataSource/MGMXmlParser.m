@@ -24,7 +24,10 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 {
     MGMXmlParser* reader = [[MGMXmlParser alloc] init];
     NSDictionary* rootDictionary = [reader objectWithData:data];
-    *error = reader.error;
+    if (error)
+    {
+        *error = reader.error;
+    }
     return rootDictionary;
 }
 
