@@ -428,7 +428,7 @@
 		658D327D18B1147C007A4D98 /* MGMWeeklyChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWeeklyChartViewController.h; sourceTree = "<group>"; };
 		658D327E18B1147C007A4D98 /* MGMWeeklyChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartViewController.m; sourceTree = "<group>"; };
 		65936A0817BCB1150070A9C6 /* MGMCoreDataTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataTestCase.m; sourceTree = "<group>"; };
-		659F9F3E175B928E000C413B /* MusicGeekMonthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicGeekMonthly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		659F9F3E175B928E000C413B /* Music Geek Monthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Geek Monthly.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		659F9F41175B928E000C413B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		659F9F43175B928E000C413B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		659F9F45175B928E000C413B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -923,7 +923,7 @@
 		659F9F3F175B928E000C413B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				659F9F3E175B928E000C413B /* MusicGeekMonthly.app */,
+				659F9F3E175B928E000C413B /* Music Geek Monthly.app */,
 				659F9F5E175B928E000C413B /* MusicGeekMonthlyTests.octest */,
 			);
 			name = Products;
@@ -1048,7 +1048,7 @@
 			);
 			name = MusicGeekMonthly;
 			productName = "Music Geek Monthly";
-			productReference = 659F9F3E175B928E000C413B /* MusicGeekMonthly.app */;
+			productReference = 659F9F3E175B928E000C413B /* Music Geek Monthly.app */;
 			productType = "com.apple.product-type.application";
 		};
 		659F9F5D175B928E000C413B /* MusicGeekMonthlyTests */ = {
@@ -1443,7 +1443,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.2.1\"",
 				);
-				PRODUCT_NAME = MusicGeekMonthly;
+				PRODUCT_NAME = "Music Geek Monthly";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1464,7 +1464,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.2.1\"",
 				);
-				PRODUCT_NAME = MusicGeekMonthly;
+				PRODUCT_NAME = "Music Geek Monthly";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
