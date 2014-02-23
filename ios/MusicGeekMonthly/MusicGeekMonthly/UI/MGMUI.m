@@ -93,6 +93,12 @@ static BOOL _isIpad;
 
 - (void) checkPlayer
 {
+    // At the moment, this can be called twice in succession...
+    if (self.playerSelectionViewController.presentingViewController != nil)
+    {
+        return;
+    }
+
     // Determine if a default player has been set...
     MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
 
