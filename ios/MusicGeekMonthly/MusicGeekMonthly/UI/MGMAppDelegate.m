@@ -7,16 +7,23 @@
 //
 
 #import "MGMAppDelegate.h"
+
+#import "MGMNoReachabilityViewController.h"
+#import "MGMReachabilityManager.h"
 #import "MGMUI.h"
 #import "TestFlight.h"
 
-@interface MGMAppDelegate ()
+@interface MGMAppDelegate () <MGMReachabilityManagerListener>
 
+@property (strong) MGMReachabilityManager* reachabilityManager;
 @property (strong) MGMUI* ui;
+@property (strong) MGMNoReachabilityViewController* noReachabilityViewController;
 
 @end
 
 @implementation MGMAppDelegate
+
+#define REACHABILITY_END_POINT @"music-geek-monthly.appspot.com"
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -30,9 +37,18 @@
     [NSURLCache setSharedURLCache:cache];
 
     self.ui = [[MGMUI alloc] init];
+
+    self.noReachabilityViewController = [[MGMNoReachabilityViewController alloc] init];
+    self.noReachabilityViewController.ui = self.ui;
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	self.window.rootViewController = self.ui.parentViewController;
+    // By default, there is no reachability.
+	self.window.rootViewController = self.noReachabilityViewController;
     [self.window makeKeyAndVisible];
+
+    self.reachabilityManager = [[MGMReachabilityManager alloc] init];
+    [self.reachabilityManager registerForReachabilityTo:REACHABILITY_END_POINT];
+    [self.reachabilityManager addListener:self];
 
     return YES;
 }
@@ -46,25 +62,37 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     NSLog(@"applicationWillResignActive:");
-    [self.ui uiWillResignActive];
+    if (self.window.rootViewController == self.ui.parentViewController)
+    {
+        [self.ui uiWillResignActive];
+    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     NSLog(@"applicationDidEnterBackground:");
-    [self.ui uiDidEnterBackground];
+    if (self.window.rootViewController == self.ui.parentViewController)
+    {
+        [self.ui uiDidEnterBackground];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     NSLog(@"applicationWillEnterForeground:");
-    [self.ui uiWillEnterForeground];
+    if (self.window.rootViewController == self.ui.parentViewController)
+    {
+        [self.ui uiWillEnterForeground];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     NSLog(@"applicationDidBecomeActive:");
-    [self.ui uiDidBecomeActive];
+    if (self.window.rootViewController == self.ui.parentViewController)
+    {
+        [self.ui uiDidBecomeActive];
+    }
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
@@ -100,6 +128,40 @@
             return UIBackgroundFetchResultNewData;
         case MGMCoreBackgroundFetchResultFailed:
             return UIBackgroundFetchResultFailed;
+    }
+}
+
+#pragma mark -
+#pragma mark MGMReachabilityManagerListener
+
+- (void) reachabilityDetermined:(BOOL)reachability
+{
+    self.ui.reachability = reachability;
+    if (reachability == NO)
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            // Do we have enough data to proceed offline?
+            MGMCoreBackgroundFetchResult coreFetchResult = [self.ui.core performBackgroundFetch];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (coreFetchResult != MGMCoreBackgroundFetchResultFailed)
+                {
+                    [self presentUI];
+                }
+            });
+        });
+    }
+    else
+    {
+        [self presentUI];
+    }
+}
+
+- (void) presentUI
+{
+    if (self.window.rootViewController != self.ui.parentViewController)
+    {
+        self.window.rootViewController = self.ui.parentViewController;
+        [self.ui uiDidBecomeActive];
     }
 }
 

@@ -44,11 +44,6 @@
     return self;
 }
 
-- (void) setReachability:(BOOL)reachability
-{
-    // TODO: Implement
-}
-
 - (void) viewDidLoad
 {
     [super viewDidLoad];

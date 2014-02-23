@@ -7,7 +7,6 @@
 #import "MGMCore.h"
 #import "MGMImageHelper.h"
 #import "MGMNavigationViewController.h"
-#import "MGMReachabilityManager.h"
 
 #define TO_ALBUM_DETAIL @"TO_ALBUM_DETAIL"
 
@@ -15,11 +14,12 @@
 
 @property (readonly) BOOL ipad;
 @property (readonly) MGMCore* core;
-@property (readonly) MGMReachabilityManager* reachabilityManager;
 @property (readonly) MGMNavigationViewController* parentViewController;
 @property (readonly) MGMAlbumPlayer* albumPlayer;
 @property (readonly) MGMImageHelper* imageHelper;
 @property (readonly) MGMAlbumViewUtilities* viewUtilities;
+
+- (void) setReachability:(BOOL)reachability;
 
 - (void) uiWillResignActive;
 - (void) uiDidEnterBackground;

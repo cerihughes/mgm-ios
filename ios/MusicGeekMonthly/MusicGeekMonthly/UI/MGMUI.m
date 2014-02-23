@@ -6,7 +6,7 @@
 #import "MGMPlayerSelectionViewController.h"
 #import "UIViewController+MGMAdditions.h"
 
-@interface MGMUI () <MGMPlayerSelectionViewControllerDelegate, MGMReachabilityManagerListener>
+@interface MGMUI () <MGMPlayerSelectionViewControllerDelegate>
 
 @property (readonly) MGMAlbumDetailViewController* albumDetailViewController;
 @property (readonly) MGMPlayerSelectionViewController* playerSelectionViewController;
@@ -15,8 +15,6 @@
 @end
 
 @implementation MGMUI
-
-#define REACHABILITY_END_POINT @"music-geek-monthly.appspot.com"
 
 static BOOL _isIpad;
 
@@ -30,10 +28,6 @@ static BOOL _isIpad;
     if (self = [super init])
     {
         _core = [[MGMCore alloc] init];
-
-        _reachabilityManager = [[MGMReachabilityManager alloc] init];
-        [_reachabilityManager registerForReachabilityTo:REACHABILITY_END_POINT];
-        [_reachabilityManager addListener:self];
 
         _albumDetailViewController = [[MGMAlbumDetailViewController alloc] init];
         _albumDetailViewController.ui = self;
@@ -52,7 +46,7 @@ static BOOL _isIpad;
             _exampleAlbumViewController.modalPresentationStyle = UIModalPresentationFormSheet;
         }
 
-        _parentViewController = [[MGMNavigationViewController alloc] initWithUI:self];;
+        _parentViewController = [[MGMNavigationViewController alloc] initWithUI:self];
 
         _albumPlayer = [[MGMAlbumPlayer alloc] init];
         _albumPlayer.serviceManager = self.core.serviceManager;
@@ -89,7 +83,12 @@ static BOOL _isIpad;
     [self.parentViewController startRendering];
 
     // This should be driven from a callback?
-    [self performSelector:@selector(checkPlayer) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(checkPlayer) withObject:nil afterDelay:2];
+}
+
+- (void) setReachability:(BOOL)reachability
+{
+    self.core.reachability = reachability;
 }
 
 - (void) checkPlayer
@@ -191,15 +190,6 @@ static BOOL _isIpad;
 - (void) logError:(NSError*)error
 {
     NSLog(@"Error occurred: %@", error);
-}
-
-#pragma mark -
-#pragma mark MGMReachabilityManagerListener
-
-- (void) reachabilityDetermined:(BOOL)reachability
-{
-    self.core.reachability = reachability;
-    self.parentViewController.reachability = reachability;
 }
 
 #pragma mark -
