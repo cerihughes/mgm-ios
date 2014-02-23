@@ -160,9 +160,6 @@
 		659F9F46175B928E000C413B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F45175B928E000C413B /* CoreGraphics.framework */; };
 		659F9F4C175B928E000C413B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F4A175B928E000C413B /* InfoPlist.strings */; };
 		659F9F4E175B928E000C413B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659F9F4D175B928E000C413B /* main.m */; };
-		659F9F54175B928E000C413B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F53175B928E000C413B /* Default.png */; };
-		659F9F56175B928E000C413B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F55175B928E000C413B /* Default@2x.png */; };
-		659F9F58175B928E000C413B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F57175B928E000C413B /* Default-568h@2x.png */; };
 		659F9F60175B928E000C413B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F5F175B928E000C413B /* SenTestingKit.framework */; };
 		659F9F62175B928E000C413B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F43175B928E000C413B /* Foundation.framework */; };
 		659F9F6A175B928E000C413B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F68175B928E000C413B /* InfoPlist.strings */; };
@@ -1074,14 +1071,11 @@
 				6587E60318BA698700DD7F41 /* iTunesArtworkTransparent.png in Resources */,
 				658D30B318B10DE6007A4D98 /* album1.png in Resources */,
 				658D30B618B10DE6007A4D98 /* arrow.png in Resources */,
-				659F9F54175B928E000C413B /* Default.png in Resources */,
-				659F9F56175B928E000C413B /* Default@2x.png in Resources */,
 				658D30BA18B10DE6007A4D98 /* chart_line@2x.png in Resources */,
 				658D30BB18B10DE6007A4D98 /* deezer.png in Resources */,
 				658D30C118B10DE6007A4D98 /* ruler.png in Resources */,
 				658D30B718B10DE6007A4D98 /* calendar.png in Resources */,
 				658D30BE18B10DE6007A4D98 /* home@2x.png in Resources */,
-				659F9F58175B928E000C413B /* Default-568h@2x.png in Resources */,
 				658D30C218B10DE6007A4D98 /* ruler@2x.png in Resources */,
 				658D30C018B10DE6007A4D98 /* lastfm.png in Resources */,
 			);
@@ -1375,7 +1369,7 @@
 					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.2.1\"",
 				);
 				PRODUCT_NAME = "Music Geek Monthly";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "99EC3D7F-0561-407F-9E6B-F4CEBAA38D2A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1396,7 +1390,7 @@
 					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.2.1\"",
 				);
 				PRODUCT_NAME = "Music Geek Monthly";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "99EC3D7F-0561-407F-9E6B-F4CEBAA38D2A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
