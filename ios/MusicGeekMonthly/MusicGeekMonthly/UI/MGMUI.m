@@ -86,7 +86,7 @@ static BOOL _isIpad;
 
 - (void) uiDidBecomeActive
 {
-    [self.parentViewController startRending];
+    [self.parentViewController startRendering];
 
     // This should be driven from a callback?
     [self performSelector:@selector(checkPlayer) withObject:nil afterDelay:0.5];

@@ -64,7 +64,7 @@
     }
 }
 
-- (void) startRending
+- (void) startRendering
 {
     if (self.renderingImages == NO)
     {

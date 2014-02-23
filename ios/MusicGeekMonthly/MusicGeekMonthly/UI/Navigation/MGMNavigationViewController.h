@@ -17,6 +17,6 @@
 
 - (void) setReachability:(BOOL)reachability;
 
-- (void) startRending;
+- (void) startRendering;
 
 @end
