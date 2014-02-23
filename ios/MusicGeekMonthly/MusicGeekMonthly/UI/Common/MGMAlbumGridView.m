@@ -38,7 +38,7 @@
     [self addSubview:self.scrollView];
 }
 
-- (void) setAlbumCount:(NSUInteger)albumCount
+- (void) setAlbumCount:(NSUInteger)albumCount detailViewShowing:(BOOL)detailViewShowing
 {
     if (self.albumViews.count != albumCount)
     {
@@ -57,7 +57,7 @@
                 albumView.alphaOn = 1;
                 albumView.animationTime = 0.5;
                 albumView.rank = i + 1;
-                albumView.detailViewShowing = NO;
+                albumView.detailViewShowing = detailViewShowing;
                 albumView.delegate = self;
                 albumView.pressable = YES;
 

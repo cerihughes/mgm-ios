@@ -21,7 +21,7 @@
 
 @property (weak) id<MGMAlbumGridViewDelegate> delegate;
 
-- (void) setAlbumCount:(NSUInteger)albumCount;
+- (void) setAlbumCount:(NSUInteger)albumCount detailViewShowing:(BOOL)detailViewShowing;
 - (void) setAlbumFrame:(CGRect)frame forRank:(NSUInteger)rank;
 - (MGMAlbumView*) albumViewForRank:(NSUInteger)rank;
 - (void) setActivityInProgressForAllRanks:(BOOL)inProgress;

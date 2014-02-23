@@ -49,7 +49,7 @@
     self.playlistView = [[MGMAlbumGridView alloc] initWithFrame:CGRectZero];
     self.playlistView.delegate = self;
     self.playlistViewRowCount = self.screenSize == MGMViewScreenSizeiPad ? 5 : 3;
-    [self.playlistView setAlbumCount:self.playlistViewRowCount * self.playlistViewRowCount];
+    [self.playlistView setAlbumCount:self.playlistViewRowCount * self.playlistViewRowCount detailViewShowing:NO];
 }
 
 - (void) updatePlaylistAlbumSizes
