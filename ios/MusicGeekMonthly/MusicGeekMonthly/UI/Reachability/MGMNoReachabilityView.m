@@ -25,7 +25,7 @@
 
     _parentView = [[UIView alloc] initWithFrame:CGRectZero];
 
-    _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iTunesArtwork.png"]];
+    _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iTunesArtworkTransparent.png"]];
     _titleLabel = [MGMView boldTitleLabelWithText:@"No internet connection detected"];
     _reachabilityLabel = [MGMView italicTitleLabelWithText:@"Music Geek Monthly requires an initial internet connection to download data."];
     _reachabilityLabel.numberOfLines = 5;

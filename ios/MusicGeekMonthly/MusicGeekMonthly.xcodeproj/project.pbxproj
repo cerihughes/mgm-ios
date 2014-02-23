@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6545477A18B90444008CDAD3 /* MGMAlbumGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6545477918B90444008CDAD3 /* MGMAlbumGridView.m */; };
 		654D029D18BA20960067BC19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654D029C18BA20960067BC19 /* Images.xcassets */; };
-		654D02BD18BA20B60067BC19 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 654D02AD18BA20B60067BC19 /* iTunesArtwork.png */; };
+		6587E60318BA698700DD7F41 /* iTunesArtworkTransparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6587E60218BA698700DD7F41 /* iTunesArtworkTransparent.png */; };
 		658D30B318B10DE6007A4D98 /* album1.png in Resources */ = {isa = PBXBuildFile; fileRef = 658D30A018B10DE6007A4D98 /* album1.png */; };
 		658D30B418B10DE6007A4D98 /* album2.png in Resources */ = {isa = PBXBuildFile; fileRef = 658D30A118B10DE6007A4D98 /* album2.png */; };
 		658D30B518B10DE6007A4D98 /* album3.png in Resources */ = {isa = PBXBuildFile; fileRef = 658D30A218B10DE6007A4D98 /* album3.png */; };
@@ -202,7 +202,7 @@
 		6545477918B90444008CDAD3 /* MGMAlbumGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumGridView.m; sourceTree = "<group>"; };
 		6545477D18B93C65008CDAD3 /* MGMSpotifyConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGMSpotifyConstants.h; sourceTree = "<group>"; };
 		654D029C18BA20960067BC19 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		654D02AD18BA20B60067BC19 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
+		6587E60218BA698700DD7F41 /* iTunesArtworkTransparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtworkTransparent.png; path = MusicGeekMonthly/Icons/iTunesArtworkTransparent.png; sourceTree = "<group>"; };
 		658D30A018B10DE6007A4D98 /* album1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = album1.png; path = MusicGeekMonthly/Resources/album1.png; sourceTree = "<group>"; };
 		658D30A118B10DE6007A4D98 /* album2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = album2.png; path = MusicGeekMonthly/Resources/album2.png; sourceTree = "<group>"; };
 		658D30A218B10DE6007A4D98 /* album3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = album3.png; path = MusicGeekMonthly/Resources/album3.png; sourceTree = "<group>"; };
@@ -487,15 +487,6 @@
 				658D323318B1147C007A4D98 /* MGMTabbedViewController.m */,
 			);
 			name = Navigation;
-			sourceTree = "<group>";
-		};
-		654D029E18BA20B60067BC19 /* Icons */ = {
-			isa = PBXGroup;
-			children = (
-				654D02AD18BA20B60067BC19 /* iTunesArtwork.png */,
-			);
-			name = Icons;
-			path = MusicGeekMonthly/Icons;
 			sourceTree = "<group>";
 		};
 		658D30C618B112E3007A4D98 /* Core */ = {
@@ -866,7 +857,6 @@
 			isa = PBXGroup;
 			children = (
 				65E1A4F517F70744006F8051 /* CKCalendar-master */,
-				654D029E18BA20B60067BC19 /* Icons */,
 				65D451451764F54C00374C5F /* Resources */,
 				659F9F47175B928E000C413B /* MusicGeekMonthly */,
 				659F9F65175B928E000C413B /* MusicGeekMonthlyTests */,
@@ -946,6 +936,7 @@
 		65D451451764F54C00374C5F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6587E60218BA698700DD7F41 /* iTunesArtworkTransparent.png */,
 				658D30A018B10DE6007A4D98 /* album1.png */,
 				658D30A118B10DE6007A4D98 /* album2.png */,
 				658D30A218B10DE6007A4D98 /* album3.png */,
@@ -1080,6 +1071,7 @@
 				658D30B418B10DE6007A4D98 /* album2.png in Resources */,
 				658D30C418B10DE6007A4D98 /* wikipedia.png in Resources */,
 				658D30B818B10DE6007A4D98 /* calendar@2x.png in Resources */,
+				6587E60318BA698700DD7F41 /* iTunesArtworkTransparent.png in Resources */,
 				658D30B318B10DE6007A4D98 /* album1.png in Resources */,
 				658D30B618B10DE6007A4D98 /* arrow.png in Resources */,
 				659F9F54175B928E000C413B /* Default.png in Resources */,
@@ -1092,7 +1084,6 @@
 				659F9F58175B928E000C413B /* Default-568h@2x.png in Resources */,
 				658D30C218B10DE6007A4D98 /* ruler@2x.png in Resources */,
 				658D30C018B10DE6007A4D98 /* lastfm.png in Resources */,
-				654D02BD18BA20B60067BC19 /* iTunesArtwork.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
