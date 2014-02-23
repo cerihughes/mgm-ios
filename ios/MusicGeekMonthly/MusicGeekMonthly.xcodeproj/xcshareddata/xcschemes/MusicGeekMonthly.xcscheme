@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "659F9F3D175B928E000C413B"
-               BuildableName = "MusicGeekMonthly.app"
+               BuildableName = "Music Geek Monthly.app"
                BlueprintName = "MusicGeekMonthly"
                ReferencedContainer = "container:MusicGeekMonthly.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "659F9F3D175B928E000C413B"
-            BuildableName = "MusicGeekMonthly.app"
+            BuildableName = "Music Geek Monthly.app"
             BlueprintName = "MusicGeekMonthly"
             ReferencedContainer = "container:MusicGeekMonthly.xcodeproj">
          </BuildableReference>
@@ -52,7 +52,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "659F9F3D175B928E000C413B"
-            BuildableName = "MusicGeekMonthly.app"
+            BuildableName = "Music Geek Monthly.app"
             BlueprintName = "MusicGeekMonthly"
             ReferencedContainer = "container:MusicGeekMonthly.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "659F9F3D175B928E000C413B"
-            BuildableName = "MusicGeekMonthly.app"
+            BuildableName = "Music Geek Monthly.app"
             BlueprintName = "MusicGeekMonthly"
             ReferencedContainer = "container:MusicGeekMonthly.xcodeproj">
          </BuildableReference>
