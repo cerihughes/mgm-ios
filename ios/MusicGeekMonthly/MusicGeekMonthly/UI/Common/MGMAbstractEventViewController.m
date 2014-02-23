@@ -15,9 +15,24 @@
 
 @interface MGMAbstractEventViewController () <MGMAbstractEventViewDelegate>
 
+@property BOOL renderedFirstEvent;
+
 @end
 
 @implementation MGMAbstractEventViewController
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    if (self.renderedFirstEvent == NO)
+    {
+        MGMAbstractEventView* eventView = (MGMAbstractEventView*)self.view;
+        [eventView.classicAlbumView setActivityInProgress:YES];
+        [eventView.newlyReleasedAlbumView setActivityInProgress:YES];
+        self.renderedFirstEvent = YES;
+    }
+}
 
 - (void) displayEvent:(MGMEvent*)event playlist:(MGMPlaylistDto*)playlist
 {
