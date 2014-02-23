@@ -85,22 +85,21 @@
 
             [scoresView.albumGridView setActivityInProgressForAllRanks:YES];
 
+            if (fetchError && albumMoids)
+            {
+                [self logError:fetchError];
+            }
+
+            if (albumMoids)
+            {
+                self.albumMoids = albumMoids;
+                [self reloadAlbums];
+            }
+            else
+            {
+                [self showError:fetchError];
+            }
         });
-
-        if (fetchError && albumMoids)
-        {
-            [self logError:fetchError];
-        }
-
-        if (albumMoids)
-        {
-            self.albumMoids = albumMoids;
-            [self reloadAlbums];
-        }
-        else
-        {
-            [self showError:fetchError];
-        }
     });
 }
 

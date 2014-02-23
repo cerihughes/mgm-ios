@@ -45,10 +45,11 @@
         [self.albumViewsLock lock];
         @try
         {
-            for (NSUInteger i = albumCount; i < self.albumViews.count; i++)
+            for (NSUInteger i = albumCount + 1; i < self.albumViews.count; i++)
             {
                 MGMAlbumView* albumView = [self internal_albumViewForRank:i];
                 albumView.frame = CGRectZero;
+                albumView.hidden = YES;
             }
 
             for (NSUInteger i = self.albumViews.count; i < albumCount; i++)
@@ -78,7 +79,7 @@
 {
     MGMAlbumView* albumView = [self albumViewForRank:rank];
     albumView.frame = frame;
-    [albumView setNeedsLayout];
+    albumView.hidden = NO;
 
     CGSize existingSize = self.scrollView.contentSize;
     CGRect existingContent = CGRectMake(0, 0, existingSize.width, existingSize.height);
