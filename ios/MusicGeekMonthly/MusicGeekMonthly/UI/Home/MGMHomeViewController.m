@@ -52,18 +52,18 @@
                 self.eventMoid = moid;
 
                 MGMPlaylistDto* playlist = nil;
-//                if (event.spotifyPlaylistId)
-//                {
-//                    MGMDaoData* playlistData = [self.core.dao fetchAllEvents];
-//                    if (playlistData.error)
-//                    {
-//                        [self logError:playlistData.error];
-//                    }
-//                    if (playlistData.data)
-//                    {
-//                        playlist = playlistData.data;
-//                    }
-//                }
+                if (event.spotifyPlaylistId)
+                {
+                    MGMDaoData* playlistData = [self.core.dao fetchPlaylist:event.spotifyPlaylistId];
+                    if (playlistData.error)
+                    {
+                        [self logError:playlistData.error];
+                    }
+                    if (playlistData.data)
+                    {
+                        playlist = playlistData.data;
+                    }
+                }
 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self displayEventWithMoid:self.eventMoid playlist:playlist];

@@ -8,13 +8,11 @@
 
 #import "MGMEventsView.h"
 
-#import "MGMGridManager.h"
-
 @interface MGMEventsView ()
 
+@property (strong) UIView* parentView;
 @property (strong) UINavigationBar* navigationBar;
 @property (strong) UINavigationItem* navigationItem;
-@property NSUInteger playlistViewRowCount;
 
 @end
 
@@ -32,16 +30,29 @@
     [self.navigationItem setRightBarButtonItem:bbi];
     [self.navigationBar pushNavigationItem:self.navigationItem animated:YES];
 
-    self.playlistViewRowCount = self.screenSize == MGMViewScreenSizeiPad ? 5 : 3;
-    [self.playlistView setAlbumCount:self.playlistViewRowCount * self.playlistViewRowCount];
-
+    [self.parentView addSubview:self.classicAlbumLabel];
+    [self.parentView addSubview:self.classicAlbumView];
+    [self.parentView addSubview:self.newlyReleasedAlbumLabel];
+    [self.parentView addSubview:self.newlyReleasedAlbumView];
+    [self.parentView addSubview:self.playlistLabel];
+    [self.parentView addSubview:self.playlistView];
+    [self addSubview:self.parentView];
     [self addSubview:self.navigationBar];
-    [self addSubview:self.classicAlbumLabel];
-    [self addSubview:self.classicAlbumView];
-    [self addSubview:self.newlyReleasedAlbumLabel];
-    [self addSubview:self.newlyReleasedAlbumView];
-    [self addSubview:self.playlistLabel];
-    [self addSubview:self.playlistView];
+}
+
+- (void) commonInitIphone
+{
+    [super commonInitIphone];
+
+    CGRect frame = CGRectMake(0, 20, self.frame.size.width, self.frame.size.height - 20);
+    self.parentView = [[UIScrollView alloc] initWithFrame:frame];
+}
+
+- (void) commonInitIpad
+{
+    [super commonInitIpad];
+
+    self.parentView = [[UIView alloc] initWithFrame:self.frame];
 }
 
 - (void) setTitle:(NSString*)title
@@ -54,42 +65,30 @@
     [self.delegate moreButtonPressed:sender];
 }
 
-- (void) layoutSubviews
-{
-    [super layoutSubviews];
-
-    // Resize the album view for new data...
-    NSUInteger rowCount = self.playlistViewRowCount;
-    NSUInteger albumCount = self.playlistViewRowCount * self.playlistViewRowCount;
-    CGFloat albumSize = self.playlistView.frame.size.width / rowCount;
-    NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:rowCount size:albumSize count:albumCount];
-
-    for (NSUInteger i = 0; i < albumCount; i++)
-    {
-        NSValue* value = [gridData objectAtIndex:i];
-        CGRect frame = [value CGRectValue];
-        [self.playlistView setAlbumFrame:frame forRank:i + 1];
-    }
-}
-
 - (void) layoutSubviewsIphone
 {
     [super layoutSubviewsIphone];
 
     self.navigationBar.frame = CGRectMake(0, 20, 320, 44);
-    self.classicAlbumLabel.frame = CGRectZero;
-    self.classicAlbumView.frame = CGRectMake(0, 64, 160, 160);
-    self.newlyReleasedAlbumLabel.frame = CGRectZero;
-    self.newlyReleasedAlbumView.frame = CGRectMake(160, 64, 160, 160);
-    self.playlistLabel.frame = CGRectMake(0, 235, 320, 21);
-    if (self.screenSize == MGMViewScreenSizeiPhone480)
+    self.classicAlbumLabel.frame = CGRectMake(0, 70, 160, 21);
+    self.newlyReleasedAlbumLabel.frame = CGRectMake(160, 70, 160, 21);
+    self.classicAlbumView.frame = CGRectMake(0, 100, 160, 160);
+    self.newlyReleasedAlbumView.frame = CGRectMake(160, 100, 160, 160);
+
+    UIView* lastView = self.newlyReleasedAlbumView;
+    if (self.playlistLabel.hidden == NO)
     {
-        self.playlistView.frame = CGRectMake(83, 265, 154, 154);
+        self.playlistLabel.frame = CGRectMake(0, 280, 320, 21);
+        self.playlistView.frame = CGRectMake(50, 310, 220, 220);
+        lastView = self.playlistView;
     }
-    else
-    {
-        self.playlistView.frame = CGRectMake(50, 265, 220, 220);
-    }
+
+    // Need to create a contentRect that's got space to scroll over the tab bar...
+    CGRect contentRect = CGRectUnion(CGRectZero, lastView.frame);
+    contentRect = CGRectInset(contentRect, 0, -self.tabBarHeight);
+
+    UIScrollView* scrollView = (UIScrollView*)self.parentView;
+    scrollView.contentSize = contentRect.size;
 }
 
 - (void) layoutSubviewsIpad

@@ -8,6 +8,8 @@
 
 #import "MGMAbstractEventView.h"
 
+#import "MGMGridManager.h"
+
 @interface MGMAbstractEventView () <MGMAlbumViewDelegate, MGMAlbumGridViewDelegate>
 
 @property (strong) UILabel* classicAlbumLabel;
@@ -16,6 +18,7 @@
 @property (strong) MGMAlbumView* newlyReleasedAlbumView;
 @property (strong) UILabel* playlistLabel;
 @property (strong) MGMAlbumGridView* playlistView;
+@property NSUInteger playlistViewRowCount;
 
 @end
 
@@ -45,6 +48,32 @@
 
     self.playlistView = [[MGMAlbumGridView alloc] initWithFrame:CGRectZero];
     self.playlistView.delegate = self;
+    self.playlistViewRowCount = self.screenSize == MGMViewScreenSizeiPad ? 5 : 3;
+    [self.playlistView setAlbumCount:self.playlistViewRowCount * self.playlistViewRowCount];
+}
+
+- (void) updatePlaylistAlbumSizes
+{
+    // Resize the album view for new data...
+    // TODO: This ultimately needs to bein the layoutSubviews method of the grid view...
+    NSUInteger rowCount = self.playlistViewRowCount;
+    NSUInteger albumCount = self.playlistViewRowCount * self.playlistViewRowCount;
+    CGFloat albumSize = self.playlistView.frame.size.width / rowCount;
+    NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:rowCount size:albumSize count:albumCount];
+
+    for (NSUInteger i = 0; i < albumCount; i++)
+    {
+        NSValue* value = [gridData objectAtIndex:i];
+        CGRect frame = [value CGRectValue];
+        [self.playlistView setAlbumFrame:frame forRank:i + 1];
+    }
+}
+
+- (void) layoutSubviews
+{
+    [super layoutSubviews];
+
+    [self updatePlaylistAlbumSizes];
 }
 
 #pragma mark -

@@ -12,6 +12,7 @@
 
 @interface MGMHomeView () <CKCalendarDelegate>
 
+@property (strong) UIView* parentView;
 @property (strong) UILabel* titleLabel;
 @property (strong) UILabel* nextMeetingLabel;
 @property (strong) CKCalendarView* calendarView;
@@ -37,17 +38,35 @@
     self.calendarView.delegate = self;
 
     self.titleLabel = [MGMView boldTitleLabelWithText:@"This month we're listening to:"];
-    self.nextMeetingLabel = [MGMView boldTitleLabelWithText:@"Next meeting:"];
+    self.nextMeetingLabel = [MGMView italicTitleLabelWithText:@"Next meeting:"];
 
-    [self addSubview:self.titleLabel];
-    [self addSubview:self.classicAlbumView];
-    [self addSubview:self.newlyReleasedAlbumView];
-    [self addSubview:self.classicAlbumLabel];
-    [self addSubview:self.newlyReleasedAlbumLabel];
-    [self addSubview:self.nextMeetingLabel];
-    [self addSubview:self.calendarView];
+    [self.parentView addSubview:self.titleLabel];
+    [self.parentView addSubview:self.classicAlbumView];
+    [self.parentView addSubview:self.newlyReleasedAlbumView];
+    [self.parentView addSubview:self.classicAlbumLabel];
+    [self.parentView addSubview:self.newlyReleasedAlbumLabel];
+    [self.parentView addSubview:self.nextMeetingLabel];
+    [self.parentView addSubview:self.calendarView];
+    [self.parentView addSubview:self.playlistLabel];
+    [self.parentView addSubview:self.playlistView];
+    [self addSubview:self.parentView];
 
     self.nextEventDate = nil;
+}
+
+- (void) commonInitIphone
+{
+    [super commonInitIphone];
+
+    CGRect frame = CGRectMake(0, 20, self.frame.size.width, self.frame.size.height - 20);
+    self.parentView = [[UIScrollView alloc] initWithFrame:frame];
+}
+
+- (void) commonInitIpad
+{
+    [super commonInitIpad];
+
+    self.parentView = [[UIView alloc] initWithFrame:self.frame];
 }
 
 - (void) setNextEventDate:(NSDate *)nextEventDate
@@ -61,23 +80,30 @@
     [super layoutSubviewsIphone];
 
     self.titleLabel.frame = CGRectMake(20, 20, 280, 21);
-    self.classicAlbumView.frame = CGRectMake(0, 49, 160, 160);
-    self.newlyReleasedAlbumView.frame = CGRectMake(160, 49, 160, 160);
 
-    CGFloat delta = (self.frame.size.height - 480.0) / 2;
-    if (delta > 0)
+    self.classicAlbumLabel.frame = CGRectMake(0, 51, 160, 21);
+    self.newlyReleasedAlbumLabel.frame = CGRectMake(160, 51, 160, 21);
+
+    self.classicAlbumView.frame = CGRectMake(0, 82, 160, 160);
+    self.newlyReleasedAlbumView.frame = CGRectMake(160, 82, 160, 160);
+
+    self.nextMeetingLabel.frame = CGRectMake(20, 260, 280, 21);
+    self.calendarView.frame = CGRectMake(71, 290, 178, 131);
+
+    UIView* lastView = self.calendarView;
+    if (self.playlistLabel.hidden == NO)
     {
-        self.classicAlbumLabel.frame = CGRectMake(0, 209, 160, 21);
-        self.newlyReleasedAlbumLabel.frame = CGRectMake(160, 209, 160, 21);
-    }
-    else
-    {
-        self.classicAlbumLabel.frame = CGRectZero;
-        self.newlyReleasedAlbumLabel.frame = CGRectZero;
+        self.playlistLabel.frame = CGRectMake(0, 484, 320, 21);
+        self.playlistView.frame = CGRectMake(50, 515, 220, 220);
+        lastView = self.playlistView;
     }
 
-    self.nextMeetingLabel.frame = CGRectMake(20, 217 + delta, 280, 21);
-    self.calendarView.frame = CGRectMake(71, 246 + delta, 178, 131);
+    // Need to create a contentRect that's got space to scroll over the tab bar...
+    CGRect contentRect = CGRectUnion(CGRectZero, lastView.frame);
+    contentRect = CGRectInset(contentRect, 0, -self.tabBarHeight);
+
+    UIScrollView* scrollView = (UIScrollView*)self.parentView;
+    scrollView.contentSize = contentRect.size;
 }
 
 - (void) layoutSubviewsIpad

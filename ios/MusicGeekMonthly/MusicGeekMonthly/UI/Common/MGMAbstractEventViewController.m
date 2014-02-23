@@ -40,6 +40,9 @@
             }
         }
     }
+    eventView.playlistView.hidden = (playlist == nil);
+    eventView.playlistLabel.hidden = (playlist == nil);
+    [eventView setNeedsLayout];
 
     NSError* error1 = nil;
     [self.ui.viewUtilities displayAlbum:event.classicAlbum inAlbumView:eventView.classicAlbumView error:&error1];

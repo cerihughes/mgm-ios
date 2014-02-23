@@ -31,5 +31,6 @@
 @property (readonly) MGMAlbumView* newlyReleasedAlbumView;
 @property (readonly) UILabel* playlistLabel;
 @property (readonly) MGMAlbumGridView* playlistView;
+@property (readonly) NSUInteger playlistViewRowCount;
 
 @end
