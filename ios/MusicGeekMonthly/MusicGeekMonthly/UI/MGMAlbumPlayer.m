@@ -68,7 +68,7 @@
     return MGM_NO_ERROR(&error);
 }
 
-- (BOOL) playPlaylist:(MGMPlaylistDto*)playlist onService:(MGMAlbumServiceType)serviceType error:(NSError**)error
+- (BOOL) playPlaylist:(MGMPlaylist*)playlist onService:(MGMAlbumServiceType)serviceType error:(NSError**)error
 {
     NSString* urlString = [self.serviceManager urlForPlaylist:playlist forServiceType:serviceType];
     if (urlString)

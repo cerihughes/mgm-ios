@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		6545477A18B90444008CDAD3 /* MGMAlbumGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6545477918B90444008CDAD3 /* MGMAlbumGridView.m */; };
 		654D029D18BA20960067BC19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654D029C18BA20960067BC19 /* Images.xcassets */; };
+		657F6B4118BBD8EB0025F52B /* MGMPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = 657F6B4018BBD8EB0025F52B /* MGMPlaylist.m */; };
+		657F6B4218BBD8EB0025F52B /* MGMPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = 657F6B4018BBD8EB0025F52B /* MGMPlaylist.m */; };
+		657F6B4518BBD9080025F52B /* MGMPlaylistItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 657F6B4418BBD9080025F52B /* MGMPlaylistItem.m */; };
+		657F6B4618BBD9080025F52B /* MGMPlaylistItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 657F6B4418BBD9080025F52B /* MGMPlaylistItem.m */; };
 		6587E60318BA698700DD7F41 /* iTunesArtworkTransparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6587E60218BA698700DD7F41 /* iTunesArtworkTransparent.png */; };
 		658D30B318B10DE6007A4D98 /* album1.png in Resources */ = {isa = PBXBuildFile; fileRef = 658D30A018B10DE6007A4D98 /* album1.png */; };
 		658D30B418B10DE6007A4D98 /* album2.png in Resources */ = {isa = PBXBuildFile; fileRef = 658D30A118B10DE6007A4D98 /* album2.png */; };
@@ -182,6 +186,10 @@
 		65F89A4C18B7BCC3003C5803 /* MGMPlaylistItemDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A4A18B7BCC3003C5803 /* MGMPlaylistItemDto.m */; };
 		65F89A5318B7BEC3003C5803 /* MGMRemoteJsonDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataSource.m */; };
 		65F89A5418B7BEC3003C5803 /* MGMRemoteJsonDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataSource.m */; };
+		65FD1D6418C0C1CA00993D02 /* MGMImagedEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FD1D6318C0C1CA00993D02 /* MGMImagedEntity.m */; };
+		65FD1D6518C0C1CA00993D02 /* MGMImagedEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FD1D6318C0C1CA00993D02 /* MGMImagedEntity.m */; };
+		65FD1D6818C0D92800993D02 /* MGMImagedEntityDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FD1D6718C0D92800993D02 /* MGMImagedEntityDto.m */; };
+		65FD1D6918C0D92800993D02 /* MGMImagedEntityDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FD1D6718C0D92800993D02 /* MGMImagedEntityDto.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +207,10 @@
 		6545477918B90444008CDAD3 /* MGMAlbumGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumGridView.m; sourceTree = "<group>"; };
 		6545477D18B93C65008CDAD3 /* MGMSpotifyConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGMSpotifyConstants.h; sourceTree = "<group>"; };
 		654D029C18BA20960067BC19 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		657F6B3F18BBD8EB0025F52B /* MGMPlaylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylist.h; sourceTree = "<group>"; };
+		657F6B4018BBD8EB0025F52B /* MGMPlaylist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlaylist.m; sourceTree = "<group>"; };
+		657F6B4318BBD9080025F52B /* MGMPlaylistItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylistItem.h; sourceTree = "<group>"; };
+		657F6B4418BBD9080025F52B /* MGMPlaylistItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlaylistItem.m; sourceTree = "<group>"; };
 		6587E60218BA698700DD7F41 /* iTunesArtworkTransparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtworkTransparent.png; path = MusicGeekMonthly/Icons/iTunesArtworkTransparent.png; sourceTree = "<group>"; };
 		658D30A018B10DE6007A4D98 /* album1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = album1.png; path = MusicGeekMonthly/Resources/album1.png; sourceTree = "<group>"; };
 		658D30A118B10DE6007A4D98 /* album2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = album2.png; path = MusicGeekMonthly/Resources/album2.png; sourceTree = "<group>"; };
@@ -429,6 +441,10 @@
 		65F89A4A18B7BCC3003C5803 /* MGMPlaylistItemDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlaylistItemDto.m; sourceTree = "<group>"; };
 		65F89A5118B7BEC3003C5803 /* MGMRemoteJsonDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteJsonDataSource.h; sourceTree = "<group>"; };
 		65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteJsonDataSource.m; sourceTree = "<group>"; };
+		65FD1D6218C0C1CA00993D02 /* MGMImagedEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMImagedEntity.h; sourceTree = "<group>"; };
+		65FD1D6318C0C1CA00993D02 /* MGMImagedEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMImagedEntity.m; sourceTree = "<group>"; };
+		65FD1D6618C0D92800993D02 /* MGMImagedEntityDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMImagedEntityDto.h; sourceTree = "<group>"; };
+		65FD1D6718C0D92800993D02 /* MGMImagedEntityDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMImagedEntityDto.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -601,6 +617,8 @@
 				658D30FC18B112E3007A4D98 /* MGMChartEntryDto.m */,
 				658D30FD18B112E3007A4D98 /* MGMEventDto.h */,
 				658D30FE18B112E3007A4D98 /* MGMEventDto.m */,
+				65FD1D6618C0D92800993D02 /* MGMImagedEntityDto.h */,
+				65FD1D6718C0D92800993D02 /* MGMImagedEntityDto.m */,
 				65F89A4518B7BCB1003C5803 /* MGMPlaylistDto.h */,
 				65F89A4618B7BCB1003C5803 /* MGMPlaylistDto.m */,
 				65F89A4918B7BCC3003C5803 /* MGMPlaylistItemDto.h */,
@@ -628,8 +646,14 @@
 				658D311618B112E3007A4D98 /* MGMChartEntry.m */,
 				658D311718B112E3007A4D98 /* MGMEvent.h */,
 				658D311818B112E3007A4D98 /* MGMEvent.m */,
+				65FD1D6218C0C1CA00993D02 /* MGMImagedEntity.h */,
+				65FD1D6318C0C1CA00993D02 /* MGMImagedEntity.m */,
 				658D311918B112E3007A4D98 /* MGMNextUrlAccess.h */,
 				658D311A18B112E3007A4D98 /* MGMNextUrlAccess.m */,
+				657F6B3F18BBD8EB0025F52B /* MGMPlaylist.h */,
+				657F6B4018BBD8EB0025F52B /* MGMPlaylist.m */,
+				657F6B4318BBD9080025F52B /* MGMPlaylistItem.h */,
+				657F6B4418BBD9080025F52B /* MGMPlaylistItem.m */,
 				658D311B18B112E3007A4D98 /* MGMRenderable.h */,
 				658D311C18B112E3007A4D98 /* MGMTimePeriod.h */,
 				658D311D18B112E3007A4D98 /* MGMTimePeriod.m */,
@@ -1116,6 +1140,7 @@
 				658D328718B1147C007A4D98 /* MGMCoreDataTableViewDataSource.m in Sources */,
 				65EC948E18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m in Sources */,
 				658D317818B112E3007A4D98 /* MGMWeeklyChart.m in Sources */,
+				657F6B4518BBD9080025F52B /* MGMPlaylistItem.m in Sources */,
 				658D328F18B1147C007A4D98 /* UIViewController+MGMAdditions.m in Sources */,
 				658D329318B1147C007A4D98 /* MGMEventTableCell.m in Sources */,
 				658D314418B112E3007A4D98 /* MGMWeeklyChartDaoOperation.m in Sources */,
@@ -1138,6 +1163,7 @@
 				659F9F4E175B928E000C413B /* main.m in Sources */,
 				6545477A18B90444008CDAD3 /* MGMAlbumGridView.m in Sources */,
 				658D328C18B1147C007A4D98 /* MGMAbstractPlayerSelectionView.m in Sources */,
+				65FD1D6818C0D92800993D02 /* MGMImagedEntityDto.m in Sources */,
 				658D314618B112E3007A4D98 /* MGMCoreDataAccess.m in Sources */,
 				65E1A51517F70745006F8051 /* CKCalendarView.m in Sources */,
 				658D314218B112E3007A4D98 /* MGMAllTimePeriodsDaoOperation.m in Sources */,
@@ -1150,6 +1176,7 @@
 				658D315618B112E3007A4D98 /* MGMAlbumDto.m in Sources */,
 				658D329418B1147C007A4D98 /* MGMEventTableViewDataSource.m in Sources */,
 				658D315418B112E3007A4D98 /* MGMRemoteDataSource.m in Sources */,
+				65FD1D6418C0C1CA00993D02 /* MGMImagedEntity.m in Sources */,
 				658D327F18B1147C007A4D98 /* MGMAlbumDetailView.m in Sources */,
 				658D314C18B112E3007A4D98 /* MGMDao.m in Sources */,
 				658D329718B1147C007A4D98 /* MGMHomeView.m in Sources */,
@@ -1181,6 +1208,7 @@
 				658D32A718B1147C007A4D98 /* MGMWeeklyChartModalView.m in Sources */,
 				658D328118B1147C007A4D98 /* MGMAbstractEventView.m in Sources */,
 				658D328818B1147C007A4D98 /* MGMTabbedView.m in Sources */,
+				657F6B4118BBD8EB0025F52B /* MGMPlaylist.m in Sources */,
 				658D328E18B1147C007A4D98 /* MGMPlayerGroupView.m in Sources */,
 				658D313E18B112E3007A4D98 /* MGMAllEventsDaoOperation.m in Sources */,
 				658D313618B112E3007A4D98 /* MGMLocalData.m in Sources */,
@@ -1235,14 +1263,17 @@
 				658D317D18B112E3007A4D98 /* NSMutableArray+Shuffling.m in Sources */,
 				658D317518B112E3007A4D98 /* MGMNextUrlAccess.m in Sources */,
 				658D315318B112E3007A4D98 /* MGMHttpDataSource.m in Sources */,
+				65FD1D6918C0D92800993D02 /* MGMImagedEntityDto.m in Sources */,
 				658D316518B112E3007A4D98 /* MGMCore.m in Sources */,
 				658D315518B112E3007A4D98 /* MGMRemoteDataSource.m in Sources */,
 				658D316D18B112E3007A4D98 /* MGMAlbumImageUri.m in Sources */,
+				657F6B4218BBD8EB0025F52B /* MGMPlaylist.m in Sources */,
 				658D318718B112E3007A4D98 /* MGMAlbumRenderService.m in Sources */,
 				658D317F18B112E3007A4D98 /* MGMLastFmPlayerService.m in Sources */,
 				658D315D18B112E3007A4D98 /* MGMChartEntryDto.m in Sources */,
 				65936A0917BCB1150070A9C6 /* MGMCoreDataTestCase.m in Sources */,
 				65EC949218B8C9A300B1AFFE /* MGMXmlParser.m in Sources */,
+				657F6B4618BBD9080025F52B /* MGMPlaylistItem.m in Sources */,
 				658D314B18B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m in Sources */,
 				658D315118B112E3007A4D98 /* MGMSettingsDao.m in Sources */,
 				658D318318B112E3007A4D98 /* MGMWebsitePlayerService.m in Sources */,
@@ -1258,6 +1289,7 @@
 				658D318518B112E3007A4D98 /* MGMAlbumPlayerService.m in Sources */,
 				658D317318B112E3007A4D98 /* MGMEvent.m in Sources */,
 				658D316118B112E3007A4D98 /* MGMTimePeriodDto.m in Sources */,
+				65FD1D6518C0C1CA00993D02 /* MGMImagedEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

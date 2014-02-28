@@ -10,13 +10,4 @@
 
 @implementation MGMPlaylistItemDto
 
-- (id) init
-{
-    if (self = [super init])
-    {
-        self.imageUris = [NSMutableArray array];
-    }
-    return self;
-}
-
 @end

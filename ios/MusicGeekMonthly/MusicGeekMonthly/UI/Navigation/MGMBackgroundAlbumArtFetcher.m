@@ -95,7 +95,7 @@
     [self.albumRenderService refreshAlbumImages:album error:&refreshError];
     if (refreshError == nil)
     {
-        NSArray* urls = [album bestAlbumImageUrlsWithPreferredSize:self.preferredSize];
+        NSArray* urls = [album bestImageUrlsWithPreferredSize:self.preferredSize];
         NSError* imageError = nil;
         UIImage* image = nil;
         if (urls.count > 0)

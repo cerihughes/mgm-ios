@@ -18,10 +18,3 @@
 @property (nonatomic, strong) NSOrderedSet* chartEntries;
 
 @end
-
-@interface MGMWeeklyChart (ChartEntriesAccessors)
-
-- (NSMutableOrderedSet*)primitiveChartEntries;
-- (void) addChartEntriesObject:(MGMChartEntry*)value;
-
-@end

@@ -18,6 +18,7 @@
 #import "MGMEvent.h"
 #import "MGMEventDto.h"
 #import "MGMLastFmConstants.h"
+#import "MGMPlaylistItemDto.h"
 #import "MGMTimePeriod.h"
 #import "MGMTimePeriodDto.h"
 #import "MGMWeeklyChart.h"
@@ -32,7 +33,7 @@
 
 - (id) init
 {
-    return [self initWithStoreName:@"MusicGeekMonthly2.sqlite"];
+    return [self initWithStoreName:@"MusicGeekMonthly1.0.1.sqlite"];
 }
 
 - (id) initWithStoreName:(NSString*)storeName
@@ -188,7 +189,7 @@
         {
             chartEntry = [self createNewChartEntry];
             chartEntry.rank = chartEntryDto.rank;
-            [weeklyChart addChartEntriesObject:chartEntry];
+            chartEntry.weeklyChart = weeklyChart;
         }
 
         chartEntry.listeners = chartEntryDto.listeners;
@@ -365,10 +366,21 @@
         {
             uri = [self createNewAlbumImageUri];
             uri.size = uriDto.size;
-            [album addImageUrisObject:uri];
+            uri.imagedEntity = album;
         }
 
         uri.uri = uriDto.uri;
+    }
+}
+
+- (void) internal_addImageUris:(NSArray*)uriDtos toPlaylistItem:(MGMPlaylistItem*)playlistItem error:(NSError**)error
+{
+    for (MGMAlbumImageUriDto* uriDto in uriDtos)
+    {
+        MGMAlbumImageUri* uri = [self createNewAlbumImageUri];
+        uri.size = uriDto.size;
+        uri.uri = uriDto.uri;
+        uri.imagedEntity = playlistItem;
     }
 }
 
@@ -382,7 +394,7 @@
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     request.entity = [NSEntityDescription entityForName:@"MGMAlbumImageUri" inManagedObjectContext:moc];
-    request.predicate = [NSPredicate predicateWithFormat:@"(album = %@) AND (sizeObject = %d)", album, size];
+    request.predicate = [NSPredicate predicateWithFormat:@"(imagedEntity = %@) AND (sizeObject = %d)", album, size];
     NSArray* results = [moc executeFetchRequest:request error:error];
     if (results.count > 0)
     {
@@ -425,7 +437,7 @@
         {
             metadata = [self createNewAlbumMetadata];
             metadata.serviceType = metadataDto.serviceType;
-            [album addMetadataObject:metadata];
+            metadata.album = album;
         }
 
         metadata.value = metadataDto.value;
@@ -471,7 +483,7 @@
         }
 
         event.eventDate = eventDto.eventDate;
-        event.spotifyPlaylistId = eventDto.spotifyPlaylistId;
+        event.playlistId = eventDto.playlistId;
 
         MGMAlbumDto* classicAlbumDto = eventDto.classicAlbum;
         if (classicAlbumDto)
@@ -577,6 +589,73 @@
     NSArray* sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.sortDescriptors = sortDescriptors;
     return [moc executeFetchRequest:request error:error];
+}
+
+#pragma mark -
+#pragma mark MGMWeeklyChart
+
+- (BOOL) persistPlaylist:(MGMPlaylistDto*)playlistDto error:(NSError**)error
+{
+    MGMPlaylist* playlist = [self fetchPlaylistWithId:playlistDto.playlistId error:error];
+    if (MGM_ERROR(error))
+    {
+        return [self rollbackChanges];
+    }
+
+    if (playlist == nil)
+    {
+        playlist = [self createNewPlaylist];
+        playlist.playlistId = playlistDto.playlistId;
+    }
+
+    playlist.name = playlistDto.name;
+
+    // Remove all existing items and re-add the new ones - a merge is pointlessly complex...
+    for (MGMPlaylistItem* playlistItem in playlist.playlistItems)
+    {
+        playlistItem.playlist = nil;
+    }
+
+    for (MGMPlaylistItemDto* playlistItemDto in playlistDto.playlistItems)
+    {
+        MGMPlaylistItem* playlistItem = [self createNewPlaylistItem];
+        playlistItem.artist = playlistItemDto.artist;
+        playlistItem.album = playlistItemDto.album;
+        playlistItem.track = playlistItemDto.track;
+        playlistItem.playlist = playlist;
+
+        [self internal_addImageUris:playlistItemDto.imageUris toPlaylistItem:playlistItem error:error];
+        if (MGM_ERROR(error))
+        {
+            return [self rollbackChanges];
+        }
+    }
+
+    return [self commitChanges:error];
+}
+
+- (MGMPlaylist*) createNewPlaylist
+{
+    return [self createNewManagedObjectWithName:@"MGMPlaylist"];
+}
+
+- (MGMPlaylistItem*) createNewPlaylistItem
+{
+    return [self createNewManagedObjectWithName:@"MGMPlaylistItem"];
+}
+
+- (MGMPlaylist*) fetchPlaylistWithId:(NSString*)playlistId error:(NSError**)error
+{
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+    request.entity = [NSEntityDescription entityForName:@"MGMPlaylist" inManagedObjectContext:moc];
+    request.predicate = [NSPredicate predicateWithFormat:@"(playlistId = %@)", playlistId];
+    NSArray* results = [moc executeFetchRequest:request error:error];
+    if (results.count > 0)
+    {
+        return [results objectAtIndex:0];
+    }
+    return nil;
 }
 
 #pragma mark -

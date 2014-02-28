@@ -20,7 +20,7 @@
 @property (nonatomic, strong) MGMWeeklyChart* weeklyChart;
 @property (nonatomic, strong) MGMAlbum* album;
 
-- (NSArray*) bestAlbumImageUrlsWithPreferredSize:(MGMAlbumImageSize)preferredSize;
+- (NSArray*) bestImageUrlsWithPreferredSize:(MGMAlbumImageSize)preferredSize;
 - (NSArray*) bestTableImageUrls;
 
 @end

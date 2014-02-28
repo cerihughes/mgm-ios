@@ -19,7 +19,7 @@
 
 @dynamic sizeObject;
 @dynamic uri;
-@dynamic album;
+@dynamic imagedEntity;
 
 - (MGMAlbumImageSize) size
 {

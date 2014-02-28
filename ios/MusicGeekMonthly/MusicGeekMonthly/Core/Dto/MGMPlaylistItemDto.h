@@ -6,13 +6,12 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "MGMImagedEntityDto.h"
 
-@interface MGMPlaylistItemDto : NSObject
+@interface MGMPlaylistItemDto : MGMImagedEntityDto
 
-@property (nonatomic, strong) NSMutableArray* imageUris;
 @property (nonatomic, strong) NSString* artist;
 @property (nonatomic, strong) NSString* album;
-@property (nonatomic, strong) NSString* title;
+@property (nonatomic, strong) NSString* track;
 
 @end

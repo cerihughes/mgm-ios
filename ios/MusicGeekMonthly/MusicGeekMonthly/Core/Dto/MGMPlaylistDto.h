@@ -10,7 +10,7 @@
 
 @interface MGMPlaylistDto : NSObject
 
-@property (nonatomic, strong) NSString* spotifyPlaylistId;
+@property (nonatomic, strong) NSString* playlistId;
 @property (nonatomic, strong) NSString* name;
 @property (nonatomic, strong) NSMutableArray* playlistItems;
 

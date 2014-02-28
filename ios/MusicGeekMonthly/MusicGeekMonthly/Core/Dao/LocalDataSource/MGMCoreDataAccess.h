@@ -12,6 +12,8 @@
 #import "MGMEvent.h"
 #import "MGMLocalDataSourceThreadManager.h"
 #import "MGMNextUrlAccess.h"
+#import "MGMPlaylist.h"
+#import "MGMPlaylistDto.h"
 #import "MGMWeeklyChartDto.h"
 #import "MGMWeeklyChart.h"
 
@@ -69,6 +71,12 @@
 - (NSArray*) fetchAllClassicAlbums:(NSError**)error;
 - (NSArray*) fetchAllNewlyReleasedAlbums:(NSError**)error;
 - (NSArray*) fetchAllEventAlbums:(NSError**)error;
+
+#pragma mark -
+#pragma mark MGMPlaylist
+
+- (BOOL) persistPlaylist:(MGMPlaylistDto*)playlistDto error:(NSError**)error;
+- (MGMPlaylist*) fetchPlaylistWithId:(NSString*)playlistId error:(NSError**)error;
 
 #pragma mark -
 #pragma mark Threading

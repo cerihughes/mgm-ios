@@ -110,7 +110,7 @@
         MGMEventDto* event = [[MGMEventDto alloc] init];
         event.eventNumber = eventNumber;
         event.eventDate = date;
-        event.spotifyPlaylistId = playlistId;
+        event.playlistId = playlistId;
         event.classicAlbum = classicAlbum;
         event.newlyReleasedAlbum = newAlbum;
 

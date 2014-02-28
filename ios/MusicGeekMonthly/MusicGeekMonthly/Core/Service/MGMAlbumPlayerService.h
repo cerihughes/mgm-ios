@@ -11,7 +11,7 @@
 #import "MGMAlbum.h"
 #import "MGMAlbumMetadataDto.h"
 #import "MGMCoreDataAccess.h"
-#import "MGMPlaylistDto.h"
+#import "MGMPlaylist.h"
 
 @interface MGMAlbumPlayerService : MGMRemoteJsonDataSource
 
@@ -23,6 +23,6 @@
 - (BOOL) refreshAlbumMetadata:(MGMAlbum*)album error:(NSError**)error;
 - (NSString*) serviceAvailabilityUrl;
 - (NSString*) urlForAlbum:(MGMAlbum*)album;
-- (NSString*) urlForPlaylist:(MGMPlaylistDto*)playlist;
+- (NSString*) urlForPlaylist:(MGMPlaylist*)playlist;
 
 @end

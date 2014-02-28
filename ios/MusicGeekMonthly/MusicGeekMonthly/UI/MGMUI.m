@@ -229,7 +229,7 @@ static BOOL _isIpad;
 #pragma mark -
 #pragma mark MGMPlaylistSelectionDelegate
 
-- (void) playlistSelected:(MGMPlaylistDto*)playlist
+- (void) playlistSelected:(MGMPlaylist*)playlist
 {
     NSError* error = nil;
     // TODO: Make this asynchronous?

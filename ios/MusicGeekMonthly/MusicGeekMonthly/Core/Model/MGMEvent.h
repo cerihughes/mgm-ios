@@ -15,7 +15,7 @@
 
 @property (nonatomic, strong) NSDate* eventDate;
 @property (nonatomic, strong) NSNumber* eventNumber;
-@property (nonatomic, strong) NSString* spotifyPlaylistId;
+@property (nonatomic, strong) NSString* playlistId;
 @property (nonatomic, strong) MGMAlbum* classicAlbum;
 @property (nonatomic, strong) MGMAlbum* newlyReleasedAlbum;
 

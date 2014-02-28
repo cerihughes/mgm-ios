@@ -13,7 +13,7 @@
 #import "MGMAlbumRenderService.h"
 #import "MGMAlbumView.h"
 #import "MGMImageHelper.h"
-#import "MGMPlaylistItemDto.h"
+#import "MGMPlaylistItem.h"
 
 @interface MGMAlbumViewUtilities : NSObject
 
@@ -22,7 +22,7 @@
 
 - (MGMAlbumImageSize) preferredImageSizeForViewSize:(CGSize)viewSize;
 - (void) displayAlbumDto:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error;
-- (void) displayPlaylistItemDto:(MGMPlaylistItemDto*)playlistItem inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error;
+- (void) displayPlaylistItem:(MGMPlaylistItem*)playlistItem inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error;
 - (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error;
 - (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView rank:(NSUInteger)rank error:(NSError**)error;
 - (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView rank:(NSUInteger)rank listeners:(NSUInteger)listeners error:(NSError**)error;

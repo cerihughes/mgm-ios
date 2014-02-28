@@ -12,7 +12,7 @@
 
 @dynamic eventDate;
 @dynamic eventNumber;
-@dynamic spotifyPlaylistId;
+@dynamic playlistId;
 @dynamic classicAlbum;
 @dynamic newlyReleasedAlbum;
 

@@ -10,16 +10,11 @@
 
 #import "MGMAlbumImageUriDto.h"
 #import "MGMErrorCodes.h"
+#import "MGMPlaylist.h"
 #import "MGMPlaylistDto.h"
+#import "MGMPlaylistItem.h"
 #import "MGMPlaylistItemDto.h"
 #import "MGMSpotifyConstants.h"
-
-@interface MGMPlaylistDaoOperation ()
-
-// TODO: Remove this when core data working properly...
-@property (readonly) NSMutableArray* refreshIdentifiers;
-
-@end
 
 @implementation MGMPlaylistDaoOperation
 
@@ -27,7 +22,6 @@
 
 - (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
 {
-    _refreshIdentifiers = [NSMutableArray array];
     MGMLocalDataSource* localDataSource = [[MGMPlaylistLocalDataSource alloc] initWithCoreDataAccess:coreDataAccess];
     MGMRemoteDataSource* remoteDataSource = [[MGMPlaylistRemoteDataSource alloc] init];
     return [super initWithCoreDataAccess:coreDataAccess localDataSource:localDataSource remoteDataSource:remoteDataSource daysBetweenRemoteFetch:7];
@@ -39,47 +33,22 @@
     return [NSString stringWithFormat:REFRESH_IDENTIFIER_PLAYLIST, data];
 }
 
-- (BOOL) needsRefresh:(MGMNextUrlAccess*)nextAccess
-{
-    return [self.refreshIdentifiers containsObject:nextAccess.identifier] == NO;
-}
-
-- (BOOL) setNextRefresh:(NSString*)identifier inDays:(NSUInteger)days error:(NSError**)error
-{
-    [self.refreshIdentifiers addObject:identifier];
-    return YES;
-}
-
-@end
-
-@interface MGMPlaylistLocalDataSource ()
-
-@property (readonly) NSMutableDictionary* playlists;
-
 @end
 
 @implementation MGMPlaylistLocalDataSource
 
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
-{
-    if (self = [super initWithCoreDataAccess:coreDataAccess])
-    {
-        _playlists = [[NSMutableDictionary alloc] init];
-    }
-    return self;
-}
-
 - (MGMLocalData*) fetchLocalData:(id)key
 {
     MGMLocalData* localData = [[MGMLocalData alloc] init];
-    localData.data = [self.playlists objectForKey:key];
+    NSError* error = nil;
+    localData.data = [self.coreDataAccess fetchPlaylistWithId:key error:&error];
+    localData.error = error;
     return localData;
 }
 
 - (BOOL) persistRemoteData:(MGMRemoteData*)remoteData key:(id)key error:(NSError**)error
 {
-    [self.playlists setObject:remoteData.data forKey:key];
-    return YES;
+    return [self.coreDataAccess persistPlaylist:remoteData.data error:error];
 }
 
 @end
@@ -126,7 +95,7 @@
 
         MGMRemoteData* data = [[MGMRemoteData alloc] init];
         MGMPlaylistDto* playlist = [[MGMPlaylistDto alloc] init];
-        playlist.spotifyPlaylistId = key;
+        playlist.playlistId = key;
         playlist.name = playlistTitle;
         for (NSDictionary* li in liArray)
         {
@@ -169,7 +138,7 @@
     artist = [artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     MGMPlaylistItemDto* playlistItem = [[MGMPlaylistItemDto alloc] init];
-    playlistItem.title = title;
+    playlistItem.track = title;
     playlistItem.artist = artist;
 
     MGMAlbumImageUriDto* smallImageUri = [[MGMAlbumImageUriDto alloc] init];

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "MGMAlbum.h"
-#import "MGMPlaylistDto.h"
+#import "MGMPlaylist.h"
 
 @class MGMViewController;
 
@@ -22,6 +22,6 @@
 
 @protocol MGMPlaylistSelectionDelegate <NSObject>
 
-- (void) playlistSelected:(MGMPlaylistDto*)playlist;
+- (void) playlistSelected:(MGMPlaylist*)playlist;
 
 @end

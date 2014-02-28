@@ -10,8 +10,6 @@
 
 #import "MGMAbstractEventView.h"
 #import "MGMAlbumViewUtilities.h"
-#import "MGMPlaylistDto.h"
-#import "MGMPlaylistItemDto.h"
 
 @interface MGMAbstractEventViewController () <MGMAbstractEventViewDelegate>
 
@@ -34,7 +32,7 @@
     }
 }
 
-- (void) displayEvent:(MGMEvent*)event playlist:(MGMPlaylistDto*)playlist
+- (void) displayEvent:(MGMEvent*)event playlist:(MGMPlaylist*)playlist
 {
     _event = event;
     _playlist = playlist;
@@ -44,11 +42,11 @@
     NSUInteger rank = 1;
     if (playlist)
     {
-        for (MGMPlaylistItemDto* item in playlist.playlistItems)
+        for (MGMPlaylistItem* item in playlist.playlistItems)
         {
             MGMAlbumView* albumView = [eventView.playlistView albumViewForRank:rank++];
             NSError* error = nil;
-            [self.ui.viewUtilities displayPlaylistItemDto:item inAlbumView:albumView error:&error];
+            [self.ui.viewUtilities displayPlaylistItem:item inAlbumView:albumView error:&error];
             if (error)
             {
                 [self.ui logError:error];

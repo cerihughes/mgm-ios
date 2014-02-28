@@ -51,10 +51,11 @@
             {
                 self.eventMoid = moid;
 
-                MGMPlaylistDto* playlist = nil;
-                if (event.spotifyPlaylistId)
+                MGMPlaylist* playlist = nil;
+                NSString* playlistId = event.playlistId;
+                if (playlistId)
                 {
-                    MGMDaoData* playlistData = [self.core.dao fetchPlaylist:event.spotifyPlaylistId];
+                    MGMDaoData* playlistData = [self.core.dao fetchPlaylist:playlistId];
                     if (playlistData.error)
                     {
                         [self logError:playlistData.error];
@@ -77,13 +78,13 @@
     });
 }
 
-- (void) displayEventWithMoid:(NSManagedObjectID*)eventMoid playlist:(MGMPlaylistDto*)playlist
+- (void) displayEventWithMoid:(NSManagedObjectID*)eventMoid playlist:(MGMPlaylist*)playlist
 {
     MGMEvent* event = [self.core.coreDataAccess threadVersion:eventMoid];
     [self displayEvent:event playlist:playlist];
 }
 
-- (void) displayEvent:(MGMEvent*)event playlist:(MGMPlaylistDto*)playlist
+- (void) displayEvent:(MGMEvent*)event playlist:(MGMPlaylist*)playlist
 {
     [super displayEvent:event playlist:playlist];
 

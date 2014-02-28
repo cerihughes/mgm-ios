@@ -70,7 +70,7 @@
     [self displayAlbumImages:albumArtUrls inAlbumView:albumView error:error];
 }
 
-- (void) displayPlaylistItemDto:(MGMPlaylistItemDto*)playlistItem inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error
+- (void) displayPlaylistItem:(MGMPlaylistItem*)playlistItem inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         albumView.activityInProgress = YES;
@@ -78,18 +78,13 @@
     });
 
     MGMAlbumImageSize preferredSize = [self preferredImageSizeForViewSize:albumView.frame.size];
-    NSArray* albumArtUrls = [self bestImageUrlsForPlaylistItem:playlistItem preferredSize:preferredSize];
+    NSArray* albumArtUrls = [playlistItem bestImageUrlsWithPreferredSize:preferredSize];
     [self displayAlbumImages:albumArtUrls inAlbumView:albumView error:error];
 }
 
 - (NSArray*) bestImageUrlsForAlbum:(MGMAlbumDto*)album preferredSize:(MGMAlbumImageSize)size
 {
     return [self bestAlbumImageUrlsForAlbumImageUris:album.imageUris preferredSize:size];
-}
-
-- (NSArray*) bestImageUrlsForPlaylistItem:(MGMPlaylistItemDto*)playlistItem preferredSize:(MGMAlbumImageSize)size
-{
-    return [self bestAlbumImageUrlsForAlbumImageUris:playlistItem.imageUris preferredSize:size];
 }
 
 - (NSArray*) bestAlbumImageUrlsForAlbumImageUris:(NSArray*)imageUriDtos preferredSize:(MGMAlbumImageSize)size
@@ -146,7 +141,7 @@
 - (void) displayAlbumImage:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error
 {
     MGMAlbumImageSize preferredSize = [self preferredImageSizeForViewSize:albumView.frame.size];
-    NSArray* albumArtUrls = [album bestAlbumImageUrlsWithPreferredSize:preferredSize];
+    NSArray* albumArtUrls = [album bestImageUrlsWithPreferredSize:preferredSize];
     [self displayAlbumImages:albumArtUrls inAlbumView:albumView error:error];
 }
 

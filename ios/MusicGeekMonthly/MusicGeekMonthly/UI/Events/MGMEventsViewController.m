@@ -75,11 +75,11 @@
     NSString* newTitle = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
     [eventsView setTitle:newTitle];
 
-    NSString* playlistId = event.spotifyPlaylistId;
+    NSString* playlistId = event.playlistId;
     if (playlistId)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            MGMPlaylistDto* playlist = nil;
+            MGMPlaylist* playlist = nil;
             MGMDaoData* playlistData = [self.core.dao fetchPlaylist:playlistId];
             if (playlistData.error)
             {

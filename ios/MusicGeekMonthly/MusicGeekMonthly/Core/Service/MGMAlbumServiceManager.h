@@ -10,7 +10,7 @@
 
 #import "MGMAlbum.h"
 #import "MGMCoreDataAccess.h"
-#import "MGMPlaylistDto.h"
+#import "MGMPlaylist.h"
 
 @interface MGMAlbumServiceManager : NSObject
 
@@ -22,7 +22,7 @@
 - (NSUInteger) serviceTypesThatPlayAlbum:(MGMAlbum*)album;
 - (NSString*) serviceAvailabilityUrlForServiceType:(MGMAlbumServiceType)serviceType;
 - (NSString*) urlForAlbum:(MGMAlbum*)album forServiceType:(MGMAlbumServiceType)serviceType;
-- (NSString*) urlForPlaylist:(MGMPlaylistDto*)playlist forServiceType:(MGMAlbumServiceType)serviceType;
+- (NSString*) urlForPlaylist:(MGMPlaylist*)playlist forServiceType:(MGMAlbumServiceType)serviceType;
 - (BOOL) refreshAlbumMetadata:(MGMAlbum*)album forServiceType:(MGMAlbumServiceType)serviceType error:(NSError**)error;
 
 @end

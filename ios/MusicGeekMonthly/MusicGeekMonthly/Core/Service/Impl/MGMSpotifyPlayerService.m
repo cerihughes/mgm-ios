@@ -56,11 +56,12 @@
     }
 }
 
-- (NSString*) urlForPlaylist:(MGMPlaylistDto*)playlist
+- (NSString*) urlForPlaylist:(MGMPlaylist*)playlist
 {
-    if (playlist.spotifyPlaylistId)
+    NSString* playlistId = playlist.playlistId;
+    if (playlistId)
     {
-        return [NSString stringWithFormat:SPOTIFY_PLAYLIST_URI_PATTERN, SPOTIFY_USER_ANDREW_JONES, playlist.spotifyPlaylistId];
+        return [NSString stringWithFormat:SPOTIFY_PLAYLIST_URI_PATTERN, SPOTIFY_USER_ANDREW_JONES, playlistId];
     }
     return nil;
 }

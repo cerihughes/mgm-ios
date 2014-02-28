@@ -14,7 +14,6 @@
 {
     if (self = [super init])
     {
-        self.imageUris = [NSMutableArray array];
         self.metadata = [NSMutableArray array];
     }
     return self;
