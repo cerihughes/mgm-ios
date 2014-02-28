@@ -11,8 +11,8 @@
 
 @interface MGMNextUrlAccess : NSManagedObject
 
-@property (nonatomic, retain) NSString* identifier;
-@property (nonatomic, retain) NSDate* date;
-@property (nonatomic, retain) NSString* checksum;
+@property (nonatomic, strong) NSString* identifier;
+@property (nonatomic, strong) NSDate* date;
+@property (nonatomic, strong) NSString* checksum;
 
 @end

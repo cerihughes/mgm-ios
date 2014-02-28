@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, MGMReachabilityManagerConnectivity)
 @interface MGMReachabilityManager()
 
 @property MGMReachabilityManagerConnectivity connectivity;
-@property (retain) NSMutableArray* listeners;
+@property (strong) NSMutableArray* listeners;
 
 - (void) networkReachabilityFlagsChanged:(SCNetworkReachabilityFlags)flags forTarget:(SCNetworkReachabilityRef)target;
 
