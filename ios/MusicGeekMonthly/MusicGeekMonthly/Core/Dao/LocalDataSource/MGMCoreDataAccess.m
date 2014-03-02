@@ -612,9 +612,10 @@
     playlist.name = playlistDto.name;
 
     // Remove all existing items and re-add the new ones - a merge is pointlessly complex...
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     for (MGMPlaylistItem* playlistItem in playlist.playlistItems)
     {
-        playlistItem.playlist = nil;
+        [moc deleteObject:playlistItem];
     }
 
     for (MGMPlaylistItemDto* playlistItemDto in playlistDto.playlistItems)
