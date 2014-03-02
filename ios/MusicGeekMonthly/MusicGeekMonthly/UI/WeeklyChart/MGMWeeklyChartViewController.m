@@ -57,9 +57,8 @@
     NSUInteger albumCount = 25;
     [weeklyChartView.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
     NSUInteger rowCount = self.ipad ? 4 : 2;
-    NSUInteger columnCount = (albumCount + 3) / rowCount;
     CGFloat albumSize = weeklyChartView.albumGridView.frame.size.width / rowCount;
-    NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:columnCount size:albumSize count:albumCount];
+    NSArray* gridData = [MGMGridManager rectsForRowSize:rowCount defaultRectSize:albumSize count:albumCount];
 
     for (NSUInteger i = 0; i < albumCount; i++)
     {

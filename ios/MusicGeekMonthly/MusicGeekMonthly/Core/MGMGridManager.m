@@ -9,141 +9,70 @@
 @end
 
 @implementation MGMGridManager
-{
-    BOOL** _grid;
-}
 
-+ (NSArray*) rectsForRows:(NSUInteger)rows columns:(NSUInteger)columns size:(CGFloat)size count:(NSUInteger)count
++ (NSArray*) rectsForRowSize:(NSUInteger)rowSize defaultRectSize:(CGFloat)defaultRectSize count:(NSUInteger)count
 {
-    BOOL equalSizes = ((rows * columns) == count);
     NSMutableArray* array = [NSMutableArray arrayWithCapacity:count];
-    MGMGridManager* mananger = [[MGMGridManager alloc] initWithRows:rows columns:columns];
-    
-    for (int i = 0; i < count; i++)
-    {
-        NSUInteger blockCount = !equalSizes && (i == 0) ? 2 : 1;
-        CGPoint location = [mananger nextEmptyLocationWithBlockCount:blockCount];
-        CGFloat rectSize = size * blockCount;
-        CGFloat rectX = size * location.x;
-        CGFloat rectY = size * location.y;
-        CGRect rect = CGRectMake(rectX, rectY, rectSize, rectSize);
-        [array addObject:[NSValue valueWithCGRect:rect]];
-    }
-
-    return array;
+    [self populateArray:array withRectsForRowSize:rowSize defaultRectSize:defaultRectSize count:count xOffset:0.0f yOffset:0.0f];
+    return [array copy];
 }
 
-- (id) initWithRows:(NSUInteger)rows columns:(NSUInteger)columns
++ (CGFloat) populateArray:(NSMutableArray*)array withRectsForRowSize:(NSUInteger)rowSize defaultRectSize:(CGFloat)defaultRectSize count:(NSUInteger)count xOffset:(CGFloat)xOffset yOffset:(CGFloat)yOffset
 {
-    if (self = [super init])
+    if (count >= 2 * rowSize)
     {
-        self.rows = rows;
-        self.columns = columns;
-
-        _grid = (BOOL**) calloc(rows, sizeof(BOOL*));
-
-        for (int i = 0; i < rows; i++)
+        CGFloat nextY = [self populateArray:array withRectsForRowSize:rowSize defaultRectSize:defaultRectSize count:count - rowSize xOffset:xOffset yOffset:yOffset];
+        return [self populateArray:array withRectsForRowSize:rowSize defaultRectSize:defaultRectSize count:rowSize xOffset:xOffset yOffset:nextY];
+    }
+    else if (count > rowSize)
+    {
+        if (count == (2 * rowSize) - 3)
         {
-            _grid[i] = (BOOL*) calloc(columns, sizeof(BOOL));
+            CGFloat rectSize = defaultRectSize * 2.0f;
+            CGRect rect = CGRectMake(xOffset, yOffset, rectSize, rectSize);
+            [array addObject:[NSValue valueWithCGRect:rect]];
+
+            CGFloat nextY = [self populateArray:array withRectsForRowSize:rowSize - 2 defaultRectSize:defaultRectSize count:rowSize - 2 xOffset:xOffset + (2.0 * defaultRectSize) yOffset:yOffset];
+            return [self populateArray:array withRectsForRowSize:rowSize - 2 defaultRectSize:defaultRectSize count:rowSize - 2 xOffset:xOffset + (2.0 * defaultRectSize) yOffset:nextY];
         }
-    }
-    return self;
-}
-
-- (CGPoint) nextEmptyLocationWithBlockCount:(NSUInteger)blockCount
-{
-    CGPoint nextLocation;
-    nextLocation.x = 0;
-    nextLocation.y = 0;
-
-    do
-    {
-        nextLocation = [self nextEmptyLocationFrom:nextLocation];
-    }
-    while ([self location:nextLocation canHoldBlockCount:blockCount] == NO);
-
-    [self fillGridFromLocation:nextLocation withBlockCount:blockCount];
-    
-    return nextLocation;
-}
-
-- (CGPoint) nextEmptyLocationFrom:(CGPoint)location
-{
-    CGPoint nextLocation;
-    nextLocation.x = NSNotFound;
-    nextLocation.y = NSNotFound;
-
-    NSUInteger x = location.x;
-    NSUInteger y = location.y;
-    while (y < self.columns)
-    {
-        while (x < self.rows)
+        else
         {
-            if (_grid[x][y] == NO)
+            NSUInteger row1Count;
+            NSUInteger row2Count;
+            if (count % 2 == 1)
             {
-                nextLocation.x = x;
-                nextLocation.y = y;
-                return nextLocation;
+                row1Count = (count - 1) / 2;
+                row2Count = count - row1Count;
             }
-            x++;
-        }
-        y++;
-        x = 0;
-    }
-
-    return nextLocation;
-}
-
-- (BOOL) location:(CGPoint)location canHoldBlockCount:(NSUInteger)blockCount
-{
-    NSUInteger x = location.x;
-    NSUInteger y = location.y;
-    if (x + blockCount <= self.rows && y + blockCount <= self.columns)
-    {
-        NSUInteger maxX = x + blockCount;
-        NSUInteger maxY = y + blockCount;
-        while (x < maxX)
-        {
-            while (y < maxY)
+            else
             {
-                if (_grid[x][y] == YES)
-                {
-                    return NO;
-                }
-                y++;
+                row1Count = row2Count = count / 2;
             }
-            x++;
-            y = location.y;
+            CGFloat nextY = [self populateArray:array withRectsForRowSize:rowSize defaultRectSize:defaultRectSize count:row1Count xOffset:xOffset yOffset:yOffset];
+            return [self populateArray:array withRectsForRowSize:rowSize defaultRectSize:defaultRectSize count:row2Count xOffset:xOffset yOffset:nextY];
         }
-        return YES;
     }
-    return NO;
-}
-
-- (void) fillGridFromLocation:(CGPoint)location withBlockCount:(NSUInteger)blockCount
-{
-    NSUInteger x = location.x;
-    NSUInteger y = location.y;
-    NSUInteger maxX = x + blockCount;
-    NSUInteger maxY = y + blockCount;
-    while (x < maxX)
+    else if (count == rowSize)
     {
-        while (y < maxY)
+        for (NSInteger i = 0; i < count; i++)
         {
-            _grid[x][y] = YES;
-            y++;
+            CGFloat x = defaultRectSize * (CGFloat)i;
+            CGRect rect = CGRectMake(x + xOffset, yOffset, defaultRectSize, defaultRectSize);
+            [array addObject:[NSValue valueWithCGRect:rect]];
         }
-        x++;
-        y = location.y;
+        return yOffset + defaultRectSize;
+    }
+    else
+    {
+        CGFloat rectSize = defaultRectSize * rowSize / count;
+        for (NSInteger i = 0; i < count; i++)
+        {
+            CGFloat x = rectSize * (CGFloat)i;
+            CGRect rect = CGRectMake(x + xOffset, yOffset, rectSize, rectSize);
+            [array addObject:[NSValue valueWithCGRect:rect]];
+        }
+        return yOffset + rectSize;
     }
 }
-
-- (void) dealloc
-{
-	for(int i = 0; i < self.rows; i++)
-    {
-		free(_grid[i]);
-    }
-	free(_grid);}
 
 @end

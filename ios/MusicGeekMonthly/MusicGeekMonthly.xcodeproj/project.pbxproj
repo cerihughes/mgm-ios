@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6502F20A18C3A02C007FE38E /* MGMGridManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6502F20918C3A02C007FE38E /* MGMGridManagerTestCase.m */; };
 		6545477A18B90444008CDAD3 /* MGMAlbumGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6545477918B90444008CDAD3 /* MGMAlbumGridView.m */; };
 		654D029D18BA20960067BC19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654D029C18BA20960067BC19 /* Images.xcassets */; };
 		657C76BD18C3930B00969A4B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F45175B928E000C413B /* CoreGraphics.framework */; };
@@ -206,6 +207,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6502F20918C3A02C007FE38E /* MGMGridManagerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMGridManagerTestCase.m; sourceTree = "<group>"; };
 		6545477818B90444008CDAD3 /* MGMAlbumGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumGridView.h; sourceTree = "<group>"; };
 		6545477918B90444008CDAD3 /* MGMAlbumGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumGridView.m; sourceTree = "<group>"; };
 		6545477D18B93C65008CDAD3 /* MGMSpotifyConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGMSpotifyConstants.h; sourceTree = "<group>"; };
@@ -947,6 +949,7 @@
 			children = (
 				659F9F66175B928E000C413B /* Supporting Files */,
 				65936A0817BCB1150070A9C6 /* MGMCoreDataTestCase.m */,
+				6502F20918C3A02C007FE38E /* MGMGridManagerTestCase.m */,
 			);
 			path = MusicGeekMonthlyTests;
 			sourceTree = "<group>";
@@ -1294,6 +1297,7 @@
 				658D313718B112E3007A4D98 /* MGMLocalData.m in Sources */,
 				658D318518B112E3007A4D98 /* MGMAlbumPlayerService.m in Sources */,
 				658D317318B112E3007A4D98 /* MGMEvent.m in Sources */,
+				6502F20A18C3A02C007FE38E /* MGMGridManagerTestCase.m in Sources */,
 				658D316118B112E3007A4D98 /* MGMTimePeriodDto.m in Sources */,
 				65FD1D6518C0C1CA00993D02 /* MGMImagedEntity.m in Sources */,
 			);

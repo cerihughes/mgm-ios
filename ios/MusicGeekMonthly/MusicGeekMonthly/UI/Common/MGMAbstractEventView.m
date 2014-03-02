@@ -59,7 +59,7 @@
     NSUInteger rowCount = self.playlistViewRowCount;
     NSUInteger albumCount = self.playlistViewRowCount * self.playlistViewRowCount;
     CGFloat albumSize = self.playlistView.frame.size.width / rowCount;
-    NSArray* gridData = [MGMGridManager rectsForRows:rowCount columns:rowCount size:albumSize count:albumCount];
+    NSArray* gridData = [MGMGridManager rectsForRowSize:rowCount defaultRectSize:albumSize count:albumCount];
 
     for (NSUInteger i = 0; i < albumCount; i++)
     {
