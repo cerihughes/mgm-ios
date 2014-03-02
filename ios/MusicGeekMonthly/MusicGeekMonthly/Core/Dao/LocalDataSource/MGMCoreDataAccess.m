@@ -33,14 +33,15 @@
 
 - (id) init
 {
-    return [self initWithStoreName:@"MusicGeekMonthly1.0.1.sqlite"];
+    MGMLocalDataSourceThreadManager* threadManager = [[MGMLocalDataSourceThreadManager alloc] initWithStoreName:@"MusicGeekMonthly1.0.1.sqlite"];
+    return [self initWithThreadManager:threadManager];
 }
 
-- (id) initWithStoreName:(NSString*)storeName
+- (id) initWithThreadManager:(MGMLocalDataSourceThreadManager*)threadMananger
 {
     if (self = [super init])
     {
-        _threadManager = [[MGMLocalDataSourceThreadManager alloc] initWithStoreName:storeName];
+        _threadManager = threadMananger;
     }
     return self;
 }

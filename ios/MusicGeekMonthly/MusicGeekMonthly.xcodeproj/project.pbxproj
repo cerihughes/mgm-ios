@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		6545477A18B90444008CDAD3 /* MGMAlbumGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6545477918B90444008CDAD3 /* MGMAlbumGridView.m */; };
 		654D029D18BA20960067BC19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654D029C18BA20960067BC19 /* Images.xcassets */; };
+		657C76BD18C3930B00969A4B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F45175B928E000C413B /* CoreGraphics.framework */; };
+		657C76BE18C3931D00969A4B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E1A51D17F707BA006F8051 /* QuartzCore.framework */; };
+		657C76BF18C3932900969A4B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E8110917AD014800FCBC9F /* libz.dylib */; };
 		657F6B4118BBD8EB0025F52B /* MGMPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = 657F6B4018BBD8EB0025F52B /* MGMPlaylist.m */; };
 		657F6B4218BBD8EB0025F52B /* MGMPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = 657F6B4018BBD8EB0025F52B /* MGMPlaylist.m */; };
 		657F6B4518BBD9080025F52B /* MGMPlaylistItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 657F6B4418BBD9080025F52B /* MGMPlaylistItem.m */; };
@@ -467,9 +470,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				657C76BD18C3930B00969A4B /* CoreGraphics.framework in Frameworks */,
 				65936A0A17BCB2840070A9C6 /* CoreData.framework in Frameworks */,
+				657C76BE18C3931D00969A4B /* QuartzCore.framework in Frameworks */,
 				659F9F62175B928E000C413B /* Foundation.framework in Frameworks */,
 				659F9F60175B928E000C413B /* SenTestingKit.framework in Frameworks */,
+				657C76BF18C3932900969A4B /* libz.dylib in Frameworks */,
 				65B7000117C4AB9800D4173C /* SystemConfiguration.framework in Frameworks */,
 				65B7000017C4AAFC00D4173C /* libTestFlight.a in Frameworks */,
 			);
@@ -1430,7 +1436,7 @@
 		659F9F74175B928E000C413B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MusicGeekMonthly.app/MusicGeekMonthly";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Music Geek Monthly.app/Music Geek Monthly";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -1452,7 +1458,7 @@
 		659F9F75175B928E000C413B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MusicGeekMonthly.app/MusicGeekMonthly";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Music Geek Monthly.app/Music Geek Monthly";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
