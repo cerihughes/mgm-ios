@@ -1,16 +1,17 @@
 {
-    "lastUpdate" : "2014-02-16T12:30:00.000+0000",
+    "lastUpdate" : "2014-02-28T12:00:00.000+0000",
 	"events" :
 	[
 		{
 			"id" : 36,
 			"date" : "2014-02-27T20:00:00.000+0000",
-			"spotifyPlaylistId" : "7i3nQn7vcg7w78nkTQxzGo",
+			"spotifyPlaylistId" : "4PAzBkdWXWuR2HkOTksDJ0",
 			"classicAlbum" :
 			{
 				"artistName" : "Elliott Smith",
 				"albumName" : "From a Basement on the Hill",
 				"mbid" : "88ba92e5-5de3-4ff2-a9fc-5016fed6af40",
+				"score" : 6.8,
 				"metadata" :
 				{
 					"deezer" : "401337",
@@ -25,6 +26,7 @@
 				"artistName" : "Throwing Muses",
 				"albumName" : "Purgatory/Paradise",
 				"mbid" : "40bcaf9f-040f-4405-8eea-77da6f5999e0",
+				"score" : 6.0,
 				"metadata" :
 				{
 					"deezer" : "7096423",
