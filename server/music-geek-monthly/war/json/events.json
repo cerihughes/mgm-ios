@@ -1,7 +1,37 @@
 {
-    "lastUpdate" : "2014-02-28T12:00:00.000+0000",
+    "lastUpdate" : "2014-03-04T22:00:00.000+0000",
 	"events" :
 	[
+		{
+			"id" : 37,
+			"date" : "2014-03-27T20:00:00.000+0000",
+			"classicAlbum" :
+			{
+				"artistName" : "Adrian Sherwood",
+				"albumName" : "Never Trust A Hippy",
+				"mbid" : "419a2c06-f1c5-4d96-a91d-8a649bec75d8",
+				"metadata" :
+				{
+					"deezer" : "6113727",
+					"spotify" : "5QlKTyITFGLuwP3xetk2kl",
+					"wikipedia" : "Never_Trust_a_Hippy_(Adrian_Sherwood_album)",
+					"itunes" : "id367346922"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Beck",
+				"albumName" : "Morning Phase",
+				"mbid" : "275c1547-f0c2-44be-a9ab-4f3c15eb1c16",
+				"metadata" :
+				{
+					"deezer" : "7406918",
+					"spotify" : "3BBFUxPg8KFmAv96SmY4ok",
+					"wikipedia" : "Morning_Phase",
+					"itunes" : "id798654801"
+				}
+			}
+		},
 		{
 			"id" : 36,
 			"date" : "2014-02-27T20:00:00.000+0000",
