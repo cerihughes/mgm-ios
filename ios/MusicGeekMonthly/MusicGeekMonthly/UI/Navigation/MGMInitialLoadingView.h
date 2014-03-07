@@ -1,5 +1,5 @@
 //
-//  MGMNoReachabilityView.h
+//  MGMInitialLoadingView.h
 //  MusicGeekMonthly
 //
 //  Created by Home on 05/11/2013.
@@ -8,6 +8,6 @@
 
 #import "MGMView.h"
 
-@interface MGMNoReachabilityView : MGMView
+@interface MGMInitialLoadingView : MGMView
 
 @end

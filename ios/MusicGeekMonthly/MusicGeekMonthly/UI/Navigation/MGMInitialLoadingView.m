@@ -1,23 +1,23 @@
 //
-//  MGMNoReachabilityView.m
+//  MGMInitialLoadingView.m
 //  MusicGeekMonthly
 //
 //  Created by Home on 05/11/2013.
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMNoReachabilityView.h"
+#import "MGMInitialLoadingView.h"
 
-@interface MGMNoReachabilityView ()
+@interface MGMInitialLoadingView ()
 
 @property (readonly) UIView* parentView;
 @property (readonly) UIImageView* imageView;
-@property (readonly) UILabel* titleLabel;
-@property (readonly) UILabel* reachabilityLabel;
+@property (readonly) UIActivityIndicatorView* activityIndicatorView;
+@property (readonly) UILabel* statusLabel;
 
 @end
 
-@implementation MGMNoReachabilityView
+@implementation MGMInitialLoadingView
 
 - (void) commonInit
 {
@@ -28,13 +28,12 @@
     _parentView = [[UIView alloc] initWithFrame:CGRectZero];
 
     _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iTunesArtworkTransparent.png"]];
-    _titleLabel = [MGMView boldTitleLabelWithText:@"No internet connection detected"];
-    _reachabilityLabel = [MGMView italicTitleLabelWithText:@"Music Geek Monthly requires an initial internet connection to download data."];
-    _reachabilityLabel.numberOfLines = 5;
+    _statusLabel = [MGMView boldTitleLabelWithText:@"Initialising..."];
+    _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 
     [_parentView addSubview:_imageView];
-    [_parentView addSubview:_titleLabel];
-    [_parentView addSubview:_reachabilityLabel];
+    [_parentView addSubview:_statusLabel];
+    [_parentView addSubview:_activityIndicatorView];
 
     [self addSubview:_parentView];
 }
@@ -46,9 +45,9 @@
     CGFloat parentOffset = (self.screenSize == MGMViewScreenSizeiPhone480) ? 0.0 : (576.0 - 480.0) / 2.0;
     self.parentView.frame = CGRectMake(0, parentOffset, 320, 480);
 
-    self.titleLabel.frame = CGRectMake(20, 20, 280, 30);
+    self.statusLabel.frame = CGRectMake(20, 20, 280, 30);
     self.imageView.frame = CGRectMake(20, 70, 280, 280);
-    self.reachabilityLabel.frame = CGRectMake(20, 380, 280, 70);
+    self.activityIndicatorView.frame = CGRectMake(20, 380, 280, 70);
 }
 
 - (void) layoutSubviewsIpad
@@ -57,9 +56,9 @@
 
     self.parentView.frame = self.frame;
 
-    self.titleLabel.frame = CGRectMake(0, 100, 768, 60);
+    self.statusLabel.frame = CGRectMake(0, 100, 768, 60);
     self.imageView.frame = CGRectMake(128, 200, 512, 512);
-    self.reachabilityLabel.frame = CGRectMake(128, 760, 512, 200);
+    self.activityIndicatorView.frame = CGRectMake(128, 760, 512, 200);
 }
 
 @end

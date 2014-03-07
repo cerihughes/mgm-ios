@@ -1,5 +1,5 @@
 //
-//  MGMNoReachabilityViewController.h
+//  MGMInitialLoadingViewController.h
 //  MusicGeekMonthly
 //
 //  Created by Ceri Hughes on 16/09/2013.
@@ -8,6 +8,6 @@
 
 #import "MGMViewController.h"
 
-@interface MGMNoReachabilityViewController : MGMViewController
+@interface MGMInitialLoadingViewController : MGMViewController
 
 @end

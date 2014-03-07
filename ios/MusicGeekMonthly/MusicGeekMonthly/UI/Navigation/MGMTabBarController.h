@@ -1,5 +1,5 @@
 //
-//  MGMNavigationViewController.h
+//  MGMTabBarController.h
 //  Music Geek Monthly
 //
 //  Created by Ceri Hughes on 04/07/2013.
@@ -10,7 +10,7 @@
 
 @class MGMUI;
 
-@interface MGMNavigationViewController : UITabBarController
+@interface MGMTabBarController : UITabBarController
 
 - (id) init __unavailable;
 - (id) initWithUI:(MGMUI*)ui;

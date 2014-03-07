@@ -4,10 +4,12 @@
 #import "MGMAlbumDetailViewController.h"
 #import "MGMExampleAlbumViewController.h"
 #import "MGMPlayerSelectionViewController.h"
+#import "MGMReachabilityManager.h"
 #import "UIViewController+MGMAdditions.h"
 
-@interface MGMUI () <MGMPlayerSelectionViewControllerDelegate>
+@interface MGMUI () <MGMReachabilityManagerListener, MGMPlayerSelectionViewControllerDelegate>
 
+@property (readonly) MGMReachabilityManager* reachabilityManager;
 @property (readonly) MGMAlbumDetailViewController* albumDetailViewController;
 @property (readonly) MGMPlayerSelectionViewController* playerSelectionViewController;
 @property (readonly) MGMExampleAlbumViewController* exampleAlbumViewController;
@@ -15,6 +17,8 @@
 @end
 
 @implementation MGMUI
+
+#define REACHABILITY_END_POINT @"music-geek-monthly.appspot.com"
 
 static BOOL _isIpad;
 
@@ -46,7 +50,7 @@ static BOOL _isIpad;
             _exampleAlbumViewController.modalPresentationStyle = UIModalPresentationFormSheet;
         }
 
-        _parentViewController = [[MGMNavigationViewController alloc] initWithUI:self];
+        _parentViewController = [[MGMTabBarController alloc] initWithUI:self];
 
         _albumPlayer = [[MGMAlbumPlayer alloc] init];
         _albumPlayer.serviceManager = self.core.serviceManager;
@@ -54,6 +58,12 @@ static BOOL _isIpad;
 
         _imageHelper = [[MGMImageHelper alloc] init];
         _viewUtilities = [[MGMAlbumViewUtilities alloc] initWithImageHelper:_imageHelper renderService:_core.albumRenderService];
+
+        _reachabilityManager = [[MGMReachabilityManager alloc] init];
+        [_reachabilityManager registerForReachabilityTo:REACHABILITY_END_POINT];
+        [_reachabilityManager addListener:self];
+        
+
     }
     return self;
 }
@@ -84,11 +94,6 @@ static BOOL _isIpad;
 
     // This should be driven from a callback?
     [self performSelector:@selector(checkPlayer) withObject:nil afterDelay:2];
-}
-
-- (void) setReachability:(BOOL)reachability
-{
-    self.core.reachability = reachability;
 }
 
 - (void) checkPlayer
@@ -196,6 +201,14 @@ static BOOL _isIpad;
 - (void) logError:(NSError*)error
 {
     NSLog(@"Error occurred: %@", error);
+}
+
+#pragma mark -
+#pragma mark MGMReachabilityManagerListener
+
+- (void) reachabilityDetermined:(BOOL)reachability
+{
+    self.core.reachability = reachability;
 }
 
 #pragma mark -
