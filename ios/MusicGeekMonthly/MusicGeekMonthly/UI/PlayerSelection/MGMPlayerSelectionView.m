@@ -33,10 +33,10 @@
 
 @interface MGMPlayerSelectionView ()
 
-@property (strong) UINavigationBar* navigationBar;
-@property (strong) UIButton* closeButton;
-@property (strong) UILabel* titleLabel;
-@property (strong) UILabel* subtitleLabel;
+@property (readonly) UINavigationBar* navigationBar;
+@property (readonly) UIButton* closeButton;
+@property (readonly) UILabel* titleLabel;
+@property (readonly) UILabel* subtitleLabel;
 
 @end
 
@@ -51,13 +51,13 @@
 
     self.backgroundColor = [UIColor whiteColor];
 
-    self.titleLabel = [MGMView boldSubtitleLabelWithText:@""];
-    self.titleLabel.numberOfLines = 2;
-    self.subtitleLabel = [MGMView italicSubtitleLabelWithText:@""];
-    self.subtitleLabel.numberOfLines = 2;
+    _titleLabel = [MGMView boldSubtitleLabelWithText:@""];
+    _titleLabel.numberOfLines = 2;
+    _subtitleLabel = [MGMView italicSubtitleLabelWithText:@""];
+    _subtitleLabel.numberOfLines = 2;
 
-    [self addSubview:self.titleLabel];
-    [self addSubview:self.subtitleLabel];
+    [self addSubview:_titleLabel];
+    [self addSubview:_subtitleLabel];
     [self addSubview:self.groupView];
 }
 
@@ -65,24 +65,24 @@
 {
     [super commonInitIphone];
 
-    self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
     UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@"Player Selection"];
     UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleBordered target:self action:@selector(closeButtonPressed:)];
     [navigationItem setRightBarButtonItem:bbi];
-    [self.navigationBar pushNavigationItem:navigationItem animated:YES];
+    [_navigationBar pushNavigationItem:navigationItem animated:YES];
 
-    [self addSubview:self.navigationBar];
+    [self addSubview:_navigationBar];
 }
 
 - (void) commonInitIpad
 {
     [super commonInitIpad];
 
-    self.closeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.closeButton setTitle:@"Close" forState:UIControlStateNormal];
-    [self.closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _closeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_closeButton setTitle:@"Close" forState:UIControlStateNormal];
+    [_closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    [self addSubview:self.closeButton];
+    [self addSubview:_closeButton];
 }
 
 - (MGMPlayerSelectionMode) mode

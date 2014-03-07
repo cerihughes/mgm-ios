@@ -10,10 +10,10 @@
 
 @interface MGMEventTableCell : UITableViewCell
 
-@property (strong) UIActivityIndicatorView* classicAlbumActivityView;
-@property (strong) UIActivityIndicatorView* newlyReleasedAlbumActivityView;
-@property (strong) UIImageView* classicAlbumImageView;
-@property (strong) UIImageView* newlyReleasedAlbumImageView;
-@property (strong) UILabel* eventTextLabel;
+@property (readonly) UIActivityIndicatorView* classicAlbumActivityView;
+@property (readonly) UIActivityIndicatorView* newlyReleasedAlbumActivityView;
+@property (readonly) UIImageView* classicAlbumImageView;
+@property (readonly) UIImageView* newlyReleasedAlbumImageView;
+@property (readonly) UILabel* eventTextLabel;
 
 @end

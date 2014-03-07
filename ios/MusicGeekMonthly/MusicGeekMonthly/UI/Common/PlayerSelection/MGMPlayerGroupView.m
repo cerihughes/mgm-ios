@@ -12,7 +12,7 @@
 
 @interface MGMPlayerGroupView ()
 
-@property (strong) NSMutableArray* buttons;
+@property (readonly) NSMutableArray* buttons;
 
 @end
 
@@ -21,7 +21,8 @@
 - (void) commonInit
 {
     [super  commonInit];
-    [self clearAll];
+    
+    _buttons = [NSMutableArray array];
 }
 
 - (void) clearAll
@@ -31,7 +32,7 @@
         [button removeFromSuperview];
     }
 
-    self.buttons = [NSMutableArray array];
+    [self.buttons removeAllObjects];
     [self setNeedsLayout];
 }
 

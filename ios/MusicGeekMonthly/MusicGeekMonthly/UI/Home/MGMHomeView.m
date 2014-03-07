@@ -12,10 +12,10 @@
 
 @interface MGMHomeView () <CKCalendarDelegate>
 
-@property (strong) UIView* parentView;
-@property (strong) UILabel* titleLabel;
-@property (strong) UILabel* nextMeetingLabel;
-@property (strong) CKCalendarView* calendarView;
+@property (readonly) UIView* parentView;
+@property (readonly) UILabel* titleLabel;
+@property (readonly) UILabel* nextMeetingLabel;
+@property (readonly) CKCalendarView* calendarView;
 
 @end
 
@@ -27,31 +27,29 @@
 
     self.backgroundColor = [UIColor whiteColor];
 
-    self.calendarView = [[CKCalendarView  alloc] initWithFrame:CGRectZero];
+    _calendarView = [[CKCalendarView  alloc] initWithFrame:CGRectZero];
     BOOL ipad = self.screenSize == MGMViewScreenSizeiPad;
     CGFloat titleFontSize = ipad ? 20.0 : 14.0;
     CGFloat dayFontSize = ipad ? 13.0 : 9.0;
     CGFloat dateFontSize = ipad ? 18.0 : 13.0;
-    self.calendarView.titleFont = [UIFont boldSystemFontOfSize:titleFontSize];
-    self.calendarView.dayOfWeekFont = [UIFont boldSystemFontOfSize:dayFontSize];
-    self.calendarView.dateFont = [UIFont boldSystemFontOfSize:dateFontSize];
-    self.calendarView.delegate = self;
+    _calendarView.titleFont = [UIFont boldSystemFontOfSize:titleFontSize];
+    _calendarView.dayOfWeekFont = [UIFont boldSystemFontOfSize:dayFontSize];
+    _calendarView.dateFont = [UIFont boldSystemFontOfSize:dateFontSize];
+    _calendarView.delegate = self;
 
-    self.titleLabel = [MGMView boldTitleLabelWithText:@"This month we're listening to:"];
-    self.nextMeetingLabel = [MGMView italicTitleLabelWithText:@"Next meeting:"];
+    _titleLabel = [MGMView boldTitleLabelWithText:@"This month we're listening to:"];
+    _nextMeetingLabel = [MGMView italicTitleLabelWithText:@"Next meeting:"];
 
-    [self.parentView addSubview:self.titleLabel];
-    [self.parentView addSubview:self.classicAlbumView];
-    [self.parentView addSubview:self.newlyReleasedAlbumView];
-    [self.parentView addSubview:self.classicAlbumLabel];
-    [self.parentView addSubview:self.newlyReleasedAlbumLabel];
-    [self.parentView addSubview:self.nextMeetingLabel];
-    [self.parentView addSubview:self.calendarView];
-    [self.parentView addSubview:self.playlistLabel];
-    [self.parentView addSubview:self.playlistView];
-    [self addSubview:self.parentView];
-
-    self.nextEventDate = nil;
+    [_parentView addSubview:_titleLabel];
+    [_parentView addSubview:self.classicAlbumView];
+    [_parentView addSubview:self.newlyReleasedAlbumView];
+    [_parentView addSubview:self.classicAlbumLabel];
+    [_parentView addSubview:self.newlyReleasedAlbumLabel];
+    [_parentView addSubview:_nextMeetingLabel];
+    [_parentView addSubview:_calendarView];
+    [_parentView addSubview:self.playlistLabel];
+    [_parentView addSubview:self.playlistView];
+    [self addSubview:_parentView];
 }
 
 - (void) commonInitIphone
@@ -59,14 +57,14 @@
     [super commonInitIphone];
 
     CGRect frame = CGRectMake(0, 20, self.frame.size.width, self.frame.size.height - 20);
-    self.parentView = [[UIScrollView alloc] initWithFrame:frame];
+    _parentView = [[UIScrollView alloc] initWithFrame:frame];
 }
 
 - (void) commonInitIpad
 {
     [super commonInitIpad];
 
-    self.parentView = [[UIView alloc] initWithFrame:self.frame];
+    _parentView = [[UIView alloc] initWithFrame:self.frame];
 }
 
 - (void) setNextEventDate:(NSDate *)nextEventDate

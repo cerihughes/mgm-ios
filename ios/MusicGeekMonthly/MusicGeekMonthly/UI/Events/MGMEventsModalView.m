@@ -10,8 +10,7 @@
 
 @interface MGMEventsModalView ()
 
-@property (strong) UINavigationBar* navigationBar;
-@property (strong) UITableView* eventsTable;
+@property (readonly) UINavigationBar* navigationBar;
 
 @end
 
@@ -22,21 +21,21 @@
     [super commonInit];
     
     self.backgroundColor = [UIColor whiteColor];
-    self.eventsTable = [[UITableView alloc] initWithFrame:CGRectZero];
-    [self addSubview:self.eventsTable];
+    _eventsTable = [[UITableView alloc] initWithFrame:CGRectZero];
+    [self addSubview:_eventsTable];
 }
 
 - (void) commonInitIphone
 {
     [super commonInitIphone];
 
-    self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
     UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@"Previous Events"];
     UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed:)];
     [navigationItem setRightBarButtonItem:bbi];
-    [self.navigationBar pushNavigationItem:navigationItem animated:YES];
+    [_navigationBar pushNavigationItem:navigationItem animated:YES];
     
-    [self addSubview:self.navigationBar];
+    [self addSubview:_navigationBar];
 }
 
 - (void) cancelButtonPressed:(id)sender

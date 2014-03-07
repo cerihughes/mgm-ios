@@ -10,9 +10,8 @@
 
 @interface MGMWeeklyChartView ()
 
-@property (strong) UINavigationBar* navigationBar;
-@property (strong) UINavigationItem* navigationItem;
-@property (strong) MGMAlbumGridView* albumGridView;
+@property (readonly) UINavigationBar* navigationBar;
+@property (readonly) UINavigationItem* navigationItem;
 
 @end
 
@@ -24,16 +23,16 @@
 
     self.backgroundColor = [UIColor whiteColor];
 
-    self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
-    self.navigationItem = [[UINavigationItem alloc] initWithTitle:@""];
+    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+    _navigationItem = [[UINavigationItem alloc] initWithTitle:@""];
     UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"More..." style:UIBarButtonItemStyleBordered target:self action:@selector(moreButtonPressed:)];
-    [self.navigationItem setRightBarButtonItem:bbi];
-    [self.navigationBar pushNavigationItem:self.navigationItem animated:YES];
+    [_navigationItem setRightBarButtonItem:bbi];
+    [_navigationBar pushNavigationItem:_navigationItem animated:YES];
 
-    self.albumGridView = [[MGMAlbumGridView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y + 64, self.frame.size.width, self.frame.size.height - (64 + self.tabBarHeight))];
+    _albumGridView = [[MGMAlbumGridView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y + 64, self.frame.size.width, self.frame.size.height - (64 + self.tabBarHeight))];
 
-    [self addSubview:self.navigationBar];
-    [self addSubview:self.albumGridView];
+    [self addSubview:_navigationBar];
+    [self addSubview:_albumGridView];
 }
 
 - (void) setTitle:(NSString*)title
@@ -59,6 +58,5 @@
 
     self.navigationBar.frame = CGRectMake(0, 20, 768, 44);
 }
-
 
 @end

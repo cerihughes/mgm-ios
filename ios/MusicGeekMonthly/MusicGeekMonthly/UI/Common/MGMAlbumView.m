@@ -16,15 +16,15 @@
 @interface MGMAlbumView ()
 
 @property CGFloat alphaOff;
-@property (strong) UIButton* button;
-@property (strong) UIButton* detailButton;
-@property (strong) UIView* textParentView;
-@property (strong) UILabel* artistLabel;
-@property (strong) UILabel* albumLabel;
-@property (strong) UIActivityIndicatorView* activityIndicatorView;
-@property (strong) UILabel* rankLabel;
-@property (strong) UILabel* listenersLabel;
-@property (strong) MGMAlbumScoreView* albumScoreView;
+@property (readonly) UIButton* button;
+@property (readonly) UIButton* detailButton;
+@property (readonly) UIView* textParentView;
+@property (readonly) UILabel* artistLabel;
+@property (readonly) UILabel* albumLabel;
+@property (readonly) UIActivityIndicatorView* activityIndicatorView;
+@property (readonly) UILabel* rankLabel;
+@property (readonly) UILabel* listenersLabel;
+@property (readonly) MGMAlbumScoreView* albumScoreView;
 
 @end
 
@@ -57,52 +57,52 @@
     
     CGSize parentSize = self.frame.size;
     CGRect frame = CGRectMake(0, 0, parentSize.width, parentSize.height);
-    self.button = [MGMView shadowedButtonWithText:nil image:nil];
-    self.button.frame = frame;
-    self.button.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.button.alpha = self.alphaOff;
-    self.button.backgroundColor = [UIColor whiteColor];
-    [self.button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _button = [MGMView shadowedButtonWithText:nil image:nil];
+    _button.frame = frame;
+    _button.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    _button.alpha = self.alphaOff;
+    _button.backgroundColor = [UIColor whiteColor];
+    [_button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.pressable = NO;
 
-    self.rankLabel = [MGMAlbumView createLabel];
-    self.rankLabel.alpha = 0.75;
-    self.rankLabel.textColor = [UIColor yellowColor];
+    _rankLabel = [MGMAlbumView createLabel];
+    _rankLabel.alpha = 0.75;
+    _rankLabel.textColor = [UIColor yellowColor];
 
-    self.albumScoreView = [[MGMAlbumScoreView alloc] initWithFrame:CGRectZero];
-    self.albumScoreView.hidden = YES;
+    _albumScoreView = [[MGMAlbumScoreView alloc] initWithFrame:CGRectZero];
+    _albumScoreView.hidden = YES;
 
-    self.detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    self.detailButton.frame = CGRectZero;
-    self.detailButton.alpha = 0;
+    _detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    _detailButton.frame = CGRectZero;
+    _detailButton.alpha = 0;
+    [_detailButton addTarget:self action:@selector(detailPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.detailViewShowing = NO;
-    [self.detailButton addTarget:self action:@selector(detailPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    self.textParentView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.textParentView.autoresizesSubviews = YES;
-    self.textParentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    self.textParentView.backgroundColor = [UIColor clearColor];
+    _textParentView = [[UIView alloc] initWithFrame:CGRectZero];
+    _textParentView.autoresizesSubviews = YES;
+    _textParentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    _textParentView.backgroundColor = [UIColor clearColor];
 
-    self.artistLabel = [MGMAlbumView createLabel];
-    self.albumLabel = [MGMAlbumView createLabel];
-    self.listenersLabel = [MGMAlbumView createLabel];
+    _artistLabel = [MGMAlbumView createLabel];
+    _albumLabel = [MGMAlbumView createLabel];
+    _listenersLabel = [MGMAlbumView createLabel];
 
-    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    self.activityIndicatorView.frame = frame;
-    self.activityIndicatorView.userInteractionEnabled = NO;
+    _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    _activityIndicatorView.frame = frame;
+    _activityIndicatorView.userInteractionEnabled = NO;
     self.activityInProgress = NO;
 
-    [self addSubview:self.button];
-    [self.button addSubview:self.rankLabel];
-    [self.button addSubview:self.albumScoreView];
+    [self addSubview:_button];
+    [_button addSubview:_rankLabel];
+    [_button addSubview:_albumScoreView];
 
-    [self.button addSubview:self.textParentView];
-    [self.textParentView addSubview:self.artistLabel];
-    [self.textParentView addSubview:self.albumLabel];
-    [self.textParentView addSubview:self.listenersLabel];
+    [_button addSubview:_textParentView];
+    [_textParentView addSubview:_artistLabel];
+    [_textParentView addSubview:_albumLabel];
+    [_textParentView addSubview:_listenersLabel];
 
-    [self.button addSubview:self.detailButton];
-    [self addSubview:self.activityIndicatorView];
+    [_button addSubview:_detailButton];
+    [self addSubview:_activityIndicatorView];
 }
 
 - (BOOL) pressable

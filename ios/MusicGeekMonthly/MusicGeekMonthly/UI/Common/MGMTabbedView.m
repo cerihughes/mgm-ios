@@ -8,20 +8,14 @@
 
 #import "MGMTabbedView.h"
 
-@interface MGMTabbedView ()
-
-@property (strong) UIView* albumContainer;
-
-@end
-
 @implementation MGMTabbedView
 
 - (void) commonInit
 {
     [super commonInit];
 
-    self.albumContainer = [[UIView alloc] initWithFrame:self.frame];
-    [self addSubview:self.albumContainer];
+    _albumContainer = [[UIView alloc] initWithFrame:self.frame];
+    [self addSubview:_albumContainer];
 }
 
 @end

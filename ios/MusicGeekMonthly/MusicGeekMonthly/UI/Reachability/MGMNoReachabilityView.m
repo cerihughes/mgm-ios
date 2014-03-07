@@ -21,6 +21,8 @@
 
 - (void) commonInit
 {
+    [super commonInit];
+    
     self.backgroundColor = [UIColor grayColor];
 
     _parentView = [[UIView alloc] initWithFrame:CGRectZero];

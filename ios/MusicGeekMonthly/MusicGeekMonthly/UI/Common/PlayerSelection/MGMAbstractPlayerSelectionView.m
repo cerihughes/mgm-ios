@@ -10,8 +10,6 @@
 
 @interface MGMAbstractPlayerSelectionView () <MGMPlayerGroupViewDelegate>
 
-@property (strong) MGMPlayerGroupView* groupView;
-
 @end
 
 @implementation MGMAbstractPlayerSelectionView
@@ -19,8 +17,8 @@
 -  (void) commonInit
 {
     [super commonInit];
-    self.groupView = [[MGMPlayerGroupView alloc] initWithFrame:CGRectZero];
-    self.groupView.delegate = self;
+    _groupView = [[MGMPlayerGroupView alloc] initWithFrame:CGRectZero];
+    _groupView.delegate = self;
 }
 
 - (void) setSelectedServiceType:(MGMAlbumServiceType)selectedServiceType

@@ -10,8 +10,8 @@
 
 @interface MGMAlbumScoreView ()
 
-@property (strong) UIImageView* imageView;
-@property (strong) UILabel* scoreLabel;
+@property (readonly) UIImageView* imageView;
+@property (readonly) UILabel* scoreLabel;
 
 @end
 
@@ -19,17 +19,20 @@
 
 - (void) commonInit
 {
-    self.imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    self.imageView.image = [UIImage imageNamed:@"gold_bar.png"];
-    self.imageView.backgroundColor = [UIColor clearColor];
-    self.scoreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    self.scoreLabel.textAlignment = NSTextAlignmentCenter;
-    self.scoreLabel.backgroundColor = [UIColor clearColor];
-    self.scoreLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:15];
-    self.scoreLabel.adjustsFontSizeToFitWidth = YES;
+    [super commonInit];
 
-    [self addSubview:self.imageView];
-    [self.imageView addSubview:self.scoreLabel];
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _imageView.image = [UIImage imageNamed:@"gold_bar.png"];
+    _imageView.backgroundColor = [UIColor clearColor];
+
+    _scoreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _scoreLabel.textAlignment = NSTextAlignmentCenter;
+    _scoreLabel.backgroundColor = [UIColor clearColor];
+    _scoreLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:15];
+    _scoreLabel.adjustsFontSizeToFitWidth = YES;
+
+    [self addSubview:_imageView];
+    [_imageView addSubview:_scoreLabel];
 
     self.backgroundColor = [UIColor clearColor];
 }

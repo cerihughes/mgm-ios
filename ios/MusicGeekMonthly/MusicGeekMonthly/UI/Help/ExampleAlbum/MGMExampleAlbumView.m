@@ -12,11 +12,10 @@
 
 @interface MGMExampleAlbumView () <MGMAlbumViewDelegate>
 
-@property (strong) UINavigationBar* navigationBar;
-@property (strong) UIButton* gotItButton;
-@property (strong) MGMAlbumView* albumView;
-@property (strong) UIImageView* imageView;
-@property (strong) UILabel* label;
+@property (readonly) UINavigationBar* navigationBar;
+@property (readonly) UIButton* gotItButton;
+@property (readonly) UIImageView* imageView;
+@property (readonly) UILabel* label;
 
 @end
 
@@ -28,44 +27,44 @@
 
     self.backgroundColor = [UIColor whiteColor];
 
-    self.albumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
-    self.albumView.animationTime = 0.25;
-    self.albumView.pressable = YES;
-    self.albumView.delegate = self;
-    self.albumView.detailViewShowing = YES;
+    _albumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
+    _albumView.animationTime = 0.25;
+    _albumView.pressable = YES;
+    _albumView.delegate = self;
+    _albumView.detailViewShowing = YES;
 
-    self.imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    self.imageView.image = [UIImage imageNamed:@"arrow.png"];
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _imageView.image = [UIImage imageNamed:@"arrow.png"];
 
-    self.label = [MGMView italicTitleLabelWithText:EXAMPLE_TEXT];
-    self.label.numberOfLines = 5;
+    _label = [MGMView italicTitleLabelWithText:EXAMPLE_TEXT];
+    _label.numberOfLines = 5;
 
-    [self addSubview:self.albumView];
-    [self addSubview:self.imageView];
-    [self addSubview:self.label];
+    [self addSubview:_albumView];
+    [self addSubview:_imageView];
+    [self addSubview:_label];
 }
 
 - (void) commonInitIphone
 {
     [super commonInitIphone];
 
-    self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
     UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@"Album Example"];
     UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"Got it!" style:UIBarButtonItemStyleBordered target:self action:@selector(gotItButtonPressed:)];
     [navigationItem setRightBarButtonItem:bbi];
-    [self.navigationBar pushNavigationItem:navigationItem animated:YES];
+    [_navigationBar pushNavigationItem:navigationItem animated:YES];
 
-    [self addSubview:self.navigationBar];
+    [self addSubview:_navigationBar];
 }
 
 - (void) commonInitIpad
 {
     [super commonInitIpad];
 
-    self.gotItButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.gotItButton setTitle:@"Got it!" forState:UIControlStateNormal];
-    [self.gotItButton addTarget:self action:@selector(gotItButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.gotItButton];
+    _gotItButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_gotItButton setTitle:@"Got it!" forState:UIControlStateNormal];
+    [_gotItButton addTarget:self action:@selector(gotItButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_gotItButton];
 }
 
 - (void) gotItButtonPressed:(id)sender

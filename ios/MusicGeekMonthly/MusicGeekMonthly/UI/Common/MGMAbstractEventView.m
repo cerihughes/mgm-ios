@@ -12,14 +12,6 @@
 
 @interface MGMAbstractEventView () <MGMAlbumViewDelegate, MGMAlbumGridViewDelegate>
 
-@property (strong) UILabel* classicAlbumLabel;
-@property (strong) MGMAlbumView* classicAlbumView;
-@property (strong) UILabel* newlyReleasedAlbumLabel;
-@property (strong) MGMAlbumView* newlyReleasedAlbumView;
-@property (strong) UILabel* playlistLabel;
-@property (strong) MGMAlbumGridView* playlistView;
-@property NSUInteger playlistViewRowCount;
-
 @end
 
 @implementation MGMAbstractEventView
@@ -28,28 +20,29 @@
 {
     [super commonInit];
     
-    self.classicAlbumLabel = [MGMView italicTitleLabelWithText:@"Classic Album"];
-    self.newlyReleasedAlbumLabel = [MGMView italicTitleLabelWithText:@"New Album"];
-    self.playlistLabel = [MGMView italicTitleLabelWithText:@"Playlist"];
+    _classicAlbumLabel = [MGMView italicTitleLabelWithText:@"Classic Album"];
+    _newlyReleasedAlbumLabel = [MGMView italicTitleLabelWithText:@"New Album"];
+    _playlistLabel = [MGMView italicTitleLabelWithText:@"Playlist"];
 
-    self.classicAlbumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
-    self.classicAlbumView.alphaOn = 1;
-    self.classicAlbumView.animationTime = 0.25;
-    self.classicAlbumView.pressable = YES;
-    self.classicAlbumView.delegate = self;
-    self.classicAlbumView.detailViewShowing = YES;
+    _classicAlbumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
+    _classicAlbumView.alphaOn = 1;
+    _classicAlbumView.animationTime = 0.25;
+    _classicAlbumView.pressable = YES;
+    _classicAlbumView.delegate = self;
+    _classicAlbumView.detailViewShowing = YES;
 
-    self.newlyReleasedAlbumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
-    self.newlyReleasedAlbumView.alphaOn = 1;
-    self.newlyReleasedAlbumView.animationTime = 0.25;
-    self.newlyReleasedAlbumView.pressable = YES;
-    self.newlyReleasedAlbumView.delegate = self;
-    self.newlyReleasedAlbumView.detailViewShowing = YES;
+    _newlyReleasedAlbumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
+    _newlyReleasedAlbumView.alphaOn = 1;
+    _newlyReleasedAlbumView.animationTime = 0.25;
+    _newlyReleasedAlbumView.pressable = YES;
+    _newlyReleasedAlbumView.delegate = self;
+    _newlyReleasedAlbumView.detailViewShowing = YES;
 
-    self.playlistView = [[MGMAlbumGridView alloc] initWithFrame:CGRectZero];
-    self.playlistView.delegate = self;
-    self.playlistViewRowCount = self.screenSize == MGMViewScreenSizeiPad ? 5 : 3;
-    [self.playlistView setAlbumCount:self.playlistViewRowCount * self.playlistViewRowCount detailViewShowing:NO];
+    _playlistViewRowCount = self.screenSize == MGMViewScreenSizeiPad ? 5 : 3;
+
+    _playlistView = [[MGMAlbumGridView alloc] initWithFrame:CGRectZero];
+    _playlistView.delegate = self;
+    [_playlistView setAlbumCount:_playlistViewRowCount * _playlistViewRowCount detailViewShowing:NO];
 }
 
 - (void) updatePlaylistAlbumSizes

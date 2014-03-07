@@ -10,9 +10,8 @@
 
 @interface MGMAlbumDetailView ()
 
-@property (strong) UINavigationBar* navigationBar;
-@property (strong) UIButton* cancelButton;
-@property (strong) MGMAlbumView* albumView;
+@property (readonly) UINavigationBar* navigationBar;
+@property (readonly) UIButton* cancelButton;
 
 @end
 
@@ -24,34 +23,34 @@
     
     self.backgroundColor = [UIColor whiteColor];
     
-    self.albumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
+    _albumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
     
     [self addSubview:self.groupView];
-    [self addSubview:self.albumView];
+    [self addSubview:_albumView];
 }
 
 - (void) commonInitIphone
 {
     [super commonInitIphone];
     
-    self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
     UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@"Album Detail"];
     UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed:)];
     [navigationItem setRightBarButtonItem:bbi];
-    [self.navigationBar pushNavigationItem:navigationItem animated:YES];
+    [_navigationBar pushNavigationItem:navigationItem animated:YES];
     
-    [self addSubview:self.navigationBar];
+    [self addSubview:_navigationBar];
 }
 
 - (void) commonInitIpad
 {
     [super commonInitIpad];
     
-    self.cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-    [self.cancelButton addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [_cancelButton addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self addSubview:self.cancelButton];
+    [self addSubview:_cancelButton];
 }
 
 - (void) cancelButtonPressed:(id)sender

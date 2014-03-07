@@ -10,7 +10,7 @@
 
 @interface MGMAlbumGridView () <MGMAlbumViewDelegate>
 
-@property (strong) UIScrollView* scrollView;
+@property (readonly) UIScrollView* scrollView;
 @property (readonly) NSLock* albumViewsLock;
 @property (readonly) NSMutableArray* albumViews;
 
@@ -33,9 +33,9 @@
     [super commonInit];
 
     CGSize parentSize = self.frame.size;
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, parentSize.width, parentSize.height)];
-    self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self addSubview:self.scrollView];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, parentSize.width, parentSize.height)];
+    _scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self addSubview:_scrollView];
 }
 
 - (void) setAlbumCount:(NSUInteger)albumCount detailViewShowing:(BOOL)detailViewShowing

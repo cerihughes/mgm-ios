@@ -10,9 +10,8 @@
 
 @interface MGMAlbumScoresView ()
 
-@property (strong) UINavigationBar* navigationBar;
-@property (strong) UISegmentedControl* segmentedControl;
-@property (strong) MGMAlbumGridView* albumGridView;
+@property (readonly) UINavigationBar* navigationBar;
+@property (readonly) UISegmentedControl* segmentedControl;
 
 @end
 
@@ -24,17 +23,19 @@
 
     self.backgroundColor = [UIColor whiteColor];
 
-    self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
     UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@""];
-    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Classic Albums", @"New Albums", @"All Albums"]];
-    [self.segmentedControl addTarget:self action:@selector(controlChanged:) forControlEvents:UIControlEventValueChanged];
-    navigationItem.titleView = self.segmentedControl;
-    [self.navigationBar pushNavigationItem:navigationItem animated:YES];
 
-    self.albumGridView = [[MGMAlbumGridView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y + 64, self.frame.size.width, self.frame.size.height - (64 + self.tabBarHeight))];
+    _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Classic Albums", @"New Albums", @"All Albums"]];
+    [_segmentedControl addTarget:self action:@selector(controlChanged:) forControlEvents:UIControlEventValueChanged];
 
-    [self addSubview:self.albumGridView];
-    [self addSubview:self.navigationBar];
+    navigationItem.titleView = _segmentedControl;
+    [_navigationBar pushNavigationItem:navigationItem animated:YES];
+
+    _albumGridView = [[MGMAlbumGridView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y + 64, self.frame.size.width, self.frame.size.height - (64 + self.tabBarHeight))];
+
+    [self addSubview:_albumGridView];
+    [self addSubview:_navigationBar];
 }
 
 - (void) controlChanged:(UISegmentedControl*)sender

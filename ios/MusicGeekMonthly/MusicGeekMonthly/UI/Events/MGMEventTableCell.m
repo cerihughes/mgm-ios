@@ -23,18 +23,18 @@
 
 - (void) commonInit
 {
-    self.classicAlbumImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    self.newlyReleasedAlbumImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    self.classicAlbumActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.newlyReleasedAlbumActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.eventTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    self.eventTextLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:17.0];
+    _classicAlbumImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _newlyReleasedAlbumImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _classicAlbumActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    _newlyReleasedAlbumActivityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    _eventTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _eventTextLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:17.0];
 
-    [self addSubview:self.classicAlbumImageView];
-    [self addSubview:self.newlyReleasedAlbumImageView];
-    [self addSubview:self.classicAlbumActivityView];
-    [self addSubview:self.newlyReleasedAlbumActivityView];
-    [self addSubview:self.eventTextLabel];
+    [self addSubview:_classicAlbumImageView];
+    [self addSubview:_newlyReleasedAlbumImageView];
+    [self addSubview:_classicAlbumActivityView];
+    [self addSubview:_newlyReleasedAlbumActivityView];
+    [self addSubview:_eventTextLabel];
 }
 
 - (void) layoutSubviews

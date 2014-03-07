@@ -10,8 +10,7 @@
 
 @interface MGMWeeklyChartModalView ()
 
-@property (strong) UINavigationBar* navigationBar;
-@property (strong) UITableView* timePeriodTable;
+@property (readonly) UINavigationBar* navigationBar;
 
 @end
 
@@ -22,21 +21,21 @@
     [super commonInit];
 
     self.backgroundColor = [UIColor whiteColor];
-    self.timePeriodTable = [[UITableView alloc] initWithFrame:CGRectZero];
-    [self addSubview:self.timePeriodTable];
+    _timePeriodTable = [[UITableView alloc] initWithFrame:CGRectZero];
+    [self addSubview:_timePeriodTable];
 }
 
 - (void) commonInitIphone
 {
     [super commonInitIphone];
 
-    self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
     UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@"Weekly Charts"];
     UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed:)];
     [navigationItem setRightBarButtonItem:bbi];
-    [self.navigationBar pushNavigationItem:navigationItem animated:YES];
+    [_navigationBar pushNavigationItem:navigationItem animated:YES];
 
-    [self addSubview:self.navigationBar];
+    [self addSubview:_navigationBar];
 }
 
 - (void) cancelButtonPressed:(id)sender

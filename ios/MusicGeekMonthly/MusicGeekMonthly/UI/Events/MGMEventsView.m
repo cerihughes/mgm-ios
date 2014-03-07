@@ -10,9 +10,9 @@
 
 @interface MGMEventsView ()
 
-@property (strong) UIView* parentView;
-@property (strong) UINavigationBar* navigationBar;
-@property (strong) UINavigationItem* navigationItem;
+@property (readonly) UIView* parentView;
+@property (readonly) UINavigationBar* navigationBar;
+@property (readonly) UINavigationItem* navigationItem;
 
 @end
 
@@ -24,20 +24,20 @@
     
     self.backgroundColor = [UIColor whiteColor];
     
-    self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
-    self.navigationItem = [[UINavigationItem alloc] initWithTitle:@""];
+    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+    _navigationItem = [[UINavigationItem alloc] initWithTitle:@""];
     UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"More..." style:UIBarButtonItemStyleBordered target:self action:@selector(moreButtonPressed:)];
-    [self.navigationItem setRightBarButtonItem:bbi];
-    [self.navigationBar pushNavigationItem:self.navigationItem animated:YES];
+    [_navigationItem setRightBarButtonItem:bbi];
+    [_navigationBar pushNavigationItem:_navigationItem animated:YES];
 
-    [self.parentView addSubview:self.classicAlbumLabel];
-    [self.parentView addSubview:self.classicAlbumView];
-    [self.parentView addSubview:self.newlyReleasedAlbumLabel];
-    [self.parentView addSubview:self.newlyReleasedAlbumView];
-    [self.parentView addSubview:self.playlistLabel];
-    [self.parentView addSubview:self.playlistView];
-    [self addSubview:self.parentView];
-    [self addSubview:self.navigationBar];
+    [_parentView addSubview:self.classicAlbumLabel];
+    [_parentView addSubview:self.classicAlbumView];
+    [_parentView addSubview:self.newlyReleasedAlbumLabel];
+    [_parentView addSubview:self.newlyReleasedAlbumView];
+    [_parentView addSubview:self.playlistLabel];
+    [_parentView addSubview:self.playlistView];
+    [self addSubview:_parentView];
+    [self addSubview:_navigationBar];
 }
 
 - (void) commonInitIphone
@@ -45,14 +45,14 @@
     [super commonInitIphone];
 
     CGRect frame = CGRectMake(0, 20, self.frame.size.width, self.frame.size.height - 20);
-    self.parentView = [[UIScrollView alloc] initWithFrame:frame];
+    _parentView = [[UIScrollView alloc] initWithFrame:frame];
 }
 
 - (void) commonInitIpad
 {
     [super commonInitIpad];
 
-    self.parentView = [[UIView alloc] initWithFrame:self.frame];
+    _parentView = [[UIView alloc] initWithFrame:self.frame];
 }
 
 - (void) setTitle:(NSString*)title
