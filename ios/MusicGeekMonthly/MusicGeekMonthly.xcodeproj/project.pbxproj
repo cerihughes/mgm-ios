@@ -486,15 +486,143 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6545477B18B904F5008CDAD3 /* Events */ = {
+		651E8CE318CA284F00333CA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				658D321C18B1147C007A4D98 /* MGMAlbumDetailView.h */,
+				658D321D18B1147C007A4D98 /* MGMAlbumDetailView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		651E8CE418CA286300333CA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				658D323418B1147C007A4D98 /* MGMView.h */,
+				658D323518B1147C007A4D98 /* MGMView.m */,
+				658D322818B1147C007A4D98 /* MGMAlbumView.h */,
+				658D322918B1147C007A4D98 /* MGMAlbumView.m */,
+				658D322518B1147C007A4D98 /* MGMAlbumScoreView.h */,
+				658D322618B1147C007A4D98 /* MGMAlbumScoreView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		651E8CE518CA288E00333CA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				658D323018B1147C007A4D98 /* MGMTabbedView.h */,
+				658D323118B1147C007A4D98 /* MGMTabbedView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		651E8CE618CA289700333CA1 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				658D322118B1147C007A4D98 /* MGMAbstractEventView.h */,
 				658D322218B1147C007A4D98 /* MGMAbstractEventView.m */,
-				658D322318B1147C007A4D98 /* MGMAbstractEventViewController.h */,
-				658D322418B1147C007A4D98 /* MGMAbstractEventViewController.m */,
 				6545477818B90444008CDAD3 /* MGMAlbumGridView.h */,
 				6545477918B90444008CDAD3 /* MGMAlbumGridView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		651E8CE718CA28BC00333CA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				658D323918B1147C007A4D98 /* MGMAbstractPlayerSelectionView.h */,
+				658D323A18B1147C007A4D98 /* MGMAbstractPlayerSelectionView.m */,
+				658D323D18B1147C007A4D98 /* MGMPlayerGroupView.h */,
+				658D323E18B1147C007A4D98 /* MGMPlayerGroupView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		651E8CE818CA28DF00333CA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				658D324218B1147C007A4D98 /* MGMEventsModalView.h */,
+				658D324318B1147C007A4D98 /* MGMEventsModalView.m */,
+				658D324818B1147C007A4D98 /* MGMEventTableCell.h */,
+				658D324918B1147C007A4D98 /* MGMEventTableCell.m */,
+				658D324418B1147C007A4D98 /* MGMEventsView.h */,
+				658D324518B1147C007A4D98 /* MGMEventsView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		651E8CE918CA291400333CA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				658D324E18B1147C007A4D98 /* MGMExampleAlbumView.h */,
+				658D324F18B1147C007A4D98 /* MGMExampleAlbumView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		651E8CEA18CA292300333CA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				658D325318B1147C007A4D98 /* MGMHomeView.h */,
+				658D325418B1147C007A4D98 /* MGMHomeView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		651E8CEB18CA293400333CA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				658D326418B1147C007A4D98 /* MGMPulsatingAlbumsView.h */,
+				658D326518B1147C007A4D98 /* MGMPulsatingAlbumsView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		651E8CEC18CA294400333CA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				658D326818B1147C007A4D98 /* MGMPlayerSelectionView.h */,
+				658D326918B1147C007A4D98 /* MGMPlayerSelectionView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		651E8CED18CA294D00333CA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				658D326D18B1147C007A4D98 /* MGMNoReachabilityView.h */,
+				658D326E18B1147C007A4D98 /* MGMNoReachabilityView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		651E8CEE18CA295600333CA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				658D327218B1147C007A4D98 /* MGMAlbumScoresView.h */,
+				658D327318B1147C007A4D98 /* MGMAlbumScoresView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		651E8CEF18CA295F00333CA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				658D327918B1147C007A4D98 /* MGMWeeklyChartModalView.h */,
+				658D327A18B1147C007A4D98 /* MGMWeeklyChartModalView.m */,
+				658D327B18B1147C007A4D98 /* MGMWeeklyChartView.h */,
+				658D327C18B1147C007A4D98 /* MGMWeeklyChartView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		6545477B18B904F5008CDAD3 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				651E8CE618CA289700333CA1 /* View */,
+				658D322318B1147C007A4D98 /* MGMAbstractEventViewController.h */,
+				658D322418B1147C007A4D98 /* MGMAbstractEventViewController.m */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -502,8 +630,7 @@
 		6545477C18B9055A008CDAD3 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				658D323018B1147C007A4D98 /* MGMTabbedView.h */,
-				658D323118B1147C007A4D98 /* MGMTabbedView.m */,
+				651E8CE518CA288E00333CA1 /* View */,
 				658D323218B1147C007A4D98 /* MGMTabbedViewController.h */,
 				658D323318B1147C007A4D98 /* MGMTabbedViewController.m */,
 			);
@@ -707,6 +834,11 @@
 				658D324118B1147C007A4D98 /* Events */,
 				658D324C18B1147C007A4D98 /* Help */,
 				658D325218B1147C007A4D98 /* Home */,
+				658D325F18B1147C007A4D98 /* Navigation */,
+				658D326618B1147C007A4D98 /* PlayerSelection */,
+				658D326C18B1147C007A4D98 /* Reachability */,
+				658D327118B1147C007A4D98 /* Scores */,
+				658D327618B1147C007A4D98 /* WeeklyChart */,
 				658D325718B1147C007A4D98 /* MGMAlbumPlayer.h */,
 				658D325818B1147C007A4D98 /* MGMAlbumPlayer.m */,
 				658D325918B1147C007A4D98 /* MGMAppDelegate.h */,
@@ -715,11 +847,6 @@
 				658D325C18B1147C007A4D98 /* MGMImageHelper.m */,
 				658D325D18B1147C007A4D98 /* MGMUI.h */,
 				658D325E18B1147C007A4D98 /* MGMUI.m */,
-				658D325F18B1147C007A4D98 /* Navigation */,
-				658D326618B1147C007A4D98 /* PlayerSelection */,
-				658D326C18B1147C007A4D98 /* Reachability */,
-				658D327118B1147C007A4D98 /* Scores */,
-				658D327618B1147C007A4D98 /* WeeklyChart */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -727,8 +854,7 @@
 		658D321B18B1147C007A4D98 /* AlbumDetail */ = {
 			isa = PBXGroup;
 			children = (
-				658D321C18B1147C007A4D98 /* MGMAlbumDetailView.h */,
-				658D321D18B1147C007A4D98 /* MGMAlbumDetailView.m */,
+				651E8CE318CA284F00333CA1 /* View */,
 				658D321E18B1147C007A4D98 /* MGMAlbumDetailViewController.h */,
 				658D321F18B1147C007A4D98 /* MGMAlbumDetailViewController.m */,
 			);
@@ -738,24 +864,19 @@
 		658D322018B1147C007A4D98 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				6545477C18B9055A008CDAD3 /* Navigation */,
 				6545477B18B904F5008CDAD3 /* Events */,
-				658D322518B1147C007A4D98 /* MGMAlbumScoreView.h */,
-				658D322618B1147C007A4D98 /* MGMAlbumScoreView.m */,
+				6545477C18B9055A008CDAD3 /* Navigation */,
+				658D323818B1147C007A4D98 /* PlayerSelection */,
+				651E8CE418CA286300333CA1 /* View */,
 				658D322718B1147C007A4D98 /* MGMAlbumSelectionDelegate.h */,
-				658D322818B1147C007A4D98 /* MGMAlbumView.h */,
-				658D322918B1147C007A4D98 /* MGMAlbumView.m */,
 				658D322A18B1147C007A4D98 /* MGMAlbumViewController.h */,
 				658D322B18B1147C007A4D98 /* MGMAlbumViewController.m */,
 				658D322C18B1147C007A4D98 /* MGMAlbumViewUtilities.h */,
 				658D322D18B1147C007A4D98 /* MGMAlbumViewUtilities.m */,
 				658D322E18B1147C007A4D98 /* MGMCoreDataTableViewDataSource.h */,
 				658D322F18B1147C007A4D98 /* MGMCoreDataTableViewDataSource.m */,
-				658D323418B1147C007A4D98 /* MGMView.h */,
-				658D323518B1147C007A4D98 /* MGMView.m */,
 				658D323618B1147C007A4D98 /* MGMViewController.h */,
 				658D323718B1147C007A4D98 /* MGMViewController.m */,
-				658D323818B1147C007A4D98 /* PlayerSelection */,
 				658D323F18B1147C007A4D98 /* UIViewController+MGMAdditions.h */,
 				658D324018B1147C007A4D98 /* UIViewController+MGMAdditions.m */,
 			);
@@ -765,12 +886,9 @@
 		658D323818B1147C007A4D98 /* PlayerSelection */ = {
 			isa = PBXGroup;
 			children = (
-				658D323918B1147C007A4D98 /* MGMAbstractPlayerSelectionView.h */,
-				658D323A18B1147C007A4D98 /* MGMAbstractPlayerSelectionView.m */,
+				651E8CE718CA28BC00333CA1 /* View */,
 				658D323B18B1147C007A4D98 /* MGMAbstractPlayerSelectionViewController.h */,
 				658D323C18B1147C007A4D98 /* MGMAbstractPlayerSelectionViewController.m */,
-				658D323D18B1147C007A4D98 /* MGMPlayerGroupView.h */,
-				658D323E18B1147C007A4D98 /* MGMPlayerGroupView.m */,
 			);
 			path = PlayerSelection;
 			sourceTree = "<group>";
@@ -778,14 +896,9 @@
 		658D324118B1147C007A4D98 /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				658D324218B1147C007A4D98 /* MGMEventsModalView.h */,
-				658D324318B1147C007A4D98 /* MGMEventsModalView.m */,
-				658D324418B1147C007A4D98 /* MGMEventsView.h */,
-				658D324518B1147C007A4D98 /* MGMEventsView.m */,
+				651E8CE818CA28DF00333CA1 /* View */,
 				658D324618B1147C007A4D98 /* MGMEventsViewController.h */,
 				658D324718B1147C007A4D98 /* MGMEventsViewController.m */,
-				658D324818B1147C007A4D98 /* MGMEventTableCell.h */,
-				658D324918B1147C007A4D98 /* MGMEventTableCell.m */,
 				658D324A18B1147C007A4D98 /* MGMEventTableViewDataSource.h */,
 				658D324B18B1147C007A4D98 /* MGMEventTableViewDataSource.m */,
 			);
@@ -803,8 +916,7 @@
 		658D324D18B1147C007A4D98 /* ExampleAlbum */ = {
 			isa = PBXGroup;
 			children = (
-				658D324E18B1147C007A4D98 /* MGMExampleAlbumView.h */,
-				658D324F18B1147C007A4D98 /* MGMExampleAlbumView.m */,
+				651E8CE918CA291400333CA1 /* View */,
 				658D325018B1147C007A4D98 /* MGMExampleAlbumViewController.h */,
 				658D325118B1147C007A4D98 /* MGMExampleAlbumViewController.m */,
 			);
@@ -814,8 +926,7 @@
 		658D325218B1147C007A4D98 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				658D325318B1147C007A4D98 /* MGMHomeView.h */,
-				658D325418B1147C007A4D98 /* MGMHomeView.m */,
+				651E8CEA18CA292300333CA1 /* View */,
 				658D325518B1147C007A4D98 /* MGMHomeViewController.h */,
 				658D325618B1147C007A4D98 /* MGMHomeViewController.m */,
 			);
@@ -825,12 +936,11 @@
 		658D325F18B1147C007A4D98 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				651E8CEB18CA293400333CA1 /* View */,
 				658D326018B1147C007A4D98 /* MGMBackgroundAlbumArtFetcher.h */,
 				658D326118B1147C007A4D98 /* MGMBackgroundAlbumArtFetcher.m */,
 				658D326218B1147C007A4D98 /* MGMNavigationViewController.h */,
 				658D326318B1147C007A4D98 /* MGMNavigationViewController.m */,
-				658D326418B1147C007A4D98 /* MGMPulsatingAlbumsView.h */,
-				658D326518B1147C007A4D98 /* MGMPulsatingAlbumsView.m */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -838,9 +948,8 @@
 		658D326618B1147C007A4D98 /* PlayerSelection */ = {
 			isa = PBXGroup;
 			children = (
+				651E8CEC18CA294400333CA1 /* View */,
 				658D326718B1147C007A4D98 /* MGMPlayerSelectionMode.h */,
-				658D326818B1147C007A4D98 /* MGMPlayerSelectionView.h */,
-				658D326918B1147C007A4D98 /* MGMPlayerSelectionView.m */,
 				658D326A18B1147C007A4D98 /* MGMPlayerSelectionViewController.h */,
 				658D326B18B1147C007A4D98 /* MGMPlayerSelectionViewController.m */,
 			);
@@ -850,8 +959,7 @@
 		658D326C18B1147C007A4D98 /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
-				658D326D18B1147C007A4D98 /* MGMNoReachabilityView.h */,
-				658D326E18B1147C007A4D98 /* MGMNoReachabilityView.m */,
+				651E8CED18CA294D00333CA1 /* View */,
 				658D326F18B1147C007A4D98 /* MGMNoReachabilityViewController.h */,
 				658D327018B1147C007A4D98 /* MGMNoReachabilityViewController.m */,
 			);
@@ -861,8 +969,7 @@
 		658D327118B1147C007A4D98 /* Scores */ = {
 			isa = PBXGroup;
 			children = (
-				658D327218B1147C007A4D98 /* MGMAlbumScoresView.h */,
-				658D327318B1147C007A4D98 /* MGMAlbumScoresView.m */,
+				651E8CEE18CA295600333CA1 /* View */,
 				658D327418B1147C007A4D98 /* MGMAlbumScoresViewController.h */,
 				658D327518B1147C007A4D98 /* MGMAlbumScoresViewController.m */,
 			);
@@ -872,10 +979,7 @@
 		658D327618B1147C007A4D98 /* WeeklyChart */ = {
 			isa = PBXGroup;
 			children = (
-				658D327918B1147C007A4D98 /* MGMWeeklyChartModalView.h */,
-				658D327A18B1147C007A4D98 /* MGMWeeklyChartModalView.m */,
-				658D327B18B1147C007A4D98 /* MGMWeeklyChartView.h */,
-				658D327C18B1147C007A4D98 /* MGMWeeklyChartView.m */,
+				651E8CEF18CA295F00333CA1 /* View */,
 				658D327D18B1147C007A4D98 /* MGMWeeklyChartViewController.h */,
 				658D327E18B1147C007A4D98 /* MGMWeeklyChartViewController.m */,
 			);
