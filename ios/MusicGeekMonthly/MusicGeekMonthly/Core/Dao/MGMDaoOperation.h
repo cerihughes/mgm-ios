@@ -20,19 +20,17 @@
 - (id) init __unavailable;
 - (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
 
-- (MGMLocalDataSource*) createLocalDataSource:(MGMCoreDataAccess*)coreDataAccess;
-- (MGMRemoteDataSource*) createRemoteDataSource;
-
-- (BOOL) needsRefresh:(MGMNextUrlAccess*)nextAccess;
-
 - (void) setReachability:(BOOL)reachability;
-
 - (MGMDaoData*) fetchData:(id)key;
 
 @end
 
 @interface MGMDaoOperation (Protected)
 
+- (MGMLocalDataSource*) createLocalDataSource:(MGMCoreDataAccess*)coreDataAccess;
+- (MGMRemoteDataSource*) createRemoteDataSource;
+
 - (NSString*) refreshIdentifierForKey:(id)key;
+- (BOOL) needsRefresh:(MGMNextUrlAccess*)nextAccess;
 
 @end

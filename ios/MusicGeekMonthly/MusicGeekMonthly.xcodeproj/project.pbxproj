@@ -291,7 +291,6 @@
 		658D30DE18B112E3007A4D98 /* MGMWeeklyChartDaoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartDaoOperation.m; sourceTree = "<group>"; };
 		658D30E018B112E3007A4D98 /* MGMCoreDataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataAccess.h; sourceTree = "<group>"; };
 		658D30E118B112E3007A4D98 /* MGMCoreDataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataAccess.m; sourceTree = "<group>"; };
-		658D30E218B112E3007A4D98 /* MGMLocalDataSource+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MGMLocalDataSource+Protected.h"; sourceTree = "<group>"; };
 		658D30E318B112E3007A4D98 /* MGMLocalDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMLocalDataSource.h; sourceTree = "<group>"; };
 		658D30E418B112E3007A4D98 /* MGMLocalDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMLocalDataSource.m; sourceTree = "<group>"; };
 		658D30E518B112E3007A4D98 /* MGMLocalDataSourceThreadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMLocalDataSourceThreadManager.h; sourceTree = "<group>"; };
@@ -318,7 +317,6 @@
 		658D310018B112E3007A4D98 /* MGMTimePeriodDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTimePeriodDto.m; sourceTree = "<group>"; };
 		658D310118B112E3007A4D98 /* MGMWeeklyChartDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWeeklyChartDto.h; sourceTree = "<group>"; };
 		658D310218B112E3007A4D98 /* MGMWeeklyChartDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartDto.m; sourceTree = "<group>"; };
-		658D310318B112E3007A4D98 /* MGMCompletion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCompletion.h; sourceTree = "<group>"; };
 		658D310418B112E3007A4D98 /* MGMCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCore.h; sourceTree = "<group>"; };
 		658D310518B112E3007A4D98 /* MGMCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCore.m; sourceTree = "<group>"; };
 		658D310618B112E3007A4D98 /* MGMErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMErrorCodes.h; sourceTree = "<group>"; };
@@ -680,7 +678,6 @@
 			children = (
 				658D30C718B112E3007A4D98 /* Dao */,
 				658D30F418B112E3007A4D98 /* Dto */,
-				658D310318B112E3007A4D98 /* MGMCompletion.h */,
 				658D310418B112E3007A4D98 /* MGMCore.h */,
 				658D310518B112E3007A4D98 /* MGMCore.m */,
 				658D310618B112E3007A4D98 /* MGMErrorCodes.h */,
@@ -754,7 +751,6 @@
 			children = (
 				658D30E018B112E3007A4D98 /* MGMCoreDataAccess.h */,
 				658D30E118B112E3007A4D98 /* MGMCoreDataAccess.m */,
-				658D30E218B112E3007A4D98 /* MGMLocalDataSource+Protected.h */,
 				658D30E318B112E3007A4D98 /* MGMLocalDataSource.h */,
 				658D30E418B112E3007A4D98 /* MGMLocalDataSource.m */,
 				658D30E518B112E3007A4D98 /* MGMLocalDataSourceThreadManager.h */,

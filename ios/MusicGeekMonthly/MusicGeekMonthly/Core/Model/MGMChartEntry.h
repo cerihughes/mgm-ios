@@ -9,7 +9,6 @@
 #import <CoreData/CoreData.h>
 
 #import "MGMAlbum.h"
-#import "MGMCompletion.h"
 
 @class MGMWeeklyChart;
 

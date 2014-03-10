@@ -59,27 +59,26 @@
         NSManagedObjectID* moid = [self.chartEntryMoids objectAtIndex:randomIndex];
         MGMChartEntry* randomEntry = [self.coreDataAccess threadVersion:moid];
         MGMAlbum* randomAlbum = randomEntry.album;
-        [self fetchBestAlbumImage:randomAlbum completion:^(UIImage* image, NSError* error)
+        NSError* error = nil;
+        UIImage* image = [self fetchBestAlbumImage:randomAlbum error:&error];
+        if (error)
         {
-            if (error)
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // ... fire the delegate in the main thread...
+                [self.delegate artFetcher:self errorOccured:error atIndex:index];
+            });
+        }
+        else
+        {
+            if (image == nil)
             {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    // ... fire the delegate in the main thread...
-                    [self.delegate artFetcher:self errorOccured:error atIndex:index];
-                });
+                [self generateImageSyncAtIndex:index attempt:attempt + 1];
             }
             else
             {
-                if (image == nil)
-                {
-                    [self generateImageSyncAtIndex:index attempt:attempt + 1];
-                }
-                else
-                {
-                    [self fireDelegateForImage:image index:index];
-                }
+                [self fireDelegateForImage:image index:index];
             }
-        }];
+        }
     }
 }
 
@@ -91,25 +90,26 @@
     });
 }
 
-- (void) fetchBestAlbumImage:(MGMAlbum*)album completion:(FETCH_COMPLETION)completion
+- (UIImage*) fetchBestAlbumImage:(MGMAlbum*)album error:(NSError**)error
 {
     NSError* refreshError = nil;
     [self.albumRenderService refreshAlbumImages:album error:&refreshError];
     if (refreshError == nil)
     {
         NSArray* urls = [album bestImageUrlsWithPreferredSize:self.preferredSize];
-        NSError* imageError = nil;
-        UIImage* image = nil;
         if (urls.count > 0)
         {
-            image = [self.imageHelper imageFromUrls:urls error:&imageError];
+            return [self.imageHelper imageFromUrls:urls error:error];
         }
-        completion(image, imageError);
     }
     else
     {
-        completion(nil, refreshError);
+        if (error)
+        {
+            *error = refreshError;
+        }
     }
+    return nil;
 }
 
 @end
