@@ -88,10 +88,12 @@
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler
 {
     NSLog(@"application:performFetchWithCompletionHandler:");
-    MGMCoreBackgroundFetchResult coreFetchResult = [self.ui.core performBackgroundFetch];
-    UIBackgroundFetchResult uiFetchResult = [self uiFetchResultForCoreFetchResult:coreFetchResult];
-    NSLog(@"application:performFetchWithCompletionHandler: completed with %lu", (unsigned long)uiFetchResult);
-    completionHandler(uiFetchResult);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        MGMCoreBackgroundFetchResult coreFetchResult = [self.ui.core performBackgroundFetch];
+        UIBackgroundFetchResult uiFetchResult = [self uiFetchResultForCoreFetchResult:coreFetchResult];
+        NSLog(@"application:performFetchWithCompletionHandler: completed with %lu", (unsigned long)uiFetchResult);
+        completionHandler(uiFetchResult);
+    });
 }
 
 - (UIBackgroundFetchResult) uiFetchResultForCoreFetchResult:(MGMCoreBackgroundFetchResult)coreFetchResult

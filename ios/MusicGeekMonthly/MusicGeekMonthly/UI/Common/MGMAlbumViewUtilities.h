@@ -12,13 +12,14 @@
 #import "MGMAlbumDto.h"
 #import "MGMAlbumRenderService.h"
 #import "MGMAlbumView.h"
+#import "MGMCoreDataAccess.h"
 #import "MGMImageHelper.h"
 #import "MGMPlaylistItem.h"
 
 @interface MGMAlbumViewUtilities : NSObject
 
 - (id) init __unavailable;
-- (id) initWithImageHelper:(MGMImageHelper*)imageHelper renderService:(MGMAlbumRenderService*)renderService;
+- (id) initWithImageHelper:(MGMImageHelper*)imageHelper renderService:(MGMAlbumRenderService*)renderService coreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
 
 - (MGMAlbumImageSize) preferredImageSizeForViewSize:(CGSize)viewSize;
 - (void) displayAlbumDto:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error;

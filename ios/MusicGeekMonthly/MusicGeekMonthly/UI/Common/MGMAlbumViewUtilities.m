@@ -15,17 +15,19 @@
 
 @property (readonly) MGMImageHelper* imageHelper;
 @property (readonly) MGMAlbumRenderService* renderService;
+@property (readonly) MGMCoreDataAccess* coreDataAccess;
 
 @end
 
 @implementation MGMAlbumViewUtilities
 
-- (id) initWithImageHelper:(MGMImageHelper*)imageHelper renderService:(MGMAlbumRenderService *)renderService
+- (id) initWithImageHelper:(MGMImageHelper*)imageHelper renderService:(MGMAlbumRenderService *)renderService coreDataAccess:(MGMCoreDataAccess*)coreDataAccess
 {
     if (self = [super init])
     {
         _imageHelper = imageHelper;
         _renderService = renderService;
+        _coreDataAccess = coreDataAccess;
     }
     return self;
 }
@@ -118,29 +120,31 @@
 
 - (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView rank:(NSUInteger)rank listeners:(NSUInteger)listeners error:(NSError**)error
 {
+    NSManagedObjectID* albumMoid = album.objectID;
     dispatch_async(dispatch_get_main_queue(), ^{
+        MGMAlbum* mainThreadAlbum = [self.coreDataAccess threadVersion:albumMoid];
         albumView.activityInProgress = YES;
         if (album)
         {
-            albumView.artistName = album.artistName;
+            albumView.artistName = mainThreadAlbum.artistName;
         }
         else
         {
             albumView.artistName = @"NO ALBUM";
         }
-        albumView.albumName = album.albumName;
-        albumView.score = [album.score floatValue];
+        albumView.albumName = mainThreadAlbum.albumName;
+        albumView.score = [mainThreadAlbum.score floatValue];
         albumView.rank = rank;
         albumView.listeners = listeners;
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self.renderService refreshAlbumImages:album error:error];
+            MGMAlbum* bgThreadAlbum = [self.coreDataAccess threadVersion:albumMoid];
+            [self.renderService refreshAlbumImages:bgThreadAlbum error:error];
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self displayAlbumImage:album inAlbumView:albumView error:error];
+                [self displayAlbumImage:mainThreadAlbum inAlbumView:albumView error:error];
             });
         });
-
     });
 }
 

@@ -57,7 +57,7 @@ static BOOL _isIpad;
         _albumPlayer.ui = self;
 
         _imageHelper = [[MGMImageHelper alloc] init];
-        _viewUtilities = [[MGMAlbumViewUtilities alloc] initWithImageHelper:_imageHelper renderService:_core.albumRenderService];
+        _viewUtilities = [[MGMAlbumViewUtilities alloc] initWithImageHelper:_imageHelper renderService:_core.albumRenderService coreDataAccess:_core.coreDataAccess];
 
         _reachabilityManager = [[MGMReachabilityManager alloc] init];
         [_reachabilityManager registerForReachabilityTo:REACHABILITY_END_POINT];

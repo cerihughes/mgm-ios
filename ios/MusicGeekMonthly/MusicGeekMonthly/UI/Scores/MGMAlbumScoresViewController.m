@@ -129,22 +129,24 @@
 
 - (void) reloadAlbums
 {
-    NSUInteger position = 1;
-    for (NSManagedObjectID* albumMoid in self.albumMoids)
-    {
-        MGMAlbum* album = [self.core.coreDataAccess threadVersion:albumMoid];
-        NSError* refreshError = nil;
-        [self.core.albumRenderService refreshAlbumImages:album error:&refreshError];
-
-        if (refreshError)
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSUInteger position = 1;
+        for (NSManagedObjectID* albumMoid in self.albumMoids)
         {
-            [self logError:refreshError];
+            MGMAlbum* album = [self.core.coreDataAccess threadVersion:albumMoid];
+            NSError* refreshError = nil;
+            [self.core.albumRenderService refreshAlbumImages:album error:&refreshError];
+
+            if (refreshError)
+            {
+                [self logError:refreshError];
+            }
+
+            [self renderAlbum:album atPostion:position];
+            
+            position++;
         }
-
-        [self renderAlbum:album atPostion:position];
-
-        position++;
-    }
+    });
 }
 
 - (void) renderAlbum:(MGMAlbum*)album atPostion:(NSUInteger)position
