@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMLocalDataSource+Protected.h"
+#import "MGMLocalDataSource.h"
 
 @implementation MGMLocalDataSource
 

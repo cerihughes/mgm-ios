@@ -31,18 +31,6 @@
     return self;
 }
 
-- (MGMLocalDataSource*) createLocalDataSource:(MGMCoreDataAccess*)coreDataAccess
-{
-    // OVERRIDE
-    return nil;
-}
-
-- (MGMRemoteDataSource*) createRemoteDataSource
-{
-    // OVERRIDE
-    return nil;
-}
-
 - (NSUInteger) daysBetweenRemoteFetch
 {
     return 1;
@@ -107,12 +95,6 @@
     return [MGMDaoData dataWithLocalData:localData isNew:isNew];
 }
 
-- (BOOL) needsRefresh:(MGMNextUrlAccess*)nextAccess
-{
-    NSDate* nextAccessDate = nextAccess.date;
-    return nextAccessDate == nil || ([[NSDate date] earlierDate:nextAccessDate] == nextAccessDate);
-}
-
 - (BOOL) setNextRefresh:(NSString*)identifier inDays:(NSUInteger)days error:(NSError**)error
 {
     NSDateComponents* components = [[NSDateComponents alloc] init];
@@ -129,9 +111,27 @@
 
 @implementation MGMDaoOperation (Protected)
 
+- (MGMLocalDataSource*) createLocalDataSource:(MGMCoreDataAccess*)coreDataAccess
+{
+    // OVERRIDE
+    return nil;
+}
+
+- (MGMRemoteDataSource*) createRemoteDataSource
+{
+    // OVERRIDE
+    return nil;
+}
+
 - (NSString*) refreshIdentifierForKey:(id)key
 {
     return nil;
+}
+
+- (BOOL) needsRefresh:(MGMNextUrlAccess*)nextAccess
+{
+    NSDate* nextAccessDate = nextAccess.date;
+    return nextAccessDate == nil || ([[NSDate date] earlierDate:nextAccessDate] == nextAccessDate);
 }
 
 @end
