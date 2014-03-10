@@ -18,7 +18,7 @@
 @protocol MGMBackgroundAlbumArtFetcherDelegate <NSObject>
 
 - (void) artFetcher:(MGMBackgroundAlbumArtFetcher*)fetcher renderImage:(UIImage*)image atIndex:(NSUInteger)index;
-- (void) artFetcher:(MGMBackgroundAlbumArtFetcher*)fetcher errorOccured:(NSError*)error;
+- (void) artFetcher:(MGMBackgroundAlbumArtFetcher*)fetcher errorOccured:(NSError*)error atIndex:(NSUInteger)index;
 
 @end
 

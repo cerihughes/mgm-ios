@@ -8,8 +8,6 @@
 
 #import "MGMDaoOperation.h"
 
-#import "MGMRemoteJsonDataSource.h"
-
 @interface MGMWeeklyChartData : NSObject
 
 @property (strong) NSDate* startDate;
@@ -19,14 +17,12 @@
 
 @interface MGMWeeklyChartDaoOperation : MGMDaoOperation
 
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
-
 @end
 
 @interface MGMWeeklyChartLocalDataSource : MGMLocalDataSource
 
 @end
 
-@interface MGMWeeklyChartRemoteDataSource : MGMRemoteJsonDataSource
+@interface MGMWeeklyChartRemoteDataSource : MGMRemoteDataSource
 
 @end

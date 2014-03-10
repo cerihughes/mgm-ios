@@ -15,6 +15,4 @@
 - (id) init __unavailable;
 - (id) initWithUI:(MGMUI*)ui;
 
-- (void) startRendering;
-
 @end

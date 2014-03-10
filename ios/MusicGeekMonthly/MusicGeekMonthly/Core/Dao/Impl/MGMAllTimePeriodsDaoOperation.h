@@ -8,11 +8,7 @@
 
 #import "MGMDaoOperation.h"
 
-#import "MGMRemoteJsonDataSource.h"
-
 @interface MGMAllTimePeriodsDaoOperation : MGMDaoOperation
-
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
 
 @end
 
@@ -20,6 +16,6 @@
 
 @end
 
-@interface MGMAllTimePeriodsRemoteDataSource : MGMRemoteJsonDataSource
+@interface MGMAllTimePeriodsRemoteDataSource : MGMRemoteDataSource
 
 @end

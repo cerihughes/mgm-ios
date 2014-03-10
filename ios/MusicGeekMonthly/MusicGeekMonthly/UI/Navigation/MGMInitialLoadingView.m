@@ -23,7 +23,7 @@
 {
     [super commonInit];
     
-    self.backgroundColor = [UIColor grayColor];
+    self.backgroundColor = [UIColor lightGrayColor];
 
     _parentView = [[UIView alloc] initWithFrame:CGRectZero];
 
@@ -36,6 +36,18 @@
     [_parentView addSubview:_activityIndicatorView];
 
     [self addSubview:_parentView];
+}
+
+- (void) setOperationInProgress:(BOOL)operationInProgress
+{
+    if (operationInProgress)
+    {
+        [_activityIndicatorView startAnimating];
+    }
+    else
+    {
+        [_activityIndicatorView stopAnimating];
+    }
 }
 
 - (void) layoutSubviewsIphone
@@ -56,9 +68,9 @@
 
     self.parentView.frame = self.frame;
 
-    self.statusLabel.frame = CGRectMake(0, 100, 768, 60);
-    self.imageView.frame = CGRectMake(128, 200, 512, 512);
-    self.activityIndicatorView.frame = CGRectMake(128, 760, 512, 200);
+    self.imageView.frame = CGRectMake(128, 256, 512, 512);
+    self.statusLabel.frame = CGRectMake(0, 800, 768, 60);
+    self.activityIndicatorView.frame = CGRectMake(334, 850, 100, 100);
 }
 
 @end

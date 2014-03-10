@@ -8,18 +8,23 @@
 
 #import "MGMAllEventsDaoOperation.h"
 
-#import "MGMLastFmConstants.h"
 #import "MGMEventDto.h"
+#import "MGMLastFmConstants.h"
+#import "MGMRemoteHttpDataReader.h"
+#import "MGMRemoteJsonDataConverter.h"
 
 @implementation MGMAllEventsDaoOperation
 
 #define REFRESH_IDENTIFIER_ALL_EVENTS @"REFRESH_IDENTIFIER_ALL_EVENTS"
 
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
+- (MGMLocalDataSource*) createLocalDataSource:(MGMCoreDataAccess*)coreDataAccess
 {
-    MGMLocalDataSource* localDataSource = [[MGMAllEventsLocalDataSource alloc] initWithCoreDataAccess:coreDataAccess];
-    MGMRemoteDataSource* remoteDataSource = [[MGMAllEventsRemoteDataSource alloc] init];
-    return [super initWithCoreDataAccess:coreDataAccess localDataSource:localDataSource remoteDataSource:remoteDataSource daysBetweenRemoteFetch:1];
+    return [[MGMAllEventsLocalDataSource alloc] initWithCoreDataAccess:coreDataAccess];
+}
+
+- (MGMRemoteDataSource*) createRemoteDataSource
+{
+    return [[MGMAllEventsRemoteDataSource alloc] init];
 }
 
 - (NSString*) refreshIdentifierForKey:(id)key
@@ -62,9 +67,26 @@
 
 @end
 
-@implementation MGMAllEventsRemoteDataSource
+@interface MGMAllEventsRemoteDataReader : MGMRemoteHttpDataReader
+
+@end
+
+@implementation MGMAllEventsRemoteDataReader
 
 #define EVENTS_URL @"http://music-geek-monthly.appspot.com/json/events.json"
+
+- (NSString*) urlForKey:(id)key
+{
+    return EVENTS_URL;
+}
+
+@end
+
+@interface MGMAllEventsRemoteDataConverter : MGMRemoteJsonDataConverter
+
+@end
+
+@implementation MGMAllEventsRemoteDataConverter
 
 #define JSON_ELEMENT_LAST_UPDATE @"lastUpdate"
 #define JSON_ELEMENT_EVENTS @"events"
@@ -85,11 +107,6 @@
 #define METADATA_KEY_YOUTUBE @"youtube"
 #define METADATA_KEY_ITUNES @"itunes"
 #define METADATA_KEY_DEEZER @"deezer"
-
-- (NSString*) urlForKey:(id)key
-{
-    return EVENTS_URL;
-}
 
 - (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key
 {
@@ -192,6 +209,20 @@
         return MGMAlbumServiceTypeDeezer;
     }
     return MGMAlbumServiceTypeNone;
+}
+
+@end
+
+@implementation MGMAllEventsRemoteDataSource
+
+- (MGMRemoteDataReader*) createRemoteDataReader
+{
+    return [[MGMAllEventsRemoteDataReader alloc] init];
+}
+
+- (MGMRemoteDataConverter*) createRemoteDataConverter
+{
+    return [[MGMAllEventsRemoteDataConverter alloc] init];
 }
 
 @end

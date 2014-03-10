@@ -1,14 +1,14 @@
 //
-//  MGMRemoteXmlDataSource.m
+//  MGMRemoteXmlDataConverter.m
 //  MusicGeekMonthly
 //
 //  Created by Ceri Hughes on 22/02/2014.
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMRemoteXmlDataSource.h"
+#import "MGMRemoteXmlDataConverter.h"
 
-@implementation MGMRemoteXmlDataSource
+@implementation MGMRemoteXmlDataConverter
 
 - (MGMRemoteData*) convertRemoteData:(NSData *)remoteData key:(id)key
 {
@@ -25,12 +25,9 @@
     return [self convertXmlData:xml key:key];
 }
 
-@end
-
-@implementation MGMRemoteXmlDataSource (Protected)
-
 - (MGMRemoteData*) convertXmlData:(NSDictionary*)xml key:(id)key
 {
+    // OVERRIDE
     return nil;
 }
 

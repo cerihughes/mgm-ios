@@ -63,7 +63,10 @@
         {
             if (error)
             {
-                [self.delegate artFetcher:self errorOccured:error];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // ... fire the delegate in the main thread...
+                    [self.delegate artFetcher:self errorOccured:error atIndex:index];
+                });
             }
             else
             {
@@ -82,8 +85,7 @@
 
 - (void) fireDelegateForImage:(UIImage*)image index:(NSUInteger)index
 {
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
+    dispatch_async(dispatch_get_main_queue(), ^{
         // ... fire the delegate in the main thread...
         [self.delegate artFetcher:self renderImage:image atIndex:index];
     });

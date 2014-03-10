@@ -1,5 +1,5 @@
 //
-//  MGMRemoteXmlDataSource.h
+//  MGMRemoteXmlDataConverter.h
 //  MusicGeekMonthly
 //
 //  Created by Ceri Hughes on 22/02/2014.
@@ -10,14 +10,7 @@
 
 #import "MGMXmlParser.h"
 
-@interface MGMRemoteXmlDataSource : MGMRemoteDataSource
-
-@end
-
-@interface MGMRemoteXmlDataSource (Protected)
-
-#pragma mark -
-#pragma mark Override the following
+@interface MGMRemoteXmlDataConverter : MGMRemoteDataConverter
 
 - (MGMRemoteData*) convertXmlData:(NSDictionary*)xml key:(id)key;
 

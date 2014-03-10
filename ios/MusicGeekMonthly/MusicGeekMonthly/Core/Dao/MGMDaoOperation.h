@@ -15,8 +15,15 @@
 
 @interface MGMDaoOperation : NSObject
 
+@property (readonly) NSUInteger daysBetweenRemoteFetch;
+
 - (id) init __unavailable;
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess localDataSource:(MGMLocalDataSource*)localDataSource remoteDataSource:(MGMRemoteDataSource*)remoteDataSource daysBetweenRemoteFetch:(NSUInteger)daysBetweenRemoteFetch;
+- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
+
+- (MGMLocalDataSource*) createLocalDataSource:(MGMCoreDataAccess*)coreDataAccess;
+- (MGMRemoteDataSource*) createRemoteDataSource;
+
+- (BOOL) needsRefresh:(MGMNextUrlAccess*)nextAccess;
 
 - (void) setReachability:(BOOL)reachability;
 

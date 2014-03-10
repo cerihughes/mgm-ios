@@ -14,17 +14,27 @@
 #import "MGMPlaylistDto.h"
 #import "MGMPlaylistItem.h"
 #import "MGMPlaylistItemDto.h"
+#import "MGMRemoteHttpDataReader.h"
+#import "MGMRemoteXmlDataConverter.h"
 #import "MGMSpotifyConstants.h"
 
 @implementation MGMPlaylistDaoOperation
 
 #define REFRESH_IDENTIFIER_PLAYLIST @"REFRESH_IDENTIFIER_PLAYLIST_ID_%@"
 
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
+- (MGMLocalDataSource*) createLocalDataSource:(MGMCoreDataAccess*)coreDataAccess
 {
-    MGMLocalDataSource* localDataSource = [[MGMPlaylistLocalDataSource alloc] initWithCoreDataAccess:coreDataAccess];
-    MGMRemoteDataSource* remoteDataSource = [[MGMPlaylistRemoteDataSource alloc] init];
-    return [super initWithCoreDataAccess:coreDataAccess localDataSource:localDataSource remoteDataSource:remoteDataSource daysBetweenRemoteFetch:7];
+    return [[MGMPlaylistLocalDataSource alloc] initWithCoreDataAccess:coreDataAccess];
+}
+
+- (MGMRemoteDataSource*) createRemoteDataSource
+{
+    return [[MGMPlaylistRemoteDataSource alloc] init];
+}
+
+- (NSUInteger) daysBetweenRemoteFetch
+{
+    return 7;
 }
 
 - (NSString*) refreshIdentifierForKey:(id)key
@@ -53,7 +63,11 @@
 
 @end
 
-@implementation MGMPlaylistRemoteDataSource
+@interface MGMPlaylistRemoteDataReader : MGMRemoteHttpDataReader
+
+@end
+
+@implementation MGMPlaylistRemoteDataReader
 
 #define EMBEDDED_PLAYLIST_URL @"https://embed.spotify.com/?uri=%@"
 
@@ -63,6 +77,14 @@
     NSString* spotifyUrl = [NSString stringWithFormat:SPOTIFY_PLAYLIST_URI_PATTERN, SPOTIFY_USER_ANDREW_JONES, data];
     return [NSString stringWithFormat:EMBEDDED_PLAYLIST_URL, spotifyUrl];
 }
+
+@end
+
+@interface MGMPlaylistRemoteDataConverter : MGMRemoteXmlDataConverter
+
+@end
+
+@implementation MGMPlaylistRemoteDataConverter
 
 - (MGMRemoteData*) convertRemoteData:(NSData *)remoteData key:(id)key
 {
@@ -153,6 +175,20 @@
     [playlistItem.imageUris addObject:largeImageUri];
 
     return playlistItem;
+}
+
+@end
+
+@implementation MGMPlaylistRemoteDataSource
+
+- (MGMRemoteDataReader*) createRemoteDataReader
+{
+    return [[MGMPlaylistRemoteDataReader alloc] init];
+}
+
+- (MGMRemoteDataConverter*) createRemoteDataConverter
+{
+    return [[MGMPlaylistRemoteDataConverter alloc] init];
 }
 
 @end

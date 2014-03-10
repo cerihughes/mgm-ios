@@ -14,23 +14,38 @@
 @property (readonly) MGMCoreDataAccess* coreDataAccess;
 @property (readonly) MGMLocalDataSource* localDataSource;
 @property (readonly) MGMRemoteDataSource* remoteDataSource;
-@property (readonly) NSUInteger daysBetweenRemoteFetch;
 
 @end
 
 @implementation MGMDaoOperation
 
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess localDataSource:(MGMLocalDataSource *)localDataSource remoteDataSource:(MGMRemoteDataSource *)remoteDataSource daysBetweenRemoteFetch:(NSUInteger)daysBetweenRemoteFetch
+- (id) initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess
 {
     if (self = [super init])
     {
         _operationLock = [[NSLock alloc] init];
         _coreDataAccess = coreDataAccess;
-        _localDataSource = localDataSource;
-        _remoteDataSource = remoteDataSource;
-        _daysBetweenRemoteFetch = daysBetweenRemoteFetch;
+        _localDataSource = [self createLocalDataSource:coreDataAccess];
+        _remoteDataSource = [self createRemoteDataSource];
     }
     return self;
+}
+
+- (MGMLocalDataSource*) createLocalDataSource:(MGMCoreDataAccess*)coreDataAccess
+{
+    // OVERRIDE
+    return nil;
+}
+
+- (MGMRemoteDataSource*) createRemoteDataSource
+{
+    // OVERRIDE
+    return nil;
+}
+
+- (NSUInteger) daysBetweenRemoteFetch
+{
+    return 1;
 }
 
 - (void) setReachability:(BOOL)reachability

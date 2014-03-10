@@ -132,10 +132,16 @@
         albumView.score = [album.score floatValue];
         albumView.rank = rank;
         albumView.listeners = listeners;
-    });
 
-    [self.renderService refreshAlbumImages:album error:error];
-    [self displayAlbumImage:album inAlbumView:albumView error:error];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self.renderService refreshAlbumImages:album error:error];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self displayAlbumImage:album inAlbumView:albumView error:error];
+            });
+        });
+
+    });
 }
 
 - (void) displayAlbumImage:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView error:(NSError**)error

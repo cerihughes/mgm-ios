@@ -59,8 +59,10 @@
     }
 }
 
-- (void) startRendering
+- (void) viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+
     if (self.renderingImages == NO)
     {
         [self loadImages];
@@ -224,9 +226,10 @@
     [self renderBackgroundAlbumImage:image atIndex:index animation:YES];
 }
 
-- (void) artFetcher:(MGMBackgroundAlbumArtFetcher*)fetcher errorOccured:(NSError*)error
+- (void) artFetcher:(MGMBackgroundAlbumArtFetcher*)fetcher errorOccured:(NSError*)error atIndex:(NSUInteger)index
 {
     [self.ui logError:error];
+    [self artFetcher:fetcher renderImage:nil atIndex:index];
 }
 
 #pragma mark -

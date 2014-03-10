@@ -12,9 +12,16 @@
 #import "MGMAllTimePeriodsDaoOperation.h"
 #import "MGMCoreDataAccess.h"
 #import "MGMPlaylistDaoOperation.h"
+#import "MGMPreloadEventsDaoOperation.h"
+#import "MGMPreloadTimePeriodsDaoOperation.h"
+#import "MGMPreloadWeeklyChartDaoOperation.h"
 #import "MGMWeeklyChartDaoOperation.h"
 
 @interface MGMDao ()
+
+@property (readonly) MGMPreloadEventsDaoOperation* preloadEventDaoOperation;
+@property (readonly) MGMPreloadTimePeriodsDaoOperation* preloadTimePeriodDaoOperation;
+@property (readonly) MGMPreloadWeeklyChartDaoOperation* preloadWeeklyChartDaoOperation;
 
 @property (readonly) MGMAllEventsDaoOperation* eventDaoOperation;
 @property (readonly) MGMAllTimePeriodsDaoOperation* timePeriodDaoOperation;
@@ -29,6 +36,13 @@
 {
     if (self = [super init])
     {
+        _preloadEventDaoOperation = [[MGMPreloadEventsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
+        _preloadEventDaoOperation.reachability = YES;
+        _preloadTimePeriodDaoOperation = [[MGMPreloadTimePeriodsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
+        _preloadTimePeriodDaoOperation.reachability = YES;
+        _preloadWeeklyChartDaoOperation = [[MGMPreloadWeeklyChartDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
+        _preloadWeeklyChartDaoOperation.reachability = YES;
+
         _eventDaoOperation = [[MGMAllEventsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
         _timePeriodDaoOperation = [[MGMAllTimePeriodsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
         _weeklyChartDaoOperation = [[MGMWeeklyChartDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
@@ -43,6 +57,24 @@
     self.timePeriodDaoOperation.reachability = reachability;
     self.weeklyChartDaoOperation.reachability = reachability;
     self.playlistDaoOperation.reachability = reachability;
+}
+
+- (MGMDaoData*) preloadEvents
+{
+    return [self.preloadEventDaoOperation fetchData:ALL_EVENTS_KEY];
+}
+
+- (MGMDaoData*) preloadTimePeriods
+{
+    return [self.preloadTimePeriodDaoOperation fetchData:nil];
+}
+
+- (MGMDaoData*) preloadWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate
+{
+    MGMWeeklyChartData* data = [[MGMWeeklyChartData alloc] init];
+    data.startDate = startDate;
+    data.endDate = endDate;
+    return [self.preloadWeeklyChartDaoOperation fetchData:data];
 }
 
 - (MGMDaoData*) fetchAllEvents

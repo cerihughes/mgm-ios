@@ -18,6 +18,10 @@
 
 - (void) setReachability:(BOOL)reachability;
 
+- (MGMDaoData*) preloadEvents;
+- (MGMDaoData*) preloadTimePeriods;
+- (MGMDaoData*) preloadWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate;
+
 - (MGMDaoData*) fetchAllEvents;
 - (MGMDaoData*) fetchAllClassicAlbums;
 - (MGMDaoData*) fetchAllNewlyReleasedAlbums;

@@ -70,22 +70,27 @@
 
 - (void) viewDidAppear:(BOOL)animated
 {
-    NSError* error = nil;
-    [self.dataSource.fetchedResultsController performFetch:&error];
-    if (error != nil)
-    {
-        [self showError:error];
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError* error = nil;
+        [self.core.dao fetchAllTimePeriods];
+        [self.dataSource.fetchedResultsController performFetch:&error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error != nil)
+            {
+                [self showError:error];
+            }
 
-    [self.modalView.timePeriodTable reloadData];
+            [self.modalView.timePeriodTable reloadData];
 
-    if (self.weeklyChartMoid == nil && self.dataSource.fetchedResultsController.fetchedObjects.count > 0)
-    {
-        // Auto-populate for 1st entry...
-        NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-        [self.modalView.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-        [self tableView:self.modalView.timePeriodTable didSelectRowAtIndexPath:firstItem];
-    }
+            if (self.weeklyChartMoid == nil && self.dataSource.fetchedResultsController.fetchedObjects.count > 0)
+            {
+                // Auto-populate for 1st entry...
+                NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
+                [self.modalView.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+                [self tableView:self.modalView.timePeriodTable didSelectRowAtIndexPath:firstItem];
+            }
+        });
+    });
 }
 
 - (void) loadAlbumsForPeriod:(MGMTimePeriod*)timePeriod

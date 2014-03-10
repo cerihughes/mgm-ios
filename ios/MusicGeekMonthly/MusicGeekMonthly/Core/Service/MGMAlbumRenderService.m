@@ -11,47 +11,17 @@
 #import "MGMAlbumImageUriDto.h"
 #import "MGMErrorCodes.h"
 #import "MGMLastFmConstants.h"
+#import "MGMRemoteHttpDataReader.h"
+#import "MGMRemoteJsonDataConverter.h"
 
-@interface MGMAlbumRenderService ()
-
-@property (readonly) MGMCoreDataAccess* coreDataAccess;
+@interface MGMAlbumRenderServiceDataReader : MGMRemoteHttpDataReader
 
 @end
 
-@implementation MGMAlbumRenderService
+@implementation MGMAlbumRenderServiceDataReader
 
 #define ALBUM_INFO_MBID_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getInfo&api_key=%@&mbid=%@&format=json"
 #define ALBUM_INFO_TITLES_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getInfo&api_key=%@&artist=%@&album=%@&format=json"
-#define MUSIC_BRAINZ_IMAGE_URL @"http://coverartarchive.org/release/%@/front-%d.jpg"
-
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
-{
-    if (self = [super init])
-    {
-        _coreDataAccess = coreDataAccess;
-    }
-    return self;
-}
-
-- (BOOL) refreshAlbumImages:(MGMAlbum*)album error:(NSError**)error
-{
-    if (album.searchedImages == NO && album.imageUris.count == 0)
-    {
-        NSArray* imageUris = [self imageUrlsForAlbum:album];
-        [self.coreDataAccess addImageUris:imageUris toAlbum:album error:error];
-        return MGM_NO_ERROR(&error);
-    }
-    return YES;
-}
-
-- (NSArray*) imageUrlsForAlbum:(MGMAlbum *)album
-{
-    MGMRemoteData* remoteData = [self fetchRemoteData:album];
-    return remoteData.data;
-}
-
-#pragma mark -
-#pragma mark MGMRemoteDataSource
 
 - (NSString*) urlForKey:(id)key
 {
@@ -70,6 +40,16 @@
         return [NSString stringWithFormat:ALBUM_INFO_TITLES_URL, API_KEY, artistName, albumName];
     }
 }
+
+@end
+
+@interface MGMAlbumRenderServiceDataConverter : MGMRemoteJsonDataConverter
+
+@end
+
+@implementation MGMAlbumRenderServiceDataConverter
+
+#define MUSIC_BRAINZ_IMAGE_URL @"http://coverartarchive.org/release/%@/front-%d.jpg"
 
 - (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key
 {
@@ -148,6 +128,58 @@
         return MGMAlbumImageSize512;
     }
     return MGMAlbumImageSizeNone;
+}
+
+@end
+
+@interface MGMAlbumRenderService ()
+
+@property (readonly) MGMCoreDataAccess* coreDataAccess;
+
+@end
+
+@implementation MGMAlbumRenderService
+
+- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
+{
+    if (self = [super init])
+    {
+        _coreDataAccess = coreDataAccess;
+    }
+    return self;
+}
+
+- (MGMRemoteDataReader*) createRemoteDataReader
+{
+    return [[MGMAlbumRenderServiceDataReader alloc] init];
+}
+
+- (MGMRemoteDataConverter*) createRemoteDataConverter
+{
+    return [[MGMAlbumRenderServiceDataConverter alloc] init];
+}
+
+- (BOOL) refreshAlbumImages:(MGMAlbum*)album error:(NSError**)error
+{
+    if (album.searchedImages == NO && album.imageUris.count == 0)
+    {
+        MGMRemoteData* remoteData = [self fetchRemoteData:album];
+        if (remoteData.error)
+        {
+            if (error)
+            {
+                *error = remoteData.error;
+            }
+            return NO;
+        }
+        else
+        {
+            NSArray* imageUris = remoteData.data;
+            [self.coreDataAccess addImageUris:imageUris toAlbum:album error:error];
+            return MGM_NO_ERROR(&error);
+        }
+    }
+    return YES;
 }
 
 @end

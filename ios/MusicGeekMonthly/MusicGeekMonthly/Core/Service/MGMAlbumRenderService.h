@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMRemoteJsonDataSource.h"
+#import "MGMRemoteDataSource.h"
 
 #import "MGMAlbum.h"
 #import "MGMCoreDataAccess.h"
 
-@interface MGMAlbumRenderService : MGMRemoteJsonDataSource
+@interface MGMAlbumRenderService : MGMRemoteDataSource
 
 - (id) init __unavailable;
 - (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;

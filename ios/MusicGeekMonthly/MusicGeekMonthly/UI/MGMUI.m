@@ -50,7 +50,7 @@ static BOOL _isIpad;
             _exampleAlbumViewController.modalPresentationStyle = UIModalPresentationFormSheet;
         }
 
-        _parentViewController = [[MGMTabBarController alloc] initWithUI:self];
+        _parentViewController = [[MGMNavigationController alloc] initWithUI:self];
 
         _albumPlayer = [[MGMAlbumPlayer alloc] init];
         _albumPlayer.serviceManager = self.core.serviceManager;
@@ -62,8 +62,6 @@ static BOOL _isIpad;
         _reachabilityManager = [[MGMReachabilityManager alloc] init];
         [_reachabilityManager registerForReachabilityTo:REACHABILITY_END_POINT];
         [_reachabilityManager addListener:self];
-        
-
     }
     return self;
 }
@@ -90,10 +88,9 @@ static BOOL _isIpad;
 
 - (void) uiDidBecomeActive
 {
-    [self.parentViewController startRendering];
-
+    // TODO: FIX THIS
     // This should be driven from a callback?
-    [self performSelector:@selector(checkPlayer) withObject:nil afterDelay:2];
+//    [self performSelector:@selector(checkPlayer) withObject:nil afterDelay:2];
 }
 
 - (void) checkPlayer

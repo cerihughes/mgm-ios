@@ -8,66 +8,28 @@
 
 #import "MGMSpotifyPlayerService.h"
 
+#import "MGMRemoteHttpDataReader.h"
+#import "MGMRemoteJsonDataConverter.h"
 #import "MGMSpotifyConstants.h"
 
-@interface MGMSpotifyPlayerService ()
+@interface MGMSpotifyPlayerDataReader : MGMRemoteHttpDataReader
 
-@property (strong) NSDictionary* acceptJson;
+@property (readonly) NSDictionary* acceptJson;
 
 @end
 
-@implementation MGMSpotifyPlayerService
+@implementation MGMSpotifyPlayerDataReader
 
 #define REST_SEARCH_URL @"http://ws.spotify.com/search/1/album?q=%@+%@"
-#define TERRITORY @"GB"
 
-#define ALBUM_URI @"spotify:album:%@"
-#define SEARCH_URI @"spotify:search:%@ %@"
-
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess
+- (id) init
 {
-    if (self = [super initWithCoreDataAccess:coreDataAccess])
+    if (self = [super init])
     {
-        self.acceptJson = [NSDictionary dictionaryWithObject:@"application/json" forKey:@"Accept"];
+        _acceptJson = [NSDictionary dictionaryWithObject:@"application/json" forKey:@"Accept"];
     }
     return self;
 }
-
-- (MGMAlbumServiceType) serviceType
-{
-    return MGMAlbumServiceTypeSpotify;
-}
-
-- (NSString*) serviceAvailabilityUrl
-{
-    return ALBUM_URI;
-}
-
-- (NSString*) urlForAlbum:(MGMAlbum*)album
-{
-    NSString* metadata = [album metadataForServiceType:MGMAlbumServiceTypeSpotify];
-    if (metadata)
-    {
-        return [NSString stringWithFormat:ALBUM_URI, metadata];
-    }
-    else
-    {
-        return [NSString stringWithFormat:SEARCH_URI, album.artistName, album.albumName];
-    }
-}
-
-- (NSString*) urlForPlaylist:(MGMPlaylist*)playlist
-{
-    NSString* playlistId = playlist.playlistId;
-    if (playlistId)
-    {
-        return [NSString stringWithFormat:SPOTIFY_PLAYLIST_URI_PATTERN, SPOTIFY_USER_ANDREW_JONES, playlistId];
-    }
-    return nil;
-}
-
-#pragma mark -
-#pragma mark MGMRemoteDataSource
 
 - (NSString*) urlForKey:(id)key
 {
@@ -79,6 +41,16 @@
 {
     return self.acceptJson;
 }
+
+@end
+
+@interface MGMSpotifyPlayerDataConverter : MGMRemoteJsonDataConverter
+
+@end
+
+@implementation MGMSpotifyPlayerDataConverter
+
+#define TERRITORY @"GB"
 
 - (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key
 {
@@ -177,6 +149,56 @@
         return YES;
     }
     return NO;
+}
+
+@end
+
+@implementation MGMSpotifyPlayerService
+
+#define ALBUM_URI @"spotify:album:%@"
+#define SEARCH_URI @"spotify:search:%@ %@"
+
+- (MGMRemoteDataReader*) createRemoteDataReader
+{
+    return [[MGMSpotifyPlayerDataReader alloc] init];
+}
+
+- (MGMRemoteDataConverter*) createRemoteDataConverter
+{
+    return [[MGMSpotifyPlayerDataConverter alloc] init];
+}
+
+- (MGMAlbumServiceType) serviceType
+{
+    return MGMAlbumServiceTypeSpotify;
+}
+
+- (NSString*) serviceAvailabilityUrl
+{
+    return ALBUM_URI;
+}
+
+- (NSString*) urlForAlbum:(MGMAlbum*)album
+{
+    NSString* metadata = [album metadataForServiceType:MGMAlbumServiceTypeSpotify];
+    if (metadata)
+    {
+        return [NSString stringWithFormat:ALBUM_URI, metadata];
+    }
+    else
+    {
+        return [NSString stringWithFormat:SEARCH_URI, album.artistName, album.albumName];
+    }
+}
+
+- (NSString*) urlForPlaylist:(MGMPlaylist*)playlist
+{
+    NSString* playlistId = playlist.playlistId;
+    if (playlistId)
+    {
+        return [NSString stringWithFormat:SPOTIFY_PLAYLIST_URI_PATTERN, SPOTIFY_USER_ANDREW_JONES, playlistId];
+    }
+    return nil;
 }
 
 @end

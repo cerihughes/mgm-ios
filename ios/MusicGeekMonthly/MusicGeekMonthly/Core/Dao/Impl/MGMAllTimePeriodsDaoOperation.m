@@ -9,17 +9,22 @@
 #import "MGMAllTimePeriodsDaoOperation.h"
 
 #import "MGMLastFmConstants.h"
+#import "MGMRemoteHttpDataReader.h"
+#import "MGMRemoteJsonDataConverter.h"
 #import "MGMTimePeriodDto.h"
 
 @implementation MGMAllTimePeriodsDaoOperation
 
 #define REFRESH_IDENTIFIER_ALL_TIME_PERIODS @"REFRESH_IDENTIFIER_ALL_TIME_PERIODS"
 
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
+- (MGMLocalDataSource*) createLocalDataSource:(MGMCoreDataAccess*)coreDataAccess
 {
-    MGMLocalDataSource* localDataSource = [[MGMAllTimePeriodsLocalDataSource alloc] initWithCoreDataAccess:coreDataAccess];
-    MGMRemoteDataSource* remoteDataSource = [[MGMAllTimePeriodsRemoteDataSource alloc] init];
-    return [super initWithCoreDataAccess:coreDataAccess localDataSource:localDataSource remoteDataSource:remoteDataSource daysBetweenRemoteFetch:1];
+    return [[MGMAllTimePeriodsLocalDataSource alloc] initWithCoreDataAccess:coreDataAccess];
+}
+
+- (MGMRemoteDataSource*) createRemoteDataSource
+{
+    return [[MGMAllTimePeriodsRemoteDataSource alloc] init];
 }
 
 - (NSString*) refreshIdentifierForKey:(id)key
@@ -47,7 +52,11 @@
 
 @end
 
-@implementation MGMAllTimePeriodsRemoteDataSource
+@interface MGMAllTimePeriodsRemoteDataReader : MGMRemoteHttpDataReader
+
+@end
+
+@implementation MGMAllTimePeriodsRemoteDataReader
 
 #define TIME_PERIODS_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyChartList&group=%@&api_key=%@&format=json"
 
@@ -55,6 +64,14 @@
 {
     return [NSString stringWithFormat:TIME_PERIODS_URL, GROUP_NAME, API_KEY];
 }
+
+@end
+
+@interface MGMAllTimePeriodsRemoteDataConverter : MGMRemoteJsonDataConverter
+
+@end
+
+@implementation MGMAllTimePeriodsRemoteDataConverter
 
 - (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key
 {
@@ -96,6 +113,20 @@
         [reversed addObject:element];
     }
     return [reversed copy];
+}
+
+@end
+
+@implementation MGMAllTimePeriodsRemoteDataSource
+
+- (MGMRemoteDataReader*) createRemoteDataReader
+{
+    return [[MGMAllTimePeriodsRemoteDataReader alloc] init];
+}
+
+- (MGMRemoteDataConverter*) createRemoteDataConverter
+{
+    return [[MGMAllTimePeriodsRemoteDataConverter alloc] init];
 }
 
 @end

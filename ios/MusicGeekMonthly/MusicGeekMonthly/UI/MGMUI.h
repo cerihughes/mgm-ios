@@ -6,7 +6,7 @@
 #import "MGMAlbumViewUtilities.h"
 #import "MGMCore.h"
 #import "MGMImageHelper.h"
-#import "MGMTabBarController.h"
+#import "MGMNavigationController.h"
 
 #define TO_ALBUM_DETAIL @"TO_ALBUM_DETAIL"
 
@@ -14,7 +14,7 @@
 
 @property (readonly) BOOL ipad;
 @property (readonly) MGMCore* core;
-@property (readonly) MGMTabBarController* parentViewController;
+@property (readonly) MGMNavigationController* parentViewController;
 @property (readonly) MGMAlbumPlayer* albumPlayer;
 @property (readonly) MGMImageHelper* imageHelper;
 @property (readonly) MGMAlbumViewUtilities* viewUtilities;

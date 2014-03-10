@@ -6,23 +6,31 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMHttpDataSource.h"
+#import <Foundation/Foundation.h>
 
 #import "MGMRemoteData.h"
 
-@interface MGMRemoteDataSource : MGMHttpDataSource
+@interface MGMRemoteDataReader : NSObject
 
-- (MGMRemoteData*) fetchRemoteData:(id)key;
+@property BOOL reachability;
+
+- (NSData*) readRemoteData:(id)key error:(NSError**)error;
 
 @end
 
-@interface MGMRemoteDataSource (Protected)
+@interface MGMRemoteDataConverter : NSObject
 
-#pragma mark -
-#pragma mark Override the following
-
-- (NSString*) urlForKey:(id)key;
-- (NSDictionary*) httpHeaders;
 - (MGMRemoteData*) convertRemoteData:(NSData*)remoteData key:(id)key;
+
+@end
+
+@interface MGMRemoteDataSource : NSObject
+
+- (MGMRemoteDataReader*) createRemoteDataReader;
+- (MGMRemoteDataConverter*) createRemoteDataConverter;
+
+- (void) setReachability:(BOOL)reachability;
+
+- (MGMRemoteData*) fetchRemoteData:(id)key;
 
 @end

@@ -10,4 +10,6 @@
 
 @interface MGMInitialLoadingView : MGMView
 
+- (void) setOperationInProgress:(BOOL)operationInProgress;
+
 @end

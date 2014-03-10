@@ -10,6 +10,25 @@
 		6502F20A18C3A02C007FE38E /* MGMGridManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6502F20918C3A02C007FE38E /* MGMGridManagerTestCase.m */; };
 		651E8CF218CA383000333CA1 /* MGMInitialLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF118CA383000333CA1 /* MGMInitialLoadingView.m */; };
 		651E8CF518CA39BE00333CA1 /* MGMInitialLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF418CA39BE00333CA1 /* MGMInitialLoadingViewController.m */; };
+		651E8CF818CA3F0F00333CA1 /* MGMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF718CA3F0F00333CA1 /* MGMNavigationController.m */; };
+		651E8CFA18CA454B00333CA1 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 651E8CF918CA454B00333CA1 /* events.json */; };
+		651E8CFB18CA454B00333CA1 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 651E8CF918CA454B00333CA1 /* events.json */; };
+		651E8CFF18CB626700333CA1 /* MGMPreloadEventsDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CFE18CB626700333CA1 /* MGMPreloadEventsDaoOperation.m */; };
+		651E8D0018CB626700333CA1 /* MGMPreloadEventsDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CFE18CB626700333CA1 /* MGMPreloadEventsDaoOperation.m */; };
+		651E8D0318CB700100333CA1 /* MGMHttpDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0218CB700100333CA1 /* MGMHttpDataSource.m */; };
+		651E8D0418CB700100333CA1 /* MGMHttpDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0218CB700100333CA1 /* MGMHttpDataSource.m */; };
+		651E8D0718CB71F800333CA1 /* MGMRemoteHttpDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0618CB71F800333CA1 /* MGMRemoteHttpDataReader.m */; };
+		651E8D0818CB71F800333CA1 /* MGMRemoteHttpDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0618CB71F800333CA1 /* MGMRemoteHttpDataReader.m */; };
+		651E8D0B18CB88B200333CA1 /* MGMRemoteFileDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0A18CB88B200333CA1 /* MGMRemoteFileDataReader.m */; };
+		651E8D0C18CB88B200333CA1 /* MGMRemoteFileDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0A18CB88B200333CA1 /* MGMRemoteFileDataReader.m */; };
+		6542305D18CBAD5500121B3B /* timePeriods.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305C18CBAD5500121B3B /* timePeriods.json */; };
+		6542305E18CBAD5500121B3B /* timePeriods.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305C18CBAD5500121B3B /* timePeriods.json */; };
+		6542306018CBAD7100121B3B /* weeklyChart.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305F18CBAD7100121B3B /* weeklyChart.json */; };
+		6542306118CBAD7100121B3B /* weeklyChart.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305F18CBAD7100121B3B /* weeklyChart.json */; };
+		6542306418CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6542306318CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m */; };
+		6542306518CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6542306318CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m */; };
+		6542306818CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6542306718CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m */; };
+		6542306918CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6542306718CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m */; };
 		6545477A18B90444008CDAD3 /* MGMAlbumGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6545477918B90444008CDAD3 /* MGMAlbumGridView.m */; };
 		654D029D18BA20960067BC19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654D029C18BA20960067BC19 /* Images.xcassets */; };
 		657C76BD18C3930B00969A4B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F45175B928E000C413B /* CoreGraphics.framework */; };
@@ -65,8 +84,6 @@
 		658D314F18B112E3007A4D98 /* MGMDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30EB18B112E3007A4D98 /* MGMDaoOperation.m */; };
 		658D315018B112E3007A4D98 /* MGMSettingsDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30ED18B112E3007A4D98 /* MGMSettingsDao.m */; };
 		658D315118B112E3007A4D98 /* MGMSettingsDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30ED18B112E3007A4D98 /* MGMSettingsDao.m */; };
-		658D315218B112E3007A4D98 /* MGMHttpDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30F018B112E3007A4D98 /* MGMHttpDataSource.m */; };
-		658D315318B112E3007A4D98 /* MGMHttpDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30F018B112E3007A4D98 /* MGMHttpDataSource.m */; };
 		658D315418B112E3007A4D98 /* MGMRemoteDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30F318B112E3007A4D98 /* MGMRemoteDataSource.m */; };
 		658D315518B112E3007A4D98 /* MGMRemoteDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30F318B112E3007A4D98 /* MGMRemoteDataSource.m */; };
 		658D315618B112E3007A4D98 /* MGMAlbumDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30F618B112E3007A4D98 /* MGMAlbumDto.m */; };
@@ -182,14 +199,14 @@
 		65EC948E18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC948D18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m */; };
 		65EC949118B8C9A300B1AFFE /* MGMXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949018B8C9A300B1AFFE /* MGMXmlParser.m */; };
 		65EC949218B8C9A300B1AFFE /* MGMXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949018B8C9A300B1AFFE /* MGMXmlParser.m */; };
-		65EC949518B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m */; };
-		65EC949618B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m */; };
+		65EC949518B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m */; };
+		65EC949618B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m */; };
 		65F89A4718B7BCB1003C5803 /* MGMPlaylistDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A4618B7BCB1003C5803 /* MGMPlaylistDto.m */; };
 		65F89A4818B7BCB1003C5803 /* MGMPlaylistDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A4618B7BCB1003C5803 /* MGMPlaylistDto.m */; };
 		65F89A4B18B7BCC3003C5803 /* MGMPlaylistItemDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A4A18B7BCC3003C5803 /* MGMPlaylistItemDto.m */; };
 		65F89A4C18B7BCC3003C5803 /* MGMPlaylistItemDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A4A18B7BCC3003C5803 /* MGMPlaylistItemDto.m */; };
-		65F89A5318B7BEC3003C5803 /* MGMRemoteJsonDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataSource.m */; };
-		65F89A5418B7BEC3003C5803 /* MGMRemoteJsonDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataSource.m */; };
+		65F89A5318B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m */; };
+		65F89A5418B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m */; };
 		65FD1D6418C0C1CA00993D02 /* MGMImagedEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FD1D6318C0C1CA00993D02 /* MGMImagedEntity.m */; };
 		65FD1D6518C0C1CA00993D02 /* MGMImagedEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FD1D6318C0C1CA00993D02 /* MGMImagedEntity.m */; };
 		65FD1D6818C0D92800993D02 /* MGMImagedEntityDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FD1D6718C0D92800993D02 /* MGMImagedEntityDto.m */; };
@@ -212,6 +229,23 @@
 		651E8CF118CA383000333CA1 /* MGMInitialLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMInitialLoadingView.m; sourceTree = "<group>"; };
 		651E8CF318CA39BE00333CA1 /* MGMInitialLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMInitialLoadingViewController.h; sourceTree = "<group>"; };
 		651E8CF418CA39BE00333CA1 /* MGMInitialLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMInitialLoadingViewController.m; sourceTree = "<group>"; };
+		651E8CF618CA3F0F00333CA1 /* MGMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMNavigationController.h; sourceTree = "<group>"; };
+		651E8CF718CA3F0F00333CA1 /* MGMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMNavigationController.m; sourceTree = "<group>"; };
+		651E8CF918CA454B00333CA1 /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = events.json; path = "../../server/music-geek-monthly/war/json/events.json"; sourceTree = "<group>"; };
+		651E8CFD18CB626700333CA1 /* MGMPreloadEventsDaoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGMPreloadEventsDaoOperation.h; path = Offline/MGMPreloadEventsDaoOperation.h; sourceTree = "<group>"; };
+		651E8CFE18CB626700333CA1 /* MGMPreloadEventsDaoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGMPreloadEventsDaoOperation.m; path = Offline/MGMPreloadEventsDaoOperation.m; sourceTree = "<group>"; };
+		651E8D0118CB700100333CA1 /* MGMHttpDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMHttpDataSource.h; sourceTree = "<group>"; };
+		651E8D0218CB700100333CA1 /* MGMHttpDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMHttpDataSource.m; sourceTree = "<group>"; };
+		651E8D0518CB71F800333CA1 /* MGMRemoteHttpDataReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteHttpDataReader.h; sourceTree = "<group>"; };
+		651E8D0618CB71F800333CA1 /* MGMRemoteHttpDataReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteHttpDataReader.m; sourceTree = "<group>"; };
+		651E8D0918CB88B200333CA1 /* MGMRemoteFileDataReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteFileDataReader.h; sourceTree = "<group>"; };
+		651E8D0A18CB88B200333CA1 /* MGMRemoteFileDataReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteFileDataReader.m; sourceTree = "<group>"; };
+		6542305C18CBAD5500121B3B /* timePeriods.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = timePeriods.json; path = MusicGeekMonthly/Resources/timePeriods.json; sourceTree = "<group>"; };
+		6542305F18CBAD7100121B3B /* weeklyChart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = weeklyChart.json; path = MusicGeekMonthly/Resources/weeklyChart.json; sourceTree = "<group>"; };
+		6542306218CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGMPreloadTimePeriodsDaoOperation.h; path = Offline/MGMPreloadTimePeriodsDaoOperation.h; sourceTree = "<group>"; };
+		6542306318CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGMPreloadTimePeriodsDaoOperation.m; path = Offline/MGMPreloadTimePeriodsDaoOperation.m; sourceTree = "<group>"; };
+		6542306618CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGMPreloadWeeklyChartDaoOperation.h; path = Offline/MGMPreloadWeeklyChartDaoOperation.h; sourceTree = "<group>"; };
+		6542306718CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGMPreloadWeeklyChartDaoOperation.m; path = Offline/MGMPreloadWeeklyChartDaoOperation.m; sourceTree = "<group>"; };
 		6545477818B90444008CDAD3 /* MGMAlbumGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumGridView.h; sourceTree = "<group>"; };
 		6545477918B90444008CDAD3 /* MGMAlbumGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumGridView.m; sourceTree = "<group>"; };
 		6545477D18B93C65008CDAD3 /* MGMSpotifyConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGMSpotifyConstants.h; sourceTree = "<group>"; };
@@ -268,8 +302,6 @@
 		658D30EB18B112E3007A4D98 /* MGMDaoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDaoOperation.m; sourceTree = "<group>"; };
 		658D30EC18B112E3007A4D98 /* MGMSettingsDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMSettingsDao.h; sourceTree = "<group>"; };
 		658D30ED18B112E3007A4D98 /* MGMSettingsDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMSettingsDao.m; sourceTree = "<group>"; };
-		658D30EF18B112E3007A4D98 /* MGMHttpDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMHttpDataSource.h; sourceTree = "<group>"; };
-		658D30F018B112E3007A4D98 /* MGMHttpDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMHttpDataSource.m; sourceTree = "<group>"; };
 		658D30F218B112E3007A4D98 /* MGMRemoteDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteDataSource.h; sourceTree = "<group>"; };
 		658D30F318B112E3007A4D98 /* MGMRemoteDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteDataSource.m; sourceTree = "<group>"; };
 		658D30F518B112E3007A4D98 /* MGMAlbumDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumDto.h; sourceTree = "<group>"; };
@@ -438,14 +470,14 @@
 		65EC948D18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlaylistDaoOperation.m; sourceTree = "<group>"; };
 		65EC948F18B8C9A300B1AFFE /* MGMXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMXmlParser.h; sourceTree = "<group>"; };
 		65EC949018B8C9A300B1AFFE /* MGMXmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMXmlParser.m; sourceTree = "<group>"; };
-		65EC949318B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteXmlDataSource.h; sourceTree = "<group>"; };
-		65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteXmlDataSource.m; sourceTree = "<group>"; };
+		65EC949318B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteXmlDataConverter.h; sourceTree = "<group>"; };
+		65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteXmlDataConverter.m; sourceTree = "<group>"; };
 		65F89A4518B7BCB1003C5803 /* MGMPlaylistDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylistDto.h; sourceTree = "<group>"; };
 		65F89A4618B7BCB1003C5803 /* MGMPlaylistDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlaylistDto.m; sourceTree = "<group>"; };
 		65F89A4918B7BCC3003C5803 /* MGMPlaylistItemDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylistItemDto.h; sourceTree = "<group>"; };
 		65F89A4A18B7BCC3003C5803 /* MGMPlaylistItemDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlaylistItemDto.m; sourceTree = "<group>"; };
-		65F89A5118B7BEC3003C5803 /* MGMRemoteJsonDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteJsonDataSource.h; sourceTree = "<group>"; };
-		65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteJsonDataSource.m; sourceTree = "<group>"; };
+		65F89A5118B7BEC3003C5803 /* MGMRemoteJsonDataConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteJsonDataConverter.h; sourceTree = "<group>"; };
+		65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteJsonDataConverter.m; sourceTree = "<group>"; };
 		65FD1D6218C0C1CA00993D02 /* MGMImagedEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMImagedEntity.h; sourceTree = "<group>"; };
 		65FD1D6318C0C1CA00993D02 /* MGMImagedEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMImagedEntity.m; sourceTree = "<group>"; };
 		65FD1D6618C0D92800993D02 /* MGMImagedEntityDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMImagedEntityDto.h; sourceTree = "<group>"; };
@@ -610,6 +642,19 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		651E8CFC18CB621100333CA1 /* Offline */ = {
+			isa = PBXGroup;
+			children = (
+				651E8CFD18CB626700333CA1 /* MGMPreloadEventsDaoOperation.h */,
+				651E8CFE18CB626700333CA1 /* MGMPreloadEventsDaoOperation.m */,
+				6542306218CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.h */,
+				6542306318CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m */,
+				6542306618CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.h */,
+				6542306718CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m */,
+			);
+			name = Offline;
+			sourceTree = "<group>";
+		};
 		6545477B18B904F5008CDAD3 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -641,6 +686,8 @@
 				658D310618B112E3007A4D98 /* MGMErrorCodes.h */,
 				658D310718B112E3007A4D98 /* MGMGridManager.h */,
 				658D310818B112E3007A4D98 /* MGMGridManager.m */,
+				651E8D0118CB700100333CA1 /* MGMHttpDataSource.h */,
+				651E8D0218CB700100333CA1 /* MGMHttpDataSource.m */,
 				658D310918B112E3007A4D98 /* MGMLogging.h */,
 				658D310A18B112E3007A4D98 /* MGMReachabilityManager.h */,
 				658D310B18B112E3007A4D98 /* MGMReachabilityManager.m */,
@@ -687,6 +734,7 @@
 		658D30D118B112E3007A4D98 /* Impl */ = {
 			isa = PBXGroup;
 			children = (
+				651E8CFC18CB621100333CA1 /* Offline */,
 				658D30D618B112E3007A4D98 /* MGMAllEventsDaoOperation.h */,
 				658D30D718B112E3007A4D98 /* MGMAllEventsDaoOperation.m */,
 				658D30DA18B112E3007A4D98 /* MGMAllTimePeriodsDaoOperation.h */,
@@ -718,14 +766,16 @@
 		658D30EE18B112E3007A4D98 /* RemoteDataSource */ = {
 			isa = PBXGroup;
 			children = (
-				658D30EF18B112E3007A4D98 /* MGMHttpDataSource.h */,
-				658D30F018B112E3007A4D98 /* MGMHttpDataSource.m */,
 				658D30F218B112E3007A4D98 /* MGMRemoteDataSource.h */,
 				658D30F318B112E3007A4D98 /* MGMRemoteDataSource.m */,
-				65F89A5118B7BEC3003C5803 /* MGMRemoteJsonDataSource.h */,
-				65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataSource.m */,
-				65EC949318B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.h */,
-				65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m */,
+				651E8D0518CB71F800333CA1 /* MGMRemoteHttpDataReader.h */,
+				651E8D0618CB71F800333CA1 /* MGMRemoteHttpDataReader.m */,
+				651E8D0918CB88B200333CA1 /* MGMRemoteFileDataReader.h */,
+				651E8D0A18CB88B200333CA1 /* MGMRemoteFileDataReader.m */,
+				65F89A5118B7BEC3003C5803 /* MGMRemoteJsonDataConverter.h */,
+				65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m */,
+				65EC949318B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.h */,
+				65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m */,
 				65EC948F18B8C9A300B1AFFE /* MGMXmlParser.h */,
 				65EC949018B8C9A300B1AFFE /* MGMXmlParser.m */,
 			);
@@ -935,6 +985,8 @@
 				651E8CF418CA39BE00333CA1 /* MGMInitialLoadingViewController.m */,
 				658D326218B1147C007A4D98 /* MGMTabBarController.h */,
 				658D326318B1147C007A4D98 /* MGMTabBarController.m */,
+				651E8CF618CA3F0F00333CA1 /* MGMNavigationController.h */,
+				651E8CF718CA3F0F00333CA1 /* MGMNavigationController.m */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -1054,6 +1106,9 @@
 		65D451451764F54C00374C5F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				651E8CF918CA454B00333CA1 /* events.json */,
+				6542305C18CBAD5500121B3B /* timePeriods.json */,
+				6542305F18CBAD7100121B3B /* weeklyChart.json */,
 				6587E60218BA698700DD7F41 /* iTunesArtworkTransparent.png */,
 				658D30A018B10DE6007A4D98 /* album1.png */,
 				658D30A118B10DE6007A4D98 /* album2.png */,
@@ -1185,14 +1240,17 @@
 				658D30B918B10DE6007A4D98 /* chart_line.png in Resources */,
 				658D30C318B10DE6007A4D98 /* spotify.png in Resources */,
 				658D30BD18B10DE6007A4D98 /* home.png in Resources */,
+				6542306018CBAD7100121B3B /* weeklyChart.json in Resources */,
 				658D30BF18B10DE6007A4D98 /* itunes.png in Resources */,
 				658D30B418B10DE6007A4D98 /* album2.png in Resources */,
 				658D30C418B10DE6007A4D98 /* wikipedia.png in Resources */,
 				658D30B818B10DE6007A4D98 /* calendar@2x.png in Resources */,
 				6587E60318BA698700DD7F41 /* iTunesArtworkTransparent.png in Resources */,
+				6542305D18CBAD5500121B3B /* timePeriods.json in Resources */,
 				658D30B318B10DE6007A4D98 /* album1.png in Resources */,
 				658D30B618B10DE6007A4D98 /* arrow.png in Resources */,
 				658D30BA18B10DE6007A4D98 /* chart_line@2x.png in Resources */,
+				651E8CFA18CA454B00333CA1 /* events.json in Resources */,
 				658D30BB18B10DE6007A4D98 /* deezer.png in Resources */,
 				658D30C118B10DE6007A4D98 /* ruler.png in Resources */,
 				658D30B718B10DE6007A4D98 /* calendar.png in Resources */,
@@ -1206,7 +1264,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				651E8CFB18CA454B00333CA1 /* events.json in Resources */,
+				6542305E18CBAD5500121B3B /* timePeriods.json in Resources */,
 				659F9F6A175B928E000C413B /* InfoPlist.strings in Resources */,
+				6542306118CBAD7100121B3B /* weeklyChart.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1243,20 +1304,22 @@
 				658D314418B112E3007A4D98 /* MGMWeeklyChartDaoOperation.m in Sources */,
 				658D32A818B1147C007A4D98 /* MGMWeeklyChartView.m in Sources */,
 				658D317A18B112E3007A4D98 /* MusicGeekMonthly.xcdatamodeld in Sources */,
+				651E8D0B18CB88B200333CA1 /* MGMRemoteFileDataReader.m in Sources */,
 				65F89A4718B7BCB1003C5803 /* MGMPlaylistDto.m in Sources */,
 				658D328218B1147C007A4D98 /* MGMAbstractEventViewController.m in Sources */,
 				651E8CF518CA39BE00333CA1 /* MGMInitialLoadingViewController.m in Sources */,
 				658D328318B1147C007A4D98 /* MGMAlbumScoreView.m in Sources */,
 				658D317018B112E3007A4D98 /* MGMChartEntry.m in Sources */,
-				65F89A5318B7BEC3003C5803 /* MGMRemoteJsonDataSource.m in Sources */,
+				65F89A5318B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m in Sources */,
 				658D318418B112E3007A4D98 /* MGMAlbumPlayerService.m in Sources */,
 				658D316A18B112E3007A4D98 /* MGMAlbum.m in Sources */,
+				651E8D0718CB71F800333CA1 /* MGMRemoteHttpDataReader.m in Sources */,
 				658D318218B112E3007A4D98 /* MGMWebsitePlayerService.m in Sources */,
 				658D329018B1147C007A4D98 /* MGMEventsModalView.m in Sources */,
 				658D315E18B112E3007A4D98 /* MGMEventDto.m in Sources */,
 				658D328518B1147C007A4D98 /* MGMAlbumViewController.m in Sources */,
 				658D317C18B112E3007A4D98 /* NSMutableArray+Shuffling.m in Sources */,
-				65EC949518B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m in Sources */,
+				65EC949518B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m in Sources */,
 				658D32A018B1147C007A4D98 /* MGMPlayerSelectionView.m in Sources */,
 				659F9F4E175B928E000C413B /* main.m in Sources */,
 				6545477A18B90444008CDAD3 /* MGMAlbumGridView.m in Sources */,
@@ -1287,6 +1350,7 @@
 				658D329118B1147C007A4D98 /* MGMEventsView.m in Sources */,
 				658D32A418B1147C007A4D98 /* MGMAlbumScoresView.m in Sources */,
 				658D328918B1147C007A4D98 /* MGMTabbedViewController.m in Sources */,
+				6542306418CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m in Sources */,
 				658D318618B112E3007A4D98 /* MGMAlbumRenderService.m in Sources */,
 				65F89A4B18B7BCC3003C5803 /* MGMPlaylistItemDto.m in Sources */,
 				658D329518B1147C007A4D98 /* MGMExampleAlbumView.m in Sources */,
@@ -1296,6 +1360,7 @@
 				658D317418B112E3007A4D98 /* MGMNextUrlAccess.m in Sources */,
 				658D329B18B1147C007A4D98 /* MGMImageHelper.m in Sources */,
 				658D317E18B112E3007A4D98 /* MGMLastFmPlayerService.m in Sources */,
+				6542306818CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m in Sources */,
 				658D329E18B1147C007A4D98 /* MGMTabBarController.m in Sources */,
 				658D328D18B1147C007A4D98 /* MGMAbstractPlayerSelectionViewController.m in Sources */,
 				658D317218B112E3007A4D98 /* MGMEvent.m in Sources */,
@@ -1307,11 +1372,13 @@
 				658D328818B1147C007A4D98 /* MGMTabbedView.m in Sources */,
 				657F6B4118BBD8EB0025F52B /* MGMPlaylist.m in Sources */,
 				658D328E18B1147C007A4D98 /* MGMPlayerGroupView.m in Sources */,
+				651E8CF818CA3F0F00333CA1 /* MGMNavigationController.m in Sources */,
 				658D313E18B112E3007A4D98 /* MGMAllEventsDaoOperation.m in Sources */,
 				658D313618B112E3007A4D98 /* MGMLocalData.m in Sources */,
 				658D318018B112E3007A4D98 /* MGMSpotifyPlayerService.m in Sources */,
 				658D315C18B112E3007A4D98 /* MGMChartEntryDto.m in Sources */,
 				658D316018B112E3007A4D98 /* MGMTimePeriodDto.m in Sources */,
+				651E8D0318CB700100333CA1 /* MGMHttpDataSource.m in Sources */,
 				658D329C18B1147C007A4D98 /* MGMUI.m in Sources */,
 				658D315A18B112E3007A4D98 /* MGMAlbumMetadataDto.m in Sources */,
 				658D313818B112E3007A4D98 /* MGMRemoteData.m in Sources */,
@@ -1322,13 +1389,13 @@
 				651E8CF218CA383000333CA1 /* MGMInitialLoadingView.m in Sources */,
 				658D329A18B1147C007A4D98 /* MGMAppDelegate.m in Sources */,
 				65EC949118B8C9A300B1AFFE /* MGMXmlParser.m in Sources */,
-				658D315218B112E3007A4D98 /* MGMHttpDataSource.m in Sources */,
 				658D32A118B1147C007A4D98 /* MGMPlayerSelectionViewController.m in Sources */,
 				658D317618B112E3007A4D98 /* MGMTimePeriod.m in Sources */,
 				658D316818B112E3007A4D98 /* MGMReachabilityManager.m in Sources */,
 				658D328018B1147C007A4D98 /* MGMAlbumDetailViewController.m in Sources */,
 				658D314A18B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m in Sources */,
 				658D318818B112E3007A4D98 /* MGMAlbumServiceManager.m in Sources */,
+				651E8CFF18CB626700333CA1 /* MGMPreloadEventsDaoOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1336,6 +1403,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				651E8D0C18CB88B200333CA1 /* MGMRemoteFileDataReader.m in Sources */,
 				658D316F18B112E3007A4D98 /* MGMAlbumMetadata.m in Sources */,
 				658D317118B112E3007A4D98 /* MGMChartEntry.m in Sources */,
 				658D315918B112E3007A4D98 /* MGMAlbumImageUriDto.m in Sources */,
@@ -1344,11 +1412,12 @@
 				658D315F18B112E3007A4D98 /* MGMEventDto.m in Sources */,
 				658D314318B112E3007A4D98 /* MGMAllTimePeriodsDaoOperation.m in Sources */,
 				658D314F18B112E3007A4D98 /* MGMDaoOperation.m in Sources */,
-				65F89A5418B7BEC3003C5803 /* MGMRemoteJsonDataSource.m in Sources */,
+				65F89A5418B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m in Sources */,
 				658D316318B112E3007A4D98 /* MGMWeeklyChartDto.m in Sources */,
 				658D313318B112E3007A4D98 /* MGMDaoData.m in Sources */,
+				6542306918CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m in Sources */,
 				65F89A4818B7BCB1003C5803 /* MGMPlaylistDto.m in Sources */,
-				65EC949618B8CCDA00B1AFFE /* MGMRemoteXmlDataSource.m in Sources */,
+				65EC949618B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m in Sources */,
 				658D317718B112E3007A4D98 /* MGMTimePeriod.m in Sources */,
 				658D316B18B112E3007A4D98 /* MGMAlbum.m in Sources */,
 				658D314918B112E3007A4D98 /* MGMLocalDataSource.m in Sources */,
@@ -1359,8 +1428,9 @@
 				658D314D18B112E3007A4D98 /* MGMDao.m in Sources */,
 				658D317D18B112E3007A4D98 /* NSMutableArray+Shuffling.m in Sources */,
 				658D317518B112E3007A4D98 /* MGMNextUrlAccess.m in Sources */,
-				658D315318B112E3007A4D98 /* MGMHttpDataSource.m in Sources */,
+				6542306518CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m in Sources */,
 				65FD1D6918C0D92800993D02 /* MGMImagedEntityDto.m in Sources */,
+				651E8D0018CB626700333CA1 /* MGMPreloadEventsDaoOperation.m in Sources */,
 				658D316518B112E3007A4D98 /* MGMCore.m in Sources */,
 				658D315518B112E3007A4D98 /* MGMRemoteDataSource.m in Sources */,
 				658D316D18B112E3007A4D98 /* MGMAlbumImageUri.m in Sources */,
@@ -1372,7 +1442,9 @@
 				65EC949218B8C9A300B1AFFE /* MGMXmlParser.m in Sources */,
 				657F6B4618BBD9080025F52B /* MGMPlaylistItem.m in Sources */,
 				658D314B18B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m in Sources */,
+				651E8D0818CB71F800333CA1 /* MGMRemoteHttpDataReader.m in Sources */,
 				658D315118B112E3007A4D98 /* MGMSettingsDao.m in Sources */,
+				651E8D0418CB700100333CA1 /* MGMHttpDataSource.m in Sources */,
 				658D318318B112E3007A4D98 /* MGMWebsitePlayerService.m in Sources */,
 				658D316718B112E3007A4D98 /* MGMGridManager.m in Sources */,
 				658D314718B112E3007A4D98 /* MGMCoreDataAccess.m in Sources */,
@@ -1499,7 +1571,7 @@
 					"\"$(SRCROOT)/MusicGeekMonthly/Libraries/TestFlightSDK2.2.1\"",
 				);
 				PRODUCT_NAME = "Music Geek Monthly";
-				PROVISIONING_PROFILE = "99EC3D7F-0561-407F-9E6B-F4CEBAA38D2A";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

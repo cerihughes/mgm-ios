@@ -29,17 +29,23 @@
 {
     if ([album metadataForServiceType:self.serviceType] == nil && [album searchedServiceType:self.serviceType] == NO)
     {
-        MGMAlbumMetadataDto* metadata = [self metadataForAlbum:album];
-        [self.coreDataAccess addMetadata:metadata toAlbum:album error:error];
-        return MGM_NO_ERROR(&error);
+        MGMRemoteData* remoteData = [self fetchRemoteData:album];
+        if (remoteData.error)
+        {
+            if (error)
+            {
+                *error = remoteData.error;
+            }
+            return NO;
+        }
+        else
+        {
+            MGMAlbumMetadataDto* metadata = remoteData.data;
+            [self.coreDataAccess addMetadata:metadata toAlbum:album error:error];
+            return MGM_NO_ERROR(&error);
+        }
     }
     return YES;
-}
-
-- (MGMAlbumMetadataDto*) metadataForAlbum:(MGMAlbum*)album
-{
-    MGMRemoteData* remoteData = [self fetchRemoteData:album];
-    return remoteData.data;
 }
 
 - (NSString*) serviceAvailabilityUrl

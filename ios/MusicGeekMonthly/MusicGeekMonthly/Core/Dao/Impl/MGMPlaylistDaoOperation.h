@@ -8,11 +8,7 @@
 
 #import "MGMDaoOperation.h"
 
-#import "MGMRemoteXmlDataSource.h"
-
 @interface MGMPlaylistDaoOperation : MGMDaoOperation
-
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
 
 @end
 
@@ -20,6 +16,6 @@
 
 @end
 
-@interface MGMPlaylistRemoteDataSource : MGMRemoteXmlDataSource
+@interface MGMPlaylistRemoteDataSource : MGMRemoteDataSource
 
 @end

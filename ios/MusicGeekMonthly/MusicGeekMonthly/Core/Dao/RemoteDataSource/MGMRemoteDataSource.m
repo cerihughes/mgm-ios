@@ -8,52 +8,74 @@
 
 #import "MGMRemoteDataSource.h"
 
-#import "MGMErrorCodes.h"
+@implementation MGMRemoteDataReader
 
-@implementation MGMRemoteDataSource
-
-- (MGMRemoteData*) fetchRemoteData:(id)key
+- (NSData*) readRemoteData:(id)key error:(NSError**)error
 {
-    if (self.reachability)
-    {
-        NSData* remoteData = nil;
-        NSString* url = [self urlForKey:key];
-        if (url)
-        {
-            NSError* urlFetchError = nil;
-            remoteData = [self contentsOfUrl:url withHttpHeaders:[self httpHeaders] error:&urlFetchError];
-            if (urlFetchError)
-            {
-                return [MGMRemoteData dataWithError:urlFetchError];
-            }
-        }
-
-        return [self convertRemoteData:remoteData key:key];
-    }
-    else
-    {
-        NSError* reachabilityError = [NSError errorWithDomain:ERROR_DOMAIN code:ERROR_CODE_NO_REACHABILITY userInfo:nil];
-        return [MGMRemoteData dataWithError:reachabilityError];
-    }
+    // OVERRIDE
+    return nil;
 }
 
 @end
 
-@implementation MGMRemoteDataSource (Protected)
-
-- (NSString*) urlForKey:(id)key
-{
-    return nil;
-}
-
-- (NSDictionary*) httpHeaders
-{
-    return nil;
-}
+@implementation MGMRemoteDataConverter
 
 - (MGMRemoteData*) convertRemoteData:(NSData*)remoteData key:(id)key
 {
+    // OVERRIDE
     return nil;
+}
+
+@end
+
+@interface MGMRemoteDataSource ()
+
+@property (readonly) MGMRemoteDataReader* remoteDataReader;
+@property (readonly) MGMRemoteDataConverter* remoteDataConverter;
+
+@end
+
+@implementation MGMRemoteDataSource
+
+- (id) init
+{
+    if (self = [super init])
+    {
+        _remoteDataReader = [self createRemoteDataReader];
+        _remoteDataConverter = [self createRemoteDataConverter];
+    }
+    return self;
+}
+
+- (MGMRemoteDataReader*) createRemoteDataReader
+{
+    // OVERRIDE
+    return nil;
+}
+
+- (MGMRemoteDataConverter*) createRemoteDataConverter
+{
+    // OVERRIDE
+    return nil;
+}
+
+- (void) setReachability:(BOOL)reachability
+{
+    self.remoteDataReader.reachability = reachability;
+}
+
+- (MGMRemoteData*) fetchRemoteData:(id)key
+{
+    NSError* error = nil;
+    NSData* remoteData = [self.remoteDataReader readRemoteData:key error:&error];
+    if (error == nil)
+    {
+        return [self.remoteDataConverter convertRemoteData:remoteData key:key];
+    }
+    else
+    {
+        return [MGMRemoteData dataWithError:error];
+    }
 }
 
 @end
