@@ -12,8 +12,9 @@
 
 @interface MGMLocalDataSourceThreadManager ()
 
-@property (strong) NSPersistentStoreCoordinator* psc;
-@property (strong) NSMutableDictionary* threadUuidsToMocs;
+@property (readonly) NSManagedObjectContext* masterMoc;
+@property (readonly) NSManagedObjectContext* mainMoc;
+@property (readonly) NSMutableDictionary* threadUuidsToMocs;
 
 @end
 
@@ -25,37 +26,50 @@
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(threadWillExit:) name:NSThreadWillExitNotification object:nil];
 
-        self.threadUuidsToMocs = [NSMutableDictionary dictionary];
-
         NSError* error = nil;
-        self.psc = [self createPersistentStoreCoordinatorWithStoreName:storeName error:&error];
+        NSPersistentStoreCoordinator* psc = [self createPersistentStoreCoordinatorWithStoreName:storeName error:&error];
         if (error != nil)
         {
             NSLog(@"Error when creating persistent store coordinator: %@", error);
         }
+
+        _masterMoc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        _masterMoc.persistentStoreCoordinator = psc;
+        _mainMoc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        _mainMoc.parentContext = _masterMoc;
+
+        _threadUuidsToMocs = [NSMutableDictionary dictionary];
+
     }
     return self;
 }
 
 - (NSManagedObjectContext*) managedObjectContextForCurrentThread
 {
-    NSThread* thread = [NSThread currentThread];
-    NSMutableDictionary* td = thread.threadDictionary;
-    NSString* uuid = [td objectForKey:THREAD_UUID_KEY];
-    if (uuid == nil)
+    if ([NSThread isMainThread])
     {
-        // We've not seen this thread before...
-        NSString* uuid = [[NSUUID UUID] UUIDString];
-        [td setObject:uuid forKey:THREAD_UUID_KEY];
-        NSManagedObjectContext* moc = [self createManagedObjectContextsWithPersistentStoreCoordinator:self.psc];
-        @synchronized(self)
-        {
-            [self.threadUuidsToMocs setObject:moc forKey:uuid];
-        }
-        return moc;
+        return _mainMoc;
     }
-
-    return [self.threadUuidsToMocs objectForKey:uuid];
+    else
+    {
+        NSThread* thread = [NSThread currentThread];
+        NSMutableDictionary* td = thread.threadDictionary;
+        NSString* uuid = [td objectForKey:THREAD_UUID_KEY];
+        if (uuid == nil)
+        {
+            // We've not seen this thread before...
+            NSString* uuid = [[NSUUID UUID] UUIDString];
+            [td setObject:uuid forKey:THREAD_UUID_KEY];
+            NSManagedObjectContext* moc = [self createManagedObjectContext];
+            @synchronized(self)
+            {
+                [self.threadUuidsToMocs setObject:moc forKey:uuid];
+            }
+            return moc;
+        }
+        
+        return [self.threadUuidsToMocs objectForKey:uuid];
+    }
 }
 
 - (NSPersistentStoreCoordinator*) createPersistentStoreCoordinatorWithStoreName:(NSString*)storeName error:(NSError**)error
@@ -74,11 +88,10 @@
     return persistentStoreCoordinator;
 }
 
-- (NSManagedObjectContext*) createManagedObjectContextsWithPersistentStoreCoordinator:(NSPersistentStoreCoordinator*)psc
+- (NSManagedObjectContext*) createManagedObjectContext
 {
     NSManagedObjectContext* moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    moc.persistentStoreCoordinator = psc;
-    moc.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+    moc.parentContext = _mainMoc;
     return moc;
 }
 
