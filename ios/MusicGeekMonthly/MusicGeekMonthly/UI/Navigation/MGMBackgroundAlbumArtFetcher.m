@@ -43,44 +43,30 @@
     {
         [self.operationQueue addOperationWithBlock:^
         {
-            [self generateImageSyncAtIndex:index attempt:0];
+            [self generateImageSyncAtIndex:index];
             [NSThread sleepForTimeInterval:sleepTime];
         }];
     }
 }
 
-- (void) generateImageSyncAtIndex:(NSUInteger)index attempt:(NSUInteger)attempt
+- (void) generateImageSyncAtIndex:(NSUInteger)index
 {
-    if (attempt == 5)
+    int randomIndex = arc4random() % (self.chartEntryMoids.count);
+    NSManagedObjectID* moid = [self.chartEntryMoids objectAtIndex:randomIndex];
+    MGMChartEntry* randomEntry = [self.coreDataAccess threadVersion:moid];
+    MGMAlbum* randomAlbum = randomEntry.album;
+    NSError* error = nil;
+    UIImage* image = [self fetchBestAlbumImage:randomAlbum error:&error];
+    if (error)
     {
-        [self fireDelegateForImage:nil index:index];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // ... fire the delegate in the main thread...
+            [self.delegate artFetcher:self errorOccured:error atIndex:index];
+        });
     }
     else
     {
-        int randomIndex = arc4random() % (self.chartEntryMoids.count);
-        NSManagedObjectID* moid = [self.chartEntryMoids objectAtIndex:randomIndex];
-        MGMChartEntry* randomEntry = [self.coreDataAccess threadVersion:moid];
-        MGMAlbum* randomAlbum = randomEntry.album;
-        NSError* error = nil;
-        UIImage* image = [self fetchBestAlbumImage:randomAlbum error:&error];
-        if (error)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // ... fire the delegate in the main thread...
-                [self.delegate artFetcher:self errorOccured:error atIndex:index];
-            });
-        }
-        else
-        {
-            if (image == nil)
-            {
-                [self generateImageSyncAtIndex:index attempt:attempt + 1];
-            }
-            else
-            {
-                [self fireDelegateForImage:image index:index];
-            }
-        }
+        [self fireDelegateForImage:image index:index];
     }
 }
 
