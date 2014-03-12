@@ -193,8 +193,7 @@
         for (NSUInteger i = 0; i < self.backgroundAlbumCount; i++)
         {
             NSNumber* index = [shuffledIndicies objectAtIndex:i];
-            [self.artFetcher generateImageAtIndex:[index integerValue]];
-            [NSThread sleepForTimeInterval:sleepTime];
+            [self.artFetcher generateImageAtIndex:[index integerValue] sleepTime:sleepTime];
         }
         
         if (initialRender)

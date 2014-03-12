@@ -31,6 +31,6 @@
 
 - (id) init __unavailable;
 - (id) initWithImageHelper:(MGMImageHelper*)imageHelper chartEntryMoids:(NSArray*)chartEntryMoids;
-- (void) generateImageAtIndex:(NSUInteger)index;
+- (void) generateImageAtIndex:(NSUInteger)index sleepTime:(NSTimeInterval)sleepTime;
 
 @end

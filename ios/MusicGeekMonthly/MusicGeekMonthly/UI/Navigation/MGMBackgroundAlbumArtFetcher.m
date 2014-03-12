@@ -33,7 +33,7 @@
     return self;
 }
 
-- (void) generateImageAtIndex:(NSUInteger)index
+- (void) generateImageAtIndex:(NSUInteger)index sleepTime:(NSTimeInterval)sleepTime
 {
     if (self.chartEntryMoids.count == 0)
     {
@@ -44,6 +44,7 @@
         [self.operationQueue addOperationWithBlock:^
         {
             [self generateImageSyncAtIndex:index attempt:0];
+            [NSThread sleepForTimeInterval:sleepTime];
         }];
     }
 }
