@@ -59,7 +59,8 @@
     NSString* refreshIdentifier = [self refreshIdentifierForKey:key];
 
     NSError* nextAccessError = nil;
-    MGMNextUrlAccess* nextAccess = [self.coreDataAccess fetchNextUrlAccessWithIdentifier:refreshIdentifier error:&nextAccessError];
+    NSManagedObjectID* moid = [self.coreDataAccess fetchNextUrlAccessWithIdentifier:refreshIdentifier error:&nextAccessError];
+    MGMNextUrlAccess* nextAccess = [self.coreDataAccess threadVersion:moid];
 
     if (nextAccessError)
     {

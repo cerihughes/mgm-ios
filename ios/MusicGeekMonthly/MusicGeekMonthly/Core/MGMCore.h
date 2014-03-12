@@ -20,6 +20,8 @@ typedef NS_ENUM(NSUInteger, MGMCoreBackgroundFetchResult)
     MGMCoreBackgroundFetchResultFailed
 };
 
+typedef void (^BACKGROUND_FETCH_COMPLETION) (MGMCoreBackgroundFetchResult);
+
 @interface MGMCore : NSObject
 
 @property (readonly) MGMCoreDataAccess* coreDataAccess;
@@ -30,6 +32,6 @@ typedef NS_ENUM(NSUInteger, MGMCoreBackgroundFetchResult)
 
 - (void) setReachability:(BOOL)reachability;
 
-- (MGMCoreBackgroundFetchResult) performBackgroundFetch;
+- (void) performBackgroundFetch:(BACKGROUND_FETCH_COMPLETION)completion;
 
 @end

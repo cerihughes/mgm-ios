@@ -34,7 +34,6 @@
     eventsView.delegate = self;
 
     self.dataSource = [[MGMEventTableViewDataSource alloc] initWithCellId:CELL_ID];
-    self.dataSource.fetchedResultsController = [self.core.coreDataAccess createEventsFetchedResultsController];
     self.dataSource.coreDataAccess = self.core.coreDataAccess;
     self.dataSource.albumRenderService = self.core.albumRenderService;
     self.dataSource.imageHelper = self.ui.imageHelper;
@@ -49,22 +48,28 @@
 
 - (void) viewDidAppear:(BOOL)animated
 {
-    NSError* error = nil;
-    [self.dataSource.fetchedResultsController performFetch:&error];
-    if (error != nil)
-    {
-        [self showError:error];
-    }
-    
-    [self.modalView.eventsTable reloadData];
-
-    if (self.event == nil && self.dataSource.fetchedResultsController.fetchedObjects.count > 0)
-    {
-        // Auto-populate for 1st entry...
-        NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-        [self.modalView.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-        [self tableView:self.modalView.eventsTable didSelectRowAtIndexPath:firstItem];
-    }
+    [self.core.dao fetchAllEvents:^(MGMDaoData* eventData) {
+        if (eventData.error)
+        {
+            [self showError:eventData.error];
+        }
+        else
+        {
+            NSArray* moids = eventData.data;
+            NSArray* renderables = [self.core.coreDataAccess threadVersions:moids];
+            [self.dataSource setRenderables:renderables];
+            
+            [self.modalView.eventsTable reloadData];
+            
+            if (self.event == nil && renderables.count > 0)
+            {
+                // Auto-populate for 1st entry...
+                NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
+                [self.modalView.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+                [self tableView:self.modalView.eventsTable didSelectRowAtIndexPath:firstItem];
+            }
+        }
+    }];
 }
 
 - (void) displayEvent:(MGMEvent*)event
@@ -78,9 +83,8 @@
     NSString* playlistId = event.playlistId;
     if (playlistId)
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.core.dao fetchPlaylist:playlistId completion:^(MGMDaoData* playlistData) {
             MGMPlaylist* playlist = nil;
-            MGMDaoData* playlistData = [self.core.dao fetchPlaylist:playlistId];
             if (playlistData.error)
             {
                 [self logError:playlistData.error];
@@ -89,11 +93,9 @@
             {
                 playlist = playlistData.data;
             }
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self displayEvent:event playlist:playlist];
-            });
-        });
+            
+            [self displayEvent:event playlist:playlist];
+        }];
     }
     else
     {
@@ -107,7 +109,7 @@
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     [self dismissModalPresentation];
-    MGMEvent* event = [self.dataSource.fetchedResultsController objectAtIndexPath:indexPath];
+    MGMEvent* event = [self.dataSource objectAtIndexPath:indexPath];
     [self displayEvent:event];
 }
 

@@ -2,10 +2,12 @@
 #import "MGMWeeklyChartViewController.h"
 
 #import "MGMAlbumViewUtilities.h"
+#import "MGMChartEntry.h"
 #import "MGMCoreDataTableViewDataSource.h"
 #import "MGMGridManager.h"
 #import "MGMImageHelper.h"
 #import "MGMTimePeriod.h"
+#import "MGMWeeklyChart.h"
 #import "MGMWeeklyChartModalView.h"
 #import "MGMWeeklyChartView.h"
 
@@ -40,7 +42,6 @@
     weeklyChartView.albumGridView.delegate = self;
 
     self.dataSource = [[MGMCoreDataTableViewDataSource alloc] initWithCellId:CELL_ID];
-    self.dataSource.fetchedResultsController = [self.core.coreDataAccess createTimePeriodsFetchedResultsController];
 
     self.modalView = [[MGMWeeklyChartModalView alloc] initWithFrame:[self fullscreenRect]];
     self.modalView.delegate = self;
@@ -70,27 +71,28 @@
 
 - (void) viewDidAppear:(BOOL)animated
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError* error = nil;
-        [self.core.dao fetchAllTimePeriods];
-        [self.dataSource.fetchedResultsController performFetch:&error];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (error != nil)
-            {
-                [self showError:error];
-            }
-
+    [self.core.dao fetchAllTimePeriods:^(MGMDaoData* timePeriodData) {
+        if (timePeriodData.error)
+        {
+            [self showError:timePeriodData.error];
+        }
+        else
+        {
+            NSArray* moids = timePeriodData.data;
+            NSArray* renderables = [self.core.coreDataAccess threadVersions:moids];
+            [self.dataSource setRenderables:renderables];
+            
             [self.modalView.timePeriodTable reloadData];
-
-            if (self.weeklyChartMoid == nil && self.dataSource.fetchedResultsController.fetchedObjects.count > 0)
+            
+            if (self.weeklyChartMoid == nil && renderables.count > 0)
             {
                 // Auto-populate for 1st entry...
                 NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
                 [self.modalView.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
                 [self tableView:self.modalView.timePeriodTable didSelectRowAtIndexPath:firstItem];
             }
-        });
-    });
+        }
+    }];
 }
 
 - (void) loadAlbumsForPeriod:(MGMTimePeriod*)timePeriod
@@ -98,30 +100,26 @@
     MGMWeeklyChartView* weeklyChartView = (MGMWeeklyChartView*)self.view;
 
     [weeklyChartView setTitle:timePeriod.groupValue];
+    [weeklyChartView.albumGridView setActivityInProgressForAllRanks:YES];
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [weeklyChartView.albumGridView setActivityInProgressForAllRanks:YES];
-    });
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        MGMDaoData* data = [self.core.dao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate];
-        NSError* fetchError = data.error;
-        MGMWeeklyChart* weeklyChart = data.data;
-        if (fetchError && weeklyChart)
+    [self.core.dao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* weeklyChartData) {
+        NSError* fetchError = weeklyChartData.error;
+        NSManagedObjectID* moid = weeklyChartData.data;
+        if (fetchError && moid)
         {
             [self logError:fetchError];
         }
-
-        if (weeklyChart)
+        
+        if (moid)
         {
-            self.weeklyChartMoid = weeklyChart.objectID;
+            self.weeklyChartMoid = moid;
             [self reloadData];
         }
         else
         {
             [self showError:fetchError];
         }
-    });
+    }];
 }
 
 - (void) reloadData
@@ -162,7 +160,7 @@
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     [self dismissModalPresentation];
-    MGMTimePeriod* timePeriod = [self.dataSource.fetchedResultsController objectAtIndexPath:indexPath];
+    MGMTimePeriod* timePeriod = [self.dataSource objectAtIndexPath:indexPath];
     [self loadAlbumsForPeriod:timePeriod];
 }
 

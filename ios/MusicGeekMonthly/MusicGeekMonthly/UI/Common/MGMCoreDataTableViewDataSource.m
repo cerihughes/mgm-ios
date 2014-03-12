@@ -7,11 +7,12 @@
 //
 
 #import "MGMCoreDataTableViewDataSource.h"
-#import "MGMRenderable.h"
+
+#import "MGMCoreDataTableViewDataSourceContainer.h"
 
 @interface MGMCoreDataTableViewDataSource ()
 
-@property (copy) NSString* internalCellId;
+@property (readonly) MGMCoreDataTableViewDataSourceContainer* container;
 
 @end
 
@@ -21,14 +22,15 @@
 {
     if (self = [super init])
     {
-        self.internalCellId = cellId;
+        _cellId = cellId;
+        _container = [[MGMCoreDataTableViewDataSourceContainer alloc] init];
     }
     return self;
 }
 
-- (NSString*) cellId
+- (void) setRenderables:(NSArray*)renderables
 {
-    return self.internalCellId;
+    [self.container setRenderables:renderables];
 }
 
 #pragma mark -
@@ -36,15 +38,15 @@
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView*)tableView
 {
-    return self.fetchedResultsController.sections.count;
+    return self.container.sections.count;
 }
 
 - (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.fetchedResultsController.sections.count > 0)
+    if ([self numberOfSectionsInTableView:tableView] > 0)
     {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
-        return sectionInfo.numberOfObjects;
+        MGMCoreDataTableViewDataSourceSection* sectionObject = [self.container.sections objectAtIndex:section];
+        return sectionObject.data.count;
     }
     else
     {
@@ -54,10 +56,10 @@
 
 - (NSString*) tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (self.fetchedResultsController.sections.count > 0)
+    if ([self numberOfSectionsInTableView:tableView] > 0)
     {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
-        return sectionInfo.name;
+        MGMCoreDataTableViewDataSourceSection* sectionObject = [self.container.sections objectAtIndex:section];
+        return sectionObject.name;
     }
     else
     {
@@ -67,15 +69,24 @@
 
 - (UITableViewCell*) tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.internalCellId];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.cellId];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.internalCellId];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.cellId];
     }
 
-    id<MGMRenderable> renderable = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    id<MGMRenderable> renderable = [self objectAtIndexPath:indexPath];
     cell.textLabel.text = renderable.groupValue;
     return cell;
+}
+
+- (id<MGMRenderable>) objectAtIndexPath:(NSIndexPath*)indexPath
+{
+    NSUInteger section = [indexPath indexAtPosition:0];
+    MGMCoreDataTableViewDataSourceSection* sectionObject = [self.container.sections objectAtIndex:section];
+    
+    NSUInteger index = [indexPath indexAtPosition:1];
+    return [sectionObject.data objectAtIndex:index];
 }
 
 @end

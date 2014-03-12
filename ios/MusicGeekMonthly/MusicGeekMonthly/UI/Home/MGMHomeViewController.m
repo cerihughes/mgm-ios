@@ -34,48 +34,53 @@
 {
     [super viewDidAppear:animated];
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        MGMDaoData* eventsData = [self.core.dao fetchAllEvents];
+    [self.core.dao fetchAllEvents:^(MGMDaoData* eventsData) {
         NSError* fetchError = eventsData.error;
-        NSArray* fetchedEvents = eventsData.data;
-
-        if (fetchError && fetchedEvents.count > 0)
+        NSArray* fetchedEventMoids = eventsData.data;
+        
+        if (fetchError && fetchedEventMoids.count > 0)
         {
             [self logError:fetchError];
         }
-
-        if (fetchedEvents.count > 0) {
-            MGMEvent* event = [fetchedEvents objectAtIndex:0];
-            NSManagedObjectID* moid = event.objectID;
-            if ([self.eventMoid isEqual:moid] == NO)
+        
+        if (fetchedEventMoids.count > 0) {
+            NSManagedObjectID* fetchedEventMoid = [fetchedEventMoids objectAtIndex:0];
+            if ([self.eventMoid isEqual:fetchedEventMoid] == NO)
             {
-                self.eventMoid = moid;
-
-                MGMPlaylist* playlist = nil;
+                self.eventMoid = fetchedEventMoid;
+                
+                MGMEvent* event = [self.core.coreDataAccess threadVersion:fetchedEventMoid];
                 NSString* playlistId = event.playlistId;
                 if (playlistId)
                 {
-                    MGMDaoData* playlistData = [self.core.dao fetchPlaylist:playlistId];
-                    if (playlistData.error)
-                    {
-                        [self logError:playlistData.error];
-                    }
-                    if (playlistData.data)
-                    {
-                        playlist = playlistData.data;
-                    }
+                    [self.core.dao fetchPlaylist:playlistId completion:^(MGMDaoData* playlistData) {
+                        if (playlistData.error)
+                        {
+                            [self logError:playlistData.error];
+                        }
+                        if (playlistData.data)
+                        {
+                            NSManagedObjectID* playlistMoid = playlistData.data;
+                            MGMPlaylist* playlist = [self.core.coreDataAccess threadVersion:playlistMoid];
+                            [self displayEventWithMoid:self.eventMoid playlist:playlist];
+                        }
+                        else
+                        {
+                            [self displayEventWithMoid:self.eventMoid playlist:nil];                            
+                        }
+                    }];
                 }
-
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self displayEventWithMoid:self.eventMoid playlist:playlist];
-                });
+                else
+                {
+                    [self displayEventWithMoid:self.eventMoid playlist:nil];
+                }
             }
         }
         else
         {
             [self showError:fetchError];
         }
-    });
+    }];
 }
 
 - (void) displayEventWithMoid:(NSManagedObjectID*)eventMoid playlist:(MGMPlaylist*)playlist

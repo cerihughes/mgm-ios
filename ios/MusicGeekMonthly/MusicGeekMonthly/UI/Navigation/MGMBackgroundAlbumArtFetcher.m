@@ -8,6 +8,7 @@
 
 #import "MGMBackgroundAlbumArtFetcher.h"
 
+#import "MGMChartEntry.h"
 #import "MGMImageHelper.h"
 
 @interface MGMBackgroundAlbumArtFetcher ()

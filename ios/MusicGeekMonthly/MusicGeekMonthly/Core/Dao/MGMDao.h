@@ -11,6 +11,8 @@
 #import "MGMCoreDataAccess.h"
 #import "MGMDaoData.h"
 
+typedef void (^DAO_FETCH_COMPLETION) (MGMDaoData*);
+
 @interface MGMDao : NSObject
 
 - (id) init __unavailable;
@@ -18,18 +20,18 @@
 
 - (void) setReachability:(BOOL)reachability;
 
-- (MGMDaoData*) preloadEvents;
-- (MGMDaoData*) preloadTimePeriods;
-- (MGMDaoData*) preloadWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate;
+- (void) preloadEvents:(DAO_FETCH_COMPLETION)completion;
+- (void) preloadTimePeriods:(DAO_FETCH_COMPLETION)completion;
+- (void) preloadWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(DAO_FETCH_COMPLETION)completion;
 
-- (MGMDaoData*) fetchAllEvents;
-- (MGMDaoData*) fetchAllClassicAlbums;
-- (MGMDaoData*) fetchAllNewlyReleasedAlbums;
-- (MGMDaoData*) fetchAllEventAlbums;
+- (void) fetchAllEvents:(DAO_FETCH_COMPLETION)completion;
+- (void) fetchAllClassicAlbums:(DAO_FETCH_COMPLETION)completion;
+- (void) fetchAllNewlyReleasedAlbums:(DAO_FETCH_COMPLETION)completion;
+- (void) fetchAllEventAlbums:(DAO_FETCH_COMPLETION)completion;
 
-- (MGMDaoData*) fetchAllTimePeriods;
-- (MGMDaoData*) fetchWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate;
+- (void) fetchAllTimePeriods:(DAO_FETCH_COMPLETION)completion;
+- (void) fetchWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(DAO_FETCH_COMPLETION)completion;
 
-- (MGMDaoData*) fetchPlaylist:(NSString*)playlistId;
+- (void) fetchPlaylist:(NSString*)playlistId completion:(DAO_FETCH_COMPLETION)completion;
 
 @end

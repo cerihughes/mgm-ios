@@ -32,30 +32,35 @@
     self.serviceManager.reachability = reachability;
 }
 
-- (MGMCoreBackgroundFetchResult) performBackgroundFetch
+- (void) performBackgroundFetch:(BACKGROUND_FETCH_COMPLETION)completion
 {
-    MGMDaoData* eventData = [self.dao fetchAllEvents];
-    MGMDaoData* timePeriodsData = [self.dao fetchAllTimePeriods];
-    NSArray* timePeriods = timePeriodsData.data;
-    if (timePeriods.count > 0)
-    {
-        MGMTimePeriod* timePeriod = [timePeriods objectAtIndex:0];
-        MGMDaoData* chartData = [self.dao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate];
-        if (eventData.isNew || timePeriodsData.isNew || chartData.isNew)
-        {
-            return MGMCoreBackgroundFetchResultNewData;
-        }
-
-        if (eventData.error || timePeriodsData.error || chartData.error)
-        {
-            return MGMCoreBackgroundFetchResultFailed;
-        }
-        return MGMCoreBackgroundFetchResultNoData;
-    }
-    else
-    {
-        return MGMCoreBackgroundFetchResultFailed;
-    }
+     [self.dao fetchAllEvents:^(MGMDaoData* eventData) {
+         [self.dao fetchAllTimePeriods:^(MGMDaoData* timePeriodsData) {
+             NSArray* timePeriods = timePeriodsData.data;
+             if (timePeriods.count > 0)
+             {
+                 MGMTimePeriod* timePeriod = [self.coreDataAccess threadVersion:[timePeriods objectAtIndex:0]];
+                 [self.dao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* chartData) {
+                     if (eventData.isNew || timePeriodsData.isNew || chartData.isNew)
+                     {
+                         completion(MGMCoreBackgroundFetchResultNewData);
+                         return;
+                     }
+                     
+                     if (eventData.error || timePeriodsData.error || chartData.error)
+                     {
+                         completion(MGMCoreBackgroundFetchResultFailed);
+                         return;
+                     }
+                     completion(MGMCoreBackgroundFetchResultNoData);
+                 }];
+             }
+             else
+             {
+                 completion(MGMCoreBackgroundFetchResultFailed);
+             }
+         }];
+     }];
 }
 
 @end

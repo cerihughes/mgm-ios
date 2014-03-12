@@ -59,60 +59,92 @@
     self.playlistDaoOperation.reachability = reachability;
 }
 
-- (MGMDaoData*) preloadEvents
+typedef MGMDaoData* (^DAO_BLOCK) (void);
+
+- (void) performDaoBlock:(DAO_BLOCK)daoBlock completion:(DAO_FETCH_COMPLETION)completion
 {
-    return [self.preloadEventDaoOperation fetchData:ALL_EVENTS_KEY];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        MGMDaoData* data = daoBlock();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(data);
+        });
+    });
 }
 
-- (MGMDaoData*) preloadTimePeriods
+- (void) preloadEvents:(DAO_FETCH_COMPLETION)completion
 {
-    return [self.preloadTimePeriodDaoOperation fetchData:nil];
+    [self performDaoBlock:^MGMDaoData *{
+        return [self.preloadEventDaoOperation fetchData:ALL_EVENTS_KEY];
+    } completion:completion];
 }
 
-- (MGMDaoData*) preloadWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate
+- (void) preloadTimePeriods:(DAO_FETCH_COMPLETION)completion
 {
-    MGMWeeklyChartData* data = [[MGMWeeklyChartData alloc] init];
-    data.startDate = startDate;
-    data.endDate = endDate;
-    return [self.preloadWeeklyChartDaoOperation fetchData:data];
+    [self performDaoBlock:^MGMDaoData *{
+        return [self.preloadTimePeriodDaoOperation fetchData:nil];
+    } completion:completion];
 }
 
-- (MGMDaoData*) fetchAllEvents
+- (void) preloadWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(DAO_FETCH_COMPLETION)completion
 {
-    return [self.eventDaoOperation fetchData:ALL_EVENTS_KEY];
+    [self performDaoBlock:^MGMDaoData *{
+        MGMWeeklyChartData* data = [[MGMWeeklyChartData alloc] init];
+        data.startDate = startDate;
+        data.endDate = endDate;
+        return [self.preloadWeeklyChartDaoOperation fetchData:data];
+    } completion:completion];
 }
 
-- (MGMDaoData*) fetchAllClassicAlbums
+- (void) fetchAllEvents:(DAO_FETCH_COMPLETION)completion
 {
-    return [self.eventDaoOperation fetchData:ALL_CLASSIC_ALBUMS_KEY];
+    [self performDaoBlock:^MGMDaoData *{
+        return [self.eventDaoOperation fetchData:ALL_EVENTS_KEY];
+    } completion:completion];
 }
 
-- (MGMDaoData*) fetchAllNewlyReleasedAlbums
+- (void) fetchAllClassicAlbums:(DAO_FETCH_COMPLETION)completion
 {
-    return [self.eventDaoOperation fetchData:ALL_NEWLY_RELEASED_ALBUMS_KEY];
+    [self performDaoBlock:^MGMDaoData *{
+        return [self.eventDaoOperation fetchData:ALL_CLASSIC_ALBUMS_KEY];
+    } completion:completion];
 }
 
-- (MGMDaoData*) fetchAllEventAlbums
+- (void) fetchAllNewlyReleasedAlbums:(DAO_FETCH_COMPLETION)completion
 {
-    return [self.eventDaoOperation fetchData:ALL_EVENT_ALBUMS_KEY];
+    [self performDaoBlock:^MGMDaoData *{
+        return [self.eventDaoOperation fetchData:ALL_NEWLY_RELEASED_ALBUMS_KEY];
+    } completion:completion];
 }
 
-- (MGMDaoData*) fetchAllTimePeriods
+- (void) fetchAllEventAlbums:(DAO_FETCH_COMPLETION)completion
 {
-    return [self.timePeriodDaoOperation fetchData:nil];
+    [self performDaoBlock:^MGMDaoData *{
+        return [self.eventDaoOperation fetchData:ALL_EVENT_ALBUMS_KEY];
+    } completion:completion];
 }
 
-- (MGMDaoData*) fetchWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate
+- (void) fetchAllTimePeriods:(DAO_FETCH_COMPLETION)completion
 {
-    MGMWeeklyChartData* data = [[MGMWeeklyChartData alloc] init];
-    data.startDate = startDate;
-    data.endDate = endDate;
-    return [self.weeklyChartDaoOperation fetchData:data];
+    [self performDaoBlock:^MGMDaoData *{
+        return [self.timePeriodDaoOperation fetchData:nil];
+    } completion:completion];
 }
 
-- (MGMDaoData*) fetchPlaylist:(NSString*)playlistId
+- (void) fetchWeeklyChartForStartDate:(NSDate*)startDate endDate:(NSDate*)endDate completion:(DAO_FETCH_COMPLETION)completion
 {
-    return [self.playlistDaoOperation fetchData:playlistId];
+    [self performDaoBlock:^MGMDaoData *{
+        MGMWeeklyChartData* data = [[MGMWeeklyChartData alloc] init];
+        data.startDate = startDate;
+        data.endDate = endDate;
+        return [self.weeklyChartDaoOperation fetchData:data];
+    } completion:completion];
+}
+
+- (void) fetchPlaylist:(NSString*)playlistId completion:(DAO_FETCH_COMPLETION)completion
+{
+    [self performDaoBlock:^MGMDaoData *{
+        return [self.playlistDaoOperation fetchData:playlistId];
+    } completion:completion];
 }
 
 @end

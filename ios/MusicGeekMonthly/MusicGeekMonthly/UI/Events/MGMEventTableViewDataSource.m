@@ -25,7 +25,7 @@
     cell.classicAlbumImageView.image = nil;
     cell.newlyReleasedAlbumImageView.image = nil;
 
-    MGMEvent* event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    MGMEvent* event = [self objectAtIndexPath:indexPath];
     cell.eventTextLabel.text = event.groupValue;
 
     [cell.classicAlbumActivityView startAnimating];

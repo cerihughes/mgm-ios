@@ -16,6 +16,7 @@
 #import "MGMPulsatingAlbumsView.h"
 #import "MGMTabbedViewController.h"
 #import "MGMTimePeriod.h"
+#import "MGMWeeklyChart.h"
 #import "MGMWeeklyChartViewController.h"
 #import "NSMutableArray+Shuffling.h"
 #import "UIViewController+MGMAdditions.h"
@@ -120,57 +121,58 @@
 
 - (void) loadImages
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if (self.artFetcher == nil)
-        {
-            MGMDaoData* data = [self.core.dao fetchAllTimePeriods];
-            NSArray* fetchedTimePeriods = data.data;
-            NSError* timePeriodFetchError = data.error;
-
-            if (timePeriodFetchError && fetchedTimePeriods)
+    if (self.artFetcher == nil)
+    {
+        [self.core.dao fetchAllTimePeriods:^(MGMDaoData* timePeriodData) {
+            NSArray* fetchedTimePeriodMoids = timePeriodData.data;
+            NSError* timePeriodFetchError = timePeriodData.error;
+            
+            if (timePeriodFetchError && fetchedTimePeriodMoids)
             {
                 [self.ui logError:timePeriodFetchError];
             }
-
-            if (fetchedTimePeriods.count > 0)
+            
+            if (fetchedTimePeriodMoids.count > 0)
             {
-                MGMTimePeriod* fetchedTimePeriod = [fetchedTimePeriods objectAtIndex:0];
-                MGMDaoData* data = [self.core.dao fetchWeeklyChartForStartDate:fetchedTimePeriod.startDate endDate:fetchedTimePeriod.endDate];
-                MGMWeeklyChart* fetchedWeeklyChart = data.data;
-                NSError* weeklyChartFetchError = data.error;
-
-                if (weeklyChartFetchError && fetchedWeeklyChart)
-                {
-                    [self.ui logError:weeklyChartFetchError];
-                }
-
-                if (fetchedWeeklyChart)
-                {
-                    self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithImageHelper:self.ui.imageHelper chartEntryMoids:[self chartEntryMoidsForWeeklyChart:fetchedWeeklyChart]];
-                    self.artFetcher.coreDataAccess = self.core.coreDataAccess;
-                    self.artFetcher.albumRenderService = self.core.albumRenderService;
-                    self.artFetcher.delegate = self;
-                    CGSize size = [self.albumsView albumSize];
-                    MGMAlbumImageSize preferredSize = [self.ui.viewUtilities preferredImageSizeForViewSize:size];
-                    self.artFetcher.preferredSize = preferredSize;
-                    [self renderImages:YES];
-                }
-                else
-                {
-                    [self.ui showError:weeklyChartFetchError];
-                }
+                NSManagedObjectID* fetchedTimePeriodMoid = [fetchedTimePeriodMoids objectAtIndex:0];
+                MGMTimePeriod* fetchedTimePeriod = [self.core.coreDataAccess threadVersion:fetchedTimePeriodMoid];
+                [self.core.dao fetchWeeklyChartForStartDate:fetchedTimePeriod.startDate endDate:fetchedTimePeriod.endDate completion:^(MGMDaoData* weeklyChartData) {
+                    NSManagedObjectID* fetchedWeeklyChartMoid = weeklyChartData.data;
+                    NSError* weeklyChartFetchError = weeklyChartData.error;
+                    
+                    if (weeklyChartFetchError && fetchedWeeklyChartMoid)
+                    {
+                        [self.ui logError:weeklyChartFetchError];
+                    }
+                    
+                    if (fetchedWeeklyChartMoid)
+                    {
+                        MGMWeeklyChart* fetchedWeeklyChart = [self.core.coreDataAccess threadVersion:fetchedWeeklyChartMoid];
+                        self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithImageHelper:self.ui.imageHelper chartEntryMoids:[self chartEntryMoidsForWeeklyChart:fetchedWeeklyChart]];
+                        self.artFetcher.coreDataAccess = self.core.coreDataAccess;
+                        self.artFetcher.albumRenderService = self.core.albumRenderService;
+                        self.artFetcher.delegate = self;
+                        CGSize size = [self.albumsView albumSize];
+                        MGMAlbumImageSize preferredSize = [self.ui.viewUtilities preferredImageSizeForViewSize:size];
+                        self.artFetcher.preferredSize = preferredSize;
+                        [self renderImages:YES];
+                    }
+                    else
+                    {
+                        [self.ui showError:weeklyChartFetchError];
+                    }
+                }];
             }
             else
             {
                 [self.ui showError:timePeriodFetchError];
             }
-        }
-        else
-        {
-            [self renderImages:NO];
-        }
-    });
-}
+        }];
+    }
+    else
+    {
+        [self renderImages:NO];
+    }}
 
 - (NSArray*) chartEntryMoidsForWeeklyChart:(MGMWeeklyChart*)weeklyChart
 {
@@ -184,22 +186,24 @@
 
 - (void) renderImages:(BOOL)initialRender
 {
-    self.renderingImages = YES;
-    NSArray* shuffledIndicies = [self shuffledIndicies:self.backgroundAlbumCount];
-    NSTimeInterval sleepTime = initialRender ? 0.05 : 2.0;
-    for (NSUInteger i = 0; i < self.backgroundAlbumCount; i++)
-    {
-        NSNumber* index = [shuffledIndicies objectAtIndex:i];
-        [self.artFetcher generateImageAtIndex:[index integerValue]];
-        [NSThread sleepForTimeInterval:sleepTime];
-    }
-
-    if (initialRender)
-    {
-        [self renderImages:NO];
-    }
-
-    self.renderingImages = NO;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.renderingImages = YES;
+        NSArray* shuffledIndicies = [self shuffledIndicies:self.backgroundAlbumCount];
+        NSTimeInterval sleepTime = initialRender ? 0.05 : 2.0;
+        for (NSUInteger i = 0; i < self.backgroundAlbumCount; i++)
+        {
+            NSNumber* index = [shuffledIndicies objectAtIndex:i];
+            [self.artFetcher generateImageAtIndex:[index integerValue]];
+            [NSThread sleepForTimeInterval:sleepTime];
+        }
+        
+        if (initialRender)
+        {
+            [self renderImages:NO];
+        }
+        
+        self.renderingImages = NO;
+    });
 }
 
 - (NSArray*) shuffledIndicies:(NSUInteger)size

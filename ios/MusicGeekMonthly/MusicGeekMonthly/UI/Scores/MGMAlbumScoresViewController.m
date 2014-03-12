@@ -55,98 +55,79 @@
 - (void) loadAlbumsForChoice:(NSInteger)choice
 {
     MGMAlbumScoresView* scoresView = (MGMAlbumScoresView*)self.view;
+    [scoresView.albumGridView setActivityInProgressForAllRanks:YES];
 
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
-        [scoresView.albumGridView setActivityInProgressForAllRanks:YES];
-    });
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-    {
-        MGMDaoData* data = [self dataForChoice:choice];
+    [self dataForChoice:choice completion:^(MGMDaoData* data) {
         NSArray* albumMoids = data.data;
         NSError* fetchError = data.error;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // Resize the album view for new data...
-            NSUInteger albumCount = albumMoids.count;
-            [scoresView.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
-            NSUInteger rowCount = self.ipad ? 4 : 2;
-            CGFloat albumSize = scoresView.albumGridView.frame.size.width / rowCount;
-            NSArray* gridData = [MGMGridManager rectsForRowSize:rowCount defaultRectSize:albumSize count:albumCount];
-
-            for (NSUInteger i = 0; i < albumCount; i++)
-            {
-                NSValue* value = [gridData objectAtIndex:i];
-                CGRect frame = [value CGRectValue];
-                [scoresView.albumGridView setAlbumFrame:frame forRank:i + 1];
-            }
-
-            [scoresView.albumGridView setActivityInProgressForAllRanks:YES];
-
-            if (fetchError && albumMoids)
-            {
-                [self logError:fetchError];
-            }
-
-            if (albumMoids)
-            {
-                self.albumMoids = albumMoids;
-                [self reloadAlbums];
-            }
-            else
-            {
-                [self showError:fetchError];
-            }
-        });
-    });
+        
+        // Resize the album view for new data...
+        NSUInteger albumCount = albumMoids.count;
+        [scoresView.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
+        NSUInteger rowCount = self.ipad ? 4 : 2;
+        CGFloat albumSize = scoresView.albumGridView.frame.size.width / rowCount;
+        NSArray* gridData = [MGMGridManager rectsForRowSize:rowCount defaultRectSize:albumSize count:albumCount];
+        
+        for (NSUInteger i = 0; i < albumCount; i++)
+        {
+            NSValue* value = [gridData objectAtIndex:i];
+            CGRect frame = [value CGRectValue];
+            [scoresView.albumGridView setAlbumFrame:frame forRank:i + 1];
+        }
+        
+        [scoresView.albumGridView setActivityInProgressForAllRanks:YES];
+        
+        if (fetchError && albumMoids)
+        {
+            [self logError:fetchError];
+        }
+        
+        if (albumMoids)
+        {
+            self.albumMoids = albumMoids;
+            [self reloadAlbums];
+        }
+        else
+        {
+            [self showError:fetchError];
+        }
+    }];
 }
 
-- (MGMDaoData*) dataForChoice:(NSInteger)choice
+- (void) dataForChoice:(NSInteger)choice completion:(DAO_FETCH_COMPLETION)completion
 {
-    MGMDaoData* data = nil;
     switch (choice) {
         case 0:
-            data = [self.core.dao fetchAllClassicAlbums];
+            [self.core.dao fetchAllClassicAlbums:completion];
             break;
         case 1:
-            data = [self.core.dao fetchAllNewlyReleasedAlbums];
+            [self.core.dao fetchAllNewlyReleasedAlbums:completion];
             break;
         case 2:
-            data = [self.core.dao fetchAllEventAlbums];
+            [self.core.dao fetchAllEventAlbums:completion];
         default:
             break;
     }
-
-    NSArray* albums = data.data;
-    NSMutableArray* albumMoids = [NSMutableArray arrayWithCapacity:albums.count];
-    for (MGMAlbum* album in albums)
-    {
-        [albumMoids addObject:album.objectID];
-    }
-    data.data = [albumMoids copy];
-    return data;
 }
 
 - (void) reloadAlbums
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSUInteger position = 1;
-        for (NSManagedObjectID* albumMoid in self.albumMoids)
+    NSUInteger position = 1;
+    for (NSManagedObjectID* albumMoid in self.albumMoids)
+    {
+        MGMAlbum* album = [self.core.coreDataAccess threadVersion:albumMoid];
+        NSError* refreshError = nil;
+        [self.core.albumRenderService refreshAlbumImages:album error:&refreshError];
+        
+        if (refreshError)
         {
-            MGMAlbum* album = [self.core.coreDataAccess threadVersion:albumMoid];
-            NSError* refreshError = nil;
-            [self.core.albumRenderService refreshAlbumImages:album error:&refreshError];
-
-            if (refreshError)
-            {
-                [self logError:refreshError];
-            }
-
-            [self renderAlbum:album atPostion:position];
-            
-            position++;
+            [self logError:refreshError];
         }
-    });
+        
+        [self renderAlbum:album atPostion:position];
+        
+        position++;
+    }
 }
 
 - (void) renderAlbum:(MGMAlbum*)album atPostion:(NSUInteger)position

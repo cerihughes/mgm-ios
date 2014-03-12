@@ -7,14 +7,18 @@
 //
 
 #import <CoreData/CoreData.h>
+
+#import "MGMRenderable.h"
 #import <UIKit/UIKit.h>
 
 @interface MGMCoreDataTableViewDataSource : NSObject <UITableViewDataSource>
 
-@property (strong) NSFetchedResultsController* fetchedResultsController;
 @property (readonly) NSString* cellId;
 
 - (id) init __unavailable;
 - (id) initWithCellId:(NSString*)cellId;
+
+- (void) setRenderables:(NSArray*)renderables;
+- (id<MGMRenderable>) objectAtIndexPath:(NSIndexPath*)indexPath;
 
 @end

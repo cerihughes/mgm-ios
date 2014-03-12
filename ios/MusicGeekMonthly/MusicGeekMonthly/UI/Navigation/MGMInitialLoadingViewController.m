@@ -27,21 +27,20 @@
     MGMInitialLoadingView* view = (MGMInitialLoadingView*) self.view;
     [view setOperationInProgress:YES];
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // Preload data if needed
-        [self.core.dao preloadEvents];
-        MGMDaoData* timePeriods = [self.core.dao preloadTimePeriods];
-        NSArray* timePeriodsArray = (NSArray*)timePeriods.data;
-        if (timePeriodsArray.count == 1)
-        {
-            MGMTimePeriod* timePeriod = timePeriodsArray[0];
-            [self.core.dao preloadWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [view setOperationInProgress:NO];
-            [self.delegate initialisationComplete];
-        });
-    });
+    // Preload data if needed
+    [self.core.dao preloadEvents:^(MGMDaoData* events) {
+        [self.core.dao preloadTimePeriods:^(MGMDaoData* timePeriods) {
+            NSArray* timePeriodsArray = (NSArray*)timePeriods.data;
+            if (timePeriodsArray.count == 1)
+            {
+                MGMTimePeriod* timePeriod = [self.core.coreDataAccess threadVersion:timePeriodsArray[0]];
+                [self.core.dao preloadWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* weeklyChart) {
+                    [view setOperationInProgress:NO];
+                    [self.delegate initialisationComplete];
+                }];
+            }
+        }];
+    }];
 }
 
 @end
