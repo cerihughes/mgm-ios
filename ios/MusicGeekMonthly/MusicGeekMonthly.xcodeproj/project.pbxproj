@@ -30,6 +30,10 @@
 		6542306818CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6542306718CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m */; };
 		6542306918CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6542306718CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m */; };
 		6545477A18B90444008CDAD3 /* MGMAlbumGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6545477918B90444008CDAD3 /* MGMAlbumGridView.m */; };
+		654B869318D0E4A0005835F8 /* MGMAlbumService.m in Sources */ = {isa = PBXBuildFile; fileRef = 654B869218D0E4A0005835F8 /* MGMAlbumService.m */; };
+		654B869418D0E4A0005835F8 /* MGMAlbumService.m in Sources */ = {isa = PBXBuildFile; fileRef = 654B869218D0E4A0005835F8 /* MGMAlbumService.m */; };
+		654B869618D0F7AF005835F8 /* MGMAlbumImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 654B869518D0F7AF005835F8 /* MGMAlbumImageSize.m */; };
+		654B869718D0F7AF005835F8 /* MGMAlbumImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 654B869518D0F7AF005835F8 /* MGMAlbumImageSize.m */; };
 		654D029D18BA20960067BC19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654D029C18BA20960067BC19 /* Images.xcassets */; };
 		657C76BD18C3930B00969A4B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F45175B928E000C413B /* CoreGraphics.framework */; };
 		657C76BE18C3931D00969A4B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E1A51D17F707BA006F8051 /* QuartzCore.framework */; };
@@ -145,7 +149,6 @@
 		658D328318B1147C007A4D98 /* MGMAlbumScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D322618B1147C007A4D98 /* MGMAlbumScoreView.m */; };
 		658D328418B1147C007A4D98 /* MGMAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D322918B1147C007A4D98 /* MGMAlbumView.m */; };
 		658D328518B1147C007A4D98 /* MGMAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D322B18B1147C007A4D98 /* MGMAlbumViewController.m */; };
-		658D328618B1147C007A4D98 /* MGMAlbumViewUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D322D18B1147C007A4D98 /* MGMAlbumViewUtilities.m */; };
 		658D328718B1147C007A4D98 /* MGMCoreDataTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D322F18B1147C007A4D98 /* MGMCoreDataTableViewDataSource.m */; };
 		658D328818B1147C007A4D98 /* MGMTabbedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D323118B1147C007A4D98 /* MGMTabbedView.m */; };
 		658D328918B1147C007A4D98 /* MGMTabbedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D323318B1147C007A4D98 /* MGMTabbedViewController.m */; };
@@ -251,6 +254,9 @@
 		6545477818B90444008CDAD3 /* MGMAlbumGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumGridView.h; sourceTree = "<group>"; };
 		6545477918B90444008CDAD3 /* MGMAlbumGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumGridView.m; sourceTree = "<group>"; };
 		6545477D18B93C65008CDAD3 /* MGMSpotifyConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGMSpotifyConstants.h; sourceTree = "<group>"; };
+		654B869118D0E4A0005835F8 /* MGMAlbumService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumService.h; sourceTree = "<group>"; };
+		654B869218D0E4A0005835F8 /* MGMAlbumService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumService.m; sourceTree = "<group>"; };
+		654B869518D0F7AF005835F8 /* MGMAlbumImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumImageSize.m; sourceTree = "<group>"; };
 		654D029C18BA20960067BC19 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		657F6B3F18BBD8EB0025F52B /* MGMPlaylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylist.h; sourceTree = "<group>"; };
 		657F6B4018BBD8EB0025F52B /* MGMPlaylist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlaylist.m; sourceTree = "<group>"; };
@@ -376,8 +382,6 @@
 		658D322918B1147C007A4D98 /* MGMAlbumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumView.m; sourceTree = "<group>"; };
 		658D322A18B1147C007A4D98 /* MGMAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumViewController.h; sourceTree = "<group>"; };
 		658D322B18B1147C007A4D98 /* MGMAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewController.m; sourceTree = "<group>"; };
-		658D322C18B1147C007A4D98 /* MGMAlbumViewUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAlbumViewUtilities.h; sourceTree = "<group>"; };
-		658D322D18B1147C007A4D98 /* MGMAlbumViewUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewUtilities.m; sourceTree = "<group>"; };
 		658D322E18B1147C007A4D98 /* MGMCoreDataTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataTableViewDataSource.h; sourceTree = "<group>"; };
 		658D322F18B1147C007A4D98 /* MGMCoreDataTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataTableViewDataSource.m; sourceTree = "<group>"; };
 		658D323018B1147C007A4D98 /* MGMTabbedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTabbedView.h; sourceTree = "<group>"; };
@@ -815,6 +819,7 @@
 				658D310D18B112E3007A4D98 /* MGMAlbum.h */,
 				658D310E18B112E3007A4D98 /* MGMAlbum.m */,
 				658D310F18B112E3007A4D98 /* MGMAlbumImageSize.h */,
+				654B869518D0F7AF005835F8 /* MGMAlbumImageSize.m */,
 				658D311018B112E3007A4D98 /* MGMAlbumImageUri.h */,
 				658D311118B112E3007A4D98 /* MGMAlbumImageUri.m */,
 				658D311218B112E3007A4D98 /* MGMAlbumMetadata.h */,
@@ -846,6 +851,8 @@
 			isa = PBXGroup;
 			children = (
 				658D312518B112E3007A4D98 /* Impl */,
+				654B869118D0E4A0005835F8 /* MGMAlbumService.h */,
+				654B869218D0E4A0005835F8 /* MGMAlbumService.m */,
 				658D312C18B112E3007A4D98 /* MGMAlbumPlayerService.h */,
 				658D312D18B112E3007A4D98 /* MGMAlbumPlayerService.m */,
 				658D312E18B112E3007A4D98 /* MGMAlbumRenderService.h */,
@@ -913,8 +920,6 @@
 				658D322718B1147C007A4D98 /* MGMAlbumSelectionDelegate.h */,
 				658D322A18B1147C007A4D98 /* MGMAlbumViewController.h */,
 				658D322B18B1147C007A4D98 /* MGMAlbumViewController.m */,
-				658D322C18B1147C007A4D98 /* MGMAlbumViewUtilities.h */,
-				658D322D18B1147C007A4D98 /* MGMAlbumViewUtilities.m */,
 				658D322E18B1147C007A4D98 /* MGMCoreDataTableViewDataSource.h */,
 				658D322F18B1147C007A4D98 /* MGMCoreDataTableViewDataSource.m */,
 				F453202E18D08AC80052D462 /* MGMCoreDataTableViewDataSourceContainer.h */,
@@ -1308,9 +1313,11 @@
 				658D317A18B112E3007A4D98 /* MusicGeekMonthly.xcdatamodeld in Sources */,
 				651E8D0B18CB88B200333CA1 /* MGMRemoteFileDataReader.m in Sources */,
 				65F89A4718B7BCB1003C5803 /* MGMPlaylistDto.m in Sources */,
+				654B869618D0F7AF005835F8 /* MGMAlbumImageSize.m in Sources */,
 				658D328218B1147C007A4D98 /* MGMAbstractEventViewController.m in Sources */,
 				651E8CF518CA39BE00333CA1 /* MGMInitialLoadingViewController.m in Sources */,
 				658D328318B1147C007A4D98 /* MGMAlbumScoreView.m in Sources */,
+				654B869318D0E4A0005835F8 /* MGMAlbumService.m in Sources */,
 				658D317018B112E3007A4D98 /* MGMChartEntry.m in Sources */,
 				65F89A5318B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m in Sources */,
 				658D318418B112E3007A4D98 /* MGMAlbumPlayerService.m in Sources */,
@@ -1347,7 +1354,6 @@
 				658D329F18B1147C007A4D98 /* MGMPulsatingAlbumsView.m in Sources */,
 				658D328418B1147C007A4D98 /* MGMAlbumView.m in Sources */,
 				658D314E18B112E3007A4D98 /* MGMDaoOperation.m in Sources */,
-				658D328618B1147C007A4D98 /* MGMAlbumViewUtilities.m in Sources */,
 				658D32A518B1147C007A4D98 /* MGMAlbumScoresViewController.m in Sources */,
 				658D329118B1147C007A4D98 /* MGMEventsView.m in Sources */,
 				658D32A418B1147C007A4D98 /* MGMAlbumScoresView.m in Sources */,
@@ -1411,6 +1417,7 @@
 				658D317118B112E3007A4D98 /* MGMChartEntry.m in Sources */,
 				658D315918B112E3007A4D98 /* MGMAlbumImageUriDto.m in Sources */,
 				658D314518B112E3007A4D98 /* MGMWeeklyChartDaoOperation.m in Sources */,
+				654B869418D0E4A0005835F8 /* MGMAlbumService.m in Sources */,
 				F453203118D08AC80052D462 /* MGMCoreDataTableViewDataSourceContainer.m in Sources */,
 				65F89A4C18B7BCC3003C5803 /* MGMPlaylistItemDto.m in Sources */,
 				658D315F18B112E3007A4D98 /* MGMEventDto.m in Sources */,
@@ -1447,6 +1454,7 @@
 				657F6B4618BBD9080025F52B /* MGMPlaylistItem.m in Sources */,
 				658D314B18B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m in Sources */,
 				651E8D0818CB71F800333CA1 /* MGMRemoteHttpDataReader.m in Sources */,
+				654B869718D0F7AF005835F8 /* MGMAlbumImageSize.m in Sources */,
 				658D315118B112E3007A4D98 /* MGMSettingsDao.m in Sources */,
 				651E8D0418CB700100333CA1 /* MGMHttpDataSource.m in Sources */,
 				658D318318B112E3007A4D98 /* MGMWebsitePlayerService.m in Sources */,

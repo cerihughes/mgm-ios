@@ -21,7 +21,7 @@
 
 - (NSUInteger) determineCapabilities;
 
-- (BOOL) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)serviceType error:(NSError**)error;
-- (BOOL) playPlaylist:(MGMPlaylist*)playlist onService:(MGMAlbumServiceType)serviceType error:(NSError**)error;
+- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_SERVICE_COMPLETION)completion;
+- (void) playPlaylist:(MGMPlaylist*)playlist onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_SERVICE_COMPLETION)completion;
 
 @end

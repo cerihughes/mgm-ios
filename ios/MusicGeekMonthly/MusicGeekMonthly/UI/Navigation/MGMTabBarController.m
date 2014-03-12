@@ -9,7 +9,6 @@
 #import "MGMTabBarController.h"
 
 #import "MGMAlbumScoresViewController.h"
-#import "MGMAlbumViewUtilities.h"
 #import "MGMBackgroundAlbumArtFetcher.h"
 #import "MGMEventsViewController.h"
 #import "MGMHomeViewController.h"
@@ -66,7 +65,7 @@
 
     if (self.renderingImages == NO)
     {
-        [self loadImages];
+//        [self loadImages];
     }
 }
 
@@ -153,7 +152,7 @@
                         self.artFetcher.albumRenderService = self.core.albumRenderService;
                         self.artFetcher.delegate = self;
                         CGSize size = [self.albumsView albumSize];
-                        MGMAlbumImageSize preferredSize = [self.ui.viewUtilities preferredImageSizeForViewSize:size];
+                        MGMAlbumImageSize preferredSize = preferredImageSize(size);
                         self.artFetcher.preferredSize = preferredSize;
                         [self renderImages:YES];
                     }
@@ -186,23 +185,21 @@
 
 - (void) renderImages:(BOOL)initialRender
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.renderingImages = YES;
-        NSArray* shuffledIndicies = [self shuffledIndicies:self.backgroundAlbumCount];
-        NSTimeInterval sleepTime = initialRender ? 0.05 : 2.0;
-        for (NSUInteger i = 0; i < self.backgroundAlbumCount; i++)
-        {
-            NSNumber* index = [shuffledIndicies objectAtIndex:i];
-            [self.artFetcher generateImageAtIndex:[index integerValue] sleepTime:sleepTime];
-        }
-        
-        if (initialRender)
-        {
-            [self renderImages:NO];
-        }
-        
-        self.renderingImages = NO;
-    });
+    self.renderingImages = YES;
+    NSArray* shuffledIndicies = [self shuffledIndicies:self.backgroundAlbumCount];
+    NSTimeInterval sleepTime = initialRender ? 0.05 : 2.0;
+    for (NSUInteger i = 0; i < self.backgroundAlbumCount; i++)
+    {
+        NSNumber* index = [shuffledIndicies objectAtIndex:i];
+        [self.artFetcher generateImageAtIndex:[index integerValue] sleepTime:sleepTime];
+    }
+
+    if (initialRender)
+    {
+        [self renderImages:NO];
+    }
+
+    self.renderingImages = NO;
 }
 
 - (NSArray*) shuffledIndicies:(NSUInteger)size

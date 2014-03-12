@@ -10,7 +10,6 @@
 
 #import "MGMAlbum.h"
 #import "MGMAlbumDetailView.h"
-#import "MGMAlbumViewUtilities.h"
 
 #define CELL_ID @"ALBUM_DETAIL_CELL_ID"
 
@@ -46,12 +45,9 @@
     MGMAlbumDetailView* detailView = (MGMAlbumDetailView*)self.view;
 
     MGMAlbum* album = [self.core.coreDataAccess threadVersion:self.albumMoid];
-    NSError* error = nil;
-    [self.ui.viewUtilities displayAlbum:album inAlbumView:detailView.albumView error:&error];
-    if (error)
-    {
+    [self displayAlbum:album inAlbumView:detailView.albumView completion:^(NSError* error) {
         [self logError:error];
-    }
+    }];
 
     [detailView clearServiceTypes];
 

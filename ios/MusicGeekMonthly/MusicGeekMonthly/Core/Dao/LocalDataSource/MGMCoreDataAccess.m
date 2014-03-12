@@ -336,8 +336,9 @@
 #pragma mark -
 #pragma mark MGMAlbumImageUri
 
-- (BOOL) addImageUris:(NSArray*)uriDtos toAlbum:(MGMAlbum*)album error:(NSError**)error
+- (BOOL) addImageUris:(NSArray*)uriDtos toAlbum:(NSManagedObjectID*)albumMoid error:(NSError**)error
 {
+    MGMAlbum* album = [self threadVersion:albumMoid];
     album.searchedImages = YES;
 
     if (uriDtos.count > 0)
@@ -409,8 +410,9 @@
 #pragma mark -
 #pragma mark MGMAlbumMetadata
 
-- (BOOL) addMetadata:(MGMAlbumMetadataDto*)metadataDto toAlbum:(MGMAlbum*)album error:(NSError**)error
+- (BOOL) addMetadata:(MGMAlbumMetadataDto*)metadataDto toAlbum:(NSManagedObjectID*)albumMoid error:(NSError**)error
 {
+    MGMAlbum* album = [self threadVersion:albumMoid];
     [album setServiceTypeSearched:metadataDto.serviceType];
 
     if (metadataDto)

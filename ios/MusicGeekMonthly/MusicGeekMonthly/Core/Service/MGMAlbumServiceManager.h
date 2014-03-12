@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "MGMAlbum.h"
+#import "MGMAlbumService.h"
 #import "MGMCoreDataAccess.h"
 #import "MGMPlaylist.h"
 
@@ -23,6 +24,6 @@
 - (NSString*) serviceAvailabilityUrlForServiceType:(MGMAlbumServiceType)serviceType;
 - (NSString*) urlForAlbum:(MGMAlbum*)album forServiceType:(MGMAlbumServiceType)serviceType;
 - (NSString*) urlForPlaylist:(MGMPlaylist*)playlist forServiceType:(MGMAlbumServiceType)serviceType;
-- (BOOL) refreshAlbumMetadata:(MGMAlbum*)album forServiceType:(MGMAlbumServiceType)serviceType error:(NSError**)error;
+- (void) refreshAlbum:(MGMAlbum*)album forServiceType:(MGMAlbumServiceType)serviceType completion:(ALBUM_SERVICE_COMPLETION)completion;
 
 @end

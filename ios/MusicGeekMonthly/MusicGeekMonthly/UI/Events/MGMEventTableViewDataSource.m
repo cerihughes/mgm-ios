@@ -39,41 +39,34 @@
 
 - (void) addAlbumImage:(NSManagedObjectID*)albumMoid toImageView:(UIImageView*)imageView withActivityView:(UIActivityIndicatorView*)activityIndicatorView inCell:(MGMEventTableCell*)cell
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-    {
-        MGMAlbum* album = [self.coreDataAccess threadVersion:albumMoid];
-        NSError* refreshError = nil;
-        [self.albumRenderService refreshAlbumImages:album error:&refreshError];
+    MGMAlbum* album = [self.coreDataAccess threadVersion:albumMoid];
+    [self.albumRenderService refreshAlbum:album completion:^(NSError* refreshError) {
         if (refreshError == nil)
         {
             NSArray* albumArtUrls = [album bestTableImageUrls];
             if (albumArtUrls.count > 0)
             {
-                [self.imageHelper asyncImageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [activityIndicatorView stopAnimating];
-                        if (image && error == nil)
-                        {
-                            imageView.image = image;
-                        }
-                        else
-                        {
-                            imageView.image = [self.imageHelper nextDefaultImage];
-                        }
-                        [cell setNeedsDisplay];
-                    });
+                [self.imageHelper imageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error) {
+                    [activityIndicatorView stopAnimating];
+                    if (image && error == nil)
+                    {
+                        imageView.image = image;
+                    }
+                    else
+                    {
+                        imageView.image = [self.imageHelper nextDefaultImage];
+                    }
+                    [cell setNeedsDisplay];
                 }];
             }
             else
             {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [activityIndicatorView stopAnimating];
-                    imageView.image = [self.imageHelper nextDefaultImage];
-                    [cell setNeedsDisplay];
-                });
+                [activityIndicatorView stopAnimating];
+                imageView.image = [self.imageHelper nextDefaultImage];
+                [cell setNeedsDisplay];
             }
         }
-    });
+    }];
 }
 
 @end

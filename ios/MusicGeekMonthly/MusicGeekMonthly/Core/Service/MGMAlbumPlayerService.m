@@ -8,21 +8,17 @@
 
 #import "MGMAlbumPlayerService.h"
 
-@interface MGMAlbumPlayerService ()
-
-@property (readonly) MGMCoreDataAccess* coreDataAccess;
-
-@end
-
 @implementation MGMAlbumPlayerService
 
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
+- (void) refreshAlbum:(MGMAlbum*)album completion:(ALBUM_SERVICE_COMPLETION)completion
 {
-    if (self = [super init])
-    {
-        _coreDataAccess = coreDataAccess;
-    }
-    return self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError* error = nil;
+        [self refreshAlbumMetadata:album error:&error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(error);
+        });
+    });
 }
 
 - (BOOL) refreshAlbumMetadata:(MGMAlbum*)album error:(NSError**)error
@@ -41,7 +37,7 @@
         else
         {
             MGMAlbumMetadataDto* metadata = remoteData.data;
-            [self.coreDataAccess addMetadata:metadata toAlbum:album error:error];
+            [self.coreDataAccess addMetadata:metadata toAlbum:album.objectID error:error];
             return MGM_NO_ERROR(&error);
         }
     }

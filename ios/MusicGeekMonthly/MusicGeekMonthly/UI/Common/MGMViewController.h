@@ -7,7 +7,11 @@
 //
 
 #import "UIViewController+MGMAdditions.h"
+
+#import "MGMAlbumView.h"
 #import "MGMUI.h"
+
+typedef void (^ALBUM_DISPLAY_COMPLETION) (NSError*);
 
 @interface MGMViewController : UIViewController
 
@@ -23,5 +27,10 @@
 
 - (void) showError:(NSError*)error;
 - (void) logError:(NSError*)error;
+
+- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView completion:(ALBUM_DISPLAY_COMPLETION)completion;
+- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView rank:(NSUInteger)rank completion:(ALBUM_DISPLAY_COMPLETION)completion;
+- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView rank:(NSUInteger)rank listeners:(NSUInteger)listeners completion:(ALBUM_DISPLAY_COMPLETION)completion;
+- (void) displayAlbumImages:(NSArray*)albumArtUrls inAlbumView:(MGMAlbumView*)albumView completion:(ALBUM_DISPLAY_COMPLETION)completion;
 
 @end

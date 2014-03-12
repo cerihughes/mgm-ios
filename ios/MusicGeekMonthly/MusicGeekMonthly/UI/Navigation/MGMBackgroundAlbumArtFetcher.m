@@ -37,7 +37,7 @@
 {
     if (self.chartEntryMoids.count == 0)
     {
-        [self fireDelegateForImage:nil index:index];
+        [self.delegate artFetcher:self renderImage:nil atIndex:index];
     }
     else
     {
@@ -55,49 +55,27 @@
     NSManagedObjectID* moid = [self.chartEntryMoids objectAtIndex:randomIndex];
     MGMChartEntry* randomEntry = [self.coreDataAccess threadVersion:moid];
     MGMAlbum* randomAlbum = randomEntry.album;
-    NSError* error = nil;
-    UIImage* image = [self fetchBestAlbumImage:randomAlbum error:&error];
-    if (error)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // ... fire the delegate in the main thread...
-            [self.delegate artFetcher:self errorOccured:error atIndex:index];
-        });
-    }
-    else
-    {
-        [self fireDelegateForImage:image index:index];
-    }
-}
 
-- (void) fireDelegateForImage:(UIImage*)image index:(NSUInteger)index
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // ... fire the delegate in the main thread...
-        [self.delegate artFetcher:self renderImage:image atIndex:index];
-    });
-}
-
-- (UIImage*) fetchBestAlbumImage:(MGMAlbum*)album error:(NSError**)error
-{
-    NSError* refreshError = nil;
-    [self.albumRenderService refreshAlbumImages:album error:&refreshError];
-    if (refreshError == nil)
-    {
-        NSArray* urls = [album bestImageUrlsWithPreferredSize:self.preferredSize];
-        if (urls.count > 0)
+    [self.albumRenderService refreshAlbum:randomAlbum completion:^(NSError* refreshError) {
+        if (refreshError == nil)
         {
-            return [self.imageHelper imageFromUrls:urls error:error];
+            NSArray* urls = [randomAlbum bestImageUrlsWithPreferredSize:self.preferredSize];
+            if (urls.count > 0)
+            {
+                [self.imageHelper imageFromUrls:urls completion:^(UIImage* image, NSError* imageError) {
+                    [self.delegate artFetcher:self renderImage:image atIndex:index];
+                }];
+            }
+            else
+            {
+                [self.delegate artFetcher:self renderImage:nil atIndex:index];
+            }
         }
-    }
-    else
-    {
-        if (error)
+        else
         {
-            *error = refreshError;
+            [self.delegate artFetcher:self errorOccured:refreshError atIndex:index];
         }
-    }
-    return nil;
+    }];
 }
 
 @end

@@ -42,33 +42,33 @@
     }
 }
 
-- (BOOL) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)serviceType error:(NSError**)error;
+- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_SERVICE_COMPLETION)completion
 {
-    [self.serviceManager refreshAlbumMetadata:album forServiceType:serviceType error:error];
-    NSString* urlString = [self.serviceManager urlForAlbum:album forServiceType:serviceType];
-    if (urlString)
-    {
-        NSString* encoded = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSURL* url = [NSURL URLWithString:encoded];
-        if ([[UIApplication sharedApplication] canOpenURL:url])
+    [self.serviceManager refreshAlbum:album forServiceType:serviceType completion:^(NSError* error) {
+        NSString* urlString = [self.serviceManager urlForAlbum:album forServiceType:serviceType];
+        if (urlString)
         {
-            NSLog(@"Opening URL: %@", url);
-            [[UIApplication sharedApplication] openURL:url];
+            NSString* encoded = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSURL* url = [NSURL URLWithString:encoded];
+            if ([[UIApplication sharedApplication] canOpenURL:url])
+            {
+                NSLog(@"Opening URL: %@", url);
+                [[UIApplication sharedApplication] openURL:url];
+            }
+            else
+            {
+                NSLog(@"No handler for URL: %@", url);
+                [self cantOpenAlbumForServiceType:serviceType];
+            }
         }
         else
         {
-            NSLog(@"No handler for URL: %@", url);
             [self cantOpenAlbumForServiceType:serviceType];
         }
-    }
-    else
-    {
-        [self cantOpenAlbumForServiceType:serviceType];
-    }
-    return MGM_NO_ERROR(&error);
+    }];
 }
 
-- (BOOL) playPlaylist:(MGMPlaylist*)playlist onService:(MGMAlbumServiceType)serviceType error:(NSError**)error
+- (void) playPlaylist:(MGMPlaylist*)playlist onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_SERVICE_COMPLETION)completion
 {
     NSString* urlString = [self.serviceManager urlForPlaylist:playlist forServiceType:serviceType];
     if (urlString)
@@ -90,7 +90,6 @@
     {
         [self cantOpenPlaylistForServiceType:serviceType];
     }
-    return MGM_NO_ERROR(&error);
 }
 
 - (void) cantOpenAlbumForServiceType:(MGMAlbumServiceType)serviceType

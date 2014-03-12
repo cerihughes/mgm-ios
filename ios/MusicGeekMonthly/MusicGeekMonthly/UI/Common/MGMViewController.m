@@ -77,6 +77,79 @@
     }
 }
 
+- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView completion:(ALBUM_DISPLAY_COMPLETION)completion
+{
+    [self displayAlbum:album inAlbumView:albumView rank:0 listeners:0 completion:completion];
+}
+
+- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView rank:(NSUInteger)rank completion:(ALBUM_DISPLAY_COMPLETION)completion
+{
+    [self displayAlbum:album inAlbumView:albumView rank:rank listeners:0 completion:completion];
+}
+
+- (void) displayAlbum:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView rank:(NSUInteger)rank listeners:(NSUInteger)listeners completion:(ALBUM_DISPLAY_COMPLETION)completion
+{
+    albumView.activityInProgress = YES;
+    if (album)
+    {
+        albumView.artistName = album.artistName;
+    }
+    else
+    {
+        albumView.artistName = @"NO ALBUM";
+    }
+    albumView.albumName = album.albumName;
+    albumView.score = [album.score floatValue];
+    albumView.rank = rank;
+    albumView.listeners = listeners;
+
+    [self.core.albumRenderService refreshAlbum:album completion:^(NSError* refreshError) {
+        if (refreshError)
+        {
+            completion(refreshError);
+        }
+        [self displayAlbumImage:album inAlbumView:albumView completion:completion];
+    }];
+}
+
+- (void) displayAlbumImage:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView completion:(ALBUM_DISPLAY_COMPLETION)completion
+{
+    MGMAlbumImageSize preferredSize = preferredImageSize(albumView.frame.size);
+    NSArray* albumArtUrls = [album bestImageUrlsWithPreferredSize:preferredSize];
+    [self displayAlbumImages:albumArtUrls inAlbumView:albumView completion:completion];
+}
+
+- (void) displayAlbumImages:(NSArray*)albumArtUrls inAlbumView:(MGMAlbumView*)albumView completion:(ALBUM_DISPLAY_COMPLETION)completion
+{
+    if (albumView)
+    {
+        if (albumArtUrls.count > 0)
+        {
+            [self.ui.imageHelper imageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* imageError) {
+                if (imageError)
+                {
+                    completion(imageError);
+                }
+                if (image == nil)
+                {
+                    image = [self.ui.imageHelper nextDefaultImage];
+                }
+                [self renderImage:image inAlbumView:albumView];
+            }];
+        }
+        else
+        {
+            [self renderImage:[self.ui.imageHelper nextDefaultImage] inAlbumView:albumView];
+        }
+    }
+}
+
+- (void) renderImage:(UIImage*)image inAlbumView:(MGMAlbumView*)albumView
+{
+    albumView.activityInProgress = NO;
+    [albumView renderImage:image];
+}
+
 #pragma mark -
 #pragma mark iPad modal presentation
 

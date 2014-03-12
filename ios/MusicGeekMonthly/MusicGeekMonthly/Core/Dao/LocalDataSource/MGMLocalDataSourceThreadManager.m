@@ -91,7 +91,7 @@
 - (NSManagedObjectContext*) createManagedObjectContext
 {
     NSManagedObjectContext* moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    moc.parentContext = _mainMoc;
+    moc.parentContext = _masterMoc;
     return moc;
 }
 

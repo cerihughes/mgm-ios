@@ -3,7 +3,6 @@
 
 #import "MGMAlbumPlayer.h"
 #import "MGMAlbumSelectionDelegate.h"
-#import "MGMAlbumViewUtilities.h"
 #import "MGMCore.h"
 #import "MGMImageHelper.h"
 #import "MGMNavigationController.h"
@@ -17,7 +16,6 @@
 @property (readonly) MGMNavigationController* parentViewController;
 @property (readonly) MGMAlbumPlayer* albumPlayer;
 @property (readonly) MGMImageHelper* imageHelper;
-@property (readonly) MGMAlbumViewUtilities* viewUtilities;
 
 - (void) uiWillResignActive;
 - (void) uiDidEnterBackground;

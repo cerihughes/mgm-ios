@@ -1,7 +1,6 @@
 
 #import "MGMWeeklyChartViewController.h"
 
-#import "MGMAlbumViewUtilities.h"
 #import "MGMChartEntry.h"
 #import "MGMCoreDataTableViewDataSource.h"
 #import "MGMGridManager.h"
@@ -128,13 +127,13 @@
     for (MGMChartEntry* entry in weeklyChart.chartEntries)
     {
         MGMAlbum* album = entry.album;
-        NSError* refreshError = nil;
-        [self.core.albumRenderService refreshAlbumImages:album error:&refreshError];
-        if (refreshError)
-        {
-            [self logError:refreshError];
-        }
-        [self renderChartEntry:entry];
+        [self.core.albumRenderService refreshAlbum:album completion:^(NSError* refreshError) {
+            if (refreshError)
+            {
+                [self logError:refreshError];
+            }
+            [self renderChartEntry:entry];
+        }];
     }
 }
 
@@ -146,12 +145,9 @@
     NSUInteger listeners = chartEntry.listeners.intValue;
 
     MGMAlbumView* albumView = [weeklyChartView.albumGridView albumViewForRank:rank];
-    NSError* error = nil;
-    [self.ui.viewUtilities displayAlbum:chartEntry.album inAlbumView:albumView rank:rank listeners:listeners error:&error];
-    if (error)
-    {
+    [self displayAlbum:chartEntry.album inAlbumView:albumView rank:rank listeners:listeners completion:^(NSError* error) {
         [self.ui logError:error];
-    }
+    }];
 }
 
 #pragma mark -

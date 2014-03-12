@@ -104,10 +104,10 @@
     return [service urlForPlaylist:playlist];
 }
 
-- (BOOL) refreshAlbumMetadata:(MGMAlbum*)album forServiceType:(MGMAlbumServiceType)serviceType error:(NSError**)error
+- (void) refreshAlbum:(MGMAlbum*)album forServiceType:(MGMAlbumServiceType)serviceType completion:(ALBUM_SERVICE_COMPLETION)completion
 {
     MGMAlbumPlayerService* service = [self playerServiceForServiceType:serviceType];
-    return [service refreshAlbumMetadata:album error:error];
+    [service refreshAlbum:album completion:completion];
 }
 
 @end

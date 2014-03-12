@@ -6,21 +6,15 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMRemoteDataSource.h"
+#import "MGMAlbumService.h"
 
 #import "MGMAlbum.h"
-#import "MGMAlbumMetadataDto.h"
-#import "MGMCoreDataAccess.h"
 #import "MGMPlaylist.h"
 
-@interface MGMAlbumPlayerService : MGMRemoteDataSource
+@interface MGMAlbumPlayerService : MGMAlbumService
 
 @property (readonly) MGMAlbumServiceType serviceType;
 
-- (id) init __unavailable;
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
-
-- (BOOL) refreshAlbumMetadata:(MGMAlbum*)album error:(NSError**)error;
 - (NSString*) serviceAvailabilityUrl;
 - (NSString*) urlForAlbum:(MGMAlbum*)album;
 - (NSString*) urlForPlaylist:(MGMPlaylist*)playlist;

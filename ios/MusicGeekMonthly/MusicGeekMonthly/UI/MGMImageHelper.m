@@ -27,12 +27,14 @@
     return self;
 }
 
-- (void) asyncImageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion
+- (void) imageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError* error = nil;
         UIImage* image = [self imageFromUrls:urls error:&error];
-        completion(image, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(image, error);
+        });
     });
 }
 

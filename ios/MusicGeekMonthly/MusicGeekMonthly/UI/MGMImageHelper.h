@@ -10,8 +10,7 @@
 
 @interface MGMImageHelper : MGMHttpDataSource
 
-- (void) asyncImageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion;
-- (UIImage*) imageFromUrls:(NSArray *)urls error:(NSError**)error;
+- (void) imageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion;
 - (UIImage*) nextDefaultImage;
 
 @end

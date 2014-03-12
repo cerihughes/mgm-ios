@@ -11,7 +11,6 @@
 #import "MGMAlbumDto.h"
 #import "MGMAlbumImageUriDto.h"
 #import "MGMAlbumMetadataDto.h"
-#import "MGMAlbumViewUtilities.h"
 #import "MGMExampleAlbumView.h"
 
 @interface MGMExampleAlbumViewController () <MGMExampleAlbumViewDelegate>
@@ -90,7 +89,43 @@
 {
     MGMExampleAlbumView* exampleAlbumView = (MGMExampleAlbumView*)self.view;
     MGMAlbumDto* exampleAlbum = [self createExampleData];
-    [self.ui.viewUtilities displayAlbumDto:exampleAlbum inAlbumView:exampleAlbumView.albumView error:nil];
+    [self displayAlbumDto:exampleAlbum inAlbumView:exampleAlbumView.albumView];
+}
+
+- (void) displayAlbumDto:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView
+{
+    albumView.activityInProgress = YES;
+    albumView.artistName = album.artistName;
+    albumView.albumName = album.albumName;
+    albumView.score = [album.score floatValue];
+
+    MGMAlbumImageSize preferredSize = preferredImageSize(albumView.frame.size);
+    NSArray* albumArtUrls = [self bestImageUrlsForAlbum:album preferredSize:preferredSize];
+    [self displayAlbumImages:albumArtUrls inAlbumView:albumView completion:nil];
+}
+
+- (NSArray*) bestImageUrlsForAlbum:(MGMAlbumDto*)album preferredSize:(MGMAlbumImageSize)size
+{
+    return [self bestAlbumImageUrlsForAlbumImageUris:album.imageUris preferredSize:size];
+}
+
+- (NSArray*) bestAlbumImageUrlsForAlbumImageUris:(NSArray*)imageUriDtos preferredSize:(MGMAlbumImageSize)size
+{
+    NSMutableArray* array = [NSMutableArray array];
+
+    MGMAlbumImageSize sizes[6] = {size, MGMAlbumImageSize128, MGMAlbumImageSize256, MGMAlbumImageSize512, MGMAlbumImageSize64, MGMAlbumImageSize32};
+    for (NSUInteger i = 0; i < 6; i++)
+    {
+        for (MGMAlbumImageUriDto* uri in imageUriDtos)
+        {
+            if (uri.size == sizes[i])
+            {
+                [array addObject:uri.uri];
+            }
+        }
+    }
+
+    return [array copy];
 }
 
 - (void) gotIt

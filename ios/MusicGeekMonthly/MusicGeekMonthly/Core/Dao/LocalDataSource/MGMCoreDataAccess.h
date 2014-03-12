@@ -46,12 +46,12 @@
 #pragma mark -
 #pragma mark MGMAlbumImageUri
 
-- (BOOL) addImageUris:(NSArray*)uriDtos toAlbum:(MGMAlbum*)album error:(NSError**)error;
+- (BOOL) addImageUris:(NSArray*)uriDtos toAlbum:(NSManagedObjectID*)albumMoid error:(NSError**)error;
 
 #pragma mark -
 #pragma mark MGMAlbumMetadata
 
-- (BOOL) addMetadata:(MGMAlbumMetadataDto*)metadataDto toAlbum:(MGMAlbum*)album error:(NSError**)error;
+- (BOOL) addMetadata:(MGMAlbumMetadataDto*)metadataDto toAlbum:(NSManagedObjectID*)albumMoid error:(NSError**)error;
 
 #pragma mark -
 #pragma mark MGMEvent

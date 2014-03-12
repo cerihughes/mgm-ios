@@ -9,7 +9,6 @@
 #import "MGMAbstractEventViewController.h"
 
 #import "MGMAbstractEventView.h"
-#import "MGMAlbumViewUtilities.h"
 
 @interface MGMAbstractEventViewController () <MGMAbstractEventViewDelegate>
 
@@ -45,32 +44,33 @@
         for (MGMPlaylistItem* item in playlist.playlistItems)
         {
             MGMAlbumView* albumView = [eventView.playlistView albumViewForRank:rank++];
-            NSError* error = nil;
-            [self.ui.viewUtilities displayPlaylistItem:item inAlbumView:albumView error:&error];
-            if (error)
-            {
+            [self displayPlaylistItem:item inAlbumView:albumView completion:^(NSError* error) {
                 [self.ui logError:error];
-            }
+            }];
         }
     }
     eventView.playlistView.hidden = (playlist == nil);
     eventView.playlistLabel.hidden = (playlist == nil);
 
-    NSError* error1 = nil;
-    [self.ui.viewUtilities displayAlbum:event.classicAlbum inAlbumView:eventView.classicAlbumView error:&error1];
-    if (error1)
-    {
-        [self logError:error1];
-    }
-    
-    NSError* error2 = nil;
-    [self.ui.viewUtilities displayAlbum:event.newlyReleasedAlbum inAlbumView:eventView.newlyReleasedAlbumView error:&error2];
-    if (error2)
-    {
-        [self logError:error2];
-    }
+    [self displayAlbum:event.classicAlbum inAlbumView:eventView.classicAlbumView completion:^(NSError* error) {
+        [self logError:error];
+    }];
+
+    [self displayAlbum:event.newlyReleasedAlbum inAlbumView:eventView.newlyReleasedAlbumView completion:^(NSError* error) {
+        [self logError:error];
+    }];
 
     [eventView setNeedsLayout];
+}
+
+- (void) displayPlaylistItem:(MGMPlaylistItem*)playlistItem inAlbumView:(MGMAlbumView*)albumView completion:(ALBUM_DISPLAY_COMPLETION)completion
+{
+    albumView.activityInProgress = YES;
+    albumView.rank = 0;
+
+    MGMAlbumImageSize preferredSize = preferredImageSize(albumView.frame.size);
+    NSArray* albumArtUrls = [playlistItem bestImageUrlsWithPreferredSize:preferredSize];
+    [self displayAlbumImages:albumArtUrls inAlbumView:albumView completion:completion];
 }
 
 #pragma mark -

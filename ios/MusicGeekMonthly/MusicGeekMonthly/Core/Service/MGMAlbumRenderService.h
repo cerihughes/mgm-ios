@@ -6,16 +6,10 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMRemoteDataSource.h"
+#import "MGMAlbumService.h"
 
 #import "MGMAlbum.h"
-#import "MGMCoreDataAccess.h"
 
-@interface MGMAlbumRenderService : MGMRemoteDataSource
-
-- (id) init __unavailable;
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
-
-- (BOOL) refreshAlbumImages:(MGMAlbum*)album error:(NSError**)error;
+@interface MGMAlbumRenderService : MGMAlbumService
 
 @end

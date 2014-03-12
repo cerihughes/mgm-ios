@@ -132,22 +132,7 @@
 
 @end
 
-@interface MGMAlbumRenderService ()
-
-@property (readonly) MGMCoreDataAccess* coreDataAccess;
-
-@end
-
 @implementation MGMAlbumRenderService
-
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
-{
-    if (self = [super init])
-    {
-        _coreDataAccess = coreDataAccess;
-    }
-    return self;
-}
 
 - (MGMRemoteDataReader*) createRemoteDataReader
 {
@@ -157,6 +142,17 @@
 - (MGMRemoteDataConverter*) createRemoteDataConverter
 {
     return [[MGMAlbumRenderServiceDataConverter alloc] init];
+}
+
+- (void) refreshAlbum:(MGMAlbum*)album completion:(ALBUM_SERVICE_COMPLETION)completion
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError* error = nil;
+        [self refreshAlbumImages:album error:&error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(error);
+        });
+    });
 }
 
 - (BOOL) refreshAlbumImages:(MGMAlbum*)album error:(NSError**)error
@@ -175,7 +171,7 @@
         else
         {
             NSArray* imageUris = remoteData.data;
-            [self.coreDataAccess addImageUris:imageUris toAlbum:album error:error];
+            [self.coreDataAccess addImageUris:imageUris toAlbum:album.objectID error:error];
             return MGM_NO_ERROR(&error);
         }
     }

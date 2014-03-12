@@ -57,7 +57,6 @@ static BOOL _isIpad;
         _albumPlayer.ui = self;
 
         _imageHelper = [[MGMImageHelper alloc] init];
-        _viewUtilities = [[MGMAlbumViewUtilities alloc] initWithImageHelper:_imageHelper renderService:_core.albumRenderService coreDataAccess:_core.coreDataAccess];
 
         _reachabilityManager = [[MGMReachabilityManager alloc] init];
         [_reachabilityManager registerForReachabilityTo:REACHABILITY_END_POINT];
@@ -186,18 +185,19 @@ static BOOL _isIpad;
 
 - (void) showError:(NSError*)error
 {
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
-        NSString* message = [NSString stringWithFormat:@"An error has prevented this operation from completing. The details have been sent to the developer for investigation.\n\n Details: %@", [error localizedDescription]];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-    });
     [self logError:error];
+    
+    NSString* message = [NSString stringWithFormat:@"An error has prevented this operation from completing. The details have been sent to the developer for investigation.\n\n Details: %@", [error localizedDescription]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void) logError:(NSError*)error
 {
-    NSLog(@"Error occurred: %@", error);
+    if (error)
+    {
+        NSLog(@"Error occurred: %@", error);
+    }
 }
 
 #pragma mark -
@@ -220,13 +220,12 @@ static BOOL _isIpad;
     }
     else
     {
-        NSError* error = nil;
-        // TODO: Make this asynchronous?
-        [self.albumPlayer playAlbum:album onService:defaultServiceType error:&error];
-        if (error != nil)
-        {
-            [self showError:error];
-        }
+        [self.albumPlayer playAlbum:album onService:defaultServiceType completion:^(NSError* error) {
+            if (error != nil)
+            {
+                [self showError:error];
+            }
+        }];
     }
 }
 
@@ -241,13 +240,12 @@ static BOOL _isIpad;
 
 - (void) playlistSelected:(MGMPlaylist*)playlist
 {
-    NSError* error = nil;
-    // TODO: Make this asynchronous?
-    [self.albumPlayer playPlaylist:playlist onService:MGMAlbumServiceTypeSpotify error:&error];
-    if (error != nil)
-    {
-        [self showError:error];
-    }
+    [self.albumPlayer playPlaylist:playlist onService:MGMAlbumServiceTypeSpotify completion:^(NSError* error) {
+        if (error != nil)
+        {
+            [self showError:error];
+        }
+    }];
 }
 
 #pragma mark -

@@ -9,7 +9,6 @@
 #import "MGMAlbumScoresViewController.h"
 
 #import "MGMAlbumScoresView.h"
-#import "MGMAlbumViewUtilities.h"
 #import "MGMCoreDataTableViewDataSource.h"
 #import "MGMGridManager.h"
 #import "MGMImageHelper.h"
@@ -112,20 +111,19 @@
 
 - (void) reloadAlbums
 {
-    NSUInteger position = 1;
+    __block NSUInteger position = 1;
     for (NSManagedObjectID* albumMoid in self.albumMoids)
     {
         MGMAlbum* album = [self.core.coreDataAccess threadVersion:albumMoid];
-        NSError* refreshError = nil;
-        [self.core.albumRenderService refreshAlbumImages:album error:&refreshError];
-        
-        if (refreshError)
-        {
-            [self logError:refreshError];
-        }
-        
-        [self renderAlbum:album atPostion:position];
-        
+        [self.core.albumRenderService refreshAlbum:album completion:^(NSError* refreshError) {
+            if (refreshError)
+            {
+                [self logError:refreshError];
+            }
+
+            [self renderAlbum:album atPostion:position];
+        }];
+
         position++;
     }
 }
@@ -134,12 +132,9 @@
 {
     MGMAlbumScoresView* scoresView = (MGMAlbumScoresView*)self.view;
     MGMAlbumView* albumView = [scoresView.albumGridView albumViewForRank:position];
-    NSError* error = nil;
-    [self.ui.viewUtilities displayAlbum:album inAlbumView:albumView rank:position error:&error];
-    if (error)
-    {
+    [self displayAlbum:album inAlbumView:albumView rank:position completion:^(NSError* error) {
         [self.ui logError:error];
-    }
+    }];
 }
 
 #pragma mark -
