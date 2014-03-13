@@ -444,7 +444,7 @@ typedef NSArray* (^FETCH_MANY_BLOCK) (NSError**);
     return [self commitChanges:error];
 }
 
-- (void) internal_addImageUris:(NSArray*)uriDtos toAlbum:(MGMAlbum*)album error:(NSError**)error
+- (BOOL) internal_addImageUris:(NSArray*)uriDtos toAlbum:(MGMAlbum*)album error:(NSError**)error
 {
     for (MGMAlbumImageUriDto* uriDto in uriDtos)
     {
@@ -452,7 +452,7 @@ typedef NSArray* (^FETCH_MANY_BLOCK) (NSError**);
         MGMAlbumImageUri* uri = [self mainThreadVersion:moid];
         if (MGM_ERROR(error))
         {
-            return;
+            return NO;
         }
 
         if (uri == nil)
@@ -464,9 +464,11 @@ typedef NSArray* (^FETCH_MANY_BLOCK) (NSError**);
 
         uri.uri = uriDto.uri;
     }
+
+    return YES;
 }
 
-- (void) internal_addImageUris:(NSArray*)uriDtos toPlaylistItem:(MGMPlaylistItem*)playlistItem error:(NSError**)error
+- (BOOL) internal_addImageUris:(NSArray*)uriDtos toPlaylistItem:(MGMPlaylistItem*)playlistItem error:(NSError**)error
 {
     for (MGMAlbumImageUriDto* uriDto in uriDtos)
     {
@@ -475,6 +477,8 @@ typedef NSArray* (^FETCH_MANY_BLOCK) (NSError**);
         uri.uri = uriDto.uri;
         uri.imagedEntity = playlistItem;
     }
+
+    return YES;
 }
 
 - (MGMAlbumImageUri*) createNewAlbumImageUri
@@ -525,7 +529,7 @@ typedef NSArray* (^FETCH_MANY_BLOCK) (NSError**);
     return [self commitChanges:error];
 }
 
-- (void) internal_addMetadata:(NSArray*)metadataDtos toAlbum:(MGMAlbum*)album error:(NSError**)error
+- (BOOL) internal_addMetadata:(NSArray*)metadataDtos toAlbum:(MGMAlbum*)album error:(NSError**)error
 {
     for (MGMAlbumMetadataDto* metadataDto in metadataDtos)
     {
@@ -533,7 +537,7 @@ typedef NSArray* (^FETCH_MANY_BLOCK) (NSError**);
         MGMAlbumMetadata* metadata = [self mainThreadVersion:moid];
         if (MGM_ERROR(error))
         {
-            return;
+            return NO;
         }
 
         if (metadata == nil)
@@ -545,6 +549,8 @@ typedef NSArray* (^FETCH_MANY_BLOCK) (NSError**);
 
         metadata.value = metadataDto.value;
     }
+
+    return YES;
 }
 
 - (MGMAlbumMetadata*) createNewAlbumMetadata
