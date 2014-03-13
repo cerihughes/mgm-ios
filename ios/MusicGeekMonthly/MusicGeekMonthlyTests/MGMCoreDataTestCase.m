@@ -15,6 +15,7 @@
 #import "MGMLocalDataSourceThreadManager.h"
 #import "MGMTimePeriod.h"
 #import "MGMTimePeriodDto.h"
+#import "MGMWeeklyChart.h"
 #import "MGMWeeklyChartDto.h"
 
 @interface MGMCoreDataAccess (Testing)
@@ -88,116 +89,106 @@ static MGMLocalDataSourceThreadManager* _threadManager;
 {
     [self deleteAllObjects:@"MGMTimePeriod"];
 
-    NSError* error = nil;
     NSDate* startDate = [self.dateFormatter dateFromString:@"01/01/2001"];
     NSDate* endDate = [self.dateFormatter dateFromString:@"02/02/2002"];
 
-    NSArray* objects = [self.cutInsert fetchAllTimePeriods:&error];
-    STAssertNil(error, @"Core data error.");
-    STAssertEquals(objects.count, (NSUInteger)0, @"Expecting no object");
-
-    MGMTimePeriodDto* timePeriodDto = [[MGMTimePeriodDto alloc] init];
-    timePeriodDto.startDate = startDate;
-    timePeriodDto.endDate = endDate;
-
-    [self.cutInsert persistTimePeriods:[NSArray arrayWithObject:timePeriodDto] error:&error];
-    STAssertNil(error, @"Core data error.");
-
-    objects = [self.cutFetch fetchAllTimePeriods:&error];
-    STAssertNil(error, @"Core data error.");
-    STAssertEquals(objects.count, (NSUInteger)1, @"Expecting an object");
-
-    MGMTimePeriod* timePeriod = [objects objectAtIndex:0];
-    STAssertNotNil(timePeriod, @"Expecting an object");
-    STAssertEqualObjects(timePeriod.startDate, startDate, @"Expecting data");
-    STAssertEqualObjects(timePeriod.endDate, endDate, @"Expecting data");
+    [self.cutInsert fetchAllTimePeriods:^(NSArray* objects, NSError* fetchError) {
+        STAssertNil(fetchError, @"Core data error.");
+        STAssertEquals(objects.count, (NSUInteger)0, @"Expecting no object");
+        
+        MGMTimePeriodDto* timePeriodDto = [[MGMTimePeriodDto alloc] init];
+        timePeriodDto.startDate = startDate;
+        timePeriodDto.endDate = endDate;
+        
+        [self.cutInsert persistTimePeriods:[NSArray arrayWithObject:timePeriodDto] completion:^(NSError* persistError) {
+            STAssertNil(persistError, @"Core data error.");
+            
+            [self.cutFetch fetchAllTimePeriods:^(NSArray* objects2, NSError* fetchError2) {
+                STAssertNil(fetchError2, @"Core data error.");
+                STAssertEquals(objects2.count, (NSUInteger)1, @"Expecting an object");
+                
+                MGMTimePeriod* timePeriod = [objects2 objectAtIndex:0];
+                STAssertNotNil(timePeriod, @"Expecting an object");
+                STAssertEqualObjects(timePeriod.startDate, startDate, @"Expecting data");
+                STAssertEqualObjects(timePeriod.endDate, endDate, @"Expecting data");
+            }];
+        }];
+    }];
 }
 
 - (void) testCreateWeeklyChartNoEntries
 {
     [self deleteAllObjects:@"MGMWeeklyChart"];
 
-    NSError* error = nil;
     NSDate* startDate = [self.dateFormatter dateFromString:@"03/03/2003"];
     NSDate* endDate = [self.dateFormatter dateFromString:@"04/04/2004"];
 
-    MGMWeeklyChart* object = [self.cutInsert fetchWeeklyChartWithStartDate:startDate endDate:endDate error:&error];
-    STAssertNil(error, @"Core data error.");
-    STAssertNil(object, @"Expecting no object");
-
-    MGMWeeklyChartDto* weeklyChartDto = [[MGMWeeklyChartDto alloc] init];
-    weeklyChartDto.startDate = startDate;
-    weeklyChartDto.endDate = endDate;
-
-    [self.cutInsert persistWeeklyChart:weeklyChartDto error:&error];
-    STAssertNil(error, @"Core data error.");
-
-    object = [self.cutFetch fetchWeeklyChartWithStartDate:startDate endDate:endDate error:&error];
-    STAssertNil(error, @"Core data error.");
-    STAssertNotNil(object, @"Expecting an object");
-    STAssertEqualObjects(object.startDate, startDate, @"Expecting data");
-    STAssertEqualObjects(object.endDate, endDate, @"Expecting data");
+    [self.cutInsert fetchWeeklyChartWithStartDate:startDate endDate:endDate completion:^(NSManagedObjectID* moid, NSError* fetchError) {
+        STAssertNil(fetchError, @"Core data error.");
+        STAssertNil(moid, @"Expecting no object");
+        
+        MGMWeeklyChartDto* weeklyChartDto = [[MGMWeeklyChartDto alloc] init];
+        weeklyChartDto.startDate = startDate;
+        weeklyChartDto.endDate = endDate;
+        
+        [self.cutInsert persistWeeklyChart:weeklyChartDto completion:^(NSError* persistError) {
+            STAssertNil(persistError, @"Core data error.");
+            
+            [self.cutFetch fetchWeeklyChartWithStartDate:startDate endDate:endDate completion:^(NSManagedObjectID* moid2, NSError* fetchError2) {
+                STAssertNil(fetchError2, @"Core data error.");
+                
+                MGMWeeklyChart* weeklyChart = [self.cutFetch mainThreadVersion:moid2];
+                STAssertNotNil(weeklyChart, @"Expecting an object");
+                STAssertEqualObjects(weeklyChart.startDate, startDate, @"Expecting data");
+                STAssertEqualObjects(weeklyChart.endDate, endDate, @"Expecting data");
+            }];
+        }];
+    }];
 }
 
 - (void) testCreateEventNoAlbums
 {
     [self deleteAllObjects:@"MGMEvent"];
 
-    NSError* error = nil;
     NSDate* eventDate = [self.dateFormatter dateFromString:@"05/05/2005"];
 
-    MGMEvent* object = [self.cutInsert fetchEventWithEventNumber:@1 error:&error];
-    STAssertNil(error, @"Core data error.");
-    STAssertNil(object, @"Expecting no object");
+    [self.cutInsert fetchEventWithEventNumber:@1 completion:^(NSManagedObjectID* moid, NSError* fetchError) {
+        STAssertNil(fetchError, @"Core data error.");
+        STAssertNil(moid, @"Expecting no object");
+        
+        MGMEventDto* eventDto = [[MGMEventDto alloc] init];
+        eventDto.eventNumber = @1;
+        eventDto.eventDate = eventDate;
+        eventDto.playlistId = @"playlistId";
 
-    MGMEventDto* eventDto = [[MGMEventDto alloc] init];
-    eventDto.eventNumber = @1;
-    eventDto.eventDate = eventDate;
-    eventDto.playlistId = @"playlistId";
+        [self.cutInsert persistEvents:[NSArray arrayWithObject:eventDto] completion:^(NSError* persistError) {
+            STAssertNil(persistError, @"Core data error.");
+            
+            [self.cutFetch fetchEventWithEventNumber:@1 completion:^(NSManagedObjectID* moid2, NSError* fetchError2) {
+                STAssertNil(fetchError2, @"Core data error.");
 
-    object.eventNumber = @1;
-    object.eventDate = eventDate;
-    object.playlistId = @"playlistId";
-
-    [self.cutInsert persistEvents:[NSArray arrayWithObject:eventDto] error:&error];
-    STAssertNil(error, @"Core data error.");
-
-    object = [self.cutFetch fetchEventWithEventNumber:@1 error:&error];
-    STAssertNil(error, @"Core data error.");
-    STAssertNotNil(object, @"Expecting an object");
-    STAssertEqualObjects(object.eventNumber, @1, @"Expecting data");
-    STAssertEqualObjects(object.eventDate, eventDate, @"Expecting data");
-    STAssertEqualObjects(object.playlistId, @"playlistId", @"Expecting data");
+                MGMEvent* event = [self.cutFetch mainThreadVersion:moid2];
+                STAssertNotNil(event, @"Expecting an object");
+                STAssertEqualObjects(event.eventNumber, @1, @"Expecting data");
+                STAssertEqualObjects(event.eventDate, eventDate, @"Expecting data");
+                STAssertEqualObjects(event.playlistId, @"playlistId", @"Expecting data");
+            }];
+        }];
+    }];
 }
 
-- (void) testCreateEventWithSimpleAlbums
+- (MGMEventDto*) simpleAlbumsEventWithDate:(NSDate*)eventDate
 {
-    [self deleteAllObjects:@"MGMAlbum"];
-    [self deleteAllObjects:@"MGMEvent"];
-
-    NSError* error = nil;
-    NSDate* eventDate = [self.dateFormatter dateFromString:@"06/06/2006"];
-
-    MGMEvent* object = [self.cutInsert fetchEventWithEventNumber:@2 error:&error];
-    STAssertNil(error, @"Core data error.");
-    STAssertNil(object, @"Expecting no object");
-
     MGMEventDto* eventDto = [[MGMEventDto alloc] init];
     eventDto.eventNumber = @2;
     eventDto.eventDate = eventDate;
     eventDto.playlistId = @"playlistId";
-
-    STAssertNil([self.cutInsert fetchAlbumWithMbid:@"Event2AlbumMbid1" error:&error], @"Expecting no object");
-    STAssertNil(error, @"Core data error.");
 
     MGMAlbumDto* classicAlbumDto = [[MGMAlbumDto alloc] init];
     classicAlbumDto.albumMbid = @"Event2AlbumMbid1";
     classicAlbumDto.albumName = @"Event2AlbumName1";
     classicAlbumDto.artistName = @"Event2ArtistName1";
     classicAlbumDto.score = @1.2;
-    
-    STAssertNil([self.cutInsert fetchAlbumWithMbid:@"Event2AlbumMbid2" error:&error], @"Expecting no object");
-    STAssertNil(error, @"Core data error.");
 
     MGMAlbumDto* newlyReleasedAlbumDto = [[MGMAlbumDto alloc] init];
     newlyReleasedAlbumDto.albumMbid = @"Event2AlbumMbid2";
@@ -207,54 +198,69 @@ static MGMLocalDataSourceThreadManager* _threadManager;
 
     eventDto.classicAlbum = classicAlbumDto;
     eventDto.newlyReleasedAlbum = newlyReleasedAlbumDto;
-    
-    [self.cutInsert persistEvents:[NSArray arrayWithObject:eventDto] error:&error];
-    STAssertNil(error, @"Core data error.");
 
-    object = [self.cutFetch fetchEventWithEventNumber:@2 error:&error];
-    STAssertNil(error, @"Core data error.");
-    STAssertNotNil(object, @"Expecting an object");
-    STAssertEqualObjects(object.eventNumber, @2, @"Expecting data");
-    STAssertEqualObjects(object.eventDate, eventDate, @"Expecting data");
-    STAssertEqualObjects(object.playlistId, @"playlistId", @"Expecting data");
-    STAssertEqualObjects(object.classicAlbum.albumMbid, @"Event2AlbumMbid1", @"Expecting data");
-    STAssertEqualObjects(object.classicAlbum.albumName, @"Event2AlbumName1", @"Expecting data");
-    STAssertEqualObjects(object.classicAlbum.artistName, @"Event2ArtistName1", @"Expecting data");
-    STAssertEquals(object.classicAlbum.score.floatValue, (@1.2).floatValue, @"Expecting data");
-    STAssertEqualObjects(object.newlyReleasedAlbum.albumMbid, @"Event2AlbumMbid2", @"Expecting data");
-    STAssertEqualObjects(object.newlyReleasedAlbum.albumName, @"Event2AlbumName2", @"Expecting data");
-    STAssertEqualObjects(object.newlyReleasedAlbum.artistName, @"Event2ArtistName2", @"Expecting data");
-    STAssertEquals(object.newlyReleasedAlbum.score.floatValue, (@3.4).floatValue, @"Expecting data");
+    return eventDto;
 }
 
-- (void) testCreateEventWithComplexAlbums
+- (void) testCreateEventWithSimpleAlbums
 {
     [self deleteAllObjects:@"MGMAlbum"];
     [self deleteAllObjects:@"MGMEvent"];
 
-    NSError* error = nil;
-    NSDate* eventDate = [self.dateFormatter dateFromString:@"07/07/2007"];
+    NSDate* eventDate = [self.dateFormatter dateFromString:@"06/06/2006"];
 
-    MGMEvent* object = [self.cutInsert fetchEventWithEventNumber:@3 error:&error];
-    STAssertNil(error, @"Core data error.");
-    STAssertNil(object, @"Expecting no object");
+    [self.cutInsert fetchEventWithEventNumber:@2 completion:^(NSManagedObjectID* eventMoid, NSError* eventFetchError) {
+        STAssertNil(eventFetchError, @"Core data error.");
+        STAssertNil(eventMoid, @"Expecting no object");
+        
+        [self.cutInsert fetchAlbumWithMbid:@"Event2AlbumMbid1" completion:^(NSManagedObjectID* albumMoid, NSError* albumFetchError) {
+            STAssertNil(albumMoid, @"Expecting no object");
+            STAssertNil(albumFetchError, @"Core data error.");
+            
+            [self.cutInsert fetchAlbumWithMbid:@"Event2AlbumMbid2" completion:^(NSManagedObjectID* albumMoid2, NSError* albumFetchError2) {
+                STAssertNil(albumMoid2, @"Expecting no object");
+                STAssertNil(albumFetchError2, @"Core data error.");
 
+                MGMEventDto* eventDto = [self simpleAlbumsEventWithDate:eventDate];
+
+                [self.cutInsert persistEvents:[NSArray arrayWithObject:eventDto] completion:^(NSError* persistError) {
+                    STAssertNil(persistError, @"Core data error.");
+                    
+                    [self.cutFetch fetchEventWithEventNumber:@2 completion:^(NSManagedObjectID* eventMoid2, NSError* eventFetchError2) {
+                        STAssertNil(eventFetchError2, @"Core data error.");
+
+                        MGMEvent* event = [self.cutFetch mainThreadVersion:eventMoid2];
+                        STAssertNotNil(event, @"Expecting an object");
+                        STAssertEqualObjects(event.eventNumber, @2, @"Expecting data");
+                        STAssertEqualObjects(event.eventDate, eventDate, @"Expecting data");
+                        STAssertEqualObjects(event.playlistId, @"playlistId", @"Expecting data");
+                        STAssertEqualObjects(event.classicAlbum.albumMbid, @"Event2AlbumMbid1", @"Expecting data");
+                        STAssertEqualObjects(event.classicAlbum.albumName, @"Event2AlbumName1", @"Expecting data");
+                        STAssertEqualObjects(event.classicAlbum.artistName, @"Event2ArtistName1", @"Expecting data");
+                        STAssertEquals(event.classicAlbum.score.floatValue, (@1.2).floatValue, @"Expecting data");
+                        STAssertEqualObjects(event.newlyReleasedAlbum.albumMbid, @"Event2AlbumMbid2", @"Expecting data");
+                        STAssertEqualObjects(event.newlyReleasedAlbum.albumName, @"Event2AlbumName2", @"Expecting data");
+                        STAssertEqualObjects(event.newlyReleasedAlbum.artistName, @"Event2ArtistName2", @"Expecting data");
+                        STAssertEquals(event.newlyReleasedAlbum.score.floatValue, (@3.4).floatValue, @"Expecting data");
+                    }];
+                }];
+            }];
+        }];
+    }];
+}
+
+- (MGMEventDto*) complexAlbumsEventWithDate:(NSDate*)eventDate
+{
     MGMEventDto* eventDto = [[MGMEventDto alloc] init];
     eventDto.eventNumber = @3;
     eventDto.eventDate = eventDate;
     eventDto.playlistId = @"playlistId";
-
-    STAssertNil([self.cutInsert fetchAlbumWithMbid:@"Event3AlbumMbid1" error:&error], @"Expecting no object");
-    STAssertNil(error, @"Core data error.");
 
     MGMAlbumDto* classicAlbumDto = [[MGMAlbumDto alloc] init];
     classicAlbumDto.albumMbid = @"Event3AlbumMbid1";
     classicAlbumDto.albumName = @"Event3AlbumName1";
     classicAlbumDto.artistName = @"Event3ArtistName1";
     classicAlbumDto.score = @5.6;
-
-    STAssertNil([self.cutInsert fetchAlbumWithMbid:@"Event3AlbumMbid2" error:&error], @"Expecting no object");
-    STAssertNil(error, @"Core data error.");
 
     MGMAlbumDto* newlyReleasedAlbumDto = [[MGMAlbumDto alloc] init];
     newlyReleasedAlbumDto.albumMbid = @"Event3AlbumMbid2";
@@ -305,28 +311,59 @@ static MGMLocalDataSourceThreadManager* _threadManager;
     eventDto.classicAlbum = classicAlbumDto;
     eventDto.newlyReleasedAlbum = newlyReleasedAlbumDto;
 
-    [self.cutInsert persistEvents:[NSArray arrayWithObject:eventDto] error:&error];
-    STAssertNil(error, @"Core data error.");
+    return eventDto;
+}
 
-    object = [self.cutFetch fetchEventWithEventNumber:@3 error:&error];
-    STAssertNil(error, @"Core data error.");
-    STAssertNotNil(object, @"Expecting an object");
-    STAssertEqualObjects(object.eventNumber, @3, @"Expecting data");
-    STAssertEqualObjects(object.eventDate, eventDate, @"Expecting data");
-    STAssertEqualObjects(object.playlistId, @"playlistId", @"Expecting data");
-    STAssertEqualObjects(object.classicAlbum.albumMbid, @"Event3AlbumMbid1", @"Expecting data");
-    STAssertEqualObjects(object.classicAlbum.albumName, @"Event3AlbumName1", @"Expecting data");
-    STAssertEqualObjects(object.classicAlbum.artistName, @"Event3ArtistName1", @"Expecting data");
-    STAssertEquals(object.classicAlbum.score.floatValue, (@5.6).floatValue, @"Expecting data");
-    STAssertEquals(object.classicAlbum.imageUris.count, (NSUInteger)2, @"Expecting data");
-    STAssertEquals(object.classicAlbum.metadata.count, (NSUInteger)2, @"Expecting data");
+- (void) testCreateEventWithComplexAlbums
+{
+    [self deleteAllObjects:@"MGMAlbum"];
+    [self deleteAllObjects:@"MGMEvent"];
 
-    STAssertEqualObjects(object.newlyReleasedAlbum.albumMbid, @"Event3AlbumMbid2", @"Expecting data");
-    STAssertEqualObjects(object.newlyReleasedAlbum.albumName, @"Event3AlbumName2", @"Expecting data");
-    STAssertEqualObjects(object.newlyReleasedAlbum.artistName, @"Event3ArtistName2", @"Expecting data");
-    STAssertEquals(object.newlyReleasedAlbum.score.floatValue, (@7.8).floatValue, @"Expecting data");
-    STAssertEquals(object.newlyReleasedAlbum.imageUris.count, (NSUInteger)2, @"Expecting data");
-    STAssertEquals(object.newlyReleasedAlbum.metadata.count, (NSUInteger)2, @"Expecting data");
+    NSDate* eventDate = [self.dateFormatter dateFromString:@"07/07/2007"];
+
+    [self.cutInsert fetchEventWithEventNumber:@3 completion:^(NSManagedObjectID* eventMoid, NSError* eventFetchError) {
+        STAssertNil(eventFetchError, @"Core data error.");
+        STAssertNil(eventMoid, @"Expecting no object");
+
+        [self.cutInsert fetchAlbumWithMbid:@"Event3AlbumMbid1" completion:^(NSManagedObjectID* albumMoid, NSError* albumFetchError) {
+            STAssertNil(albumMoid, @"Expecting no object");
+            STAssertNil(albumFetchError, @"Core data error.");
+
+            [self.cutInsert fetchAlbumWithMbid:@"Event3AlbumMbid2" completion:^(NSManagedObjectID* albumMoid2, NSError* albumFetchError2) {
+                STAssertNil(albumMoid2, @"Expecting no object");
+                STAssertNil(albumFetchError2, @"Core data error.");
+
+                MGMEventDto* eventDto = [self complexAlbumsEventWithDate:eventDate];
+
+                [self.cutInsert persistEvents:[NSArray arrayWithObject:eventDto] completion:^(NSError* persistError) {
+                    STAssertNil(persistError, @"Core data error.");
+
+                    [self.cutFetch fetchEventWithEventNumber:@3 completion:^(NSManagedObjectID* eventMoid2, NSError* eventFetchError2) {
+                        STAssertNil(eventFetchError2, @"Core data error.");
+
+                        MGMEvent* event = [self.cutFetch mainThreadVersion:eventMoid2];
+                        STAssertNotNil(event, @"Expecting an object");
+                        STAssertEqualObjects(event.eventNumber, @3, @"Expecting data");
+                        STAssertEqualObjects(event.eventDate, eventDate, @"Expecting data");
+                        STAssertEqualObjects(event.playlistId, @"playlistId", @"Expecting data");
+                        STAssertEqualObjects(event.classicAlbum.albumMbid, @"Event3AlbumMbid1", @"Expecting data");
+                        STAssertEqualObjects(event.classicAlbum.albumName, @"Event3AlbumName1", @"Expecting data");
+                        STAssertEqualObjects(event.classicAlbum.artistName, @"Event3ArtistName1", @"Expecting data");
+                        STAssertEquals(event.classicAlbum.score.floatValue, (@5.6).floatValue, @"Expecting data");
+                        STAssertEquals(event.classicAlbum.imageUris.count, (NSUInteger)2, @"Expecting data");
+                        STAssertEquals(event.classicAlbum.metadata.count, (NSUInteger)2, @"Expecting data");
+
+                        STAssertEqualObjects(event.newlyReleasedAlbum.albumMbid, @"Event3AlbumMbid2", @"Expecting data");
+                        STAssertEqualObjects(event.newlyReleasedAlbum.albumName, @"Event3AlbumName2", @"Expecting data");
+                        STAssertEqualObjects(event.newlyReleasedAlbum.artistName, @"Event3ArtistName2", @"Expecting data");
+                        STAssertEquals(event.newlyReleasedAlbum.score.floatValue, (@7.8).floatValue, @"Expecting data");
+                        STAssertEquals(event.newlyReleasedAlbum.imageUris.count, (NSUInteger)2, @"Expecting data");
+                        STAssertEquals(event.newlyReleasedAlbum.metadata.count, (NSUInteger)2, @"Expecting data");
+                    }];
+                }];
+            }];
+        }];
+    }];
 }
 
 @end
