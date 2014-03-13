@@ -53,13 +53,54 @@
     return [NSEntityDescription insertNewObjectForEntityForName:name inManagedObjectContext:moc];
 }
 
+typedef BOOL (^PERSIST_BLOCK) (NSError**);
+typedef NSManagedObjectID* (^FETCH_BLOCK) (NSError**);
+typedef NSArray* (^FETCH_MANY_BLOCK) (NSError**);
+
+- (oneway void) performPersistBlock:(PERSIST_BLOCK)persistBlock completion:(CORE_DATA_PERSIST_COMPLETION)completion
+{
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    [moc performBlock:^{
+        NSError* error = nil;
+        persistBlock(&error);
+        completion(error);
+    }];
+}
+
+- (oneway void) performFetchBlock:(FETCH_BLOCK)fetchBlock completion:(CORE_DATA_FETCH_COMPLETION)completion
+{
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    [moc performBlock:^{
+        NSError* error = nil;
+        NSManagedObjectID* moid = fetchBlock(&error);
+        completion(moid, error);
+    }];
+}
+
+- (oneway void) performFetchManyBlock:(FETCH_MANY_BLOCK)fetchManyBlock completion:(CORE_DATA_FETCH_MANY_COMPLETION)completion
+{
+    NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+    [moc performBlock:^{
+        NSError* error = nil;
+        NSArray* moids = fetchManyBlock(&error);
+        completion(moids, error);
+    }];
+}
+
 #pragma mark -
 #pragma mark MGMNextUrlAccess
+
+- (oneway void) persistNextUrlAccess:(NSString*)identifier date:(NSDate *)date completion:(CORE_DATA_PERSIST_COMPLETION)completion
+{
+    [self performPersistBlock:^BOOL(NSError** error) {
+        return [self persistNextUrlAccess:identifier date:date error:error];
+    } completion:completion];
+}
 
 - (BOOL) persistNextUrlAccess:(NSString*)identifier date:(NSDate *)date error:(NSError**)error
 {
     NSManagedObjectID* moid = [self fetchNextUrlAccessWithIdentifier:identifier error:error];
-    MGMNextUrlAccess* nextUrlAccess = [self threadVersion:moid];
+    MGMNextUrlAccess* nextUrlAccess = [self mainThreadVersion:moid];
     if (MGM_ERROR(error))
     {
         return [self rollbackChanges];
@@ -81,6 +122,13 @@
     return [self createNewManagedObjectWithName:NSStringFromClass([MGMNextUrlAccess class])];
 }
 
+- (oneway void) fetchNextUrlAccessWithIdentifier:(NSString*)identifier completion:(CORE_DATA_FETCH_COMPLETION)completion
+{
+    [self performFetchBlock:^NSManagedObjectID *(NSError** error) {
+        return [self fetchNextUrlAccessWithIdentifier:identifier error:error];
+    } completion:completion];
+}
+
 - (NSManagedObjectID*) fetchNextUrlAccessWithIdentifier:(NSString*)identifier error:(NSError**)error
 {
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
@@ -99,12 +147,19 @@
 #pragma mark -
 #pragma mark MGMTimePeriod
 
+- (oneway void) persistTimePeriods:(NSArray*)timePeriodDtos completion:(CORE_DATA_PERSIST_COMPLETION)completion
+{
+    [self performPersistBlock:^BOOL(NSError** error) {
+        return [self persistTimePeriods:timePeriodDtos error:error];
+    } completion:completion];
+}
+
 - (BOOL) persistTimePeriods:(NSArray*)timePeriodDtos error:(NSError**)error
 {
     for (MGMTimePeriodDto* timePeriodDto in timePeriodDtos)
     {
         NSManagedObjectID* moid = [self fetchTimePeriodWithStartDate:timePeriodDto.startDate endDate:timePeriodDto.endDate error:error];
-        MGMTimePeriod* timePeriod = [self threadVersion:moid];
+        MGMTimePeriod* timePeriod = [self mainThreadVersion:moid];
         if (MGM_ERROR(error))
         {
             return [self rollbackChanges];
@@ -125,7 +180,14 @@
     return [self createNewManagedObjectWithName:NSStringFromClass([MGMTimePeriod class])];
 }
 
-- (NSArray*) fetchAllTimePeriods:(NSError**)error
+- (oneway void) fetchAllTimePeriods:(CORE_DATA_FETCH_MANY_COMPLETION)completion
+{
+    [self performFetchManyBlock:^NSArray *(NSError** error) {
+        return [self fetchAllTimePeriodsSync:error];
+    } completion:completion];
+}
+
+- (NSArray*) fetchAllTimePeriodsSync:(NSError**)error
 {
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
@@ -155,10 +217,17 @@
 #pragma mark -
 #pragma mark MGMWeeklyChart
 
+- (oneway void) persistWeeklyChart:(MGMWeeklyChartDto*)weeklyChartDto completion:(CORE_DATA_PERSIST_COMPLETION)completion
+{
+    [self performPersistBlock:^BOOL(NSError** error) {
+        return [self persistWeeklyChart:weeklyChartDto error:error];
+    } completion:completion];
+}
+
 - (BOOL) persistWeeklyChart:(MGMWeeklyChartDto*)weeklyChartDto error:(NSError**)error
 {
     NSManagedObjectID* moid = [self fetchWeeklyChartWithStartDate:weeklyChartDto.startDate endDate:weeklyChartDto.endDate error:error];
-    MGMWeeklyChart* weeklyChart = [self threadVersion:moid];
+    MGMWeeklyChart* weeklyChart = [self mainThreadVersion:moid];
     if (MGM_ERROR(error))
     {
         return [self rollbackChanges];
@@ -174,7 +243,7 @@
     for (MGMChartEntryDto* chartEntryDto in weeklyChartDto.chartEntries)
     {
         NSManagedObjectID* moid = [self fetchChartEntryWithWeeklyChart:weeklyChart rank:chartEntryDto.rank error:error];
-        MGMChartEntry* chartEntry = [self threadVersion:moid];
+        MGMChartEntry* chartEntry = [self mainThreadVersion:moid];
         if (MGM_ERROR(error))
         {
             return [self rollbackChanges];
@@ -207,6 +276,13 @@
 - (MGMWeeklyChart*) createNewWeeklyChart
 {
     return [self createNewManagedObjectWithName:NSStringFromClass([MGMWeeklyChart class])];
+}
+
+- (oneway void) fetchWeeklyChartWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate completion:(CORE_DATA_FETCH_COMPLETION)completion
+{
+    [self performFetchBlock:^NSManagedObjectID *(NSError** error) {
+        return [self fetchWeeklyChartWithStartDate:startDate endDate:endDate error:error];
+    } completion:completion];
 }
 
 - (NSManagedObjectID*) fetchWeeklyChartWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate error:(NSError**)error
@@ -263,7 +339,7 @@
         moid = [self fetchAlbumWithArtistName:albumDto.artistName albumName:albumDto.albumName error:error];
     }
 
-    MGMAlbum* album = [self threadVersion:moid];;
+    MGMAlbum* album = [self mainThreadVersion:moid];;
 
     if (MGM_ERROR(error))
     {
@@ -303,6 +379,13 @@
     return [self createNewManagedObjectWithName:NSStringFromClass([MGMAlbum class])];
 }
 
+- (oneway void) fetchAlbumWithMbid:(NSString*)mbid completion:(CORE_DATA_FETCH_COMPLETION)completion
+{
+    [self performFetchBlock:^NSManagedObjectID *(NSError** error) {
+        return [self fetchAlbumWithMbid:mbid error:error];
+    } completion:completion];
+}
+
 - (NSManagedObjectID*) fetchAlbumWithMbid:(NSString*)mbid error:(NSError**)error
 {
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
@@ -336,9 +419,16 @@
 #pragma mark -
 #pragma mark MGMAlbumImageUri
 
+- (oneway void) addImageUris:(NSArray*)uriDtos toAlbum:(NSManagedObjectID*)albumMoid completion:(CORE_DATA_PERSIST_COMPLETION)completion
+{
+    [self performPersistBlock:^BOOL(NSError** error) {
+        return [self addImageUris:uriDtos toAlbum:albumMoid error:error];
+    } completion:completion];
+}
+
 - (BOOL) addImageUris:(NSArray*)uriDtos toAlbum:(NSManagedObjectID*)albumMoid error:(NSError**)error
 {
-    MGMAlbum* album = [self threadVersion:albumMoid];
+    MGMAlbum* album = [self mainThreadVersion:albumMoid];
     album.searchedImages = YES;
 
     if (uriDtos.count > 0)
@@ -359,7 +449,7 @@
     for (MGMAlbumImageUriDto* uriDto in uriDtos)
     {
         NSManagedObjectID* moid = [self fetchAlbumImageUriWithAlbum:album size:uriDto.size error:error];
-        MGMAlbumImageUri* uri = [self threadVersion:moid];
+        MGMAlbumImageUri* uri = [self mainThreadVersion:moid];
         if (MGM_ERROR(error))
         {
             return;
@@ -410,9 +500,16 @@
 #pragma mark -
 #pragma mark MGMAlbumMetadata
 
+- (oneway void) addMetadata:(MGMAlbumMetadataDto*)metadataDto toAlbum:(NSManagedObjectID*)albumMoid completion:(CORE_DATA_PERSIST_COMPLETION)completion
+{
+    [self performPersistBlock:^BOOL(NSError** error) {
+        return [self addMetadata:metadataDto toAlbum:albumMoid error:error];
+    } completion:completion];
+}
+
 - (BOOL) addMetadata:(MGMAlbumMetadataDto*)metadataDto toAlbum:(NSManagedObjectID*)albumMoid error:(NSError**)error
 {
-    MGMAlbum* album = [self threadVersion:albumMoid];
+    MGMAlbum* album = [self mainThreadVersion:albumMoid];
     [album setServiceTypeSearched:metadataDto.serviceType];
 
     if (metadataDto)
@@ -433,7 +530,7 @@
     for (MGMAlbumMetadataDto* metadataDto in metadataDtos)
     {
         NSManagedObjectID* moid = [self fetchAlbumMetadataWithAlbum:album serviceType:metadataDto.serviceType error:error];
-        MGMAlbumMetadata* metadata = [self threadVersion:moid];
+        MGMAlbumMetadata* metadata = [self mainThreadVersion:moid];
         if (MGM_ERROR(error))
         {
             return;
@@ -473,12 +570,19 @@
 #pragma mark -
 #pragma mark MGMEvent
 
+- (oneway void) persistEvents:(NSArray*)eventDtos completion:(CORE_DATA_PERSIST_COMPLETION)completion
+{
+    [self performPersistBlock:^BOOL(NSError** error) {
+        return [self persistEvents:eventDtos error:error];
+    } completion:completion];
+}
+
 - (BOOL) persistEvents:(NSArray*)eventDtos error:(NSError**)error
 {
     for (MGMEventDto* eventDto in eventDtos)
     {
         NSManagedObjectID* moid = [self fetchEventWithEventNumber:eventDto.eventNumber error:error];
-        MGMEvent* event = [self threadVersion:moid];
+        MGMEvent* event = [self mainThreadVersion:moid];
         if (MGM_ERROR(error))
         {
             return [self rollbackChanges];
@@ -524,7 +628,14 @@
     return [self createNewManagedObjectWithName:NSStringFromClass([MGMEvent class])];
 }
 
-- (NSArray*) fetchAllEvents:(NSError**)error
+- (oneway void) fetchAllEvents:(CORE_DATA_FETCH_MANY_COMPLETION)completion
+{
+    [self performFetchManyBlock:^NSArray *(NSError** error) {
+        return [self fetchAllEventsSync:error];
+    } completion:completion];
+}
+
+- (NSArray*) fetchAllEventsSync:(NSError**)error
 {
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
@@ -534,6 +645,13 @@
     request.sortDescriptors = sortDescriptors;
     request.resultType = NSManagedObjectIDResultType;
     return [moc executeFetchRequest:request error:error];
+}
+
+- (oneway void) fetchEventWithEventNumber:(NSNumber*)eventNumber completion:(CORE_DATA_FETCH_COMPLETION)completion
+{
+    [self performFetchBlock:^NSManagedObjectID *(NSError** error) {
+        return [self fetchEventWithEventNumber:eventNumber error:error];
+    } completion:completion];
 }
 
 - (NSManagedObjectID*) fetchEventWithEventNumber:(NSNumber*)eventNumber error:(NSError**)error
@@ -551,7 +669,14 @@
     return nil;
 }
 
-- (NSArray*) fetchAllClassicAlbums:(NSError**)error
+- (oneway void) fetchAllClassicAlbums:(CORE_DATA_FETCH_MANY_COMPLETION)completion
+{
+    [self performFetchManyBlock:^NSArray *(NSError** error) {
+        return [self fetchAllClassicAlbumsSync:error];
+    } completion:completion];
+}
+
+- (NSArray*) fetchAllClassicAlbumsSync:(NSError**)error
 {
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
@@ -564,7 +689,14 @@
     return [moc executeFetchRequest:request error:error];
 }
 
-- (NSArray*) fetchAllNewlyReleasedAlbums:(NSError**)error
+- (oneway void) fetchAllNewlyReleasedAlbums:(CORE_DATA_FETCH_MANY_COMPLETION)completion
+{
+    [self performFetchManyBlock:^NSArray *(NSError** error) {
+        return [self fetchAllNewlyReleasedAlbumsSync:error];
+    } completion:completion];
+}
+
+- (NSArray*) fetchAllNewlyReleasedAlbumsSync:(NSError**)error
 {
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
@@ -577,7 +709,14 @@
     return [moc executeFetchRequest:request error:error];
 }
 
-- (NSArray*) fetchAllEventAlbums:(NSError**)error
+- (oneway void) fetchAllEventAlbums:(CORE_DATA_FETCH_MANY_COMPLETION)completion
+{
+    [self performFetchManyBlock:^NSArray *(NSError** error) {
+        return [self fetchAllEventAlbumsSync:error];
+    } completion:completion];
+}
+
+- (NSArray*) fetchAllEventAlbumsSync:(NSError**)error
 {
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
@@ -593,10 +732,17 @@
 #pragma mark -
 #pragma mark MGMWeeklyChart
 
+- (oneway void) persistPlaylist:(MGMPlaylistDto*)playlistDto completion:(CORE_DATA_PERSIST_COMPLETION)completion
+{
+    [self performPersistBlock:^BOOL(NSError** error) {
+        return [self persistPlaylist:playlistDto error:error];
+    } completion:completion];
+}
+
 - (BOOL) persistPlaylist:(MGMPlaylistDto*)playlistDto error:(NSError**)error
 {
     NSManagedObjectID* moid = [self fetchPlaylistWithId:playlistDto.playlistId error:error];
-    MGMPlaylist* playlist = [self threadVersion:moid];
+    MGMPlaylist* playlist = [self mainThreadVersion:moid];
     if (MGM_ERROR(error))
     {
         return [self rollbackChanges];
@@ -645,6 +791,13 @@
     return [self createNewManagedObjectWithName:NSStringFromClass([MGMPlaylistItem class])];
 }
 
+- (oneway void) fetchPlaylistWithId:(NSString*)playlistId completion:(CORE_DATA_FETCH_COMPLETION)completion
+{
+    [self performFetchBlock:^NSManagedObjectID *(NSError** error) {
+        return [self fetchPlaylistWithId:playlistId error:error];
+    } completion:completion];
+}
+
 - (NSManagedObjectID*) fetchPlaylistWithId:(NSString*)playlistId error:(NSError**)error
 {
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
@@ -677,22 +830,30 @@
     return NO;
 }
 
-- (id) threadVersion:(NSManagedObjectID*)moid
+- (id) mainThreadVersion:(NSManagedObjectID*)moid
 {
-    if (moid)
+    if ([NSThread isMainThread])
     {
-        NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
-        return [moc objectWithID:moid];
+        if (moid)
+        {
+            NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
+            return [moc objectWithID:moid];
+        }
+        return nil;
     }
-    return nil;
+    else
+    {
+        [NSException raise:@"mainThreadVersion must be invoked on main thread." format:@"Invoked on thread %@", [NSThread currentThread]];
+        return nil;
+    }
 }
 
-- (NSArray*) threadVersions:(NSArray*)moids
+- (NSArray*) mainThreadVersions:(NSArray*)moids
 {
     NSMutableArray* array = [NSMutableArray arrayWithCapacity:moids.count];
     for (NSManagedObjectID* moid in moids)
     {
-        [array addObject:[self threadVersion:moid]];
+        [array addObject:[self mainThreadVersion:moid]];
     }
     return [array copy];
 }

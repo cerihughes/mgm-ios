@@ -14,7 +14,7 @@
 
 @property (readonly) NSManagedObjectContext* masterMoc;
 @property (readonly) NSManagedObjectContext* mainMoc;
-@property (readonly) NSMutableDictionary* threadUuidsToMocs;
+@property (readonly) NSManagedObjectContext* backgroundMoc;
 
 @end
 
@@ -24,8 +24,6 @@
 {
     if (self = [super init])
     {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(threadWillExit:) name:NSThreadWillExitNotification object:nil];
-
         NSError* error = nil;
         NSPersistentStoreCoordinator* psc = [self createPersistentStoreCoordinatorWithStoreName:storeName error:&error];
         if (error != nil)
@@ -35,11 +33,12 @@
 
         _masterMoc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _masterMoc.persistentStoreCoordinator = psc;
+        
         _mainMoc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         _mainMoc.parentContext = _masterMoc;
 
-        _threadUuidsToMocs = [NSMutableDictionary dictionary];
-
+        _backgroundMoc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        _backgroundMoc.parentContext = _mainMoc;
     }
     return self;
 }
@@ -48,27 +47,11 @@
 {
     if ([NSThread isMainThread])
     {
-        return _mainMoc;
+        return self.mainMoc;
     }
     else
     {
-        NSThread* thread = [NSThread currentThread];
-        NSMutableDictionary* td = thread.threadDictionary;
-        NSString* uuid = [td objectForKey:THREAD_UUID_KEY];
-        if (uuid == nil)
-        {
-            // We've not seen this thread before...
-            NSString* uuid = [[NSUUID UUID] UUIDString];
-            [td setObject:uuid forKey:THREAD_UUID_KEY];
-            NSManagedObjectContext* moc = [self createManagedObjectContext];
-            @synchronized(self)
-            {
-                [self.threadUuidsToMocs setObject:moc forKey:uuid];
-            }
-            return moc;
-        }
-        
-        return [self.threadUuidsToMocs objectForKey:uuid];
+        return self.backgroundMoc;
     }
 }
 
@@ -86,31 +69,6 @@
     NSDictionary* options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
     [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:options error:error];
     return persistentStoreCoordinator;
-}
-
-- (NSManagedObjectContext*) createManagedObjectContext
-{
-    NSManagedObjectContext* moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    moc.parentContext = _masterMoc;
-    return moc;
-}
-
-#pragma mark -
-#pragma mark NSThreadWillExitNotification
-
-- (void) threadWillExit:(NSNotification*)notification
-{
-    NSThread* thread = notification.object;
-    NSMutableDictionary* td = thread.threadDictionary;
-    NSString* uuid = [td objectForKey:THREAD_UUID_KEY];
-    if (uuid)
-    {
-        // This is one of ours...
-        @synchronized(self)
-        {
-            [self.threadUuidsToMocs removeObjectForKey:uuid];
-        }
-    }
 }
 
 @end

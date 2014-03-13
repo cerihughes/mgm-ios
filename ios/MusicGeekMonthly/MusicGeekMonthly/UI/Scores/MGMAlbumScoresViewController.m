@@ -114,7 +114,7 @@
     __block NSUInteger position = 1;
     for (NSManagedObjectID* albumMoid in self.albumMoids)
     {
-        MGMAlbum* album = [self.core.coreDataAccess threadVersion:albumMoid];
+        MGMAlbum* album = [self.core.coreDataAccess mainThreadVersion:albumMoid];
         [self.core.albumRenderService refreshAlbum:album completion:^(NSError* refreshError) {
             if (refreshError)
             {
@@ -143,14 +143,14 @@
 - (void) albumPressedWithRank:(NSUInteger)rank
 {
     NSManagedObjectID* albumMoid = [self.albumMoids objectAtIndex:rank - 1];
-    MGMAlbum* album = [self.core.coreDataAccess threadVersion:albumMoid];
+    MGMAlbum* album = [self.core.coreDataAccess mainThreadVersion:albumMoid];
     [self.albumSelectionDelegate albumSelected:album];
 }
 
 - (void) detailPressedWithRank:(NSUInteger)rank
 {
     NSManagedObjectID* albumMoid = [self.albumMoids objectAtIndex:rank - 1];
-    MGMAlbum* album = [self.core.coreDataAccess threadVersion:albumMoid];
+    MGMAlbum* album = [self.core.coreDataAccess mainThreadVersion:albumMoid];
     [self.albumSelectionDelegate detailSelected:album sender:self];
 }
 

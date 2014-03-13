@@ -18,61 +18,65 @@
 #define MGM_NO_ERROR(_error) (((_error) == nil) || (*(_error) == nil))
 #define MGM_ERROR(_error) (((_error) != nil) && (*(_error) != nil))
 
+typedef void (^CORE_DATA_PERSIST_COMPLETION) (NSError*);
+typedef void (^CORE_DATA_FETCH_COMPLETION) (NSManagedObjectID*, NSError*);
+typedef void (^CORE_DATA_FETCH_MANY_COMPLETION) (NSArray*, NSError*);
+
 @interface MGMCoreDataAccess : NSObject
 
 #pragma mark -
 #pragma mark MGMNextUrlAccess
 
-- (BOOL) persistNextUrlAccess:(NSString*)identifier date:(NSDate *)date error:(NSError**)error;
-- (NSManagedObjectID*) fetchNextUrlAccessWithIdentifier:(NSString*)identifier error:(NSError**)error;
+- (oneway void) persistNextUrlAccess:(NSString*)identifier date:(NSDate *)date completion:(CORE_DATA_PERSIST_COMPLETION)completion;
+- (oneway void) fetchNextUrlAccessWithIdentifier:(NSString*)identifier completion:(CORE_DATA_FETCH_COMPLETION)completion;
 
 #pragma mark -
 #pragma mark MGMTimePeriod
 
-- (BOOL) persistTimePeriods:(NSArray*)timePeriodDtos error:(NSError**)error;
-- (NSArray*) fetchAllTimePeriods:(NSError**)error;
+- (oneway void) persistTimePeriods:(NSArray*)timePeriodDtos completion:(CORE_DATA_PERSIST_COMPLETION)completion;
+- (oneway void) fetchAllTimePeriods:(CORE_DATA_FETCH_MANY_COMPLETION)completion;
 
 #pragma mark -
 #pragma mark MGMWeeklyChart
 
-- (BOOL) persistWeeklyChart:(MGMWeeklyChartDto*)weeklyChartDto error:(NSError**)error;
-- (NSManagedObjectID*) fetchWeeklyChartWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate error:(NSError**)error;
+- (oneway void) persistWeeklyChart:(MGMWeeklyChartDto*)weeklyChartDto completion:(CORE_DATA_PERSIST_COMPLETION)completion;
+- (oneway void) fetchWeeklyChartWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate completion:(CORE_DATA_FETCH_COMPLETION)completion;
 
 #pragma mark -
 #pragma mark MGMAlbum
 
-- (NSManagedObjectID*) fetchAlbumWithMbid:(NSString*)mbid error:(NSError**)error;
+- (oneway void) fetchAlbumWithMbid:(NSString*)mbid completion:(CORE_DATA_FETCH_COMPLETION)completion;
 
 #pragma mark -
 #pragma mark MGMAlbumImageUri
 
-- (BOOL) addImageUris:(NSArray*)uriDtos toAlbum:(NSManagedObjectID*)albumMoid error:(NSError**)error;
+- (oneway void) addImageUris:(NSArray*)uriDtos toAlbum:(NSManagedObjectID*)albumMoid completion:(CORE_DATA_PERSIST_COMPLETION)completion;
 
 #pragma mark -
 #pragma mark MGMAlbumMetadata
 
-- (BOOL) addMetadata:(MGMAlbumMetadataDto*)metadataDto toAlbum:(NSManagedObjectID*)albumMoid error:(NSError**)error;
+- (oneway void) addMetadata:(MGMAlbumMetadataDto*)metadataDto toAlbum:(NSManagedObjectID*)albumMoid completion:(CORE_DATA_PERSIST_COMPLETION)completion;
 
 #pragma mark -
 #pragma mark MGMEvent
 
-- (BOOL) persistEvents:(NSArray*)eventDtos error:(NSError**)error;
-- (NSArray*) fetchAllEvents:(NSError**)error;
-- (NSManagedObjectID*) fetchEventWithEventNumber:(NSNumber*)eventNumber error:(NSError**)error;
-- (NSArray*) fetchAllClassicAlbums:(NSError**)error;
-- (NSArray*) fetchAllNewlyReleasedAlbums:(NSError**)error;
-- (NSArray*) fetchAllEventAlbums:(NSError**)error;
+- (oneway void) persistEvents:(NSArray*)eventDtos completion:(CORE_DATA_PERSIST_COMPLETION)completion;
+- (oneway void) fetchAllEvents:(CORE_DATA_FETCH_MANY_COMPLETION)completion;
+- (oneway void) fetchEventWithEventNumber:(NSNumber*)eventNumber completion:(CORE_DATA_FETCH_COMPLETION)completion;
+- (oneway void) fetchAllClassicAlbums:(CORE_DATA_FETCH_MANY_COMPLETION)completion;
+- (oneway void) fetchAllNewlyReleasedAlbums:(CORE_DATA_FETCH_MANY_COMPLETION)completion;
+- (oneway void) fetchAllEventAlbums:(CORE_DATA_FETCH_MANY_COMPLETION)completion;
 
 #pragma mark -
 #pragma mark MGMPlaylist
 
-- (BOOL) persistPlaylist:(MGMPlaylistDto*)playlistDto error:(NSError**)error;
-- (NSManagedObjectID*) fetchPlaylistWithId:(NSString*)playlistId error:(NSError**)error;
+- (oneway void) persistPlaylist:(MGMPlaylistDto*)playlistDto completion:(CORE_DATA_PERSIST_COMPLETION)completion;
+- (oneway void) fetchPlaylistWithId:(NSString*)playlistId completion:(CORE_DATA_FETCH_COMPLETION)completion;
 
 #pragma mark -
 #pragma mark Threading
 
-- (id) threadVersion:(NSManagedObjectID*)moid;
-- (NSArray*) threadVersions:(NSArray*)moids;
+- (id) mainThreadVersion:(NSManagedObjectID*)moid;
+- (NSArray*) mainThreadVersions:(NSArray*)moids;
 
 @end

@@ -78,7 +78,7 @@
         else
         {
             NSArray* moids = timePeriodData.data;
-            NSArray* renderables = [self.core.coreDataAccess threadVersions:moids];
+            NSArray* renderables = [self.core.coreDataAccess mainThreadVersions:moids];
             [self.dataSource setRenderables:renderables];
             
             [self.modalView.timePeriodTable reloadData];
@@ -123,7 +123,7 @@
 
 - (void) reloadData
 {
-    MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess threadVersion:self.weeklyChartMoid];
+    MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess mainThreadVersion:self.weeklyChartMoid];
     for (MGMChartEntry* entry in weeklyChart.chartEntries)
     {
         MGMAlbum* album = entry.album;
@@ -165,14 +165,14 @@
 
 - (void) albumPressedWithRank:(NSUInteger)rank
 {
-    MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess threadVersion:self.weeklyChartMoid];
+    MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess mainThreadVersion:self.weeklyChartMoid];
     MGMChartEntry* entry = [weeklyChart.chartEntries objectAtIndex:rank - 1];
     [self.albumSelectionDelegate albumSelected:entry.album];
 }
 
 - (void) detailPressedWithRank:(NSUInteger)rank
 {
-    MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess threadVersion:self.weeklyChartMoid];
+    MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess mainThreadVersion:self.weeklyChartMoid];
     MGMChartEntry* entry = [weeklyChart.chartEntries objectAtIndex:rank - 1];
     [self.albumSelectionDelegate detailSelected:entry.album sender:self];
 }

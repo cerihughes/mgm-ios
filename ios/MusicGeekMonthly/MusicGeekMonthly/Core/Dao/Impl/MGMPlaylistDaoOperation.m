@@ -47,18 +47,19 @@
 
 @implementation MGMPlaylistLocalDataSource
 
-- (MGMLocalData*) fetchLocalData:(id)key
+- (oneway void) fetchLocalData:(id)key completion:(LOCAL_DATA_FETCH_COMPLETION)completion
 {
-    MGMLocalData* localData = [[MGMLocalData alloc] init];
-    NSError* error = nil;
-    localData.data = [self.coreDataAccess fetchPlaylistWithId:key error:&error];
-    localData.error = error;
-    return localData;
+    [self.coreDataAccess fetchPlaylistWithId:key completion:^(NSManagedObjectID* moid, NSError* error) {
+        MGMLocalData* localData = [[MGMLocalData alloc] init];
+        localData.error = error;
+        localData.data = moid;
+        completion(localData);
+    }];
 }
 
-- (BOOL) persistRemoteData:(MGMRemoteData*)remoteData key:(id)key error:(NSError**)error
+- (oneway void) persistRemoteData:(MGMRemoteData*)remoteData key:(id)key completion:(LOCAL_DATA_PERSIST_COMPLETION)completion
 {
-    return [self.coreDataAccess persistPlaylist:remoteData.data error:error];
+    [self.coreDataAccess persistPlaylist:remoteData.data completion:completion];
 }
 
 @end

@@ -134,7 +134,7 @@
             if (fetchedTimePeriodMoids.count > 0)
             {
                 NSManagedObjectID* fetchedTimePeriodMoid = [fetchedTimePeriodMoids objectAtIndex:0];
-                MGMTimePeriod* fetchedTimePeriod = [self.core.coreDataAccess threadVersion:fetchedTimePeriodMoid];
+                MGMTimePeriod* fetchedTimePeriod = [self.core.coreDataAccess mainThreadVersion:fetchedTimePeriodMoid];
                 [self.core.dao fetchWeeklyChartForStartDate:fetchedTimePeriod.startDate endDate:fetchedTimePeriod.endDate completion:^(MGMDaoData* weeklyChartData) {
                     NSManagedObjectID* fetchedWeeklyChartMoid = weeklyChartData.data;
                     NSError* weeklyChartFetchError = weeklyChartData.error;
@@ -146,7 +146,7 @@
                     
                     if (fetchedWeeklyChartMoid)
                     {
-                        MGMWeeklyChart* fetchedWeeklyChart = [self.core.coreDataAccess threadVersion:fetchedWeeklyChartMoid];
+                        MGMWeeklyChart* fetchedWeeklyChart = [self.core.coreDataAccess mainThreadVersion:fetchedWeeklyChartMoid];
                         self.artFetcher = [[MGMBackgroundAlbumArtFetcher alloc] initWithImageHelper:self.ui.imageHelper chartEntryMoids:[self chartEntryMoidsForWeeklyChart:fetchedWeeklyChart]];
                         self.artFetcher.coreDataAccess = self.core.coreDataAccess;
                         self.artFetcher.albumRenderService = self.core.albumRenderService;

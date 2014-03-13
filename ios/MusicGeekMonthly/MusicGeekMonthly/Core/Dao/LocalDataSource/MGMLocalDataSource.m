@@ -19,14 +19,14 @@
     return self;
 }
 
-- (MGMLocalData*) fetchLocalData:(id)key
+- (oneway void) fetchLocalData:(id)key completion:(LOCAL_DATA_FETCH_COMPLETION)completion
 {
-    return nil;
+    // OVERRIDE
 }
 
-- (BOOL) persistRemoteData:(MGMRemoteData*)remoteData key:(id)key error:(NSError**)error
+- (oneway void) persistRemoteData:(MGMRemoteData*)remoteData key:(id)key completion:(LOCAL_DATA_PERSIST_COMPLETION)completion
 {
-    return NO;
+    // OVERRIDE
 }
 
 @end

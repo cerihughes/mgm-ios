@@ -49,7 +49,7 @@
             {
                 self.eventMoid = fetchedEventMoid;
                 
-                MGMEvent* event = [self.core.coreDataAccess threadVersion:fetchedEventMoid];
+                MGMEvent* event = [self.core.coreDataAccess mainThreadVersion:fetchedEventMoid];
                 NSString* playlistId = event.playlistId;
                 if (playlistId)
                 {
@@ -61,7 +61,7 @@
                         if (playlistData.data)
                         {
                             NSManagedObjectID* playlistMoid = playlistData.data;
-                            MGMPlaylist* playlist = [self.core.coreDataAccess threadVersion:playlistMoid];
+                            MGMPlaylist* playlist = [self.core.coreDataAccess mainThreadVersion:playlistMoid];
                             [self displayEventWithMoid:self.eventMoid playlist:playlist];
                         }
                         else
@@ -85,7 +85,7 @@
 
 - (void) displayEventWithMoid:(NSManagedObjectID*)eventMoid playlist:(MGMPlaylist*)playlist
 {
-    MGMEvent* event = [self.core.coreDataAccess threadVersion:eventMoid];
+    MGMEvent* event = [self.core.coreDataAccess mainThreadVersion:eventMoid];
     [self displayEvent:event playlist:playlist];
 }
 

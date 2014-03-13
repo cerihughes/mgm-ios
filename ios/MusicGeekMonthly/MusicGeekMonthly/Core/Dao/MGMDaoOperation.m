@@ -41,12 +41,12 @@
     self.remoteDataSource.reachability = reachability;
 }
 
-- (MGMDaoData*) fetchData:(id)key
+- (oneway void) fetchData:(id)key completion:(DAO_FETCH_COMPLETION)completion
 {
     [self.operationLock lock];
     @try
     {
-        return [self synchonizedFetchData:key];
+        [self synchonizedFetchData:key completion:completion];
     }
     @finally
     {
@@ -54,49 +54,67 @@
     }
 }
 
-- (MGMDaoData*) synchonizedFetchData:(id)key
+- (oneway void) synchonizedFetchData:(id)key completion:(DAO_FETCH_COMPLETION)completion
 {
     NSString* refreshIdentifier = [self refreshIdentifierForKey:key];
 
-    NSError* nextAccessError = nil;
-    NSManagedObjectID* moid = [self.coreDataAccess fetchNextUrlAccessWithIdentifier:refreshIdentifier error:&nextAccessError];
-    MGMNextUrlAccess* nextAccess = [self.coreDataAccess threadVersion:moid];
-
-    if (nextAccessError)
-    {
-        return [MGMDaoData dataWithError:nextAccessError];
-    }
-
-    BOOL isNew = NO;
-    if ([self needsRefresh:nextAccess])
-    {
-        MGMRemoteData* remoteData = [self.remoteDataSource fetchRemoteData:key];
-        if (remoteData.error == nil && ![remoteData.checksum isEqualToString:nextAccess.checksum])
+    [self.coreDataAccess fetchNextUrlAccessWithIdentifier:refreshIdentifier completion:^(NSManagedObjectID* moid, NSError* nextAccessError) {
+        MGMNextUrlAccess* nextAccess = [self.coreDataAccess mainThreadVersion:moid];
+        
+        if (nextAccessError)
         {
-            // There is new data... Persist it.
-            NSError* persistError = nil;
-            [self.localDataSource persistRemoteData:remoteData key:key error:&persistError];
-            if (persistError)
-            {
-                return [MGMDaoData dataWithError:persistError];
-            }
-
-            NSError* setNextAccessError = nil;
-            [self setNextRefresh:refreshIdentifier inDays:self.daysBetweenRemoteFetch error:&setNextAccessError];
-            if (setNextAccessError)
-            {
-                return [MGMDaoData dataWithError:setNextAccessError];
-            }
-
-            isNew = YES;
+            completion([MGMDaoData dataWithError:nextAccessError]);
         }
-    }
-
-    MGMLocalData* localData = [self.localDataSource fetchLocalData:key];
-    return [MGMDaoData dataWithLocalData:localData isNew:isNew];
+        else
+        {
+            if ([self needsRefresh:nextAccess])
+            {
+                [self.remoteDataSource fetchRemoteData:key completion:^(MGMRemoteData* remoteData) {
+                    if (remoteData.error == nil && ![remoteData.checksum isEqualToString:nextAccess.checksum])
+                    {
+                        MGMLocalDataSource* lds = self.localDataSource;
+                        // There is new data... Persist it.
+                        [lds persistRemoteData:remoteData key:key completion:^(NSError* persistError) {
+                            if (persistError)
+                            {
+                                completion([MGMDaoData dataWithError:persistError]);
+                            }
+                            else
+                            {
+                                [self setNextRefresh:refreshIdentifier inDays:self.daysBetweenRemoteFetch completion:^(NSError* setNextAccessError) {
+                                    if (setNextAccessError)
+                                    {
+                                        completion([MGMDaoData dataWithError:setNextAccessError]);
+                                    }
+                                    else
+                                    {
+                                        [lds fetchLocalData:key completion:^(MGMLocalData* localData) {
+                                            completion([MGMDaoData dataWithLocalData:localData isNew:YES]);
+                                        }];
+                                    }
+                                }];
+                            }
+                        }];
+                    }
+                    else
+                    {
+                        [self.localDataSource fetchLocalData:key completion:^(MGMLocalData* localData) {
+                            completion([MGMDaoData dataWithLocalData:localData isNew:YES]);
+                        }];
+                    }
+                }];
+            }
+            else
+            {
+                [self.localDataSource fetchLocalData:key completion:^(MGMLocalData* localData) {
+                    completion([MGMDaoData dataWithLocalData:localData isNew:NO]);
+                }];
+            }
+        }
+    }];
 }
 
-- (BOOL) setNextRefresh:(NSString*)identifier inDays:(NSUInteger)days error:(NSError**)error
+- (oneway void) setNextRefresh:(NSString*)identifier inDays:(NSUInteger)days completion:(CORE_DATA_PERSIST_COMPLETION)completion
 {
     NSDateComponents* components = [[NSDateComponents alloc] init];
     components.day = days;
@@ -104,8 +122,7 @@
     NSDate* now = [NSDate date];
     NSDate* then = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:now options:0];
 
-    [self.coreDataAccess persistNextUrlAccess:identifier date:then error:error];
-    return MGM_NO_ERROR(error);
+    [self.coreDataAccess persistNextUrlAccess:identifier date:then completion:completion];
 }
 
 @end

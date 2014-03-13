@@ -56,7 +56,7 @@
         else
         {
             NSArray* moids = eventData.data;
-            NSArray* renderables = [self.core.coreDataAccess threadVersions:moids];
+            NSArray* renderables = [self.core.coreDataAccess mainThreadVersions:moids];
             [self.dataSource setRenderables:renderables];
             
             [self.modalView.eventsTable reloadData];

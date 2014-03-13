@@ -33,7 +33,7 @@
             NSArray* timePeriodsArray = (NSArray*)timePeriods.data;
             if (timePeriodsArray.count == 1)
             {
-                MGMTimePeriod* timePeriod = [self.core.coreDataAccess threadVersion:timePeriodsArray[0]];
+                MGMTimePeriod* timePeriod = [self.core.coreDataAccess mainThreadVersion:timePeriodsArray[0]];
                 [self.core.dao preloadWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* weeklyChart) {
                     [view setOperationInProgress:NO];
                     [self.delegate initialisationComplete];

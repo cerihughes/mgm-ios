@@ -144,38 +144,33 @@
     return [[MGMAlbumRenderServiceDataConverter alloc] init];
 }
 
-- (void) refreshAlbum:(MGMAlbum*)album completion:(ALBUM_SERVICE_COMPLETION)completion
+- (oneway void) refreshAlbum:(MGMAlbum*)album completion:(ALBUM_SERVICE_COMPLETION)completion
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError* error = nil;
-        [self refreshAlbumImages:album error:&error];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completion(error);
-        });
+        [self refreshAlbumImages:album completion:^(NSError* error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(error);
+            });
+        }];
     });
 }
 
-- (BOOL) refreshAlbumImages:(MGMAlbum*)album error:(NSError**)error
+- (oneway void) refreshAlbumImages:(MGMAlbum*)album completion:(ALBUM_SERVICE_COMPLETION)completion
 {
     if (album.searchedImages == NO && album.imageUris.count == 0)
     {
-        MGMRemoteData* remoteData = [self fetchRemoteData:album];
-        if (remoteData.error)
-        {
-            if (error)
+        [self fetchRemoteData:album completion:^(MGMRemoteData* remoteData) {
+            if (remoteData.error)
             {
-                *error = remoteData.error;
+                completion(remoteData.error);
             }
-            return NO;
-        }
-        else
-        {
-            NSArray* imageUris = remoteData.data;
-            [self.coreDataAccess addImageUris:imageUris toAlbum:album.objectID error:error];
-            return MGM_NO_ERROR(&error);
-        }
+            else
+            {
+                NSArray* imageUris = remoteData.data;
+                [self.coreDataAccess addImageUris:imageUris toAlbum:album.objectID completion:completion];
+            }
+        }];
     }
-    return YES;
 }
 
 @end

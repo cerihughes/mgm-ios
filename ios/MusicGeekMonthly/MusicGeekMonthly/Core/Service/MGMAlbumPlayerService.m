@@ -13,35 +13,30 @@
 - (void) refreshAlbum:(MGMAlbum*)album completion:(ALBUM_SERVICE_COMPLETION)completion
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError* error = nil;
-        [self refreshAlbumMetadata:album error:&error];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completion(error);
-        });
+        [self refreshAlbumMetadata:album completion:^(NSError* error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(error);
+            });
+        }];
     });
 }
 
-- (BOOL) refreshAlbumMetadata:(MGMAlbum*)album error:(NSError**)error
+- (oneway void) refreshAlbumMetadata:(MGMAlbum*)album completion:(ALBUM_SERVICE_COMPLETION)completion
 {
     if ([album metadataForServiceType:self.serviceType] == nil && [album searchedServiceType:self.serviceType] == NO)
     {
-        MGMRemoteData* remoteData = [self fetchRemoteData:album];
-        if (remoteData.error)
-        {
-            if (error)
+        [self fetchRemoteData:album completion:^(MGMRemoteData* remoteData) {
+            if (remoteData.error)
             {
-                *error = remoteData.error;
+                completion(remoteData.error);
             }
-            return NO;
-        }
-        else
-        {
-            MGMAlbumMetadataDto* metadata = remoteData.data;
-            [self.coreDataAccess addMetadata:metadata toAlbum:album.objectID error:error];
-            return MGM_NO_ERROR(&error);
-        }
+            else
+            {
+                MGMAlbumMetadataDto* metadata = remoteData.data;
+                [self.coreDataAccess addMetadata:metadata toAlbum:album.objectID completion:completion];
+            }
+        }];
     }
-    return YES;
 }
 
 - (NSString*) serviceAvailabilityUrl

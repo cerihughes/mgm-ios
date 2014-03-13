@@ -36,33 +36,36 @@
 
 @implementation MGMAllEventsLocalDataSource
 
-- (MGMLocalData*) fetchLocalData:(id)key
+- (oneway void) fetchLocalData:(id)key completion:(LOCAL_DATA_FETCH_COMPLETION)completion
 {
-    MGMLocalData* localData = [[MGMLocalData alloc] init];
-    NSError* error = nil;
+    CORE_DATA_FETCH_MANY_COMPLETION block = ^(NSArray* moids, NSError* error) {
+        MGMLocalData* localData = [[MGMLocalData alloc] init];
+        localData.error = error;
+        localData.data = moids;
+        completion(localData);
+    };
+    
     if ([key isEqualToString:ALL_EVENTS_KEY])
     {
-        localData.data = [self.coreDataAccess fetchAllEvents:&error];
+        [self.coreDataAccess fetchAllEvents:block];
     }
     else if ([key isEqualToString:ALL_CLASSIC_ALBUMS_KEY])
     {
-        localData.data = [self.coreDataAccess fetchAllClassicAlbums:&error];
+        [self.coreDataAccess fetchAllClassicAlbums:block];
     }
     else if ([key isEqualToString:ALL_NEWLY_RELEASED_ALBUMS_KEY])
     {
-        localData.data = [self.coreDataAccess fetchAllNewlyReleasedAlbums:&error];
+        [self.coreDataAccess fetchAllNewlyReleasedAlbums:block];
     }
     else if ([key isEqualToString:ALL_EVENT_ALBUMS_KEY])
     {
-        localData.data = [self.coreDataAccess fetchAllEventAlbums:&error];
+        [self.coreDataAccess fetchAllEventAlbums:block];
     }
-    localData.error = error;
-    return localData;
 }
 
-- (BOOL) persistRemoteData:(MGMRemoteData*)remoteData key:(id)key error:(NSError**)error
+- (oneway void) persistRemoteData:(MGMRemoteData*)remoteData key:(id)key completion:(LOCAL_DATA_PERSIST_COMPLETION)completion
 {
-    return [self.coreDataAccess persistEvents:remoteData.data error:error];
+    [self.coreDataAccess persistEvents:remoteData.data completion:completion];
 }
 
 @end

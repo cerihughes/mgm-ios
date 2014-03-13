@@ -44,7 +44,7 @@
 
     MGMAlbumDetailView* detailView = (MGMAlbumDetailView*)self.view;
 
-    MGMAlbum* album = [self.core.coreDataAccess threadVersion:self.albumMoid];
+    MGMAlbum* album = [self.core.coreDataAccess mainThreadVersion:self.albumMoid];
     [self displayAlbum:album inAlbumView:detailView.albumView completion:^(NSError* error) {
         [self logError:error];
     }];
@@ -73,7 +73,7 @@
 {
     self.core.settingsDao.defaultServiceType = selectedServiceType;
 
-    MGMAlbum* album = [self.core.coreDataAccess threadVersion:self.albumMoid];
+    MGMAlbum* album = [self.core.coreDataAccess mainThreadVersion:self.albumMoid];
     [self.ui albumSelected:album];
     [self cancelButtonPressed:nil];
 }

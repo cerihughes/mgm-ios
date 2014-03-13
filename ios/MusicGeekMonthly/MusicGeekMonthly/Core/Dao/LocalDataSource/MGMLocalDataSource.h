@@ -12,6 +12,9 @@
 #import "MGMLocalData.h"
 #import "MGMRemoteData.h"
 
+typedef void (^LOCAL_DATA_PERSIST_COMPLETION) (NSError*);
+typedef void (^LOCAL_DATA_FETCH_COMPLETION) (MGMLocalData*);
+
 @interface MGMLocalDataSource : NSObject
 
 @property (readonly) MGMCoreDataAccess* coreDataAccess;
@@ -19,7 +22,7 @@
 - (id) init __unavailable;
 - (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
 
-- (MGMLocalData*) fetchLocalData:(id)key;
-- (BOOL) persistRemoteData:(MGMRemoteData*)remoteData key:(id)key error:(NSError**)error;
+- (oneway void) fetchLocalData:(id)key completion:(LOCAL_DATA_FETCH_COMPLETION)completion;
+- (oneway void) persistRemoteData:(MGMRemoteData*)remoteData key:(id)key completion:(LOCAL_DATA_PERSIST_COMPLETION)completion;
 
 @end

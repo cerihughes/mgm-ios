@@ -39,7 +39,7 @@
              NSArray* timePeriods = timePeriodsData.data;
              if (timePeriods.count > 0)
              {
-                 MGMTimePeriod* timePeriod = [self.coreDataAccess threadVersion:[timePeriods objectAtIndex:0]];
+                 MGMTimePeriod* timePeriod = [self.coreDataAccess mainThreadVersion:[timePeriods objectAtIndex:0]];
                  [self.dao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* chartData) {
                      if (eventData.isNew || timePeriodsData.isNew || chartData.isNew)
                      {

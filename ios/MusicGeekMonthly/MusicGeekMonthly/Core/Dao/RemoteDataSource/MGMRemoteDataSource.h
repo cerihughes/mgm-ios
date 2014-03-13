@@ -24,6 +24,8 @@
 
 @end
 
+typedef void (^REMOTE_DATA_FETCH_COMPLETION) (MGMRemoteData*);
+
 @interface MGMRemoteDataSource : NSObject
 
 - (MGMRemoteDataReader*) createRemoteDataReader;
@@ -31,6 +33,6 @@
 
 - (void) setReachability:(BOOL)reachability;
 
-- (MGMRemoteData*) fetchRemoteData:(id)key;
+- (oneway void) fetchRemoteData:(id)key completion:(REMOTE_DATA_FETCH_COMPLETION)completion;
 
 @end

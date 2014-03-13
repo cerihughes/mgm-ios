@@ -39,7 +39,7 @@
 
 - (void) addAlbumImage:(NSManagedObjectID*)albumMoid toImageView:(UIImageView*)imageView withActivityView:(UIActivityIndicatorView*)activityIndicatorView inCell:(MGMEventTableCell*)cell
 {
-    MGMAlbum* album = [self.coreDataAccess threadVersion:albumMoid];
+    MGMAlbum* album = [self.coreDataAccess mainThreadVersion:albumMoid];
     [self.albumRenderService refreshAlbum:album completion:^(NSError* refreshError) {
         if (refreshError == nil)
         {

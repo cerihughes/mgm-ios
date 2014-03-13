@@ -53,7 +53,7 @@
 {
     int randomIndex = arc4random() % (self.chartEntryMoids.count);
     NSManagedObjectID* moid = [self.chartEntryMoids objectAtIndex:randomIndex];
-    MGMChartEntry* randomEntry = [self.coreDataAccess threadVersion:moid];
+    MGMChartEntry* randomEntry = [self.coreDataAccess mainThreadVersion:moid];
     MGMAlbum* randomAlbum = randomEntry.album;
 
     [self.albumRenderService refreshAlbum:randomAlbum completion:^(NSError* refreshError) {

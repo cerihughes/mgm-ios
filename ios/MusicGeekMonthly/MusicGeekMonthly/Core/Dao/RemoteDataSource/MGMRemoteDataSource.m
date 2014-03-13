@@ -64,18 +64,26 @@
     self.remoteDataReader.reachability = reachability;
 }
 
-- (MGMRemoteData*) fetchRemoteData:(id)key
+- (oneway void) fetchRemoteData:(id)key completion:(REMOTE_DATA_FETCH_COMPLETION)completion
 {
-    NSError* error = nil;
-    NSData* remoteData = [self.remoteDataReader readRemoteData:key error:&error];
-    if (error == nil)
-    {
-        return [self.remoteDataConverter convertRemoteData:remoteData key:key];
-    }
-    else
-    {
-        return [MGMRemoteData dataWithError:error];
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+        NSError* error = nil;
+        NSData* data = [self.remoteDataReader readRemoteData:key error:&error];
+        MGMRemoteData* remoteData;
+        if (error == nil)
+        {
+            remoteData = [self.remoteDataConverter convertRemoteData:data key:key];
+        }
+        else
+        {
+            remoteData = [MGMRemoteData dataWithError:error];
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(remoteData);
+        });
+    });
 }
 
 @end

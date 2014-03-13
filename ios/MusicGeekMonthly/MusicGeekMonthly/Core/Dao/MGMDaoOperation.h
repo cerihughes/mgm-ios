@@ -13,6 +13,8 @@
 #import "MGMLocalDataSource.h"
 #import "MGMRemoteDataSource.h"
 
+typedef void (^DAO_FETCH_COMPLETION) (MGMDaoData*);
+
 @interface MGMDaoOperation : NSObject
 
 @property (readonly) NSUInteger daysBetweenRemoteFetch;
@@ -21,7 +23,7 @@
 - (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
 
 - (void) setReachability:(BOOL)reachability;
-- (MGMDaoData*) fetchData:(id)key;
+- (oneway void) fetchData:(id)key completion:(DAO_FETCH_COMPLETION)completion;
 
 @end
 
