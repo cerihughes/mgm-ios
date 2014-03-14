@@ -65,6 +65,7 @@
     if (invalidUrl == NO)
     {
         NSString* encodedUrl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        encodedUrl = [encodedUrl stringByReplacingOccurrencesOfString:@"%2526" withString:@"%26"];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:encodedUrl] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
         [request setHTTPMethod: @"GET"];
         [headers enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -74,7 +75,7 @@
         NSHTTPURLResponse *urlResponse = nil;
         NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:error];
         NSInteger urlResponseCode = urlResponse.statusCode;
-        NSLog(@"[%@] = [%ld]", url, (long)urlResponseCode);
+        NSLog(@"[%@] = [%ld]", encodedUrl, (long)urlResponseCode);
 
         if (responseCode)
         {
