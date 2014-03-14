@@ -38,7 +38,7 @@
         _mainMoc.parentContext = _masterMoc;
 
         _backgroundMoc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        _backgroundMoc.parentContext = _mainMoc;
+        _backgroundMoc.parentContext = _masterMoc;
     }
     return self;
 }

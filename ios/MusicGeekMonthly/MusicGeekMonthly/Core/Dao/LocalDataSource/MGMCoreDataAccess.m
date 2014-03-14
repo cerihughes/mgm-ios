@@ -825,8 +825,13 @@ typedef NSArray* (^FETCH_MANY_BLOCK) (NSError**);
 - (BOOL) commitChanges:(NSError**)error
 {
     NSManagedObjectContext* moc = [self.threadManager managedObjectContextForCurrentThread];
-    [moc save:error];
-    return MGM_NO_ERROR(error);
+    __block BOOL saved = [moc save:error];
+    if (saved && moc.parentContext) {
+        [moc.parentContext performBlockAndWait:^{
+            saved = [moc.parentContext save:error];
+        }];
+    }
+    return saved;
 }
 
 - (BOOL) rollbackChanges
