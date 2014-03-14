@@ -10,6 +10,7 @@
 
 #import "MGMChartEntry.h"
 #import "MGMInitialLoadingView.h"
+#import "MGMLastFmConstants.h"
 #import "MGMTimePeriod.h"
 #import "MGMWeeklyChart.h"
 
@@ -31,13 +32,14 @@
 
     // Preload data if needed
     [self.core.dao preloadEvents:^(MGMDaoData* events) {
+        NSArray* eventMoids = events.data;
         [self.core.dao preloadTimePeriods:^(MGMDaoData* timePeriods) {
             NSArray* timePeriodsArray = (NSArray*)timePeriods.data;
             if (timePeriodsArray.count == 1)
             {
                 MGMTimePeriod* timePeriod = [self.core.coreDataAccess mainThreadVersion:timePeriodsArray[0]];
                 [self.core.dao preloadWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* weeklyChartData) {
-                    [self preloadCompleteWithWeeklyChartMoid:weeklyChartData.data];
+                    [self preloadCompleteWithEventMoids:eventMoids weeklyChartMoid:weeklyChartData.data];
                 }];
             }
             else if (timePeriodsArray.count > 1)
@@ -45,32 +47,52 @@
                 // Data has already been loaded from server.
                 MGMTimePeriod* timePeriod = [self.core.coreDataAccess mainThreadVersion:timePeriodsArray[0]];
                 [self.core.dao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* weeklyChartData) {
-                    [self preloadCompleteWithWeeklyChartMoid:weeklyChartData.data];
+                    [self preloadCompleteWithEventMoids:eventMoids weeklyChartMoid:weeklyChartData.data];
                 }];
             }
             else
             {
                 // What's happened here?
-                [self preloadCompleteWithWeeklyChartMoid:nil];
+                [self preloadCompleteWithEventMoids:eventMoids weeklyChartMoid:nil];
             }
         }];
     }];
 }
 
-- (void) preloadCompleteWithWeeklyChartMoid:(NSManagedObjectID*)weeklyChartMoid
+- (void) preloadCompleteWithEventMoids:(NSArray*)eventMoids weeklyChartMoid:(NSManagedObjectID*)weeklyChartMoid
 {
+    NSArray* events = [self.core.coreDataAccess mainThreadVersions:eventMoids];
     MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess mainThreadVersion:weeklyChartMoid];
     MGMAlbumImageSize preferredSize = self.ui.ipad ? MGMAlbumImageSize128 : MGMAlbumImageSize64;
-    MGMBackgroundAlbumArtCollection* albumArt = [self albumArtForWeeklyChart:weeklyChart preferredSize:preferredSize];
+    MGMBackgroundAlbumArtCollection* albumArt = [self albumArtForEvents:events weeklyChart:weeklyChart preferredSize:preferredSize];
 
     MGMInitialLoadingView* view = (MGMInitialLoadingView*) self.view;
     [view setOperationInProgress:NO];
     [self.delegate initialisationComplete:albumArt];
 }
 
-- (MGMBackgroundAlbumArtCollection*) albumArtForWeeklyChart:(MGMWeeklyChart*)weeklyChart preferredSize:(MGMAlbumImageSize)preferredSize
+- (MGMBackgroundAlbumArtCollection*) albumArtForEvents:(NSArray*)events weeklyChart:(MGMWeeklyChart*)weeklyChart preferredSize:(MGMAlbumImageSize)preferredSize
 {
     MGMBackgroundAlbumArtCollection* collection = [[MGMBackgroundAlbumArtCollection alloc] init];
+
+    // Maybe this should be done by a service? Add "needsHttpConnection" as a property to determine whether a service can generate urls without a connection?
+    for (MGMEvent* event in events)
+    {
+        MGMAlbum* classicAlbum = event.classicAlbum;
+        if (classicAlbum.albumMbid)
+        {
+            NSString* classicAlbumArt = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, classicAlbum.albumMbid, MUSIC_BRAINZ_IMAGE_250];
+            [collection addAlbumArtUrlArray:@[classicAlbumArt]];
+        }
+
+        MGMAlbum* newlyReleasedAlbum = event.newlyReleasedAlbum;
+        if (newlyReleasedAlbum.albumMbid)
+        {
+            NSString* newlyReleasedAlbumArt = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, newlyReleasedAlbum.albumMbid, MUSIC_BRAINZ_IMAGE_250];
+            [collection addAlbumArtUrlArray:@[newlyReleasedAlbumArt]];
+        }
+    }
+
     for (MGMChartEntry* entry in weeklyChart.chartEntries)
     {
         MGMAlbum* randomAlbum = entry.album;

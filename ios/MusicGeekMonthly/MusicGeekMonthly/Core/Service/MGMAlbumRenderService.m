@@ -49,8 +49,6 @@
 
 @implementation MGMAlbumRenderServiceDataConverter
 
-#define MUSIC_BRAINZ_IMAGE_URL @"http://coverartarchive.org/release/%@/front-%d.jpg"
-
 - (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key
 {
     MGMRemoteData* remoteData = [[MGMRemoteData alloc] init];
@@ -92,12 +90,12 @@
     {
         MGMAlbumImageUriDto* albumUri = [[MGMAlbumImageUriDto alloc] init];
         albumUri.size = MGMAlbumImageSize512;
-        albumUri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, 500];
+        albumUri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, MUSIC_BRAINZ_IMAGE_500];
         [imageUris addObject:albumUri];
 
         albumUri = [[MGMAlbumImageUriDto alloc] init];
         albumUri.size = MGMAlbumImageSize256;
-        albumUri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, 250];
+        albumUri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, MUSIC_BRAINZ_IMAGE_250];
         [imageUris addObject:albumUri];
     }
 

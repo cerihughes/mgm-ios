@@ -6,6 +6,11 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
+#define MUSIC_BRAINZ_IMAGE_URL @"http://coverartarchive.org/release/%@/front-%d.jpg"
+
+#define MUSIC_BRAINZ_IMAGE_250 250
+#define MUSIC_BRAINZ_IMAGE_500 500
+
 #define GROUP_NAME @"Music+Geek+Monthly"
 #define API_KEY @"a854bc0fca8c0d316751ed4ed2082379"
 #define FAKE_MBID_PREPEND @"[MGMFAKEMBID]"
