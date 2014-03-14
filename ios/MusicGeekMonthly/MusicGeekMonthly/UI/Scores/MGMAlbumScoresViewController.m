@@ -115,15 +115,7 @@
     for (NSManagedObjectID* albumMoid in self.albumMoids)
     {
         MGMAlbum* album = [self.core.coreDataAccess mainThreadVersion:albumMoid];
-        [self.core.albumRenderService refreshAlbum:album completion:^(NSError* refreshError) {
-            if (refreshError)
-            {
-                [self logError:refreshError];
-            }
-
-            [self renderAlbum:album atPostion:position];
-        }];
-
+        [self renderAlbum:album atPostion:position];
         position++;
     }
 }
