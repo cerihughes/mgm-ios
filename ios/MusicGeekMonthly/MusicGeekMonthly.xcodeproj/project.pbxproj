@@ -80,8 +80,6 @@
 		658D314718B112E3007A4D98 /* MGMCoreDataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30E118B112E3007A4D98 /* MGMCoreDataAccess.m */; };
 		658D314818B112E3007A4D98 /* MGMLocalDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30E418B112E3007A4D98 /* MGMLocalDataSource.m */; };
 		658D314918B112E3007A4D98 /* MGMLocalDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30E418B112E3007A4D98 /* MGMLocalDataSource.m */; };
-		658D314A18B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30E618B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m */; };
-		658D314B18B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30E618B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m */; };
 		658D314C18B112E3007A4D98 /* MGMDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30E818B112E3007A4D98 /* MGMDao.m */; };
 		658D314D18B112E3007A4D98 /* MGMDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30E818B112E3007A4D98 /* MGMDao.m */; };
 		658D314E18B112E3007A4D98 /* MGMDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D30EB18B112E3007A4D98 /* MGMDaoOperation.m */; };
@@ -301,8 +299,6 @@
 		658D30E118B112E3007A4D98 /* MGMCoreDataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataAccess.m; sourceTree = "<group>"; };
 		658D30E318B112E3007A4D98 /* MGMLocalDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMLocalDataSource.h; sourceTree = "<group>"; };
 		658D30E418B112E3007A4D98 /* MGMLocalDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMLocalDataSource.m; sourceTree = "<group>"; };
-		658D30E518B112E3007A4D98 /* MGMLocalDataSourceThreadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMLocalDataSourceThreadManager.h; sourceTree = "<group>"; };
-		658D30E618B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMLocalDataSourceThreadManager.m; sourceTree = "<group>"; };
 		658D30E718B112E3007A4D98 /* MGMDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMDao.h; sourceTree = "<group>"; };
 		658D30E818B112E3007A4D98 /* MGMDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDao.m; sourceTree = "<group>"; };
 		658D30EA18B112E3007A4D98 /* MGMDaoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMDaoOperation.h; sourceTree = "<group>"; };
@@ -761,8 +757,6 @@
 				658D30E118B112E3007A4D98 /* MGMCoreDataAccess.m */,
 				658D30E318B112E3007A4D98 /* MGMLocalDataSource.h */,
 				658D30E418B112E3007A4D98 /* MGMLocalDataSource.m */,
-				658D30E518B112E3007A4D98 /* MGMLocalDataSourceThreadManager.h */,
-				658D30E618B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m */,
 			);
 			path = LocalDataSource;
 			sourceTree = "<group>";
@@ -1402,7 +1396,6 @@
 				658D317618B112E3007A4D98 /* MGMTimePeriod.m in Sources */,
 				658D316818B112E3007A4D98 /* MGMReachabilityManager.m in Sources */,
 				658D328018B1147C007A4D98 /* MGMAlbumDetailViewController.m in Sources */,
-				658D314A18B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m in Sources */,
 				658D318818B112E3007A4D98 /* MGMAlbumServiceManager.m in Sources */,
 				651E8CFF18CB626700333CA1 /* MGMPreloadEventsDaoOperation.m in Sources */,
 			);
@@ -1452,7 +1445,6 @@
 				65936A0917BCB1150070A9C6 /* MGMCoreDataTestCase.m in Sources */,
 				65EC949218B8C9A300B1AFFE /* MGMXmlParser.m in Sources */,
 				657F6B4618BBD9080025F52B /* MGMPlaylistItem.m in Sources */,
-				658D314B18B112E3007A4D98 /* MGMLocalDataSourceThreadManager.m in Sources */,
 				651E8D0818CB71F800333CA1 /* MGMRemoteHttpDataReader.m in Sources */,
 				654B869718D0F7AF005835F8 /* MGMAlbumImageSize.m in Sources */,
 				658D315118B112E3007A4D98 /* MGMSettingsDao.m in Sources */,
