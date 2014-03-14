@@ -35,12 +35,23 @@
             {
                 MGMTimePeriod* timePeriod = [self.core.coreDataAccess mainThreadVersion:timePeriodsArray[0]];
                 [self.core.dao preloadWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* weeklyChart) {
-                    [view setOperationInProgress:NO];
-                    [self.delegate initialisationComplete];
+                    [self preloadComplete];
                 }];
+            }
+            else
+            {
+                // Data has already been loaded from server.
+                [self preloadComplete];
             }
         }];
     }];
+}
+
+- (void) preloadComplete
+{
+    MGMInitialLoadingView* view = (MGMInitialLoadingView*) self.view;
+    [view setOperationInProgress:NO];
+    [self.delegate initialisationComplete];
 }
 
 @end
