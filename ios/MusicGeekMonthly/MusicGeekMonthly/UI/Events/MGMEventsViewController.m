@@ -84,17 +84,17 @@
     if (playlistId)
     {
         [self.core.dao fetchPlaylist:playlistId completion:^(MGMDaoData* playlistData) {
-            MGMPlaylist* playlist = nil;
             if (playlistData.error)
             {
                 [self logError:playlistData.error];
             }
             if (playlistData.data)
             {
-                playlist = playlistData.data;
+                NSManagedObjectID* moid = playlistData.data;
+                MGMPlaylist* playlist = [self.core.coreDataAccess mainThreadVersion:moid];
+                [self displayEvent:event playlist:playlist];
             }
             
-            [self displayEvent:event playlist:playlist];
         }];
     }
     else
