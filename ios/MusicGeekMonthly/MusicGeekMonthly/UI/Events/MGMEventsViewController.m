@@ -94,7 +94,10 @@
                 MGMPlaylist* playlist = [self.core.coreDataAccess mainThreadVersion:moid];
                 [self displayEvent:event playlist:playlist];
             }
-            
+            else
+            {
+                [self displayEvent:event playlist:nil];
+            }
         }];
     }
     else

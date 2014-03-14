@@ -174,6 +174,10 @@
             }
         }];
     }
+    else
+    {
+        completion(nil);
+    }
 }
 
 @end

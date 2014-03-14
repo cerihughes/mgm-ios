@@ -58,14 +58,12 @@
                     }
                     [cell setNeedsDisplay];
                 }];
-            }
-            else
-            {
-                [activityIndicatorView stopAnimating];
-                imageView.image = [self.imageHelper nextDefaultImage];
-                [cell setNeedsDisplay];
+                return;
             }
         }
+        [activityIndicatorView stopAnimating];
+        imageView.image = [self.imageHelper nextDefaultImage];
+        [cell setNeedsDisplay];
     }];
 }
 
