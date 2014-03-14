@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSString* artist;
 @property (nonatomic, strong) NSString* album;
 @property (nonatomic, strong) NSString* track;
+@property (nonatomic, strong) NSString* duration;
 
 @end

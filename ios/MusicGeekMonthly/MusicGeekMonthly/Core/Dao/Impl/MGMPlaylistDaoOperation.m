@@ -121,11 +121,17 @@
         MGMPlaylistDto* playlist = [[MGMPlaylistDto alloc] init];
         playlist.playlistId = key;
         playlist.name = playlistTitle;
+
+        NSString* checksum = @"";
         for (NSDictionary* li in liArray)
         {
-            [playlist.playlistItems addObject:[self playlistItemForLi:li]];
+            MGMPlaylistItemDto* playlistItem = [self playlistItemForLi:li];
+            [playlist.playlistItems addObject:playlistItem];
+            checksum = [checksum stringByAppendingString:playlistItem.duration];
+            checksum = [checksum stringByAppendingString:@"-"];
         }
         data.data = playlist;
+        data.checksum = checksum;
         return data;
     }
     @catch (NSException* ex)
@@ -149,6 +155,7 @@
 {
     NSString* smallUrl = [li objectForKey:@"data-small-ca"];
     NSString* largeUrl = [li objectForKey:@"data-ca"];
+    NSString* duration = [li objectForKey:@"data-duration"];
 
     NSDictionary* trackUl = [li objectForKeyedSubscript:@"ul"];
     NSArray* trackLiArray = [trackUl objectForKeyedSubscript:@"li"];
@@ -164,6 +171,7 @@
     MGMPlaylistItemDto* playlistItem = [[MGMPlaylistItemDto alloc] init];
     playlistItem.track = title;
     playlistItem.artist = artist;
+    playlistItem.duration = duration;
 
     MGMAlbumImageUriDto* smallImageUri = [[MGMAlbumImageUriDto alloc] init];
     smallImageUri.uri = smallUrl;
