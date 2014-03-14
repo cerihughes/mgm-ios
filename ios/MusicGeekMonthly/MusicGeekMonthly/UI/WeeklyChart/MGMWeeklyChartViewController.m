@@ -73,7 +73,8 @@
     [super viewWillAppear:animated];
 
     [self.core.dao fetchAllTimePeriods:^(MGMDaoData* timePeriodData) {
-        if (timePeriodData.error)
+        NSArray* moids = timePeriodData.data;
+        if (timePeriodData.error && moids.count == 0)
         {
             [self showError:timePeriodData.error];
         }

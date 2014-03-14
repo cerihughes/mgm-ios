@@ -51,13 +51,13 @@
     [super viewWillAppear:animated];
     
     [self.core.dao fetchAllEvents:^(MGMDaoData* eventData) {
-        if (eventData.error)
+        NSArray* moids = eventData.data;
+        if (eventData.error && moids.count == 0)
         {
             [self showError:eventData.error];
         }
         else
         {
-            NSArray* moids = eventData.data;
             NSArray* renderables = [self.core.coreDataAccess mainThreadVersions:moids];
             [self.dataSource setRenderables:renderables];
             

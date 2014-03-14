@@ -82,6 +82,10 @@
             // Mark this data as invalid so we don't try and read it again in this session.
             [self.remoteDataReader markRemoteDataAsInvalid:key];
         }
+        else if (readError)
+        {
+            remoteData.error = readError;
+        }
 
         dispatch_async(dispatch_get_main_queue(), ^{
             completion(remoteData);
