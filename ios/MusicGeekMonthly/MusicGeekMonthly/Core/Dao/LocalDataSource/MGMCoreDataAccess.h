@@ -78,4 +78,9 @@ typedef void (^CORE_DATA_FETCH_MANY_COMPLETION) (NSArray*, NSError*);
 - (id) mainThreadVersion:(NSManagedObjectID*)moid;
 - (NSArray*) mainThreadVersions:(NSArray*)moids;
 
+#pragma mark -
+#pragma mark Updating
+
+- (void) mainThreadRefresh:(NSManagedObject*)mo;
+
 @end

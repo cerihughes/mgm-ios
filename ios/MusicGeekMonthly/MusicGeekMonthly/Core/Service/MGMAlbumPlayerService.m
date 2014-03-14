@@ -33,7 +33,10 @@
             else
             {
                 MGMAlbumMetadataDto* metadata = remoteData.data;
-                [self.coreDataAccess addMetadata:metadata toAlbum:album.objectID completion:completion];
+                [self.coreDataAccess addMetadata:metadata toAlbum:album.objectID completion:^(NSError* addError) {
+                    [self.coreDataAccess mainThreadRefresh:album];
+                    completion(addError);
+                }];
             }
         }];
     }

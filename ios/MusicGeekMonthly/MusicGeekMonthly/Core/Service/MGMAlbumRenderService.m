@@ -167,7 +167,10 @@
             else
             {
                 NSArray* imageUris = remoteData.data;
-                [self.coreDataAccess addImageUris:imageUris toAlbum:album.objectID completion:completion];
+                [self.coreDataAccess addImageUris:imageUris toAlbum:album.objectID completion:^(NSError* addError) {
+                    [self.coreDataAccess mainThreadRefresh:album];
+                    completion(addError);
+                }];
             }
         }];
     }

@@ -914,4 +914,9 @@ typedef NSArray* (^FETCH_MANY_BLOCK) (NSError**);
     return [array copy];
 }
 
+- (void) mainThreadRefresh:(NSManagedObject*)mo
+{
+    [self.mainMoc refreshObject:mo mergeChanges:NO];
+}
+
 @end
