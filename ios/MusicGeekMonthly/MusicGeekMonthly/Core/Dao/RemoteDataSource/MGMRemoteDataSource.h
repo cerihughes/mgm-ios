@@ -15,6 +15,7 @@
 @property BOOL reachability;
 
 - (NSData*) readRemoteData:(id)key error:(NSError**)error;
+- (void) markRemoteDataAsInvalid:(id)key;
 
 @end
 

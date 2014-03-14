@@ -16,6 +16,11 @@
     return nil;
 }
 
+- (void) markRemoteDataAsInvalid:(id)key
+{
+    // OVERRIDE
+}
+
 @end
 
 @implementation MGMRemoteDataConverter
@@ -68,16 +73,14 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-        NSError* error = nil;
-        NSData* data = [self.remoteDataReader readRemoteData:key error:&error];
-        MGMRemoteData* remoteData;
-        if (error == nil)
+        NSError* readError = nil;
+        NSData* data = [self.remoteDataReader readRemoteData:key error:&readError];
+        MGMRemoteData* remoteData = [self.remoteDataConverter convertRemoteData:data key:key];
+
+        if (remoteData.error)
         {
-            remoteData = [self.remoteDataConverter convertRemoteData:data key:key];
-        }
-        else
-        {
-            remoteData = [MGMRemoteData dataWithError:error];
+            // Mark this data as invalid so we don't try and read it again in this session.
+            [self.remoteDataReader markRemoteDataAsInvalid:key];
         }
 
         dispatch_async(dispatch_get_main_queue(), ^{

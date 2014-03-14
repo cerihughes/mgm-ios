@@ -48,6 +48,10 @@
         {
             return [UIImage imageWithData:data];
         }
+        else
+        {
+            [self addInvalidUrl:url];
+        }
     }
     return nil;
 }

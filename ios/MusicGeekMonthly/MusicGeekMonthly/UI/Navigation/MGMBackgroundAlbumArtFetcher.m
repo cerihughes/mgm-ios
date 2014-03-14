@@ -22,6 +22,10 @@
 
 @implementation MGMBackgroundAlbumArtFetcher
 
+#define INITIAL_SLEEP 0.2
+#define SECOND_SLEEP 5.0
+#define ERROR_SLEEP 3.0
+
 - (id) initWithImageHelper:(MGMImageHelper*)imageHelper albumArtCollection:(MGMBackgroundAlbumArtCollection*)albumArtCollection
 {
     if (self = [super init])
@@ -38,7 +42,7 @@
 - (void) renderImages:(NSUInteger)imageCount
 {
     NSArray* shuffledIndicies = [self shuffledIndicies:imageCount];
-    NSTimeInterval sleepTime = self.initialRender ? 0.05 : 2.0;
+    NSTimeInterval sleepTime = self.initialRender ? INITIAL_SLEEP : SECOND_SLEEP;
     for (NSUInteger i = 0; i < imageCount; i++)
     {
         NSNumber* index = [shuffledIndicies objectAtIndex:i];
@@ -71,15 +75,14 @@
     }
     else
     {
-        [self.operationQueue addOperationWithBlock:^
-        {
-            [self generateImageSyncAtIndex:index];
+        [self.operationQueue addOperationWithBlock:^{
             [NSThread sleepForTimeInterval:sleepTime];
+            [self generateImageSyncAtIndex:index retry:YES];
         }];
     }
 }
 
-- (void) generateImageSyncAtIndex:(NSUInteger)index
+- (void) generateImageSyncAtIndex:(NSUInteger)index retry:(BOOL)retry
 {
     NSArray* albumArtArrays = self.albumArtCollection.albumArtUrlArrays;
     int randomIndex = arc4random() % (albumArtArrays.count);
@@ -87,7 +90,21 @@
     if (urls.count > 0)
     {
         [self.imageHelper imageFromUrls:urls completion:^(UIImage* image, NSError* imageError) {
-            [self.delegate artFetcher:self renderImage:image atIndex:index];
+            if (image)
+            {
+                [self.delegate artFetcher:self renderImage:image atIndex:index];
+            }
+            else
+            {
+                if (retry)
+                {
+                    [self generateImageSyncAtIndex:index retry:NO];
+                }
+                else
+                {
+                    [self.delegate artFetcher:self errorOccured:imageError atIndex:index];
+                }
+            }
         }];
     }
     else

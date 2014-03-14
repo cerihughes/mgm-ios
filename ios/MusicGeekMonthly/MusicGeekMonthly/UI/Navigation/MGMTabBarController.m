@@ -59,11 +59,6 @@
 {
     [super viewWillAppear:animated];
 
-    for (NSUInteger i = 0; i < self.backgroundAlbumCount; i++)
-    {
-        [self renderBackgroundAlbumImage:nil atIndex:i animation:NO];
-    }
-
     [self.artFetcher renderImages:self.backgroundAlbumCount];
 }
 

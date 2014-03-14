@@ -48,6 +48,12 @@
     return nil;
 }
 
+- (void) markRemoteDataAsInvalid:(id)key
+{
+    NSString* url = [self urlForKey:key];
+    [self.httpDataSource addInvalidUrl:url];
+}
+
 - (NSString*) urlForKey:(id)key
 {
     // OVERRIDE

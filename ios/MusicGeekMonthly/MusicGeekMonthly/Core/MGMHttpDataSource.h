@@ -10,6 +10,8 @@
 
 @interface MGMHttpDataSource : NSObject
 
+- (void) addInvalidUrl:(NSString*)invalidUrl;
+
 - (NSData*) contentsOfUrl:(NSString*)url error:(NSError**)error;
 - (NSData*) contentsOfUrl:(NSString*)url responseCode:(out NSInteger*)responseCode error:(NSError**)error;
 
