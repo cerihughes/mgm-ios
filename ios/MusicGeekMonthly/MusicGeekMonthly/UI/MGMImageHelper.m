@@ -10,6 +10,7 @@
 
 @interface MGMImageHelper ()
 
+@property (readonly) NSOperationQueue* operationQueue;
 @property (readonly) NSLock* defaultImageLock;
 @property NSUInteger defaultImageSuffix;
 
@@ -21,6 +22,8 @@
 {
     if (self = [super init])
     {
+        _operationQueue = [[NSOperationQueue alloc] init];
+        _operationQueue.maxConcurrentOperationCount = 5;
         _defaultImageLock = [[NSLock alloc] init];
         _defaultImageSuffix = 1;
     }
@@ -29,13 +32,13 @@
 
 - (void) imageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    [self.operationQueue addOperationWithBlock:^{
         NSError* error = nil;
         UIImage* image = [self imageFromUrls:urls error:&error];
         dispatch_async(dispatch_get_main_queue(), ^{
             completion(image, error);
         });
-    });
+    }];
 }
 
 - (UIImage*) imageFromUrls:(NSArray *)urls error:(NSError**)error
