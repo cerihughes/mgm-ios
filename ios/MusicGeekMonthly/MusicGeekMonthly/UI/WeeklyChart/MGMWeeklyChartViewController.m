@@ -126,14 +126,7 @@
     MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess mainThreadVersion:self.weeklyChartMoid];
     for (MGMChartEntry* entry in weeklyChart.chartEntries)
     {
-        MGMAlbum* album = entry.album;
-        [self.core.albumRenderService refreshAlbum:album completion:^(NSError* refreshError) {
-            if (refreshError)
-            {
-                [self logError:refreshError];
-            }
-            [self renderChartEntry:entry];
-        }];
+        [self renderChartEntry:entry];
     }
 }
 
