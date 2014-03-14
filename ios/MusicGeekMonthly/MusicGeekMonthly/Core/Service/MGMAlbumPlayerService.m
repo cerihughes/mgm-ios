@@ -54,7 +54,7 @@
     return nil;
 }
 
-- (NSString*) urlForPlaylist:(MGMPlaylist*)playlist
+- (NSString*) urlForPlaylist:(NSString*)spotifyPlaylistId
 {
     // OVERRIDE
     return nil;

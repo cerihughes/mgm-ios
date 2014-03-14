@@ -9,7 +9,6 @@
 #import "MGMAlbumService.h"
 
 #import "MGMAlbum.h"
-#import "MGMPlaylist.h"
 
 @interface MGMAlbumPlayerService : MGMAlbumService
 
@@ -17,6 +16,6 @@
 
 - (NSString*) serviceAvailabilityUrl;
 - (NSString*) urlForAlbum:(MGMAlbum*)album;
-- (NSString*) urlForPlaylist:(MGMPlaylist*)playlist;
+- (NSString*) urlForPlaylist:(NSString*)spotifyPlaylistId;
 
 @end

@@ -68,9 +68,9 @@
     }];
 }
 
-- (void) playPlaylist:(MGMPlaylist*)playlist onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_PLAYER_COMPLETION)completion
+- (void) playPlaylist:(NSString*)spotifyPlaylistId onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_PLAYER_COMPLETION)completion
 {
-    NSString* urlString = [self.serviceManager urlForPlaylist:playlist forServiceType:serviceType];
+    NSString* urlString = [self.serviceManager urlForPlaylist:spotifyPlaylistId forServiceType:serviceType];
     if (urlString)
     {
         NSString* encoded = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

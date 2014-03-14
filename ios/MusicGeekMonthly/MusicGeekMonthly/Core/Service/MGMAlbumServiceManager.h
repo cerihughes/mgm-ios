@@ -11,7 +11,6 @@
 #import "MGMAlbum.h"
 #import "MGMAlbumService.h"
 #import "MGMCoreDataAccess.h"
-#import "MGMPlaylist.h"
 
 @interface MGMAlbumServiceManager : NSObject
 
@@ -23,7 +22,7 @@
 - (NSUInteger) serviceTypesThatPlayAlbum:(MGMAlbum*)album;
 - (NSString*) serviceAvailabilityUrlForServiceType:(MGMAlbumServiceType)serviceType;
 - (NSString*) urlForAlbum:(MGMAlbum*)album forServiceType:(MGMAlbumServiceType)serviceType;
-- (NSString*) urlForPlaylist:(MGMPlaylist*)playlist forServiceType:(MGMAlbumServiceType)serviceType;
+- (NSString*) urlForPlaylist:(NSString*)spotifyPlaylistId forServiceType:(MGMAlbumServiceType)serviceType;
 - (void) refreshAlbum:(MGMAlbum*)album forServiceType:(MGMAlbumServiceType)serviceType completion:(ALBUM_SERVICE_COMPLETION)completion;
 
 @end

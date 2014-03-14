@@ -174,9 +174,9 @@ static BOOL _isIpad;
 #pragma mark -
 #pragma mark MGMPlaylistSelectionDelegate
 
-- (void) playlistSelected:(MGMPlaylist*)playlist
+- (void) playlistSelected:(NSString*)spotifyPlaylistId
 {
-    [self.albumPlayer playPlaylist:playlist onService:MGMAlbumServiceTypeSpotify completion:^(NSError* error) {
+    [self.albumPlayer playPlaylist:spotifyPlaylistId onService:MGMAlbumServiceTypeSpotify completion:^(NSError* error) {
         if (error != nil)
         {
             [self showError:error];

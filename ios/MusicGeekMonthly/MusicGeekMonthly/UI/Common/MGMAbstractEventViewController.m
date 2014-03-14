@@ -132,7 +132,11 @@
 {
     if (self.playlist)
     {
-        [self.playlistSelectionDelegate playlistSelected:self.playlist];
+        [self.playlistSelectionDelegate playlistSelected:self.playlist.playlistId];
+    }
+    else if (self.event.playlistId)
+    {
+        [self.playlistSelectionDelegate playlistSelected:self.event.playlistId];
     }
 }
 

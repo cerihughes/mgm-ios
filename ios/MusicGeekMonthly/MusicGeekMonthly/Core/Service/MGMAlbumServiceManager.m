@@ -98,10 +98,10 @@
     return [service urlForAlbum:album];
 }
 
-- (NSString*) urlForPlaylist:(MGMPlaylist*)playlist forServiceType:(MGMAlbumServiceType)serviceType
+- (NSString*) urlForPlaylist:(NSString*)spotifyPlaylistId forServiceType:(MGMAlbumServiceType)serviceType
 {
     MGMAlbumPlayerService* service = [self playerServiceForServiceType:serviceType];
-    return [service urlForPlaylist:playlist];
+    return [service urlForPlaylist:spotifyPlaylistId];
 }
 
 - (void) refreshAlbum:(MGMAlbum*)album forServiceType:(MGMAlbumServiceType)serviceType completion:(ALBUM_SERVICE_COMPLETION)completion

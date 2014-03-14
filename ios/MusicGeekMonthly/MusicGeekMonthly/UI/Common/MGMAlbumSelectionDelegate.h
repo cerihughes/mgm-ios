@@ -22,6 +22,6 @@
 
 @protocol MGMPlaylistSelectionDelegate <NSObject>
 
-- (void) playlistSelected:(MGMPlaylist*)playlist;
+- (void) playlistSelected:(NSString*)spotifyPlaylistId;
 
 @end

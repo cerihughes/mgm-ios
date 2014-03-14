@@ -24,6 +24,6 @@ typedef void (^ALBUM_PLAYER_COMPLETION) (NSError*);
 - (NSUInteger) determineCapabilities;
 
 - (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_PLAYER_COMPLETION)completion;
-- (void) playPlaylist:(MGMPlaylist*)playlist onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_PLAYER_COMPLETION)completion;
+- (void) playPlaylist:(NSString*)spotifyPlaylistId onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_PLAYER_COMPLETION)completion;
 
 @end
