@@ -101,7 +101,7 @@
 
     MGMAlbumImageSize preferredSize = preferredImageSize(albumView.frame.size);
     NSArray* albumArtUrls = [self bestImageUrlsForAlbum:album preferredSize:preferredSize];
-    [self displayAlbumImages:albumArtUrls inAlbumView:albumView completion:nil];
+    [self displayAlbumImages:albumArtUrls inAlbumView:albumView completion:^(NSError* error) {}];
 }
 
 - (NSArray*) bestImageUrlsForAlbum:(MGMAlbumDto*)album preferredSize:(MGMAlbumImageSize)size
