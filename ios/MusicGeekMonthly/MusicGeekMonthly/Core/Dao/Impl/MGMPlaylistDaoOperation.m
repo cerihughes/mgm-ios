@@ -96,7 +96,8 @@
     string = [string stringByReplacingOccurrencesOfString:@"</meta>" withString:@""];
 
     // Tidy up ampersands
-    string = [string stringByReplacingOccurrencesOfString:@" & " withString:@" &amp; "];
+    string = [string stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
+    string = [string stringByReplacingOccurrencesOfString:@"&amp;amp;" withString:@"&amp;"];
     
     NSData* modifiedData = [string dataUsingEncoding:NSUTF8StringEncoding];
     return [super convertRemoteData:modifiedData key:key];
