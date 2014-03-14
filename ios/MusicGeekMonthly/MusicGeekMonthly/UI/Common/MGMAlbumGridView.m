@@ -38,6 +38,19 @@
     [self addSubview:_scrollView];
 }
 
+- (NSUInteger) albumCount
+{
+    [self.albumViewsLock lock];
+    @try
+    {
+        return self.albumViews.count;
+    }
+    @finally
+    {
+        [self.albumViewsLock unlock];
+    }
+}
+
 - (void) setAlbumCount:(NSUInteger)albumCount detailViewShowing:(BOOL)detailViewShowing
 {
     if (self.albumViews.count != albumCount)

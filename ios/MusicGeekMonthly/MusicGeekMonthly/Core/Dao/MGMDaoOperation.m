@@ -70,36 +70,47 @@
             if ([self needsRefresh:nextAccess])
             {
                 [self.remoteDataSource fetchRemoteData:key completion:^(MGMRemoteData* remoteData) {
-                    if (remoteData.error == nil && ![remoteData.checksum isEqualToString:nextAccess.checksum])
+                    if (remoteData.error == nil)
                     {
-                        MGMLocalDataSource* lds = self.localDataSource;
-                        // There is new data... Persist it.
-                        [lds persistRemoteData:remoteData key:key completion:^(NSError* persistError) {
-                            if (persistError)
-                            {
-                                completion([MGMDaoData dataWithError:persistError]);
-                            }
-                            else
-                            {
-                                [self setNextRefresh:refreshIdentifier inDays:self.daysBetweenRemoteFetch completion:^(NSError* setNextAccessError) {
-                                    if (setNextAccessError)
-                                    {
-                                        completion([MGMDaoData dataWithError:setNextAccessError]);
-                                    }
-                                    else
-                                    {
-                                        [lds fetchLocalData:key completion:^(MGMLocalData* localData) {
-                                            completion([MGMDaoData dataWithLocalData:localData isNew:YES]);
-                                        }];
-                                    }
-                                }];
-                            }
-                        }];
+                        if ([remoteData.checksum isEqualToString:nextAccess.checksum] == NO)
+                        {
+                            MGMLocalDataSource* lds = self.localDataSource;
+                            // There is new data... Persist it.
+                            [lds persistRemoteData:remoteData key:key completion:^(NSError* persistError) {
+                                if (persistError)
+                                {
+                                    completion([MGMDaoData dataWithError:persistError]);
+                                }
+                                else
+                                {
+                                    [self setNextRefresh:refreshIdentifier inDays:self.daysBetweenRemoteFetch completion:^(NSError* setNextAccessError) {
+                                        if (setNextAccessError)
+                                        {
+                                            completion([MGMDaoData dataWithError:setNextAccessError]);
+                                        }
+                                        else
+                                        {
+                                            [lds fetchLocalData:key completion:^(MGMLocalData* localData) {
+                                                completion([MGMDaoData dataWithLocalData:localData isNew:YES]);
+                                            }];
+                                        }
+                                    }];
+                                }
+                            }];
+                        }
+                        else
+                        {
+                            [self.localDataSource fetchLocalData:key completion:^(MGMLocalData* localData) {
+                                completion([MGMDaoData dataWithLocalData:localData isNew:NO]);
+                            }];
+                        }
                     }
                     else
                     {
                         [self.localDataSource fetchLocalData:key completion:^(MGMLocalData* localData) {
-                            completion([MGMDaoData dataWithLocalData:localData isNew:YES]);
+                            MGMDaoData* daoData = [MGMDaoData dataWithLocalData:localData isNew:NO];
+                            daoData.error = remoteData.error;
+                            completion(daoData);
                         }];
                     }
                 }];

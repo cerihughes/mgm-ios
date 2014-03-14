@@ -38,9 +38,10 @@
 
     MGMAbstractEventView* eventView = (MGMAbstractEventView*)self.view;
 
-    NSUInteger rank = 1;
+    BOOL hasPlaylist = YES;
     if (playlist)
     {
+        NSUInteger rank = 1;
         for (MGMPlaylistItem* item in playlist.playlistItems)
         {
             MGMAlbumView* albumView = [eventView.playlistView albumViewForRank:rank++];
@@ -49,8 +50,27 @@
             }];
         }
     }
-    eventView.playlistView.hidden = (playlist == nil);
-    eventView.playlistLabel.hidden = (playlist == nil);
+    else if (event.playlistId)
+    {
+        // There's been an error loading the playlist.
+        NSUInteger albumCount = eventView.playlistView.albumCount;
+        for (NSUInteger i = 0; i < albumCount; i++)
+        {
+            NSUInteger rank = i + 1;
+            MGMAlbumView* albumView = [eventView.playlistView albumViewForRank:rank++];
+            [self displayPlaylistItem:nil inAlbumView:albumView completion:^(NSError* error) {
+                [self.ui logError:error];
+            }];
+        }
+    }
+    else
+    {
+        hasPlaylist = NO;
+    }
+
+
+    eventView.playlistView.hidden = (hasPlaylist == NO);
+    eventView.playlistLabel.hidden = (hasPlaylist == NO);
 
     [self displayAlbum:event.classicAlbum inAlbumView:eventView.classicAlbumView completion:^(NSError* error) {
         [self logError:error];
