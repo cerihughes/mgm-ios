@@ -15,4 +15,6 @@
 - (id) init __unavailable;
 - (id) initWithUI:(MGMUI*)ui;
 
+- (void) checkPlayer;
+
 @end

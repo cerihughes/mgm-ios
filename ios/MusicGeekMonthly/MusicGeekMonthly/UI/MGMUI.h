@@ -13,7 +13,7 @@
 
 @property (readonly) BOOL ipad;
 @property (readonly) MGMCore* core;
-@property (readonly) MGMNavigationController* parentViewController;
+@property (readonly) MGMNavigationController* mainController;
 @property (readonly) MGMAlbumPlayer* albumPlayer;
 @property (readonly) MGMImageHelper* imageHelper;
 

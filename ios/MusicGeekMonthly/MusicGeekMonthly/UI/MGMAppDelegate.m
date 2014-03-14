@@ -34,7 +34,7 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // By default, there is no reachability.
-	self.window.rootViewController = self.ui.parentViewController;
+	self.window.rootViewController = self.ui.mainController;
     [self.window makeKeyAndVisible];
 
     return YES;

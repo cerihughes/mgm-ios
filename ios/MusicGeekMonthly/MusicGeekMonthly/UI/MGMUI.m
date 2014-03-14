@@ -2,17 +2,13 @@
 #import "MGMUI.h"
 
 #import "MGMAlbumDetailViewController.h"
-#import "MGMExampleAlbumViewController.h"
-#import "MGMPlayerSelectionViewController.h"
 #import "MGMReachabilityManager.h"
 #import "UIViewController+MGMAdditions.h"
 
-@interface MGMUI () <MGMReachabilityManagerListener, MGMPlayerSelectionViewControllerDelegate>
+@interface MGMUI () <MGMReachabilityManagerListener>
 
 @property (readonly) MGMReachabilityManager* reachabilityManager;
 @property (readonly) MGMAlbumDetailViewController* albumDetailViewController;
-@property (readonly) MGMPlayerSelectionViewController* playerSelectionViewController;
-@property (readonly) MGMExampleAlbumViewController* exampleAlbumViewController;
 
 @end
 
@@ -36,21 +32,12 @@ static BOOL _isIpad;
         _albumDetailViewController = [[MGMAlbumDetailViewController alloc] init];
         _albumDetailViewController.ui = self;
 
-        _playerSelectionViewController = [[MGMPlayerSelectionViewController alloc] init];
-        _playerSelectionViewController.ui = self;
-        _playerSelectionViewController.delegate = self;
-
-        _exampleAlbumViewController = [[MGMExampleAlbumViewController alloc] init];
-        _exampleAlbumViewController.ui = self;
-
         if (_isIpad)
         {
             _albumDetailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-            _playerSelectionViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-            _exampleAlbumViewController.modalPresentationStyle = UIModalPresentationFormSheet;
         }
 
-        _parentViewController = [[MGMNavigationController alloc] initWithUI:self];
+        _mainController = [[MGMNavigationController alloc] initWithUI:self];
 
         _albumPlayer = [[MGMAlbumPlayer alloc] init];
         _albumPlayer.serviceManager = self.core.serviceManager;
@@ -87,58 +74,7 @@ static BOOL _isIpad;
 
 - (void) uiDidBecomeActive
 {
-    // TODO: FIX THIS
-    // This should be driven from a callback?
-//    [self performSelector:@selector(checkPlayer) withObject:nil afterDelay:2];
-}
-
-- (void) checkPlayer
-{
-    // At the moment, this can be called twice in succession...
-    if (self.playerSelectionViewController.presentingViewController != nil)
-    {
-        return;
-    }
-
-    // Determine if a default player has been set...
-    MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
-
-    // Determine current capabilities...
-    NSUInteger lastCapabilities = self.core.settingsDao.lastCapabilities;
-    NSUInteger newCapabilities = [self.albumPlayer determineCapabilities];
-    self.core.settingsDao.lastCapabilities = newCapabilities;
-
-    MGMPlayerSelectionMode playerSelectionMode = MGMPlayerSelectionModeNone;
-
-    if (defaultServiceType == MGMAlbumServiceTypeNone)
-    {
-        // None set yet - 1st launch...
-        playerSelectionMode = MGMPlayerSelectionModeNoPlayer;
-    }
-    else
-    {
-        // Check that the selected service type is still available...
-        if (newCapabilities & defaultServiceType)
-        {
-            // Service type still available. Finally check for new service types...
-            if (newCapabilities != lastCapabilities)
-            {
-                playerSelectionMode = MGMPlayerSelectionModeNewPlayers;
-            }
-        }
-        else
-        {
-            // Service type no longer available.
-            playerSelectionMode = MGMPlayerSelectionModePlayerRemoved;
-        }
-    }
-
-    if (playerSelectionMode != MGMPlayerSelectionModeNone)
-    {
-        self.playerSelectionViewController.existingServiceType = defaultServiceType;
-        self.playerSelectionViewController.mode = playerSelectionMode;
-        [self.parentViewController presentViewController:self.playerSelectionViewController animated:YES completion:NULL];
-    }
+    [self.mainController checkPlayer];
 }
 
 - (NSString*) labelForServiceType:(MGMAlbumServiceType)serviceType
@@ -216,7 +152,7 @@ static BOOL _isIpad;
     MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
     if (defaultServiceType == MGMAlbumServiceTypeNone)
     {
-        [self detailSelected:album sender:self.parentViewController];
+        [self detailSelected:album sender:self.mainController];
     }
     else
     {
@@ -246,18 +182,6 @@ static BOOL _isIpad;
             [self showError:error];
         }
     }];
-}
-
-#pragma mark -
-#pragma mark MGMPlayerSelectionViewControllerDelegate
-
-- (void) playerSelectionChangedFrom:(MGMAlbumServiceType)oldSelection to:(MGMAlbumServiceType)newSelection
-{
-    if (oldSelection == MGMAlbumServiceTypeNone)
-    {
-        // 1st run...
-        [self.parentViewController presentViewController:self.exampleAlbumViewController animated:YES completion:NULL];
-    }
 }
 
 @end
