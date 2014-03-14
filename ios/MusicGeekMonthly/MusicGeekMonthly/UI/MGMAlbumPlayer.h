@@ -12,6 +12,8 @@
 #import "MGMAlbum.h"
 #import "MGMPlaylist.h"
 
+typedef void (^ALBUM_PLAYER_COMPLETION) (NSError*);
+
 @class MGMUI;
 
 @interface MGMAlbumPlayer : NSObject
@@ -21,7 +23,7 @@
 
 - (NSUInteger) determineCapabilities;
 
-- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_SERVICE_COMPLETION)completion;
-- (void) playPlaylist:(MGMPlaylist*)playlist onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_SERVICE_COMPLETION)completion;
+- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_PLAYER_COMPLETION)completion;
+- (void) playPlaylist:(MGMPlaylist*)playlist onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_PLAYER_COMPLETION)completion;
 
 @end

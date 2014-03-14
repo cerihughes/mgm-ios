@@ -42,7 +42,7 @@
     }
 }
 
-- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_SERVICE_COMPLETION)completion
+- (void) playAlbum:(MGMAlbum*)album onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_PLAYER_COMPLETION)completion
 {
     [self.serviceManager refreshAlbum:album forServiceType:serviceType completion:^(NSError* error) {
         NSString* urlString = [self.serviceManager urlForAlbum:album forServiceType:serviceType];
@@ -68,7 +68,7 @@
     }];
 }
 
-- (void) playPlaylist:(MGMPlaylist*)playlist onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_SERVICE_COMPLETION)completion
+- (void) playPlaylist:(MGMPlaylist*)playlist onService:(MGMAlbumServiceType)serviceType completion:(ALBUM_PLAYER_COMPLETION)completion
 {
     NSString* urlString = [self.serviceManager urlForPlaylist:playlist forServiceType:serviceType];
     if (urlString)
