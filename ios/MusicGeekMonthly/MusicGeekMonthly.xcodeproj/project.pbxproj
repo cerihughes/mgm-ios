@@ -23,6 +23,8 @@
 		651E8D0818CB71F800333CA1 /* MGMRemoteHttpDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0618CB71F800333CA1 /* MGMRemoteHttpDataReader.m */; };
 		651E8D0B18CB88B200333CA1 /* MGMRemoteFileDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0A18CB88B200333CA1 /* MGMRemoteFileDataReader.m */; };
 		651E8D0C18CB88B200333CA1 /* MGMRemoteFileDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0A18CB88B200333CA1 /* MGMRemoteFileDataReader.m */; };
+		6537172C18D3B13A00B8800C /* date.png in Resources */ = {isa = PBXBuildFile; fileRef = 6537172B18D3B13A00B8800C /* date.png */; };
+		6537172F18D3B1C000B8800C /* MGMCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6537172E18D3B1C000B8800C /* MGMCalendarView.m */; };
 		6542305D18CBAD5500121B3B /* timePeriods.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305C18CBAD5500121B3B /* timePeriods.json */; };
 		6542305E18CBAD5500121B3B /* timePeriods.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305C18CBAD5500121B3B /* timePeriods.json */; };
 		6542306018CBAD7100121B3B /* weeklyChart.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305F18CBAD7100121B3B /* weeklyChart.json */; };
@@ -193,7 +195,6 @@
 		659F9F6A175B928E000C413B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F68175B928E000C413B /* InfoPlist.strings */; };
 		65B7000017C4AAFC00D4173C /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EB123217C3FB66008EE886 /* libTestFlight.a */; };
 		65B7000117C4AB9800D4173C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */; };
-		65E1A51517F70745006F8051 /* CKCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E1A50817F70745006F8051 /* CKCalendarView.m */; };
 		65E1A51E17F707BA006F8051 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E1A51D17F707BA006F8051 /* QuartzCore.framework */; };
 		65E79B0817C2444C008CCDA3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */; };
 		65E8110A17AD014800FCBC9F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E8110917AD014800FCBC9F /* libz.dylib */; };
@@ -247,6 +248,9 @@
 		651E8D0618CB71F800333CA1 /* MGMRemoteHttpDataReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteHttpDataReader.m; sourceTree = "<group>"; };
 		651E8D0918CB88B200333CA1 /* MGMRemoteFileDataReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteFileDataReader.h; sourceTree = "<group>"; };
 		651E8D0A18CB88B200333CA1 /* MGMRemoteFileDataReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteFileDataReader.m; sourceTree = "<group>"; };
+		6537172B18D3B13A00B8800C /* date.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = date.png; path = MusicGeekMonthly/Resources/date.png; sourceTree = "<group>"; };
+		6537172D18D3B1C000B8800C /* MGMCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCalendarView.h; sourceTree = "<group>"; };
+		6537172E18D3B1C000B8800C /* MGMCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCalendarView.m; sourceTree = "<group>"; };
 		6542305C18CBAD5500121B3B /* timePeriods.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = timePeriods.json; path = MusicGeekMonthly/Resources/timePeriods.json; sourceTree = "<group>"; };
 		6542305F18CBAD7100121B3B /* weeklyChart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = weeklyChart.json; path = MusicGeekMonthly/Resources/weeklyChart.json; sourceTree = "<group>"; };
 		6542306218CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGMPreloadTimePeriodsDaoOperation.h; path = Offline/MGMPreloadTimePeriodsDaoOperation.h; sourceTree = "<group>"; };
@@ -463,8 +467,6 @@
 		659F9F5F175B928E000C413B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		659F9F67175B928E000C413B /* MusicGeekMonthlyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MusicGeekMonthlyTests-Info.plist"; sourceTree = "<group>"; };
 		659F9F69175B928E000C413B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		65E1A50717F70745006F8051 /* CKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarView.h; sourceTree = "<group>"; };
-		65E1A50817F70745006F8051 /* CKCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarView.m; sourceTree = "<group>"; };
 		65E1A51D17F707BA006F8051 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		65E8110917AD014800FCBC9F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -586,6 +588,8 @@
 				658D324918B1147C007A4D98 /* MGMEventTableCell.m */,
 				658D324418B1147C007A4D98 /* MGMEventsView.h */,
 				658D324518B1147C007A4D98 /* MGMEventsView.m */,
+				6537172D18D3B1C000B8800C /* MGMCalendarView.h */,
+				6537172E18D3B1C000B8800C /* MGMCalendarView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1032,7 +1036,6 @@
 		659F9F35175B928E000C413B = {
 			isa = PBXGroup;
 			children = (
-				65E1A4F517F70744006F8051 /* CKCalendar-master */,
 				65D451451764F54C00374C5F /* Resources */,
 				659F9F47175B928E000C413B /* MusicGeekMonthly */,
 				659F9F65175B928E000C413B /* MusicGeekMonthlyTests */,
@@ -1125,6 +1128,7 @@
 				658D30A518B10DE6007A4D98 /* calendar@2x.png */,
 				658D30A618B10DE6007A4D98 /* chart_line.png */,
 				658D30A718B10DE6007A4D98 /* chart_line@2x.png */,
+				6537172B18D3B13A00B8800C /* date.png */,
 				658D30A818B10DE6007A4D98 /* deezer.png */,
 				658D30A918B10DE6007A4D98 /* gold_bar.png */,
 				658D30AA18B10DE6007A4D98 /* home.png */,
@@ -1138,23 +1142,6 @@
 				658D30B218B10DE6007A4D98 /* youtube.png */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		65E1A4F517F70744006F8051 /* CKCalendar-master */ = {
-			isa = PBXGroup;
-			children = (
-				65E1A50617F70745006F8051 /* Source */,
-			);
-			path = "CKCalendar-master";
-			sourceTree = "<group>";
-		};
-		65E1A50617F70745006F8051 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				65E1A50717F70745006F8051 /* CKCalendarView.h */,
-				65E1A50817F70745006F8051 /* CKCalendarView.m */,
-			);
-			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1262,6 +1249,7 @@
 				658D30C118B10DE6007A4D98 /* ruler.png in Resources */,
 				658D30B718B10DE6007A4D98 /* calendar.png in Resources */,
 				658D30BE18B10DE6007A4D98 /* home@2x.png in Resources */,
+				6537172C18D3B13A00B8800C /* date.png in Resources */,
 				658D30C218B10DE6007A4D98 /* ruler@2x.png in Resources */,
 				658D30C018B10DE6007A4D98 /* lastfm.png in Resources */,
 			);
@@ -1311,6 +1299,7 @@
 				658D314418B112E3007A4D98 /* MGMWeeklyChartDaoOperation.m in Sources */,
 				658D32A818B1147C007A4D98 /* MGMWeeklyChartView.m in Sources */,
 				658D317A18B112E3007A4D98 /* MusicGeekMonthly.xcdatamodeld in Sources */,
+				6537172F18D3B1C000B8800C /* MGMCalendarView.m in Sources */,
 				651E8D0B18CB88B200333CA1 /* MGMRemoteFileDataReader.m in Sources */,
 				65F89A4718B7BCB1003C5803 /* MGMPlaylistDto.m in Sources */,
 				654B869618D0F7AF005835F8 /* MGMAlbumImageSize.m in Sources */,
@@ -1336,7 +1325,6 @@
 				658D328C18B1147C007A4D98 /* MGMAbstractPlayerSelectionView.m in Sources */,
 				65FD1D6818C0D92800993D02 /* MGMImagedEntityDto.m in Sources */,
 				658D314618B112E3007A4D98 /* MGMCoreDataAccess.m in Sources */,
-				65E1A51517F70745006F8051 /* CKCalendarView.m in Sources */,
 				658D314218B112E3007A4D98 /* MGMAllTimePeriodsDaoOperation.m in Sources */,
 				658D328B18B1147C007A4D98 /* MGMViewController.m in Sources */,
 				658D315818B112E3007A4D98 /* MGMAlbumImageUriDto.m in Sources */,

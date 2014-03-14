@@ -8,14 +8,17 @@
 
 #import "MGMHomeView.h"
 
-#import "CKCalendarView.h"
+#import "MGMCalendarView.h"
 
-@interface MGMHomeView () <CKCalendarDelegate>
+@interface MGMHomeView ()
+
+@property (readonly) NSDateFormatter* monthDateFormatter;
+@property (readonly) NSDateFormatter* dayDateFormatter;
 
 @property (readonly) UIView* parentView;
 @property (readonly) UILabel* titleLabel;
 @property (readonly) UILabel* nextMeetingLabel;
-@property (readonly) CKCalendarView* calendarView;
+@property (readonly) MGMCalendarView* calendarView;
 
 @end
 
@@ -27,15 +30,18 @@
 
     self.backgroundColor = [UIColor whiteColor];
 
-    _calendarView = [[CKCalendarView  alloc] initWithFrame:CGRectZero];
+    _monthDateFormatter = [[NSDateFormatter alloc] init];
+    _monthDateFormatter.dateFormat = @"MMM";
+
+    _dayDateFormatter = [[NSDateFormatter alloc] init];
+    _dayDateFormatter.dateFormat = @"d";
+
     BOOL ipad = self.screenSize == MGMViewScreenSizeiPad;
-    CGFloat titleFontSize = ipad ? 20.0 : 14.0;
-    CGFloat dayFontSize = ipad ? 13.0 : 9.0;
-    CGFloat dateFontSize = ipad ? 18.0 : 13.0;
-    _calendarView.titleFont = [UIFont boldSystemFontOfSize:titleFontSize];
-    _calendarView.dayOfWeekFont = [UIFont boldSystemFontOfSize:dayFontSize];
-    _calendarView.dateFont = [UIFont boldSystemFontOfSize:dateFontSize];
-    _calendarView.delegate = self;
+    CGFloat monthFontSize = ipad ? 30.0 : 20.0;
+    CGFloat dayFontSize = ipad ? 80.0 : 64.0;
+    _calendarView = [[MGMCalendarView  alloc] initWithFrame:CGRectZero];
+    _calendarView.monthFont = [UIFont boldSystemFontOfSize:monthFontSize];
+    _calendarView.dayFont = [UIFont boldSystemFontOfSize:dayFontSize];
 
     _titleLabel = [MGMView boldTitleLabelWithText:@"This month we're listening to:"];
     _nextMeetingLabel = [MGMView italicTitleLabelWithText:@"Next meeting:"];
@@ -70,7 +76,11 @@
 - (void) setNextEventDate:(NSDate *)nextEventDate
 {
     self.calendarView.hidden = (nextEventDate == nil);
-    [self.calendarView selectDate:nextEventDate makeVisible:YES];
+
+    self.calendarView.month = [self.monthDateFormatter stringFromDate:nextEventDate];
+    self.calendarView.day = [self.dayDateFormatter stringFromDate:nextEventDate];
+
+    [self.calendarView setNeedsLayout];
 }
 
 - (void) layoutSubviewsIphone
@@ -85,8 +95,11 @@
     self.classicAlbumView.frame = CGRectMake(0, 82, 160, 160);
     self.newlyReleasedAlbumView.frame = CGRectMake(160, 82, 160, 160);
 
-    self.nextMeetingLabel.frame = CGRectMake(20, 260, 280, 21);
-    self.calendarView.frame = CGRectMake(71, 290, 178, 131);
+    self.nextMeetingLabel.frame = CGRectMake(20, 265, 280, 21);
+
+    CGFloat calendarWidth = 512.0 / 3.0;
+    CGFloat calendarHeight = 512.0 / 3.0;
+    self.calendarView.frame = CGRectMake((320.0 - calendarWidth) / 2.0, 295, calendarWidth, calendarHeight);
 
     UIView* lastView = self.calendarView;
     if (self.playlistLabel.hidden == NO)
@@ -115,25 +128,10 @@
     self.newlyReleasedAlbumLabel.frame = CGRectMake(413, 442, 300, 45);
 
     self.nextMeetingLabel.frame = CGRectMake(20, 545, 728, 49);
-    self.calendarView.frame = CGRectMake(224, 635, 320, 248);
-}
 
-#pragma mark -
-#pragma mark CKCalendarDelegate
-
-- (BOOL)calendar:(CKCalendarView*)calendar willSelectDate:(NSDate*)date
-{
-    return NO;
-}
-
-- (BOOL)calendar:(CKCalendarView*)calendar willDeselectDate:(NSDate*)date
-{
-    return NO;
-}
-
-- (BOOL)calendar:(CKCalendarView*)calendar willChangeToMonth:(NSDate*)date
-{
-    return NO;
+    CGFloat calendarWidth = 512.0 / 2.0;
+    CGFloat calendarHeight = 512.0 / 2.0;
+    self.calendarView.frame = CGRectMake((768.0 - calendarWidth) / 2.0, 635, calendarWidth, calendarHeight);
 }
 
 @end
