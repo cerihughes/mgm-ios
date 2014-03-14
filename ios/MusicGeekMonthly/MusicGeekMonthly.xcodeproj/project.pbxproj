@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6502F20A18C3A02C007FE38E /* MGMGridManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6502F20918C3A02C007FE38E /* MGMGridManagerTestCase.m */; };
+		65052CAD18D36E2100390A91 /* MGMBackgroundAlbumArtCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 65052CAC18D36E2000390A91 /* MGMBackgroundAlbumArtCollection.m */; };
+		65052CAE18D36E2100390A91 /* MGMBackgroundAlbumArtCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 65052CAC18D36E2000390A91 /* MGMBackgroundAlbumArtCollection.m */; };
 		651E8CF218CA383000333CA1 /* MGMInitialLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF118CA383000333CA1 /* MGMInitialLoadingView.m */; };
 		651E8CF518CA39BE00333CA1 /* MGMInitialLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF418CA39BE00333CA1 /* MGMInitialLoadingViewController.m */; };
 		651E8CF818CA3F0F00333CA1 /* MGMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF718CA3F0F00333CA1 /* MGMNavigationController.m */; };
@@ -228,6 +230,8 @@
 
 /* Begin PBXFileReference section */
 		6502F20918C3A02C007FE38E /* MGMGridManagerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMGridManagerTestCase.m; sourceTree = "<group>"; };
+		65052CAB18D36E2000390A91 /* MGMBackgroundAlbumArtCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMBackgroundAlbumArtCollection.h; sourceTree = "<group>"; };
+		65052CAC18D36E2000390A91 /* MGMBackgroundAlbumArtCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMBackgroundAlbumArtCollection.m; sourceTree = "<group>"; };
 		651E8CF018CA383000333CA1 /* MGMInitialLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMInitialLoadingView.h; sourceTree = "<group>"; };
 		651E8CF118CA383000333CA1 /* MGMInitialLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMInitialLoadingView.m; sourceTree = "<group>"; };
 		651E8CF318CA39BE00333CA1 /* MGMInitialLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMInitialLoadingViewController.h; sourceTree = "<group>"; };
@@ -980,6 +984,8 @@
 			isa = PBXGroup;
 			children = (
 				651E8CEB18CA293400333CA1 /* View */,
+				65052CAB18D36E2000390A91 /* MGMBackgroundAlbumArtCollection.h */,
+				65052CAC18D36E2000390A91 /* MGMBackgroundAlbumArtCollection.m */,
 				658D326018B1147C007A4D98 /* MGMBackgroundAlbumArtFetcher.h */,
 				658D326118B1147C007A4D98 /* MGMBackgroundAlbumArtFetcher.m */,
 				651E8CF318CA39BE00333CA1 /* MGMInitialLoadingViewController.h */,
@@ -1322,6 +1328,7 @@
 				658D315E18B112E3007A4D98 /* MGMEventDto.m in Sources */,
 				658D328518B1147C007A4D98 /* MGMAlbumViewController.m in Sources */,
 				658D317C18B112E3007A4D98 /* NSMutableArray+Shuffling.m in Sources */,
+				65052CAD18D36E2100390A91 /* MGMBackgroundAlbumArtCollection.m in Sources */,
 				65EC949518B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m in Sources */,
 				658D32A018B1147C007A4D98 /* MGMPlayerSelectionView.m in Sources */,
 				659F9F4E175B928E000C413B /* main.m in Sources */,
@@ -1424,6 +1431,7 @@
 				65EC949618B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m in Sources */,
 				658D317718B112E3007A4D98 /* MGMTimePeriod.m in Sources */,
 				658D316B18B112E3007A4D98 /* MGMAlbum.m in Sources */,
+				65052CAE18D36E2100390A91 /* MGMBackgroundAlbumArtCollection.m in Sources */,
 				658D314918B112E3007A4D98 /* MGMLocalDataSource.m in Sources */,
 				658D313F18B112E3007A4D98 /* MGMAllEventsDaoOperation.m in Sources */,
 				658D316918B112E3007A4D98 /* MGMReachabilityManager.m in Sources */,

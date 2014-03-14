@@ -18,7 +18,6 @@
 @property (readonly) MGMUI* ui;
 
 @property (readonly) MGMInitialLoadingViewController* loadingViewController;
-@property (readonly) MGMTabBarController* tabBarController;
 
 @property (readonly) MGMPlayerSelectionViewController* playerSelectionModalViewController;
 @property (readonly) MGMExampleAlbumViewController* exampleAlbumModalViewController;
@@ -44,7 +43,6 @@
         _loadingViewController = [[MGMInitialLoadingViewController alloc] init];
         _loadingViewController.ui = ui;
         _loadingViewController.delegate = self;
-        _tabBarController = [[MGMTabBarController alloc] initWithUI:ui];
 
         _playerSelectionModalViewController = [[MGMPlayerSelectionViewController alloc] init];
         _playerSelectionModalViewController.ui = ui;
@@ -62,9 +60,9 @@
     return self;
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
 
     if (_loadingViewControllerPushed == NO)
     {
@@ -76,12 +74,13 @@
 #pragma mark -
 #pragma mark MGMInitialLoadingViewControllerDelegate
 
-- (void) initialisationComplete
+- (void) initialisationComplete:(MGMBackgroundAlbumArtCollection*)albumArtCollection;
 {
     if (_tabBarControllerPushed == NO)
     {
         _tabBarControllerPushed = YES;
-        [self pushViewController:_tabBarController animated:YES];
+        MGMTabBarController* tabBarController = [[MGMTabBarController alloc] initWithUI:self.ui albumArtCollection:albumArtCollection];
+        [self pushViewController:tabBarController animated:YES];
 
         if (_shouldCheckPlayer)
         {

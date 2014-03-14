@@ -30,9 +30,9 @@
     self.view = homeView;
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
 
     [self.core.dao fetchAllEvents:^(MGMDaoData* eventsData) {
         NSError* fetchError = eventsData.error;

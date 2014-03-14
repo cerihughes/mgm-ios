@@ -68,8 +68,10 @@
     }
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     [self.core.dao fetchAllTimePeriods:^(MGMDaoData* timePeriodData) {
         if (timePeriodData.error)
         {

@@ -24,8 +24,10 @@
     self.view = view;
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     MGMPlayerSelectionView* view = (MGMPlayerSelectionView*)self.view;
     [view clearServiceTypes];
 

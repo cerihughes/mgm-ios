@@ -46,8 +46,10 @@
     self.view = eventsView;
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     [self.core.dao fetchAllEvents:^(MGMDaoData* eventData) {
         if (eventData.error)
         {

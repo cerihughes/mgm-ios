@@ -8,9 +8,11 @@
 
 #import "MGMViewController.h"
 
+#import "MGMBackgroundAlbumArtCollection.h"
+
 @protocol MGMInitialLoadingViewControllerDelegate <NSObject>
 
-- (void) initialisationComplete;
+- (void) initialisationComplete:(MGMBackgroundAlbumArtCollection*)albumArtCollection;
 
 @end
 

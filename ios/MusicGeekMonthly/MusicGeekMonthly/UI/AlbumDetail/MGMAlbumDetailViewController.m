@@ -38,9 +38,9 @@
     self.view = detailView;
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
 
     MGMAlbumDetailView* detailView = (MGMAlbumDetailView*)self.view;
 

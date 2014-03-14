@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "MGMAlbumImageSize.h"
-#import "MGMAlbumRenderService.h"
-#import "MGMCoreDataAccess.h"
+#import "MGMBackgroundAlbumArtCollection.h"
 #import "MGMImageHelper.h"
 
 @class MGMBackgroundAlbumArtFetcher;
@@ -25,12 +24,10 @@
 @interface MGMBackgroundAlbumArtFetcher : NSObject
 
 @property (weak) id<MGMBackgroundAlbumArtFetcherDelegate> delegate;
-@property (strong) MGMCoreDataAccess* coreDataAccess;
-@property (strong) MGMAlbumRenderService* albumRenderService;
-@property MGMAlbumImageSize preferredSize;
 
 - (id) init __unavailable;
-- (id) initWithImageHelper:(MGMImageHelper*)imageHelper chartEntryMoids:(NSArray*)chartEntryMoids;
-- (void) generateImageAtIndex:(NSUInteger)index sleepTime:(NSTimeInterval)sleepTime;
+- (id) initWithImageHelper:(MGMImageHelper*)imageHelper albumArtCollection:(MGMBackgroundAlbumArtCollection*)albumArtCollection;
+
+- (void) renderImages:(NSUInteger)imageCount;
 
 @end

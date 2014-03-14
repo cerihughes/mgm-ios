@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import "MGMBackgroundAlbumArtCollection.h"
+
 @class MGMUI;
 
 @interface MGMTabBarController : UITabBarController
 
 - (id) init __unavailable;
-- (id) initWithUI:(MGMUI*)ui;
+- (id) initWithUI:(MGMUI*)ui albumArtCollection:(MGMBackgroundAlbumArtCollection*)albumArtCollection;
 
 @end

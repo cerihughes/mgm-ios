@@ -8,8 +8,10 @@
 
 #import "MGMInitialLoadingViewController.h"
 
+#import "MGMChartEntry.h"
 #import "MGMInitialLoadingView.h"
 #import "MGMTimePeriod.h"
+#import "MGMWeeklyChart.h"
 
 @implementation MGMInitialLoadingViewController
 
@@ -20,9 +22,9 @@
     self.view = view;
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
 
     MGMInitialLoadingView* view = (MGMInitialLoadingView*) self.view;
     [view setOperationInProgress:YES];
@@ -34,24 +36,53 @@
             if (timePeriodsArray.count == 1)
             {
                 MGMTimePeriod* timePeriod = [self.core.coreDataAccess mainThreadVersion:timePeriodsArray[0]];
-                [self.core.dao preloadWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* weeklyChart) {
-                    [self preloadComplete];
+                [self.core.dao preloadWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* weeklyChartData) {
+                    [self preloadCompleteWithWeeklyChartMoid:weeklyChartData.data];
+                }];
+            }
+            else if (timePeriodsArray.count > 1)
+            {
+                // Data has already been loaded from server.
+                MGMTimePeriod* timePeriod = [self.core.coreDataAccess mainThreadVersion:timePeriodsArray[0]];
+                [self.core.dao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* weeklyChartData) {
+                    [self preloadCompleteWithWeeklyChartMoid:weeklyChartData.data];
                 }];
             }
             else
             {
-                // Data has already been loaded from server.
-                [self preloadComplete];
+                // What's happened here?
+                [self preloadCompleteWithWeeklyChartMoid:nil];
             }
         }];
     }];
 }
 
-- (void) preloadComplete
+- (void) preloadCompleteWithWeeklyChartMoid:(NSManagedObjectID*)weeklyChartMoid
 {
+    MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess mainThreadVersion:weeklyChartMoid];
+    MGMAlbumImageSize preferredSize = self.ui.ipad ? MGMAlbumImageSize128 : MGMAlbumImageSize64;
+    MGMBackgroundAlbumArtCollection* albumArt = [self albumArtForWeeklyChart:weeklyChart preferredSize:preferredSize];
+
     MGMInitialLoadingView* view = (MGMInitialLoadingView*) self.view;
     [view setOperationInProgress:NO];
-    [self.delegate initialisationComplete];
+    [self.delegate initialisationComplete:albumArt];
 }
+
+- (MGMBackgroundAlbumArtCollection*) albumArtForWeeklyChart:(MGMWeeklyChart*)weeklyChart preferredSize:(MGMAlbumImageSize)preferredSize
+{
+    MGMBackgroundAlbumArtCollection* collection = [[MGMBackgroundAlbumArtCollection alloc] init];
+    for (MGMChartEntry* entry in weeklyChart.chartEntries)
+    {
+        MGMAlbum* randomAlbum = entry.album;
+        NSArray* urls = [randomAlbum bestImageUrlsWithPreferredSize:preferredSize];
+        if (urls.count > 0)
+        {
+            [collection addAlbumArtUrlArray:urls];
+        }
+    }
+
+    return collection;
+}
+
 
 @end
