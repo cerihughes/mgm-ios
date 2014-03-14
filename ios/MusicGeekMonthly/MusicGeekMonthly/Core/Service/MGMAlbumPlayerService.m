@@ -40,6 +40,10 @@
             }
         }];
     }
+    else
+    {
+        completion(nil);
+    }
 }
 
 - (NSString*) serviceAvailabilityUrl
