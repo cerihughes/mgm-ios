@@ -57,9 +57,9 @@
     CGFloat parentOffset = (self.screenSize == MGMViewScreenSizeiPhone480) ? 0.0 : (576.0 - 480.0) / 2.0;
     self.parentView.frame = CGRectMake(0, parentOffset, 320, 480);
 
-    self.statusLabel.frame = CGRectMake(20, 20, 280, 30);
-    self.imageView.frame = CGRectMake(20, 70, 280, 280);
-    self.activityIndicatorView.frame = CGRectMake(20, 380, 280, 70);
+    self.statusLabel.frame = CGRectMake(20, 50, 280, 30);
+    self.imageView.frame = CGRectMake(20, 100, 280, 280);
+    self.activityIndicatorView.frame = CGRectMake(20, 400, 280, 50);
 }
 
 - (void) layoutSubviewsIpad
