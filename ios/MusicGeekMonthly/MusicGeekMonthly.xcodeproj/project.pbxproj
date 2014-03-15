@@ -460,9 +460,6 @@
 		659F9F4B175B928E000C413B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		659F9F4D175B928E000C413B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		659F9F4F175B928E000C413B /* MusicGeekMonthly-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicGeekMonthly-Prefix.pch"; sourceTree = "<group>"; };
-		659F9F53175B928E000C413B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		659F9F55175B928E000C413B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		659F9F57175B928E000C413B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		659F9F5E175B928E000C413B /* MusicGeekMonthlyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicGeekMonthlyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		659F9F5F175B928E000C413B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		659F9F67175B928E000C413B /* MusicGeekMonthlyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MusicGeekMonthlyTests-Info.plist"; sourceTree = "<group>"; };
@@ -1087,9 +1084,6 @@
 				659F9F4A175B928E000C413B /* InfoPlist.strings */,
 				659F9F4D175B928E000C413B /* main.m */,
 				659F9F4F175B928E000C413B /* MusicGeekMonthly-Prefix.pch */,
-				659F9F53175B928E000C413B /* Default.png */,
-				659F9F55175B928E000C413B /* Default@2x.png */,
-				659F9F57175B928E000C413B /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
