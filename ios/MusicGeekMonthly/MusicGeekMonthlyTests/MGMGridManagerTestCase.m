@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #import "MGMGridManager.h"
 
-@interface MGMGridManagerTestCase : SenTestCase
+@interface MGMGridManagerTestCase : XCTestCase
 
 @end
 
@@ -21,7 +21,7 @@
     NSArray* grids = [self gridsForRowSize:4 defaultRectSize:1 count:1];
     CGFloat resultData[] = {0, 0, 4, 4};
     NSArray* expectedResults = [self createExpectedResults:resultData count:1];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount4ItemCount2
@@ -30,7 +30,7 @@
     CGFloat resultData[] = {0, 0, 2, 2,
         2, 0, 2, 2};
     NSArray* expectedResults = [self createExpectedResults:resultData count:2];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount4ItemCount3
@@ -40,7 +40,7 @@
         4, 0, 4, 4,
         8, 0, 4, 4};
     NSArray* expectedResults = [self createExpectedResults:resultData count:3];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount4ItemCount4
@@ -51,7 +51,7 @@
         2, 0, 1, 1,
         3, 0, 1, 1};
     NSArray* expectedResults = [self createExpectedResults:resultData count:4];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount4ItemCount5
@@ -63,7 +63,7 @@
         2, 1, 1, 1,
         3, 1, 1, 1};
     NSArray* expectedResults = [self createExpectedResults:resultData count:5];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount4ItemCount6
@@ -76,7 +76,7 @@
         4, 4, 4, 4,
         8, 4, 4, 4};
     NSArray* expectedResults = [self createExpectedResults:resultData count:6];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount4ItemCount7
@@ -90,7 +90,7 @@
         6, 4, 3, 3,
         9, 4, 3, 3};
     NSArray* expectedResults = [self createExpectedResults:resultData count:7];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount4ItemCount8
@@ -105,7 +105,7 @@
         2, 1, 1, 1,
         3, 1, 1, 1};
     NSArray* expectedResults = [self createExpectedResults:resultData count:8];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount4ItemCount9
@@ -121,7 +121,7 @@
         2, 2, 1, 1,
         3, 2, 1, 1};
     NSArray* expectedResults = [self createExpectedResults:resultData count:9];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount4ItemCount25
@@ -153,7 +153,7 @@
         2, 6, 1, 1,
         3, 6, 1, 1};
     NSArray* expectedResults = [self createExpectedResults:resultData count:25];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount2ItemCount1
@@ -161,7 +161,7 @@
     NSArray* grids = [self gridsForRowSize:2 defaultRectSize:1 count:1];
     CGFloat resultData[] = {0, 0, 2, 2};
     NSArray* expectedResults = [self createExpectedResults:resultData count:1];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount2ItemCount2
@@ -170,7 +170,7 @@
     CGFloat resultData[] = {0, 0, 1, 1,
         1, 0, 1, 1};
     NSArray* expectedResults = [self createExpectedResults:resultData count:2];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount2ItemCount3
@@ -180,7 +180,7 @@
         0, 2, 1, 1,
         1, 2, 1, 1};
     NSArray* expectedResults = [self createExpectedResults:resultData count:3];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount2ItemCount4
@@ -191,7 +191,7 @@
         0, 1, 1, 1,
         1, 1, 1, 1};
     NSArray* expectedResults = [self createExpectedResults:resultData count:4];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount2ItemCount5
@@ -203,7 +203,7 @@
         0, 3, 1, 1,
         1, 3, 1, 1};
     NSArray* expectedResults = [self createExpectedResults:resultData count:5];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount2ItemCount25
@@ -235,7 +235,7 @@
         0, 13, 1, 1,
         1, 13, 1, 1};
     NSArray* expectedResults = [self createExpectedResults:resultData count:25];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (void) testRowCount5ItemCount25
@@ -267,13 +267,13 @@
         3, 4, 1, 1,
         4, 4, 1, 1};
     NSArray* expectedResults = [self createExpectedResults:resultData count:25];
-    STAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
+    XCTAssertEqualObjects(grids, expectedResults, @"Expected rects to match.");
 }
 
 - (NSArray*) gridsForRowSize:(NSUInteger)rowSize defaultRectSize:(CGFloat)defualtRectSize count:(NSUInteger)count
 {
     NSArray* grids = [MGMGridManager rectsForRowSize:rowSize defaultRectSize:defualtRectSize count:count];
-    STAssertEquals(grids.count, (NSUInteger)count, @"Expecting different results.");
+    XCTAssertEqual(grids.count, (NSUInteger)count, @"Expecting different results.");
     return grids;
 }
 

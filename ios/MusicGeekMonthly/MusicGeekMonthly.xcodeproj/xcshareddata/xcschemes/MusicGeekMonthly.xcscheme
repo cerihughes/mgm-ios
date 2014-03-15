@@ -28,6 +28,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "65283D2318D4544400D7C1D7"
+               BuildableName = "MusicGeekMonthlyTests.xctest"
+               BlueprintName = "MusicGeekMonthlyTests"
+               ReferencedContainer = "container:MusicGeekMonthly.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
