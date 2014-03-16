@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		65052CAD18D36E2100390A91 /* MGMBackgroundAlbumArtCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 65052CAC18D36E2000390A91 /* MGMBackgroundAlbumArtCollection.m */; };
+		651B72D418D47BA200346F72 /* MGMDaoOperationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 651B72D318D47BA200346F72 /* MGMDaoOperationTestCase.m */; };
+		651B72D718D47C1300346F72 /* MGMCoreDataAccessTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 651B72D618D47C1300346F72 /* MGMCoreDataAccessTestCase.m */; };
+		651B72D918D480B900346F72 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 651B72D818D480B900346F72 /* libOCMock.a */; };
 		651E8CF218CA383000333CA1 /* MGMInitialLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF118CA383000333CA1 /* MGMInitialLoadingView.m */; };
 		651E8CF518CA39BE00333CA1 /* MGMInitialLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF418CA39BE00333CA1 /* MGMInitialLoadingViewController.m */; };
 		651E8CF818CA3F0F00333CA1 /* MGMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF718CA3F0F00333CA1 /* MGMNavigationController.m */; };
@@ -166,6 +169,10 @@
 		6502F20918C3A02C007FE38E /* MGMGridManagerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMGridManagerTestCase.m; sourceTree = "<group>"; };
 		65052CAB18D36E2000390A91 /* MGMBackgroundAlbumArtCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMBackgroundAlbumArtCollection.h; sourceTree = "<group>"; };
 		65052CAC18D36E2000390A91 /* MGMBackgroundAlbumArtCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMBackgroundAlbumArtCollection.m; sourceTree = "<group>"; };
+		651B72D318D47BA200346F72 /* MGMDaoOperationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDaoOperationTestCase.m; sourceTree = "<group>"; };
+		651B72D518D47C1300346F72 /* MGMCoreDataAccessTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataAccessTestCase.h; sourceTree = "<group>"; };
+		651B72D618D47C1300346F72 /* MGMCoreDataAccessTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataAccessTestCase.m; sourceTree = "<group>"; };
+		651B72D818D480B900346F72 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = MusicGeekMonthly/Libraries/OCMock2.2.3/libOCMock.a; sourceTree = "<group>"; };
 		651E8CF018CA383000333CA1 /* MGMInitialLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMInitialLoadingView.h; sourceTree = "<group>"; };
 		651E8CF118CA383000333CA1 /* MGMInitialLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMInitialLoadingView.m; sourceTree = "<group>"; };
 		651E8CF318CA39BE00333CA1 /* MGMInitialLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMInitialLoadingViewController.h; sourceTree = "<group>"; };
@@ -429,6 +436,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65283D2618D4544400D7C1D7 /* XCTest.framework in Frameworks */,
+				651B72D918D480B900346F72 /* libOCMock.a in Frameworks */,
 				65283D2818D4544400D7C1D7 /* UIKit.framework in Frameworks */,
 				65283D2718D4544400D7C1D7 /* Foundation.framework in Frameworks */,
 			);
@@ -988,6 +996,7 @@
 				65E1A51D17F707BA006F8051 /* QuartzCore.framework */,
 				65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */,
 				659F9F41175B928E000C413B /* UIKit.framework */,
+				651B72D818D480B900346F72 /* libOCMock.a */,
 				65EB123217C3FB66008EE886 /* libTestFlight.a */,
 				65E8110917AD014800FCBC9F /* libz.dylib */,
 				65283D2518D4544400D7C1D7 /* XCTest.framework */,
@@ -1021,8 +1030,11 @@
 			isa = PBXGroup;
 			children = (
 				659F9F66175B928E000C413B /* Supporting Files */,
+				651B72D518D47C1300346F72 /* MGMCoreDataAccessTestCase.h */,
+				651B72D618D47C1300346F72 /* MGMCoreDataAccessTestCase.m */,
 				65936A0817BCB1150070A9C6 /* MGMCoreDataTestCase.m */,
 				6502F20918C3A02C007FE38E /* MGMGridManagerTestCase.m */,
+				651B72D318D47BA200346F72 /* MGMDaoOperationTestCase.m */,
 			);
 			path = MusicGeekMonthlyTests;
 			sourceTree = "<group>";
@@ -1195,6 +1207,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				651B72D718D47C1300346F72 /* MGMCoreDataAccessTestCase.m in Sources */,
+				651B72D418D47BA200346F72 /* MGMDaoOperationTestCase.m in Sources */,
 				65283D3818D4548E00D7C1D7 /* MGMCoreDataTestCase.m in Sources */,
 				65283D3718D4548500D7C1D7 /* MGMGridManagerTestCase.m in Sources */,
 			);
@@ -1365,8 +1379,23 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					MusicGeekMonthly/Libraries/OCMock2.2.3,
+				);
 				INFOPLIST_FILE = "MusicGeekMonthlyTests/MusicGeekMonthlyTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MusicGeekMonthly/Libraries/OCMock2.2.3",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -1394,8 +1423,23 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					MusicGeekMonthly/Libraries/OCMock2.2.3,
+				);
 				INFOPLIST_FILE = "MusicGeekMonthlyTests/MusicGeekMonthlyTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MusicGeekMonthly/Libraries/OCMock2.2.3",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -1516,6 +1560,7 @@
 				65283D3618D4544400D7C1D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		659F9F39175B928E000C413B /* Build configuration list for PBXProject "MusicGeekMonthly" */ = {
 			isa = XCConfigurationList;
