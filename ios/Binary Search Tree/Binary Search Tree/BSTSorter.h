@@ -12,5 +12,6 @@
 
 + (NSArray*) bubbleSort:(NSArray*)array;
 + (NSArray*) improvedBubbleSort:(NSArray*)array;
++ (NSArray*) mergeSort:(NSArray*)array;
 
 @end

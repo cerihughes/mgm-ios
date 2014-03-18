@@ -9,13 +9,13 @@
 #import "BSTTree.h"
 #import "BSTSorter.h"
 
-void bubbleSort()
+void sortTest()
 {
     NSArray* array = @[[BSTNode nodeWithKey:1], [BSTNode nodeWithKey:8], [BSTNode nodeWithKey:6], [BSTNode nodeWithKey:4], [BSTNode nodeWithKey:2], [BSTNode nodeWithKey:9], [BSTNode nodeWithKey:7], [BSTNode nodeWithKey:5], [BSTNode nodeWithKey:3], [BSTNode nodeWithKey:10]];
 
     NSLog(@"Pre sort:%@", array);
 
-    array = [BSTSorter improvedBubbleSort:array];
+    array = [BSTSorter mergeSort:array];
 
     NSLog(@"Post sort:%@", array);
 }
@@ -61,5 +61,5 @@ void treeTest()
 
 int main(int argc, char * argv[])
 {
-    bubbleSort();
+    sortTest();
 }
