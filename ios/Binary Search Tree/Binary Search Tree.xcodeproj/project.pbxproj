@@ -19,6 +19,7 @@
 		F468E2DB18D86F95001B4CE5 /* Binary_Search_TreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F468E2DA18D86F95001B4CE5 /* Binary_Search_TreeTests.m */; };
 		F468E2E818D86FB6001B4CE5 /* BSTNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F468E2E718D86FB6001B4CE5 /* BSTNode.m */; };
 		F468E2EB18D87031001B4CE5 /* BSTTree.m in Sources */ = {isa = PBXBuildFile; fileRef = F468E2EA18D87031001B4CE5 /* BSTTree.m */; };
+		F468E2EE18D87AF5001B4CE5 /* BSTSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = F468E2ED18D87AF5001B4CE5 /* BSTSorter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,8 @@
 		F468E2E718D86FB6001B4CE5 /* BSTNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTNode.m; sourceTree = "<group>"; };
 		F468E2E918D87031001B4CE5 /* BSTTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTTree.h; sourceTree = "<group>"; };
 		F468E2EA18D87031001B4CE5 /* BSTTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTTree.m; sourceTree = "<group>"; };
+		F468E2EC18D87AF5001B4CE5 /* BSTSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTSorter.h; sourceTree = "<group>"; };
+		F468E2ED18D87AF5001B4CE5 /* BSTSorter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTSorter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +154,8 @@
 				F468E2E718D86FB6001B4CE5 /* BSTNode.m */,
 				F468E2E918D87031001B4CE5 /* BSTTree.h */,
 				F468E2EA18D87031001B4CE5 /* BSTTree.m */,
+				F468E2EC18D87AF5001B4CE5 /* BSTSorter.h */,
+				F468E2ED18D87AF5001B4CE5 /* BSTSorter.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 			files = (
 				F468E2EB18D87031001B4CE5 /* BSTTree.m in Sources */,
 				F468E2E818D86FB6001B4CE5 /* BSTNode.m in Sources */,
+				F468E2EE18D87AF5001B4CE5 /* BSTSorter.m in Sources */,
 				F468E2C218D86F95001B4CE5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

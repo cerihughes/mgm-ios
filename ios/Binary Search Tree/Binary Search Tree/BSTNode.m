@@ -142,4 +142,9 @@
     [self.right traverse:completion];
 }
 
+- (NSString*) description
+{
+    return [NSString stringWithFormat:@"Node with key:%d", self.key];
+}
+
 @end
