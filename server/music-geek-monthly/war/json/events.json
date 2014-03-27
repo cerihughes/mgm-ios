@@ -1,7 +1,37 @@
 {
-    "lastUpdate" : "2014-03-04T22:00:00.000+0000",
+    "lastUpdate" : "2014-03-27T23:00:00.000+0000",
 	"events" :
 	[
+		{
+			"id" : 38,
+			"date" : "2014-04-24T20:00:00.000+0100",
+			"classicAlbum" :
+			{
+				"artistName" : "Sugar",
+				"albumName" : "Copper Blue",
+				"mbid" : "06519690-5882-4df1-bbd0-a677dd6c6b11",
+				"metadata" :
+				{
+					"deezer" : "3326701",
+					"spotify" : "4haSyDMB9N6R9BHBO6flMe",
+					"wikipedia" : "Copper_Blue",
+					"youtube" : "CWHk3weDlJQ",
+					"itunes" : "id530498994"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Lorelle Meets The Obsolete",
+				"albumName" : "Chambers",
+				"mbid" : "549efad1-6215-4dcb-bd16-9d896fc3f56a",
+				"metadata" :
+				{
+					"deezer" : "7353142",
+					"spotify" : "5zugEFRutsGYNmUWYdZ6uZ",
+					"itunes" : "id804088749"
+				}
+			}
+		},
 		{
 			"id" : 37,
 			"date" : "2014-03-27T20:00:00.000+0000",
@@ -11,6 +41,7 @@
 				"artistName" : "Adrian Sherwood",
 				"albumName" : "Never Trust A Hippy",
 				"mbid" : "419a2c06-f1c5-4d96-a91d-8a649bec75d8",
+				"score" : 3.0,
 				"metadata" :
 				{
 					"deezer" : "6113727",
@@ -24,6 +55,7 @@
 				"artistName" : "Beck",
 				"albumName" : "Morning Phase",
 				"mbid" : "275c1547-f0c2-44be-a9ab-4f3c15eb1c16",
+				"score" : 8.1,
 				"metadata" :
 				{
 					"deezer" : "7406918",
