@@ -43,7 +43,7 @@
         _deezerService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:ALBUM_PATTERN_DEEZER searchUrlPattern:SEARCH_PATTERN_DEEZER serviceType:MGMAlbumServiceTypeDeezer];
         _itunesService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:ALBUM_PATTERN_ITUNES searchUrlPattern:nil serviceType:MGMAlbumServiceTypeItunes];
         _wikipediaService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:ALBUM_PATTERN_WIKIPEDIA searchUrlPattern:SEARCH_PATTERN_WIKIPEDIA serviceType:MGMAlbumServiceTypeWikipedia];
-        _youtubeService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:ALBUM_PATTERN_WIKIPEDIA searchUrlPattern:SEARCH_PATTERN_YOUTUBE serviceType:MGMAlbumServiceTypeYouTube];
+        _youtubeService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:ALBUM_PATTERN_YOUTUBE searchUrlPattern:SEARCH_PATTERN_YOUTUBE serviceType:MGMAlbumServiceTypeYouTube];
         _allServices = @[_lastFmService, _spotifyService, _deezerService, _itunesService, _wikipediaService, _youtubeService];
     }
     return self;
