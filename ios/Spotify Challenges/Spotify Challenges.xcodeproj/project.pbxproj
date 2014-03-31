@@ -1,0 +1,515 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		65203C1418E72501000735E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65203C1318E72501000735E4 /* Foundation.framework */; };
+		65203C1618E72501000735E4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65203C1518E72501000735E4 /* CoreGraphics.framework */; };
+		65203C1818E72501000735E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65203C1718E72501000735E4 /* UIKit.framework */; };
+		65203C1E18E72501000735E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65203C1C18E72501000735E4 /* InfoPlist.strings */; };
+		65203C2018E72501000735E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65203C1F18E72501000735E4 /* main.m */; };
+		65203C2418E72501000735E4 /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65203C2318E72501000735E4 /* SCAppDelegate.m */; };
+		65203C2618E72501000735E4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65203C2518E72501000735E4 /* Images.xcassets */; };
+		65203C2D18E72501000735E4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65203C2C18E72501000735E4 /* XCTest.framework */; };
+		65203C2E18E72501000735E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65203C1318E72501000735E4 /* Foundation.framework */; };
+		65203C2F18E72501000735E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65203C1718E72501000735E4 /* UIKit.framework */; };
+		65203C3718E72501000735E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65203C3518E72501000735E4 /* InfoPlist.strings */; };
+		65203C4618E726C7000735E4 /* SCConversions.m in Sources */ = {isa = PBXBuildFile; fileRef = 65203C4518E726C7000735E4 /* SCConversions.m */; };
+		65203C4818E72713000735E4 /* SCConversionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65203C4718E72713000735E4 /* SCConversionsTest.m */; };
+		65203C4D18E73482000735E4 /* SCNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 65203C4C18E73482000735E4 /* SCNode.m */; };
+		65203C5018E7348C000735E4 /* SCStick.m in Sources */ = {isa = PBXBuildFile; fileRef = 65203C4F18E7348C000735E4 /* SCStick.m */; };
+		65203C5318E73576000735E4 /* SCWheelGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 65203C5218E73576000735E4 /* SCWheelGame.m */; };
+		65203C5518E73618000735E4 /* SCWheelGameTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65203C5418E73618000735E4 /* SCWheelGameTestCase.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		65203C3018E72501000735E4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65203C0818E72501000735E4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65203C0F18E72501000735E4;
+			remoteInfo = "Spotify Challenges";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		65203C1018E72501000735E4 /* Spotify Challenges.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spotify Challenges.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		65203C1318E72501000735E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		65203C1518E72501000735E4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		65203C1718E72501000735E4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		65203C1B18E72501000735E4 /* Spotify Challenges-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Spotify Challenges-Info.plist"; sourceTree = "<group>"; };
+		65203C1D18E72501000735E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		65203C1F18E72501000735E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		65203C2118E72501000735E4 /* Spotify Challenges-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spotify Challenges-Prefix.pch"; sourceTree = "<group>"; };
+		65203C2218E72501000735E4 /* SCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCAppDelegate.h; sourceTree = "<group>"; };
+		65203C2318E72501000735E4 /* SCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCAppDelegate.m; sourceTree = "<group>"; };
+		65203C2518E72501000735E4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		65203C2B18E72501000735E4 /* Spotify ChallengesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Spotify ChallengesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		65203C2C18E72501000735E4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		65203C3418E72501000735E4 /* Spotify ChallengesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Spotify ChallengesTests-Info.plist"; sourceTree = "<group>"; };
+		65203C3618E72501000735E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		65203C4418E726C7000735E4 /* SCConversions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCConversions.h; sourceTree = "<group>"; };
+		65203C4518E726C7000735E4 /* SCConversions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCConversions.m; sourceTree = "<group>"; };
+		65203C4718E72713000735E4 /* SCConversionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCConversionsTest.m; sourceTree = "<group>"; };
+		65203C4B18E73482000735E4 /* SCNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNode.h; sourceTree = "<group>"; };
+		65203C4C18E73482000735E4 /* SCNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNode.m; sourceTree = "<group>"; };
+		65203C4E18E7348C000735E4 /* SCStick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCStick.h; sourceTree = "<group>"; };
+		65203C4F18E7348C000735E4 /* SCStick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCStick.m; sourceTree = "<group>"; };
+		65203C5118E73576000735E4 /* SCWheelGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCWheelGame.h; sourceTree = "<group>"; };
+		65203C5218E73576000735E4 /* SCWheelGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWheelGame.m; sourceTree = "<group>"; };
+		65203C5418E73618000735E4 /* SCWheelGameTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCWheelGameTestCase.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		65203C0D18E72501000735E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65203C1618E72501000735E4 /* CoreGraphics.framework in Frameworks */,
+				65203C1818E72501000735E4 /* UIKit.framework in Frameworks */,
+				65203C1418E72501000735E4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65203C2818E72501000735E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65203C2D18E72501000735E4 /* XCTest.framework in Frameworks */,
+				65203C2F18E72501000735E4 /* UIKit.framework in Frameworks */,
+				65203C2E18E72501000735E4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		65203C0718E72501000735E4 = {
+			isa = PBXGroup;
+			children = (
+				65203C1918E72501000735E4 /* Spotify Challenges */,
+				65203C3218E72501000735E4 /* Spotify ChallengesTests */,
+				65203C1218E72501000735E4 /* Frameworks */,
+				65203C1118E72501000735E4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		65203C1118E72501000735E4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				65203C1018E72501000735E4 /* Spotify Challenges.app */,
+				65203C2B18E72501000735E4 /* Spotify ChallengesTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		65203C1218E72501000735E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				65203C1318E72501000735E4 /* Foundation.framework */,
+				65203C1518E72501000735E4 /* CoreGraphics.framework */,
+				65203C1718E72501000735E4 /* UIKit.framework */,
+				65203C2C18E72501000735E4 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		65203C1918E72501000735E4 /* Spotify Challenges */ = {
+			isa = PBXGroup;
+			children = (
+				65203C4318E726B0000735E4 /* UI */,
+				65203C4218E726AA000735E4 /* Core */,
+				65203C1A18E72501000735E4 /* Supporting Files */,
+			);
+			path = "Spotify Challenges";
+			sourceTree = "<group>";
+		};
+		65203C1A18E72501000735E4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				65203C1B18E72501000735E4 /* Spotify Challenges-Info.plist */,
+				65203C1C18E72501000735E4 /* InfoPlist.strings */,
+				65203C1F18E72501000735E4 /* main.m */,
+				65203C2118E72501000735E4 /* Spotify Challenges-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		65203C3218E72501000735E4 /* Spotify ChallengesTests */ = {
+			isa = PBXGroup;
+			children = (
+				65203C3318E72501000735E4 /* Supporting Files */,
+				65203C4718E72713000735E4 /* SCConversionsTest.m */,
+				65203C5418E73618000735E4 /* SCWheelGameTestCase.m */,
+			);
+			path = "Spotify ChallengesTests";
+			sourceTree = "<group>";
+		};
+		65203C3318E72501000735E4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				65203C3418E72501000735E4 /* Spotify ChallengesTests-Info.plist */,
+				65203C3518E72501000735E4 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		65203C4218E726AA000735E4 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				65203C4A18E73471000735E4 /* Wheel Game */,
+				65203C4918E7345F000735E4 /* Conversions */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		65203C4318E726B0000735E4 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				65203C2218E72501000735E4 /* SCAppDelegate.h */,
+				65203C2318E72501000735E4 /* SCAppDelegate.m */,
+				65203C2518E72501000735E4 /* Images.xcassets */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		65203C4918E7345F000735E4 /* Conversions */ = {
+			isa = PBXGroup;
+			children = (
+				65203C4418E726C7000735E4 /* SCConversions.h */,
+				65203C4518E726C7000735E4 /* SCConversions.m */,
+			);
+			name = Conversions;
+			sourceTree = "<group>";
+		};
+		65203C4A18E73471000735E4 /* Wheel Game */ = {
+			isa = PBXGroup;
+			children = (
+				65203C4B18E73482000735E4 /* SCNode.h */,
+				65203C4C18E73482000735E4 /* SCNode.m */,
+				65203C4E18E7348C000735E4 /* SCStick.h */,
+				65203C4F18E7348C000735E4 /* SCStick.m */,
+				65203C5118E73576000735E4 /* SCWheelGame.h */,
+				65203C5218E73576000735E4 /* SCWheelGame.m */,
+			);
+			name = "Wheel Game";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		65203C0F18E72501000735E4 /* Spotify Challenges */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65203C3C18E72501000735E4 /* Build configuration list for PBXNativeTarget "Spotify Challenges" */;
+			buildPhases = (
+				65203C0C18E72501000735E4 /* Sources */,
+				65203C0D18E72501000735E4 /* Frameworks */,
+				65203C0E18E72501000735E4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Spotify Challenges";
+			productName = "Spotify Challenges";
+			productReference = 65203C1018E72501000735E4 /* Spotify Challenges.app */;
+			productType = "com.apple.product-type.application";
+		};
+		65203C2A18E72501000735E4 /* Spotify ChallengesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65203C3F18E72501000735E4 /* Build configuration list for PBXNativeTarget "Spotify ChallengesTests" */;
+			buildPhases = (
+				65203C2718E72501000735E4 /* Sources */,
+				65203C2818E72501000735E4 /* Frameworks */,
+				65203C2918E72501000735E4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65203C3118E72501000735E4 /* PBXTargetDependency */,
+			);
+			name = "Spotify ChallengesTests";
+			productName = "Spotify ChallengesTests";
+			productReference = 65203C2B18E72501000735E4 /* Spotify ChallengesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		65203C0818E72501000735E4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SC;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Ceri Hughes";
+				TargetAttributes = {
+					65203C2A18E72501000735E4 = {
+						TestTargetID = 65203C0F18E72501000735E4;
+					};
+				};
+			};
+			buildConfigurationList = 65203C0B18E72501000735E4 /* Build configuration list for PBXProject "Spotify Challenges" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 65203C0718E72501000735E4;
+			productRefGroup = 65203C1118E72501000735E4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				65203C0F18E72501000735E4 /* Spotify Challenges */,
+				65203C2A18E72501000735E4 /* Spotify ChallengesTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		65203C0E18E72501000735E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65203C1E18E72501000735E4 /* InfoPlist.strings in Resources */,
+				65203C2618E72501000735E4 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65203C2918E72501000735E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65203C3718E72501000735E4 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		65203C0C18E72501000735E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65203C2418E72501000735E4 /* SCAppDelegate.m in Sources */,
+				65203C2018E72501000735E4 /* main.m in Sources */,
+				65203C4618E726C7000735E4 /* SCConversions.m in Sources */,
+				65203C4D18E73482000735E4 /* SCNode.m in Sources */,
+				65203C5018E7348C000735E4 /* SCStick.m in Sources */,
+				65203C5318E73576000735E4 /* SCWheelGame.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65203C2718E72501000735E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65203C4818E72713000735E4 /* SCConversionsTest.m in Sources */,
+				65203C5518E73618000735E4 /* SCWheelGameTestCase.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		65203C3118E72501000735E4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65203C0F18E72501000735E4 /* Spotify Challenges */;
+			targetProxy = 65203C3018E72501000735E4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		65203C1C18E72501000735E4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65203C1D18E72501000735E4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		65203C3518E72501000735E4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65203C3618E72501000735E4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		65203C3A18E72501000735E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		65203C3B18E72501000735E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		65203C3D18E72501000735E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Spotify Challenges/Spotify Challenges-Prefix.pch";
+				INFOPLIST_FILE = "Spotify Challenges/Spotify Challenges-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		65203C3E18E72501000735E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Spotify Challenges/Spotify Challenges-Prefix.pch";
+				INFOPLIST_FILE = "Spotify Challenges/Spotify Challenges-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		65203C4018E72501000735E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Spotify Challenges.app/Spotify Challenges";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Spotify Challenges/Spotify Challenges-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Spotify ChallengesTests/Spotify ChallengesTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		65203C4118E72501000735E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Spotify Challenges.app/Spotify Challenges";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Spotify Challenges/Spotify Challenges-Prefix.pch";
+				INFOPLIST_FILE = "Spotify ChallengesTests/Spotify ChallengesTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		65203C0B18E72501000735E4 /* Build configuration list for PBXProject "Spotify Challenges" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65203C3A18E72501000735E4 /* Debug */,
+				65203C3B18E72501000735E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65203C3C18E72501000735E4 /* Build configuration list for PBXNativeTarget "Spotify Challenges" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65203C3D18E72501000735E4 /* Debug */,
+				65203C3E18E72501000735E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		65203C3F18E72501000735E4 /* Build configuration list for PBXNativeTarget "Spotify ChallengesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65203C4018E72501000735E4 /* Debug */,
+				65203C4118E72501000735E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 65203C0818E72501000735E4 /* Project object */;
+}
