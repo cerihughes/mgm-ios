@@ -49,13 +49,13 @@
 
     if (leftIndex < maxIndex)
     {
-        NSNumber* leftNode = [array objectAtIndex:leftIndex];
+        NSNumber* leftNode = array[leftIndex];
         int swapIndex = leftIndex;
         int swapKey = [leftNode intValue];
 
         if (rightIndex < maxIndex)
         {
-            NSNumber* rightNode = [array objectAtIndex:rightIndex];
+            NSNumber* rightNode = array[rightIndex];
             if ([rightNode intValue] > swapKey)
             {
                 swapIndex = rightIndex;
@@ -63,7 +63,7 @@
             }
         }
 
-        NSNumber* node = [array objectAtIndex:nodeIndex];
+        NSNumber* node = array[nodeIndex];
         if ([node intValue] < swapKey)
         {
             [self swapObjectAtIndex:nodeIndex withObjectAtIndex:swapIndex inArray:array];

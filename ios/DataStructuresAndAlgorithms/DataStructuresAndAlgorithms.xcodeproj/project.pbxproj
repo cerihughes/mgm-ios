@@ -20,6 +20,10 @@
 		65203C8618E9E622000735E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65203C8418E9E622000735E4 /* InfoPlist.strings */; };
 		65203C9518E9E664000735E4 /* DSAHeapSort.m in Sources */ = {isa = PBXBuildFile; fileRef = 65203C9418E9E664000735E4 /* DSAHeapSort.m */; };
 		65203C9718E9EBAD000735E4 /* DSAHeapSortTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65203C9618E9EBAD000735E4 /* DSAHeapSortTestCase.m */; };
+		F4269A7618EAD9D3000B2CCA /* DSAMergeSort.m in Sources */ = {isa = PBXBuildFile; fileRef = F4269A7518EAD9D3000B2CCA /* DSAMergeSort.m */; };
+		F4269A7818EAD9FA000B2CCA /* DSAMergeSortTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = F4269A7718EAD9FA000B2CCA /* DSAMergeSortTestCase.m */; };
+		F4269A7B18EADF95000B2CCA /* DSAQuickSort.m in Sources */ = {isa = PBXBuildFile; fileRef = F4269A7A18EADF95000B2CCA /* DSAQuickSort.m */; };
+		F4269A7D18EADFC4000B2CCA /* DSAQuickSortTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = F4269A7C18EADFC4000B2CCA /* DSAQuickSortTestCase.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,12 @@
 		65203C9318E9E664000735E4 /* DSAHeapSort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSAHeapSort.h; sourceTree = "<group>"; };
 		65203C9418E9E664000735E4 /* DSAHeapSort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSAHeapSort.m; sourceTree = "<group>"; };
 		65203C9618E9EBAD000735E4 /* DSAHeapSortTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSAHeapSortTestCase.m; sourceTree = "<group>"; };
+		F4269A7418EAD9D3000B2CCA /* DSAMergeSort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSAMergeSort.h; sourceTree = "<group>"; };
+		F4269A7518EAD9D3000B2CCA /* DSAMergeSort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSAMergeSort.m; sourceTree = "<group>"; };
+		F4269A7718EAD9FA000B2CCA /* DSAMergeSortTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSAMergeSortTestCase.m; sourceTree = "<group>"; };
+		F4269A7918EADF95000B2CCA /* DSAQuickSort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSAQuickSort.h; sourceTree = "<group>"; };
+		F4269A7A18EADF95000B2CCA /* DSAQuickSort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSAQuickSort.m; sourceTree = "<group>"; };
+		F4269A7C18EADFC4000B2CCA /* DSAQuickSortTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSAQuickSortTestCase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +143,8 @@
 			children = (
 				65203C8218E9E622000735E4 /* Supporting Files */,
 				65203C9618E9EBAD000735E4 /* DSAHeapSortTestCase.m */,
+				F4269A7718EAD9FA000B2CCA /* DSAMergeSortTestCase.m */,
+				F4269A7C18EADFC4000B2CCA /* DSAQuickSortTestCase.m */,
 			);
 			path = DataStructuresAndAlgorithmsTests;
 			sourceTree = "<group>";
@@ -151,6 +163,10 @@
 			children = (
 				65203C9318E9E664000735E4 /* DSAHeapSort.h */,
 				65203C9418E9E664000735E4 /* DSAHeapSort.m */,
+				F4269A7418EAD9D3000B2CCA /* DSAMergeSort.h */,
+				F4269A7518EAD9D3000B2CCA /* DSAMergeSort.m */,
+				F4269A7918EADF95000B2CCA /* DSAQuickSort.h */,
+				F4269A7A18EADF95000B2CCA /* DSAQuickSort.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -262,8 +278,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				65203C6F18E9E622000735E4 /* main.m in Sources */,
+				F4269A7618EAD9D3000B2CCA /* DSAMergeSort.m in Sources */,
 				65203C7318E9E622000735E4 /* DSAAppDelegate.m in Sources */,
 				65203C9518E9E664000735E4 /* DSAHeapSort.m in Sources */,
+				F4269A7B18EADF95000B2CCA /* DSAQuickSort.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +290,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				65203C9718E9EBAD000735E4 /* DSAHeapSortTestCase.m in Sources */,
+				F4269A7818EAD9FA000B2CCA /* DSAMergeSortTestCase.m in Sources */,
+				F4269A7D18EADFC4000B2CCA /* DSAQuickSortTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +482,7 @@
 				65203C8D18E9E622000735E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		65203C8E18E9E622000735E4 /* Build configuration list for PBXNativeTarget "DataStructuresAndAlgorithmsTests" */ = {
 			isa = XCConfigurationList;
@@ -470,6 +491,7 @@
 				65203C9018E9E622000735E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
