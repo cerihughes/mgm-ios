@@ -1,10 +1,41 @@
 {
-    "lastUpdate" : "2014-03-27T23:00:00.000+0000",
+    "lastUpdate" : "2014-04-29T19:00:00.000+0100",
 	"events" :
 	[
 		{
+			"id" : 39,
+			"date" : "2014-05-29T20:00:00.000+0100",
+			"classicAlbum" :
+			{
+				"artistName" : "Charles Manson",
+				"albumName" : "Lie: The Love and Terror Cult",
+				"mbid" : "fd18184f-cfbb-4e56-8cba-919c0ed39cf3",
+				"metadata" :
+				{
+					"spotify" : "4haSyDMB9N6R9BHBO6flMe",
+					"wikipedia" : "Lie:_The_Love_and_Terror_Cult",
+					"youtube" : "jDfUL3f-hcI",
+					"itunes" : "id82081021"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Woods",
+				"albumName" : "With Light and with Love",
+				"mbid" : "3e250a5f-dd56-45d6-afe9-2c94d496bf8f",
+				"metadata" :
+				{
+					"deezer" : "7609674",
+					"spotify" : "0JaJQnjj17n6CiDgVlto2P",
+					"youtube" : "qJsNQu8A5w0",
+					"itunes" : "id794034892"
+				}
+			}
+		},
+		{
 			"id" : 38,
 			"date" : "2014-04-24T20:00:00.000+0100",
+			"spotifyPlaylistId" : "43U5dhB3u6dGD6v70dG6ui",
 			"classicAlbum" :
 			{
 				"artistName" : "Sugar",
