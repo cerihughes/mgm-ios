@@ -1,10 +1,11 @@
 {
-    "lastUpdate" : "2014-04-29T19:00:00.000+0100",
+    "lastUpdate" : "2014-05-29T19:00:00.000+0100",
 	"events" :
 	[
 		{
 			"id" : 39,
 			"date" : "2014-05-29T20:00:00.000+0100",
+			"spotifyPlaylistId" : "1pwnzvdbvkmtJwbe3mypxY",			
 			"classicAlbum" :
 			{
 				"artistName" : "Charles Manson",
