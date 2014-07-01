@@ -1,15 +1,43 @@
 {
-    "lastUpdate" : "2014-06-05T19:00:00.000+0100",
+    "lastUpdate" : "2014-07-01T19:00:00.000+0100",
 	"events" :
 	[
 		{
+			"id" : 41,
+			"date" : "2014-07-31T20:00:00.000+0100",
+			"classicAlbum" :
+			{
+				"artistName" : "Hefner",
+				"albumName" : "Breaking God's Heart",
+				"mbid" : "47a1e736-e738-435f-80eb-c8001f1dbcb6",
+				"metadata" :
+				{
+					"spotify" : "1wl0MTrrTqzuyVc9ZIyivY",
+					"itunes" : "id287492477"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Parquet Courts",
+				"albumName" : "Sunbathing Animal",
+				"mbid" : "3142baf1-e562-4759-9510-be1983e79e8e",
+				"metadata" :
+				{
+					"spotify" : "2hamtboXQEXAt87uUG8Gd5",
+					"itunes" : "id820969262"
+				}
+			}
+		},
+		{
 			"id" : 40,
 			"date" : "2014-06-26T20:00:00.000+0100",
+			"spotifyPlaylistId" : "1py7L8He5R8s1sphPD0XkA",
 			"classicAlbum" :
 			{
 				"artistName" : "Radiohead",
 				"albumName" : "Amnesiac",
 				"mbid" : "d3f9b159-8eeb-4820-a258-19cc1ebfc770",
+				"score" : 8.2,
 				"metadata" :
 				{
 					"spotify" : "6eIhOXRKIOXa71UBX7WIv5",
@@ -24,6 +52,7 @@
 				"artistName" : "Sharon Van Etten",
 				"albumName" : "Are We There",
 				"mbid" : "8b0db054-77d7-49c3-8e48-9220c0c679f8",
+				"score" : 7.8,
 				"metadata" :
 				{
 					"deezer" : "7766373",
