@@ -5,11 +5,13 @@
 		{
 			"id" : 41,
 			"date" : "2014-07-29T20:00:00.000+0100",
+			"spotifyPlaylistId" : "4WFavaG8ygmb9GOJi2HIlf",
 			"classicAlbum" :
 			{
 				"artistName" : "Hefner",
 				"albumName" : "Breaking God's Heart",
 				"mbid" : "47a1e736-e738-435f-80eb-c8001f1dbcb6",
+				"score" : 7.2,
 				"metadata" :
 				{
 					"spotify" : "1wl0MTrrTqzuyVc9ZIyivY",
@@ -21,6 +23,7 @@
 				"artistName" : "Parquet Courts",
 				"albumName" : "Sunbathing Animal",
 				"mbid" : "3142baf1-e562-4759-9510-be1983e79e8e",
+				"score" : 7.0,
 				"metadata" :
 				{
 					"spotify" : "2hamtboXQEXAt87uUG8Gd5",
