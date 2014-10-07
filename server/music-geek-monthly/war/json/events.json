@@ -1,15 +1,42 @@
 {
-    "lastUpdate" : "2014-08-21T17:00:00.000+0200",
+    "lastUpdate" : "2014-10-04T15:00:00.000+0200",
 	"events" :
 	[
 		{
+			"id" : 43,
+			"date" : "2014-10-30T20:00:00.000+0000",
+			"classicAlbum" :
+			{
+				"artistName" : "Björk",
+				"albumName" : "Post",
+				"mbid" : "fbfd5810-7a95-3719-8ee7-097bd00ed962",
+				"metadata" :
+				{
+					"spotify" : "6k9dsZpHS3DUsv8FFBQkib",
+					"itunes" : "id631902065"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Shellac",
+				"albumName" : "Dude Incredible",
+				"mbid" : "51d7a4db-f20c-4a42-9f41-20116cd09ef0",
+				"metadata" :
+				{
+					"itunes" : "id909783450"
+				}
+			}
+		},
+		{
 			"id" : 42,
 			"date" : "2014-09-25T20:00:00.000+0100",
+			"spotifyPlaylistId" : "2JWUUzqqgsV0bDj81y45ol",
 			"classicAlbum" :
 			{
 				"artistName" : "DJ Shadow",
 				"albumName" : "Endtroducing.....",
 				"mbid" : "5992a7fd-6ade-3895-827a-a7dfdf6ebb51",
+				"score" : 7.9,
 				"metadata" :
 				{
 					"spotify" : "7N0W5QxnRMP3s1mMxfQo1p",
@@ -21,6 +48,7 @@
 				"artistName" : "Honeyblood",
 				"albumName" : "Honeyblood",
 				"mbid" : "f197dc0b-5207-47d0-9938-82809427c1ad",
+				"score" : 5.4,
 				"metadata" :
 				{
 					"spotify" : "6b67Ng1w8SDSsf3yXpNgjO",
