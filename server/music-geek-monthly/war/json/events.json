@@ -1,15 +1,17 @@
 {
-    "lastUpdate" : "2014-10-04T15:00:00.000+0200",
+    "lastUpdate" : "2014-11-01T18:00:00.000+0100",
 	"events" :
 	[
 		{
 			"id" : 43,
 			"date" : "2014-10-30T20:00:00.000+0000",
+			"spotifyPlaylistId" : "2DlwPMiXhqyK16sX8P9CTR",
 			"classicAlbum" :
 			{
 				"artistName" : "Björk",
 				"albumName" : "Post",
 				"mbid" : "fbfd5810-7a95-3719-8ee7-097bd00ed962",
+				"score" : 7.9,
 				"metadata" :
 				{
 					"spotify" : "6k9dsZpHS3DUsv8FFBQkib",
@@ -21,6 +23,7 @@
 				"artistName" : "Shellac",
 				"albumName" : "Dude Incredible",
 				"mbid" : "51d7a4db-f20c-4a42-9f41-20116cd09ef0",
+				"score" : 6.1,
 				"metadata" :
 				{
 					"itunes" : "id909783450"
