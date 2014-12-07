@@ -1,7 +1,62 @@
 {
-    "lastUpdate" : "2014-11-01T18:00:00.000+0100",
+    "lastUpdate" : "2014-12-07T19:00:00.000+0100",
 	"events" :
 	[
+		{
+			"id" : 45,
+			"date" : "2015-01-20T20:00:00.000+0000",
+			"classicAlbum" :
+			{
+				"artistName" : "Lindisfarne",
+				"albumName" : "Nicely Out Of Tune",
+				"mbid" : "611e29c2-6aa8-4ba9-9141-e087959a4df4",
+				"metadata" :
+				{
+					"spotify" : "7coSsrvHFN00hOGZ01CHX0",
+					"itunes" : "id724567745"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Clark",
+				"albumName" : "Clark",
+				"mbid" : "d1651c20-843f-4083-ad7c-d5a34d4ec3dc",
+				"metadata" :
+				{
+					"spotify" : "13944rqffz0QLBUe04vY0r",
+					"itunes" : "id917623350"
+				}
+			}
+		},
+		{
+			"id" : 44,
+			"date" : "2014-11-27T20:00:00.000+0000",
+			"spotifyPlaylistId" : "4IwLqPHReJDvdLa91n1NNV",
+			"classicAlbum" :
+			{
+				"artistName" : "Refused",
+				"albumName" : "The Shape Of Punk To Come",
+				"mbid" : "0ddc4e9a-17d4-4412-9d7e-c227c22fea6b",
+				"score" : 6.6,
+				"metadata" :
+				{
+					"spotify" : "7nRBGER6aKyfDrOO0pQTKR",
+					"itunes" : "id300995967"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Ex Hex",
+				"albumName" : "Rips",
+				"mbid" : "f49f9b57-9ed8-450a-92b0-b68cb8dafa41",
+				"score" : 6.6,
+				"metadata" :
+				{
+					"spotify" : "6AiSmBuuVUi2xCIVJsXcQb",
+					"itunes" : "id894812391"
+				}
+			}
+		},
 		{
 			"id" : 43,
 			"date" : "2014-10-30T20:00:00.000+0000",
