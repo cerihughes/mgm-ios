@@ -9,7 +9,6 @@
 #import "MGMAppDelegate.h"
 
 #import "MGMUI.h"
-#import "TestFlight.h"
 
 @interface MGMAppDelegate ()
 
@@ -24,8 +23,6 @@
     NSLog(@"application:didFinishLaunchingWithOptions:");
 
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-
-    [TestFlight takeOff:@"6e488aaf-18dc-44b8-9421-7088b6651302"];
 
     NSURLCache* cache = [[NSURLCache alloc] initWithMemoryCapacity:16 * 1024 * 1024 diskCapacity:128 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
