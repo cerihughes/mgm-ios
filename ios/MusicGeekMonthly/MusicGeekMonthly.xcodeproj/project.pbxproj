@@ -134,6 +134,9 @@
 		658D32A718B1147C007A4D98 /* MGMWeeklyChartModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D327A18B1147C007A4D98 /* MGMWeeklyChartModalView.m */; };
 		658D32A818B1147C007A4D98 /* MGMWeeklyChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D327C18B1147C007A4D98 /* MGMWeeklyChartView.m */; };
 		658D32A918B1147C007A4D98 /* MGMWeeklyChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D327E18B1147C007A4D98 /* MGMWeeklyChartViewController.m */; };
+		658F4C3D1AC85014005D7156 /* MGMAllEventsGoogleSheetDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 658F4C3C1AC85014005D7156 /* MGMAllEventsGoogleSheetDaoOperation.m */; };
+		658F4C3F1AC87016005D7156 /* googleSheet.json in Resources */ = {isa = PBXBuildFile; fileRef = 658F4C3E1AC87016005D7156 /* googleSheet.json */; };
+		658F4C421AC8706C005D7156 /* MGMPreloadAllEventsGoogleSheetDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 658F4C411AC8706C005D7156 /* MGMPreloadAllEventsGoogleSheetDaoOperation.m */; };
 		659F9F42175B928E000C413B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F41175B928E000C413B /* UIKit.framework */; };
 		659F9F44175B928E000C413B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F43175B928E000C413B /* Foundation.framework */; };
 		659F9F46175B928E000C413B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F45175B928E000C413B /* CoreGraphics.framework */; };
@@ -394,6 +397,11 @@
 		658D327C18B1147C007A4D98 /* MGMWeeklyChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartView.m; sourceTree = "<group>"; };
 		658D327D18B1147C007A4D98 /* MGMWeeklyChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWeeklyChartViewController.h; sourceTree = "<group>"; };
 		658D327E18B1147C007A4D98 /* MGMWeeklyChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartViewController.m; sourceTree = "<group>"; };
+		658F4C3B1AC85013005D7156 /* MGMAllEventsGoogleSheetDaoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAllEventsGoogleSheetDaoOperation.h; sourceTree = "<group>"; };
+		658F4C3C1AC85014005D7156 /* MGMAllEventsGoogleSheetDaoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAllEventsGoogleSheetDaoOperation.m; sourceTree = "<group>"; };
+		658F4C3E1AC87016005D7156 /* googleSheet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = googleSheet.json; path = MusicGeekMonthly/Resources/googleSheet.json; sourceTree = "<group>"; };
+		658F4C401AC8706C005D7156 /* MGMPreloadAllEventsGoogleSheetDaoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGMPreloadAllEventsGoogleSheetDaoOperation.h; path = Offline/MGMPreloadAllEventsGoogleSheetDaoOperation.h; sourceTree = "<group>"; };
+		658F4C411AC8706C005D7156 /* MGMPreloadAllEventsGoogleSheetDaoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGMPreloadAllEventsGoogleSheetDaoOperation.m; path = Offline/MGMPreloadAllEventsGoogleSheetDaoOperation.m; sourceTree = "<group>"; };
 		65936A0817BCB1150070A9C6 /* MGMCoreDataTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataTestCase.m; sourceTree = "<group>"; };
 		659F9F3E175B928E000C413B /* Music Geek Monthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Geek Monthly.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		659F9F41175B928E000C413B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -591,6 +599,8 @@
 			children = (
 				651E8CFD18CB626700333CA1 /* MGMPreloadEventsDaoOperation.h */,
 				651E8CFE18CB626700333CA1 /* MGMPreloadEventsDaoOperation.m */,
+				658F4C401AC8706C005D7156 /* MGMPreloadAllEventsGoogleSheetDaoOperation.h */,
+				658F4C411AC8706C005D7156 /* MGMPreloadAllEventsGoogleSheetDaoOperation.m */,
 				6542306218CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.h */,
 				6542306318CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m */,
 				6542306618CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.h */,
@@ -680,6 +690,8 @@
 				651E8CFC18CB621100333CA1 /* Offline */,
 				658D30D618B112E3007A4D98 /* MGMAllEventsDaoOperation.h */,
 				658D30D718B112E3007A4D98 /* MGMAllEventsDaoOperation.m */,
+				658F4C3B1AC85013005D7156 /* MGMAllEventsGoogleSheetDaoOperation.h */,
+				658F4C3C1AC85014005D7156 /* MGMAllEventsGoogleSheetDaoOperation.m */,
 				658D30DA18B112E3007A4D98 /* MGMAllTimePeriodsDaoOperation.h */,
 				658D30DB18B112E3007A4D98 /* MGMAllTimePeriodsDaoOperation.m */,
 				658D30DC18B112E3007A4D98 /* MGMLastFmConstants.h */,
@@ -1076,6 +1088,7 @@
 				658D30B018B10DE6007A4D98 /* spotify.png */,
 				658D30B118B10DE6007A4D98 /* wikipedia.png */,
 				658D30B218B10DE6007A4D98 /* youtube.png */,
+				658F4C3E1AC87016005D7156 /* googleSheet.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1173,6 +1186,7 @@
 			files = (
 				659F9F4C175B928E000C413B /* InfoPlist.strings in Resources */,
 				654D029D18BA20960067BC19 /* Images.xcassets in Resources */,
+				658F4C3F1AC87016005D7156 /* googleSheet.json in Resources */,
 				658D30BC18B10DE6007A4D98 /* gold_bar.png in Resources */,
 				658D30B518B10DE6007A4D98 /* album3.png in Resources */,
 				658D30C518B10DE6007A4D98 /* youtube.png in Resources */,
@@ -1236,6 +1250,7 @@
 				651E8CF518CA39BE00333CA1 /* MGMInitialLoadingViewController.m in Sources */,
 				658D328318B1147C007A4D98 /* MGMAlbumScoreView.m in Sources */,
 				654B869318D0E4A0005835F8 /* MGMAlbumService.m in Sources */,
+				658F4C3D1AC85014005D7156 /* MGMAllEventsGoogleSheetDaoOperation.m in Sources */,
 				658D317018B112E3007A4D98 /* MGMChartEntry.m in Sources */,
 				65F89A5318B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m in Sources */,
 				658D318418B112E3007A4D98 /* MGMAlbumPlayerService.m in Sources */,
@@ -1283,6 +1298,7 @@
 				658D329518B1147C007A4D98 /* MGMExampleAlbumView.m in Sources */,
 				658D316C18B112E3007A4D98 /* MGMAlbumImageUri.m in Sources */,
 				658D329618B1147C007A4D98 /* MGMExampleAlbumViewController.m in Sources */,
+				658F4C421AC8706C005D7156 /* MGMPreloadAllEventsGoogleSheetDaoOperation.m in Sources */,
 				658D316218B112E3007A4D98 /* MGMWeeklyChartDto.m in Sources */,
 				658D317418B112E3007A4D98 /* MGMNextUrlAccess.m in Sources */,
 				658D329B18B1147C007A4D98 /* MGMImageHelper.m in Sources */,

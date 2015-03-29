@@ -8,22 +8,22 @@
 
 #import "MGMDao.h"
 
-#import "MGMAllEventsDaoOperation.h"
+#import "MGMAllEventsGoogleSheetDaoOperation.h"
 #import "MGMAllTimePeriodsDaoOperation.h"
 #import "MGMCoreDataAccess.h"
 #import "MGMPlaylistDaoOperation.h"
-#import "MGMPreloadEventsDaoOperation.h"
+#import "MGMPreloadAllEventsGoogleSheetDaoOperation.h"
 #import "MGMPreloadTimePeriodsDaoOperation.h"
 #import "MGMPreloadWeeklyChartDaoOperation.h"
 #import "MGMWeeklyChartDaoOperation.h"
 
 @interface MGMDao ()
 
-@property (readonly) MGMPreloadEventsDaoOperation* preloadEventDaoOperation;
+@property (readonly) MGMPreloadAllEventsGoogleSheetDaoOperation* preloadEventDaoOperation;
 @property (readonly) MGMPreloadTimePeriodsDaoOperation* preloadTimePeriodDaoOperation;
 @property (readonly) MGMPreloadWeeklyChartDaoOperation* preloadWeeklyChartDaoOperation;
 
-@property (readonly) MGMAllEventsDaoOperation* eventDaoOperation;
+@property (readonly) MGMAllEventsGoogleSheetDaoOperation* eventDaoOperation;
 @property (readonly) MGMAllTimePeriodsDaoOperation* timePeriodDaoOperation;
 @property (readonly) MGMWeeklyChartDaoOperation* weeklyChartDaoOperation;
 @property (readonly) MGMPlaylistDaoOperation* playlistDaoOperation;
@@ -36,14 +36,14 @@
 {
     if (self = [super init])
     {
-        _preloadEventDaoOperation = [[MGMPreloadEventsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
+        _preloadEventDaoOperation = [[MGMPreloadAllEventsGoogleSheetDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
         _preloadEventDaoOperation.reachability = YES;
         _preloadTimePeriodDaoOperation = [[MGMPreloadTimePeriodsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
         _preloadTimePeriodDaoOperation.reachability = YES;
         _preloadWeeklyChartDaoOperation = [[MGMPreloadWeeklyChartDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
         _preloadWeeklyChartDaoOperation.reachability = YES;
 
-        _eventDaoOperation = [[MGMAllEventsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
+        _eventDaoOperation = [[MGMAllEventsGoogleSheetDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
         _timePeriodDaoOperation = [[MGMAllTimePeriodsDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
         _weeklyChartDaoOperation = [[MGMWeeklyChartDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
         _playlistDaoOperation = [[MGMPlaylistDaoOperation alloc] initWithCoreDataAccess:coreDataAccess];
