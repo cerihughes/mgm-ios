@@ -1,15 +1,72 @@
 {
-    "lastUpdate" : "2014-12-07T19:00:00.000+0100",
+    "lastUpdate" : "2015-03-22T21:45:00.000+0100",
 	"events" :
 	[
 		{
+			"id" : 47,
+			"date" : "2015-04-16T20:00:00.000+0100",
+			"classicAlbum" :
+			{
+				"artistName" : "Sufjan Stevens",
+				"albumName" : "Illinois",
+				"mbid" : "777d51fe-b7c7-4874-9217-40abf09b4924",
+				"metadata" :
+				{
+					"spotify" : "7j8lfKDdL7vE8OAM4cA3W3",
+					"itunes" : "id328074546"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Purity Ring",
+				"albumName" : "Another Eternity",
+				"mbid" : "50ed2395-fcdc-4527-9f97-533020f7118a",
+				"metadata" :
+				{
+					"spotify" : "4ymjpcGruNuUUUZOeGawLe",
+					"itunes" : "id953409287"
+				}
+			}
+		},
+		{
+			"id" : 46,
+			"date" : "2015-03-19T20:00:00.000+0000",
+			"spotifyPlaylistId" : "04W4dgny7W2rgSJTUHyoix",
+			"classicAlbum" :
+			{
+				"artistName" : "ZZ Top",
+				"albumName" : "Tres Hombres",
+				"mbid" : "85624745-3f0d-45f8-bcca-946463ff2974",
+				"score" : 5.8,
+				"metadata" :
+				{
+					"spotify" : "0Em8m9kRctyH9S3MTXAHvY",
+					"itunes" : "id655199225"
+				}
+			},
+			"newAlbum" :
+			{
+				"artistName" : "Mourn",
+				"albumName" : "Mourn",
+				"mbid" : "f728345c-85f5-4c24-be28-4ac366b4b07b",
+				"score" : 5.7,
+				"metadata" :
+				{
+					"spotify" : "7thzNFjbWntTSfRzQF1lFe",
+					"itunes" : "id930204891"
+				}
+			}
+		},
+		{
 			"id" : 45,
-			"date" : "2015-01-20T20:00:00.000+0000",
+			"date" : "2015-02-19T20:00:00.000+0000",
+			"spotifyPlaylistId" : "66EnHITnxImlkDFsOYcvQ5",
 			"classicAlbum" :
 			{
 				"artistName" : "Lindisfarne",
 				"albumName" : "Nicely Out Of Tune",
 				"mbid" : "611e29c2-6aa8-4ba9-9141-e087959a4df4",
+				"score" : 7.1,
 				"metadata" :
 				{
 					"spotify" : "7coSsrvHFN00hOGZ01CHX0",
@@ -21,6 +78,7 @@
 				"artistName" : "Clark",
 				"albumName" : "Clark",
 				"mbid" : "d1651c20-843f-4083-ad7c-d5a34d4ec3dc",
+				"score" : 6.0,
 				"metadata" :
 				{
 					"spotify" : "13944rqffz0QLBUe04vY0r",
