@@ -146,6 +146,7 @@
 		65EC948E18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC948D18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m */; };
 		65EC949118B8C9A300B1AFFE /* MGMXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949018B8C9A300B1AFFE /* MGMXmlParser.m */; };
 		65EC949518B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m */; };
+		65EE780C1AE2ED5900EC52C9 /* MGMItunesPlayerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EE780B1AE2ED5900EC52C9 /* MGMItunesPlayerService.m */; };
 		65F89A4718B7BCB1003C5803 /* MGMPlaylistDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A4618B7BCB1003C5803 /* MGMPlaylistDto.m */; };
 		65F89A4B18B7BCC3003C5803 /* MGMPlaylistItemDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A4A18B7BCC3003C5803 /* MGMPlaylistItemDto.m */; };
 		65F89A5318B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F89A5218B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m */; };
@@ -413,6 +414,8 @@
 		65EC949018B8C9A300B1AFFE /* MGMXmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMXmlParser.m; sourceTree = "<group>"; };
 		65EC949318B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteXmlDataConverter.h; sourceTree = "<group>"; };
 		65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteXmlDataConverter.m; sourceTree = "<group>"; };
+		65EE780A1AE2ED5800EC52C9 /* MGMItunesPlayerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMItunesPlayerService.h; sourceTree = "<group>"; };
+		65EE780B1AE2ED5900EC52C9 /* MGMItunesPlayerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMItunesPlayerService.m; sourceTree = "<group>"; };
 		65F89A4518B7BCB1003C5803 /* MGMPlaylistDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylistDto.h; sourceTree = "<group>"; };
 		65F89A4618B7BCB1003C5803 /* MGMPlaylistDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlaylistDto.m; sourceTree = "<group>"; };
 		65F89A4918B7BCC3003C5803 /* MGMPlaylistItemDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylistItemDto.h; sourceTree = "<group>"; };
@@ -802,6 +805,8 @@
 				658D312718B112E3007A4D98 /* MGMLastFmPlayerService.m */,
 				658D312818B112E3007A4D98 /* MGMSpotifyPlayerService.h */,
 				658D312918B112E3007A4D98 /* MGMSpotifyPlayerService.m */,
+				65EE780A1AE2ED5800EC52C9 /* MGMItunesPlayerService.h */,
+				65EE780B1AE2ED5900EC52C9 /* MGMItunesPlayerService.m */,
 				658D312A18B112E3007A4D98 /* MGMWebsitePlayerService.h */,
 				658D312B18B112E3007A4D98 /* MGMWebsitePlayerService.m */,
 			);
@@ -1231,6 +1236,7 @@
 				651E8CF518CA39BE00333CA1 /* MGMInitialLoadingViewController.m in Sources */,
 				658D328318B1147C007A4D98 /* MGMAlbumScoreView.m in Sources */,
 				654B869318D0E4A0005835F8 /* MGMAlbumService.m in Sources */,
+				65EE780C1AE2ED5900EC52C9 /* MGMItunesPlayerService.m in Sources */,
 				658F4C3D1AC85014005D7156 /* MGMAllEventsGoogleSheetDaoOperation.m in Sources */,
 				658D317018B112E3007A4D98 /* MGMChartEntry.m in Sources */,
 				65F89A5318B7BEC3003C5803 /* MGMRemoteJsonDataConverter.m in Sources */,

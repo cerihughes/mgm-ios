@@ -36,7 +36,7 @@
 
 - (id) init
 {
-    return [self initWithStoreName:@"MusicGeekMonthly1.0.1.sqlite"];
+    return [self initWithStoreName:@"MusicGeekMonthly1.0.3.sqlite"];
 }
 
 - (id) initWithStoreName:(NSString*)storeName

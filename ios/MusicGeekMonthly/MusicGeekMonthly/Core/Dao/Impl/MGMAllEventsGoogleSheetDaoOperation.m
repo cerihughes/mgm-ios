@@ -107,16 +107,14 @@
 #define JSON_ELEMENT_CLASSIC_MBID @"gsx$classicmbid"
 #define JSON_ELEMENT_CLASSIC_SCORE @"gsx$classicscore"
 #define JSON_ELEMENT_CLASSIC_SPOTIFY @"gsx$classicspotifyid"
-#define JSON_ELEMENT_CLASSIC_ITUNES @"gsx$classicitunesid"
-#define JSON_ELEMENT_CLASSIC_KEYS @[JSON_ELEMENT_CLASSIC_ARTIST_NAME, JSON_ELEMENT_CLASSIC_ALBUM_NAME, JSON_ELEMENT_CLASSIC_MBID, JSON_ELEMENT_CLASSIC_SCORE, JSON_ELEMENT_CLASSIC_SPOTIFY, JSON_ELEMENT_CLASSIC_ITUNES]
+#define JSON_ELEMENT_CLASSIC_KEYS @[JSON_ELEMENT_CLASSIC_ARTIST_NAME, JSON_ELEMENT_CLASSIC_ALBUM_NAME, JSON_ELEMENT_CLASSIC_MBID, JSON_ELEMENT_CLASSIC_SCORE, JSON_ELEMENT_CLASSIC_SPOTIFY]
 
 #define JSON_ELEMENT_NEW_ARTIST_NAME @"gsx$newartist"
 #define JSON_ELEMENT_NEW_ALBUM_NAME @"gsx$newalbum"
 #define JSON_ELEMENT_NEW_MBID @"gsx$newmbid"
 #define JSON_ELEMENT_NEW_SCORE @"gsx$newscore"
 #define JSON_ELEMENT_NEW_SPOTIFY @"gsx$newspotifyid"
-#define JSON_ELEMENT_NEW_ITUNES @"gsx$newitunesid"
-#define JSON_ELEMENT_NEW_KEYS @[JSON_ELEMENT_NEW_ARTIST_NAME, JSON_ELEMENT_NEW_ALBUM_NAME, JSON_ELEMENT_NEW_MBID, JSON_ELEMENT_NEW_SCORE, JSON_ELEMENT_NEW_SPOTIFY, JSON_ELEMENT_NEW_ITUNES]
+#define JSON_ELEMENT_NEW_KEYS @[JSON_ELEMENT_NEW_ARTIST_NAME, JSON_ELEMENT_NEW_ALBUM_NAME, JSON_ELEMENT_NEW_MBID, JSON_ELEMENT_NEW_SCORE, JSON_ELEMENT_NEW_SPOTIFY]
 
 - (instancetype)init
 {
@@ -184,7 +182,6 @@
     NSString* mbid = [self stringValueFromJson:json forKey:keys[2]];
     NSString* scoreString = [self stringValueFromJson:json forKey:keys[3]];
     NSString* spotifyId = [self stringValueFromJson:json forKey:keys[4]];
-    NSString* itunesId = [self stringValueFromJson:json forKey:keys[5]];
 
     if (!(artistName && albumName)) {
         return nil;
@@ -201,13 +198,6 @@
         spotifyMetadata.serviceType = MGMAlbumServiceTypeSpotify;
         spotifyMetadata.value = spotifyId;
         [album.metadata addObject:spotifyMetadata];
-    }
-
-    if (itunesId) {
-        MGMAlbumMetadataDto* itunesMetadata = [[MGMAlbumMetadataDto alloc] init];
-        itunesMetadata.serviceType = MGMAlbumServiceTypeItunes;
-        itunesMetadata.value = itunesId;
-        [album.metadata addObject:itunesMetadata];
     }
 
     MGMAlbumMetadataDto* lastfmMetadata = [[MGMAlbumMetadataDto alloc] init];

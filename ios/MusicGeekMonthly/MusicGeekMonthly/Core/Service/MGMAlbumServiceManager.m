@@ -8,6 +8,7 @@
 
 #import "MGMAlbumServiceManager.h"
 
+#import "MGMItunesPlayerService.h"
 #import "MGMLastFmPlayerService.h"
 #import "MGMSpotifyPlayerService.h"
 #import "MGMWebsitePlayerService.h"
@@ -17,7 +18,7 @@
 @property (readonly) MGMLastFmPlayerService* lastFmService;
 @property (readonly) MGMSpotifyPlayerService* spotifyService;
 @property (readonly) MGMWebsitePlayerService* deezerService;
-@property (readonly) MGMWebsitePlayerService* itunesService;
+@property (readonly) MGMItunesPlayerService* itunesService;
 @property (readonly) MGMWebsitePlayerService* wikipediaService;
 @property (readonly) MGMWebsitePlayerService* youtubeService;
 @property (readonly) NSArray* allServices;
@@ -30,7 +31,6 @@
 #define SEARCH_PATTERN_WIKIPEDIA @"http://en.wikipedia.org/wiki/index.php?search=%@ %@"
 #define ALBUM_PATTERN_YOUTUBE @"http://www.youtube.com/watch?v=%@"
 #define SEARCH_PATTERN_YOUTUBE @"http://www.youtube.com/results?search_query=%@ %@"
-#define ALBUM_PATTERN_ITUNES @"https://itunes.apple.com/gb/album/%@?uo=4"
 #define ALBUM_PATTERN_DEEZER @"deezer://www.deezer.com/album/%@"
 #define SEARCH_PATTERN_DEEZER @"deezer-query://www.deezer.com/album/?query=%@ %@"
 
@@ -41,7 +41,7 @@
         _lastFmService = [[MGMLastFmPlayerService alloc] initWithCoreDataAccess:coreDataAccess];
         _spotifyService = [[MGMSpotifyPlayerService alloc] initWithCoreDataAccess:coreDataAccess];
         _deezerService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:ALBUM_PATTERN_DEEZER searchUrlPattern:SEARCH_PATTERN_DEEZER serviceType:MGMAlbumServiceTypeDeezer];
-        _itunesService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:ALBUM_PATTERN_ITUNES searchUrlPattern:nil serviceType:MGMAlbumServiceTypeItunes];
+        _itunesService = [[MGMItunesPlayerService alloc] initWithCoreDataAccess:coreDataAccess];
         _wikipediaService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:ALBUM_PATTERN_WIKIPEDIA searchUrlPattern:SEARCH_PATTERN_WIKIPEDIA serviceType:MGMAlbumServiceTypeWikipedia];
         _youtubeService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:ALBUM_PATTERN_YOUTUBE searchUrlPattern:SEARCH_PATTERN_YOUTUBE serviceType:MGMAlbumServiceTypeYouTube];
         _allServices = @[_lastFmService, _spotifyService, _deezerService, _itunesService, _wikipediaService, _youtubeService];
