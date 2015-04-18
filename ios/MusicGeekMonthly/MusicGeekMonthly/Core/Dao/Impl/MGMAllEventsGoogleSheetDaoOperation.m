@@ -156,17 +156,19 @@
         NSDate* date = [self dateForString:dateString];
         NSString* playlistId = [self stringValueFromJson:entry forKey:JSON_ELEMENT_PLAYLIST_ID];
 
-        MGMAlbumDto* classicAlbum = [self albumForJson:entry keys:JSON_ELEMENT_CLASSIC_KEYS];
-        MGMAlbumDto* newAlbum = [self albumForJson:entry keys:JSON_ELEMENT_NEW_KEYS];
-
-        MGMEventDto* event = [[MGMEventDto alloc] init];
-        event.eventNumber = eventNumber;
-        event.eventDate = date;
-        event.playlistId = playlistId;
-        event.classicAlbum = classicAlbum;
-        event.newlyReleasedAlbum = newAlbum;
-
-        [results addObject:event];
+        if (eventNumber.integerValue > 0 && date) {
+            MGMAlbumDto* classicAlbum = [self albumForJson:entry keys:JSON_ELEMENT_CLASSIC_KEYS];
+            MGMAlbumDto* newAlbum = [self albumForJson:entry keys:JSON_ELEMENT_NEW_KEYS];
+            
+            MGMEventDto* event = [[MGMEventDto alloc] init];
+            event.eventNumber = eventNumber;
+            event.eventDate = date;
+            event.playlistId = playlistId;
+            event.classicAlbum = classicAlbum;
+            event.newlyReleasedAlbum = newAlbum;
+            
+            [results addObject:event];
+        }
     }
 
     MGMRemoteData* remoteData = [[MGMRemoteData alloc] init];
@@ -184,7 +186,7 @@
     NSString* spotifyId = [self stringValueFromJson:json forKey:keys[4]];
     NSString* itunesId = [self stringValueFromJson:json forKey:keys[5]];
 
-    if (!artistName) {
+    if (!(artistName && albumName)) {
         return nil;
     }
 
