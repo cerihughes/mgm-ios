@@ -108,7 +108,6 @@
 		658D328A18B1147C007A4D98 /* MGMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D323518B1147C007A4D98 /* MGMView.m */; };
 		658D328B18B1147C007A4D98 /* MGMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D323718B1147C007A4D98 /* MGMViewController.m */; };
 		658D328C18B1147C007A4D98 /* MGMAbstractPlayerSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D323A18B1147C007A4D98 /* MGMAbstractPlayerSelectionView.m */; };
-		658D328D18B1147C007A4D98 /* MGMAbstractPlayerSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D323C18B1147C007A4D98 /* MGMAbstractPlayerSelectionViewController.m */; };
 		658D328E18B1147C007A4D98 /* MGMPlayerGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D323E18B1147C007A4D98 /* MGMPlayerGroupView.m */; };
 		658D328F18B1147C007A4D98 /* UIViewController+MGMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D324018B1147C007A4D98 /* UIViewController+MGMAdditions.m */; };
 		658D329018B1147C007A4D98 /* MGMEventsModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 658D324318B1147C007A4D98 /* MGMEventsModalView.m */; };
@@ -342,8 +341,6 @@
 		658D323718B1147C007A4D98 /* MGMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMViewController.m; sourceTree = "<group>"; };
 		658D323918B1147C007A4D98 /* MGMAbstractPlayerSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAbstractPlayerSelectionView.h; sourceTree = "<group>"; };
 		658D323A18B1147C007A4D98 /* MGMAbstractPlayerSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAbstractPlayerSelectionView.m; sourceTree = "<group>"; };
-		658D323B18B1147C007A4D98 /* MGMAbstractPlayerSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMAbstractPlayerSelectionViewController.h; sourceTree = "<group>"; };
-		658D323C18B1147C007A4D98 /* MGMAbstractPlayerSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAbstractPlayerSelectionViewController.m; sourceTree = "<group>"; };
 		658D323D18B1147C007A4D98 /* MGMPlayerGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlayerGroupView.h; sourceTree = "<group>"; };
 		658D323E18B1147C007A4D98 /* MGMPlayerGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlayerGroupView.m; sourceTree = "<group>"; };
 		658D323F18B1147C007A4D98 /* UIViewController+MGMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MGMAdditions.h"; sourceTree = "<group>"; };
@@ -879,8 +876,6 @@
 			isa = PBXGroup;
 			children = (
 				651E8CE718CA28BC00333CA1 /* View */,
-				658D323B18B1147C007A4D98 /* MGMAbstractPlayerSelectionViewController.h */,
-				658D323C18B1147C007A4D98 /* MGMAbstractPlayerSelectionViewController.m */,
 			);
 			path = PlayerSelection;
 			sourceTree = "<group>";
@@ -1299,7 +1294,6 @@
 				658D317E18B112E3007A4D98 /* MGMLastFmPlayerService.m in Sources */,
 				6542306818CBB08200121B3B /* MGMPreloadWeeklyChartDaoOperation.m in Sources */,
 				658D329E18B1147C007A4D98 /* MGMTabBarController.m in Sources */,
-				658D328D18B1147C007A4D98 /* MGMAbstractPlayerSelectionViewController.m in Sources */,
 				658D317218B112E3007A4D98 /* MGMEvent.m in Sources */,
 				658D316618B112E3007A4D98 /* MGMGridManager.m in Sources */,
 				658D329818B1147C007A4D98 /* MGMHomeViewController.m in Sources */,
