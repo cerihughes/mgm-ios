@@ -12,6 +12,7 @@
 #import "MGMChartEntryDto.h"
 #import "MGMErrorCodes.h"
 #import "MGMLastFmConstants.h"
+#import "MGMSecrets.h"
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteJsonDataConverter.h"
 
@@ -81,7 +82,7 @@
     MGMWeeklyChartData* data = key;
     NSUInteger from = data.startDate.timeIntervalSince1970;
     NSUInteger to = data.endDate.timeIntervalSince1970;
-    return [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, (unsigned long)from, (unsigned long)to, API_KEY];
+    return [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, (unsigned long)from, (unsigned long)to, LAST_FM_API_KEY];
 }
 
 @end

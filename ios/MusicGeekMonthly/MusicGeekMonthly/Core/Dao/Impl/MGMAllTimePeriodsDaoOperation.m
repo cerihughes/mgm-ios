@@ -9,6 +9,7 @@
 #import "MGMAllTimePeriodsDaoOperation.h"
 
 #import "MGMLastFmConstants.h"
+#import "MGMSecrets.h"
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteJsonDataConverter.h"
 #import "MGMTimePeriodDto.h"
@@ -63,7 +64,7 @@
 
 - (NSString*) urlForKey:(id)key
 {
-    return [NSString stringWithFormat:TIME_PERIODS_URL, GROUP_NAME, API_KEY];
+    return [NSString stringWithFormat:TIME_PERIODS_URL, GROUP_NAME, LAST_FM_API_KEY];
 }
 
 @end

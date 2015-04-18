@@ -11,6 +11,7 @@
 #import "MGMAlbumImageUriDto.h"
 #import "MGMErrorCodes.h"
 #import "MGMLastFmConstants.h"
+#import "MGMSecrets.h"
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteJsonDataConverter.h"
 
@@ -37,7 +38,7 @@
         albumName = [albumName stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
         NSString* artistName = album.artistName;
         artistName = [artistName stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
-        return [NSString stringWithFormat:ALBUM_INFO_TITLES_URL, API_KEY, artistName, albumName];
+        return [NSString stringWithFormat:ALBUM_INFO_TITLES_URL, LAST_FM_API_KEY, artistName, albumName];
 //    }
 }
 

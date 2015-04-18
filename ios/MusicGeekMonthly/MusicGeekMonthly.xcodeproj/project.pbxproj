@@ -170,6 +170,7 @@
 		6502F20918C3A02C007FE38E /* MGMGridManagerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMGridManagerTestCase.m; sourceTree = "<group>"; };
 		65052CAB18D36E2000390A91 /* MGMBackgroundAlbumArtCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMBackgroundAlbumArtCollection.h; sourceTree = "<group>"; };
 		65052CAC18D36E2000390A91 /* MGMBackgroundAlbumArtCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMBackgroundAlbumArtCollection.m; sourceTree = "<group>"; };
+		651832571AE2C207004FCCA2 /* MGMSecrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMSecrets.h; sourceTree = "<group>"; };
 		651B72D318D47BA200346F72 /* MGMDaoOperationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDaoOperationTestCase.m; sourceTree = "<group>"; };
 		651B72D518D47C1300346F72 /* MGMCoreDataAccessTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataAccessTestCase.h; sourceTree = "<group>"; };
 		651B72D618D47C1300346F72 /* MGMCoreDataAccessTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataAccessTestCase.m; sourceTree = "<group>"; };
@@ -640,6 +641,7 @@
 				658D312218B112E3007A4D98 /* NSMutableArray+Shuffling.h */,
 				658D312318B112E3007A4D98 /* NSMutableArray+Shuffling.m */,
 				658D312418B112E3007A4D98 /* Service */,
+				651832571AE2C207004FCCA2 /* MGMSecrets.h */,
 			);
 			path = Core;
 			sourceTree = "<group>";
