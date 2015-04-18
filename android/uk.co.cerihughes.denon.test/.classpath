@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/robolectric-0.9.4-all.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/uk.co.cerihughes.denon.android"/>
-	<classpathentry kind="lib" path="/Users/cerihughes/Documents/dev/sdk/platforms/android-17/android.jar"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>
