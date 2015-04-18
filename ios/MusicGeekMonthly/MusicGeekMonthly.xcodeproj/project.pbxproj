@@ -14,7 +14,6 @@
 		651E8CF218CA383000333CA1 /* MGMInitialLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF118CA383000333CA1 /* MGMInitialLoadingView.m */; };
 		651E8CF518CA39BE00333CA1 /* MGMInitialLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF418CA39BE00333CA1 /* MGMInitialLoadingViewController.m */; };
 		651E8CF818CA3F0F00333CA1 /* MGMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF718CA3F0F00333CA1 /* MGMNavigationController.m */; };
-		651E8CFA18CA454B00333CA1 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 651E8CF918CA454B00333CA1 /* events.json */; };
 		651E8D0318CB700100333CA1 /* MGMHttpDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0218CB700100333CA1 /* MGMHttpDataSource.m */; };
 		651E8D0718CB71F800333CA1 /* MGMRemoteHttpDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0618CB71F800333CA1 /* MGMRemoteHttpDataReader.m */; };
 		651E8D0B18CB88B200333CA1 /* MGMRemoteFileDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0A18CB88B200333CA1 /* MGMRemoteFileDataReader.m */; };
@@ -180,7 +179,6 @@
 		651E8CF418CA39BE00333CA1 /* MGMInitialLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMInitialLoadingViewController.m; sourceTree = "<group>"; };
 		651E8CF618CA3F0F00333CA1 /* MGMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMNavigationController.h; sourceTree = "<group>"; };
 		651E8CF718CA3F0F00333CA1 /* MGMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMNavigationController.m; sourceTree = "<group>"; };
-		651E8CF918CA454B00333CA1 /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = events.json; path = "../../server/music-geek-monthly/war/json/events.json"; sourceTree = "<group>"; };
 		651E8D0118CB700100333CA1 /* MGMHttpDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMHttpDataSource.h; sourceTree = "<group>"; };
 		651E8D0218CB700100333CA1 /* MGMHttpDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMHttpDataSource.m; sourceTree = "<group>"; };
 		651E8D0518CB71F800333CA1 /* MGMRemoteHttpDataReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteHttpDataReader.h; sourceTree = "<group>"; };
@@ -1050,7 +1048,6 @@
 		65D451451764F54C00374C5F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				651E8CF918CA454B00333CA1 /* events.json */,
 				6542305C18CBAD5500121B3B /* timePeriods.json */,
 				6542305F18CBAD7100121B3B /* weeklyChart.json */,
 				6587E60218BA698700DD7F41 /* iTunesArtworkTransparent.png */,
@@ -1189,7 +1186,6 @@
 				658D30B318B10DE6007A4D98 /* album1.png in Resources */,
 				658D30B618B10DE6007A4D98 /* arrow.png in Resources */,
 				658D30BA18B10DE6007A4D98 /* chart_line@2x.png in Resources */,
-				651E8CFA18CA454B00333CA1 /* events.json in Resources */,
 				658D30BB18B10DE6007A4D98 /* deezer.png in Resources */,
 				658D30C118B10DE6007A4D98 /* ruler.png in Resources */,
 				658D30B718B10DE6007A4D98 /* calendar.png in Resources */,
