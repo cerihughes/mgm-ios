@@ -1543,7 +1543,7 @@
 				INFOPLIST_FILE = "MusicGeekMonthly/MusicGeekMonthly-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "Music Geek Monthly";
-				PROVISIONING_PROFILE = "99EC3D7F-0561-407F-9E6B-F4CEBAA38D2A";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
