@@ -15,7 +15,6 @@
 @property (nonatomic, strong) NSSet* imageUris;
 
 - (NSArray*) bestImageUrlsWithPreferredSize:(MGMAlbumImageSize)preferredSize;
-- (NSArray*) bestTableImageUrls;
 - (NSArray*) imageUrlsForImageSize:(MGMAlbumImageSize)size;
 
 @end

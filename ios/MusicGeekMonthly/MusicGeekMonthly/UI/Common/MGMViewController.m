@@ -16,6 +16,14 @@
 
 @implementation MGMViewController
 
+- (instancetype)init
+{
+    if (self = [super init]) {
+        _screenScale = [UIScreen mainScreen].scale;
+    }
+    return self;
+}
+
 - (BOOL) ipad
 {
     return self.ui.ipad;
@@ -114,7 +122,7 @@
 
 - (void) displayAlbumImage:(MGMAlbum*)album inAlbumView:(MGMAlbumView*)albumView completion:(ALBUM_DISPLAY_COMPLETION)completion
 {
-    MGMAlbumImageSize preferredSize = preferredImageSize(albumView.frame.size);
+    MGMAlbumImageSize preferredSize = preferredImageSize(albumView.frame.size, self.screenScale);
     NSArray* albumArtUrls = [album bestImageUrlsWithPreferredSize:preferredSize];
     [self displayAlbumImages:albumArtUrls inAlbumView:albumView completion:completion];
 }

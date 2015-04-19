@@ -17,6 +17,8 @@ typedef void (^ALBUM_DISPLAY_COMPLETION) (NSError*);
 
 @property (weak) MGMUI* ui;
 @property (readonly) BOOL ipad;
+@property (readonly) CGFloat screenScale;
+
 
 - (CGRect) fullscreenRect;
 - (void) presentViewModally:(UIView*)view sender:(id)sender;

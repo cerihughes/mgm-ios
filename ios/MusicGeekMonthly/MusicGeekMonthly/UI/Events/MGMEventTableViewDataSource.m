@@ -43,7 +43,8 @@
     [self.albumRenderService refreshAlbum:album completion:^(NSError* refreshError) {
         if (refreshError == nil)
         {
-            NSArray* albumArtUrls = [album bestTableImageUrls];
+            MGMAlbumImageSize preferredSize = preferredImageSize(cell.classicAlbumImageView.frame.size, self.screenScale);
+            NSArray* albumArtUrls = [album bestImageUrlsWithPreferredSize:preferredSize];
             if (albumArtUrls.count > 0)
             {
                 [self.imageHelper imageFromUrls:albumArtUrls completion:^(UIImage* image, NSError* error) {

@@ -8,26 +8,26 @@
 
 #import "MGMAlbumImageSize.h"
 
-MGMAlbumImageSize preferredImageSize(CGSize viewSize)
+MGMAlbumImageSize preferredImageSize(CGSize viewSize, CGFloat scale)
 {
-    CGFloat width = viewSize.width;
-    if (width > 512)
+    CGFloat size = MIN(viewSize.width, viewSize.height) * scale;
+    if (size > 512)
     {
         return MGMAlbumImageSize512;
     }
-    if (width > 256)
+    if (size > 256)
     {
         return MGMAlbumImageSize256;
     }
-    else if (width > 128)
+    else if (size > 128)
     {
         return MGMAlbumImageSize128;
     }
-    else if (width > 64)
+    else if (size > 64)
     {
         return MGMAlbumImageSize64;
     }
-    else if (width > 32)
+    else if (size > 32)
     {
         return MGMAlbumImageSize32;
     }

@@ -14,6 +14,7 @@
 @interface MGMCoreDataTableViewDataSource : NSObject <UITableViewDataSource>
 
 @property (readonly) NSString* cellId;
+@property (readonly) CGFloat screenScale;
 
 - (id) init __unavailable;
 - (id) initWithCellId:(NSString*)cellId;

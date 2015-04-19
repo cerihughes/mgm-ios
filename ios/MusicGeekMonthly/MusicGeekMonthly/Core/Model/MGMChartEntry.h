@@ -20,6 +20,5 @@
 @property (nonatomic, strong) MGMAlbum* album;
 
 - (NSArray*) bestImageUrlsWithPreferredSize:(MGMAlbumImageSize)preferredSize;
-- (NSArray*) bestTableImageUrls;
 
 @end

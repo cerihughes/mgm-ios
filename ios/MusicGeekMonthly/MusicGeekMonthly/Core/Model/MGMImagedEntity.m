@@ -15,7 +15,7 @@
 - (NSArray*) bestImagesWithPreferences:(MGMAlbumImageSize *)sizes count:(NSUInteger)count
 {
     NSMutableArray* array = [NSMutableArray array];
-    for (NSUInteger i = 0; i < 5; i++)
+    for (NSUInteger i = 0; i < count; i++)
     {
         [array addObjectsFromArray:[self imageUrlsForImageSize:sizes[i]]];
     }
@@ -26,12 +26,6 @@
 {
     MGMAlbumImageSize sizes[6] = {preferredSize, MGMAlbumImageSize128, MGMAlbumImageSize256, MGMAlbumImageSize512, MGMAlbumImageSize64, MGMAlbumImageSize32};
     return [self bestImagesWithPreferences:sizes count:6];
-}
-
-- (NSArray*) bestTableImageUrls
-{
-    MGMAlbumImageSize sizes[5] = {MGMAlbumImageSize32, MGMAlbumImageSize64, MGMAlbumImageSize128, MGMAlbumImageSize256, MGMAlbumImageSize512};
-    return [self bestImagesWithPreferences:sizes count:5];
 }
 
 - (NSArray*) imageUrlsForImageSize:(MGMAlbumImageSize)size

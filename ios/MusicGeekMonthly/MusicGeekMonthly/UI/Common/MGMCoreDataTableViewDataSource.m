@@ -24,6 +24,7 @@
     {
         _cellId = cellId;
         _container = [[MGMCoreDataTableViewDataSourceContainer alloc] init];
+        _screenScale = [UIScreen mainScreen].scale;
     }
     return self;
 }

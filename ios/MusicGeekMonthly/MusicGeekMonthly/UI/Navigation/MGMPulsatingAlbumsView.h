@@ -11,9 +11,9 @@
 @interface MGMPulsatingAlbumsView : MGMView
 
 @property (readonly) NSUInteger albumCount;
+@property (readonly) CGSize albumSize;
 
 - (void) setupAlbumsInRow:(NSUInteger)albumsInRow;
-- (CGSize) albumSize;
 - (void) renderImage:(UIImage*)image atIndex:(NSUInteger)index animation:(BOOL)animation;
 
 @end

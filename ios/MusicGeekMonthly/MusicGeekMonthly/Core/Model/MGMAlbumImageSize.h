@@ -16,4 +16,4 @@ typedef NS_ENUM(NSUInteger, MGMAlbumImageSize)
     MGMAlbumImageSize512  = 512
 };
 
-MGMAlbumImageSize preferredImageSize(CGSize viewSize);
+MGMAlbumImageSize preferredImageSize(CGSize viewSize, CGFloat scale);

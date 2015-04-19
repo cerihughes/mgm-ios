@@ -88,7 +88,7 @@
     albumView.activityInProgress = YES;
     albumView.rank = 0;
 
-    MGMAlbumImageSize preferredSize = preferredImageSize(albumView.frame.size);
+    MGMAlbumImageSize preferredSize = preferredImageSize(albumView.frame.size, self.screenScale);
     NSArray* albumArtUrls = [playlistItem bestImageUrlsWithPreferredSize:preferredSize];
     [self displayAlbumImages:albumArtUrls inAlbumView:albumView completion:completion];
 }

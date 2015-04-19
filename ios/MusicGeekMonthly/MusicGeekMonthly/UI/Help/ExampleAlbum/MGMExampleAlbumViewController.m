@@ -99,7 +99,7 @@
     albumView.albumName = album.albumName;
     albumView.score = [album.score floatValue];
 
-    MGMAlbumImageSize preferredSize = preferredImageSize(albumView.frame.size);
+    MGMAlbumImageSize preferredSize = preferredImageSize(albumView.frame.size, self.screenScale);
     NSArray* albumArtUrls = [self bestImageUrlsForAlbum:album preferredSize:preferredSize];
     [self displayAlbumImages:albumArtUrls inAlbumView:albumView completion:^(NSError* error) {}];
 }

@@ -20,9 +20,4 @@
     return [self.album bestImageUrlsWithPreferredSize:preferredSize];
 }
 
-- (NSArray*) bestTableImageUrls
-{
-    return [self.album bestTableImageUrls];
-}
-
 @end
