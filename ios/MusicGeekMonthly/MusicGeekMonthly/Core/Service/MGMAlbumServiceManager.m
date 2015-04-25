@@ -71,7 +71,7 @@
             metadataServiceTypes |= serviceType;
         }
     }
-    return metadataServiceTypes;
+    return metadataServiceTypes |= MGMAlbumServiceTypeItunes;
 }
 
 - (MGMAlbumPlayerService*) playerServiceForServiceType:(MGMAlbumServiceType)serviceType
