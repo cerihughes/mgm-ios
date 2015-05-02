@@ -11,7 +11,6 @@
 #import "MGMAlbumScoresViewController.h"
 #import "MGMBackgroundAlbumArtFetcher.h"
 #import "MGMEventsViewController.h"
-#import "MGMHomeViewController.h"
 #import "MGMPulsatingAlbumsView.h"
 #import "MGMTabbedViewController.h"
 #import "MGMTimePeriod.h"
@@ -80,14 +79,6 @@
 
 - (void) createControllers
 {
-    MGMHomeViewController* homeViewController = [[MGMHomeViewController alloc] init];
-    homeViewController.ui = self.ui;
-    homeViewController.title = @"Home";
-    homeViewController.albumSelectionDelegate = self.ui;
-    homeViewController.playlistSelectionDelegate = self.ui;
-    homeViewController.tabBarItem.title = @"Home";
-    homeViewController.tabBarItem.image = [UIImage imageNamed:@"home.png"];
-
     MGMWeeklyChartViewController* weeklyChartViewController = [[MGMWeeklyChartViewController alloc] init];
     weeklyChartViewController.ui = self.ui;
     weeklyChartViewController.title = @"Weekly Charts";
@@ -110,10 +101,10 @@
     albumScoresViewController.tabBarItem.title = @"Album Scores";
     albumScoresViewController.tabBarItem.image = [UIImage imageNamed:@"ruler.png"];
 
-    [self setViewControllers: @[homeViewController, weeklyChartViewController, eventsViewController, albumScoresViewController]];
+    [self setViewControllers: @[eventsViewController, weeklyChartViewController, albumScoresViewController]];
 
-    self.selectedViewController = homeViewController;
-    [self tabBarController:self didSelectViewController:homeViewController];
+    self.selectedViewController = eventsViewController;
+    [self tabBarController:self didSelectViewController:eventsViewController];
 }
 
 #pragma mark -
