@@ -264,9 +264,9 @@
     XCTAssertEqual(1, events.count);
     
     MGMEventDto *eventDto = events[0];
-    XCTAssertEqual(1, eventDto.eventNumber.integerValue);
-    XCTAssertEqual([self dateForYear:2011 month:1 day:27], eventDto.eventDate);
-    XCTAssertEqual(@"3SWdpu43D59vl0yzbAjie4", eventDto.playlistId);
+    XCTAssertEqualObjects(@1, eventDto.eventNumber);
+    XCTAssertEqualObjects([self dateForYear:2011 month:1 day:27], eventDto.eventDate);
+    XCTAssertEqualObjects(@"3SWdpu43D59vl0yzbAjie4", eventDto.playlistId);
     XCTAssertNil(eventDto.classicAlbum);
     XCTAssertNil(eventDto.newlyReleasedAlbum);
 }
