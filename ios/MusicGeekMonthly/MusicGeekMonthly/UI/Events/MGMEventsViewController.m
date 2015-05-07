@@ -113,7 +113,7 @@
 
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    [self dismissModalPresentation];
+    [self dismissModalPresentation:self.modalView];
     MGMEvent* event = [self.dataSource objectAtIndexPath:indexPath];
     [self displayEvent:event];
 }
@@ -123,9 +123,9 @@
 
 - (void) moreButtonPressed:(id)sender
 {
-    if ([self isPresentingModally])
+    if ([self isPresentingModally:self.modalView])
     {
-        [self dismissModalPresentation];
+        [self dismissModalPresentation:self.modalView];
     }
     else
     {

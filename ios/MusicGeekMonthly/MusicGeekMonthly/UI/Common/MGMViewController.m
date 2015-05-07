@@ -61,27 +61,26 @@
     }
 }
 
-- (void) dismissModalPresentation
+- (void) dismissModalPresentation:(UIView *)view
 {
-    if (self.ipad)
-    {
-        [self dismissIpadModalPresentation];
-    }
-    else
-    {
-        [self dismissIphoneModalPresentation];
+    if ([self isPresentingModally:view]) {
+        if (self.ipad) {
+            [self dismissIpadModalPresentation:view];
+        } else {
+            [self dismissIphoneModalPresentation:view];
+        }
     }
 }
 
-- (BOOL) isPresentingModally
+- (BOOL) isPresentingModally:(UIView *)view
 {
     if (self.ipad)
     {
-        return [self isIpadPresentingModally];
+        return [self isIpadPresentingModally:view];
     }
     else
     {
-        return [self isIphonePresentingModally];
+        return [self isIphonePresentingModally:view];
     }
 }
 
@@ -170,15 +169,15 @@
     [self.iPadPopoverController presentPopoverFromBarButtonItem:(UIBarButtonItem*)sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
-- (void) dismissIpadModalPresentation
+- (void) dismissIpadModalPresentation:(UIView *)view
 {
     [self.iPadPopoverController dismissPopoverAnimated:YES];
     [self popoverControllerDidDismissPopover:self.iPadPopoverController];
 }
 
-- (BOOL) isIpadPresentingModally
+- (BOOL) isIpadPresentingModally:(UIView *)view
 {
-    return (self.iPadPopoverController != nil);
+    return ([self.iPadPopoverController.contentViewController.view isEqual:view]);
 }
 
 #pragma mark -
@@ -192,14 +191,14 @@
     [self presentViewController:tempVC animated:YES completion:NULL];
 }
 
-- (void) dismissIphoneModalPresentation
+- (void) dismissIphoneModalPresentation:(UIView *)view
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (BOOL) isIphonePresentingModally
+- (BOOL) isIphonePresentingModally:(UIView *)view
 {
-    return (self.presentedViewController != nil);
+    return ([self.presentedViewController.view isEqual:view]);
 }
 
 #pragma mark -

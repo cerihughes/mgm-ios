@@ -151,7 +151,7 @@
 
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    [self dismissModalPresentation];
+    [self dismissModalPresentation:self.modalView];
     MGMTimePeriod* timePeriod = [self.dataSource objectAtIndexPath:indexPath];
     [self loadAlbumsForPeriod:timePeriod];
 }
@@ -178,9 +178,9 @@
 
 - (void) moreButtonPressed:(id)sender
 {
-    if ([self isPresentingModally])
+    if ([self isPresentingModally:self.modalView])
     {
-        [self dismissModalPresentation];
+        [self dismissModalPresentation:self.modalView];
     }
     else
     {

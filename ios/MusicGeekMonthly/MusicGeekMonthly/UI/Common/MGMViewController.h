@@ -22,8 +22,8 @@ typedef void (^ALBUM_DISPLAY_COMPLETION) (NSError*);
 
 - (CGRect) fullscreenRect;
 - (void) presentViewModally:(UIView*)view sender:(id)sender;
-- (void) dismissModalPresentation;
-- (BOOL) isPresentingModally;
+- (void) dismissModalPresentation:(UIView *)view;
+- (BOOL) isPresentingModally:(UIView *)view;
 
 - (void) transitionCompleteWithState:(id)state;
 
