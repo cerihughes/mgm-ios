@@ -26,8 +26,19 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>363</string>
-	<key>LSRequiresIPhoneOS</key>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>deezer</string>
+        <string>lastfm</string>
+        <string>spotify</string>
+    </array>
+    <key>LSRequiresIPhoneOS</key>
 	<true/>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
