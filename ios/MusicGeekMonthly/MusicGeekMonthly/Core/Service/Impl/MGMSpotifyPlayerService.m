@@ -14,32 +14,16 @@
 
 @interface MGMSpotifyPlayerDataReader : MGMRemoteHttpDataReader
 
-@property (readonly) NSDictionary* acceptJson;
-
 @end
 
 @implementation MGMSpotifyPlayerDataReader
 
-#define REST_SEARCH_URL @"http://ws.spotify.com/search/1/album?q=%@+%@"
-
-- (id) init
-{
-    if (self = [super init])
-    {
-        _acceptJson = [NSDictionary dictionaryWithObject:@"application/json" forKey:@"Accept"];
-    }
-    return self;
-}
+#define REST_SEARCH_URL @"http://api.spotify.com/v1/search?type=album&q=%@+%@"
 
 - (NSString*) urlForKey:(id)key
 {
     MGMAlbum* album = key;
     return [NSString stringWithFormat:REST_SEARCH_URL, album.artistName, album.albumName];
-}
-
-- (NSDictionary*) httpHeaders
-{
-    return self.acceptJson;
 }
 
 @end
@@ -63,8 +47,9 @@
 
 - (MGMAlbumMetadataDto*) metadataForAlbum:(MGMAlbum*)album withJson:(NSDictionary*)json
 {
-    NSArray* albums = [json objectForKey:@"albums"];
-    NSArray* available = [self availableAlbums:albums inTerritory:TERRITORY];
+    NSDictionary* albums = [json objectForKey:@"albums"];
+    NSArray* items = [albums objectForKey:@"items"];
+    NSArray* available = [self availableItems:items inTerritory:TERRITORY];
     NSDictionary* match = nil;
     if (available.count == 1)
     {
@@ -79,12 +64,9 @@
 
 - (MGMAlbumMetadataDto*) metadataForAlbum:(MGMAlbum*)album withAlbumJson:(NSDictionary*)json
 {
-    NSString* href = [json objectForKey:@"href"];
-    NSArray* splits = [href componentsSeparatedByString:@":"];
-    if (splits.count == 3)
+    NSString* value = [json objectForKey:@"id"];
+    if (value)
     {
-        NSString* value = [splits objectAtIndex:2];
-
         MGMAlbumMetadataDto* metadata = [[MGMAlbumMetadataDto alloc] init];
         metadata.serviceType = MGMAlbumServiceTypeSpotify;
         metadata.value = value;
@@ -93,16 +75,16 @@
     return nil;
 }
 
-- (NSArray*) availableAlbums:(NSArray*)albums inTerritory:(NSString*)territory
+- (NSArray*) availableItems:(NSArray*)items inTerritory:(NSString*)territory
 {
-    NSMutableArray* available = [NSMutableArray arrayWithCapacity:albums.count];
+    NSMutableArray* available = [NSMutableArray arrayWithCapacity:items.count];
 
-    for (NSDictionary* albumJson in albums)
+    for (NSDictionary* itemJson in items)
     {
-        NSString* territories = [[albumJson objectForKey:@"availability"] objectForKey:@"territories"];
-        if ([territories isEqualToString:@"worldwide"] || [territories rangeOfString:territory].location != NSNotFound)
+        NSArray* territories = [itemJson objectForKey:@"available_markets"];
+        if ([territories containsObject:@"worldwide"] || [territories containsObject:territory])
         {
-            [available addObject:albumJson];
+            [available addObject:itemJson];
         }
     }
 
@@ -112,43 +94,18 @@
 - (NSDictionary*) bestMatchForAlbum:(MGMAlbum*)album inAlbums:(NSArray*)albumsJson
 {
     NSLog(@"Found %lu matches in Spotify.", (unsigned long)albumsJson.count);
-    float mostPopularValue = 0;
-    NSDictionary* mostPopularAlbum = nil;
     for (NSDictionary* albumJson in albumsJson)
     {
         NSString* albumName = [albumJson objectForKey:@"name"];
-        NSArray* artists = [albumJson objectForKey:@"artists"];
-        NSString* popularityString = [albumJson objectForKey:@"popularity"];
-        float popularity = [popularityString floatValue];
-        if (popularity > mostPopularValue)
+        NSLog(@"Found %@", albumName);
+        if ([albumName.lowercaseString isEqualToString:album.albumName.lowercaseString])
         {
-            mostPopularValue = popularity;
-            mostPopularAlbum = albumJson;
-        }
-
-        for (NSDictionary* artist in artists)
-        {
-            NSString* artistName = [artist objectForKey:@"name"];
-            NSLog(@"Found %@ - %@", albumName, artistName);
-            if ([self album:album isExactMatchForArtistName:artistName albumName:albumName])
-            {
-                return albumJson;
-            }
+            return albumJson;
         }
     }
-    // What the hell... let's return the most popular...
-    NSLog(@"No exact match - returning most popular album in results.");
-    return mostPopularAlbum;
-}
 
-- (BOOL) album:(MGMAlbum*)album isExactMatchForArtistName:(NSString*)artistName albumName:(NSString*)albumName
-{
-    NSLog(@"Found %@ - %@", albumName, artistName);
-    if ([artistName.lowercaseString isEqualToString:album.artistName.lowercaseString] && [albumName.lowercaseString isEqualToString:album.albumName.lowercaseString])
-    {
-        return YES;
-    }
-    return NO;
+    NSLog(@"No exact match - returning 1st album in results.");
+    return albumsJson.count > 0 ? albumsJson[0] : nil;
 }
 
 @end
