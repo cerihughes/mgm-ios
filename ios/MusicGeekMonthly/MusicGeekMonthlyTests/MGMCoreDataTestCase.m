@@ -18,19 +18,9 @@
 
 @interface MGMCoreDataTestCase : MGMCoreDataAccessTestCase
 
-@property (strong) NSDateFormatter* dateFormatter;
-
 @end
 
 @implementation MGMCoreDataTestCase
-
-- (void) setUp
-{
-    [super setUp];
-
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    self.dateFormatter.dateFormat = @"dd/MM/yyyy";
-}
 
 - (void) tearDown
 {
