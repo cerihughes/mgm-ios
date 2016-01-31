@@ -6,25 +6,14 @@
 //  Copyright (c) 2015 Ceri Hughes. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
-
-#import <OCMock/OCMock.h>
+#import "MGMTestCase.h"
 
 #import "MGMItunesPlayerService.h"
 #import "MGMRemoteJsonDataConverter.h"
 
-@interface MGMMockAlbum : NSObject
+#import <OCMockito/OCMockito.h>
 
-@property (strong) NSString *artistName;
-@property (strong) NSString *albumName;
-
-@end
-
-@implementation MGMMockAlbum
-
-@end
-
-@interface MGMItunesPlayerServiceTestCase : XCTestCase
+@interface MGMItunesPlayerServiceTestCase : MGMTestCase
 
 @property (nonatomic, strong) MGMItunesPlayerService *cut;
 @property (nonatomic, strong) MGMRemoteJsonDataConverter *dataConverter;
@@ -43,9 +32,9 @@
 
 - (MGMAlbum *)mockAlbumWithArtistName:(NSString *)artistName albumName:(NSString *)albumName
 {
-    id mockAlbum = [OCMockObject mockForClass:[MGMMockAlbum class]];
-    [[[mockAlbum stub] andReturn:artistName] artistName];
-    [[[mockAlbum stub] andReturn:albumName] albumName];
+    MGMAlbum *mockAlbum = [self mockObject:[MGMAlbum class]];
+    [MKTGiven([mockAlbum artistName]) willReturn:artistName];
+    [MKTGiven([mockAlbum albumName]) willReturn:albumName];
     return mockAlbum;
 }
 

@@ -11,7 +11,6 @@
 		65052CAD18D36E2100390A91 /* MGMBackgroundAlbumArtCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 65052CAC18D36E2000390A91 /* MGMBackgroundAlbumArtCollection.m */; };
 		651B72D418D47BA200346F72 /* MGMDaoOperationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 651B72D318D47BA200346F72 /* MGMDaoOperationTestCase.m */; };
 		651B72D718D47C1300346F72 /* MGMCoreDataAccessTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 651B72D618D47C1300346F72 /* MGMCoreDataAccessTestCase.m */; };
-		651B72D918D480B900346F72 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 651B72D818D480B900346F72 /* libOCMock.a */; };
 		651E8CF218CA383000333CA1 /* MGMInitialLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF118CA383000333CA1 /* MGMInitialLoadingView.m */; };
 		651E8CF518CA39BE00333CA1 /* MGMInitialLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF418CA39BE00333CA1 /* MGMInitialLoadingViewController.m */; };
 		651E8CF818CA3F0F00333CA1 /* MGMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8CF718CA3F0F00333CA1 /* MGMNavigationController.m */; };
@@ -23,6 +22,7 @@
 		65283D2818D4544400D7C1D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F41175B928E000C413B /* UIKit.framework */; };
 		65283D3718D4548500D7C1D7 /* MGMGridManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6502F20918C3A02C007FE38E /* MGMGridManagerTestCase.m */; };
 		65283D3818D4548E00D7C1D7 /* MGMCoreDataTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65936A0817BCB1150070A9C6 /* MGMCoreDataTestCase.m */; };
+		6532DA101C5E5651002339FD /* MGMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532DA0F1C5E5651002339FD /* MGMTestCase.m */; };
 		6542305D18CBAD5500121B3B /* timePeriods.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305C18CBAD5500121B3B /* timePeriods.json */; };
 		6542306018CBAD7100121B3B /* weeklyChart.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305F18CBAD7100121B3B /* weeklyChart.json */; };
 		6542306418CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6542306318CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m */; };
@@ -187,6 +187,8 @@
 		65283D2418D4544400D7C1D7 /* MusicGeekMonthlyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicGeekMonthlyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65283D2518D4544400D7C1D7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		65283D3118D4544400D7C1D7 /* MusicGeekMonthlyTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicGeekMonthlyTests-Prefix.pch"; sourceTree = "<group>"; };
+		6532DA0E1C5E5651002339FD /* MGMTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTestCase.h; sourceTree = "<group>"; };
+		6532DA0F1C5E5651002339FD /* MGMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTestCase.m; sourceTree = "<group>"; };
 		6542305C18CBAD5500121B3B /* timePeriods.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = timePeriods.json; path = MusicGeekMonthly/Resources/timePeriods.json; sourceTree = "<group>"; };
 		6542305F18CBAD7100121B3B /* weeklyChart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = weeklyChart.json; path = MusicGeekMonthly/Resources/weeklyChart.json; sourceTree = "<group>"; };
 		6542306218CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGMPreloadTimePeriodsDaoOperation.h; path = Offline/MGMPreloadTimePeriodsDaoOperation.h; sourceTree = "<group>"; };
@@ -431,7 +433,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				65283D2618D4544400D7C1D7 /* XCTest.framework in Frameworks */,
-				651B72D918D480B900346F72 /* libOCMock.a in Frameworks */,
 				65283D2818D4544400D7C1D7 /* UIKit.framework in Frameworks */,
 				65283D2718D4544400D7C1D7 /* Foundation.framework in Frameworks */,
 				373E367F18A81F13E3B65FBC /* libPods-MusicGeekMonthlyTests.a in Frameworks */,
@@ -1006,6 +1007,8 @@
 			isa = PBXGroup;
 			children = (
 				659F9F66175B928E000C413B /* Supporting Files */,
+				6532DA0E1C5E5651002339FD /* MGMTestCase.h */,
+				6532DA0F1C5E5651002339FD /* MGMTestCase.m */,
 				651B72D518D47C1300346F72 /* MGMCoreDataAccessTestCase.h */,
 				651B72D618D47C1300346F72 /* MGMCoreDataAccessTestCase.m */,
 				65936A0817BCB1150070A9C6 /* MGMCoreDataTestCase.m */,
@@ -1293,6 +1296,7 @@
 				651B72D718D47C1300346F72 /* MGMCoreDataAccessTestCase.m in Sources */,
 				651B72D418D47BA200346F72 /* MGMDaoOperationTestCase.m in Sources */,
 				65283D3818D4548E00D7C1D7 /* MGMCoreDataTestCase.m in Sources */,
+				6532DA101C5E5651002339FD /* MGMTestCase.m in Sources */,
 				65E3F8251AE3C6A3004FF67B /* MGMItunesPlayerServiceTestCase.m in Sources */,
 				65283D3718D4548500D7C1D7 /* MGMGridManagerTestCase.m in Sources */,
 			);
@@ -1464,10 +1468,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "MusicGeekMonthlyTests/MusicGeekMonthlyTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/MusicGeekMonthly/Libraries/OCMock2.2.3",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1505,10 +1506,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "MusicGeekMonthlyTests/MusicGeekMonthlyTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/MusicGeekMonthly/Libraries/OCMock2.2.3",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
