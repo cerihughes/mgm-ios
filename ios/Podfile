@@ -1,0 +1,8 @@
+xcodeproj 'MusicGeekMonthly/MusicGeekMonthly.xcodeproj'
+
+pod 'SPTDataLoader', '~> 1.0'
+
+target :MusicGeekMonthlyTests, :exclusive => true do
+  pod 'OCMockito', '~> 3.0'
+  pod 'OHHTTPStubs'
+end
