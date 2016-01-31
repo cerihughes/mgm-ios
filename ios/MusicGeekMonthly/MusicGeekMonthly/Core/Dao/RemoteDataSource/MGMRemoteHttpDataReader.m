@@ -19,7 +19,7 @@
 
 @implementation MGMRemoteHttpDataReader
 
-- (id) init
+- (id)init
 {
     if (self = [super init])
     {
@@ -28,41 +28,29 @@
     return self;
 }
 
-- (NSData*) readRemoteData:(id)key error:(NSError**)error
+- (NSData *)readRemoteData:(id)key error:(NSError**)error
 {
-    if (self.reachability)
-    {
-        NSString* url = [self urlForKey:key];
-        if (url)
-        {
-            return [self.httpDataSource contentsOfUrl:url withHttpHeaders:[self httpHeaders] error:error];
+    if (self.reachability) {
+        NSString *url = [self.dataSource urlForKey:key];
+        if (url) {
+            NSDictionary *httpHeaders = nil;
+            if ([self.dataSource respondsToSelector:@selector(httpHeaders)]) {
+                httpHeaders = [self.dataSource httpHeaders];
+            }
+            return [self.httpDataSource contentsOfUrl:url withHttpHeaders:httpHeaders error:error];
         }
-    }
-    else
-    {
-        if (error)
-        {
+    } else {
+        if (error) {
             *error = [NSError errorWithDomain:ERROR_DOMAIN code:ERROR_CODE_NO_REACHABILITY userInfo:nil];
         }
     }
     return nil;
 }
 
-- (void) markRemoteDataAsInvalid:(id)key
+- (void)markRemoteDataAsInvalid:(id)key
 {
-    NSString* url = [self urlForKey:key];
+    NSString *url = [self.dataSource urlForKey:key];
     [self.httpDataSource addInvalidUrl:url];
-}
-
-- (NSString*) urlForKey:(id)key
-{
-    // OVERRIDE
-    return nil;
-}
-
-- (NSDictionary*) httpHeaders
-{
-    return nil;
 }
 
 @end

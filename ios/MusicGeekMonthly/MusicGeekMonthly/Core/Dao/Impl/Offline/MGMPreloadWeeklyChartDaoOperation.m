@@ -10,20 +10,7 @@
 
 #import "MGMRemoteFileDataReader.h"
 
-@interface MGMPreloadWeeklyChartRemoteDataReader : MGMRemoteFileDataReader
-
-@end
-
-@implementation MGMPreloadWeeklyChartRemoteDataReader
-
-- (NSString*) pathForKey:(id)key
-{
-    return [[NSBundle mainBundle] pathForResource:@"weeklyChart" ofType:@"json"];
-}
-
-@end
-
-@interface MGMPreloadWeeklyChartRemoteDataSource : MGMWeeklyChartRemoteDataSource
+@interface MGMPreloadWeeklyChartRemoteDataSource : MGMWeeklyChartRemoteDataSource <MGMRemoteFileDataReaderDataSource>
 
 @end
 
@@ -31,7 +18,16 @@
 
 - (MGMRemoteDataReader*) createRemoteDataReader
 {
-    return [[MGMPreloadWeeklyChartRemoteDataReader alloc] init];
+    MGMRemoteFileDataReader *reader = [[MGMRemoteFileDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
+}
+
+#pragma mark - MGMRemoteFileDataReaderDataSource
+
+- (NSString*) pathForKey:(id)key
+{
+    return [[NSBundle mainBundle] pathForResource:@"weeklyChart" ofType:@"json"];
 }
 
 @end

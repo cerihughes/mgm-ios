@@ -69,24 +69,6 @@
 
 @end
 
-@interface MGMWeeklyChartRemoteDataReader : MGMRemoteHttpDataReader
-
-@end
-
-@implementation MGMWeeklyChartRemoteDataReader
-
-#define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&from=%lu&to=%lu&api_key=%@&format=json"
-
-- (NSString*) urlForKey:(id)key
-{
-    MGMWeeklyChartData* data = key;
-    NSUInteger from = data.startDate.timeIntervalSince1970;
-    NSUInteger to = data.endDate.timeIntervalSince1970;
-    return [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, (unsigned long)from, (unsigned long)to, LAST_FM_API_KEY];
-}
-
-@end
-
 @interface MGMWeeklyChartRemoteDataConverter : MGMRemoteJsonDataConverter
 
 @property (readonly) NSNumberFormatter* numberFormatter;
@@ -183,16 +165,34 @@
 
 @end
 
+@interface MGMWeeklyChartRemoteDataSource () <MGMRemoteHttpDataReaderDataSource>
+
+@end
+
 @implementation MGMWeeklyChartRemoteDataSource
 
 - (MGMRemoteDataReader*) createRemoteDataReader
 {
-    return [[MGMWeeklyChartRemoteDataReader alloc] init];
+    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
 }
 
 - (MGMRemoteDataConverter*) createRemoteDataConverter
 {
     return [[MGMWeeklyChartRemoteDataConverter alloc] init];
+}
+
+#pragma mark - MGMRemoteHttpDataReaderDataSource
+
+#define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&from=%lu&to=%lu&api_key=%@&format=json"
+
+- (NSString*) urlForKey:(id)key
+{
+    MGMWeeklyChartData* data = key;
+    NSUInteger from = data.startDate.timeIntervalSince1970;
+    NSUInteger to = data.endDate.timeIntervalSince1970;
+    return [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, (unsigned long)from, (unsigned long)to, LAST_FM_API_KEY];
 }
 
 @end

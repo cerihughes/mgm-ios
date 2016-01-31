@@ -10,20 +10,7 @@
 
 #import "MGMRemoteFileDataReader.h"
 
-@interface MGMPreloadAllEventsGoogleSheetRemoteDataReader : MGMRemoteFileDataReader
-
-@end
-
-@implementation MGMPreloadAllEventsGoogleSheetRemoteDataReader
-
-- (NSString*) pathForKey:(id)key
-{
-    return [[NSBundle mainBundle] pathForResource:@"googleSheet" ofType:@"json"];
-}
-
-@end
-
-@interface MGMPreloadAllEventsGoogleSheetRemoteDataSource : MGMAllEventsGoogleSheetRemoteDataSource
+@interface MGMPreloadAllEventsGoogleSheetRemoteDataSource : MGMAllEventsGoogleSheetRemoteDataSource <MGMRemoteFileDataReaderDataSource>
 
 @end
 
@@ -31,7 +18,16 @@
 
 - (MGMRemoteDataReader*) createRemoteDataReader
 {
-    return [[MGMPreloadAllEventsGoogleSheetRemoteDataReader alloc] init];
+    MGMRemoteFileDataReader *reader = [[MGMRemoteFileDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
+}
+
+#pragma mark - MGMRemoteFileDataReaderDataSource
+
+- (NSString*) pathForKey:(id)key
+{
+    return [[NSBundle mainBundle] pathForResource:@"googleSheet" ofType:@"json"];
 }
 
 @end

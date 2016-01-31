@@ -15,35 +15,6 @@
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteJsonDataConverter.h"
 
-@interface MGMAlbumRenderServiceDataReader : MGMRemoteHttpDataReader
-
-@end
-
-@implementation MGMAlbumRenderServiceDataReader
-
-//#define ALBUM_INFO_MBID_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getInfo&api_key=%@&mbid=%@&format=json"
-#define ALBUM_INFO_TITLES_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getInfo&api_key=%@&artist=%@&album=%@&format=json"
-
-- (NSString*) urlForKey:(id)key
-{
-    MGMAlbum* album = key;
-//    NSString* mbid = album.albumMbid;
-//    if (mbid && ![mbid hasPrefix:FAKE_MBID_PREPEND])
-//    {
-//        return [NSString stringWithFormat:ALBUM_INFO_MBID_URL, API_KEY, mbid];
-//    }
-//    else
-//    {
-        NSString* albumName = album.albumName;
-        albumName = [albumName stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
-        NSString* artistName = album.artistName;
-        artistName = [artistName stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
-        return [NSString stringWithFormat:ALBUM_INFO_TITLES_URL, LAST_FM_API_KEY, artistName, albumName];
-//    }
-}
-
-@end
-
 @interface MGMAlbumRenderServiceDataConverter : MGMRemoteJsonDataConverter
 
 @end
@@ -131,11 +102,17 @@
 
 @end
 
+@interface MGMAlbumRenderService () <MGMRemoteHttpDataReaderDataSource>
+
+@end
+
 @implementation MGMAlbumRenderService
 
 - (MGMRemoteDataReader*) createRemoteDataReader
 {
-    return [[MGMAlbumRenderServiceDataReader alloc] init];
+    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
 }
 
 - (MGMRemoteDataConverter*) createRemoteDataConverter
@@ -177,6 +154,20 @@
     {
         completion(nil);
     }
+}
+
+#pragma mark - MGMRemoteHttpDataReaderDataSource
+
+#define ALBUM_INFO_TITLES_URL @"http://ws.audioscrobbler.com/2.0/?method=album.getInfo&api_key=%@&artist=%@&album=%@&format=json"
+
+- (NSString *)urlForKey:(id)key
+{
+    MGMAlbum* album = key;
+    NSString* albumName = album.albumName;
+    albumName = [albumName stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+    NSString* artistName = album.artistName;
+    artistName = [artistName stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+    return [NSString stringWithFormat:ALBUM_INFO_TITLES_URL, LAST_FM_API_KEY, artistName, albumName];
 }
 
 @end

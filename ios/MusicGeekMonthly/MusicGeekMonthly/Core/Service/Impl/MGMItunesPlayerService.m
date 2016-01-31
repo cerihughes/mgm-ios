@@ -12,22 +12,6 @@
 #import "MGMRemoteJsonDataConverter.h"
 #import "MGMSpotifyConstants.h"
 
-@interface MGMItunesPlayerDataReader : MGMRemoteHttpDataReader
-
-@end
-
-@implementation MGMItunesPlayerDataReader
-
-#define REST_SEARCH_URL @"https://itunes.apple.com/search?entity=album&country=GB&term=%@+%@"
-
-- (NSString*) urlForKey:(id)key
-{
-    MGMAlbum* album = key;
-    return [NSString stringWithFormat:REST_SEARCH_URL, album.artistName, album.albumName];
-}
-
-@end
-
 @interface MGMItunesPlayerDataConverter : MGMRemoteJsonDataConverter
 
 @end
@@ -96,13 +80,19 @@
 
 @end
 
+@interface MGMItunesPlayerService () <MGMRemoteHttpDataReaderDataSource>
+
+@end
+
 @implementation MGMItunesPlayerService
 
 #define ALBUM_URI @"https://itunes.apple.com/gb/album/%@?uo=4"
 
 - (MGMRemoteDataReader*) createRemoteDataReader
 {
-    return [[MGMItunesPlayerDataReader alloc] init];
+    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
 }
 
 - (MGMRemoteDataConverter*) createRemoteDataConverter
@@ -123,6 +113,16 @@
 - (NSString*) urlForAlbum:(MGMAlbum*)album
 {
     return [album metadataForServiceType:MGMAlbumServiceTypeItunes];
+}
+
+#pragma mark - MGMRemoteHttpDataReaderDataSource
+
+#define REST_SEARCH_URL @"https://itunes.apple.com/search?entity=album&country=GB&term=%@+%@"
+
+- (NSString*) urlForKey:(id)key
+{
+    MGMAlbum* album = key;
+    return [NSString stringWithFormat:REST_SEARCH_URL, album.artistName, album.albumName];
 }
 
 @end

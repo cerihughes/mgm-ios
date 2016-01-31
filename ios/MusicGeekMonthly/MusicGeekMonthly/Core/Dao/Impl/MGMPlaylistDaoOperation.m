@@ -64,23 +64,6 @@
 
 @end
 
-@interface MGMPlaylistRemoteDataReader : MGMRemoteHttpDataReader
-
-@end
-
-@implementation MGMPlaylistRemoteDataReader
-
-#define EMBEDDED_PLAYLIST_URL @"https://embed.spotify.com/?uri=%@"
-
-- (NSString*) urlForKey:(id)key
-{
-    NSString* data = key;
-    NSString* spotifyUrl = [NSString stringWithFormat:SPOTIFY_PLAYLIST_URI_PATTERN, SPOTIFY_USER_ANDREW_JONES, data];
-    return [NSString stringWithFormat:EMBEDDED_PLAYLIST_URL, spotifyUrl];
-}
-
-@end
-
 @interface MGMPlaylistRemoteDataConverter : MGMRemoteXmlDataConverter
 
 @end
@@ -189,16 +172,33 @@
 
 @end
 
+@interface MGMPlaylistRemoteDataSource () <MGMRemoteHttpDataReaderDataSource>
+
+@end
+
 @implementation MGMPlaylistRemoteDataSource
 
 - (MGMRemoteDataReader*) createRemoteDataReader
 {
-    return [[MGMPlaylistRemoteDataReader alloc] init];
+    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
 }
 
 - (MGMRemoteDataConverter*) createRemoteDataConverter
 {
     return [[MGMPlaylistRemoteDataConverter alloc] init];
+}
+
+#pragma mark - MGMRemoteHttpDataReaderDataSource
+
+#define EMBEDDED_PLAYLIST_URL @"https://embed.spotify.com/?uri=%@"
+
+- (NSString*) urlForKey:(id)key
+{
+    NSString* data = key;
+    NSString* spotifyUrl = [NSString stringWithFormat:SPOTIFY_PLAYLIST_URI_PATTERN, SPOTIFY_USER_ANDREW_JONES, data];
+    return [NSString stringWithFormat:EMBEDDED_PLAYLIST_URL, spotifyUrl];
 }
 
 @end

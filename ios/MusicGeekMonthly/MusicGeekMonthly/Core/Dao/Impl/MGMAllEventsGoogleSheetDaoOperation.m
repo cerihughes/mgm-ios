@@ -69,21 +69,6 @@
 
 @end
 
-@interface MGMAllEventsGoogleSheetRemoteDataReader : MGMRemoteHttpDataReader
-
-@end
-
-@implementation MGMAllEventsGoogleSheetRemoteDataReader
-
-#define EVENTS_URL @"https://spreadsheets.google.com/feeds/list/1SytsfXWjxomYL10F7y9V7LawxNPSfnLTXGZYE5F0nh0/od6/public/values?alt=json"
-
-- (NSString*) urlForKey:(id)key
-{
-    return EVENTS_URL;
-}
-
-@end
-
 @interface MGMAllEventsGoogleSheetRemoteDataConverter : MGMRemoteJsonDataConverter
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -210,16 +195,31 @@
 
 @end
 
+@interface MGMAllEventsGoogleSheetRemoteDataSource () <MGMRemoteHttpDataReaderDataSource>
+
+@end
+
 @implementation MGMAllEventsGoogleSheetRemoteDataSource
 
 - (MGMRemoteDataReader*) createRemoteDataReader
 {
-    return [[MGMAllEventsGoogleSheetRemoteDataReader alloc] init];
+    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
 }
 
 - (MGMRemoteDataConverter*) createRemoteDataConverter
 {
     return [[MGMAllEventsGoogleSheetRemoteDataConverter alloc] init];
+}
+
+#pragma mark - MGMRemoteHttpDataReaderDataSource
+
+#define EVENTS_URL @"https://spreadsheets.google.com/feeds/list/1SytsfXWjxomYL10F7y9V7LawxNPSfnLTXGZYE5F0nh0/od6/public/values?alt=json"
+
+- (NSString*) urlForKey:(id)key
+{
+    return EVENTS_URL;
 }
 
 @end

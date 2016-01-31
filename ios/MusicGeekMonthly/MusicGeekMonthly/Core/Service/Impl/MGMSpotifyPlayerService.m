@@ -12,22 +12,6 @@
 #import "MGMRemoteJsonDataConverter.h"
 #import "MGMSpotifyConstants.h"
 
-@interface MGMSpotifyPlayerDataReader : MGMRemoteHttpDataReader
-
-@end
-
-@implementation MGMSpotifyPlayerDataReader
-
-#define REST_SEARCH_URL @"http://api.spotify.com/v1/search?type=album&q=%@+%@"
-
-- (NSString*) urlForKey:(id)key
-{
-    MGMAlbum* album = key;
-    return [NSString stringWithFormat:REST_SEARCH_URL, album.artistName, album.albumName];
-}
-
-@end
-
 @interface MGMSpotifyPlayerDataConverter : MGMRemoteJsonDataConverter
 
 @end
@@ -110,6 +94,10 @@
 
 @end
 
+@interface MGMSpotifyPlayerService () <MGMRemoteHttpDataReaderDataSource>
+
+@end
+
 @implementation MGMSpotifyPlayerService
 
 #define ALBUM_URI @"spotify:album:%@"
@@ -117,7 +105,9 @@
 
 - (MGMRemoteDataReader*) createRemoteDataReader
 {
-    return [[MGMSpotifyPlayerDataReader alloc] init];
+    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
 }
 
 - (MGMRemoteDataConverter*) createRemoteDataConverter
@@ -155,6 +145,16 @@
         return [NSString stringWithFormat:SPOTIFY_PLAYLIST_URI_PATTERN, SPOTIFY_USER_ANDREW_JONES, spotifyPlaylistId];
     }
     return nil;
+}
+
+#pragma mark - MGMRemoteHttpDataReaderDataSource
+
+#define REST_SEARCH_URL @"http://api.spotify.com/v1/search?type=album&q=%@+%@"
+
+- (NSString*) urlForKey:(id)key
+{
+    MGMAlbum* album = key;
+    return [NSString stringWithFormat:REST_SEARCH_URL, album.artistName, album.albumName];
 }
 
 @end

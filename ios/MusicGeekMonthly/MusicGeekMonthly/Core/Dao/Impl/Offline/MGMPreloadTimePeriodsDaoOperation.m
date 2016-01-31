@@ -10,20 +10,7 @@
 
 #import "MGMRemoteFileDataReader.h"
 
-@interface MGMPreloadTimePeriodsRemoteDataReader : MGMRemoteFileDataReader
-
-@end
-
-@implementation MGMPreloadTimePeriodsRemoteDataReader
-
-- (NSString*) pathForKey:(id)key
-{
-    return [[NSBundle mainBundle] pathForResource:@"timePeriods" ofType:@"json"];
-}
-
-@end
-
-@interface MGMPreloadTimePeriodsRemoteDataSource : MGMAllTimePeriodsRemoteDataSource
+@interface MGMPreloadTimePeriodsRemoteDataSource : MGMAllTimePeriodsRemoteDataSource <MGMRemoteFileDataReaderDataSource>
 
 @end
 
@@ -31,7 +18,16 @@
 
 - (MGMRemoteDataReader*) createRemoteDataReader
 {
-    return [[MGMPreloadTimePeriodsRemoteDataReader alloc] init];
+    MGMRemoteFileDataReader *reader = [[MGMRemoteFileDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
+}
+
+#pragma mark - MGMRemoteFileDataReaderDataSource
+
+- (NSString*) pathForKey:(id)key
+{
+    return [[NSBundle mainBundle] pathForResource:@"timePeriods" ofType:@"json"];
 }
 
 @end
