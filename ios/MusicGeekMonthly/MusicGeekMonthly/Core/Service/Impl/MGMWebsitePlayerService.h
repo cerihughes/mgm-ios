@@ -12,9 +12,13 @@
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess NS_UNAVAILABLE;
 - (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess
+                           serviceType:(MGMAlbumServiceType)serviceType NS_UNAVAILABLE;
+
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess
+                           serviceType:(MGMAlbumServiceType)serviceType
                        albumUrlPattern:(NSString *)albumUrlPattern
-                      searchUrlPattern:(NSString *)searchUrlPattern
-                           serviceType:(MGMAlbumServiceType)serviceType;
+                      searchUrlPattern:(NSString *)searchUrlPattern;
 
 @end

@@ -100,11 +100,6 @@
     return [[MGMItunesPlayerDataConverter alloc] init];
 }
 
-- (MGMAlbumServiceType) serviceType
-{
-    return MGMAlbumServiceTypeItunes;
-}
-
 - (NSString*) serviceAvailabilityUrl
 {
     return ALBUM_URI;

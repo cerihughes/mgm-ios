@@ -10,6 +10,14 @@
 
 @implementation MGMAlbumPlayerService
 
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess
+                           serviceType:(MGMAlbumServiceType)serviceType
+{
+    self = [super initWithCoreDataAccess:coreDataAccess];
+    _serviceType = serviceType;
+    return self;
+}
+
 - (void) refreshAlbum:(MGMAlbum*)album completion:(ALBUM_SERVICE_COMPLETION)completion
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

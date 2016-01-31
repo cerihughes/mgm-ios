@@ -12,11 +12,6 @@
 
 #define ARTIST_URI @"lastfm://artist/%@/similarartists"
 
-- (MGMAlbumServiceType) serviceType
-{
-    return MGMAlbumServiceTypeLastFm;
-}
-
 - (NSString*) serviceAvailabilityUrl
 {
     return ARTIST_URI;

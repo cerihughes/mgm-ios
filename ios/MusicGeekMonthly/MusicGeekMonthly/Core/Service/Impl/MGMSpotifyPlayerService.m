@@ -115,11 +115,6 @@
     return [[MGMSpotifyPlayerDataConverter alloc] init];
 }
 
-- (MGMAlbumServiceType) serviceType
-{
-    return MGMAlbumServiceTypeSpotify;
-}
-
 - (NSString*) serviceAvailabilityUrl
 {
     return ALBUM_URI;

@@ -26,7 +26,7 @@
 {
     [super setUp];
     
-    self.cut = [[MGMItunesPlayerService alloc] initWithCoreDataAccess:nil];
+    self.cut = [[MGMItunesPlayerService alloc] initWithCoreDataAccess:nil serviceType:MGMAlbumServiceTypeItunes];
     self.dataConverter = (id)[self.cut createRemoteDataConverter];
 }
 
