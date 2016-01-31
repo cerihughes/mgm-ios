@@ -10,8 +10,6 @@
 
 @interface MGMRemoteJsonDataConverter : MGMRemoteDataConverter
 
-- (NSDate*) dateForJsonString:(NSString*)jsonString;
-
 - (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key;
 
 @end

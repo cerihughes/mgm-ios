@@ -10,19 +10,6 @@
 
 @implementation MGMRemoteJsonDataConverter
 
-static NSDateFormatter* _jsonDateFormatter;
-
-+ (void) initialize
-{
-    _jsonDateFormatter = [[NSDateFormatter alloc] init];
-    _jsonDateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-}
-
-- (NSDate*) dateForJsonString:(NSString *)jsonString
-{
-    return [_jsonDateFormatter dateFromString:jsonString];
-}
-
 - (MGMRemoteData*) convertRemoteData:(NSData *)remoteData key:(id)key
 {
     NSDictionary* json = nil;
