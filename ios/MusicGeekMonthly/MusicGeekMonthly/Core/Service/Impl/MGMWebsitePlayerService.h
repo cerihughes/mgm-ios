@@ -10,7 +10,11 @@
 
 @interface MGMWebsitePlayerService : MGMAlbumPlayerService
 
-- (id) init __unavailable;
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:(NSString*)albumUrlPattern searchUrlPattern:(NSString*)searchUrlPattern serviceType:(MGMAlbumServiceType)serviceType;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess
+                       albumUrlPattern:(NSString *)albumUrlPattern
+                      searchUrlPattern:(NSString *)searchUrlPattern
+                           serviceType:(MGMAlbumServiceType)serviceType;
 
 @end

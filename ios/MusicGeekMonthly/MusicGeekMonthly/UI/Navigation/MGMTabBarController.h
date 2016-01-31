@@ -14,7 +14,8 @@
 
 @interface MGMTabBarController : UITabBarController
 
-- (id) init __unavailable;
-- (id) initWithUI:(MGMUI*)ui albumArtCollection:(MGMBackgroundAlbumArtCollection*)albumArtCollection;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithUI:(MGMUI *)ui albumArtCollection:(MGMBackgroundAlbumArtCollection *)albumArtCollection;
 
 @end

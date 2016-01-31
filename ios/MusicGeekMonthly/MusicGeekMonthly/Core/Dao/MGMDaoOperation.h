@@ -19,8 +19,9 @@ typedef void (^DAO_FETCH_COMPLETION) (MGMDaoData*);
 
 @property (readonly) NSUInteger daysBetweenRemoteFetch;
 
-- (id) init __unavailable;
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess;
 
 - (void) setReachability:(BOOL)reachability;
 - (oneway void) fetchData:(id)key completion:(DAO_FETCH_COMPLETION)completion;

@@ -16,8 +16,9 @@
 @property (readonly) NSString* cellId;
 @property (readonly) CGFloat screenScale;
 
-- (id) init __unavailable;
-- (id) initWithCellId:(NSString*)cellId;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCellId:(NSString *)cellId;
 
 - (void) setRenderables:(NSArray*)renderables;
 - (id<MGMRenderable>) objectAtIndexPath:(NSIndexPath*)indexPath;

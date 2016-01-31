@@ -19,8 +19,9 @@ typedef void (^LOCAL_DATA_FETCH_COMPLETION) (MGMLocalData*);
 
 @property (readonly) MGMCoreDataAccess* coreDataAccess;
 
-- (id) init __unavailable;
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess;
 
 - (oneway void) fetchLocalData:(id)key completion:(LOCAL_DATA_FETCH_COMPLETION)completion;
 - (oneway void) persistRemoteData:(MGMRemoteData*)remoteData key:(id)key completion:(LOCAL_DATA_PERSIST_COMPLETION)completion;

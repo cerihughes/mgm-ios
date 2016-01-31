@@ -25,8 +25,9 @@
 
 @property (weak) id<MGMBackgroundAlbumArtFetcherDelegate> delegate;
 
-- (id) init __unavailable;
-- (id) initWithImageHelper:(MGMImageHelper*)imageHelper albumArtCollection:(MGMBackgroundAlbumArtCollection*)albumArtCollection;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithImageHelper:(MGMImageHelper *)imageHelper albumArtCollection:(MGMBackgroundAlbumArtCollection *)albumArtCollection;
 
 - (void) renderImages:(NSUInteger)imageCount;
 

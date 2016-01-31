@@ -14,8 +14,9 @@
 
 @interface MGMAlbumServiceManager : NSObject
 
-- (id) init __unavailable;
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess;
 
 - (void) setReachability:(BOOL)reachability;
 

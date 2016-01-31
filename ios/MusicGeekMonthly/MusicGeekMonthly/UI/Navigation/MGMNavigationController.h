@@ -12,8 +12,9 @@
 
 @interface MGMNavigationController : UINavigationController
 
-- (id) init __unavailable;
-- (id) initWithUI:(MGMUI*)ui;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithUI:(MGMUI *)ui;
 
 - (void) checkPlayer;
 
