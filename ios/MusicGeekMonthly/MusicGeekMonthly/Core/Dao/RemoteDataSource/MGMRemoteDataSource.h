@@ -19,7 +19,16 @@
 
 @end
 
+@protocol MGMRemoteDataConverterDelegate <NSObject>
+
+@optional
+- (NSData *)preprocessRemoteData:(NSData *)remoteData;
+
+@end
+
 @interface MGMRemoteDataConverter : NSObject
+
+@property (nonatomic, weak) id<MGMRemoteDataConverterDelegate> delegate;
 
 - (MGMRemoteData*) convertRemoteData:(NSData*)remoteData key:(id)key;
 

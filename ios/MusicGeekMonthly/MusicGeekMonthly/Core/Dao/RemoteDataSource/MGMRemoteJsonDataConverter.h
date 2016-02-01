@@ -8,8 +8,14 @@
 
 #import "MGMRemoteDataSource.h"
 
-@interface MGMRemoteJsonDataConverter : MGMRemoteDataConverter
+@protocol MGMRemoteJsonDataConverterDelegate <MGMRemoteDataConverterDelegate>
 
 - (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key;
+
+@end
+
+@interface MGMRemoteJsonDataConverter : MGMRemoteDataConverter
+
+@property (nonatomic, weak) id<MGMRemoteJsonDataConverterDelegate> delegate;
 
 @end

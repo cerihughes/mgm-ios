@@ -8,27 +8,27 @@
 
 #import "MGMRemoteXmlDataConverter.h"
 
+#import "MGMXmlParser.h"
+
 @implementation MGMRemoteXmlDataConverter
+
+@dynamic delegate;
 
 - (MGMRemoteData*) convertRemoteData:(NSData *)remoteData key:(id)key
 {
     NSDictionary* xml = nil;
-    if (remoteData)
-    {
+    if (remoteData) {
+        if ([self.delegate respondsToSelector:@selector(preprocessRemoteData:)]) {
+            remoteData = [self.delegate preprocessRemoteData:remoteData];
+        }
+
         NSError* xmlError = nil;
         xml = [MGMXmlParser dictionaryForXMLData:remoteData error:&xmlError];
-        if (xmlError)
-        {
+        if (xmlError) {
             return [MGMRemoteData dataWithError:xmlError];
         }
     }
-    return [self convertXmlData:xml key:key];
-}
-
-- (MGMRemoteData*) convertXmlData:(NSDictionary*)xml key:(id)key
-{
-    // OVERRIDE
-    return nil;
+    return [self.delegate convertXmlData:xml key:key];
 }
 
 @end

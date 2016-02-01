@@ -69,17 +69,15 @@
 
 @end
 
-@interface MGMWeeklyChartRemoteDataConverter : MGMRemoteJsonDataConverter
+@interface MGMWeeklyChartRemoteDataSource () <MGMRemoteHttpDataReaderDataSource, MGMRemoteJsonDataConverterDelegate>
 
 @property (readonly) NSNumberFormatter* numberFormatter;
 
 @end
 
-@implementation MGMWeeklyChartRemoteDataConverter
+@implementation MGMWeeklyChartRemoteDataSource
 
-#define MAX_CHART_ENTRIES 50
-
-- (id) init
+- (instancetype) init
 {
     if (self = [super init])
     {
@@ -88,6 +86,36 @@
     }
     return self;
 }
+
+- (MGMRemoteDataReader*) createRemoteDataReader
+{
+    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
+}
+
+- (MGMRemoteDataConverter*) createRemoteDataConverter
+{
+    MGMRemoteJsonDataConverter *converter = [[MGMRemoteJsonDataConverter alloc] init];
+    converter.delegate = self;
+    return converter;
+}
+
+#pragma mark - MGMRemoteHttpDataReaderDataSource
+
+#define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&from=%lu&to=%lu&api_key=%@&format=json"
+
+- (NSString*) urlForKey:(id)key
+{
+    MGMWeeklyChartData* data = key;
+    NSUInteger from = data.startDate.timeIntervalSince1970;
+    NSUInteger to = data.endDate.timeIntervalSince1970;
+    return [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, (unsigned long)from, (unsigned long)to, LAST_FM_API_KEY];
+}
+
+#pragma mark - MGMRemoteJsonDataConverterDelegate
+
+#define MAX_CHART_ENTRIES 50
 
 - (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key
 {
@@ -161,38 +189,6 @@
     [album.metadata addObject:lastfmMetadata];
 
     return album;
-}
-
-@end
-
-@interface MGMWeeklyChartRemoteDataSource () <MGMRemoteHttpDataReaderDataSource>
-
-@end
-
-@implementation MGMWeeklyChartRemoteDataSource
-
-- (MGMRemoteDataReader*) createRemoteDataReader
-{
-    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
-    reader.dataSource = self;
-    return reader;
-}
-
-- (MGMRemoteDataConverter*) createRemoteDataConverter
-{
-    return [[MGMWeeklyChartRemoteDataConverter alloc] init];
-}
-
-#pragma mark - MGMRemoteHttpDataReaderDataSource
-
-#define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&from=%lu&to=%lu&api_key=%@&format=json"
-
-- (NSString*) urlForKey:(id)key
-{
-    MGMWeeklyChartData* data = key;
-    NSUInteger from = data.startDate.timeIntervalSince1970;
-    NSUInteger to = data.endDate.timeIntervalSince1970;
-    return [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, (unsigned long)from, (unsigned long)to, LAST_FM_API_KEY];
 }
 
 @end

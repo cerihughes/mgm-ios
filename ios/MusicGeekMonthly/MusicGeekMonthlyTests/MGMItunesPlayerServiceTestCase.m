@@ -46,7 +46,7 @@
                               };
     
     MGMAlbum *mockAlbum = [self mockAlbumWithArtistName:@"asdf" albumName:@"asdf"];
-    MGMRemoteData *remoteData = [self.dataConverter convertJsonData:results key:mockAlbum];
+    MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:results key:mockAlbum];
     XCTAssert(remoteData);
     XCTAssertNil(remoteData.data);
 }
@@ -82,7 +82,7 @@
                               };
     
     MGMAlbum *mockAlbum = [self mockAlbumWithArtistName:@"Mew" albumName:@"No More Stories Are Told Today I'm Sorry They Washed Away No More Stories the World Is Grey I'm Tired Let's Wash Away"];
-    MGMRemoteData *remoteData = [self.dataConverter convertJsonData:results key:mockAlbum];
+    MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:results key:mockAlbum];
     XCTAssert(remoteData);
     
     MGMAlbumMetadataDto *dto = remoteData.data;
@@ -147,7 +147,7 @@
 - (void)testMultipleResultsExactMatch
 {
     MGMAlbum *mockAlbum = [self mockAlbumWithArtistName:@"Pearl Jam" albumName:@"Live On 10 Legs"];
-    MGMRemoteData *remoteData = [self.dataConverter convertJsonData:[self multipleResults] key:mockAlbum];
+    MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:[self multipleResults] key:mockAlbum];
     XCTAssert(remoteData);
     
     MGMAlbumMetadataDto *dto = remoteData.data;
@@ -159,7 +159,7 @@
 - (void)testMultipleResultsNoExactMatch
 {
     MGMAlbum *mockAlbum = [self mockAlbumWithArtistName:@"Pearl Jam" albumName:@"10"];
-    MGMRemoteData *remoteData = [self.dataConverter convertJsonData:[self multipleResults] key:mockAlbum];
+    MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:[self multipleResults] key:mockAlbum];
     XCTAssert(remoteData);
     
     MGMAlbumMetadataDto *dto = remoteData.data;

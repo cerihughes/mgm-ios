@@ -42,7 +42,7 @@
 
 @implementation MGMRemoteDataSource
 
-- (id) init
+- (instancetype) init
 {
     if (self = [super init])
     {
@@ -72,7 +72,6 @@
 - (oneway void) fetchRemoteData:(id)key completion:(REMOTE_DATA_FETCH_COMPLETION)completion
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
         NSError* readError = nil;
         NSData* data = [self.remoteDataReader readRemoteData:key error:&readError];
         MGMRemoteData* remoteData = [self.remoteDataConverter convertRemoteData:data key:key];

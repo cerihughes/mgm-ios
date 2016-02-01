@@ -69,13 +69,46 @@
 
 @end
 
-@interface MGMAllEventsGoogleSheetRemoteDataConverter : MGMRemoteJsonDataConverter
+@interface MGMAllEventsGoogleSheetRemoteDataSource () <MGMRemoteHttpDataReaderDataSource, MGMRemoteJsonDataConverterDelegate>
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @end
 
-@implementation MGMAllEventsGoogleSheetRemoteDataConverter
+@implementation MGMAllEventsGoogleSheetRemoteDataSource
+
+- (instancetype)init
+{
+    self = [super init];
+    _dateFormatter = [[NSDateFormatter alloc] init];
+    _dateFormatter.dateFormat = @"dd/MM/yyyy";
+    return self;
+}
+
+- (MGMRemoteDataReader*) createRemoteDataReader
+{
+    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
+}
+
+- (MGMRemoteDataConverter*) createRemoteDataConverter
+{
+    MGMRemoteJsonDataConverter *converter = [[MGMRemoteJsonDataConverter alloc] init];
+    converter.delegate = self;
+    return converter;
+}
+
+#pragma mark - MGMRemoteHttpDataReaderDataSource
+
+#define EVENTS_URL @"https://spreadsheets.google.com/feeds/list/1SytsfXWjxomYL10F7y9V7LawxNPSfnLTXGZYE5F0nh0/od6/public/values?alt=json"
+
+- (NSString*) urlForKey:(id)key
+{
+    return EVENTS_URL;
+}
+
+#pragma mark - MGMRemoteJsonDataConverterDelegate
 
 #define JSON_ELEMENT_TEXT @"$t"
 
@@ -100,18 +133,6 @@
 #define JSON_ELEMENT_NEW_SCORE @"gsx$newscore"
 #define JSON_ELEMENT_NEW_SPOTIFY @"gsx$newspotifyid"
 #define JSON_ELEMENT_NEW_KEYS @[JSON_ELEMENT_NEW_ARTIST_NAME, JSON_ELEMENT_NEW_ALBUM_NAME, JSON_ELEMENT_NEW_MBID, JSON_ELEMENT_NEW_SCORE, JSON_ELEMENT_NEW_SPOTIFY]
-
-- (instancetype)init
-{
-    if (!(self = [super init])) {
-        return nil;
-    }
-
-    _dateFormatter = [[NSDateFormatter alloc] init];
-    _dateFormatter.dateFormat = @"dd/MM/yyyy";
-
-    return self;
-}
 
 - (NSDate*) dateForString:(NSString *)jsonString
 {
@@ -191,35 +212,6 @@
     [album.metadata addObject:lastfmMetadata];
 
     return album;
-}
-
-@end
-
-@interface MGMAllEventsGoogleSheetRemoteDataSource () <MGMRemoteHttpDataReaderDataSource>
-
-@end
-
-@implementation MGMAllEventsGoogleSheetRemoteDataSource
-
-- (MGMRemoteDataReader*) createRemoteDataReader
-{
-    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
-    reader.dataSource = self;
-    return reader;
-}
-
-- (MGMRemoteDataConverter*) createRemoteDataConverter
-{
-    return [[MGMAllEventsGoogleSheetRemoteDataConverter alloc] init];
-}
-
-#pragma mark - MGMRemoteHttpDataReaderDataSource
-
-#define EVENTS_URL @"https://spreadsheets.google.com/feeds/list/1SytsfXWjxomYL10F7y9V7LawxNPSfnLTXGZYE5F0nh0/od6/public/values?alt=json"
-
-- (NSString*) urlForKey:(id)key
-{
-    return EVENTS_URL;
 }
 
 @end

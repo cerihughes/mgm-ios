@@ -8,10 +8,14 @@
 
 #import "MGMRemoteDataSource.h"
 
-#import "MGMXmlParser.h"
+@protocol MGMRemoteXmlDataConverterDelegate <MGMRemoteDataConverterDelegate>
+
+- (MGMRemoteData*) convertXmlData:(NSDictionary*)xml key:(id)key;
+
+@end
 
 @interface MGMRemoteXmlDataConverter : MGMRemoteDataConverter
 
-- (MGMRemoteData*) convertXmlData:(NSDictionary*)xml key:(id)key;
+@property (nonatomic, weak) id<MGMRemoteXmlDataConverterDelegate> delegate;
 
 @end

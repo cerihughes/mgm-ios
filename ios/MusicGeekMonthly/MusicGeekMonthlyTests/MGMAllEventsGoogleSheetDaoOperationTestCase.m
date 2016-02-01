@@ -108,7 +108,7 @@
 
 - (void)testNoResults
 {
-    MGMRemoteData *remoteData = [self.dataConverter convertJsonData:[self noResults] key:nil];
+    MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:[self noResults] key:nil];
     XCTAssert(remoteData);
     
     NSArray *events = remoteData.data;
@@ -256,7 +256,7 @@
 
 - (void)testSimpleResult
 {
-    MGMRemoteData *remoteData = [self.dataConverter convertJsonData:[self simpleResult] key:nil];
+    MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:[self simpleResult] key:nil];
     XCTAssert(remoteData);
     
     NSArray *events = remoteData.data;
@@ -410,7 +410,7 @@
 
 - (void)testBadResult
 {
-    MGMRemoteData *remoteData = [self.dataConverter convertJsonData:[self badResult] key:nil];
+    MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:[self badResult] key:nil];
     XCTAssert(remoteData);
     
     NSArray *events = remoteData.data;
@@ -557,7 +557,7 @@
 
 - (void)testGoodResult
 {
-    MGMRemoteData *remoteData = [self.dataConverter convertJsonData:[self goodResult] key:nil];
+    MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:[self goodResult] key:nil];
     XCTAssert(remoteData);
     
     NSArray *events = remoteData.data;
