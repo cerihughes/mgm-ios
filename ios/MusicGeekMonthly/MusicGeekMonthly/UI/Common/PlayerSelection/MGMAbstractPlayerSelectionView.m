@@ -8,6 +8,8 @@
 
 #import "MGMAbstractPlayerSelectionView.h"
 
+#import "MGMPlayerGroupView.h"
+
 @interface MGMAbstractPlayerSelectionView () <MGMPlayerGroupViewDelegate>
 
 @end

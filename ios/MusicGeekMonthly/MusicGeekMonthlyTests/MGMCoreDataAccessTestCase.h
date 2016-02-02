@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+#import "MGMTestCase.h"
 
-#import "MGMCoreDataAccess.h"
+@class MGMCoreDataAccess;
 
-@interface MGMCoreDataAccessTestCase : XCTestCase
+@interface MGMCoreDataAccessTestCase : MGMTestCase
 
 @property (readonly) MGMCoreDataAccess* cutInsert;
 @property (readonly) MGMCoreDataAccess* cutFetch;

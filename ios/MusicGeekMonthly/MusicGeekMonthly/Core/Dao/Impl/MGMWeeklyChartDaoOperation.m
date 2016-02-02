@@ -8,13 +8,21 @@
 
 #import "MGMWeeklyChartDaoOperation.h"
 
+#import "MGMAlbumDto.h"
 #import "MGMAlbumMetadataDto.h"
+#import "MGMWeeklyChartDto.h"
 #import "MGMChartEntryDto.h"
+#import "MGMCoreDataAccess.h"
 #import "MGMErrorCodes.h"
 #import "MGMLastFmConstants.h"
+#import "MGMLocalData.h"
 #import "MGMSecrets.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteJsonDataConverter.h"
+#import "MGMWeeklyChartDto.h"
+
+@import CoreData;
 
 @implementation MGMWeeklyChartData
 

@@ -8,6 +8,9 @@
 
 #import "MGMAlbumDetailView.h"
 
+#import "MGMAlbumView.h"
+#import "MGMPlayerGroupView.h"
+
 @interface MGMAlbumDetailView ()
 
 @property (readonly) UINavigationBar* navigationBar;
@@ -16,6 +19,8 @@
 @end
 
 @implementation MGMAlbumDetailView
+
+@dynamic delegate;
 
 - (void) commonInit
 {

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Ceri Hughes. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+@import XCTest;
 
 @protocol MGMMockContainer <NSObject>
 

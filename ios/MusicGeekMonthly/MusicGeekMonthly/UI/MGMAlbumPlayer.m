@@ -8,6 +8,7 @@
 
 #import "MGMAlbumPlayer.h"
 
+#import "MGMAlbumServiceManager.h"
 #import "MGMUI.h"
 
 @implementation MGMAlbumPlayer

@@ -8,6 +8,8 @@
 
 #import "MGMWebsitePlayerService.h"
 
+#import "MGMAlbum.h"
+
 @interface MGMWebsitePlayerService ()
 
 @property (copy) NSString* albumUrlPattern;

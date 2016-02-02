@@ -6,9 +6,8 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
-
-#import "MGMPlaylistItem.h"
+@import Foundation;
+@import CoreData;
 
 @interface MGMPlaylist : NSManagedObject
 

@@ -6,11 +6,10 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
+@import Foundation;
+@import CoreData;
 
 #import "MGMRenderable.h"
-
-@class MGMWeeklyChart;
 
 @interface MGMTimePeriod : NSManagedObject<MGMRenderable>
 

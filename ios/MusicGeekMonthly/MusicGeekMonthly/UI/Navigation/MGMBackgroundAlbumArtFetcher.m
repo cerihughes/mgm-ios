@@ -8,6 +8,7 @@
 
 #import "MGMBackgroundAlbumArtFetcher.h"
 
+#import "MGMBackgroundAlbumArtCollection.h"
 #import "MGMImageHelper.h"
 #import "NSMutableArray+Shuffling.h"
 

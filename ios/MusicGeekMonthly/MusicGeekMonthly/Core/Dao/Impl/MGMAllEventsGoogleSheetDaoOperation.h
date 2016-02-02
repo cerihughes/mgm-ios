@@ -7,6 +7,8 @@
 //
 
 #import "MGMDaoOperation.h"
+#import "MGMLocalDataSource.h"
+#import "MGMRemoteDataSource.h"
 
 #define ALL_EVENTS_KEY @"ALL_EVENTS_KEY"
 #define ALL_CLASSIC_ALBUMS_KEY @"ALL_CLASSIC_ALBUMS_KEY"

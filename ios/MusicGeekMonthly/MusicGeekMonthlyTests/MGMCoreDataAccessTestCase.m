@@ -10,6 +10,7 @@
 
 #import "MGMAlbumImageUriDto.h"
 #import "MGMAlbumMetadataDto.h"
+#import "MGMCoreDataAccess.h"
 #import "MGMEventDto.h"
 #import "MGMTimePeriod.h"
 #import "MGMTimePeriodDto.h"

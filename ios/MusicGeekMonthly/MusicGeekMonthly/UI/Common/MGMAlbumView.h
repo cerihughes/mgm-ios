@@ -8,6 +8,9 @@
 
 #import "MGMView.h"
 
+@import Foundation;
+@import UIKit;
+
 @class MGMAlbumView;
 
 @protocol MGMAlbumViewDelegate <NSObject>

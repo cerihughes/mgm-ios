@@ -8,6 +8,9 @@
 
 #import "MGMSpotifyPlayerService.h"
 
+#import "MGMAlbum.h"
+#import "MGMAlbumMetadataDto.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteJsonDataConverter.h"
 #import "MGMSpotifyConstants.h"

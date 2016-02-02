@@ -1,11 +1,14 @@
 
-#import <Foundation/Foundation.h>
-
-#import "MGMAlbumPlayer.h"
 #import "MGMAlbumSelectionDelegate.h"
-#import "MGMCore.h"
-#import "MGMImageHelper.h"
-#import "MGMNavigationController.h"
+#import "MGMAlbumServiceType.h"
+
+@import Foundation;
+@import UIKit;
+
+@class MGMAlbumPlayer;
+@class MGMCore;
+@class MGMImageHelper;
+@class MGMNavigationController;
 
 #define TO_ALBUM_DETAIL @"TO_ALBUM_DETAIL"
 

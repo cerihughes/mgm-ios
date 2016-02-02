@@ -6,13 +6,12 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import UIKit;
 
-#import "MGMAlbumImageSize.h"
-#import "MGMBackgroundAlbumArtCollection.h"
-#import "MGMImageHelper.h"
-
+@class MGMBackgroundAlbumArtCollection;
 @class MGMBackgroundAlbumArtFetcher;
+@class MGMImageHelper;
 
 @protocol MGMBackgroundAlbumArtFetcherDelegate <NSObject>
 

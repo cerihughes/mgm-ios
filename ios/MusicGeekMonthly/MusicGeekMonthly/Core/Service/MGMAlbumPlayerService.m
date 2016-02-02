@@ -8,6 +8,10 @@
 
 #import "MGMAlbumPlayerService.h"
 
+#import "MGMAlbum.h"
+#import "MGMCoreDataAccess.h"
+#import "MGMRemoteData.h"
+
 @implementation MGMAlbumPlayerService
 
 - (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess

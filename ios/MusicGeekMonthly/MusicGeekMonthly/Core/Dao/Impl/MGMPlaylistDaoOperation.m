@@ -9,11 +9,14 @@
 #import "MGMPlaylistDaoOperation.h"
 
 #import "MGMAlbumImageUriDto.h"
+#import "MGMCoreDataAccess.h"
 #import "MGMErrorCodes.h"
+#import "MGMLocalData.h"
 #import "MGMPlaylist.h"
 #import "MGMPlaylistDto.h"
 #import "MGMPlaylistItem.h"
 #import "MGMPlaylistItemDto.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteXmlDataConverter.h"
 #import "MGMSpotifyConstants.h"
@@ -157,7 +160,7 @@
     NSDictionary* progressBarContainerDiv = [metaDiv objectForKey:@"div"][2];
     NSDictionary* contextTitleDiv = [progressBarContainerDiv objectForKey:@"div"][1];
     NSDictionary* titleContentDiv = [contextTitleDiv objectForKey:@"div"][1];
-    NSString* title = [titleContentDiv objectForKey:kXMLReaderTextNodeKey];
+    NSString* title = [titleContentDiv objectForKey:MGM_XMLReader_TextNodeKey];
     return [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
@@ -171,11 +174,11 @@
     NSArray* trackLiArray = [trackUl objectForKeyedSubscript:@"li"];
 
     NSDictionary* titleDictionary = trackLiArray[1];
-    NSString* title = [titleDictionary objectForKey:kXMLReaderTextNodeKey];
+    NSString* title = [titleDictionary objectForKey:MGM_XMLReader_TextNodeKey];
     title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     NSDictionary* artistDictionary = trackLiArray[2];
-    NSString* artist = [artistDictionary objectForKey:kXMLReaderTextNodeKey];
+    NSString* artist = [artistDictionary objectForKey:MGM_XMLReader_TextNodeKey];
     artist = [artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     MGMPlaylistItemDto* playlistItem = [[MGMPlaylistItemDto alloc] init];

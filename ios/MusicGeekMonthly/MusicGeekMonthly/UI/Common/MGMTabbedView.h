@@ -8,6 +8,8 @@
 
 #import "MGMView.h"
 
+@import UIKit;
+
 @interface MGMTabbedView : MGMView
 
 @property (readonly) UIView* albumContainer;

@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-#import "MGMCoreDataAccess.h"
-#import "MGMLocalData.h"
-#import "MGMRemoteData.h"
+@class MGMCoreDataAccess;
+@class MGMLocalData;
+@class MGMRemoteData;
 
 typedef void (^LOCAL_DATA_PERSIST_COMPLETION) (NSError*);
 typedef void (^LOCAL_DATA_FETCH_COMPLETION) (MGMLocalData*);

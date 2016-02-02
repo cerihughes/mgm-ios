@@ -8,7 +8,10 @@
 
 #import "MGMItunesPlayerService.h"
 
+#import "MGMAlbum.h"
+#import "MGMAlbumMetadataDto.h"
 #import "MGMRemoteHttpDataReader.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteJsonDataConverter.h"
 #import "MGMSpotifyConstants.h"
 

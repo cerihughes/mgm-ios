@@ -8,6 +8,8 @@
 
 #import "MGMRemoteDataSource.h"
 
+#import "MGMRemoteData.h"
+
 @implementation MGMRemoteDataReader
 
 - (NSData*) readRemoteData:(id)key error:(NSError**)error

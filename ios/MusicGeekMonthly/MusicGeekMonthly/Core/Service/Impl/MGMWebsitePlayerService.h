@@ -8,6 +8,10 @@
 
 #import "MGMAlbumPlayerService.h"
 
+#import "MGMAlbumServiceType.h"
+
+@class MGMCoreDataAccess;
+
 @interface MGMWebsitePlayerService : MGMAlbumPlayerService
 
 + (instancetype)new NS_UNAVAILABLE;

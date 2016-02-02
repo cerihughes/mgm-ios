@@ -8,8 +8,11 @@
 
 #import "MGMAllTimePeriodsDaoOperation.h"
 
+#import "MGMCoreDataAccess.h"
 #import "MGMLastFmConstants.h"
+#import "MGMLocalData.h"
 #import "MGMSecrets.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteJsonDataConverter.h"
 #import "MGMTimePeriodDto.h"

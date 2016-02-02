@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @class MGMUI;
 

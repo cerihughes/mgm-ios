@@ -17,9 +17,6 @@
 		651E8D0318CB700100333CA1 /* MGMHttpDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0218CB700100333CA1 /* MGMHttpDataSource.m */; };
 		651E8D0718CB71F800333CA1 /* MGMRemoteHttpDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0618CB71F800333CA1 /* MGMRemoteHttpDataReader.m */; };
 		651E8D0B18CB88B200333CA1 /* MGMRemoteFileDataReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 651E8D0A18CB88B200333CA1 /* MGMRemoteFileDataReader.m */; };
-		65283D2618D4544400D7C1D7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65283D2518D4544400D7C1D7 /* XCTest.framework */; };
-		65283D2718D4544400D7C1D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F43175B928E000C413B /* Foundation.framework */; };
-		65283D2818D4544400D7C1D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F41175B928E000C413B /* UIKit.framework */; };
 		65283D3718D4548500D7C1D7 /* MGMGridManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6502F20918C3A02C007FE38E /* MGMGridManagerTestCase.m */; };
 		65283D3818D4548E00D7C1D7 /* MGMCoreDataTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65936A0817BCB1150070A9C6 /* MGMCoreDataTestCase.m */; };
 		6532DA101C5E5651002339FD /* MGMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532DA0F1C5E5651002339FD /* MGMTestCase.m */; };
@@ -128,17 +125,10 @@
 		658F4C3D1AC85014005D7156 /* MGMAllEventsGoogleSheetDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 658F4C3C1AC85014005D7156 /* MGMAllEventsGoogleSheetDaoOperation.m */; };
 		658F4C3F1AC87016005D7156 /* googleSheet.json in Resources */ = {isa = PBXBuildFile; fileRef = 658F4C3E1AC87016005D7156 /* googleSheet.json */; };
 		658F4C421AC8706C005D7156 /* MGMPreloadAllEventsGoogleSheetDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 658F4C411AC8706C005D7156 /* MGMPreloadAllEventsGoogleSheetDaoOperation.m */; };
-		659F9F42175B928E000C413B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F41175B928E000C413B /* UIKit.framework */; };
-		659F9F44175B928E000C413B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F43175B928E000C413B /* Foundation.framework */; };
-		659F9F46175B928E000C413B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F9F45175B928E000C413B /* CoreGraphics.framework */; };
 		659F9F4C175B928E000C413B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F4A175B928E000C413B /* InfoPlist.strings */; };
 		659F9F4E175B928E000C413B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659F9F4D175B928E000C413B /* main.m */; };
-		65E1A51E17F707BA006F8051 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E1A51D17F707BA006F8051 /* QuartzCore.framework */; };
 		65E3F8251AE3C6A3004FF67B /* MGMItunesPlayerServiceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E3F8241AE3C6A3004FF67B /* MGMItunesPlayerServiceTestCase.m */; };
 		65E3F8271AE3C787004FF67B /* MGMAllEventsGoogleSheetDaoOperationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E3F8261AE3C787004FF67B /* MGMAllEventsGoogleSheetDaoOperationTestCase.m */; };
-		65E79B0817C2444C008CCDA3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */; };
-		65E8110A17AD014800FCBC9F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E8110917AD014800FCBC9F /* libz.dylib */; };
-		65E975B417B6B43400CF53B2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E975B317B6B43400CF53B2 /* CoreData.framework */; };
 		65EC948E18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC948D18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m */; };
 		65EC949118B8C9A300B1AFFE /* MGMXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949018B8C9A300B1AFFE /* MGMXmlParser.m */; };
 		65EC949518B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC949418B8CCDA00B1AFFE /* MGMRemoteXmlDataConverter.m */; };
@@ -171,7 +161,6 @@
 		651B72D318D47BA200346F72 /* MGMDaoOperationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDaoOperationTestCase.m; sourceTree = "<group>"; };
 		651B72D518D47C1300346F72 /* MGMCoreDataAccessTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMCoreDataAccessTestCase.h; sourceTree = "<group>"; };
 		651B72D618D47C1300346F72 /* MGMCoreDataAccessTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataAccessTestCase.m; sourceTree = "<group>"; };
-		651B72D818D480B900346F72 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = MusicGeekMonthly/Libraries/OCMock2.2.3/libOCMock.a; sourceTree = "<group>"; };
 		651E8CF018CA383000333CA1 /* MGMInitialLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMInitialLoadingView.h; sourceTree = "<group>"; };
 		651E8CF118CA383000333CA1 /* MGMInitialLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMInitialLoadingView.m; sourceTree = "<group>"; };
 		651E8CF318CA39BE00333CA1 /* MGMInitialLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMInitialLoadingViewController.h; sourceTree = "<group>"; };
@@ -185,7 +174,6 @@
 		651E8D0918CB88B200333CA1 /* MGMRemoteFileDataReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMRemoteFileDataReader.h; sourceTree = "<group>"; };
 		651E8D0A18CB88B200333CA1 /* MGMRemoteFileDataReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMRemoteFileDataReader.m; sourceTree = "<group>"; };
 		65283D2418D4544400D7C1D7 /* MusicGeekMonthlyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicGeekMonthlyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		65283D2518D4544400D7C1D7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		65283D3118D4544400D7C1D7 /* MusicGeekMonthlyTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicGeekMonthlyTests-Prefix.pch"; sourceTree = "<group>"; };
 		6532DA0E1C5E5651002339FD /* MGMTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTestCase.h; sourceTree = "<group>"; };
 		6532DA0F1C5E5651002339FD /* MGMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTestCase.m; sourceTree = "<group>"; };
@@ -385,21 +373,14 @@
 		658F4C411AC8706C005D7156 /* MGMPreloadAllEventsGoogleSheetDaoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGMPreloadAllEventsGoogleSheetDaoOperation.m; path = Offline/MGMPreloadAllEventsGoogleSheetDaoOperation.m; sourceTree = "<group>"; };
 		65936A0817BCB1150070A9C6 /* MGMCoreDataTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMCoreDataTestCase.m; sourceTree = "<group>"; };
 		659F9F3E175B928E000C413B /* Music Geek Monthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Geek Monthly.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		659F9F41175B928E000C413B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		659F9F43175B928E000C413B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		659F9F45175B928E000C413B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		659F9F49175B928E000C413B /* MusicGeekMonthly-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MusicGeekMonthly-Info.plist"; sourceTree = "<group>"; };
 		659F9F4B175B928E000C413B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		659F9F4D175B928E000C413B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		659F9F4F175B928E000C413B /* MusicGeekMonthly-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicGeekMonthly-Prefix.pch"; sourceTree = "<group>"; };
 		659F9F67175B928E000C413B /* MusicGeekMonthlyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MusicGeekMonthlyTests-Info.plist"; sourceTree = "<group>"; };
 		659F9F69175B928E000C413B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		65E1A51D17F707BA006F8051 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		65E3F8241AE3C6A3004FF67B /* MGMItunesPlayerServiceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMItunesPlayerServiceTestCase.m; sourceTree = "<group>"; };
 		65E3F8261AE3C787004FF67B /* MGMAllEventsGoogleSheetDaoOperationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAllEventsGoogleSheetDaoOperationTestCase.m; sourceTree = "<group>"; };
-		65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		65E8110917AD014800FCBC9F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		65E975B317B6B43400CF53B2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		65EC948C18B8C49500B1AFFE /* MGMPlaylistDaoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylistDaoOperation.h; sourceTree = "<group>"; };
 		65EC948D18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlaylistDaoOperation.m; sourceTree = "<group>"; };
 		65EC948F18B8C9A300B1AFFE /* MGMXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMXmlParser.h; sourceTree = "<group>"; };
@@ -432,9 +413,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65283D2618D4544400D7C1D7 /* XCTest.framework in Frameworks */,
-				65283D2818D4544400D7C1D7 /* UIKit.framework in Frameworks */,
-				65283D2718D4544400D7C1D7 /* Foundation.framework in Frameworks */,
 				373E367F18A81F13E3B65FBC /* libPods-MusicGeekMonthlyTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -443,13 +421,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65E975B417B6B43400CF53B2 /* CoreData.framework in Frameworks */,
-				659F9F46175B928E000C413B /* CoreGraphics.framework in Frameworks */,
-				659F9F44175B928E000C413B /* Foundation.framework in Frameworks */,
-				65E1A51E17F707BA006F8051 /* QuartzCore.framework in Frameworks */,
-				65E79B0817C2444C008CCDA3 /* SystemConfiguration.framework in Frameworks */,
-				659F9F42175B928E000C413B /* UIKit.framework in Frameworks */,
-				65E8110A17AD014800FCBC9F /* libz.dylib in Frameworks */,
 				BF411209F66DF82BBCADE762 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -966,15 +937,6 @@
 		659F9F40175B928E000C413B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				65E975B317B6B43400CF53B2 /* CoreData.framework */,
-				659F9F45175B928E000C413B /* CoreGraphics.framework */,
-				659F9F43175B928E000C413B /* Foundation.framework */,
-				65E1A51D17F707BA006F8051 /* QuartzCore.framework */,
-				65E79B0717C2444C008CCDA3 /* SystemConfiguration.framework */,
-				659F9F41175B928E000C413B /* UIKit.framework */,
-				651B72D818D480B900346F72 /* libOCMock.a */,
-				65E8110917AD014800FCBC9F /* libz.dylib */,
-				65283D2518D4544400D7C1D7 /* XCTest.framework */,
 				1B3AC543043E6DFFC8AB3826 /* libPods.a */,
 				7952BE38CE3909E20DB484EF /* libPods-MusicGeekMonthlyTests.a */,
 			);
@@ -1587,6 +1549,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1606,6 +1569,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

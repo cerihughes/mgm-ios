@@ -8,6 +8,8 @@
 
 #import "MGMDaoData.h"
 
+#import "MGMLocalData.h"
+
 @implementation MGMDaoData
 
 + (MGMDaoData*) dataWithError:(NSError*)error

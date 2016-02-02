@@ -8,10 +8,20 @@
 
 #import "MGMAlbumScoresViewController.h"
 
+@import CoreData;
+
+#import "MGMAlbumGridView.h"
 #import "MGMAlbumScoresView.h"
+#import "MGMCore.h"
+#import "MGMCoreDataAccess.h"
 #import "MGMCoreDataTableViewDataSource.h"
+#import "MGMDao.h"
+#import "MGMDaoData.h"
+#import "MGMDaoOperation.h"
 #import "MGMGridManager.h"
 #import "MGMImageHelper.h"
+#import "MGMUI.h"
+#import "UIViewController+MGMAdditions.h"
 
 @interface MGMAlbumScoresViewController () <MGMAlbumGridViewDelegate, MGMAlbumScoresViewDelegate>
 

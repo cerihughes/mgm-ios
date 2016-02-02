@@ -8,6 +8,8 @@
 
 #import "MGMView.h"
 
+@import UIKit;
+
 @interface MGMPulsatingAlbumsView : MGMView
 
 @property (readonly) NSUInteger albumCount;

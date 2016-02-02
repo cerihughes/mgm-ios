@@ -8,7 +8,10 @@
 
 #import "MGMTestCase.h"
 
+#import "MGMAlbum.h"
+#import "MGMAlbumMetadataDto.h"
 #import "MGMItunesPlayerService.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteJsonDataConverter.h"
 
 #import <OCMockito/OCMockito.h>

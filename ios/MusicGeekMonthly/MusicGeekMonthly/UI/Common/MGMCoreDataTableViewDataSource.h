@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
+@import Foundation;
+@import UIKit;
 
-#import "MGMRenderable.h"
-#import <UIKit/UIKit.h>
+@protocol MGMRenderable;
 
 @interface MGMCoreDataTableViewDataSource : NSObject <UITableViewDataSource>
 

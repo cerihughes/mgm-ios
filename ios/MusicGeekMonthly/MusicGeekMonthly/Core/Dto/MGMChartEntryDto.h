@@ -6,8 +6,9 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "MGMAlbumDto.h"
+@import Foundation;
+
+@class MGMAlbumDto;
 
 @interface MGMChartEntryDto : NSObject
 

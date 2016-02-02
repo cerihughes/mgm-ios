@@ -8,7 +8,9 @@
 
 #import "MGMCoreDataTableViewDataSourceContainer.h"
 
-#import <CoreData/CoreData.h>
+@import CoreData;
+
+#import "MGMRenderable.h"
 
 @interface MGMCoreDataTableViewDataSourceSection ()
 

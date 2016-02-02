@@ -8,7 +8,9 @@
 
 #import "MGMAlbumViewController.h"
 
-#import "MGMPlaylist.h"
+@class MGMEvent;
+@class MGMPlaylist;
+@protocol MGMPlaylistSelectionDelegate;
 
 @interface MGMAbstractEventViewController : MGMAlbumViewController
 

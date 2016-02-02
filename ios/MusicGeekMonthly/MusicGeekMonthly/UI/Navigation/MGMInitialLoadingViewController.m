@@ -8,11 +8,20 @@
 
 #import "MGMInitialLoadingViewController.h"
 
+#import "MGMAlbum.h"
+#import "MGMBackgroundAlbumArtCollection.h"
 #import "MGMChartEntry.h"
+#import "MGMCore.h"
+#import "MGMCoreDataAccess.h"
+#import "MGMDao.h"
+#import "MGMDaoData.h"
+#import "MGMEvent.h"
 #import "MGMInitialLoadingView.h"
 #import "MGMLastFmConstants.h"
 #import "MGMTimePeriod.h"
 #import "MGMWeeklyChart.h"
+#import "MGMUI.h"
+#import "UIViewController+MGMAdditions.h"
 
 @implementation MGMInitialLoadingViewController
 

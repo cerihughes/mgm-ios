@@ -8,6 +8,8 @@
 
 #import "MGMWeeklyChartView.h"
 
+#import "MGMAlbumGridView.h"
+
 @interface MGMWeeklyChartView ()
 
 @property (readonly) UINavigationBar* navigationBar;

@@ -8,6 +8,8 @@
 
 #import "MGMRemoteJsonDataConverter.h"
 
+#import "MGMRemoteData.h"
+
 @implementation MGMRemoteJsonDataConverter
 
 @dynamic delegate;

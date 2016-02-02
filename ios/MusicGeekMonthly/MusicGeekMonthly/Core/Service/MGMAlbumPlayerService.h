@@ -8,7 +8,10 @@
 
 #import "MGMAlbumService.h"
 
-#import "MGMAlbum.h"
+#import "MGMAlbumServiceType.h"
+
+@class MGMAlbum;
+@class MGMCoreDataAccess;
 
 @interface MGMAlbumPlayerService : MGMAlbumService
 

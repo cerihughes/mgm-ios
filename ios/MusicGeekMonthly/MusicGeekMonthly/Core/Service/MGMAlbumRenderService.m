@@ -8,12 +8,15 @@
 
 #import "MGMAlbumRenderService.h"
 
+#import "MGMAlbum.h"
 #import "MGMAlbumImageUriDto.h"
+#import "MGMCoreDataAccess.h"
 #import "MGMErrorCodes.h"
 #import "MGMLastFmConstants.h"
-#import "MGMSecrets.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteJsonDataConverter.h"
+#import "MGMSecrets.h"
 
 @interface MGMAlbumRenderService () <MGMRemoteHttpDataReaderDataSource, MGMRemoteJsonDataConverterDelegate>
 

@@ -8,6 +8,14 @@
 
 #import "MGMViewController.h"
 
+#import "MGMAlbum.h"
+#import "MGMAlbumRenderService.h"
+#import "MGMAlbumView.h"
+#import "MGMCore.h"
+#import "MGMImageHelper.h"
+#import "MGMUI.h"
+#import "UIViewController+MGMAdditions.h"
+
 @interface MGMViewController () <UIPopoverControllerDelegate>
 
 @property (strong) UIPopoverController* iPadPopoverController;

@@ -8,10 +8,12 @@
 
 #import <XCTest/XCTest.h>
 
-#import "MGMAllEventsGoogleSheetDaoOperation.h"
-#import "MGMRemoteJsonDataConverter.h"
-#import "MGMEventDto.h"
+#import "MGMAlbumDto.h"
 #import "MGMAlbumMetadataDto.h"
+#import "MGMAllEventsGoogleSheetDaoOperation.h"
+#import "MGMEventDto.h"
+#import "MGMRemoteData.h"
+#import "MGMRemoteJsonDataConverter.h"
 
 @interface MGMAllEventsGoogleSheetDaoOperationTestCase : XCTestCase
 

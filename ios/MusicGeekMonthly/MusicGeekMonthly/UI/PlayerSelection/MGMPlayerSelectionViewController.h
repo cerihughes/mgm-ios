@@ -8,6 +8,7 @@
 
 #import "MGMViewController.h"
 
+#import "MGMAlbumServiceType.h"
 #import "MGMPlayerSelectionMode.h"
 
 @protocol MGMPlayerSelectionViewControllerDelegate <NSObject>

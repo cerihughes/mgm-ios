@@ -8,6 +8,8 @@
 
 #import "MGMLastFmPlayerService.h"
 
+#import "MGMAlbum.h"
+
 @implementation MGMLastFmPlayerService
 
 #define ARTIST_URI @"lastfm://artist/%@/similarartists"

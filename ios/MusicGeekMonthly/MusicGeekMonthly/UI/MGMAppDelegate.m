@@ -8,6 +8,7 @@
 
 #import "MGMAppDelegate.h"
 
+#import "MGMCore.h"
 #import "MGMUI.h"
 
 @interface MGMAppDelegate ()

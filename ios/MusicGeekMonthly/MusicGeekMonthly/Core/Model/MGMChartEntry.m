@@ -8,6 +8,8 @@
 
 #import "MGMChartEntry.h"
 
+#import "MGMAlbum.h"
+
 @implementation MGMChartEntry
 
 @dynamic listeners;

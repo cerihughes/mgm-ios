@@ -8,7 +8,8 @@
 
 #import "MGMRemoteDataSource.h"
 
-#import "MGMCoreDataAccess.h"
+@class MGMAlbum;
+@class MGMCoreDataAccess;
 
 typedef void (^ALBUM_SERVICE_COMPLETION) (NSError*);
 

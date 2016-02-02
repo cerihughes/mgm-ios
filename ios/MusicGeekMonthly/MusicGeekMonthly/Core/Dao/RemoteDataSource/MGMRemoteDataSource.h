@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-#import "MGMRemoteData.h"
+@class MGMRemoteData;
 
 @interface MGMRemoteDataReader : NSObject
 

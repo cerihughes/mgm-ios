@@ -8,10 +8,17 @@
 
 #import "MGMEventsViewController.h"
 
+#import "MGMAlbumView.h"
+#import "MGMCore.h"
+#import "MGMCoreDataAccess.h"
+#import "MGMDao.h"
+#import "MGMDaoData.h"
 #import "MGMEvent.h"
 #import "MGMEventsView.h"
 #import "MGMEventsModalView.h"
 #import "MGMEventTableViewDataSource.h"
+#import "MGMUI.h"
+#import "UIViewController+MGMAdditions.h"
 
 @interface MGMEventsViewController () <UITableViewDelegate, MGMEventsViewDelegate, MGMEventsModalViewDelegate>
 

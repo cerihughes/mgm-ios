@@ -6,8 +6,10 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "MGMUI.h"
+@import UIKit;
+
+@class MGMCore;
+@class MGMUI;
 
 @interface UIViewController (MGMAdditions)
 

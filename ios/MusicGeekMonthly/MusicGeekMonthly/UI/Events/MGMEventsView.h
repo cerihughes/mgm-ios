@@ -8,6 +8,8 @@
 
 #import "MGMAbstractEventView.h"
 
+@import Foundation;
+
 @protocol MGMEventsViewDelegate <MGMAbstractEventViewDelegate>
 
 - (void) moreButtonPressed:(id)sender;

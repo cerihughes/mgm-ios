@@ -8,7 +8,9 @@
 
 #import "MGMViewController.h"
 
-#import "MGMBackgroundAlbumArtCollection.h"
+@import Foundation;
+
+@class MGMBackgroundAlbumArtCollection;
 
 @protocol MGMInitialLoadingViewControllerDelegate <NSObject>
 

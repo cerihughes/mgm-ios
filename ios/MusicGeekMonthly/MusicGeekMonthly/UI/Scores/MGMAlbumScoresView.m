@@ -8,6 +8,8 @@
 
 #import "MGMAlbumScoresView.h"
 
+#import "MGMAlbumGridView.h"
+
 @interface MGMAlbumScoresView ()
 
 @property (readonly) UINavigationBar* navigationBar;

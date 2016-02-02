@@ -8,7 +8,14 @@
 
 #import "MGMTestCase.h"
 
+#import "MGMCoreDataAccess.h"
+#import "MGMDaoData.h"
 #import "MGMDaoOperation.h"
+#import "MGMLocalData.h"
+#import "MGMLocalDataSource.h"
+#import "MGMNextUrlAccess.h"
+#import "MGMRemoteData.h"
+#import "MGMRemoteDataSource.h"
 
 #import <OCMockito/OCMockito.h>
 #import <OCHamcrest/OCHamcrest.h>

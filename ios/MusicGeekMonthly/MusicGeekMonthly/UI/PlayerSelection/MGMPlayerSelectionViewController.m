@@ -8,8 +8,13 @@
 
 #import "MGMPlayerSelectionViewController.h"
 
+#import "MGMAlbumPlayer.h"
 #import "MGMAlbumServiceType.h"
+#import "MGMCore.h"
 #import "MGMPlayerSelectionView.h"
+#import "MGMSettingsDao.h"
+#import "MGMUI.h"
+#import "UIViewController+MGMAdditions.h"
 
 @interface MGMPlayerSelectionViewController () <MGMAbstractPlayerSelectionViewDelegate>
 

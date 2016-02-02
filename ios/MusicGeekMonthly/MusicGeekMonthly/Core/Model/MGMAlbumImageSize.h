@@ -6,6 +6,11 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
+@import Foundation;
+@import CoreGraphics;
+
+#import "MGMAlbumImageSize.h"
+
 typedef NS_ENUM(NSUInteger, MGMAlbumImageSize)
 {
     MGMAlbumImageSizeNone = 0,

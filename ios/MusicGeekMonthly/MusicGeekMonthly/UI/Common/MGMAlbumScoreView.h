@@ -8,6 +8,8 @@
 
 #import "MGMView.h"
 
+@import Foundation;
+
 @interface MGMAlbumScoreView : MGMView
 
 @property (copy) NSString* score;

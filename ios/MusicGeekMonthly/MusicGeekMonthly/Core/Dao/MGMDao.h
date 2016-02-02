@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-#import "MGMCoreDataAccess.h"
-#import "MGMDaoData.h"
 #import "MGMDaoOperation.h"
+
+@class MGMCoreDataAccess;
 
 @interface MGMDao : NSObject
 

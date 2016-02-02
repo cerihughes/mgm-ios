@@ -6,7 +6,8 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
 #import "MGMAlbumImageSize.h"
 
 @interface MGMAlbumImageUriDto : NSObject

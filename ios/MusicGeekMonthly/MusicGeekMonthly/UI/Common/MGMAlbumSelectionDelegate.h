@@ -6,12 +6,10 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import UIKit;
 
-#import "MGMAlbum.h"
-#import "MGMPlaylist.h"
-
-@class MGMViewController;
+@class MGMAlbum;
 
 @protocol MGMAlbumSelectionDelegate <NSObject>
 

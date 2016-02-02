@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import UIKit;
 
-#import "MGMBackgroundAlbumArtCollection.h"
-
+@class MGMBackgroundAlbumArtCollection;
 @class MGMUI;
 
 @interface MGMTabBarController : UITabBarController

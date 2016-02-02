@@ -6,11 +6,13 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-#import "MGMAlbum.h"
 #import "MGMAlbumService.h"
-#import "MGMCoreDataAccess.h"
+#import "MGMAlbumServiceType.h"
+
+@class MGMAlbum;
+@class MGMCoreDataAccess;
 
 @interface MGMAlbumServiceManager : NSObject
 

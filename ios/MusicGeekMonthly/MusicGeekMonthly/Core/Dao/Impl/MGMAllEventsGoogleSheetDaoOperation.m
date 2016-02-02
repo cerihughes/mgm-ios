@@ -8,7 +8,12 @@
 
 #import "MGMAllEventsGoogleSheetDaoOperation.h"
 
+#import "MGMAlbumDto.h"
+#import "MGMAlbumMetadataDto.h"
+#import "MGMCoreDataAccess.h"
 #import "MGMEventDto.h"
+#import "MGMLocalData.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteJsonDataConverter.h"
 

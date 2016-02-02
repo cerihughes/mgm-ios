@@ -8,6 +8,7 @@
 
 #import "MGMRemoteXmlDataConverter.h"
 
+#import "MGMRemoteData.h"
 #import "MGMXmlParser.h"
 
 @implementation MGMRemoteXmlDataConverter

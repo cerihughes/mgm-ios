@@ -8,6 +8,9 @@
 
 #import "MGMEventTableViewDataSource.h"
 
+#import "MGMAlbum.h"
+#import "MGMAlbumRenderService.h"
+#import "MGMCoreDataAccess.h"
 #import "MGMEvent.h"
 #import "MGMEventTableCell.h"
 #import "MGMImageHelper.h"
