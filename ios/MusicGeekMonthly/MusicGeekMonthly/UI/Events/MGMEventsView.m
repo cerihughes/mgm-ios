@@ -21,6 +21,8 @@
 
 @implementation MGMEventsView
 
+@synthesize delegate;
+
 - (void) commonInit
 {
     [super commonInit];
