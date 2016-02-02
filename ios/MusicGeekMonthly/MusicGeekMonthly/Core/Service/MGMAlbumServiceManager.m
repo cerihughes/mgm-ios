@@ -15,13 +15,13 @@
 
 @interface MGMAlbumServiceManager ()
 
-@property (readonly) MGMLastFmPlayerService* lastFmService;
-@property (readonly) MGMSpotifyPlayerService* spotifyService;
-@property (readonly) MGMWebsitePlayerService* deezerService;
-@property (readonly) MGMItunesPlayerService* itunesService;
-@property (readonly) MGMWebsitePlayerService* wikipediaService;
-@property (readonly) MGMWebsitePlayerService* youtubeService;
-@property (readonly) NSArray* allServices;
+@property (readonly) MGMLastFmPlayerService *lastFmService;
+@property (readonly) MGMSpotifyPlayerService *spotifyService;
+@property (readonly) MGMWebsitePlayerService *deezerService;
+@property (readonly) MGMItunesPlayerService *itunesService;
+@property (readonly) MGMWebsitePlayerService *wikipediaService;
+@property (readonly) MGMWebsitePlayerService *youtubeService;
+@property (readonly) NSArray<MGMAlbumPlayerService *> *allServices;
 
 @end
 
@@ -34,39 +34,32 @@
 #define ALBUM_PATTERN_DEEZER @"deezer://www.deezer.com/album/%@"
 #define SEARCH_PATTERN_DEEZER @"deezer-query://www.deezer.com/album/?query=%@ %@"
 
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
 {
-    if (self = [super init])
-    {
-        _lastFmService = [[MGMLastFmPlayerService alloc] initWithCoreDataAccess:coreDataAccess];
-        _spotifyService = [[MGMSpotifyPlayerService alloc] initWithCoreDataAccess:coreDataAccess];
-        _deezerService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:ALBUM_PATTERN_DEEZER searchUrlPattern:SEARCH_PATTERN_DEEZER serviceType:MGMAlbumServiceTypeDeezer];
-        _itunesService = [[MGMItunesPlayerService alloc] initWithCoreDataAccess:coreDataAccess];
-        _wikipediaService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:ALBUM_PATTERN_WIKIPEDIA searchUrlPattern:SEARCH_PATTERN_WIKIPEDIA serviceType:MGMAlbumServiceTypeWikipedia];
-        _youtubeService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:ALBUM_PATTERN_YOUTUBE searchUrlPattern:SEARCH_PATTERN_YOUTUBE serviceType:MGMAlbumServiceTypeYouTube];
-        _allServices = @[_lastFmService, _spotifyService, _deezerService, _itunesService, _wikipediaService, _youtubeService];
-    }
+    self = [super init];
+    _lastFmService = [[MGMLastFmPlayerService alloc] initWithCoreDataAccess:coreDataAccess serviceType:MGMAlbumServiceTypeLastFm];
+    _spotifyService = [[MGMSpotifyPlayerService alloc] initWithCoreDataAccess:coreDataAccess serviceType:MGMAlbumServiceTypeSpotify];
+    _deezerService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess serviceType:MGMAlbumServiceTypeDeezer albumUrlPattern:ALBUM_PATTERN_DEEZER searchUrlPattern:SEARCH_PATTERN_DEEZER];
+    _itunesService = [[MGMItunesPlayerService alloc] initWithCoreDataAccess:coreDataAccess serviceType:MGMAlbumServiceTypeItunes];
+    _wikipediaService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess serviceType:MGMAlbumServiceTypeWikipedia albumUrlPattern:ALBUM_PATTERN_WIKIPEDIA searchUrlPattern:SEARCH_PATTERN_WIKIPEDIA];
+    _youtubeService = [[MGMWebsitePlayerService alloc] initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess serviceType:MGMAlbumServiceTypeYouTube albumUrlPattern:ALBUM_PATTERN_YOUTUBE searchUrlPattern:SEARCH_PATTERN_YOUTUBE];
+    _allServices = @[_lastFmService, _spotifyService, _deezerService, _itunesService, _wikipediaService, _youtubeService];
     return self;
 }
 
-- (void) setReachability:(BOOL)reachability
+- (void)setReachability:(BOOL)reachability
 {
-    self.lastFmService.reachability = reachability;
-    self.spotifyService.reachability = reachability;
-    self.deezerService.reachability = reachability;
-    self.itunesService.reachability = reachability;
-    self.wikipediaService.reachability = reachability;
-    self.youtubeService.reachability = reachability;
+    for (MGMAlbumPlayerService *service in self.allServices) {
+        [service setReachability:reachability];
+    }
 }
 
-- (NSUInteger) serviceTypesThatPlayAlbum:(MGMAlbum*)album
+- (NSUInteger)serviceTypesThatPlayAlbum:(MGMAlbum*)album
 {
     NSUInteger metadataServiceTypes = 0;
-    for (MGMAlbumPlayerService* service in self.allServices)
-    {
+    for (MGMAlbumPlayerService* service in self.allServices) {
         NSString* urlString = [service urlForAlbum:album];
-        if (urlString)
-        {
+        if (urlString) {
             MGMAlbumServiceType serviceType = service.serviceType;
             metadataServiceTypes |= serviceType;
         }
@@ -76,10 +69,8 @@
 
 - (MGMAlbumPlayerService*) playerServiceForServiceType:(MGMAlbumServiceType)serviceType
 {
-    for (MGMAlbumPlayerService* service in self.allServices)
-    {
-        if (service.serviceType == serviceType)
-        {
+    for (MGMAlbumPlayerService* service in self.allServices) {
+        if (service.serviceType == serviceType) {
             return service;
         }
     }

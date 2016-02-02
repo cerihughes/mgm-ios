@@ -2,5 +2,4 @@
 **/xcshareddata
 
 ios/MusicGeekMonthly/MusicGeekMonthly/Core/MGMSecrets.h
-
-ios/MusicGeekMonthly/MusicGeekMonthly/Core/MGMSecrets.h
+ios/Pods/**

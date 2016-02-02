@@ -8,6 +8,8 @@
 
 #import "MGMAlbum.h"
 
+#import "MGMAlbumMetadata.h"
+
 @interface MGMAlbum ()
 
 @property (nonatomic, strong) NSNumber* searchedServiceTypesObject;

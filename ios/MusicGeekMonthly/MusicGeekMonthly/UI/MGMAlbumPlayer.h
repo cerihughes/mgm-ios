@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-#import "MGMAlbumServiceManager.h"
-#import "MGMAlbum.h"
-#import "MGMPlaylist.h"
+#import "MGMAlbumServiceType.h"
+
+@class MGMAlbum;
+@class MGMAlbumServiceManager;
+@class MGMUI;
 
 typedef void (^ALBUM_PLAYER_COMPLETION) (NSError*);
-
-@class MGMUI;
 
 @interface MGMAlbumPlayer : NSObject
 

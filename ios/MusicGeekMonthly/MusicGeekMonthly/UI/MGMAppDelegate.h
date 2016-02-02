@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface MGMAppDelegate : UIResponder <UIApplicationDelegate>
 

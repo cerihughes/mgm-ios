@@ -8,15 +8,46 @@
 
 #import "MGMItunesPlayerService.h"
 
+#import "MGMAlbum.h"
+#import "MGMAlbumMetadataDto.h"
 #import "MGMRemoteHttpDataReader.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteJsonDataConverter.h"
 #import "MGMSpotifyConstants.h"
 
-@interface MGMItunesPlayerDataReader : MGMRemoteHttpDataReader
+@interface MGMItunesPlayerService () <MGMRemoteHttpDataReaderDataSource, MGMRemoteJsonDataConverterDelegate>
 
 @end
 
-@implementation MGMItunesPlayerDataReader
+@implementation MGMItunesPlayerService
+
+#define ALBUM_URI @"https://itunes.apple.com/gb/album/%@?uo=4"
+
+- (MGMRemoteDataReader*) createRemoteDataReader
+{
+    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
+}
+
+- (MGMRemoteDataConverter*) createRemoteDataConverter
+{
+    MGMRemoteJsonDataConverter *converter = [[MGMRemoteJsonDataConverter alloc] init];
+    converter.delegate = self;
+    return converter;
+}
+
+- (NSString*) serviceAvailabilityUrl
+{
+    return ALBUM_URI;
+}
+
+- (NSString*) urlForAlbum:(MGMAlbum*)album
+{
+    return [album metadataForServiceType:MGMAlbumServiceTypeItunes];
+}
+
+#pragma mark - MGMRemoteHttpDataReaderDataSource
 
 #define REST_SEARCH_URL @"https://itunes.apple.com/search?entity=album&country=GB&term=%@+%@"
 
@@ -26,13 +57,7 @@
     return [NSString stringWithFormat:REST_SEARCH_URL, album.artistName, album.albumName];
 }
 
-@end
-
-@interface MGMItunesPlayerDataConverter : MGMRemoteJsonDataConverter
-
-@end
-
-@implementation MGMItunesPlayerDataConverter
+#pragma mark - MGMRemoteJsonDataConverterDelegate
 
 - (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key
 {
@@ -92,37 +117,6 @@
         return YES;
     }
     return NO;
-}
-
-@end
-
-@implementation MGMItunesPlayerService
-
-#define ALBUM_URI @"https://itunes.apple.com/gb/album/%@?uo=4"
-
-- (MGMRemoteDataReader*) createRemoteDataReader
-{
-    return [[MGMItunesPlayerDataReader alloc] init];
-}
-
-- (MGMRemoteDataConverter*) createRemoteDataConverter
-{
-    return [[MGMItunesPlayerDataConverter alloc] init];
-}
-
-- (MGMAlbumServiceType) serviceType
-{
-    return MGMAlbumServiceTypeItunes;
-}
-
-- (NSString*) serviceAvailabilityUrl
-{
-    return ALBUM_URI;
-}
-
-- (NSString*) urlForAlbum:(MGMAlbum*)album
-{
-    return [album metadataForServiceType:MGMAlbumServiceTypeItunes];
 }
 
 @end

@@ -11,6 +11,7 @@
 #import "MGMAlbumDto.h"
 #import "MGMAlbumImageUriDto.h"
 #import "MGMAlbumMetadataDto.h"
+#import "MGMAlbumView.h"
 #import "MGMExampleAlbumView.h"
 
 @interface MGMExampleAlbumViewController () <MGMExampleAlbumViewDelegate>

@@ -8,9 +8,18 @@
 
 #import "MGMRemoteDataSource.h"
 
+@protocol MGMRemoteHttpDataReaderDataSource <NSObject>
+
+@required
+- (NSString *)urlForKey:(id)key;
+
+@optional
+- (NSDictionary *)httpHeaders;
+
+@end
+
 @interface MGMRemoteHttpDataReader : MGMRemoteDataReader
 
-- (NSString*) urlForKey:(id)key;
-- (NSDictionary*) httpHeaders;
+@property (nonatomic, weak) id<MGMRemoteHttpDataReaderDataSource> dataSource;
 
 @end

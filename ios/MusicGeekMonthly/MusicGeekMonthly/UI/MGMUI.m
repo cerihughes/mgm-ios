@@ -1,8 +1,14 @@
 
 #import "MGMUI.h"
 
+#import "MGMAlbum.h"
 #import "MGMAlbumDetailViewController.h"
+#import "MGMAlbumPlayer.h"
+#import "MGMCore.h"
+#import "MGMImageHelper.h"
+#import "MGMNavigationController.h"
 #import "MGMReachabilityManager.h"
+#import "MGMSettingsDao.h"
 #import "UIViewController+MGMAdditions.h"
 
 @interface MGMUI () <MGMReachabilityManagerListener>

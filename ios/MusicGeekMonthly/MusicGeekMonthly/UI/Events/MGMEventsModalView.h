@@ -8,6 +8,9 @@
 
 #import "MGMView.h"
 
+@import Foundation;
+@import UIKit;
+
 @protocol MGMEventsModalViewDelegate <NSObject>
 
 - (void) cancelButtonPressed:(id)sender;

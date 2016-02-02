@@ -8,6 +8,8 @@
 
 #import "MGMData.h"
 
+@import Foundation;
+
 @interface MGMRemoteData : MGMData
 
 @property (copy) NSString* checksum;

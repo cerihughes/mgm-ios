@@ -6,10 +6,11 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "UIViewController+MGMAdditions.h"
+@import UIKit;
 
-#import "MGMAlbumView.h"
-#import "MGMUI.h"
+@class MGMAlbum;
+@class MGMAlbumView;
+@class MGMUI;
 
 typedef void (^ALBUM_DISPLAY_COMPLETION) (NSError*);
 
@@ -18,7 +19,6 @@ typedef void (^ALBUM_DISPLAY_COMPLETION) (NSError*);
 @property (weak) MGMUI* ui;
 @property (readonly) BOOL ipad;
 @property (readonly) CGFloat screenScale;
-
 
 - (CGRect) fullscreenRect;
 - (void) presentViewModally:(UIView*)view sender:(id)sender;

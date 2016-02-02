@@ -8,8 +8,6 @@
 
 #import "MGMAlbumService.h"
 
-#import "MGMAlbum.h"
-
 @interface MGMAlbumRenderService : MGMAlbumService
 
 @end

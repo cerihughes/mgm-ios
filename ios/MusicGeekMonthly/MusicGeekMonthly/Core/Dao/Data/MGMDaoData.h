@@ -8,7 +8,9 @@
 
 #import "MGMData.h"
 
-#import "MGMLocalData.h"
+@import Foundation;
+
+@class MGMLocalData;
 
 @interface MGMDaoData : MGMData
 

@@ -8,6 +8,9 @@
 
 #import "MGMView.h"
 
+@import Foundation;
+@import UIKit;
+
 #import "MGMAlbumServiceType.h"
 
 @protocol MGMPlayerGroupViewDelegate <NSObject>

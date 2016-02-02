@@ -6,13 +6,12 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import UIKit;
 
-#import "MGMAlbumImageSize.h"
-#import "MGMBackgroundAlbumArtCollection.h"
-#import "MGMImageHelper.h"
-
+@class MGMBackgroundAlbumArtCollection;
 @class MGMBackgroundAlbumArtFetcher;
+@class MGMImageHelper;
 
 @protocol MGMBackgroundAlbumArtFetcherDelegate <NSObject>
 
@@ -25,8 +24,9 @@
 
 @property (weak) id<MGMBackgroundAlbumArtFetcherDelegate> delegate;
 
-- (id) init __unavailable;
-- (id) initWithImageHelper:(MGMImageHelper*)imageHelper albumArtCollection:(MGMBackgroundAlbumArtCollection*)albumArtCollection;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithImageHelper:(MGMImageHelper *)imageHelper albumArtCollection:(MGMBackgroundAlbumArtCollection *)albumArtCollection;
 
 - (void) renderImages:(NSUInteger)imageCount;
 

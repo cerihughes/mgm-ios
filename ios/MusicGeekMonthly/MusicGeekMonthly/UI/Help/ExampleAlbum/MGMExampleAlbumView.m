@@ -8,6 +8,8 @@
 
 #import "MGMExampleAlbumView.h"
 
+#import "MGMAlbumView.h"
+
 #define EXAMPLE_TEXT @"You can see all available options for an album by pressing the 'detail' button at any time"
 
 @interface MGMExampleAlbumView () <MGMAlbumViewDelegate>

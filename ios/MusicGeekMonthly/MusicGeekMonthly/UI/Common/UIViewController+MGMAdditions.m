@@ -8,6 +8,9 @@
 
 #import "UIViewController+MGMAdditions.h"
 
+#import "MGMCore.h"
+#import "MGMUI.h"
+
 @implementation UIViewController (MGMAdditions)
 
 @dynamic ui;

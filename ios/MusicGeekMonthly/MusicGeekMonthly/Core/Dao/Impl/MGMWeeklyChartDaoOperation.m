@@ -8,13 +8,21 @@
 
 #import "MGMWeeklyChartDaoOperation.h"
 
+#import "MGMAlbumDto.h"
 #import "MGMAlbumMetadataDto.h"
+#import "MGMWeeklyChartDto.h"
 #import "MGMChartEntryDto.h"
+#import "MGMCoreDataAccess.h"
 #import "MGMErrorCodes.h"
 #import "MGMLastFmConstants.h"
+#import "MGMLocalData.h"
 #import "MGMSecrets.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteJsonDataConverter.h"
+#import "MGMWeeklyChartDto.h"
+
+@import CoreData;
 
 @implementation MGMWeeklyChartData
 
@@ -69,11 +77,39 @@
 
 @end
 
-@interface MGMWeeklyChartRemoteDataReader : MGMRemoteHttpDataReader
+@interface MGMWeeklyChartRemoteDataSource () <MGMRemoteHttpDataReaderDataSource, MGMRemoteJsonDataConverterDelegate>
+
+@property (readonly) NSNumberFormatter* numberFormatter;
 
 @end
 
-@implementation MGMWeeklyChartRemoteDataReader
+@implementation MGMWeeklyChartRemoteDataSource
+
+- (instancetype) init
+{
+    if (self = [super init])
+    {
+        _numberFormatter = [[NSNumberFormatter alloc] init];
+        [_numberFormatter setNumberStyle:NSNumberFormatterNoStyle];
+    }
+    return self;
+}
+
+- (MGMRemoteDataReader*) createRemoteDataReader
+{
+    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
+}
+
+- (MGMRemoteDataConverter*) createRemoteDataConverter
+{
+    MGMRemoteJsonDataConverter *converter = [[MGMRemoteJsonDataConverter alloc] init];
+    converter.delegate = self;
+    return converter;
+}
+
+#pragma mark - MGMRemoteHttpDataReaderDataSource
 
 #define GROUP_ALBUM_CHART_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyAlbumChart&group=%@&from=%lu&to=%lu&api_key=%@&format=json"
 
@@ -85,27 +121,9 @@
     return [NSString stringWithFormat:GROUP_ALBUM_CHART_URL, GROUP_NAME, (unsigned long)from, (unsigned long)to, LAST_FM_API_KEY];
 }
 
-@end
-
-@interface MGMWeeklyChartRemoteDataConverter : MGMRemoteJsonDataConverter
-
-@property (readonly) NSNumberFormatter* numberFormatter;
-
-@end
-
-@implementation MGMWeeklyChartRemoteDataConverter
+#pragma mark - MGMRemoteJsonDataConverterDelegate
 
 #define MAX_CHART_ENTRIES 50
-
-- (id) init
-{
-    if (self = [super init])
-    {
-        _numberFormatter = [[NSNumberFormatter alloc] init];
-        [_numberFormatter setNumberStyle:NSNumberFormatterNoStyle];
-    }
-    return self;
-}
 
 - (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key
 {
@@ -179,20 +197,6 @@
     [album.metadata addObject:lastfmMetadata];
 
     return album;
-}
-
-@end
-
-@implementation MGMWeeklyChartRemoteDataSource
-
-- (MGMRemoteDataReader*) createRemoteDataReader
-{
-    return [[MGMWeeklyChartRemoteDataReader alloc] init];
-}
-
-- (MGMRemoteDataConverter*) createRemoteDataConverter
-{
-    return [[MGMWeeklyChartRemoteDataConverter alloc] init];
 }
 
 @end

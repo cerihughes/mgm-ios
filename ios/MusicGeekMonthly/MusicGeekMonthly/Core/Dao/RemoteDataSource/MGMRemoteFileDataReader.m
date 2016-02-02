@@ -10,16 +10,10 @@
 
 @implementation MGMRemoteFileDataReader
 
-- (NSData*) readRemoteData:(id)key error:(NSError**)error
+- (NSData *)readRemoteData:(id)key error:(NSError**)error
 {
-    NSString* path = [self pathForKey:key];
+    NSString *path = [self.dataSource pathForKey:key];
     return [[NSFileManager defaultManager] contentsAtPath:path];
-}
-
-- (NSString*) pathForKey:(id)key
-{
-    // OVERRIDE
-    return nil;
 }
 
 @end

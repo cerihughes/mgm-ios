@@ -6,9 +6,10 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
+@import Foundation;
+@import CoreData;
 
-#import "MGMAlbumImageUri.h"
+#import "MGMAlbumImageSize.h"
 
 @interface MGMImagedEntity : NSManagedObject
 

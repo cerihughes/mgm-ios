@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-#import "MGMRemoteData.h"
+@class MGMRemoteData;
 
 @interface MGMRemoteDataReader : NSObject
 
@@ -19,7 +19,16 @@
 
 @end
 
+@protocol MGMRemoteDataConverterDelegate <NSObject>
+
+@optional
+- (NSData *)preprocessRemoteData:(NSData *)remoteData;
+
+@end
+
 @interface MGMRemoteDataConverter : NSObject
+
+@property (nonatomic, weak) id<MGMRemoteDataConverterDelegate> delegate;
 
 - (MGMRemoteData*) convertRemoteData:(NSData*)remoteData key:(id)key;
 

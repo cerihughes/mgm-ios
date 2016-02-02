@@ -8,9 +8,21 @@
 
 #import "MGMAlbumPlayerService.h"
 
+#import "MGMAlbumServiceType.h"
+
+@class MGMCoreDataAccess;
+
 @interface MGMWebsitePlayerService : MGMAlbumPlayerService
 
-- (id) init __unavailable;
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:(NSString*)albumUrlPattern searchUrlPattern:(NSString*)searchUrlPattern serviceType:(MGMAlbumServiceType)serviceType;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess NS_UNAVAILABLE;
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess
+                           serviceType:(MGMAlbumServiceType)serviceType NS_UNAVAILABLE;
+
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess
+                           serviceType:(MGMAlbumServiceType)serviceType
+                       albumUrlPattern:(NSString *)albumUrlPattern
+                      searchUrlPattern:(NSString *)searchUrlPattern;
 
 @end

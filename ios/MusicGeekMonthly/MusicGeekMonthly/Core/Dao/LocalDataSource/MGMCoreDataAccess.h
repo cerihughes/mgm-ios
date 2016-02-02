@@ -6,13 +6,12 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import CoreData;
+@import Foundation;
 
-#import "MGMAlbumMetadataDto.h"
-#import "MGMEvent.h"
-#import "MGMNextUrlAccess.h"
-#import "MGMPlaylistDto.h"
-#import "MGMWeeklyChartDto.h"
+@class MGMAlbumMetadataDto;
+@class MGMPlaylistDto;
+@class MGMWeeklyChartDto;
 
 #define MGM_NO_ERROR(_error) (((_error) == nil) || (*(_error) == nil))
 #define MGM_ERROR(_error) (((_error) != nil) && (*(_error) != nil))

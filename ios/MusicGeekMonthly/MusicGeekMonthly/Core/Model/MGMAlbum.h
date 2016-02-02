@@ -8,7 +8,6 @@
 
 #import "MGMImagedEntity.h"
 
-#import "MGMAlbumMetadata.h"
 #import "MGMAlbumServiceType.h"
 
 @interface MGMAlbum : MGMImagedEntity

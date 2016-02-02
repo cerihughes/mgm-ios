@@ -10,6 +10,13 @@
 
 #import "MGMAlbum.h"
 #import "MGMAlbumDetailView.h"
+#import "MGMAlbumPlayer.h"
+#import "MGMAlbumServiceManager.h"
+#import "MGMCore.h"
+#import "MGMCoreDataAccess.h"
+#import "MGMSettingsDao.h"
+#import "MGMUI.h"
+#import "UIViewController+MGMAdditions.h"
 
 #define CELL_ID @"ALBUM_DETAIL_CELL_ID"
 

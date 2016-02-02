@@ -8,6 +8,8 @@
 
 #import "MGMViewController.h"
 
+@import CoreData;
+
 @interface MGMAlbumDetailViewController : MGMViewController
 
 @property (strong) NSManagedObjectID* albumMoid;

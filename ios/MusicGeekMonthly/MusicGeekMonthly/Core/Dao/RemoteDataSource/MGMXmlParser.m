@@ -8,8 +8,6 @@
 
 #import "MGMXmlParser.h"
 
-NSString *const kXMLReaderTextNodeKey = @"text";
-
 @interface MGMXmlParser () <NSXMLParserDelegate>
 
 @property (strong) NSMutableArray* dictionaryStack;
@@ -114,7 +112,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     // Set the text property
     if ([self.textInProgress length] > 0)
     {
-        [dictInProgress setObject:self.textInProgress forKey:kXMLReaderTextNodeKey];
+        [dictInProgress setObject:self.textInProgress forKey:MGM_XMLReader_TextNodeKey];
 
         // Reset the text
         self.textInProgress = [[NSMutableString alloc] init];

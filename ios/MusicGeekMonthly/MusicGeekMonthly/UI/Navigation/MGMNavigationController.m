@@ -8,10 +8,15 @@
 
 #import "MGMNavigationController.h"
 
+#import "MGMAlbumPlayer.h"
+#import "MGMCore.h"
 #import "MGMExampleAlbumViewController.h"
 #import "MGMInitialLoadingViewController.h"
 #import "MGMPlayerSelectionViewController.h"
+#import "MGMSettingsDao.h"
 #import "MGMTabBarController.h"
+#import "MGMUI.h"
+#import "UIViewController+MGMAdditions.h"
 
 @interface MGMNavigationController () <MGMInitialLoadingViewControllerDelegate, MGMPlayerSelectionViewControllerDelegate>
 

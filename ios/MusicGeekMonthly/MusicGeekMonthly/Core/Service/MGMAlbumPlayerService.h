@@ -8,9 +8,19 @@
 
 #import "MGMAlbumService.h"
 
-#import "MGMAlbum.h"
+#import "MGMAlbumServiceType.h"
+
+@class MGMAlbum;
+@class MGMCoreDataAccess;
 
 @interface MGMAlbumPlayerService : MGMAlbumService
+
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess NS_UNAVAILABLE;
+
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess
+                           serviceType:(MGMAlbumServiceType)serviceType;
 
 @property (readonly) MGMAlbumServiceType serviceType;
 

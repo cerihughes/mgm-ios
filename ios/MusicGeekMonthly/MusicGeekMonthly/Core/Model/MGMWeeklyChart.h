@@ -6,9 +6,8 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
-
-#import "MGMChartEntry.h"
+@import Foundation;
+@import CoreData;
 
 @interface MGMWeeklyChart : NSManagedObject
 

@@ -9,14 +9,18 @@
 #import "MGMPlaylistDaoOperation.h"
 
 #import "MGMAlbumImageUriDto.h"
+#import "MGMCoreDataAccess.h"
 #import "MGMErrorCodes.h"
+#import "MGMLocalData.h"
 #import "MGMPlaylist.h"
 #import "MGMPlaylistDto.h"
 #import "MGMPlaylistItem.h"
 #import "MGMPlaylistItemDto.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteXmlDataConverter.h"
 #import "MGMSpotifyConstants.h"
+#import "MGMXmlParser.h"
 
 @implementation MGMPlaylistDaoOperation
 
@@ -64,11 +68,27 @@
 
 @end
 
-@interface MGMPlaylistRemoteDataReader : MGMRemoteHttpDataReader
+@interface MGMPlaylistRemoteDataSource () <MGMRemoteHttpDataReaderDataSource, MGMRemoteXmlDataConverterDelegate>
 
 @end
 
-@implementation MGMPlaylistRemoteDataReader
+@implementation MGMPlaylistRemoteDataSource
+
+- (MGMRemoteDataReader*) createRemoteDataReader
+{
+    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
+}
+
+- (MGMRemoteDataConverter*) createRemoteDataConverter
+{
+    MGMRemoteXmlDataConverter *converter = [[MGMRemoteXmlDataConverter alloc] init];
+    converter.delegate = self;
+    return converter;
+}
+
+#pragma mark - MGMRemoteHttpDataReaderDataSource
 
 #define EMBEDDED_PLAYLIST_URL @"https://embed.spotify.com/?uri=%@"
 
@@ -79,15 +99,9 @@
     return [NSString stringWithFormat:EMBEDDED_PLAYLIST_URL, spotifyUrl];
 }
 
-@end
+#pragma mark - MGMRemoteXmlDataConverterDelegate
 
-@interface MGMPlaylistRemoteDataConverter : MGMRemoteXmlDataConverter
-
-@end
-
-@implementation MGMPlaylistRemoteDataConverter
-
-- (MGMRemoteData*) convertRemoteData:(NSData *)remoteData key:(id)key
+- (NSData *)preprocessRemoteData:(NSData *)remoteData
 {
     NSString* string = [[NSString alloc] initWithData:remoteData encoding:NSUTF8StringEncoding];
 
@@ -99,11 +113,10 @@
     string = [string stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
     string = [string stringByReplacingOccurrencesOfString:@"&amp;amp;" withString:@"&amp;"];
     
-    NSData* modifiedData = [string dataUsingEncoding:NSUTF8StringEncoding];
-    return [super convertRemoteData:modifiedData key:key];
+    return [string dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (MGMRemoteData*) convertXmlData:(NSDictionary *)xml key:(id)key
+- (MGMRemoteData *)convertXmlData:(NSDictionary *)xml key:(id)key
 {
     @try
     {
@@ -141,17 +154,17 @@
     }
 }
 
-- (NSString*) titleForPlayerDiv:(NSDictionary*)playerDiv
+- (NSString *)titleForPlayerDiv:(NSDictionary *)playerDiv
 {
     NSDictionary* metaDiv = [playerDiv objectForKey:@"div"][2];
     NSDictionary* progressBarContainerDiv = [metaDiv objectForKey:@"div"][2];
     NSDictionary* contextTitleDiv = [progressBarContainerDiv objectForKey:@"div"][1];
     NSDictionary* titleContentDiv = [contextTitleDiv objectForKey:@"div"][1];
-    NSString* title = [titleContentDiv objectForKey:kXMLReaderTextNodeKey];
+    NSString* title = [titleContentDiv objectForKey:MGM_XMLReader_TextNodeKey];
     return [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
-- (MGMPlaylistItemDto*) playlistItemForLi:(NSDictionary*)li
+- (MGMPlaylistItemDto *)playlistItemForLi:(NSDictionary *)li
 {
     NSString* smallUrl = [li objectForKey:@"data-small-ca"];
     NSString* largeUrl = [li objectForKey:@"data-ca"];
@@ -161,11 +174,11 @@
     NSArray* trackLiArray = [trackUl objectForKeyedSubscript:@"li"];
 
     NSDictionary* titleDictionary = trackLiArray[1];
-    NSString* title = [titleDictionary objectForKey:kXMLReaderTextNodeKey];
+    NSString* title = [titleDictionary objectForKey:MGM_XMLReader_TextNodeKey];
     title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     NSDictionary* artistDictionary = trackLiArray[2];
-    NSString* artist = [artistDictionary objectForKey:kXMLReaderTextNodeKey];
+    NSString* artist = [artistDictionary objectForKey:MGM_XMLReader_TextNodeKey];
     artist = [artist stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     MGMPlaylistItemDto* playlistItem = [[MGMPlaylistItemDto alloc] init];
@@ -185,20 +198,6 @@
     [playlistItem.imageUris addObject:largeImageUri];
 
     return playlistItem;
-}
-
-@end
-
-@implementation MGMPlaylistRemoteDataSource
-
-- (MGMRemoteDataReader*) createRemoteDataReader
-{
-    return [[MGMPlaylistRemoteDataReader alloc] init];
-}
-
-- (MGMRemoteDataConverter*) createRemoteDataConverter
-{
-    return [[MGMPlaylistRemoteDataConverter alloc] init];
 }
 
 @end

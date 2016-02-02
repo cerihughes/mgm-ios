@@ -8,14 +8,11 @@
 
 #import "MGMLastFmPlayerService.h"
 
+#import "MGMAlbum.h"
+
 @implementation MGMLastFmPlayerService
 
 #define ARTIST_URI @"lastfm://artist/%@/similarartists"
-
-- (MGMAlbumServiceType) serviceType
-{
-    return MGMAlbumServiceTypeLastFm;
-}
 
 - (NSString*) serviceAvailabilityUrl
 {

@@ -13,16 +13,21 @@
 #import "MGMAlbumImageUri.h"
 #import "MGMAlbumImageUriDto.h"
 #import "MGMAlbumMetadata.h"
+#import "MGMAlbumMetadataDto.h"
 #import "MGMChartEntry.h"
 #import "MGMChartEntryDto.h"
 #import "MGMEvent.h"
 #import "MGMEventDto.h"
 #import "MGMLastFmConstants.h"
+#import "MGMNextUrlAccess.h"
 #import "MGMPlaylist.h"
+#import "MGMPlaylistDto.h"
+#import "MGMPlaylistItem.h"
 #import "MGMPlaylistItemDto.h"
 #import "MGMTimePeriod.h"
 #import "MGMTimePeriodDto.h"
 #import "MGMWeeklyChart.h"
+#import "MGMWeeklyChartDto.h"
 
 @interface MGMCoreDataAccess ()
 

@@ -7,6 +7,10 @@
 //
 
 #import "MGMDaoOperation.h"
+#import "MGMLocalDataSource.h"
+#import "MGMRemoteDataSource.h"
+
+@import Foundation;
 
 @interface MGMWeeklyChartData : NSObject
 

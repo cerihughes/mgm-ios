@@ -8,6 +8,8 @@
 
 #import "MGMAlbumGridView.h"
 
+#import "MGMAlbumView.h"
+
 @interface MGMAlbumGridView () <MGMAlbumViewDelegate>
 
 @property (readonly) UIScrollView* scrollView;

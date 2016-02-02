@@ -8,6 +8,8 @@
 
 #import "MGMAbstractEventView.h"
 
+#import "MGMAlbumGridView.h"
+#import "MGMAlbumView.h"
 #import "MGMGridManager.h"
 
 @interface MGMAbstractEventView () <MGMAlbumViewDelegate, MGMAlbumGridViewDelegate>

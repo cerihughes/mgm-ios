@@ -6,12 +6,13 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-#import "MGMAlbumRenderService.h"
-#import "MGMAlbumServiceManager.h"
-#import "MGMDao.h"
-#import "MGMSettingsDao.h"
+@class MGMAlbumRenderService;
+@class MGMAlbumServiceManager;
+@class MGMCoreDataAccess;
+@class MGMDao;
+@class MGMSettingsDao;
 
 typedef NS_ENUM(NSUInteger, MGMCoreBackgroundFetchResult)
 {

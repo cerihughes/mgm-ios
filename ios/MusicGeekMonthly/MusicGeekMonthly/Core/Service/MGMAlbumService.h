@@ -8,7 +8,8 @@
 
 #import "MGMRemoteDataSource.h"
 
-#import "MGMCoreDataAccess.h"
+@class MGMAlbum;
+@class MGMCoreDataAccess;
 
 typedef void (^ALBUM_SERVICE_COMPLETION) (NSError*);
 
@@ -16,8 +17,9 @@ typedef void (^ALBUM_SERVICE_COMPLETION) (NSError*);
 
 @property (readonly) MGMCoreDataAccess* coreDataAccess;
 
-- (id) init __unavailable;
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess;
 
 - (void) refreshAlbum:(MGMAlbum*)album completion:(ALBUM_SERVICE_COMPLETION)completion;
 

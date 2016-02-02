@@ -6,14 +6,15 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @class MGMUI;
 
 @interface MGMNavigationController : UINavigationController
 
-- (id) init __unavailable;
-- (id) initWithUI:(MGMUI*)ui;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithUI:(MGMUI *)ui;
 
 - (void) checkPlayer;
 

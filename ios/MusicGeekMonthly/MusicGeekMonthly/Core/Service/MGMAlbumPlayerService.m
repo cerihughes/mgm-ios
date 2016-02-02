@@ -8,7 +8,19 @@
 
 #import "MGMAlbumPlayerService.h"
 
+#import "MGMAlbum.h"
+#import "MGMCoreDataAccess.h"
+#import "MGMRemoteData.h"
+
 @implementation MGMAlbumPlayerService
+
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess
+                           serviceType:(MGMAlbumServiceType)serviceType
+{
+    self = [super initWithCoreDataAccess:coreDataAccess];
+    _serviceType = serviceType;
+    return self;
+}
 
 - (void) refreshAlbum:(MGMAlbum*)album completion:(ALBUM_SERVICE_COMPLETION)completion
 {

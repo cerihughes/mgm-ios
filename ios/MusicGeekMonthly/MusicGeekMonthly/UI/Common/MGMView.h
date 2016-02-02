@@ -1,5 +1,5 @@
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 #define DEFAULT_FONT_MEDIUM @"HelveticaNeue-Medium"
 #define DEFAULT_FONT_ITALIC @"HelveticaNeue-MediumItalic"

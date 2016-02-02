@@ -6,10 +6,12 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
+@import Foundation;
+@import CoreData;
 
-#import "MGMAlbum.h"
 #import "MGMRenderable.h"
+
+@class MGMAlbum;
 
 @interface MGMEvent : NSManagedObject <MGMRenderable>
 

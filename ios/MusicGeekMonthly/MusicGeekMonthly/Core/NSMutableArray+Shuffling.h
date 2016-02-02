@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 // Credit where credit's due... http://stackoverflow.com/questions/56648/whats-the-best-way-to-shuffle-an-nsmutablearray
 

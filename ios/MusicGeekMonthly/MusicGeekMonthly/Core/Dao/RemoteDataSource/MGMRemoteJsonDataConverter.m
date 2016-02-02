@@ -8,40 +8,27 @@
 
 #import "MGMRemoteJsonDataConverter.h"
 
+#import "MGMRemoteData.h"
+
 @implementation MGMRemoteJsonDataConverter
 
-static NSDateFormatter* _jsonDateFormatter;
-
-+ (void) initialize
-{
-    _jsonDateFormatter = [[NSDateFormatter alloc] init];
-    _jsonDateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-}
-
-- (NSDate*) dateForJsonString:(NSString *)jsonString
-{
-    return [_jsonDateFormatter dateFromString:jsonString];
-}
+@dynamic delegate;
 
 - (MGMRemoteData*) convertRemoteData:(NSData *)remoteData key:(id)key
 {
     NSDictionary* json = nil;
-    if (remoteData)
-    {
+    if (remoteData) {
+        if ([self.delegate respondsToSelector:@selector(preprocessRemoteData:)]) {
+            remoteData = [self.delegate preprocessRemoteData:remoteData];
+        }
+
         NSError* jsonError = nil;
         json = [NSJSONSerialization JSONObjectWithData:remoteData options:0 error:&jsonError];
-        if (jsonError)
-        {
+        if (jsonError) {
             return [MGMRemoteData dataWithError:jsonError];
         }
     }
-    return [self convertJsonData:json key:key];
-}
-
-- (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key
-{
-    // OVERRIDE
-    return nil;
+    return [self.delegate convertJsonData:json key:key];
 }
 
 @end

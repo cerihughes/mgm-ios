@@ -8,8 +8,11 @@
 
 #import "MGMAllTimePeriodsDaoOperation.h"
 
+#import "MGMCoreDataAccess.h"
 #import "MGMLastFmConstants.h"
+#import "MGMLocalData.h"
 #import "MGMSecrets.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteHttpDataReader.h"
 #import "MGMRemoteJsonDataConverter.h"
 #import "MGMTimePeriodDto.h"
@@ -54,11 +57,27 @@
 
 @end
 
-@interface MGMAllTimePeriodsRemoteDataReader : MGMRemoteHttpDataReader
+@interface MGMAllTimePeriodsRemoteDataSource () <MGMRemoteHttpDataReaderDataSource, MGMRemoteJsonDataConverterDelegate>
 
 @end
 
-@implementation MGMAllTimePeriodsRemoteDataReader
+@implementation MGMAllTimePeriodsRemoteDataSource
+
+- (MGMRemoteDataReader*) createRemoteDataReader
+{
+    MGMRemoteHttpDataReader *reader = [[MGMRemoteHttpDataReader alloc] init];
+    reader.dataSource = self;
+    return reader;
+}
+
+- (MGMRemoteDataConverter*) createRemoteDataConverter
+{
+    MGMRemoteJsonDataConverter *converter = [[MGMRemoteJsonDataConverter alloc] init];
+    converter.delegate = self;
+    return  converter;
+}
+
+#pragma mark - MGMRemoteHttpDataReaderDataSource
 
 #define TIME_PERIODS_URL @"http://ws.audioscrobbler.com/2.0/?method=group.getWeeklyChartList&group=%@&api_key=%@&format=json"
 
@@ -67,13 +86,7 @@
     return [NSString stringWithFormat:TIME_PERIODS_URL, GROUP_NAME, LAST_FM_API_KEY];
 }
 
-@end
-
-@interface MGMAllTimePeriodsRemoteDataConverter : MGMRemoteJsonDataConverter
-
-@end
-
-@implementation MGMAllTimePeriodsRemoteDataConverter
+#pragma mark - MGMRemoteJsonDataConverterDelegate
 
 - (MGMRemoteData*) convertJsonData:(NSDictionary*)json key:(id)key
 {
@@ -115,20 +128,6 @@
         [reversed addObject:element];
     }
     return [reversed copy];
-}
-
-@end
-
-@implementation MGMAllTimePeriodsRemoteDataSource
-
-- (MGMRemoteDataReader*) createRemoteDataReader
-{
-    return [[MGMAllTimePeriodsRemoteDataReader alloc] init];
-}
-
-- (MGMRemoteDataConverter*) createRemoteDataConverter
-{
-    return [[MGMAllTimePeriodsRemoteDataConverter alloc] init];
 }
 
 @end

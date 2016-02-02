@@ -8,6 +8,8 @@
 
 #import "MGMPlayerSelectionView.h"
 
+#import "MGMPlayerGroupView.h"
+
 #define NO_PLAYER_TITLE @"Welcome to the Music Geek Monthly app"
 #define NO_PLAYER_SUBTITLE @"Please choose a default app for playing music"
 

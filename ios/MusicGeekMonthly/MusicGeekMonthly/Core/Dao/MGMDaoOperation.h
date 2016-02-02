@@ -6,12 +6,13 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-#import "MGMCoreDataAccess.h"
-#import "MGMDaoData.h"
-#import "MGMLocalDataSource.h"
-#import "MGMRemoteDataSource.h"
+@class MGMCoreDataAccess;
+@class MGMDaoData;
+@class MGMLocalDataSource;
+@class MGMNextUrlAccess;
+@class MGMRemoteDataSource;
 
 typedef void (^DAO_FETCH_COMPLETION) (MGMDaoData*);
 
@@ -19,8 +20,9 @@ typedef void (^DAO_FETCH_COMPLETION) (MGMDaoData*);
 
 @property (readonly) NSUInteger daysBetweenRemoteFetch;
 
-- (id) init __unavailable;
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess *)coreDataAccess;
 
 - (void) setReachability:(BOOL)reachability;
 - (oneway void) fetchData:(id)key completion:(DAO_FETCH_COMPLETION)completion;

@@ -8,6 +8,12 @@
 
 #import "MGMCore.h"
 
+#import "MGMAlbumRenderService.h"
+#import "MGMAlbumServiceManager.h"
+#import "MGMCoreDataAccess.h"
+#import "MGMDao.h"
+#import "MGMDaoData.h"
+#import "MGMSettingsDao.h"
 #import "MGMTimePeriod.h"
 
 @implementation MGMCore

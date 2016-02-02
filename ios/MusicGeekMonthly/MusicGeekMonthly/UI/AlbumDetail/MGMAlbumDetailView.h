@@ -8,8 +8,7 @@
 
 #import "MGMAbstractPlayerSelectionView.h"
 
-#import "MGMAlbumServiceType.h"
-#import "MGMAlbumView.h"
+@class MGMAlbumView;
 
 @protocol MGMAlbumDetailViewDelegate <MGMAbstractPlayerSelectionViewDelegate>
 

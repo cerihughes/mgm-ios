@@ -8,9 +8,10 @@
 
 #import "MGMWebsitePlayerService.h"
 
+#import "MGMAlbum.h"
+
 @interface MGMWebsitePlayerService ()
 
-@property MGMAlbumServiceType internalServiceType;
 @property (copy) NSString* albumUrlPattern;
 @property (copy) NSString* searchUrlPattern;
 
@@ -18,20 +19,15 @@
 
 @implementation MGMWebsitePlayerService
 
-- (id) initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess albumUrlPattern:(NSString*)albumUrlPattern searchUrlPattern:(NSString*)searchUrlPattern serviceType:(MGMAlbumServiceType)serviceType
+- (instancetype)initWithCoreDataAccess:(MGMCoreDataAccess*)coreDataAccess
+                           serviceType:(MGMAlbumServiceType)serviceType
+                       albumUrlPattern:(NSString*)albumUrlPattern
+                      searchUrlPattern:(NSString*)searchUrlPattern
 {
-    if (self = [super initWithCoreDataAccess:coreDataAccess])
-    {
-        self.albumUrlPattern = albumUrlPattern;
-        self.searchUrlPattern = searchUrlPattern;
-        self.internalServiceType = serviceType;
-    }
+    self = [super initWithCoreDataAccess:coreDataAccess serviceType:serviceType];
+    _albumUrlPattern = albumUrlPattern;
+    _searchUrlPattern = searchUrlPattern;
     return self;
-}
-
-- (MGMAlbumServiceType) serviceType
-{
-    return self.internalServiceType;
 }
 
 - (NSString*) serviceAvailabilityUrl
@@ -41,7 +37,7 @@
 
 - (NSString*) urlForAlbum:(MGMAlbum*)album
 {
-    NSString* metadata = [album metadataForServiceType:self.internalServiceType];
+    NSString* metadata = [album metadataForServiceType:self.serviceType];
     if (metadata)
     {
         return [NSString stringWithFormat:self.albumUrlPattern, metadata];

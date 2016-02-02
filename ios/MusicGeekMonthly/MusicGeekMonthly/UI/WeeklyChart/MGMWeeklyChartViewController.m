@@ -1,14 +1,21 @@
 
 #import "MGMWeeklyChartViewController.h"
 
+#import "MGMAlbumGridView.h"
 #import "MGMChartEntry.h"
+#import "MGMCore.h"
+#import "MGMCoreDataAccess.h"
 #import "MGMCoreDataTableViewDataSource.h"
+#import "MGMDao.h"
+#import "MGMDaoData.h"
 #import "MGMGridManager.h"
 #import "MGMImageHelper.h"
 #import "MGMTimePeriod.h"
+#import "MGMUI.h"
 #import "MGMWeeklyChart.h"
 #import "MGMWeeklyChartModalView.h"
 #import "MGMWeeklyChartView.h"
+#import "UIViewController+MGMAdditions.h"
 
 @interface MGMWeeklyChartViewController () <MGMAlbumGridViewDelegate, UITableViewDelegate, MGMWeeklyChartViewDelegate, MGMWeeklyChartModalViewDelegate>
 

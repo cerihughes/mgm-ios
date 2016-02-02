@@ -8,6 +8,8 @@
 
 #import "MGMViewController.h"
 
+@import UIKit;
+
 @interface MGMTabbedViewController : MGMViewController
 
 - (void) assignBackgroundView:(UIView*)backgroundView;

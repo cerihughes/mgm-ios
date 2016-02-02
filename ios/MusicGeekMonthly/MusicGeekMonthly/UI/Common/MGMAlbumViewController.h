@@ -8,7 +8,7 @@
 
 #import "MGMTabbedViewController.h"
 
-#import "MGMAlbumSelectionDelegate.h"
+@protocol MGMAlbumSelectionDelegate;
 
 @interface MGMAlbumViewController : MGMTabbedViewController
 

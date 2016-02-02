@@ -6,15 +6,16 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import UIKit;
 
-#import "MGMBackgroundAlbumArtCollection.h"
-
+@class MGMBackgroundAlbumArtCollection;
 @class MGMUI;
 
 @interface MGMTabBarController : UITabBarController
 
-- (id) init __unavailable;
-- (id) initWithUI:(MGMUI*)ui albumArtCollection:(MGMBackgroundAlbumArtCollection*)albumArtCollection;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithUI:(MGMUI *)ui albumArtCollection:(MGMBackgroundAlbumArtCollection *)albumArtCollection;
 
 @end

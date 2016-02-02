@@ -8,7 +8,6 @@
 
 #import "MGMAbstractPlayerSelectionView.h"
 
-#import "MGMAlbumServiceType.h"
 #import "MGMPlayerSelectionMode.h"
 
 @interface MGMPlayerSelectionView : MGMAbstractPlayerSelectionView

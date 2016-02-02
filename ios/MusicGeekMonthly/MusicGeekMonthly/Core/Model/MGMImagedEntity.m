@@ -8,6 +8,8 @@
 
 #import "MGMImagedEntity.h"
 
+#import "MGMAlbumImageUri.h"
+
 @implementation MGMImagedEntity
 
 @dynamic imageUris;

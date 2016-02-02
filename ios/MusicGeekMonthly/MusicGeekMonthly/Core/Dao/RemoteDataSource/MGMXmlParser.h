@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Ceri Hughes. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-NSString *const kXMLReaderTextNodeKey;
+#define MGM_XMLReader_TextNodeKey @"text"
 
 @interface MGMXmlParser : NSObject
 

@@ -8,8 +8,14 @@
 
 #import "MGMRemoteDataSource.h"
 
+@protocol MGMRemoteFileDataReaderDataSource <NSObject>
+
+- (NSString *)pathForKey:(id)key;
+
+@end
+
 @interface MGMRemoteFileDataReader : MGMRemoteDataReader
 
-- (NSString*) pathForKey:(id)key;
+@property (nonatomic, weak) id<MGMRemoteFileDataReaderDataSource> dataSource;
 
 @end

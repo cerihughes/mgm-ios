@@ -8,6 +8,9 @@
 
 #import "MGMEventsView.h"
 
+#import "MGMAlbumView.h"
+#import "MGMAlbumGridView.h"
+
 @interface MGMEventsView ()
 
 @property (readonly) UIView* parentView;
@@ -17,6 +20,8 @@
 @end
 
 @implementation MGMEventsView
+
+@synthesize delegate;
 
 - (void) commonInit
 {

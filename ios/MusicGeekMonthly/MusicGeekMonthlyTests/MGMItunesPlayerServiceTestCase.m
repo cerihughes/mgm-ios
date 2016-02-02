@@ -6,25 +6,17 @@
 //  Copyright (c) 2015 Ceri Hughes. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+#import "MGMTestCase.h"
 
-#import <OCMock/OCMock.h>
-
+#import "MGMAlbum.h"
+#import "MGMAlbumMetadataDto.h"
 #import "MGMItunesPlayerService.h"
+#import "MGMRemoteData.h"
 #import "MGMRemoteJsonDataConverter.h"
 
-@interface MGMMockAlbum : NSObject
+#import <OCMockito/OCMockito.h>
 
-@property (strong) NSString *artistName;
-@property (strong) NSString *albumName;
-
-@end
-
-@implementation MGMMockAlbum
-
-@end
-
-@interface MGMItunesPlayerServiceTestCase : XCTestCase
+@interface MGMItunesPlayerServiceTestCase : MGMTestCase
 
 @property (nonatomic, strong) MGMItunesPlayerService *cut;
 @property (nonatomic, strong) MGMRemoteJsonDataConverter *dataConverter;
@@ -37,15 +29,15 @@
 {
     [super setUp];
     
-    self.cut = [[MGMItunesPlayerService alloc] initWithCoreDataAccess:nil];
+    self.cut = [[MGMItunesPlayerService alloc] initWithCoreDataAccess:nil serviceType:MGMAlbumServiceTypeItunes];
     self.dataConverter = (id)[self.cut createRemoteDataConverter];
 }
 
 - (MGMAlbum *)mockAlbumWithArtistName:(NSString *)artistName albumName:(NSString *)albumName
 {
-    id mockAlbum = [OCMockObject mockForClass:[MGMMockAlbum class]];
-    [[[mockAlbum stub] andReturn:artistName] artistName];
-    [[[mockAlbum stub] andReturn:albumName] albumName];
+    MGMAlbum *mockAlbum = [self mockObject:[MGMAlbum class]];
+    [MKTGiven([mockAlbum artistName]) willReturn:artistName];
+    [MKTGiven([mockAlbum albumName]) willReturn:albumName];
     return mockAlbum;
 }
 
@@ -57,7 +49,7 @@
                               };
     
     MGMAlbum *mockAlbum = [self mockAlbumWithArtistName:@"asdf" albumName:@"asdf"];
-    MGMRemoteData *remoteData = [self.dataConverter convertJsonData:results key:mockAlbum];
+    MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:results key:mockAlbum];
     XCTAssert(remoteData);
     XCTAssertNil(remoteData.data);
 }
@@ -93,7 +85,7 @@
                               };
     
     MGMAlbum *mockAlbum = [self mockAlbumWithArtistName:@"Mew" albumName:@"No More Stories Are Told Today I'm Sorry They Washed Away No More Stories the World Is Grey I'm Tired Let's Wash Away"];
-    MGMRemoteData *remoteData = [self.dataConverter convertJsonData:results key:mockAlbum];
+    MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:results key:mockAlbum];
     XCTAssert(remoteData);
     
     MGMAlbumMetadataDto *dto = remoteData.data;
@@ -158,7 +150,7 @@
 - (void)testMultipleResultsExactMatch
 {
     MGMAlbum *mockAlbum = [self mockAlbumWithArtistName:@"Pearl Jam" albumName:@"Live On 10 Legs"];
-    MGMRemoteData *remoteData = [self.dataConverter convertJsonData:[self multipleResults] key:mockAlbum];
+    MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:[self multipleResults] key:mockAlbum];
     XCTAssert(remoteData);
     
     MGMAlbumMetadataDto *dto = remoteData.data;
@@ -170,7 +162,7 @@
 - (void)testMultipleResultsNoExactMatch
 {
     MGMAlbum *mockAlbum = [self mockAlbumWithArtistName:@"Pearl Jam" albumName:@"10"];
-    MGMRemoteData *remoteData = [self.dataConverter convertJsonData:[self multipleResults] key:mockAlbum];
+    MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:[self multipleResults] key:mockAlbum];
     XCTAssert(remoteData);
     
     MGMAlbumMetadataDto *dto = remoteData.data;

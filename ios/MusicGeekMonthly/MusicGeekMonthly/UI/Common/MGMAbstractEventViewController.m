@@ -9,6 +9,12 @@
 #import "MGMAbstractEventViewController.h"
 
 #import "MGMAbstractEventView.h"
+#import "MGMAlbumGridView.h"
+#import "MGMAlbumView.h"
+#import "MGMEvent.h"
+#import "MGMPlaylist.h"
+#import "MGMPlaylistItem.h"
+#import "MGMUI.h"
 
 @interface MGMAbstractEventViewController () <MGMAbstractEventViewDelegate>
 

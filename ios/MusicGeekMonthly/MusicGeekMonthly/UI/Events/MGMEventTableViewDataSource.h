@@ -8,9 +8,9 @@
 
 #import "MGMCoreDataTableViewDataSource.h"
 
-#import "MGMAlbumRenderService.h"
-#import "MGMCoreDataAccess.h"
-#import "MGMImageHelper.h"
+@class MGMAlbumRenderService;
+@class MGMCoreDataAccess;
+@class MGMImageHelper;
 
 @interface MGMEventTableViewDataSource : MGMCoreDataTableViewDataSource
 

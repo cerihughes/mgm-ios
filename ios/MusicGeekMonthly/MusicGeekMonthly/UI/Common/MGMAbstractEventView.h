@@ -8,8 +8,10 @@
 
 #import "MGMTabbedView.h"
 
-#import "MGMAlbumGridView.h"
-#import "MGMAlbumView.h"
+@import Foundation;
+
+@class MGMAlbumGridView;
+@class MGMAlbumView;
 
 @protocol MGMAbstractEventViewDelegate <NSObject>
 

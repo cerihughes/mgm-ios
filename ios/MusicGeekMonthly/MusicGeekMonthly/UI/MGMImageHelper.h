@@ -8,6 +8,9 @@
 
 #import "MGMHttpDataSource.h"
 
+@import Foundation;
+@import UIKit;
+
 @interface MGMImageHelper : MGMHttpDataSource
 
 - (void) imageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion;

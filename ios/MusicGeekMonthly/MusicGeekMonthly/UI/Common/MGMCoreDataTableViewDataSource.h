@@ -6,18 +6,19 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
+@import Foundation;
+@import UIKit;
 
-#import "MGMRenderable.h"
-#import <UIKit/UIKit.h>
+@protocol MGMRenderable;
 
 @interface MGMCoreDataTableViewDataSource : NSObject <UITableViewDataSource>
 
 @property (readonly) NSString* cellId;
 @property (readonly) CGFloat screenScale;
 
-- (id) init __unavailable;
-- (id) initWithCellId:(NSString*)cellId;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCellId:(NSString *)cellId;
 
 - (void) setRenderables:(NSArray*)renderables;
 - (id<MGMRenderable>) objectAtIndexPath:(NSIndexPath*)indexPath;

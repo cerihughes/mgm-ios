@@ -8,8 +8,12 @@
 
 #import "MGMCoreDataAccessTestCase.h"
 
+#import "MGMAlbum.h"
+#import "MGMAlbumDto.h"
 #import "MGMAlbumImageUriDto.h"
 #import "MGMAlbumMetadataDto.h"
+#import "MGMCoreDataAccess.h"
+#import "MGMEvent.h"
 #import "MGMEventDto.h"
 #import "MGMTimePeriod.h"
 #import "MGMTimePeriodDto.h"
@@ -18,19 +22,9 @@
 
 @interface MGMCoreDataTestCase : MGMCoreDataAccessTestCase
 
-@property (strong) NSDateFormatter* dateFormatter;
-
 @end
 
 @implementation MGMCoreDataTestCase
-
-- (void) setUp
-{
-    [super setUp];
-
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    self.dateFormatter.dateFormat = @"dd/MM/yyyy";
-}
 
 - (void) tearDown
 {

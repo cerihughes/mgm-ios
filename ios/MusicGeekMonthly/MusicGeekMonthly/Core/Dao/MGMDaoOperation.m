@@ -8,6 +8,13 @@
 
 #import "MGMDaoOperation.h"
 
+#import "MGMCoreDataAccess.h"
+#import "MGMDaoData.h"
+#import "MGMLocalDataSource.h"
+#import "MGMNextUrlAccess.h"
+#import "MGMRemoteData.h"
+#import "MGMRemoteDataSource.h"
+
 @interface MGMDaoOperation ()
 
 @property (readonly) NSLock* operationLock;
