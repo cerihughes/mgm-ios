@@ -26,14 +26,25 @@ static BOOL _isIpad;
 
 + (void) initialize
 {
+    if (self != [MGMUI class]) {
+        return;
+    }
+
     _isIpad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 }
 
-- (id) init
+#if DEBUG
++ (void)setIpad:(BOOL)ipad
 {
-    if (self = [super init])
-    {
-        _core = [[MGMCore alloc] init];
+    _isIpad = ipad;
+}
+#endif
+
+- (instancetype)initWithCore:(MGMCore *)core imageHelper:(MGMImageHelper *)imageHelper
+{
+    self = [super init];
+    if (self) {
+        _core = core;
 
         _albumDetailViewController = [[MGMAlbumDetailViewController alloc] init];
         _albumDetailViewController.ui = self;
@@ -49,7 +60,7 @@ static BOOL _isIpad;
         _albumPlayer.serviceManager = self.core.serviceManager;
         _albumPlayer.ui = self;
 
-        _imageHelper = [[MGMImageHelper alloc] init];
+        _imageHelper = imageHelper;
 
         _reachabilityManager = [[MGMReachabilityManager alloc] init];
         [_reachabilityManager registerForReachabilityTo:REACHABILITY_END_POINT];

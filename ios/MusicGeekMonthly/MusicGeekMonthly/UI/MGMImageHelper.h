@@ -11,9 +11,11 @@
 @import Foundation;
 @import UIKit;
 
+typedef void (^IMAGE_HELPER_COMPLETION) (UIImage *image, NSError *error);
+
 @interface MGMImageHelper : MGMHttpDataSource
 
-- (void) imageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion;
+- (void) imageFromUrls:(NSArray *)urls completion:(IMAGE_HELPER_COMPLETION)completion;
 - (UIImage*) nextDefaultImage;
 
 @end

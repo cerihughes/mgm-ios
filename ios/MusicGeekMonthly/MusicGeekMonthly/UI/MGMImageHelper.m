@@ -30,7 +30,7 @@
     return self;
 }
 
-- (void) imageFromUrls:(NSArray *)urls completion:(void (^)(UIImage*, NSError*))completion
+- (void) imageFromUrls:(NSArray *)urls completion:(IMAGE_HELPER_COMPLETION)completion
 {
     [self.operationQueue addOperationWithBlock:^{
         NSError* error = nil;

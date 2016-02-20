@@ -14,6 +14,10 @@ typedef NS_ENUM(NSUInteger, MGMViewScreenSize)
 
 @interface MGMView : UIView
 
+#if DEBUG
++ (void)setScreenSize:(MGMViewScreenSize)screenSize;
+#endif
+
 @property (readonly) MGMViewScreenSize screenSize;
 @property (readonly) CGFloat statusBarHeight;
 @property (readonly) CGFloat navigationBarHeight;

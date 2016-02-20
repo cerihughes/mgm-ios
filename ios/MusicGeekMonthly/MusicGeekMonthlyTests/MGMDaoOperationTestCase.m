@@ -11,6 +11,7 @@
 #import "MGMCoreDataAccess.h"
 #import "MGMDaoData.h"
 #import "MGMDaoOperation.h"
+#import "MGMDefaultMockContainer.h"
 #import "MGMLocalData.h"
 #import "MGMLocalDataSource.h"
 #import "MGMNextUrlAccess.h"
@@ -64,10 +65,10 @@ static id _mockRemoteDataSource;
 {
     [super setUp];
 
-    _mockLocalDataSource = [self mockObject:[MGMLocalDataSource class]];
-    _mockRemoteDataSource = [self mockObject:[MGMRemoteDataSource class]];
+    _mockLocalDataSource = [self.mockContainer mockObject:[MGMLocalDataSource class]];
+    _mockRemoteDataSource = [self.mockContainer mockObject:[MGMRemoteDataSource class]];
 
-    self.mockCoreDataAccess = [self mockObject:[MGMCoreDataAccess class]];
+    self.mockCoreDataAccess = [self.mockContainer mockObject:[MGMCoreDataAccess class]];
     self.cut = [[MGMDaoOperationForTesting alloc] initWithCoreDataAccess:self.mockCoreDataAccess];
 }
 
@@ -136,7 +137,7 @@ static id _mockRemoteDataSource;
 
 - (void) testInitialFetch
 {
-    NSManagedObjectID* mockNextUrlAccessMoid = [self mockObject:[NSManagedObjectID class]];
+    NSManagedObjectID* mockNextUrlAccessMoid = [self.mockContainer mockObject:[NSManagedObjectID class]];
     [self expect_MGMCoreDataAccess_fetchNextUrlAccessWithIdentifier:@"KEY" andReturnMoid:mockNextUrlAccessMoid andReturnError:nil];
     [MKTGiven([self.mockCoreDataAccess mainThreadVersion:mockNextUrlAccessMoid]) willReturn:nil];
 
@@ -163,10 +164,10 @@ static id _mockRemoteDataSource;
 
 - (void) testSubsequentFetchWithin24Hours
 {
-    NSManagedObjectID* mockNextUrlAccessMoid = [self mockObject:[NSManagedObjectID class]];
+    NSManagedObjectID* mockNextUrlAccessMoid = [self.mockContainer mockObject:[NSManagedObjectID class]];
     [self expect_MGMCoreDataAccess_fetchNextUrlAccessWithIdentifier:@"KEY" andReturnMoid:mockNextUrlAccessMoid andReturnError:nil];
 
-    MGMNextUrlAccess* nextUrlAccess = [self mockObject:[MGMNextUrlAccess class]];
+    MGMNextUrlAccess* nextUrlAccess = [self.mockContainer mockObject:[MGMNextUrlAccess class]];
     [MKTGiven([nextUrlAccess date]) willReturn:[self daysAfterNow:1]];
     [MKTGiven([self.mockCoreDataAccess mainThreadVersion:mockNextUrlAccessMoid]) willReturn:nextUrlAccess];
 
@@ -185,10 +186,10 @@ static id _mockRemoteDataSource;
 
 - (void) testSubsequentFetchAfter24HoursUnchangedData
 {
-    NSManagedObjectID* mockNextUrlAccessMoid = [self mockObject:[NSManagedObjectID class]];
+    NSManagedObjectID* mockNextUrlAccessMoid = [self.mockContainer mockObject:[NSManagedObjectID class]];
     [self expect_MGMCoreDataAccess_fetchNextUrlAccessWithIdentifier:@"KEY" andReturnMoid:mockNextUrlAccessMoid andReturnError:nil];
 
-    MGMNextUrlAccess* nextUrlAccess = [self mockObject:[MGMNextUrlAccess class]];
+    MGMNextUrlAccess* nextUrlAccess = [self.mockContainer mockObject:[MGMNextUrlAccess class]];
     [MKTGiven([nextUrlAccess date]) willReturn:[self daysAfterNow:0]];
     [MKTGiven([nextUrlAccess checksum]) willReturn:@"SomeRemoteDataChecksum"];
     [MKTGiven([self.mockCoreDataAccess mainThreadVersion:mockNextUrlAccessMoid]) willReturn:nextUrlAccess];
@@ -215,10 +216,10 @@ static id _mockRemoteDataSource;
 
 - (void) testSubsequentFetchAfter24HoursChangedData
 {
-    NSManagedObjectID* mockNextUrlAccessMoid = [self mockObject:[NSManagedObjectID class]];
+    NSManagedObjectID* mockNextUrlAccessMoid = [self.mockContainer mockObject:[NSManagedObjectID class]];
     [self expect_MGMCoreDataAccess_fetchNextUrlAccessWithIdentifier:@"KEY" andReturnMoid:mockNextUrlAccessMoid andReturnError:nil];
 
-    MGMNextUrlAccess* nextUrlAccess = [self mockObject:[MGMNextUrlAccess class]];
+    MGMNextUrlAccess* nextUrlAccess = [self.mockContainer mockObject:[MGMNextUrlAccess class]];
     [MKTGiven([nextUrlAccess date]) willReturn:[self daysAfterNow:0]];
     [MKTGiven([nextUrlAccess checksum]) willReturn:@"SomeRemoteDataChecksum"];
     [MKTGiven([self.mockCoreDataAccess mainThreadVersion:mockNextUrlAccessMoid]) willReturn:nextUrlAccess];

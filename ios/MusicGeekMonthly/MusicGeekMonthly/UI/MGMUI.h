@@ -14,11 +14,19 @@
 
 @interface MGMUI : NSObject <MGMAlbumSelectionDelegate, MGMPlaylistSelectionDelegate>
 
+#if DEBUG
++ (void)setIpad:(BOOL)ipad;
+#endif
+
 @property (readonly) BOOL ipad;
 @property (readonly) MGMCore* core;
 @property (readonly) MGMNavigationController* mainController;
 @property (readonly) MGMAlbumPlayer* albumPlayer;
 @property (readonly) MGMImageHelper* imageHelper;
+
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCore:(MGMCore *)core imageHelper:(MGMImageHelper *)imageHelper;
 
 - (void) uiWillResignActive;
 - (void) uiDidEnterBackground;
