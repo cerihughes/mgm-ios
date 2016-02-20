@@ -28,7 +28,7 @@
 		654B869318D0E4A0005835F8 /* MGMAlbumService.m in Sources */ = {isa = PBXBuildFile; fileRef = 654B869218D0E4A0005835F8 /* MGMAlbumService.m */; };
 		654B869618D0F7AF005835F8 /* MGMAlbumImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 654B869518D0F7AF005835F8 /* MGMAlbumImageSize.m */; };
 		654D029D18BA20960067BC19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654D029C18BA20960067BC19 /* Images.xcassets */; };
-		65729EFE1C789AF10040080E /* MGMAlbumViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65729EFD1C789AF10040080E /* MGMAlbumViewTest.m */; };
+		65729EFE1C789AF10040080E /* MGMAlbumViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65729EFD1C789AF10040080E /* MGMAlbumViewTestCase.m */; };
 		65729F011C789B8E0040080E /* MGMSnapshotTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65729F001C789B8E0040080E /* MGMSnapshotTestCase.m */; };
 		65729FC81C78A83E0040080E /* MGMExampleAlbumViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65729FC71C78A83E0040080E /* MGMExampleAlbumViewTestCase.m */; };
 		657F6B4118BBD8EB0025F52B /* MGMPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = 657F6B4018BBD8EB0025F52B /* MGMPlaylist.m */; };
@@ -193,7 +193,7 @@
 		654B869218D0E4A0005835F8 /* MGMAlbumService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumService.m; sourceTree = "<group>"; };
 		654B869518D0F7AF005835F8 /* MGMAlbumImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumImageSize.m; sourceTree = "<group>"; };
 		654D029C18BA20960067BC19 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		65729EFD1C789AF10040080E /* MGMAlbumViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewTest.m; sourceTree = "<group>"; };
+		65729EFD1C789AF10040080E /* MGMAlbumViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewTestCase.m; sourceTree = "<group>"; };
 		65729EFF1C789B8E0040080E /* MGMSnapshotTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMSnapshotTestCase.h; sourceTree = "<group>"; };
 		65729F001C789B8E0040080E /* MGMSnapshotTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMSnapshotTestCase.m; sourceTree = "<group>"; };
 		65729FC71C78A83E0040080E /* MGMExampleAlbumViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMExampleAlbumViewTestCase.m; sourceTree = "<group>"; };
@@ -588,7 +588,7 @@
 			children = (
 				65729EFF1C789B8E0040080E /* MGMSnapshotTestCase.h */,
 				65729F001C789B8E0040080E /* MGMSnapshotTestCase.m */,
-				65729EFD1C789AF10040080E /* MGMAlbumViewTest.m */,
+				65729EFD1C789AF10040080E /* MGMAlbumViewTestCase.m */,
 				65729FC71C78A83E0040080E /* MGMExampleAlbumViewTestCase.m */,
 			);
 			name = Snapshot;
@@ -1278,7 +1278,7 @@
 				651B72D418D47BA200346F72 /* MGMDaoOperationTestCase.m in Sources */,
 				65283D3818D4548E00D7C1D7 /* MGMCoreDataTestCase.m in Sources */,
 				6532DA101C5E5651002339FD /* MGMTestCase.m in Sources */,
-				65729EFE1C789AF10040080E /* MGMAlbumViewTest.m in Sources */,
+				65729EFE1C789AF10040080E /* MGMAlbumViewTestCase.m in Sources */,
 				65E3F8251AE3C6A3004FF67B /* MGMItunesPlayerServiceTestCase.m in Sources */,
 				65729FC81C78A83E0040080E /* MGMExampleAlbumViewTestCase.m in Sources */,
 				65729F011C789B8E0040080E /* MGMSnapshotTestCase.m in Sources */,

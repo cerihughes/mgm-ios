@@ -1,5 +1,5 @@
 //
-//  MGMAlbumViewTest.m
+//  MGMAlbumViewTestCase.m
 //  MusicGeekMonthly
 //
 //  Created by Ceri Hughes on 20/02/16.
@@ -10,11 +10,11 @@
 
 #import "MGMAlbumView.h"
 
-@interface MGMAlbumDetailViewTest : MGMSnapshotTestCase
+@interface MGMAlbumViewTestCase : MGMSnapshotTestCase
 
 @end
 
-@implementation MGMAlbumDetailViewTest
+@implementation MGMAlbumViewTestCase
 
 - (void)testAllValues
 {
