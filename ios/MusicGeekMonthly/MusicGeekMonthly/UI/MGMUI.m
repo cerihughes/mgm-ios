@@ -26,8 +26,19 @@ static BOOL _isIpad;
 
 + (void) initialize
 {
+    if (self != [MGMUI class]) {
+        return;
+    }
+
     _isIpad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 }
+
+#if DEBUG
++ (void)setIpad:(BOOL)ipad
+{
+    _isIpad = ipad;
+}
+#endif
 
 - (id) init
 {

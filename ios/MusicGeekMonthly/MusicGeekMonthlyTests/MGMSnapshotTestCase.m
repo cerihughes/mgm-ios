@@ -127,7 +127,7 @@ static void DrawPattern(void *info, CGContextRef context)
              @(MGMSnapshotTestCaseDeviceIphone6) : @[@375, @667],
              @(MGMSnapshotTestCaseDeviceIphone6Plus) : @[@414, @736],
              @(MGMSnapshotTestCaseDeviceIpad) : @[@768, @1024],
-             @(MGMSnapshotTestCaseDeviceIpadPro) : @[@1366, @1024],
+             @(MGMSnapshotTestCaseDeviceIpadPro) : @[@1024, @1366],
              };
 }
 

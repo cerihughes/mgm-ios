@@ -7,6 +7,10 @@ static MGMViewScreenSize _screenSize;
 
 + (void) initialize
 {
+    if (self != [MGMView class]) {
+        return;
+    }
+
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
     {
         _screenSize = MGMViewScreenSizeiPad;
@@ -23,6 +27,13 @@ static MGMViewScreenSize _screenSize;
         }
     }
 }
+
+#if DEBUG
++ (void)setScreenSize:(MGMViewScreenSize)screenSize
+{
+    _screenSize = screenSize;
+}
+#endif
 
 + (UILabel*) boldTitleLabelWithText:(NSString *)text
 {

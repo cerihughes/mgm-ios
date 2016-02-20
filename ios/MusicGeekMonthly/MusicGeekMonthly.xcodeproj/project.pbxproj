@@ -30,6 +30,7 @@
 		654D029D18BA20960067BC19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654D029C18BA20960067BC19 /* Images.xcassets */; };
 		65729EFE1C789AF10040080E /* MGMAlbumViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65729EFD1C789AF10040080E /* MGMAlbumViewTest.m */; };
 		65729F011C789B8E0040080E /* MGMSnapshotTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65729F001C789B8E0040080E /* MGMSnapshotTestCase.m */; };
+		65729FC81C78A83E0040080E /* MGMExampleAlbumViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65729FC71C78A83E0040080E /* MGMExampleAlbumViewTestCase.m */; };
 		657F6B4118BBD8EB0025F52B /* MGMPlaylist.m in Sources */ = {isa = PBXBuildFile; fileRef = 657F6B4018BBD8EB0025F52B /* MGMPlaylist.m */; };
 		657F6B4518BBD9080025F52B /* MGMPlaylistItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 657F6B4418BBD9080025F52B /* MGMPlaylistItem.m */; };
 		6587E60318BA698700DD7F41 /* iTunesArtworkTransparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6587E60218BA698700DD7F41 /* iTunesArtworkTransparent.png */; };
@@ -195,6 +196,7 @@
 		65729EFD1C789AF10040080E /* MGMAlbumViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewTest.m; sourceTree = "<group>"; };
 		65729EFF1C789B8E0040080E /* MGMSnapshotTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMSnapshotTestCase.h; sourceTree = "<group>"; };
 		65729F001C789B8E0040080E /* MGMSnapshotTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMSnapshotTestCase.m; sourceTree = "<group>"; };
+		65729FC71C78A83E0040080E /* MGMExampleAlbumViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMExampleAlbumViewTestCase.m; sourceTree = "<group>"; };
 		657F6B3F18BBD8EB0025F52B /* MGMPlaylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylist.h; sourceTree = "<group>"; };
 		657F6B4018BBD8EB0025F52B /* MGMPlaylist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlaylist.m; sourceTree = "<group>"; };
 		657F6B4318BBD9080025F52B /* MGMPlaylistItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylistItem.h; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 				65729EFF1C789B8E0040080E /* MGMSnapshotTestCase.h */,
 				65729F001C789B8E0040080E /* MGMSnapshotTestCase.m */,
 				65729EFD1C789AF10040080E /* MGMAlbumViewTest.m */,
+				65729FC71C78A83E0040080E /* MGMExampleAlbumViewTestCase.m */,
 			);
 			name = Snapshot;
 			sourceTree = "<group>";
@@ -1277,6 +1280,7 @@
 				6532DA101C5E5651002339FD /* MGMTestCase.m in Sources */,
 				65729EFE1C789AF10040080E /* MGMAlbumViewTest.m in Sources */,
 				65E3F8251AE3C6A3004FF67B /* MGMItunesPlayerServiceTestCase.m in Sources */,
+				65729FC81C78A83E0040080E /* MGMExampleAlbumViewTestCase.m in Sources */,
 				65729F011C789B8E0040080E /* MGMSnapshotTestCase.m in Sources */,
 				65283D3718D4548500D7C1D7 /* MGMGridManagerTestCase.m in Sources */,
 			);
