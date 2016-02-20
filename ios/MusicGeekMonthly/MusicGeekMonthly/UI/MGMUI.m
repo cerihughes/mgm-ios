@@ -40,11 +40,11 @@ static BOOL _isIpad;
 }
 #endif
 
-- (id) init
+- (instancetype)initWithCore:(MGMCore *)core imageHelper:(MGMImageHelper *)imageHelper
 {
-    if (self = [super init])
-    {
-        _core = [[MGMCore alloc] init];
+    self = [super init];
+    if (self) {
+        _core = core;
 
         _albumDetailViewController = [[MGMAlbumDetailViewController alloc] init];
         _albumDetailViewController.ui = self;
@@ -60,7 +60,7 @@ static BOOL _isIpad;
         _albumPlayer.serviceManager = self.core.serviceManager;
         _albumPlayer.ui = self;
 
-        _imageHelper = [[MGMImageHelper alloc] init];
+        _imageHelper = imageHelper;
 
         _reachabilityManager = [[MGMReachabilityManager alloc] init];
         [_reachabilityManager registerForReachabilityTo:REACHABILITY_END_POINT];

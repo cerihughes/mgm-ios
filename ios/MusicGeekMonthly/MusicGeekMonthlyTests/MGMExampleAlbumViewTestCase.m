@@ -12,51 +12,17 @@
 #import "MGMExampleAlbumView.h"
 #import "MGMUI.h"
 
-@interface MGMExampleAlbumViewTestCase : MGMSnapshotTestCase
+@interface MGMExampleAlbumViewTestCase : MGMSnapshotFullscreenDeviceTestCase
 
 @end
 
 @implementation MGMExampleAlbumViewTestCase
-
-- (void)testIphone4
-{
-    [MGMUI setIpad:NO];
-    [MGMView setScreenSize:MGMViewScreenSizeiPhone480];
-    [self runTestOnDevice:MGMSnapshotTestCaseDeviceIphone4];
-}
-
-- (void)testIphone5
-{
-    [MGMUI setIpad:NO];
-    [MGMView setScreenSize:MGMViewScreenSizeiPhone576];
-    [self runTestOnDevice:MGMSnapshotTestCaseDeviceIphone5];
-}
-
-- (void)testIphone6
-{
-    [MGMUI setIpad:NO];
-    [MGMView setScreenSize:MGMViewScreenSizeiPhone576];
-    [self runTestOnDevice:MGMSnapshotTestCaseDeviceIphone6];
-}
-
-- (void)testIphone6Plus
-{
-    [MGMUI setIpad:NO];
-    [MGMView setScreenSize:MGMViewScreenSizeiPhone576];
-    [self runTestOnDevice:MGMSnapshotTestCaseDeviceIphone6Plus];
-}
 
 - (void)testIpadFormSheet
 {
     [MGMUI setIpad:YES];
     [MGMView setScreenSize:MGMViewScreenSizeiPad];
     [self runTestInFrame:CGRectMake(0, 0, 540, 620)];
-}
-
-- (void)runTestOnDevice:(MGMSnapshotTestCaseDevice)device
-{
-    CGRect frame = [self frameForDevice:device];
-    [self runTestInFrame:frame];
 }
 
 - (void)runTestInFrame:(CGRect)frame

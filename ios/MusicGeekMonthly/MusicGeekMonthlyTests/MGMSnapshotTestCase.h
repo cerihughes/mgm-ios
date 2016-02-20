@@ -8,6 +8,8 @@
 
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
 
+@class MGMDefaultMockContainer;
+
 typedef NS_ENUM(NSUInteger, MGMSnapshotTestCaseDevice)
 {
     MGMSnapshotTestCaseDeviceUnknown = 0,
@@ -21,8 +23,18 @@ typedef NS_ENUM(NSUInteger, MGMSnapshotTestCaseDevice)
 
 @interface MGMSnapshotTestCase : FBSnapshotTestCase
 
+@property (nonatomic, readonly) MGMDefaultMockContainer *mockContainer;
+
 - (CGRect)frameForDevice:(MGMSnapshotTestCaseDevice)device;
 - (CGRect)frameForDevice:(MGMSnapshotTestCaseDevice)device landscape:(BOOL)landscape;
+
 - (UIImage *)imageOfSize:(NSUInteger)sizeInPixels withSeed:(NSString *)seed;
+
+@end
+
+@interface MGMSnapshotFullscreenDeviceTestCase : MGMSnapshotTestCase
+
+// Override this method
+- (void)runTestInFrame:(CGRect)frame;
 
 @end

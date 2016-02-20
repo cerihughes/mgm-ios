@@ -10,6 +10,7 @@
 
 #import "MGMAlbum.h"
 #import "MGMAlbumMetadataDto.h"
+#import "MGMDefaultMockContainer.h"
 #import "MGMItunesPlayerService.h"
 #import "MGMRemoteData.h"
 #import "MGMRemoteJsonDataConverter.h"
@@ -35,7 +36,7 @@
 
 - (MGMAlbum *)mockAlbumWithArtistName:(NSString *)artistName albumName:(NSString *)albumName
 {
-    MGMAlbum *mockAlbum = [self mockObject:[MGMAlbum class]];
+    MGMAlbum *mockAlbum = [self.mockContainer mockObject:[MGMAlbum class]];
     [MKTGiven([mockAlbum artistName]) willReturn:artistName];
     [MKTGiven([mockAlbum albumName]) willReturn:albumName];
     return mockAlbum;

@@ -8,6 +8,15 @@
 
 #import "MGMSnapshotTestCase.h"
 
+#import "MGMDefaultMockContainer.h"
+#import "MGMTestCaseUtilities.h"
+
+@interface MGMSnapshotTestCase ()
+
+@property (nonatomic, strong) MGMTestCaseUtilities *utilities;
+
+@end
+
 @implementation MGMSnapshotTestCase
 
 - (void)setUp
@@ -15,6 +24,20 @@
     [super setUp];
 
 //    self.recordMode = YES;
+
+    _mockContainer = [[MGMDefaultMockContainer alloc] init];
+    _utilities = [[MGMTestCaseUtilities alloc] initWithTestCase:self parentTestClass:[MGMSnapshotTestCase class]];
+}
+
+- (void)tearDown
+{
+    [self.mockContainer removeAllMockObjects];
+    [self.utilities nillifyAllTestCaseIvars];
+
+    _mockContainer = nil;
+    _utilities = nil;
+
+    [super tearDown];
 }
 
 typedef struct
@@ -129,6 +152,66 @@ static void DrawPattern(void *info, CGContextRef context)
              @(MGMSnapshotTestCaseDeviceIpad) : @[@768, @1024],
              @(MGMSnapshotTestCaseDeviceIpadPro) : @[@1024, @1366],
              };
+}
+
+@end
+
+#import "MGMUI.h"
+#import "MGMView.h"
+
+@implementation MGMSnapshotFullscreenDeviceTestCase
+
+- (void)testIphone4
+{
+    [MGMUI setIpad:NO];
+    [MGMView setScreenSize:MGMViewScreenSizeiPhone480];
+    [self runTestOnDevice:MGMSnapshotTestCaseDeviceIphone4];
+}
+
+- (void)testIphone5
+{
+    [MGMUI setIpad:NO];
+    [MGMView setScreenSize:MGMViewScreenSizeiPhone576];
+    [self runTestOnDevice:MGMSnapshotTestCaseDeviceIphone5];
+}
+
+- (void)testIphone6
+{
+    [MGMUI setIpad:NO];
+    [MGMView setScreenSize:MGMViewScreenSizeiPhone576];
+    [self runTestOnDevice:MGMSnapshotTestCaseDeviceIphone6];
+}
+
+- (void)testIphone6Plus
+{
+    [MGMUI setIpad:NO];
+    [MGMView setScreenSize:MGMViewScreenSizeiPhone576];
+    [self runTestOnDevice:MGMSnapshotTestCaseDeviceIphone6Plus];
+}
+
+- (void)testIpad
+{
+    [MGMUI setIpad:YES];
+    [MGMView setScreenSize:MGMViewScreenSizeiPad];
+    [self runTestOnDevice:MGMSnapshotTestCaseDeviceIpad];
+}
+
+- (void)testIpadPro
+{
+    [MGMUI setIpad:YES];
+    [MGMView setScreenSize:MGMViewScreenSizeiPad];
+    [self runTestOnDevice:MGMSnapshotTestCaseDeviceIpadPro];
+}
+
+- (void)runTestOnDevice:(MGMSnapshotTestCaseDevice)device
+{
+    CGRect frame = [self frameForDevice:device];
+    [self runTestInFrame:frame];
+}
+
+- (void)runTestInFrame:(CGRect)frame
+{
+    // OVERRIDE
 }
 
 @end

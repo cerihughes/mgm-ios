@@ -9,6 +9,7 @@
 #import "MGMAppDelegate.h"
 
 #import "MGMCore.h"
+#import "MGMImageHelper.h"
 #import "MGMNavigationController.h"
 #import "MGMUI.h"
 
@@ -29,7 +30,9 @@
     NSURLCache* cache = [[NSURLCache alloc] initWithMemoryCapacity:16 * 1024 * 1024 diskCapacity:128 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
 
-    self.ui = [[MGMUI alloc] init];
+    MGMCore *core = [[MGMCore alloc] init];
+    MGMImageHelper *imageHelper = [[MGMImageHelper alloc] init];
+    self.ui = [[MGMUI alloc] initWithCore:core imageHelper:imageHelper];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // By default, there is no reachability.

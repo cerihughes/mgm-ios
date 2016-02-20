@@ -24,6 +24,10 @@
 @property (readonly) MGMAlbumPlayer* albumPlayer;
 @property (readonly) MGMImageHelper* imageHelper;
 
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCore:(MGMCore *)core imageHelper:(MGMImageHelper *)imageHelper;
+
 - (void) uiWillResignActive;
 - (void) uiDidEnterBackground;
 - (void) uiWillEnterForeground;
