@@ -23,6 +23,7 @@
 #import "MGMSnapshotTestCaseImageUtilities.h"
 #import "MGMUI.h"
 #import "MGMView.h"
+#import "MGMWeeklyChart.h"
 #import "MGMWeeklyChartViewController.h"
 
 @interface MGMWeeklyChartViewControllerTestCase : MGMSnapshotFullscreenDeviceTestCase
@@ -69,17 +70,21 @@
     }];
 
     NSMutableArray *mockTimePeriods = [NSMutableArray array];
-    [mockTimePeriods addObject:[self.mockModelUtilities mockTimePeriodWithStartDateString:@"16/03/2015" endDateString:@"23/03/2015"]];
-    [mockTimePeriods addObject:[self.mockModelUtilities mockTimePeriodWithStartDateString:@"23/03/2015" endDateString:@"30/03/2015"]];
+    [mockTimePeriods addObject:[self.mockModelUtilities mockTimePeriodWithStartDateString:@"16/03/2015"
+                                                                            endDateString:@"23/03/2015"
+                                                                       coreDataAccessMock:self.coreDataAccessMock]];
+    [mockTimePeriods addObject:[self.mockModelUtilities mockTimePeriodWithStartDateString:@"23/03/2015"
+                                                                            endDateString:@"30/03/2015"
+                                                                       coreDataAccessMock:self.coreDataAccessMock]];
 
     [MKTGiven([self.coreDataAccessMock mainThreadVersions:mockMoids]) willReturn:mockTimePeriods];
 
-    NSManagedObjectID *mockMoid = [self.mockModelUtilities mockMoidForWeeklyChartWithStartDateString:@"16/03/2015"
-                                                                                       endDateString:@"23/03/2015"
-                                                                              fromCoreDataAccessMock:self.coreDataAccessMock];
+    MGMWeeklyChart *weeklyChart = [self.mockModelUtilities mockWeeklyChartWithStartDateString:@"16/03/2015"
+                                                                                endDateString:@"23/03/2015"
+                                                                           coreDataAccessMock:self.coreDataAccessMock];
 
     MGMDaoData *daoWeeklyChartData = [[MGMDaoData alloc] init];
-    daoWeeklyChartData.data = mockMoid;
+    daoWeeklyChartData.data = weeklyChart.objectID;
 
     [MKTGivenVoid([self.daoMock fetchWeeklyChartForStartDate:anything() endDate:anything() completion:anything()]) willDo:^id (NSInvocation *invocation){
         NSArray *args = [invocation mkt_arguments];

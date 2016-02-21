@@ -21,6 +21,7 @@
 #import "MGMEventsViewController.h"
 #import "MGMImageHelper.h"
 #import "MGMMockModelUtilities.h"
+#import "MGMPlaylist.h"
 #import "MGMSnapshotTestCaseImageUtilities.h"
 #import "MGMUI.h"
 #import "MGMView.h"
@@ -77,7 +78,8 @@
                                                           classicAlbumScore:7.9
                                                     newlyReleasedArtistName:@"Julia Holter"
                                                      newlyReleasedAlbumName:@"Have You In My Wilderness"
-                                                    newlyReleasedAlbumScore:8.2]];
+                                                    newlyReleasedAlbumScore:8.2
+                                                         coreDataAccessMock:self.coreDataAccessMock]];
 
     [mockEvents addObject:[self.mockModelUtilities mockEventWithEventNumber:2
                                                             eventDateString:@"15/02/2016"
@@ -87,15 +89,17 @@
                                                           classicAlbumScore:8.1
                                                     newlyReleasedArtistName:@"Tame Impala"
                                                      newlyReleasedAlbumName:@"Currents"
-                                                    newlyReleasedAlbumScore:7.2]];
+                                                    newlyReleasedAlbumScore:7.2
+                                                         coreDataAccessMock:self.coreDataAccessMock]];
+
     [MKTGiven([self.coreDataAccessMock mainThreadVersions:mockMoids]) willReturn:mockEvents];
 
-    NSManagedObjectID *mockMoid = [self.mockModelUtilities mockMoidForPlaylistWithPlaylistId:@"ID1"
-                                                                                        name:@"Playlist 1"
-                                                                      fromCoreDataAccessMock:self.coreDataAccessMock];
+    MGMPlaylist *playlist = [self.mockModelUtilities mockPlaylistWithPlaylistId:@"ID1"
+                                                                           name:@"Playlist 1"
+                                                             coreDataAccessMock:self.coreDataAccessMock];
 
     MGMDaoData *daoPlaylistData = [[MGMDaoData alloc] init];
-    daoPlaylistData.data = mockMoid;
+    daoPlaylistData.data = playlist.objectID;
 
     [MKTGivenVoid([self.daoMock fetchPlaylist:@"ID1" completion:anything()]) willDo:^id (NSInvocation *invocation){
         NSArray *args = [invocation mkt_arguments];
