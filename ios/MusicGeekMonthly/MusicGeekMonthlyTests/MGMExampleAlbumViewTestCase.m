@@ -10,6 +10,7 @@
 
 #import "MGMAlbumView.h"
 #import "MGMExampleAlbumView.h"
+#import "MGMSnapshotTestCaseImageUtilities.h"
 #import "MGMUI.h"
 
 @interface MGMExampleAlbumViewTestCase : MGMSnapshotFullscreenDeviceTestCase
@@ -17,13 +18,6 @@
 @end
 
 @implementation MGMExampleAlbumViewTestCase
-
-- (void)testIpadFormSheet
-{
-    [MGMUI setIpad:YES];
-    [MGMView setScreenSize:MGMViewScreenSizeiPad];
-    [self runTestInFrame:CGRectMake(0, 0, 540, 620)];
-}
 
 - (void)runTestInFrame:(CGRect)frame
 {
@@ -33,9 +27,9 @@
 
     [view layoutIfNeeded]; // To resize correctly...
 
-    [view.albumView renderImageWithNoAnimation:[self imageOfSize:view.albumView.frame.size.width withSeed:view.albumView.artistName]];
+    [view.albumView renderImageWithNoAnimation:[MGMSnapshotTestCaseImageUtilities imageOfSize:view.albumView.frame.size.width withSeed:view.albumView.artistName]];
 
-    FBSnapshotVerifyView(view, nil);
+    [self snapshotView:view];
 }
 
 @end

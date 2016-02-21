@@ -40,7 +40,9 @@ static BOOL _isIpad;
 }
 #endif
 
-- (instancetype)initWithCore:(MGMCore *)core imageHelper:(MGMImageHelper *)imageHelper
+- (instancetype)initWithCore:(MGMCore *)core
+                 albumPlayer:(MGMAlbumPlayer *)albumPlayer
+                 imageHelper:(MGMImageHelper *)imageHelper
 {
     self = [super init];
     if (self) {
@@ -56,8 +58,7 @@ static BOOL _isIpad;
 
         _mainController = [[MGMNavigationController alloc] initWithUI:self];
 
-        _albumPlayer = [[MGMAlbumPlayer alloc] init];
-        _albumPlayer.serviceManager = self.core.serviceManager;
+        _albumPlayer = albumPlayer;
         _albumPlayer.ui = self;
 
         _imageHelper = imageHelper;

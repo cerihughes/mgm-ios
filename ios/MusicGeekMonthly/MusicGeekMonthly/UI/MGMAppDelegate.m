@@ -8,6 +8,7 @@
 
 #import "MGMAppDelegate.h"
 
+#import "MGMAlbumPlayer.h"
 #import "MGMCore.h"
 #import "MGMImageHelper.h"
 #import "MGMNavigationController.h"
@@ -21,8 +22,34 @@
 
 @implementation MGMAppDelegate
 
+#if DEBUG
+- (BOOL)isRunningUnitTests
+{
+    NSDictionary<NSString *, NSString *> *env = [NSProcessInfo processInfo].environment;
+
+    // Library tests
+    NSString *envValue = env[@"XPC_SERVICE_NAME"];
+    BOOL isTesting = (envValue && [envValue rangeOfString:@"xctest"].location != NSNotFound);
+    if (isTesting) {
+        return YES;
+    }
+
+    // App tests
+    // XPC_SERVICE_NAME will return the same string as normal app start when unit test is executed using "Host Application"
+    // --> check for "TestBundleLocation" instead
+    envValue = env[@"TestBundleLocation"];
+    isTesting = (envValue && [envValue rangeOfString:@"xctest"].location != NSNotFound);
+    return isTesting;
+}
+#endif
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#if DEBUG
+    if ([self isRunningUnitTests]) {
+        return YES;
+    }
+#endif
     NSLog(@"application:didFinishLaunchingWithOptions:");
 
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
@@ -31,8 +58,11 @@
     [NSURLCache setSharedURLCache:cache];
 
     MGMCore *core = [[MGMCore alloc] init];
+    MGMAlbumPlayer *albumPlayer = [[MGMAlbumPlayer alloc] init];
     MGMImageHelper *imageHelper = [[MGMImageHelper alloc] init];
-    self.ui = [[MGMUI alloc] initWithCore:core imageHelper:imageHelper];
+    albumPlayer.serviceManager = core.serviceManager;
+
+    self.ui = [[MGMUI alloc] initWithCore:core albumPlayer:albumPlayer imageHelper:imageHelper];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // By default, there is no reachability.
