@@ -10,9 +10,12 @@
 
 @protocol MGMMockGenerator;
 @class MGMAlbum;
+@class MGMChartEntry;
 @class MGMCoreDataAccess;
 @class MGMEvent;
 @class MGMPlaylist;
+@class MGMTimePeriod;
+@class MGMWeeklyChart;
 @class NSManagedObjectID;
 
 @interface MGMMockModelUtilities : NSObject
@@ -47,4 +50,19 @@
 - (MGMPlaylist *)mockPlaylistWithPlaylistId:(NSString *)playlistId
                                        name:(NSString *)name;
 
+- (MGMTimePeriod *)mockTimePeriodWithStartDateString:(NSString *)startDateString // @"dd/MM/yyyy"
+                                       endDateString:(NSString *)endDateString; // @"dd/MM/yyyy"
+
+- (NSManagedObjectID *)mockMoidForWeeklyChartWithStartDateString:(NSString *)startDateString // @"dd/MM/yyyy"
+                                                   endDateString:(NSString *)endDateString // @"dd/MM/yyyy"
+                                          fromCoreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock;
+
+- (MGMWeeklyChart *)mockWeeklyChartWithStartDateString:(NSString *)startDateString // @"dd/MM/yyyy"
+                                         endDateString:(NSString *)endDateString; // @"dd/MM/yyyy"
+
+- (MGMChartEntry *)mockChartEntryWithListeners:(NSUInteger)listeners
+                                          rank:(NSUInteger)rank
+                                    artistName:(NSString *)artistName
+                                     albumName:(NSString *)albumName
+                                    albumScore:(float)albumScore;
 @end

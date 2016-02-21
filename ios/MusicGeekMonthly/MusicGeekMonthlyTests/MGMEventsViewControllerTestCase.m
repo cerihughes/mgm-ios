@@ -12,14 +12,12 @@
 #import <OCMockito/OCMockito.h>
 #import <OCHamcrest/OCHamcrest.h>
 
-#import "MGMAlbum.h"
 #import "MGMAlbumRenderService.h"
 #import "MGMCore.h"
 #import "MGMCoreDataAccess.h"
 #import "MGMDao.h"
 #import "MGMDaoData.h"
 #import "MGMDefaultMockContainer.h"
-#import "MGMEvent.h"
 #import "MGMEventsViewController.h"
 #import "MGMImageHelper.h"
 #import "MGMMockModelUtilities.h"

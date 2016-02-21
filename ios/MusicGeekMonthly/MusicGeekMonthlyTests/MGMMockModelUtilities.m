@@ -13,11 +13,14 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 #import "MGMAlbum.h"
+#import "MGMChartEntry.h"
 #import "MGMCoreDataAccess.h"
 #import "MGMEvent.h"
 #import "MGMMockGenerator.h"
 #import "MGMPlaylist.h"
 #import "MGMPlaylistItem.h"
+#import "MGMTimePeriod.h"
+#import "MGMWeeklyChart.h"
 
 @interface MGMMockModelUtilities ()
 
@@ -58,7 +61,9 @@
     MGMAlbum *album = [self.mockGenerator mockObject:[MGMAlbum class]];
     [MKTGiven([album artistName]) willReturn:artistName];
     [MKTGiven([album albumName]) willReturn:albumName];
-    [MKTGiven([album score]) willReturn:@(score)];
+    if (score > 0.0f) {
+        [MKTGiven([album score]) willReturn:@(score)];
+    }
     [[MKTGiven([album bestImageUrlsWithPreferredSize:0]) withMatcher:anything()] willReturn:@[artistName, albumName]];
     return album;
 }
@@ -119,6 +124,73 @@
     }
     [MKTGiven([playlist playlistItems]) willReturn:[NSOrderedSet orderedSetWithArray:array]];
     return playlist;
+}
+
+- (MGMTimePeriod *)mockTimePeriodWithStartDateString:(NSString *)startDateString // @"dd/MM/yyyy"
+                                       endDateString:(NSString *)endDateString // @"dd/MM/yyyy"
+{
+    MGMTimePeriod *timePeriod = [self.mockGenerator mockObject:[MGMTimePeriod class]];
+    NSDate *startDate = [self.dateFormatter dateFromString:startDateString];
+    NSDate *endDate = [self.dateFormatter dateFromString:endDateString];
+    [MKTGiven([timePeriod startDate]) willReturn:startDate];
+    [MKTGiven([timePeriod endDate]) willReturn:endDate];
+    [MKTGiven([timePeriod groupHeader]) willReturn:@"Group Header"];
+    [MKTGiven([timePeriod groupValue]) willReturn:startDateString];
+    return timePeriod;
+}
+
+- (NSManagedObjectID *)mockMoidForWeeklyChartWithStartDateString:(NSString *)startDateString // @"dd/MM/yyyy"
+                                                   endDateString:(NSString *)endDateString // @"dd/MM/yyyy"
+                                          fromCoreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock
+{
+    MGMWeeklyChart *weeklyChart = [self mockWeeklyChartWithStartDateString:startDateString endDateString:endDateString];
+    NSManagedObjectID *moid = [self.mockGenerator mockObject:[NSManagedObjectID class]];
+    [MKTGiven([coreDataAccessMock mainThreadVersion:moid]) willReturn:weeklyChart];
+    return moid;
+}
+
+- (MGMWeeklyChart *)mockWeeklyChartWithStartDateString:(NSString *)startDateString // @"dd/MM/yyyy"
+                                         endDateString:(NSString *)endDateString // @"dd/MM/yyyy"
+{
+    MGMWeeklyChart *weeklyChart = [self.mockGenerator mockObject:[MGMWeeklyChart class]];
+    NSDate *startDate = [self.dateFormatter dateFromString:startDateString];
+    NSDate *endDate = [self.dateFormatter dateFromString:endDateString];
+    [MKTGiven([weeklyChart startDate]) willReturn:startDate];
+    [MKTGiven([weeklyChart endDate]) willReturn:endDate];
+
+    NSMutableArray *array = [NSMutableArray array];
+    for (int rank = 1; rank < 26; rank++) {
+        float score = (rank % 4) * 2.5f;
+        MGMChartEntry *chartEntry = [self mockChartEntryWithListeners:rank * 2
+                                                                 rank:rank
+                                                           artistName:[NSString stringWithFormat:@"CHART ARTIST %d", rank]
+                                                            albumName:[NSString stringWithFormat:@"CHART ALBUM %d", rank]
+                                                           albumScore:score];
+        [array addObject:chartEntry];
+    }
+
+    [MKTGiven([weeklyChart chartEntries]) willReturn:[NSOrderedSet orderedSetWithArray:array]];
+
+    return weeklyChart;
+}
+
+- (MGMChartEntry *)mockChartEntryWithListeners:(NSUInteger)listeners
+                                          rank:(NSUInteger)rank
+                                    artistName:(NSString *)artistName
+                                     albumName:(NSString *)albumName
+                                    albumScore:(float)albumScore
+{
+    MGMChartEntry *chartEntry = [self.mockGenerator mockObject:[MGMChartEntry class]];
+    if (listeners > 0) {
+        [MKTGiven([chartEntry listeners]) willReturn:@(listeners)];
+    }
+    if (rank > 0) {
+        [MKTGiven([chartEntry rank]) willReturn:@(rank)];
+    }
+
+    MGMAlbum *album = [self mockAlbumWithArtistName:artistName albumName:albumName score:albumScore];
+    [MKTGiven([chartEntry album]) willReturn:album];
+    return chartEntry;
 }
 
 @end
