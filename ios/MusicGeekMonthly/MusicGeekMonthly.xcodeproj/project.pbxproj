@@ -20,6 +20,7 @@
 		65283D3718D4548500D7C1D7 /* MGMGridManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6502F20918C3A02C007FE38E /* MGMGridManagerTestCase.m */; };
 		65283D3818D4548E00D7C1D7 /* MGMCoreDataTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65936A0817BCB1150070A9C6 /* MGMCoreDataTestCase.m */; };
 		652FD78C1C79BC3F0027545E /* MGMPlayerSelectionViewControllerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD78B1C79BC3F0027545E /* MGMPlayerSelectionViewControllerTestCase.m */; };
+		652FD78E1C79C4410027545E /* MGMAlbumGridViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD78D1C79C4410027545E /* MGMAlbumGridViewTestCase.m */; };
 		6532DA101C5E5651002339FD /* MGMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532DA0F1C5E5651002339FD /* MGMTestCase.m */; };
 		6542305D18CBAD5500121B3B /* timePeriods.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305C18CBAD5500121B3B /* timePeriods.json */; };
 		6542306018CBAD7100121B3B /* weeklyChart.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305F18CBAD7100121B3B /* weeklyChart.json */; };
@@ -183,6 +184,7 @@
 		65283D2418D4544400D7C1D7 /* MusicGeekMonthlyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicGeekMonthlyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65283D3118D4544400D7C1D7 /* MusicGeekMonthlyTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicGeekMonthlyTests-Prefix.pch"; sourceTree = "<group>"; };
 		652FD78B1C79BC3F0027545E /* MGMPlayerSelectionViewControllerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlayerSelectionViewControllerTestCase.m; sourceTree = "<group>"; };
+		652FD78D1C79C4410027545E /* MGMAlbumGridViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumGridViewTestCase.m; sourceTree = "<group>"; };
 		6532DA0E1C5E5651002339FD /* MGMTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTestCase.h; sourceTree = "<group>"; };
 		6532DA0F1C5E5651002339FD /* MGMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTestCase.m; sourceTree = "<group>"; };
 		6542305C18CBAD5500121B3B /* timePeriods.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = timePeriods.json; path = MusicGeekMonthly/Resources/timePeriods.json; sourceTree = "<group>"; };
@@ -599,9 +601,10 @@
 			children = (
 				65729EFF1C789B8E0040080E /* MGMSnapshotTestCase.h */,
 				65729F001C789B8E0040080E /* MGMSnapshotTestCase.m */,
+				652FD78D1C79C4410027545E /* MGMAlbumGridViewTestCase.m */,
+				65729FC91C78B5820040080E /* MGMAlbumScoresViewControllerTestCase.m */,
 				65729EFD1C789AF10040080E /* MGMAlbumViewTestCase.m */,
 				65729FC71C78A83E0040080E /* MGMExampleAlbumViewTestCase.m */,
-				65729FC91C78B5820040080E /* MGMAlbumScoresViewControllerTestCase.m */,
 				652FD78B1C79BC3F0027545E /* MGMPlayerSelectionViewControllerTestCase.m */,
 			);
 			name = Snapshot;
@@ -1294,6 +1297,7 @@
 				65E3F8271AE3C787004FF67B /* MGMAllEventsGoogleSheetDaoOperationTestCase.m in Sources */,
 				651B72D718D47C1300346F72 /* MGMCoreDataAccessTestCase.m in Sources */,
 				652FD78C1C79BC3F0027545E /* MGMPlayerSelectionViewControllerTestCase.m in Sources */,
+				652FD78E1C79C4410027545E /* MGMAlbumGridViewTestCase.m in Sources */,
 				65729FD11C78C8490040080E /* MGMTestCaseUtilities.m in Sources */,
 				65729FCA1C78B5820040080E /* MGMAlbumScoresViewControllerTestCase.m in Sources */,
 				651B72D418D47BA200346F72 /* MGMDaoOperationTestCase.m in Sources */,
