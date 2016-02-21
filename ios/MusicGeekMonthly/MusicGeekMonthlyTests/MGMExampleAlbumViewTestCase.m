@@ -18,13 +18,6 @@
 
 @implementation MGMExampleAlbumViewTestCase
 
-- (void)testIpadFormSheet
-{
-    [MGMUI setIpad:YES];
-    [MGMView setScreenSize:MGMViewScreenSizeiPad];
-    [self runTestInFrame:CGRectMake(0, 0, 540, 620)];
-}
-
 - (void)runTestInFrame:(CGRect)frame
 {
     MGMExampleAlbumView *view = [[MGMExampleAlbumView alloc] initWithFrame:frame];

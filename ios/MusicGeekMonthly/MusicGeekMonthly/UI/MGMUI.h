@@ -26,7 +26,9 @@
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithCore:(MGMCore *)core imageHelper:(MGMImageHelper *)imageHelper;
+- (instancetype)initWithCore:(MGMCore *)core
+                 albumPlayer:(MGMAlbumPlayer *)albumPlayer
+                 imageHelper:(MGMImageHelper *)imageHelper;
 
 - (void) uiWillResignActive;
 - (void) uiDidEnterBackground;

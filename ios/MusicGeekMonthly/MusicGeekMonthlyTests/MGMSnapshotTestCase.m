@@ -151,6 +151,7 @@ static void DrawPattern(void *info, CGContextRef context)
              @(MGMSnapshotTestCaseDeviceIphone6Plus) : @[@414, @736],
              @(MGMSnapshotTestCaseDeviceIpad) : @[@768, @1024],
              @(MGMSnapshotTestCaseDeviceIpadPro) : @[@1024, @1366],
+             @(MGMSnapshotTestCaseDeviceIpadFormSheet) : @[@540, @620],
              };
 }
 
@@ -201,6 +202,13 @@ static void DrawPattern(void *info, CGContextRef context)
     [MGMUI setIpad:YES];
     [MGMView setScreenSize:MGMViewScreenSizeiPad];
     [self runTestOnDevice:MGMSnapshotTestCaseDeviceIpadPro];
+}
+
+- (void)testIpadFormSheet
+{
+    [MGMUI setIpad:YES];
+    [MGMView setScreenSize:MGMViewScreenSizeiPad];
+    [self runTestOnDevice:MGMSnapshotTestCaseDeviceIpadFormSheet];
 }
 
 - (void)runTestOnDevice:(MGMSnapshotTestCaseDevice)device

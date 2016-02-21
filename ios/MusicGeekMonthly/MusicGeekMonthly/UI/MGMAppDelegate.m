@@ -8,6 +8,7 @@
 
 #import "MGMAppDelegate.h"
 
+#import "MGMAlbumPlayer.h"
 #import "MGMCore.h"
 #import "MGMImageHelper.h"
 #import "MGMNavigationController.h"
@@ -31,8 +32,11 @@
     [NSURLCache setSharedURLCache:cache];
 
     MGMCore *core = [[MGMCore alloc] init];
+    MGMAlbumPlayer *albumPlayer = [[MGMAlbumPlayer alloc] init];
     MGMImageHelper *imageHelper = [[MGMImageHelper alloc] init];
-    self.ui = [[MGMUI alloc] initWithCore:core imageHelper:imageHelper];
+    albumPlayer.serviceManager = core.serviceManager;
+
+    self.ui = [[MGMUI alloc] initWithCore:core albumPlayer:albumPlayer imageHelper:imageHelper];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // By default, there is no reachability.

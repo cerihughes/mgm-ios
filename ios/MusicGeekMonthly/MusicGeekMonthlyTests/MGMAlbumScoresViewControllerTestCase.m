@@ -88,7 +88,7 @@
         return nil;
     }];
 
-    self.ui = [[MGMUI alloc] initWithCore:self.coreMock imageHelper:self.imageHelperMock];
+    self.ui = [[MGMUI alloc] initWithCore:self.coreMock albumPlayer:nil imageHelper:self.imageHelperMock];
     self.viewController = [[MGMAlbumScoresViewController alloc] init];
     self.viewController.ui = self.ui;
 }

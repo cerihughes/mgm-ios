@@ -18,7 +18,8 @@ typedef NS_ENUM(NSUInteger, MGMSnapshotTestCaseDevice)
     MGMSnapshotTestCaseDeviceIphone6,
     MGMSnapshotTestCaseDeviceIphone6Plus,
     MGMSnapshotTestCaseDeviceIpad,
-    MGMSnapshotTestCaseDeviceIpadPro
+    MGMSnapshotTestCaseDeviceIpadPro,
+    MGMSnapshotTestCaseDeviceIpadFormSheet
 };
 
 @interface MGMSnapshotTestCase : FBSnapshotTestCase
