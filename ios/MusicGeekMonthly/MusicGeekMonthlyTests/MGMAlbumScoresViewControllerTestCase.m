@@ -64,11 +64,11 @@
         NSString *albumName = [NSString stringWithFormat:@"Album%d", i];
         float scoreAscending = i / 5.0f;
         float scoreDescending = 10.0f - scoreAscending;
-        NSManagedObjectID *mockMoid = [self.mockModelUtilities mockMoidForAlbumWithArtistName:artistName
-                                                                                    albumName:albumName
-                                                                                        score:scoreDescending
-                                                                       fromCoreDataAccessMock:self.coreDataAccessMock];
-        [mockMoids addObject:mockMoid];
+        MGMAlbum *album = [self.mockModelUtilities mockAlbumWithArtistName:artistName
+                                                                 albumName:albumName
+                                                                     score:scoreDescending
+                                                        coreDataAccessMock:self.coreDataAccessMock];
+        [mockMoids addObject:album.objectID];
     }
 
     MGMDaoData *daoData = [[MGMDaoData alloc] init];

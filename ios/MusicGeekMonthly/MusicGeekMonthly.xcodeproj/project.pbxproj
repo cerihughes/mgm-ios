@@ -36,6 +36,7 @@
 		654B869618D0F7AF005835F8 /* MGMAlbumImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 654B869518D0F7AF005835F8 /* MGMAlbumImageSize.m */; };
 		654D029D18BA20960067BC19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654D029C18BA20960067BC19 /* Images.xcassets */; };
 		6560F0F51C7A1BFF001AF184 /* MGMWeeklyChartViewControllerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6560F0F41C7A1BFF001AF184 /* MGMWeeklyChartViewControllerTestCase.m */; };
+		6560F0F71C7A2E54001AF184 /* MGMEventsModalViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6560F0F61C7A2E54001AF184 /* MGMEventsModalViewTestCase.m */; };
 		65729EFE1C789AF10040080E /* MGMAlbumViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65729EFD1C789AF10040080E /* MGMAlbumViewTestCase.m */; };
 		65729F011C789B8E0040080E /* MGMSnapshotTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65729F001C789B8E0040080E /* MGMSnapshotTestCase.m */; };
 		65729FC81C78A83E0040080E /* MGMExampleAlbumViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65729FC71C78A83E0040080E /* MGMExampleAlbumViewTestCase.m */; };
@@ -214,6 +215,7 @@
 		654B869518D0F7AF005835F8 /* MGMAlbumImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumImageSize.m; sourceTree = "<group>"; };
 		654D029C18BA20960067BC19 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6560F0F41C7A1BFF001AF184 /* MGMWeeklyChartViewControllerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWeeklyChartViewControllerTestCase.m; sourceTree = "<group>"; };
+		6560F0F61C7A2E54001AF184 /* MGMEventsModalViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMEventsModalViewTestCase.m; sourceTree = "<group>"; };
 		65729EFD1C789AF10040080E /* MGMAlbumViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumViewTestCase.m; sourceTree = "<group>"; };
 		65729EFF1C789B8E0040080E /* MGMSnapshotTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMSnapshotTestCase.h; sourceTree = "<group>"; };
 		65729F001C789B8E0040080E /* MGMSnapshotTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMSnapshotTestCase.m; sourceTree = "<group>"; };
@@ -632,6 +634,7 @@
 				652FD78D1C79C4410027545E /* MGMAlbumGridViewTestCase.m */,
 				65729FC91C78B5820040080E /* MGMAlbumScoresViewControllerTestCase.m */,
 				65729EFD1C789AF10040080E /* MGMAlbumViewTestCase.m */,
+				6560F0F61C7A2E54001AF184 /* MGMEventsModalViewTestCase.m */,
 				652FD7941C79F33F0027545E /* MGMEventsViewControllerTestCase.m */,
 				65729FC71C78A83E0040080E /* MGMExampleAlbumViewTestCase.m */,
 				652FD78B1C79BC3F0027545E /* MGMPlayerSelectionViewControllerTestCase.m */,
@@ -1333,6 +1336,7 @@
 				652FD78C1C79BC3F0027545E /* MGMPlayerSelectionViewControllerTestCase.m in Sources */,
 				652FD78E1C79C4410027545E /* MGMAlbumGridViewTestCase.m in Sources */,
 				65729FD11C78C8490040080E /* MGMTestCaseUtilities.m in Sources */,
+				6560F0F71C7A2E54001AF184 /* MGMEventsModalViewTestCase.m in Sources */,
 				65729FCA1C78B5820040080E /* MGMAlbumScoresViewControllerTestCase.m in Sources */,
 				651B72D418D47BA200346F72 /* MGMDaoOperationTestCase.m in Sources */,
 				65283D3818D4548E00D7C1D7 /* MGMCoreDataTestCase.m in Sources */,

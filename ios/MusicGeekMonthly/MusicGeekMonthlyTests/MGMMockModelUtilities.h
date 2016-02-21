@@ -20,18 +20,16 @@
 
 @interface MGMMockModelUtilities : NSObject
 
+@property (nonatomic, strong, readonly) NSDateFormatter *dateFormatter; // dd/MM/yyyy
+
 + (id)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithMockGenerator:(id<MGMMockGenerator>)mockGenerator;
 
-- (NSManagedObjectID *)mockMoidForAlbumWithArtistName:(NSString *)artistName
-                                            albumName:(NSString *)albumName
-                                                score:(float)score
-                               fromCoreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock;
-
 - (MGMAlbum *)mockAlbumWithArtistName:(NSString *)artistName
                             albumName:(NSString *)albumName
-                                score:(float)score;
+                                score:(float)score
+                   coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock;
 
 - (MGMEvent *)mockEventWithEventNumber:(NSUInteger)eventNumber
                        eventDateString:(NSString *)eventDateString // @"dd/MM/yyyy"
@@ -41,28 +39,26 @@
                      classicAlbumScore:(float)classicAlbumScore
                newlyReleasedArtistName:(NSString *)newlyReleasedArtistName
                 newlyReleasedAlbumName:(NSString *)newlyReleasedAlbumName
-               newlyReleasedAlbumScore:(float)newlyReleasedAlbumScore;
-
-- (NSManagedObjectID *)mockMoidForPlaylistWithPlaylistId:(NSString *)playlistId
-                                                    name:(NSString *)name
-                                  fromCoreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock;
+               newlyReleasedAlbumScore:(float)newlyReleasedAlbumScore
+                    coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock;
 
 - (MGMPlaylist *)mockPlaylistWithPlaylistId:(NSString *)playlistId
-                                       name:(NSString *)name;
+                                       name:(NSString *)name
+                         coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock;
 
 - (MGMTimePeriod *)mockTimePeriodWithStartDateString:(NSString *)startDateString // @"dd/MM/yyyy"
-                                       endDateString:(NSString *)endDateString; // @"dd/MM/yyyy"
-
-- (NSManagedObjectID *)mockMoidForWeeklyChartWithStartDateString:(NSString *)startDateString // @"dd/MM/yyyy"
-                                                   endDateString:(NSString *)endDateString // @"dd/MM/yyyy"
-                                          fromCoreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock;
+                                       endDateString:(NSString *)endDateString // @"dd/MM/yyyy"
+                                  coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock;
 
 - (MGMWeeklyChart *)mockWeeklyChartWithStartDateString:(NSString *)startDateString // @"dd/MM/yyyy"
-                                         endDateString:(NSString *)endDateString; // @"dd/MM/yyyy"
+                                         endDateString:(NSString *)endDateString // @"dd/MM/yyyy"
+                                    coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock;
 
 - (MGMChartEntry *)mockChartEntryWithListeners:(NSUInteger)listeners
                                           rank:(NSUInteger)rank
                                     artistName:(NSString *)artistName
                                      albumName:(NSString *)albumName
-                                    albumScore:(float)albumScore;
+                                    albumScore:(float)albumScore
+                            coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock;
+
 @end

@@ -43,20 +43,18 @@
     return self;
 }
 
-- (NSManagedObjectID *)mockMoidForAlbumWithArtistName:(NSString *)artistName
-                                            albumName:(NSString *)albumName
-                                                score:(float)score
-                               fromCoreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock
+- (void)setExpectationsForManagedObject:(NSManagedObject *)managedObject
+                     coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock
 {
-    MGMAlbum *album = [self mockAlbumWithArtistName:artistName albumName:albumName score:score];
     NSManagedObjectID *moid = [self.mockGenerator mockObject:[NSManagedObjectID class]];
-    [MKTGiven([coreDataAccessMock mainThreadVersion:moid]) willReturn:album];
-    return moid;
+    [MKTGiven([coreDataAccessMock mainThreadVersion:moid]) willReturn:managedObject];
+    [MKTGiven([managedObject objectID]) willReturn:moid];
 }
 
 - (MGMAlbum *)mockAlbumWithArtistName:(NSString *)artistName
                             albumName:(NSString *)albumName
                                 score:(float)score
+                   coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock
 {
     MGMAlbum *album = [self.mockGenerator mockObject:[MGMAlbum class]];
     [MKTGiven([album artistName]) willReturn:artistName];
@@ -65,6 +63,9 @@
         [MKTGiven([album score]) willReturn:@(score)];
     }
     [[MKTGiven([album bestImageUrlsWithPreferredSize:0]) withMatcher:anything()] willReturn:@[artistName, albumName]];
+
+    [self setExpectationsForManagedObject:album coreDataAccessMock:coreDataAccessMock];
+
     return album;
 }
 
@@ -77,6 +78,7 @@
                newlyReleasedArtistName:(NSString *)newlyReleasedArtistName
                 newlyReleasedAlbumName:(NSString *)newlyReleasedAlbumName
                newlyReleasedAlbumScore:(float)newlyReleasedAlbumScore
+                    coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock
 {
     MGMEvent *event = [self.mockGenerator mockObject:[MGMEvent class]];
     NSDate *eventDate = [self.dateFormatter dateFromString:eventDateString];
@@ -86,26 +88,26 @@
     [MKTGiven([event groupHeader]) willReturn:@"Group Header"];
     [MKTGiven([event groupValue]) willReturn:eventDateString];
 
-    MGMAlbum *classicAlbum = [self mockAlbumWithArtistName:classicArtistName albumName:classicAlbumName score:classicAlbumScore];
-    MGMAlbum *newlyReleasedAlbum = [self mockAlbumWithArtistName:newlyReleasedArtistName albumName:newlyReleasedAlbumName score:newlyReleasedAlbumScore];
+    MGMAlbum *classicAlbum = [self mockAlbumWithArtistName:classicArtistName
+                                                 albumName:classicAlbumName
+                                                     score:classicAlbumScore
+                                        coreDataAccessMock:coreDataAccessMock];
+    MGMAlbum *newlyReleasedAlbum = [self mockAlbumWithArtistName:newlyReleasedArtistName
+                                                       albumName:newlyReleasedAlbumName
+                                                           score:newlyReleasedAlbumScore
+                                              coreDataAccessMock:coreDataAccessMock];
 
     [MKTGiven([event classicAlbum]) willReturn:classicAlbum];
     [MKTGiven([event newlyReleasedAlbum]) willReturn:newlyReleasedAlbum];
-    return event;
-}
 
-- (NSManagedObjectID *)mockMoidForPlaylistWithPlaylistId:(NSString *)playlistId
-                                                    name:(NSString *)name
-                                  fromCoreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock
-{
-    MGMPlaylist *playlist = [self mockPlaylistWithPlaylistId:playlistId name:name];
-    NSManagedObjectID *moid = [self.mockGenerator mockObject:[NSManagedObjectID class]];
-    [MKTGiven([coreDataAccessMock mainThreadVersion:moid]) willReturn:playlist];
-    return moid;
+    [self setExpectationsForManagedObject:event coreDataAccessMock:coreDataAccessMock];
+
+    return event;
 }
 
 - (MGMPlaylist *)mockPlaylistWithPlaylistId:(NSString *)playlistId
                                        name:(NSString *)name
+                         coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock
 {
     MGMPlaylist *playlist = [self.mockGenerator mockObject:[MGMPlaylist class]];
     [MKTGiven([playlist playlistId]) willReturn:playlistId];
@@ -120,14 +122,21 @@
         [MKTGiven([playlistItem track]) willReturn:track];
         [[MKTGiven([playlistItem bestImageUrlsWithPreferredSize:0]) withMatcher:anything()] willReturn:@[track]];
         [MKTGiven([playlistItem playlist]) willReturn:playlist];
+
+        [self setExpectationsForManagedObject:playlistItem coreDataAccessMock:coreDataAccessMock];
+
         [array addObject:playlistItem];
     }
     [MKTGiven([playlist playlistItems]) willReturn:[NSOrderedSet orderedSetWithArray:array]];
+
+    [self setExpectationsForManagedObject:playlist coreDataAccessMock:coreDataAccessMock];
+
     return playlist;
 }
 
 - (MGMTimePeriod *)mockTimePeriodWithStartDateString:(NSString *)startDateString // @"dd/MM/yyyy"
                                        endDateString:(NSString *)endDateString // @"dd/MM/yyyy"
+                                  coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock
 {
     MGMTimePeriod *timePeriod = [self.mockGenerator mockObject:[MGMTimePeriod class]];
     NSDate *startDate = [self.dateFormatter dateFromString:startDateString];
@@ -136,21 +145,15 @@
     [MKTGiven([timePeriod endDate]) willReturn:endDate];
     [MKTGiven([timePeriod groupHeader]) willReturn:@"Group Header"];
     [MKTGiven([timePeriod groupValue]) willReturn:startDateString];
-    return timePeriod;
-}
 
-- (NSManagedObjectID *)mockMoidForWeeklyChartWithStartDateString:(NSString *)startDateString // @"dd/MM/yyyy"
-                                                   endDateString:(NSString *)endDateString // @"dd/MM/yyyy"
-                                          fromCoreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock
-{
-    MGMWeeklyChart *weeklyChart = [self mockWeeklyChartWithStartDateString:startDateString endDateString:endDateString];
-    NSManagedObjectID *moid = [self.mockGenerator mockObject:[NSManagedObjectID class]];
-    [MKTGiven([coreDataAccessMock mainThreadVersion:moid]) willReturn:weeklyChart];
-    return moid;
+    [self setExpectationsForManagedObject:timePeriod coreDataAccessMock:coreDataAccessMock];
+
+    return timePeriod;
 }
 
 - (MGMWeeklyChart *)mockWeeklyChartWithStartDateString:(NSString *)startDateString // @"dd/MM/yyyy"
                                          endDateString:(NSString *)endDateString // @"dd/MM/yyyy"
+                                    coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock
 {
     MGMWeeklyChart *weeklyChart = [self.mockGenerator mockObject:[MGMWeeklyChart class]];
     NSDate *startDate = [self.dateFormatter dateFromString:startDateString];
@@ -165,11 +168,14 @@
                                                                  rank:rank
                                                            artistName:[NSString stringWithFormat:@"CHART ARTIST %d", rank]
                                                             albumName:[NSString stringWithFormat:@"CHART ALBUM %d", rank]
-                                                           albumScore:score];
+                                                           albumScore:score
+                                                   coreDataAccessMock:coreDataAccessMock];
         [array addObject:chartEntry];
     }
 
     [MKTGiven([weeklyChart chartEntries]) willReturn:[NSOrderedSet orderedSetWithArray:array]];
+
+    [self setExpectationsForManagedObject:weeklyChart coreDataAccessMock:coreDataAccessMock];
 
     return weeklyChart;
 }
@@ -179,6 +185,7 @@
                                     artistName:(NSString *)artistName
                                      albumName:(NSString *)albumName
                                     albumScore:(float)albumScore
+                            coreDataAccessMock:(MGMCoreDataAccess *)coreDataAccessMock
 {
     MGMChartEntry *chartEntry = [self.mockGenerator mockObject:[MGMChartEntry class]];
     if (listeners > 0) {
@@ -188,8 +195,15 @@
         [MKTGiven([chartEntry rank]) willReturn:@(rank)];
     }
 
-    MGMAlbum *album = [self mockAlbumWithArtistName:artistName albumName:albumName score:albumScore];
+    MGMAlbum *album = [self mockAlbumWithArtistName:artistName
+                                          albumName:albumName
+                                              score:albumScore
+                                 coreDataAccessMock:coreDataAccessMock];
+
     [MKTGiven([chartEntry album]) willReturn:album];
+
+    [self setExpectationsForManagedObject:chartEntry coreDataAccessMock:coreDataAccessMock];
+
     return chartEntry;
 }
 
