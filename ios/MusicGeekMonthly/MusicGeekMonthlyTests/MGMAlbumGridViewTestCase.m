@@ -10,6 +10,7 @@
 
 #import "MGMAlbumGridView.h"
 #import "MGMAlbumView.h"
+#import "MGMSnapshotTestCaseImageUtilities.h"
 
 @interface MGMAlbumGridViewTestCase : MGMSnapshotTestCase
 
@@ -55,10 +56,10 @@
         albumView.rank = rank;
         albumView.score = 11 - rank;
         albumView.listeners = albumView.score * 2;
-        [albumView renderImageWithNoAnimation:[self imageOfSize:160 withSeed:albumView.artistName]];
+        [albumView renderImageWithNoAnimation:[MGMSnapshotTestCaseImageUtilities imageOfSize:160 withSeed:albumView.artistName]];
     }
 
-    FBSnapshotVerifyView(view, nil);
+    [self snapshotView:view];
 }
 
 @end

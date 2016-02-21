@@ -21,6 +21,7 @@
 #import "MGMDaoData.h"
 #import "MGMDefaultMockContainer.h"
 #import "MGMImageHelper.h"
+#import "MGMSnapshotTestCaseImageUtilities.h"
 #import "MGMUI.h"
 #import "MGMView.h"
 
@@ -72,21 +73,8 @@
         return nil;
     }];
 
-    [MKTGivenVoid([self.albumRenderServiceMock refreshAlbum:anything() completion:anything()]) willDo:^id (NSInvocation *invocation){
-        NSArray *args = [invocation mkt_arguments];
-        ALBUM_SERVICE_COMPLETION completion = args[1];
-        completion(nil);
-        return nil;
-    }];
-
-    [MKTGivenVoid([self.imageHelperMock imageFromUrls:anything() completion:anything()]) willDo:^id (NSInvocation *invocation){
-        NSArray *args = [invocation mkt_arguments];
-        NSArray* urls = args[0];
-        IMAGE_HELPER_COMPLETION completion = args[1];
-        UIImage *image = [self imageOfSize:256 withSeed:urls[0]];
-        completion(image, nil);
-        return nil;
-    }];
+    [MGMSnapshotTestCaseImageUtilities setupAlbumRenderServiceMock:self.albumRenderServiceMock];
+    [MGMSnapshotTestCaseImageUtilities setupImageHelperMock:self.imageHelperMock toReturnImageOfSize:256];
 
     self.ui = [[MGMUI alloc] initWithCore:self.coreMock albumPlayer:nil imageHelper:self.imageHelperMock];
     self.viewController = [[MGMAlbumScoresViewController alloc] init];
@@ -117,7 +105,7 @@
 
     [self.viewController.view layoutIfNeeded];
 
-    FBSnapshotVerifyView(self.viewController.view, nil);
+    [self snapshotView:self.viewController.view];
 }
 
 @end

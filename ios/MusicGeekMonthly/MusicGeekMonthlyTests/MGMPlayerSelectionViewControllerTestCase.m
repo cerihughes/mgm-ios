@@ -57,7 +57,7 @@
     self.viewController.mode = MGMPlayerSelectionModeNoPlayer;
     [self.viewController.view layoutIfNeeded];
 
-    FBSnapshotVerifyView(self.viewController.view, nil);
+    [self snapshotView:self.viewController.view];
 }
 
 @end

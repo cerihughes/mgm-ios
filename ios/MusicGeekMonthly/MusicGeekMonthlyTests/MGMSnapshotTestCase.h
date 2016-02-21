@@ -29,7 +29,8 @@ typedef NS_ENUM(NSUInteger, MGMSnapshotTestCaseDevice)
 - (CGRect)frameForDevice:(MGMSnapshotTestCaseDevice)device;
 - (CGRect)frameForDevice:(MGMSnapshotTestCaseDevice)device landscape:(BOOL)landscape;
 
-- (UIImage *)imageOfSize:(NSUInteger)sizeInPixels withSeed:(NSString *)seed;
+- (void)snapshotView:(UIView *)view;
+- (void)snapshotView:(UIView *)view withIdentifier:(NSString *)identifier;
 
 @end
 

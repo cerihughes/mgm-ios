@@ -21,6 +21,8 @@
 		65283D3818D4548E00D7C1D7 /* MGMCoreDataTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65936A0817BCB1150070A9C6 /* MGMCoreDataTestCase.m */; };
 		652FD78C1C79BC3F0027545E /* MGMPlayerSelectionViewControllerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD78B1C79BC3F0027545E /* MGMPlayerSelectionViewControllerTestCase.m */; };
 		652FD78E1C79C4410027545E /* MGMAlbumGridViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD78D1C79C4410027545E /* MGMAlbumGridViewTestCase.m */; };
+		652FD7901C79E8290027545E /* MGMAlbumDetailViewControllerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD78F1C79E8290027545E /* MGMAlbumDetailViewControllerTestCase.m */; };
+		652FD7931C79EAF80027545E /* MGMSnapshotTestCaseImageUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD7921C79EAF80027545E /* MGMSnapshotTestCaseImageUtilities.m */; };
 		6532DA101C5E5651002339FD /* MGMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532DA0F1C5E5651002339FD /* MGMTestCase.m */; };
 		6542305D18CBAD5500121B3B /* timePeriods.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305C18CBAD5500121B3B /* timePeriods.json */; };
 		6542306018CBAD7100121B3B /* weeklyChart.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305F18CBAD7100121B3B /* weeklyChart.json */; };
@@ -185,6 +187,9 @@
 		65283D3118D4544400D7C1D7 /* MusicGeekMonthlyTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicGeekMonthlyTests-Prefix.pch"; sourceTree = "<group>"; };
 		652FD78B1C79BC3F0027545E /* MGMPlayerSelectionViewControllerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPlayerSelectionViewControllerTestCase.m; sourceTree = "<group>"; };
 		652FD78D1C79C4410027545E /* MGMAlbumGridViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumGridViewTestCase.m; sourceTree = "<group>"; };
+		652FD78F1C79E8290027545E /* MGMAlbumDetailViewControllerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAlbumDetailViewControllerTestCase.m; sourceTree = "<group>"; };
+		652FD7911C79EAF80027545E /* MGMSnapshotTestCaseImageUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMSnapshotTestCaseImageUtilities.h; sourceTree = "<group>"; };
+		652FD7921C79EAF80027545E /* MGMSnapshotTestCaseImageUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMSnapshotTestCaseImageUtilities.m; sourceTree = "<group>"; };
 		6532DA0E1C5E5651002339FD /* MGMTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTestCase.h; sourceTree = "<group>"; };
 		6532DA0F1C5E5651002339FD /* MGMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTestCase.m; sourceTree = "<group>"; };
 		6542305C18CBAD5500121B3B /* timePeriods.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = timePeriods.json; path = MusicGeekMonthly/Resources/timePeriods.json; sourceTree = "<group>"; };
@@ -601,6 +606,9 @@
 			children = (
 				65729EFF1C789B8E0040080E /* MGMSnapshotTestCase.h */,
 				65729F001C789B8E0040080E /* MGMSnapshotTestCase.m */,
+				652FD7911C79EAF80027545E /* MGMSnapshotTestCaseImageUtilities.h */,
+				652FD7921C79EAF80027545E /* MGMSnapshotTestCaseImageUtilities.m */,
+				652FD78F1C79E8290027545E /* MGMAlbumDetailViewControllerTestCase.m */,
 				652FD78D1C79C4410027545E /* MGMAlbumGridViewTestCase.m */,
 				65729FC91C78B5820040080E /* MGMAlbumScoresViewControllerTestCase.m */,
 				65729EFD1C789AF10040080E /* MGMAlbumViewTestCase.m */,
@@ -1295,6 +1303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65E3F8271AE3C787004FF67B /* MGMAllEventsGoogleSheetDaoOperationTestCase.m in Sources */,
+				652FD7901C79E8290027545E /* MGMAlbumDetailViewControllerTestCase.m in Sources */,
 				651B72D718D47C1300346F72 /* MGMCoreDataAccessTestCase.m in Sources */,
 				652FD78C1C79BC3F0027545E /* MGMPlayerSelectionViewControllerTestCase.m in Sources */,
 				652FD78E1C79C4410027545E /* MGMAlbumGridViewTestCase.m in Sources */,
@@ -1306,6 +1315,7 @@
 				65729EFE1C789AF10040080E /* MGMAlbumViewTestCase.m in Sources */,
 				65729FCE1C78B6AA0040080E /* MGMDefaultMockContainer.m in Sources */,
 				65E3F8251AE3C6A3004FF67B /* MGMItunesPlayerServiceTestCase.m in Sources */,
+				652FD7931C79EAF80027545E /* MGMSnapshotTestCaseImageUtilities.m in Sources */,
 				65729FC81C78A83E0040080E /* MGMExampleAlbumViewTestCase.m in Sources */,
 				65729F011C789B8E0040080E /* MGMSnapshotTestCase.m in Sources */,
 				65283D3718D4548500D7C1D7 /* MGMGridManagerTestCase.m in Sources */,
