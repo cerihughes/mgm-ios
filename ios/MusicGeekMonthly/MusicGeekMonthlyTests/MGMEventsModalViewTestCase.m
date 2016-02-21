@@ -89,8 +89,6 @@
 
     [self.view layoutIfNeeded];
     
-    [self.view.eventsTable reloadData];
-
     [self snapshotView:self.view];
 }
 

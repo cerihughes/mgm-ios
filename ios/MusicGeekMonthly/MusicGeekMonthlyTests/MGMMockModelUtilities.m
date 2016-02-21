@@ -144,7 +144,7 @@
     [MKTGiven([timePeriod startDate]) willReturn:startDate];
     [MKTGiven([timePeriod endDate]) willReturn:endDate];
     [MKTGiven([timePeriod groupHeader]) willReturn:@"Group Header"];
-    [MKTGiven([timePeriod groupValue]) willReturn:startDateString];
+    [MKTGiven([timePeriod groupValue]) willReturn:[NSString stringWithFormat:@"%@ - %@", startDateString, endDateString]];
 
     [self setExpectationsForManagedObject:timePeriod coreDataAccessMock:coreDataAccessMock];
 
