@@ -12,4 +12,9 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+#if DEBUG
+// We rely on this working during testing, so add a test for it.
+- (BOOL)isRunningUnitTests;
+#endif
+
 @end

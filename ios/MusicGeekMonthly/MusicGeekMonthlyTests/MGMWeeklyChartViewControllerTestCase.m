@@ -1,8 +1,8 @@
 //
-//  MGMAlbumScoresViewControllerTestCase.m
+//  MGMWeeklyChartViewControllerTestCase.m
 //  MusicGeekMonthly
 //
-//  Created by Ceri Hughes on 20/02/16.
+//  Created by Ceri Hughes on 21/02/16.
 //  Copyright © 2016 Ceri Hughes. All rights reserved.
 //
 
@@ -12,9 +12,7 @@
 #import <OCMockito/OCMockito.h>
 #import <OCHamcrest/OCHamcrest.h>
 
-#import "MGMAlbum.h"
 #import "MGMAlbumRenderService.h"
-#import "MGMAlbumScoresViewController.h"
 #import "MGMCore.h"
 #import "MGMCoreDataAccess.h"
 #import "MGMDao.h"
@@ -25,8 +23,9 @@
 #import "MGMSnapshotTestCaseImageUtilities.h"
 #import "MGMUI.h"
 #import "MGMView.h"
+#import "MGMWeeklyChartViewController.h"
 
-@interface MGMAlbumScoresViewControllerTestCase : MGMSnapshotFullscreenDeviceTestCase
+@interface MGMWeeklyChartViewControllerTestCase : MGMSnapshotFullscreenDeviceTestCase
 
 @property (nonatomic, strong) MGMMockModelUtilities *mockModelUtilities;
 
@@ -36,11 +35,11 @@
 @property (nonatomic, strong) MGMDao *daoMock;
 @property (nonatomic, strong) MGMAlbumRenderService *albumRenderServiceMock;
 @property (nonatomic, strong) MGMImageHelper *imageHelperMock;
-@property (nonatomic, strong) MGMAlbumScoresViewController *viewController;
+@property (nonatomic, strong) MGMWeeklyChartViewController *viewController;
 
 @end
 
-@implementation MGMAlbumScoresViewControllerTestCase
+@implementation MGMWeeklyChartViewControllerTestCase
 
 - (void)setUp
 {
@@ -58,26 +57,34 @@
     [MKTGiven([self.coreMock coreDataAccess]) willReturn:self.coreDataAccessMock];
     [MKTGiven([self.coreMock albumRenderService]) willReturn:self.albumRenderServiceMock];
 
-    NSMutableArray *mockMoids = [NSMutableArray array];
-    for (int i = 0; i < 50; i++) {
-        NSString *artistName = [NSString stringWithFormat:@"Artist%d", i];
-        NSString *albumName = [NSString stringWithFormat:@"Album%d", i];
-        float scoreAscending = i / 5.0f;
-        float scoreDescending = 10.0f - scoreAscending;
-        NSManagedObjectID *mockMoid = [self.mockModelUtilities mockMoidForAlbumWithArtistName:artistName
-                                                                                    albumName:albumName
-                                                                                        score:scoreDescending
-                                                                       fromCoreDataAccessMock:self.coreDataAccessMock];
-        [mockMoids addObject:mockMoid];
-    }
+    NSArray *mockMoids = @[];
+    MGMDaoData *daoTimePeriodData = [[MGMDaoData alloc] init];
+    daoTimePeriodData.data = mockMoids;
 
-    MGMDaoData *daoData = [[MGMDaoData alloc] init];
-    daoData.data = mockMoids;
-
-    [MKTGivenVoid([self.daoMock fetchAllClassicAlbums:anything()]) willDo:^id (NSInvocation *invocation){
+    [MKTGivenVoid([self.daoMock fetchAllTimePeriods:anything()]) willDo:^id (NSInvocation *invocation){
         NSArray *args = [invocation mkt_arguments];
         DAO_FETCH_COMPLETION completion = args[0];
-        completion(daoData);
+        completion(daoTimePeriodData);
+        return nil;
+    }];
+
+    NSMutableArray *mockTimePeriods = [NSMutableArray array];
+    [mockTimePeriods addObject:[self.mockModelUtilities mockTimePeriodWithStartDateString:@"16/03/2015" endDateString:@"23/03/2015"]];
+    [mockTimePeriods addObject:[self.mockModelUtilities mockTimePeriodWithStartDateString:@"23/03/2015" endDateString:@"30/03/2015"]];
+
+    [MKTGiven([self.coreDataAccessMock mainThreadVersions:mockMoids]) willReturn:mockTimePeriods];
+
+    NSManagedObjectID *mockMoid = [self.mockModelUtilities mockMoidForWeeklyChartWithStartDateString:@"16/03/2015"
+                                                                                       endDateString:@"23/03/2015"
+                                                                              fromCoreDataAccessMock:self.coreDataAccessMock];
+
+    MGMDaoData *daoWeeklyChartData = [[MGMDaoData alloc] init];
+    daoWeeklyChartData.data = mockMoid;
+
+    [MKTGivenVoid([self.daoMock fetchWeeklyChartForStartDate:anything() endDate:anything() completion:anything()]) willDo:^id (NSInvocation *invocation){
+        NSArray *args = [invocation mkt_arguments];
+        DAO_FETCH_COMPLETION completion = args[2];
+        completion(daoWeeklyChartData);
         return nil;
     }];
 
@@ -85,7 +92,7 @@
     [MGMSnapshotTestCaseImageUtilities setupImageHelperMock:self.imageHelperMock toReturnImageOfSize:256];
 
     self.ui = [[MGMUI alloc] initWithCore:self.coreMock albumPlayer:nil imageHelper:self.imageHelperMock];
-    self.viewController = [[MGMAlbumScoresViewController alloc] init];
+    self.viewController = [[MGMWeeklyChartViewController alloc] init];
     self.viewController.ui = self.ui;
 }
 
