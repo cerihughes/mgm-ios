@@ -48,7 +48,8 @@
     
     MGMAlbum *mockAlbum = [self.mockModelUtilities mockAlbumWithArtistName:@"asdf"
                                                                  albumName:@"asdf"
-                                                                     score:0];
+                                                                     score:0
+                                                        coreDataAccessMock:nil];
     MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:results key:mockAlbum];
     XCTAssert(remoteData);
     XCTAssertNil(remoteData.data);
@@ -86,7 +87,8 @@
     
     MGMAlbum *mockAlbum = [self.mockModelUtilities mockAlbumWithArtistName:@"Mew"
                                                                  albumName:@"No More Stories Are Told Today I'm Sorry They Washed Away No More Stories the World Is Grey I'm Tired Let's Wash Away"
-                                                                     score:0];
+                                                                     score:0
+                                                        coreDataAccessMock:nil];
     MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:results key:mockAlbum];
     XCTAssert(remoteData);
     
@@ -153,7 +155,8 @@
 {
     MGMAlbum *mockAlbum = [self.mockModelUtilities mockAlbumWithArtistName:@"Pearl Jam"
                                                                  albumName:@"Live On 10 Legs"
-                                                                     score:0];
+                                                                     score:0
+                                                        coreDataAccessMock:nil];
     MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:[self multipleResults] key:mockAlbum];
     XCTAssert(remoteData);
     
@@ -167,7 +170,8 @@
 {
     MGMAlbum *mockAlbum = [self.mockModelUtilities mockAlbumWithArtistName:@"Pearl Jam"
                                                                  albumName:@"10"
-                                                                     score:0];
+                                                                     score:0
+                                                        coreDataAccessMock:nil];
     MGMRemoteData *remoteData = [self.dataConverter.delegate convertJsonData:[self multipleResults] key:mockAlbum];
     XCTAssert(remoteData);
     
