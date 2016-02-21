@@ -21,11 +21,14 @@
 #import "MGMDaoData.h"
 #import "MGMDefaultMockContainer.h"
 #import "MGMImageHelper.h"
+#import "MGMMockModelUtilities.h"
 #import "MGMSnapshotTestCaseImageUtilities.h"
 #import "MGMUI.h"
 #import "MGMView.h"
 
 @interface MGMAlbumScoresViewControllerTestCase : MGMSnapshotFullscreenDeviceTestCase
+
+@property (nonatomic, strong) MGMMockModelUtilities *mockModelUtilities;
 
 @property (nonatomic, strong) MGMUI *ui;
 @property (nonatomic, strong) MGMCore *coreMock;
@@ -43,6 +46,8 @@
 {
     [super setUp];
 
+    self.mockModelUtilities = [[MGMMockModelUtilities alloc] initWithMockGenerator:self.mockContainer];
+
     self.coreMock = [self.mockContainer mockObject:[MGMCore class]];
     self.coreDataAccessMock = [self.mockContainer mockObject:[MGMCoreDataAccess class]];
     self.daoMock = [self.mockContainer mockObject:[MGMDao class]];
@@ -59,7 +64,10 @@
         NSString *albumName = [NSString stringWithFormat:@"Album%d", i];
         float scoreAscending = i / 5.0f;
         float scoreDescending = 10.0f - scoreAscending;
-        NSManagedObjectID *mockMoid = [self mockMoidForAlbumWithArtistName:artistName albumName:albumName score:scoreDescending];
+        NSManagedObjectID *mockMoid = [self.mockModelUtilities mockMoidForAlbumWithArtistName:artistName
+                                                                                    albumName:albumName
+                                                                                        score:scoreDescending
+                                                                       fromCoreDataAccessMock:self.coreDataAccessMock];
         [mockMoids addObject:mockMoid];
     }
 
@@ -79,22 +87,6 @@
     self.ui = [[MGMUI alloc] initWithCore:self.coreMock albumPlayer:nil imageHelper:self.imageHelperMock];
     self.viewController = [[MGMAlbumScoresViewController alloc] init];
     self.viewController.ui = self.ui;
-}
-
-- (NSManagedObjectID *)mockMoidForAlbumWithArtistName:(NSString *)artistName
-                                            albumName:(NSString *)albumName
-                                                score:(float)score
-{
-    MGMAlbum *album = [self.mockContainer mockObject:[MGMAlbum class]];
-    [MKTGiven([album artistName]) willReturn:artistName];
-    [MKTGiven([album albumName]) willReturn:albumName];
-    [MKTGiven([album score]) willReturn:@(score)];
-    [[MKTGiven([album bestImageUrlsWithPreferredSize:0]) withMatcher:anything()] willReturn:@[artistName, albumName]];
-
-    NSManagedObjectID *moid = [self.mockContainer mockObject:[NSManagedObjectID class]];
-    [MKTGiven([self.coreDataAccessMock mainThreadVersion:moid]) willReturn:album];
-
-    return moid;
 }
 
 - (void)runTestInFrame:(CGRect)frame
