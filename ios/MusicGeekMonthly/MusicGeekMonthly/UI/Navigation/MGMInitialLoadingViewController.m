@@ -72,7 +72,7 @@
 {
     NSArray* events = [self.core.coreDataAccess mainThreadVersions:eventMoids];
     MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess mainThreadVersion:weeklyChartMoid];
-    MGMAlbumImageSize preferredSize = self.ui.ipad ? MGMAlbumImageSize128 : MGMAlbumImageSize64;
+    MGMAlbumImageSize preferredSize = mgm_isIpad() ? MGMAlbumImageSize128 : MGMAlbumImageSize64;
     MGMBackgroundAlbumArtCollection* albumArt = [self albumArtForEvents:events weeklyChart:weeklyChart preferredSize:preferredSize];
 
     MGMInitialLoadingView* view = (MGMInitialLoadingView*) self.view;

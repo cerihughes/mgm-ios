@@ -54,7 +54,9 @@
 {
     [super layoutSubviewsIphone];
 
-    CGFloat parentOffset = (self.screenSize == MGMViewScreenSizeiPhone480) ? 0.0 : (576.0 - 480.0) / 2.0;
+//    CGFloat parentOffset = (self.screenSize == MGMViewScreenSizeiPhone480) ? 0.0 : (576.0 - 480.0) / 2.0;
+    CGFloat parentOffset = 0.0;
+
     self.parentView.frame = CGRectMake(0, parentOffset, 320, 480);
 
     self.statusLabel.frame = CGRectMake(20, 50, 280, 30);

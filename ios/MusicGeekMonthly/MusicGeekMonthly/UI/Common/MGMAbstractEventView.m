@@ -40,7 +40,7 @@
     _newlyReleasedAlbumView.delegate = self;
     _newlyReleasedAlbumView.detailViewShowing = YES;
 
-    _playlistViewRowCount = self.screenSize == MGMViewScreenSizeiPad ? 5 : 3;
+    _playlistViewRowCount = mgm_isIpad() ? 5 : 3;
 
     _playlistView = [[MGMAlbumGridView alloc] initWithFrame:CGRectZero];
     _playlistView.delegate = self;

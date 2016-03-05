@@ -47,7 +47,7 @@
     // Setup 25 albums so we can put them into "activity in progress" mode...
     NSUInteger albumCount = 25;
     [scoresView.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
-    NSUInteger rowCount = self.ipad ? 4 : 2;
+    NSUInteger rowCount = mgm_isIpad() ? 4 : 2;
     CGFloat albumSize = scoresView.albumGridView.frame.size.width / rowCount;
     NSArray* gridData = [MGMGridManager rectsForRowSize:rowCount defaultRectSize:albumSize count:albumCount];
 
@@ -73,7 +73,7 @@
         // Resize the album view for new data...
         NSUInteger albumCount = albumMoids.count;
         [scoresView.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
-        NSUInteger rowCount = self.ipad ? 4 : 2;
+        NSUInteger rowCount = mgm_isIpad() ? 4 : 2;
         CGFloat albumSize = scoresView.albumGridView.frame.size.width / rowCount;
         NSArray* gridData = [MGMGridManager rectsForRowSize:rowCount defaultRectSize:albumSize count:albumCount];
         

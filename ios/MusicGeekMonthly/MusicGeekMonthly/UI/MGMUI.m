@@ -22,24 +22,6 @@
 
 #define REACHABILITY_END_POINT @"music-geek-monthly.appspot.com"
 
-static BOOL _isIpad;
-
-+ (void) initialize
-{
-    if (self != [MGMUI class]) {
-        return;
-    }
-
-    _isIpad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
-}
-
-#if DEBUG
-+ (void)setIpad:(BOOL)ipad
-{
-    _isIpad = ipad;
-}
-#endif
-
 - (instancetype)initWithCore:(MGMCore *)core
                  albumPlayer:(MGMAlbumPlayer *)albumPlayer
                  imageHelper:(MGMImageHelper *)imageHelper
@@ -51,7 +33,7 @@ static BOOL _isIpad;
         _albumDetailViewController = [[MGMAlbumDetailViewController alloc] init];
         _albumDetailViewController.ui = self;
 
-        if (_isIpad)
+        if (mgm_isIpad())
         {
             _albumDetailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
         }
@@ -68,11 +50,6 @@ static BOOL _isIpad;
         [_reachabilityManager addListener:self];
     }
     return self;
-}
-
-- (BOOL) ipad
-{
-    return _isIpad;
 }
 
 - (void) uiWillResignActive

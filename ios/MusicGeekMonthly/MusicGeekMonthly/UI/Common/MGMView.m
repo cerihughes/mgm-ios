@@ -3,38 +3,6 @@
 
 @implementation MGMView
 
-static MGMViewScreenSize _screenSize;
-
-+ (void) initialize
-{
-    if (self != [MGMView class]) {
-        return;
-    }
-
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
-    {
-        _screenSize = MGMViewScreenSizeiPad;
-    }
-    else
-    {
-        if ([UIScreen mainScreen].bounds.size.height > 480)
-        {
-            _screenSize = MGMViewScreenSizeiPhone576;
-        }
-        else
-        {
-            _screenSize = MGMViewScreenSizeiPhone480;
-        }
-    }
-}
-
-#if DEBUG
-+ (void)setScreenSize:(MGMViewScreenSize)screenSize
-{
-    _screenSize = screenSize;
-}
-#endif
-
 + (UILabel*) boldTitleLabelWithText:(NSString *)text
 {
     return [self labelWithText:text fontName:DEFAULT_FONT_BOLD size:[self titleTextSize]];
@@ -57,12 +25,12 @@ static MGMViewScreenSize _screenSize;
 
 + (CGFloat) titleTextSize
 {
-    return (_screenSize == MGMViewScreenSizeiPad ? 28.0 : 17.0);
+    return (mgm_isIpad() ? 28.0 : 17.0);
 }
 
 + (CGFloat) subtitleTextSize
 {
-    return (_screenSize == MGMViewScreenSizeiPad ? 20.0 : 13.0);
+    return (mgm_isIpad() ? 20.0 : 13.0);
 }
 
 + (UILabel*) labelWithText:(NSString *)text fontName:(NSString*)fontName size:(CGFloat)size
@@ -79,7 +47,7 @@ static MGMViewScreenSize _screenSize;
 + (UIButton*) buttonWithText:(NSString*)text image:(UIImage*)image;
 {
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:(_screenSize == MGMViewScreenSizeiPad ? 20.0 : 12.0)];
+    button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:(mgm_isIpad() ? 20.0 : 12.0)];
     if (image)
     {
         [button setBackgroundImage:image forState:UIControlStateNormal];
@@ -100,11 +68,6 @@ static MGMViewScreenSize _screenSize;
     return button;
 }
 
-- (MGMViewScreenSize) screenSize
-{
-    return _screenSize;
-}
-
 - (CGFloat) statusBarHeight
 {
     return 20.0;
@@ -117,7 +80,7 @@ static MGMViewScreenSize _screenSize;
 
 - (CGFloat) tabBarHeight
 {
-    if (_screenSize == MGMViewScreenSizeiPad)
+    if (mgm_isIpad())
     {
         return 56.0;
     }
@@ -129,7 +92,7 @@ static MGMViewScreenSize _screenSize;
 
 - (void) commonInit
 {
-    if (_screenSize == MGMViewScreenSizeiPad)
+    if (mgm_isIpad())
     {
         [self commonInitIpad];
     }
@@ -169,7 +132,7 @@ static MGMViewScreenSize _screenSize;
 
 - (void) layoutSubviews
 {
-    if (_screenSize == MGMViewScreenSizeiPad)
+    if (mgm_isIpad())
     {
         [self layoutSubviewsIpad];
     }

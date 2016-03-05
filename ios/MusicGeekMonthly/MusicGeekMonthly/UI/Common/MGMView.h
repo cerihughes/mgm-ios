@@ -5,20 +5,8 @@
 #define DEFAULT_FONT_ITALIC @"HelveticaNeue-MediumItalic"
 #define DEFAULT_FONT_BOLD @"HelveticaNeue-Bold"
 
-typedef NS_ENUM(NSUInteger, MGMViewScreenSize)
-{
-    MGMViewScreenSizeiPhone480,
-    MGMViewScreenSizeiPhone576,
-    MGMViewScreenSizeiPad
-};
-
 @interface MGMView : UIView
 
-#if DEBUG
-+ (void)setScreenSize:(MGMViewScreenSize)screenSize;
-#endif
-
-@property (readonly) MGMViewScreenSize screenSize;
 @property (readonly) CGFloat statusBarHeight;
 @property (readonly) CGFloat navigationBarHeight;
 @property (readonly) CGFloat tabBarHeight;

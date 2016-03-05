@@ -3,6 +3,7 @@
 //
 
 #import <Availability.h>
+#import <UIKit/UIKit.h>
 
 #ifndef __IPHONE_3_0
 #warning "This project uses features only available in iOS SDK 3.0 and later."
@@ -10,3 +11,9 @@
 
 #ifdef __OBJC__
 #endif
+
+// TODO : This is temporary. Take it out.
+static inline BOOL mgm_isIpad()
+{
+    return [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
+}
