@@ -1,7 +1,18 @@
 
 #import "MGMView.h"
 
+@interface MGMView ()
+
+@property (nonatomic) BOOL createdConstraints;
+
+@end
+
 @implementation MGMView
+
++ (BOOL)requiresConstraintBasedLayout
+{
+    return YES;
+}
 
 + (UILabel*) boldTitleLabelWithText:(NSString *)text
 {
@@ -128,6 +139,22 @@
         [self commonInit];
     }
     return self;
+}
+
+- (void)updateConstraints
+{
+    if (!self.createdConstraints) {
+
+        self.createdConstraints = YES;
+        [self addFixedConstraints];
+    }
+
+    [super updateConstraints];
+}
+
+- (void)addFixedConstraints
+{
+    // Override
 }
 
 - (void) layoutSubviews
