@@ -9,7 +9,8 @@
 #import "MGMAlbumDetailViewController.h"
 
 #import "MGMAlbum.h"
-#import "MGMAlbumDetailView.h"
+#import "MGMAlbumDetailViewPhone.h"
+#import "MGMAlbumDetailViewPad.h"
 #import "MGMAlbumPlayer.h"
 #import "MGMAlbumServiceManager.h"
 #import "MGMCore.h"
@@ -39,7 +40,8 @@
 
 - (void) loadView
 {
-    MGMAlbumDetailView* detailView = [[MGMAlbumDetailView alloc] initWithFrame:[self fullscreenRect]];
+    Class viewClass = mgm_isIpad() ? [MGMAlbumDetailViewPad class] : [MGMAlbumDetailViewPhone class];
+    MGMAlbumDetailView* detailView = [[viewClass alloc] initWithFrame:[self fullscreenRect]];
     detailView.delegate = self;
 
     self.view = detailView;
