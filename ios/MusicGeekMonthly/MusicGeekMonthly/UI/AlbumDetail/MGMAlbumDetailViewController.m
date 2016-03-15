@@ -9,8 +9,7 @@
 #import "MGMAlbumDetailViewController.h"
 
 #import "MGMAlbum.h"
-#import "MGMAlbumDetailViewPhone.h"
-#import "MGMAlbumDetailViewPad.h"
+#import "MGMAlbumDetailView.h"
 #import "MGMAlbumPlayer.h"
 #import "MGMAlbumServiceManager.h"
 #import "MGMCore.h"

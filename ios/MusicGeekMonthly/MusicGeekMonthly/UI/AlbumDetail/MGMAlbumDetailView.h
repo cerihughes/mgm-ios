@@ -23,3 +23,11 @@
 @property (readonly) MGMAlbumView* albumView;
 
 @end
+
+@interface MGMAlbumDetailViewPhone : MGMAlbumDetailView
+
+@end
+
+@interface MGMAlbumDetailViewPad : MGMAlbumDetailView
+
+@end
