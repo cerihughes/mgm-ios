@@ -24,7 +24,8 @@
 
 - (void) loadView
 {
-    MGMPlayerSelectionView* view = [[MGMPlayerSelectionView alloc] initWithFrame:[self fullscreenRect]];
+    Class viewClass = mgm_isIpad() ? [MGMPlayerSelectionViewPad class] : [MGMPlayerSelectionViewPhone class];
+    MGMPlayerSelectionView* view = [[viewClass alloc] initWithFrame:[self fullscreenRect]];
     view.delegate = self;
     self.view = view;
 }
