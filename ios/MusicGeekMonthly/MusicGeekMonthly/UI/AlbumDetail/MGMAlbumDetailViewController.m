@@ -14,6 +14,7 @@
 #import "MGMAlbumServiceManager.h"
 #import "MGMCore.h"
 #import "MGMCoreDataAccess.h"
+#import "MGMModalView.h"
 #import "MGMSettingsDao.h"
 #import "MGMUI.h"
 #import "UIViewController+MGMAdditions.h"
@@ -22,8 +23,8 @@
 
 @interface MGMKeyValuePair : NSObject
 
-@property MGMAlbumServiceType serviceType;
-@property (copy) NSString* displayString;
+@property (nonatomic) MGMAlbumServiceType serviceType;
+@property (nonatomic, copy) NSString *displayString;
 
 @end
 
@@ -31,7 +32,9 @@
 
 @end
 
-@interface MGMAlbumDetailViewController () <MGMAlbumDetailViewDelegate>
+@interface MGMAlbumDetailViewController () <MGMAbstractPlayerSelectionViewDelegate, MGMModalViewDelegate>
+
+@property (nonatomic, weak) MGMAlbumDetailView *albumDetailView;
 
 @end
 
@@ -39,25 +42,33 @@
 
 - (void) loadView
 {
-    Class viewClass = mgm_isIpad() ? [MGMAlbumDetailViewPad class] : [MGMAlbumDetailViewPhone class];
-    MGMAlbumDetailView* detailView = [[viewClass alloc] initWithFrame:[self fullscreenRect]];
-    detailView.delegate = self;
+    CGRect frame = [self fullscreenRect];
 
-    self.view = detailView;
+    Class viewClass = mgm_isIpad() ? [MGMAlbumDetailViewPad class] : [MGMAlbumDetailViewPhone class];
+    MGMAlbumDetailView* view = [[viewClass alloc] initWithFrame:frame];
+    view.delegate = self;
+
+    MGMModalView *modalView = mgm_isIpad() ?
+        [[MGMModalViewPad alloc] initWithFrame:frame buttonTitle:@"Cancel"] :
+        [[MGMModalViewPhone alloc] initWithFrame:frame navigationTitle:@"Album Detail" buttonTitle:@"Cancel"];
+
+    [modalView.contentView addSubview:view];
+    modalView.delegate = self;
+
+    self.view = modalView;
+    self.albumDetailView = view;
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
-    MGMAlbumDetailView* detailView = (MGMAlbumDetailView*)self.view;
-
     MGMAlbum* album = [self.core.coreDataAccess mainThreadVersion:self.albumMoid];
-    [self displayAlbum:album inAlbumView:detailView.albumView completion:^(NSError* error) {
+    [self displayAlbum:album inAlbumView:self.albumDetailView.albumView completion:^(NSError* error) {
         [self logError:error];
     }];
 
-    [detailView clearServiceTypes];
+    [self.albumDetailView clearServiceTypes];
 
     NSUInteger metadataServiceTypes = [self.core.serviceManager serviceTypesThatPlayAlbum:album];
     NSUInteger deviceCapabilities = [self.ui.albumPlayer determineCapabilities];
@@ -66,27 +77,28 @@
     {
         NSString* label = [self.ui labelForServiceType:serviceType];
         UIImage* image = [self.ui imageForServiceType:serviceType];
-        [detailView addServiceType:serviceType text:label image:image available:(metadataServiceTypes & deviceCapabilities & serviceType)];
+        [self.albumDetailView addServiceType:serviceType text:label image:image available:(metadataServiceTypes & deviceCapabilities & serviceType)];
         serviceType = serviceType << 1;
     }
 
     MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
-    detailView.selectedServiceType = defaultServiceType;
+    self.albumDetailView.selectedServiceType = defaultServiceType;
 }
 
-#pragma mark -
-#pragma mark MGMAlbumDetailViewDelegate
+#pragma mark - MGMAbstractPlayerSelectionViewDelegate
 
-- (void) playerSelectionComplete:(MGMAlbumServiceType)selectedServiceType
+- (void)playerSelectionComplete:(MGMAlbumServiceType)selectedServiceType
 {
     self.core.settingsDao.defaultServiceType = selectedServiceType;
 
     MGMAlbum* album = [self.core.coreDataAccess mainThreadVersion:self.albumMoid];
     [self.ui albumSelected:album];
-    [self cancelButtonPressed:nil];
+    [self modalButtonPressed];
 }
 
-- (void) cancelButtonPressed:(id)sender
+#pragma mark - MGMModelViewDelegate
+
+- (void)modalButtonPressed
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }

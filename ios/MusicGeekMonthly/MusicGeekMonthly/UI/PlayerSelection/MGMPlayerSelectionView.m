@@ -92,75 +92,15 @@
     self.subtitleLabel.text = subtitle;
 }
 
-- (void) closeButtonPressed:(UIButton*)sender
-{
-    [self.delegate playerSelectionComplete:(MGMAlbumServiceTypeNone)];
-}
-
-@end
-
-@interface MGMPlayerSelectionViewPhone ()
-
-@property (readonly) UINavigationBar* navigationBar;
-
 @end
 
 @implementation MGMPlayerSelectionViewPhone
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
-        _navigationBar.translatesAutoresizingMaskIntoConstraints = NO;
-        UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@"Player Selection"];
-        UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleBordered target:self action:@selector(closeButtonPressed:)];
-        [navigationItem setRightBarButtonItem:bbi];
-        [_navigationBar pushNavigationItem:navigationItem animated:YES];
-
-        [self addSubview:_navigationBar];
-    }
-    return self;
-}
 
 - (void)addFixedConstraints
 {
     [super addFixedConstraints];
 
     NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
-
-    // Navigation bar
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeCenterX
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeCenterX
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeLeft
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1
-                                                         constant:20]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeHeight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:nil
-                                                        attribute:NSLayoutAttributeHeight
-                                                       multiplier:1
-                                                         constant:44]];
 
     // Title label
     CGFloat textInset = 20;
@@ -184,8 +124,8 @@
     [constraints addObject:[NSLayoutConstraint constraintWithItem:self.titleLabel
                                                         attribute:NSLayoutAttributeTop
                                                         relatedBy:NSLayoutRelationEqual
-                                                           toItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeBottom
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeTop
                                                        multiplier:1
                                                          constant:5]];
 
@@ -268,50 +208,13 @@
 
 @end
 
-@interface MGMPlayerSelectionViewPad ()
-
-@property (readonly) UIButton* closeButton;
-
-@end
-
 @implementation MGMPlayerSelectionViewPad
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        _closeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        _closeButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_closeButton setTitle:@"Close" forState:UIControlStateNormal];
-        [_closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-
-        [self addSubview:_closeButton];
-    }
-    return self;
-}
 
 - (void)addFixedConstraints
 {
     [super addFixedConstraints];
 
     NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
-
-    // Cancel button
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.closeButton
-                                                        attribute:NSLayoutAttributeRight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1
-                                                         constant:-20]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.closeButton
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1
-                                                         constant:20]];
 
     // Title label
     CGFloat textInset = 20;
@@ -335,8 +238,8 @@
     [constraints addObject:[NSLayoutConstraint constraintWithItem:self.titleLabel
                                                         attribute:NSLayoutAttributeTop
                                                         relatedBy:NSLayoutRelationEqual
-                                                           toItem:self.closeButton
-                                                        attribute:NSLayoutAttributeBottom
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeTop
                                                        multiplier:1
                                                          constant:20]];
 

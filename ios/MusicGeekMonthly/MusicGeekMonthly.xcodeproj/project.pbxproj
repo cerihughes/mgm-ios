@@ -145,6 +145,7 @@
 		659F9F4C175B928E000C413B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 659F9F4A175B928E000C413B /* InfoPlist.strings */; };
 		659F9F4E175B928E000C413B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659F9F4D175B928E000C413B /* main.m */; };
 		65AA3DE41C8B3EC7008A0A6E /* MGMInitialLoadingViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65AA3DE31C8B3EC7008A0A6E /* MGMInitialLoadingViewTestCase.m */; };
+		65C295CA1C97934400B6CAEE /* MGMModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C295C91C97934400B6CAEE /* MGMModalView.m */; };
 		65E3F8251AE3C6A3004FF67B /* MGMItunesPlayerServiceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E3F8241AE3C6A3004FF67B /* MGMItunesPlayerServiceTestCase.m */; };
 		65E3F8271AE3C787004FF67B /* MGMAllEventsGoogleSheetDaoOperationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E3F8261AE3C787004FF67B /* MGMAllEventsGoogleSheetDaoOperationTestCase.m */; };
 		65EC948E18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65EC948D18B8C49500B1AFFE /* MGMPlaylistDaoOperation.m */; };
@@ -423,6 +424,8 @@
 		659F9F67175B928E000C413B /* MusicGeekMonthlyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MusicGeekMonthlyTests-Info.plist"; sourceTree = "<group>"; };
 		659F9F69175B928E000C413B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65AA3DE31C8B3EC7008A0A6E /* MGMInitialLoadingViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMInitialLoadingViewTestCase.m; sourceTree = "<group>"; };
+		65C295C81C97934400B6CAEE /* MGMModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMModalView.h; sourceTree = "<group>"; };
+		65C295C91C97934400B6CAEE /* MGMModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMModalView.m; sourceTree = "<group>"; };
 		65E3F8241AE3C6A3004FF67B /* MGMItunesPlayerServiceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMItunesPlayerServiceTestCase.m; sourceTree = "<group>"; };
 		65E3F8261AE3C787004FF67B /* MGMAllEventsGoogleSheetDaoOperationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAllEventsGoogleSheetDaoOperationTestCase.m; sourceTree = "<group>"; };
 		65EC948C18B8C49500B1AFFE /* MGMPlaylistDaoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlaylistDaoOperation.h; sourceTree = "<group>"; };
@@ -492,6 +495,8 @@
 				658D322918B1147C007A4D98 /* MGMAlbumView.m */,
 				658D322518B1147C007A4D98 /* MGMAlbumScoreView.h */,
 				658D322618B1147C007A4D98 /* MGMAlbumScoreView.m */,
+				65C295C81C97934400B6CAEE /* MGMModalView.h */,
+				65C295C91C97934400B6CAEE /* MGMModalView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1380,6 +1385,7 @@
 				658D317818B112E3007A4D98 /* MGMWeeklyChart.m in Sources */,
 				657F6B4518BBD9080025F52B /* MGMPlaylistItem.m in Sources */,
 				658D328F18B1147C007A4D98 /* UIViewController+MGMAdditions.m in Sources */,
+				65C295CA1C97934400B6CAEE /* MGMModalView.m in Sources */,
 				658D329318B1147C007A4D98 /* MGMEventTableCell.m in Sources */,
 				658D314418B112E3007A4D98 /* MGMWeeklyChartDaoOperation.m in Sources */,
 				658D32A818B1147C007A4D98 /* MGMWeeklyChartView.m in Sources */,
