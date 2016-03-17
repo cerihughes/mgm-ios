@@ -10,92 +10,80 @@
 
 #import "MGMAlbumView.h"
 
-#define EXAMPLE_TEXT @"You can see all available options for an album by pressing the 'detail' button at any time"
+#define EXAMPLE_TEXT @"You can see all available options for an album by pressing the 'detail' button (i) at any time"
 
 @interface MGMExampleAlbumView () <MGMAlbumViewDelegate>
 
-@property (readonly) UINavigationBar* navigationBar;
-@property (readonly) UIButton* gotItButton;
-@property (readonly) UIImageView* imageView;
 @property (readonly) UILabel* label;
 
 @end
 
 @implementation MGMExampleAlbumView
 
-- (void) commonInit
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super commonInit];
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor whiteColor];
 
-    self.backgroundColor = [UIColor whiteColor];
+        _albumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
+        _albumView.translatesAutoresizingMaskIntoConstraints = NO;
+        _albumView.animationTime = 0.25;
+        _albumView.pressable = YES;
+        _albumView.delegate = self;
+        _albumView.detailViewShowing = YES;
 
-    _albumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
-    _albumView.animationTime = 0.25;
-    _albumView.pressable = YES;
-    _albumView.delegate = self;
-    _albumView.detailViewShowing = YES;
+        _label = [MGMView italicTitleLabelWithText:EXAMPLE_TEXT];
+        _label.translatesAutoresizingMaskIntoConstraints = NO;
+        _label.numberOfLines = 5;
 
-    _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _imageView.image = [UIImage imageNamed:@"arrow.png"];
-
-    _label = [MGMView italicTitleLabelWithText:EXAMPLE_TEXT];
-    _label.numberOfLines = 5;
-
-    [self addSubview:_albumView];
-    [self addSubview:_imageView];
-    [self addSubview:_label];
+        [self addSubview:_albumView];
+        [self addSubview:_label];
+    }
+    return self;
 }
 
-- (void) commonInitIphone
+- (void)addFixedConstraints
 {
-    [super commonInitIphone];
+    [super addFixedConstraints];
 
-    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
-    UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@"Album Example"];
-    UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"Got it!" style:UIBarButtonItemStyleBordered target:self action:@selector(gotItButtonPressed:)];
-    [navigationItem setRightBarButtonItem:bbi];
-    [_navigationBar pushNavigationItem:navigationItem animated:YES];
+    NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
 
-    [self addSubview:_navigationBar];
-}
+    // Label
+    CGFloat labelInset = 10;
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.label
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
 
-- (void) commonInitIpad
-{
-    [super commonInitIpad];
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.label
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:-2 * labelInset]];
 
-    _gotItButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_gotItButton setTitle:@"Got it!" forState:UIControlStateNormal];
-    [_gotItButton addTarget:self action:@selector(gotItButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_gotItButton];
-}
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.label
+                                                        attribute:NSLayoutAttributeBottom
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:-labelInset]];
 
-- (void) gotItButtonPressed:(id)sender
-{
-    [self.delegate gotIt];
-}
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.label
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.albumView
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:labelInset]];
 
-- (void) layoutSubviewsIphone
-{
-    [super layoutSubviewsIphone];
-
-    self.navigationBar.frame = CGRectMake(0, 20, 320, 44);
-    self.albumView.frame = CGRectMake(40, 90, 240, 240);
-    self.imageView.frame = CGRectMake(100, 35, 105*1.5, 235*1.5);
-
-    CGSize size = self.frame.size;
-    self.label.frame = CGRectMake(10, 320, size.width - 20, 150);
-}
-
-- (void) layoutSubviewsIpad
-{
-    [super layoutSubviewsIpad];
-
-    self.gotItButton.frame = CGRectMake(447, 20, 74, 44);
-    self.albumView.frame = CGRectMake(145, 75, 250, 250);
-    self.imageView.frame = CGRectMake(170, 0, 105*2, 235*2);
-
-    CGSize size = self.frame.size;
-    self.label.frame = CGRectMake(10, 400, size.width - 20, 200);
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 #pragma mark -
@@ -109,6 +97,102 @@
 - (void) detailPressed:(MGMAlbumView*)albumView
 {
     [self.delegate gotIt];
+}
+
+@end
+
+@implementation MGMExampleAlbumViewPhone
+
+- (void)addFixedConstraints
+{
+    [super addFixedConstraints];
+
+    NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
+
+    // Album view
+    CGFloat albumSize = 240;
+    CGFloat topOffset = 90;
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumView
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:albumSize]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumView
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:topOffset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumView
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.albumView
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
+}
+
+@end
+
+@implementation MGMExampleAlbumViewPad
+
+- (void)addFixedConstraints
+{
+    [super addFixedConstraints];
+
+    NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
+
+    // Album view
+    CGFloat albumSize = 250;
+    CGFloat topOffset = 75;
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumView
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:albumSize]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumView
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:topOffset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumView
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.albumView
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 @end
