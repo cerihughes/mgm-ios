@@ -14,26 +14,34 @@
 
 @end
 
-@interface MGMModalView : MGMView
+@interface MGMModalView<__covariant ObjectType:MGMView *>  : MGMView
 
 @property (nonatomic, weak) id<MGMModalViewDelegate> delegate;
-@property (nonatomic, readonly) MGMView *contentView;
+@property (nonatomic, readonly) ObjectType contentView;
+
+- (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
+- (instancetype)initWithFrame:(CGRect)frame
+                  contentView:(ObjectType)contentView;
 
 @end
 
-@interface MGMModalViewPhone : MGMModalView
+@interface MGMModalViewPhone<__covariant ObjectType:MGMView *> : MGMModalView
 
-- (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
+- (instancetype)initWithFrame:(CGRect)frame
+                  contentView:(ObjectType)contentView NS_UNAVAILABLE;
 - (instancetype)initWithFrame:(CGRect)frame
               navigationTitle:(NSString *)navigationTitle
-                  buttonTitle:(NSString *)buttonTitle;
+                  buttonTitle:(NSString *)buttonTitle
+                  contentView:(ObjectType)contentView;
 
 @end
 
-@interface MGMModalViewPad : MGMModalView
+@interface MGMModalViewPad<__covariant ObjectType:MGMView *> : MGMModalView
 
-- (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 - (instancetype)initWithFrame:(CGRect)frame
-                  buttonTitle:(NSString *)buttonTitle;
+                  contentView:(ObjectType)contentView NS_UNAVAILABLE;
+- (instancetype)initWithFrame:(CGRect)frame
+                  buttonTitle:(NSString *)buttonTitle
+                  contentView:(ObjectType)contentView;
 
 @end

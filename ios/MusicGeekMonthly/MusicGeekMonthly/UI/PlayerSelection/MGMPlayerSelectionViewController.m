@@ -19,11 +19,13 @@
 
 @interface MGMPlayerSelectionViewController () <MGMAbstractPlayerSelectionViewDelegate, MGMModalViewDelegate>
 
-@property (nonatomic, weak) MGMPlayerSelectionView *playerSelectionView;
+@property (nonatomic, strong) MGMModalView<MGMPlayerSelectionView *> *view;
 
 @end
 
 @implementation MGMPlayerSelectionViewController
+
+@dynamic view;
 
 - (void) loadView
 {
@@ -31,24 +33,23 @@
 
     Class viewClass = mgm_isIpad() ? [MGMPlayerSelectionViewPad class] : [MGMPlayerSelectionViewPhone class];
     MGMPlayerSelectionView* view = [[viewClass alloc] initWithFrame:frame];
+    view.translatesAutoresizingMaskIntoConstraints = NO;
     view.delegate = self;
 
     MGMModalView *modalView = mgm_isIpad() ?
-        [[MGMModalViewPad alloc] initWithFrame:frame buttonTitle:@"Close"] :
-        [[MGMModalViewPhone alloc] initWithFrame:frame navigationTitle:@"Player Selection" buttonTitle:@"Close"];
+        [[MGMModalViewPad alloc] initWithFrame:frame buttonTitle:@"Close" contentView:view] :
+        [[MGMModalViewPhone alloc] initWithFrame:frame navigationTitle:@"Player Selection" buttonTitle:@"Close" contentView:view];
 
-    [modalView.contentView addSubview:view];
     modalView.delegate = self;
 
     self.view = modalView;
-    self.playerSelectionView = view;
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [self.playerSelectionView clearServiceTypes];
+    [self.view.contentView clearServiceTypes];
 
     NSUInteger capabilities = [self.ui.albumPlayer determineCapabilities];
     MGMAlbumServiceType serviceType = MGMAlbumServiceTypeLastFm;
@@ -56,22 +57,22 @@
     {
         NSString* label = [self.ui labelForServiceType:serviceType];
         UIImage* image = [self.ui imageForServiceType:serviceType];
-        [self.playerSelectionView addServiceType:serviceType text:label image:image available:(capabilities & serviceType)];
+        [self.view.contentView addServiceType:serviceType text:label image:image available:(capabilities & serviceType)];
         serviceType = serviceType << 1;
     }
 
     MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
-    self.playerSelectionView.selectedServiceType = defaultServiceType;
+    self.view.contentView.selectedServiceType = defaultServiceType;
 }
 
 - (MGMPlayerSelectionMode) mode
 {
-    return self.playerSelectionView.mode;
+    return self.view.contentView.mode;
 }
 
 - (void) setMode:(MGMPlayerSelectionMode)mode
 {
-    self.playerSelectionView.mode = mode;
+    self.view.contentView.mode = mode;
 }
 
 #pragma mark - MGMAbstractPlayerSelectionViewDelegate

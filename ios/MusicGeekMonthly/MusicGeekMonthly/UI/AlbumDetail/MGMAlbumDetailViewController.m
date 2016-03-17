@@ -34,11 +34,13 @@
 
 @interface MGMAlbumDetailViewController () <MGMAbstractPlayerSelectionViewDelegate, MGMModalViewDelegate>
 
-@property (nonatomic, weak) MGMAlbumDetailView *albumDetailView;
+@property (nonatomic, strong) MGMModalView<MGMAlbumDetailView *> *view;
 
 @end
 
 @implementation MGMAlbumDetailViewController
+
+@dynamic view;
 
 - (void) loadView
 {
@@ -46,17 +48,16 @@
 
     Class viewClass = mgm_isIpad() ? [MGMAlbumDetailViewPad class] : [MGMAlbumDetailViewPhone class];
     MGMAlbumDetailView* view = [[viewClass alloc] initWithFrame:frame];
+    view.translatesAutoresizingMaskIntoConstraints = NO;
     view.delegate = self;
 
     MGMModalView *modalView = mgm_isIpad() ?
-        [[MGMModalViewPad alloc] initWithFrame:frame buttonTitle:@"Cancel"] :
-        [[MGMModalViewPhone alloc] initWithFrame:frame navigationTitle:@"Album Detail" buttonTitle:@"Cancel"];
+        [[MGMModalViewPad alloc] initWithFrame:frame buttonTitle:@"Cancel" contentView:view] :
+        [[MGMModalViewPhone alloc] initWithFrame:frame navigationTitle:@"Album Detail" buttonTitle:@"Cancel" contentView:view];
 
-    [modalView.contentView addSubview:view];
     modalView.delegate = self;
 
     self.view = modalView;
-    self.albumDetailView = view;
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -64,11 +65,11 @@
     [super viewWillAppear:animated];
 
     MGMAlbum* album = [self.core.coreDataAccess mainThreadVersion:self.albumMoid];
-    [self displayAlbum:album inAlbumView:self.albumDetailView.albumView completion:^(NSError* error) {
+    [self displayAlbum:album inAlbumView:self.view.contentView.albumView completion:^(NSError* error) {
         [self logError:error];
     }];
 
-    [self.albumDetailView clearServiceTypes];
+    [self.view.contentView clearServiceTypes];
 
     NSUInteger metadataServiceTypes = [self.core.serviceManager serviceTypesThatPlayAlbum:album];
     NSUInteger deviceCapabilities = [self.ui.albumPlayer determineCapabilities];
@@ -77,12 +78,12 @@
     {
         NSString* label = [self.ui labelForServiceType:serviceType];
         UIImage* image = [self.ui imageForServiceType:serviceType];
-        [self.albumDetailView addServiceType:serviceType text:label image:image available:(metadataServiceTypes & deviceCapabilities & serviceType)];
+        [self.view.contentView addServiceType:serviceType text:label image:image available:(metadataServiceTypes & deviceCapabilities & serviceType)];
         serviceType = serviceType << 1;
     }
 
     MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
-    self.albumDetailView.selectedServiceType = defaultServiceType;
+    self.view.contentView.selectedServiceType = defaultServiceType;
 }
 
 #pragma mark - MGMAbstractPlayerSelectionViewDelegate

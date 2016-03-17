@@ -11,10 +11,14 @@
 @implementation MGMModalView
 
 - (instancetype)initWithFrame:(CGRect)frame
+                  contentView:(MGMView *)contentView
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
+        _contentView = contentView;
+
+        [self addSubview:_contentView];
     }
     return self;
 }
@@ -29,7 +33,6 @@
 @interface MGMModalViewPhone ()
 
 @property (readonly) UINavigationBar* navigationBar;
-@property (nonatomic, readonly) MGMView *contentViewInternal;
 
 @end
 
@@ -38,8 +41,9 @@
 - (instancetype)initWithFrame:(CGRect)frame
               navigationTitle:(NSString *)navigationTitle
                   buttonTitle:(NSString *)buttonTitle
+                  contentView:(MGMView *)contentView
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:frame contentView:contentView];
     if (self) {
         _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
         _navigationBar.translatesAutoresizingMaskIntoConstraints = NO;
@@ -48,18 +52,9 @@
         [navigationItem setRightBarButtonItem:bbi];
         [_navigationBar pushNavigationItem:navigationItem animated:YES];
 
-        _contentViewInternal = [[MGMView alloc] initWithFrame:frame];
-        _contentViewInternal.translatesAutoresizingMaskIntoConstraints = NO;
-
         [self addSubview:_navigationBar];
-        [self addSubview:_contentViewInternal];
     }
     return self;
-}
-
-- (MGMView *)contentView
-{
-    return self.contentViewInternal;
 }
 
 - (void)addFixedConstraints
@@ -104,7 +99,7 @@
                                                          constant:navigationBarHeight]];
 
     // Content view
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentViewInternal
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
                                                         attribute:NSLayoutAttributeCenterX
                                                         relatedBy:NSLayoutRelationEqual
                                                            toItem:self
@@ -112,7 +107,7 @@
                                                        multiplier:1
                                                          constant:0]];
 
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentViewInternal
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
                                                         attribute:NSLayoutAttributeWidth
                                                         relatedBy:NSLayoutRelationEqual
                                                            toItem:self
@@ -120,7 +115,7 @@
                                                        multiplier:1
                                                          constant:0]];
 
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentViewInternal
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
                                                         attribute:NSLayoutAttributeTop
                                                         relatedBy:NSLayoutRelationEqual
                                                            toItem:self.navigationBar
@@ -128,7 +123,7 @@
                                                        multiplier:1
                                                          constant:5]];
 
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentViewInternal
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
                                                         attribute:NSLayoutAttributeBottom
                                                         relatedBy:NSLayoutRelationEqual
                                                            toItem:self
@@ -144,7 +139,6 @@
 @interface MGMModalViewPad ()
 
 @property (readonly) UIButton* cancelButton;
-@property (nonatomic, readonly) MGMView *contentViewInternal;
 
 @end
 
@@ -152,26 +146,18 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
                   buttonTitle:(NSString *)buttonTitle
+                  contentView:(MGMView *)contentView
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:frame contentView:contentView];
     if (self) {
         _cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
         [_cancelButton setTitle:buttonTitle forState:UIControlStateNormal];
         [_cancelButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-        _contentViewInternal = [[MGMView alloc] initWithFrame:frame];
-        _contentViewInternal.translatesAutoresizingMaskIntoConstraints = NO;
-
         [self addSubview:_cancelButton];
-        [self addSubview:_contentViewInternal];
     }
     return self;
-}
-
-- (MGMView *)contentView
-{
-    return self.contentViewInternal;
 }
 
 - (void)addFixedConstraints
@@ -199,7 +185,7 @@
                                                          constant:buttonInset]];
 
     // Content view
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentViewInternal
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
                                                         attribute:NSLayoutAttributeCenterX
                                                         relatedBy:NSLayoutRelationEqual
                                                            toItem:self
@@ -207,7 +193,7 @@
                                                        multiplier:1
                                                          constant:0]];
 
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentViewInternal
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
                                                         attribute:NSLayoutAttributeWidth
                                                         relatedBy:NSLayoutRelationEqual
                                                            toItem:self
@@ -215,7 +201,7 @@
                                                        multiplier:1
                                                          constant:0]];
 
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentViewInternal
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
                                                         attribute:NSLayoutAttributeTop
                                                         relatedBy:NSLayoutRelationEqual
                                                            toItem:self.cancelButton
@@ -223,7 +209,7 @@
                                                        multiplier:1
                                                          constant:buttonInset]];
 
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentViewInternal
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
                                                         attribute:NSLayoutAttributeBottom
                                                         relatedBy:NSLayoutRelationEqual
                                                            toItem:self
