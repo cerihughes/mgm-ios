@@ -16,7 +16,6 @@
 #import "MGMDao.h"
 #import "MGMDaoData.h"
 #import "MGMEvent.h"
-#import "MGMInitialLoadingView.h"
 #import "MGMLastFmConstants.h"
 #import "MGMTimePeriod.h"
 #import "MGMWeeklyChart.h"
@@ -37,8 +36,7 @@
 {
     [super viewWillAppear:animated];
 
-    MGMInitialLoadingView* view = (MGMInitialLoadingView*) self.view;
-    [view setOperationInProgress:YES];
+    [self.view setOperationInProgress:YES];
 
     // Preload data if needed
     [self.core.dao preloadEvents:^(MGMDaoData* events) {
@@ -76,8 +74,7 @@
     MGMAlbumImageSize preferredSize = mgm_isIpad() ? MGMAlbumImageSize128 : MGMAlbumImageSize64;
     MGMBackgroundAlbumArtCollection* albumArt = [self albumArtForEvents:events weeklyChart:weeklyChart preferredSize:preferredSize];
 
-    MGMInitialLoadingView* view = (MGMInitialLoadingView*) self.view;
-    [view setOperationInProgress:NO];
+    [self.view setOperationInProgress:NO];
     [self.delegate initialisationComplete:albumArt];
 }
 

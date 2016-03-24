@@ -9,12 +9,10 @@
 #import "MGMAlbumDetailViewController.h"
 
 #import "MGMAlbum.h"
-#import "MGMAlbumDetailView.h"
 #import "MGMAlbumPlayer.h"
 #import "MGMAlbumServiceManager.h"
 #import "MGMCore.h"
 #import "MGMCoreDataAccess.h"
-#import "MGMModalView.h"
 #import "MGMSettingsDao.h"
 #import "MGMUI.h"
 #import "UIViewController+MGMAdditions.h"
@@ -34,13 +32,9 @@
 
 @interface MGMAlbumDetailViewController () <MGMAbstractPlayerSelectionViewDelegate, MGMModalViewDelegate>
 
-@property (nonatomic, strong) MGMModalView<MGMAlbumDetailView *> *view;
-
 @end
 
 @implementation MGMAlbumDetailViewController
-
-@dynamic view;
 
 - (void) loadView
 {

@@ -24,6 +24,8 @@
 
 @implementation MGMViewController
 
+@dynamic view;
+
 - (instancetype)init
 {
     if (self = [super init]) {

@@ -8,16 +8,15 @@
 
 #import "MGMTabbedViewController.h"
 
-#import "MGMTabbedView.h"
-
 @implementation MGMTabbedViewController
+
+@dynamic view;
 
 - (void) assignBackgroundView:(UIView *)backgroundView
 {
     if ([self.view respondsToSelector:@selector(albumContainer)])
     {
-        MGMTabbedView* tabbedView = (MGMTabbedView*)self.view;
-        [tabbedView.albumContainer addSubview:backgroundView];
+        [self.view.albumContainer addSubview:backgroundView];
     }
 }
 

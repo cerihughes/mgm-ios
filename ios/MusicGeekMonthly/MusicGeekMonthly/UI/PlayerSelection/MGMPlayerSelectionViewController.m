@@ -11,21 +11,15 @@
 #import "MGMAlbumPlayer.h"
 #import "MGMAlbumServiceType.h"
 #import "MGMCore.h"
-#import "MGMModalView.h"
-#import "MGMPlayerSelectionView.h"
 #import "MGMSettingsDao.h"
 #import "MGMUI.h"
 #import "UIViewController+MGMAdditions.h"
 
 @interface MGMPlayerSelectionViewController () <MGMAbstractPlayerSelectionViewDelegate, MGMModalViewDelegate>
 
-@property (nonatomic, strong) MGMModalView<MGMPlayerSelectionView *> *view;
-
 @end
 
 @implementation MGMPlayerSelectionViewController
-
-@dynamic view;
 
 - (void) loadView
 {

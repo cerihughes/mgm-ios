@@ -14,7 +14,6 @@
 #import "MGMUI.h"
 #import "MGMWeeklyChart.h"
 #import "MGMWeeklyChartModalView.h"
-#import "MGMWeeklyChartView.h"
 #import "UIViewController+MGMAdditions.h"
 
 @interface MGMWeeklyChartViewController () <MGMAlbumGridViewDelegate, UITableViewDelegate, MGMWeeklyChartViewDelegate, MGMWeeklyChartModalViewDelegate>
@@ -59,19 +58,17 @@
 
 - (void) viewDidLoad
 {
-    MGMWeeklyChartView* weeklyChartView = (MGMWeeklyChartView*)self.view;
-
     NSUInteger albumCount = 25;
-    [weeklyChartView.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
+    [self.view.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
     NSUInteger rowCount = mgm_isIpad() ? 4 : 2;
-    CGFloat albumSize = weeklyChartView.albumGridView.frame.size.width / rowCount;
+    CGFloat albumSize = self.view.albumGridView.frame.size.width / rowCount;
     NSArray* gridData = [MGMGridManager rectsForRowSize:rowCount defaultRectSize:albumSize count:albumCount];
 
     for (NSUInteger i = 0; i < albumCount; i++)
     {
         NSValue* value = [gridData objectAtIndex:i];
         CGRect frame = [value CGRectValue];
-        [weeklyChartView.albumGridView setAlbumFrame:frame forRank:i + 1];
+        [self.view.albumGridView setAlbumFrame:frame forRank:i + 1];
     }
 }
 
@@ -106,10 +103,8 @@
 
 - (void) loadAlbumsForPeriod:(MGMTimePeriod*)timePeriod
 {
-    MGMWeeklyChartView* weeklyChartView = (MGMWeeklyChartView*)self.view;
-
-    [weeklyChartView setTitle:timePeriod.groupValue];
-    [weeklyChartView.albumGridView setActivityInProgressForAllRanks:YES];
+    [self.view setTitle:timePeriod.groupValue];
+    [self.view.albumGridView setActivityInProgressForAllRanks:YES];
 
     [self.core.dao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* weeklyChartData) {
         NSError* fetchError = weeklyChartData.error;
@@ -142,12 +137,10 @@
 
 - (void) renderChartEntry:(MGMChartEntry*)chartEntry
 {
-    MGMWeeklyChartView* weeklyChartView = (MGMWeeklyChartView*)self.view;
-
     NSUInteger rank = chartEntry.rank.intValue;
     NSUInteger listeners = chartEntry.listeners.intValue;
 
-    MGMAlbumView* albumView = [weeklyChartView.albumGridView albumViewForRank:rank];
+    MGMAlbumView* albumView = [self.view.albumGridView albumViewForRank:rank];
     [self displayAlbum:chartEntry.album inAlbumView:albumView rank:rank listeners:listeners completion:^(NSError* error) {
         [self.ui logError:error];
     }];

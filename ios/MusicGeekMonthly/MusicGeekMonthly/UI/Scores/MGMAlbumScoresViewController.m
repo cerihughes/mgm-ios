@@ -11,7 +11,6 @@
 @import CoreData;
 
 #import "MGMAlbumGridView.h"
-#import "MGMAlbumScoresView.h"
 #import "MGMCore.h"
 #import "MGMCoreDataAccess.h"
 #import "MGMCoreDataTableViewDataSource.h"
@@ -42,29 +41,26 @@
 
 - (void) viewDidLoad
 {
-    MGMAlbumScoresView* scoresView = (MGMAlbumScoresView*)self.view;
-
     // Setup 25 albums so we can put them into "activity in progress" mode...
     NSUInteger albumCount = 25;
-    [scoresView.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
+    [self.view.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
     NSUInteger rowCount = mgm_isIpad() ? 4 : 2;
-    CGFloat albumSize = scoresView.albumGridView.frame.size.width / rowCount;
+    CGFloat albumSize = self.view.albumGridView.frame.size.width / rowCount;
     NSArray* gridData = [MGMGridManager rectsForRowSize:rowCount defaultRectSize:albumSize count:albumCount];
 
     for (NSUInteger i = 0; i < albumCount; i++)
     {
         NSValue* value = [gridData objectAtIndex:i];
         CGRect frame = [value CGRectValue];
-        [scoresView.albumGridView setAlbumFrame:frame forRank:i + 1];
+        [self.view.albumGridView setAlbumFrame:frame forRank:i + 1];
     }
 
-    [scoresView setSelection:MGMAlbumScoresViewSelectionClassicAlbums];
+    [self.view setSelection:MGMAlbumScoresViewSelectionClassicAlbums];
 }
 
 - (void) loadAlbumsForChoice:(NSInteger)choice
 {
-    MGMAlbumScoresView* scoresView = (MGMAlbumScoresView*)self.view;
-    [scoresView.albumGridView setActivityInProgressForAllRanks:YES];
+    [self.view.albumGridView setActivityInProgressForAllRanks:YES];
 
     [self dataForChoice:choice completion:^(MGMDaoData* data) {
         NSArray* albumMoids = data.data;
@@ -72,19 +68,19 @@
         
         // Resize the album view for new data...
         NSUInteger albumCount = albumMoids.count;
-        [scoresView.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
+        [self.view.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
         NSUInteger rowCount = mgm_isIpad() ? 4 : 2;
-        CGFloat albumSize = scoresView.albumGridView.frame.size.width / rowCount;
+        CGFloat albumSize = self.view.albumGridView.frame.size.width / rowCount;
         NSArray* gridData = [MGMGridManager rectsForRowSize:rowCount defaultRectSize:albumSize count:albumCount];
         
         for (NSUInteger i = 0; i < albumCount; i++)
         {
             NSValue* value = [gridData objectAtIndex:i];
             CGRect frame = [value CGRectValue];
-            [scoresView.albumGridView setAlbumFrame:frame forRank:i + 1];
+            [self.view.albumGridView setAlbumFrame:frame forRank:i + 1];
         }
         
-        [scoresView.albumGridView setActivityInProgressForAllRanks:YES];
+        [self.view.albumGridView setActivityInProgressForAllRanks:YES];
         
         if (fetchError && albumMoids)
         {
@@ -132,8 +128,7 @@
 
 - (void) renderAlbum:(MGMAlbum*)album atPostion:(NSUInteger)position
 {
-    MGMAlbumScoresView* scoresView = (MGMAlbumScoresView*)self.view;
-    MGMAlbumView* albumView = [scoresView.albumGridView albumViewForRank:position];
+    MGMAlbumView* albumView = [self.view.albumGridView albumViewForRank:position];
     [self displayAlbum:album inAlbumView:albumView rank:position completion:^(NSError* error) {
         [self.ui logError:error];
     }];

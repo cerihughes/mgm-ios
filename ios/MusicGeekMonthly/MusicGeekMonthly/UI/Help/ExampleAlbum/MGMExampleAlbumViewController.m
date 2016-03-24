@@ -12,19 +12,13 @@
 #import "MGMAlbumImageUriDto.h"
 #import "MGMAlbumMetadataDto.h"
 #import "MGMAlbumView.h"
-#import "MGMExampleAlbumView.h"
 #import "MGMLastFmConstants.h"
-#import "MGMModalView.h"
 
 @interface MGMExampleAlbumViewController () <MGMExampleAlbumViewDelegate, MGMModalViewDelegate>
-
-@property (nonatomic, strong) MGMModalView<MGMExampleAlbumView *> *view;
 
 @end
 
 @implementation MGMExampleAlbumViewController
-
-@dynamic view;
 
 - (void) loadView
 {

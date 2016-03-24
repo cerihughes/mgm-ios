@@ -6,11 +6,13 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
+#import "MGMAlbumDetailView.h"
+#import "MGMModalView.h"
 #import "MGMViewController.h"
 
 @import CoreData;
 
-@interface MGMAlbumDetailViewController : MGMViewController
+@interface MGMAlbumDetailViewController : MGMViewController<MGMModalView<MGMAlbumDetailView *> *>
 
 @property (strong) NSManagedObjectID* albumMoid;
 

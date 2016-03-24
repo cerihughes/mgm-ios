@@ -7,12 +7,15 @@
 //
 
 #import "MGMAlbumViewController.h"
+#import "MGMAbstractEventView.h"
 
 @class MGMEvent;
 @class MGMPlaylist;
 @protocol MGMPlaylistSelectionDelegate;
 
-@interface MGMAbstractEventViewController : MGMAlbumViewController
+@interface MGMAbstractEventViewController<ViewType:MGMAbstractEventView *> : MGMAlbumViewController<ViewType>
+
+@property (nonatomic, strong) ViewType view;
 
 @property (weak) id<MGMPlaylistSelectionDelegate> playlistSelectionDelegate;
 

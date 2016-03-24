@@ -7,6 +7,7 @@
 //
 
 #import "MGMViewController.h"
+#import "MGMInitialLoadingView.h"
 
 @import Foundation;
 
@@ -18,7 +19,7 @@
 
 @end
 
-@interface MGMInitialLoadingViewController : MGMViewController
+@interface MGMInitialLoadingViewController : MGMViewController<MGMInitialLoadingView *>
 
 @property (weak) id<MGMInitialLoadingViewControllerDelegate> delegate;
 

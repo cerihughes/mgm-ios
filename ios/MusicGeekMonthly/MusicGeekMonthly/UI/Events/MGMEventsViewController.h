@@ -7,7 +7,8 @@
 //
 
 #import "MGMAbstractEventViewController.h"
+#import "MGMEventsView.h"
 
-@interface MGMEventsViewController : MGMAbstractEventViewController
+@interface MGMEventsViewController : MGMAbstractEventViewController<MGMEventsView *>
 
 @end

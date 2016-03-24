@@ -14,7 +14,6 @@
 #import "MGMDao.h"
 #import "MGMDaoData.h"
 #import "MGMEvent.h"
-#import "MGMEventsView.h"
 #import "MGMEventsModalView.h"
 #import "MGMEventTableViewDataSource.h"
 #import "MGMUI.h"
@@ -83,11 +82,9 @@
 
 - (void) displayEvent:(MGMEvent*)event
 {
-    MGMEventsView* eventsView = (MGMEventsView*)self.view;
-
 	NSString* dateString = event.groupValue;
     NSString* newTitle = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
-    [eventsView setTitle:newTitle];
+    [self.view setTitle:newTitle];
 
     NSString* playlistId = event.playlistId;
     if (playlistId)
