@@ -60,7 +60,15 @@
 {
     NSUInteger albumCount = 25;
     [self.view.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
-    NSUInteger rowCount = mgm_isIpad() ? 4 : 2;
+    CGFloat gridWidth = self.view.albumGridView.frame.size.width;
+    NSUInteger rowCount = 2;
+    if (gridWidth > 768) {
+        rowCount = 5;
+    } else if (gridWidth > 414) {
+        rowCount = 4;
+    } else if (gridWidth > 375) {
+        rowCount = 3;
+    }
     CGFloat albumSize = self.view.albumGridView.frame.size.width / rowCount;
     NSArray* gridData = [MGMGridManager rectsForRowSize:rowCount defaultRectSize:albumSize count:albumCount];
 
