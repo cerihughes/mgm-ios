@@ -8,34 +8,20 @@
 
 #import "MGMEventsModalView.h"
 
-@interface MGMEventsModalView ()
-
-@property (readonly) UINavigationBar* navigationBar;
-
-@end
+#import "NSLayoutConstraint+MGM.h"
 
 @implementation MGMEventsModalView
 
-- (void) commonInit
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super commonInit];
-    
-    self.backgroundColor = [UIColor whiteColor];
-    _eventsTable = [[UITableView alloc] initWithFrame:CGRectZero];
-    [self addSubview:_eventsTable];
-}
-
-- (void) commonInitIphone
-{
-    [super commonInitIphone];
-
-    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
-    UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@"Previous Events"];
-    UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed:)];
-    [navigationItem setRightBarButtonItem:bbi];
-    [_navigationBar pushNavigationItem:navigationItem animated:YES];
-    
-    [self addSubview:_navigationBar];
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor whiteColor];
+        _eventsTable = [[UITableView alloc] initWithFrame:CGRectZero];
+        _eventsTable.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_eventsTable];
+    }
+    return self;
 }
 
 - (void) cancelButtonPressed:(id)sender
@@ -43,21 +29,61 @@
     [self.delegate cancelButtonPressed:sender];
 }
 
-- (void) layoutSubviewsIphone
+@end
+
+@interface MGMEventsModalViewPhone ()
+
+@property (nonatomic, readonly) UINavigationBar *navigationBar;
+
+@end
+
+@implementation MGMEventsModalViewPhone
+
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super layoutSubviewsIphone];
-    
-    self.navigationBar.frame = CGRectMake(0, 20, 320, 44);
-    
-    CGRect tableFrame = CGRectMake(0, 64, 320, self.frame.size.height - 64);
-    self.eventsTable.frame = tableFrame;
+    self = [super initWithFrame:frame];
+    if (self) {
+        _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+        _navigationBar.translatesAutoresizingMaskIntoConstraints = NO;
+        UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@"Previous Events"];
+        UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed:)];
+        [navigationItem setRightBarButtonItem:bbi];
+        [_navigationBar pushNavigationItem:navigationItem animated:YES];
+
+        [self addSubview:_navigationBar];
+    }
+    return self;
 }
 
-- (void) layoutSubviewsIpad
+- (void)addFixedConstraints
 {
-    [super layoutSubviewsIpad];
-    
-    self.eventsTable.frame = self.frame;
+    [super addFixedConstraints];
+
+    NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
+
+    // Navigation bar
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherNavigationBar:self.navigationBar toSuperview:self]];
+
+    // Events table
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.eventsTable belowNavigationBar:self.navigationBar withoutTabBarInSuperview:self]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
+}
+
+@end
+
+@implementation MGMEventsModalViewPad
+
+- (void)addFixedConstraints
+{
+    [super addFixedConstraints];
+
+    NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
+
+    // Events table
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.eventsTable toView:self]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 @end

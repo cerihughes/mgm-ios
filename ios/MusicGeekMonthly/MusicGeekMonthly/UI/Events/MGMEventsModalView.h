@@ -24,3 +24,11 @@
 @property (readonly) UITableView* eventsTable;
 
 @end
+
+@interface MGMEventsModalViewPhone : MGMEventsModalView
+
+@end
+
+@interface MGMEventsModalViewPad : MGMEventsModalView
+
+@end

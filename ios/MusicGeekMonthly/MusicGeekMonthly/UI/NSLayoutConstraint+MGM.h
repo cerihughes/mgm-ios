@@ -21,18 +21,24 @@ NS_ASSUME_NONNULL_BEGIN
                           constant:(CGFloat)c
                           priority:(UILayoutPriority)priority;
 
-+ (NSArray<__kindof NSLayoutConstraint *> *)constraintsWithItem:(id)view1
-                                   thatMatchCenterAndSizeOfItem:(id)view2;
-
-+ (NSArray<__kindof NSLayoutConstraint *> *)constraintsWithItem:(id)view1
-                                   thatMatchCenterAndSizeOfItem:(id)view2
-                                                       priority:(UILayoutPriority)priority;
-
 + (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherViewToSuperview:(UIView *)superview;
+
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherView:(UIView *)view1
+                                                               toView:(UIView *)view2;
+
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherView:(UIView *)view1
+                                                               toView:(UIView *)view2
+                                                             priority:(UILayoutPriority)priority;
 
 + (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherNavigationBar:(UIView *)navigationBar toSuperview:(UIView *)view;
 
-+ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherView:(UIView *)view belowNavigationBar:(UIView *)navigationBar superview:(UIView *)superview;
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherView:(UIView *)view
+                                                   belowNavigationBar:(UIView *)navigationBar
+                                             withoutTabBarInSuperview:(UIView *)superview;
+
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherView:(UIView *)view
+                                                   belowNavigationBar:(UIView *)navigationBar
+                                               aboveTabBarInSuperview:(UIView *)superview;
 
 NS_ASSUME_NONNULL_END
 

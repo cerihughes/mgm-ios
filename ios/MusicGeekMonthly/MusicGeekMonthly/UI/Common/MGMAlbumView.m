@@ -274,8 +274,7 @@
     NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
 
     // Button
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithItem:self.button
-                                                thatMatchCenterAndSizeOfItem:self]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.button toView:self]];
 
     // Rank label
     CGFloat inset = 2.0;
@@ -512,8 +511,7 @@
                                                          constant:0]];
 
     // Activity view
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithItem:self.activityIndicatorView
-                                                thatMatchCenterAndSizeOfItem:self]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.activityIndicatorView toView:self]];
 
     [NSLayoutConstraint activateConstraints:constraints];
 }

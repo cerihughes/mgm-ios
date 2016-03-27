@@ -45,7 +45,8 @@
     self.dataSource.albumRenderService = self.core.albumRenderService;
     self.dataSource.imageHelper = self.ui.imageHelper;
 
-    self.modalView = [[MGMEventsModalView alloc] initWithFrame:[self fullscreenRect]];
+    Class modalViewClass = mgm_isIpad() ? [MGMEventsModalViewPad class] : [MGMEventsModalViewPhone class];
+    self.modalView = [[modalViewClass alloc] initWithFrame:[self fullscreenRect]];
     self.modalView.eventsTable.dataSource = self.dataSource;
     self.modalView.eventsTable.delegate = self;
     self.modalView.delegate = self;

@@ -84,7 +84,8 @@
 
 - (void)runTestInFrame:(CGRect)frame
 {
-    self.view = [[MGMEventsModalView alloc] initWithFrame:frame];
+    Class viewClass = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? [MGMEventsModalViewPad class] : [MGMEventsModalViewPhone class];
+    self.view = [[viewClass alloc] initWithFrame:frame];
     self.view.eventsTable.dataSource = self.dataSource;
 
     [self.view layoutIfNeeded];

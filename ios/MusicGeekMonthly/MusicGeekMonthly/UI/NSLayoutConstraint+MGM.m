@@ -24,17 +24,17 @@
     return constraint;
 }
 
-+ (NSArray<__kindof NSLayoutConstraint *> *)constraintsWithItem:(id)view1
-                                   thatMatchCenterAndSizeOfItem:(id)view2
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherView:(UIView *)view1
+                                                               toView:(UIView *)view2
 {
-    return [self constraintsWithItem:view1
-        thatMatchCenterAndSizeOfItem:view2
+    return [self constraintsThatTetherView:view1
+                                    toView:view2
                             priority:UILayoutPriorityRequired];
 }
 
-+ (NSArray<__kindof NSLayoutConstraint *> *)constraintsWithItem:(id)view1
-                                   thatMatchCenterAndSizeOfItem:(id)view2
-                                                       priority:(UILayoutPriority)priority
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherView:(UIView *)view1
+                                                               toView:(UIView *)view2
+                                                             priority:(UILayoutPriority)priority
 {
     NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
 
@@ -138,11 +138,28 @@
     return [constraints copy];
 }
 
-+ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherView:(UIView *)view belowNavigationBar:(UIView *)navigationBar superview:(UIView *)superview
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherView:(UIView *)view
+                                                   belowNavigationBar:(UIView *)navigationBar
+                                               aboveTabBarInSuperview:(UIView *)superview;
+{
+    CGFloat tabBarHeight = mgm_isIpad() ? 56 : 49;
+    return [self constraintsThatTetherView:view belowNavigationBar:navigationBar superview:superview bottomOffset:tabBarHeight];
+}
+
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherView:(UIView *)view
+                                                   belowNavigationBar:(UIView *)navigationBar
+                                             withoutTabBarInSuperview:(UIView *)superview;
+{
+    return [self constraintsThatTetherView:view belowNavigationBar:navigationBar superview:superview bottomOffset:0];
+}
+
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherView:(UIView *)view
+                                                   belowNavigationBar:(UIView *)navigationBar
+                                                            superview:(UIView *)superview
+                                                         bottomOffset:(CGFloat)bottomOffset
 {
     NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
 
-    CGFloat tabBarHeight = mgm_isIpad() ? 56 : 49;
     [constraints addObject:[NSLayoutConstraint constraintWithItem:view
                                                         attribute:NSLayoutAttributeCenterX
                                                         relatedBy:NSLayoutRelationEqual
@@ -173,7 +190,7 @@
                                                            toItem:superview
                                                         attribute:NSLayoutAttributeBottom
                                                        multiplier:1
-                                                         constant:-tabBarHeight]];
+                                                         constant:-bottomOffset]];
 
     return [constraints copy];
 }

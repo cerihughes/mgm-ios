@@ -84,7 +84,7 @@
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherNavigationBar:self.navigationBar toSuperview:self]];
 
     // Parent view
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.parentView belowNavigationBar:self.navigationBar superview:self]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.parentView belowNavigationBar:self.navigationBar aboveTabBarInSuperview:self]];
 
     // Guide views
     [constraints addObject:[NSLayoutConstraint constraintWithItem:self.leftGuideView

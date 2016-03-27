@@ -50,8 +50,7 @@
     NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
 
     // Image view
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithItem:self.imageView
-                                                thatMatchCenterAndSizeOfItem:self]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.imageView toView:self]];
 
     // Score label
     [constraints addObject:[NSLayoutConstraint constraintWithItem:self.scoreLabel

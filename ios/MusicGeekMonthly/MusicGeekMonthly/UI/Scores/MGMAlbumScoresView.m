@@ -55,7 +55,7 @@
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherNavigationBar:self.navigationBar toSuperview:self]];
 
     // Album grid
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.albumGridView belowNavigationBar:self.navigationBar superview:self]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.albumGridView belowNavigationBar:self.navigationBar aboveTabBarInSuperview:self]];
 
     [NSLayoutConstraint activateConstraints:constraints];
 }

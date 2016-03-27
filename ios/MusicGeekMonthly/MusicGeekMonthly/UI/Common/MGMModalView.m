@@ -69,37 +69,7 @@
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherNavigationBar:self.navigationBar toSuperview:self]];
 
     // Content view
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
-                                                        attribute:NSLayoutAttributeCenterX
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeCenterX
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeWidth
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:5]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
-                                                        attribute:NSLayoutAttributeBottom
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:0]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.contentView belowNavigationBar:self.navigationBar withoutTabBarInSuperview:self]];
 
     [NSLayoutConstraint activateConstraints:constraints];
 }
