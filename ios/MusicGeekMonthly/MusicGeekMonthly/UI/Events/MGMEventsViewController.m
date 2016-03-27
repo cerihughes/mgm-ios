@@ -34,7 +34,8 @@
 
 - (void) loadView
 {
-    MGMEventsView* eventsView = [[MGMEventsView alloc] initWithFrame:[self fullscreenRect]];
+    Class viewClass = mgm_isIpad() ? [MGMEventsViewPad class] : [MGMEventsViewPhone class];
+    MGMEventsView *eventsView = [[viewClass alloc] initWithFrame:[self fullscreenRect]];
     eventsView.classicAlbumView.animationTime = 0.25;
     eventsView.newlyReleasedAlbumView.animationTime = 0.25;
     eventsView.delegate = self;

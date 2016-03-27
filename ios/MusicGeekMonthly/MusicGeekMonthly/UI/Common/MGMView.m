@@ -47,6 +47,7 @@
 + (UILabel*) labelWithText:(NSString *)text fontName:(NSString*)fontName size:(CGFloat)size
 {
     UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.translatesAutoresizingMaskIntoConstraints = NO;
     label.text = text;
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor blackColor];

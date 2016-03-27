@@ -23,3 +23,11 @@
 - (void) setTitle:(NSString*)title;
 
 @end
+
+@interface MGMEventsViewPhone : MGMEventsView
+
+@end
+
+@interface MGMEventsViewPad : MGMEventsView
+
+@end
