@@ -80,28 +80,6 @@
     return button;
 }
 
-- (CGFloat) statusBarHeight
-{
-    return 20.0;
-}
-
-- (CGFloat) navigationBarHeight
-{
-    return 44.0;
-}
-
-- (CGFloat) tabBarHeight
-{
-    if (mgm_isIpad())
-    {
-        return 56.0;
-    }
-    else
-    {
-        return 49.0;
-    }
-}
-
 - (void) commonInit
 {
     if (mgm_isIpad())

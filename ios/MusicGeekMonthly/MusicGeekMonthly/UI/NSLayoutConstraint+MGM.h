@@ -28,9 +28,11 @@ NS_ASSUME_NONNULL_BEGIN
                                    thatMatchCenterAndSizeOfItem:(id)view2
                                                        priority:(UILayoutPriority)priority;
 
-+ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherViewToSuperview:(UIView *)view;
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherViewToSuperview:(UIView *)superview;
 
 + (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherNavigationBar:(UIView *)navigationBar toSuperview:(UIView *)view;
+
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherView:(UIView *)view belowNavigationBar:(UIView *)navigationBar superview:(UIView *)superview;
 
 NS_ASSUME_NONNULL_END
 

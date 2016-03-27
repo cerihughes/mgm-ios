@@ -83,6 +83,9 @@
     // Navigation bar
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherNavigationBar:self.navigationBar toSuperview:self]];
 
+    // Parent view
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.parentView belowNavigationBar:self.navigationBar superview:self]];
+
     // Guide views
     [constraints addObject:[NSLayoutConstraint constraintWithItem:self.leftGuideView
                                                         attribute:NSLayoutAttributeLeft
@@ -147,39 +150,6 @@
                                                         attribute:NSLayoutAttributeHeight
                                                        multiplier:1
                                                          constant:0]];
-
-    // Parent view
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.parentView
-                                                        attribute:NSLayoutAttributeCenterX
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeCenterX
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.parentView
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeWidth
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.parentView
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.parentView
-                                                        attribute:NSLayoutAttributeBottom
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:-self.tabBarHeight]];
 
     // Classic album label
     CGFloat labelOffset = mgm_isIpad() ? 45 : 25;
