@@ -96,5 +96,46 @@
     return [constraints copy];
 }
 
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherNavigationBar:(UIView *)navigationBar toSuperview:(UIView *)view
+{
+    NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
+
+    CGFloat barOffset = 20;
+    CGFloat barHeight = 44;
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:navigationBar
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:view
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:navigationBar
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:view
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:navigationBar
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:view
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:barOffset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:navigationBar
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:barHeight]];
+
+    return [constraints copy];
+}
 
 @end

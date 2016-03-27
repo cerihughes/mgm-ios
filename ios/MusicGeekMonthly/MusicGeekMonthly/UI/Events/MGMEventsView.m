@@ -81,39 +81,7 @@
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherViewToSuperview:self]];
 
     // Navigation bar
-    CGFloat barOffset = 20;
-    CGFloat barHeight = 44;
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeCenterX
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeCenterX
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeWidth
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1
-                                                         constant:barOffset]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeHeight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:nil
-                                                        attribute:NSLayoutAttributeHeight
-                                                       multiplier:1
-                                                         constant:barHeight]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherNavigationBar:self.navigationBar toSuperview:self]];
 
     // Guide views
     [constraints addObject:[NSLayoutConstraint constraintWithItem:self.leftGuideView

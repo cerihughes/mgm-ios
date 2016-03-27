@@ -8,6 +8,8 @@
 
 #import "MGMModalView.h"
 
+#import "NSLayoutConstraint+MGM.h"
+
 @implementation MGMModalView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -64,39 +66,7 @@
     NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
 
     // Navigation bar
-    CGFloat topOffset = 20;
-    CGFloat navigationBarHeight = 44;
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeCenterX
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeCenterX
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeLeft
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1
-                                                         constant:topOffset]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeHeight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:nil
-                                                        attribute:NSLayoutAttributeHeight
-                                                       multiplier:1
-                                                         constant:navigationBarHeight]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherNavigationBar:self.navigationBar toSuperview:self]];
 
     // Content view
     [constraints addObject:[NSLayoutConstraint constraintWithItem:self.contentView
