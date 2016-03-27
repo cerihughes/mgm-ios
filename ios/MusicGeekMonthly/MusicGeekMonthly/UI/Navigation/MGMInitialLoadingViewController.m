@@ -27,8 +27,6 @@
 - (void) loadView
 {
     MGMInitialLoadingView* view = [[MGMInitialLoadingView alloc] initWithFrame:[self fullscreenRect]];
-    view.translatesAutoresizingMaskIntoConstraints = YES;
-    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.view = view;
 }
 
