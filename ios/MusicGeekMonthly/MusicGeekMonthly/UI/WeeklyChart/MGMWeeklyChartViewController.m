@@ -56,19 +56,24 @@
     self.view = weeklyChartView;
 }
 
+- (NSUInteger)rowsForGridView:(MGMAlbumGridView *)gridView
+{
+    CGFloat gridWidth = gridView.frame.size.width;
+    if (gridWidth > 768) {
+        return 5;
+    } else if (gridWidth > 414) {
+        return 4;
+    } else if (gridWidth > 375) {
+        return 3;
+    }
+    return 2;
+}
+
 - (void) viewDidLoad
 {
     NSUInteger albumCount = 25;
     [self.view.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
-    CGFloat gridWidth = self.view.albumGridView.frame.size.width;
-    NSUInteger rowCount = 2;
-    if (gridWidth > 768) {
-        rowCount = 5;
-    } else if (gridWidth > 414) {
-        rowCount = 4;
-    } else if (gridWidth > 375) {
-        rowCount = 3;
-    }
+    NSUInteger rowCount = [self rowsForGridView:self.view.albumGridView];
     CGFloat albumSize = self.view.albumGridView.frame.size.width / rowCount;
     NSArray* gridData = [MGMGridManager rectsForRowSize:rowCount defaultRectSize:albumSize count:albumCount];
 

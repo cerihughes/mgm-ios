@@ -9,6 +9,7 @@
 #import "MGMAlbumScoresView.h"
 
 #import "MGMAlbumGridView.h"
+#import "NSLayoutConstraint+MGM.h"
 
 @interface MGMAlbumScoresView ()
 
@@ -51,62 +52,10 @@
     NSMutableArray *constraints = [NSMutableArray array];
 
     // Navigation bar
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1
-                                                         constant:20]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeHeight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:nil
-                                                        attribute:NSLayoutAttributeHeight
-                                                       multiplier:1
-                                                         constant:44]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeWidth
-                                                       multiplier:1
-                                                         constant:0]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherNavigationBar:self.navigationBar toSuperview:self]];
 
     // Album grid
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumGridView
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self.navigationBar
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumGridView
-                                                        attribute:NSLayoutAttributeBottom
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumGridView
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeWidth
-                                                       multiplier:1
-                                                         constant:0]];
-
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumGridView
-                                                        attribute:NSLayoutAttributeCenterX
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeCenterX
-                                                       multiplier:1
-                                                         constant:0]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.albumGridView belowNavigationBar:self.navigationBar superview:self]];
 
     [NSLayoutConstraint activateConstraints:constraints];
 }
