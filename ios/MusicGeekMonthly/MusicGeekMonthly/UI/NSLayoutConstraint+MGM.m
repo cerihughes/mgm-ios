@@ -74,7 +74,27 @@
                                                          constant:0
                                                          priority:priority]];
 
-    return constraints;
+    return [constraints copy];
 }
+
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherViewToSuperview:(UIView *)view
+{
+    NSDictionary *views = NSDictionaryOfVariableBindings(view);
+
+    NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
+
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
+                                                                             options:0
+                                                                             metrics:nil
+                                                                               views:views]];
+
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
+                                                                             options:0
+                                                                             metrics:nil
+                                                                               views:views]];
+
+    return [constraints copy];
+}
+
 
 @end

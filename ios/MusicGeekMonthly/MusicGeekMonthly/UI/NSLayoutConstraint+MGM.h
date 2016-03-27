@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
                                    thatMatchCenterAndSizeOfItem:(id)view2
                                                        priority:(UILayoutPriority)priority;
 
++ (NSArray<__kindof NSLayoutConstraint *> *)constraintsThatTetherViewToSuperview:(UIView *)view;
+
 NS_ASSUME_NONNULL_END
 
 @end
