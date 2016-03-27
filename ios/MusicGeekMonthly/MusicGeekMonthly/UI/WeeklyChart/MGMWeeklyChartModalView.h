@@ -6,21 +6,12 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMView.h"
+#import "MGMPopoutView.h"
 
-@import Foundation;
-@import UIKit;
-
-@protocol MGMWeeklyChartModalViewDelegate <NSObject>
-
-- (void) cancelButtonPressed:(id)sender;
+@interface MGMWeeklyChartModalViewPhone : MGMPopoutViewPhone
 
 @end
 
-@interface MGMWeeklyChartModalView : MGMView
-
-@property (weak) id<MGMWeeklyChartModalViewDelegate> delegate;
-
-@property (readonly) UITableView* timePeriodTable;
+@interface MGMWeeklyChartModalViewPad : MGMPopoutViewPad
 
 @end

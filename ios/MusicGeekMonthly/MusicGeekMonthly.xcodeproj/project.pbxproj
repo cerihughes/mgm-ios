@@ -27,6 +27,7 @@
 		652FD7981C7A05B10027545E /* MGMMockModelUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD7971C7A05B10027545E /* MGMMockModelUtilities.m */; };
 		652FD79A1C7A13D50027545E /* MGMAppDelegateTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD7991C7A13D50027545E /* MGMAppDelegateTestCase.m */; };
 		6532DA101C5E5651002339FD /* MGMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532DA0F1C5E5651002339FD /* MGMTestCase.m */; };
+		65385C161CA837A100991121 /* MGMPopoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65385C151CA837A100991121 /* MGMPopoutView.m */; };
 		6542305D18CBAD5500121B3B /* timePeriods.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305C18CBAD5500121B3B /* timePeriods.json */; };
 		6542306018CBAD7100121B3B /* weeklyChart.json in Resources */ = {isa = PBXBuildFile; fileRef = 6542305F18CBAD7100121B3B /* weeklyChart.json */; };
 		6542306418CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6542306318CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.m */; };
@@ -205,6 +206,8 @@
 		652FD7991C7A13D50027545E /* MGMAppDelegateTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMAppDelegateTestCase.m; sourceTree = "<group>"; };
 		6532DA0E1C5E5651002339FD /* MGMTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTestCase.h; sourceTree = "<group>"; };
 		6532DA0F1C5E5651002339FD /* MGMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTestCase.m; sourceTree = "<group>"; };
+		65385C141CA837A100991121 /* MGMPopoutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPopoutView.h; sourceTree = "<group>"; };
+		65385C151CA837A100991121 /* MGMPopoutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMPopoutView.m; sourceTree = "<group>"; };
 		6542305C18CBAD5500121B3B /* timePeriods.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = timePeriods.json; path = MusicGeekMonthly/Resources/timePeriods.json; sourceTree = "<group>"; };
 		6542305F18CBAD7100121B3B /* weeklyChart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = weeklyChart.json; path = MusicGeekMonthly/Resources/weeklyChart.json; sourceTree = "<group>"; };
 		6542306218CBAFD100121B3B /* MGMPreloadTimePeriodsDaoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGMPreloadTimePeriodsDaoOperation.h; path = Offline/MGMPreloadTimePeriodsDaoOperation.h; sourceTree = "<group>"; };
@@ -495,6 +498,8 @@
 				658D322618B1147C007A4D98 /* MGMAlbumScoreView.m */,
 				65C295C81C97934400B6CAEE /* MGMModalView.h */,
 				65C295C91C97934400B6CAEE /* MGMModalView.m */,
+				65385C141CA837A100991121 /* MGMPopoutView.h */,
+				65385C151CA837A100991121 /* MGMPopoutView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1457,6 +1462,7 @@
 				658D328118B1147C007A4D98 /* MGMAbstractEventView.m in Sources */,
 				658D328818B1147C007A4D98 /* MGMTabbedView.m in Sources */,
 				657F6B4118BBD8EB0025F52B /* MGMPlaylist.m in Sources */,
+				65385C161CA837A100991121 /* MGMPopoutView.m in Sources */,
 				658D328E18B1147C007A4D98 /* MGMPlayerGroupView.m in Sources */,
 				651E8CF818CA3F0F00333CA1 /* MGMNavigationController.m in Sources */,
 				658D313618B112E3007A4D98 /* MGMLocalData.m in Sources */,

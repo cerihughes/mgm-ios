@@ -6,29 +6,12 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
-#import "MGMView.h"
+#import "MGMPopoutView.h"
 
-@import Foundation;
-@import UIKit;
-
-@protocol MGMEventsModalViewDelegate <NSObject>
-
-- (void) cancelButtonPressed:(id)sender;
+@interface MGMEventsModalViewPhone : MGMPopoutViewPhone
 
 @end
 
-@interface MGMEventsModalView : MGMView
-
-@property (weak) id<MGMEventsModalViewDelegate> delegate;
-
-@property (readonly) UITableView* eventsTable;
-
-@end
-
-@interface MGMEventsModalViewPhone : MGMEventsModalView
-
-@end
-
-@interface MGMEventsModalViewPad : MGMEventsModalView
+@interface MGMEventsModalViewPad : MGMPopoutViewPad
 
 @end

@@ -19,9 +19,9 @@
 #import "MGMUI.h"
 #import "UIViewController+MGMAdditions.h"
 
-@interface MGMEventsViewController () <UITableViewDelegate, MGMEventsViewDelegate, MGMEventsModalViewDelegate>
+@interface MGMEventsViewController () <UITableViewDelegate, MGMEventsViewDelegate, MGMPopoutViewDelegate>
 
-@property (strong) MGMEventsModalView* modalView;
+@property (strong) MGMPopoutView* modalView;
 @property (strong) MGMEventTableViewDataSource* dataSource;
 
 @end
@@ -47,8 +47,8 @@
 
     Class modalViewClass = mgm_isIpad() ? [MGMEventsModalViewPad class] : [MGMEventsModalViewPhone class];
     self.modalView = [[modalViewClass alloc] initWithFrame:[self fullscreenRect]];
-    self.modalView.eventsTable.dataSource = self.dataSource;
-    self.modalView.eventsTable.delegate = self;
+    self.modalView.tableView.dataSource = self.dataSource;
+    self.modalView.tableView.delegate = self;
     self.modalView.delegate = self;
 
     self.view = eventsView;
@@ -69,14 +69,14 @@
             NSArray* renderables = [self.core.coreDataAccess mainThreadVersions:moids];
             [self.dataSource setRenderables:renderables];
             
-            [self.modalView.eventsTable reloadData];
+            [self.modalView.tableView reloadData];
             
             if (self.event == nil && renderables.count > 0)
             {
                 // Auto-populate for 1st entry...
                 NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-                [self.modalView.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-                [self tableView:self.modalView.eventsTable didSelectRowAtIndexPath:firstItem];
+                [self.modalView.tableView selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+                [self tableView:self.modalView.tableView didSelectRowAtIndexPath:firstItem];
             }
         }
     }];
@@ -140,7 +140,7 @@
 }
 
 #pragma mark -
-#pragma mark MGMEventsModalViewDelegate
+#pragma mark MGMPopoutViewDelegate
 
 - (void) cancelButtonPressed:(id)sender
 {

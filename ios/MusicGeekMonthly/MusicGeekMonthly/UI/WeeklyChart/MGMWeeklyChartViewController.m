@@ -16,9 +16,9 @@
 #import "MGMWeeklyChartModalView.h"
 #import "UIViewController+MGMAdditions.h"
 
-@interface MGMWeeklyChartViewController () <MGMAlbumGridViewDelegate, UITableViewDelegate, MGMWeeklyChartViewDelegate, MGMWeeklyChartModalViewDelegate>
+@interface MGMWeeklyChartViewController () <MGMAlbumGridViewDelegate, UITableViewDelegate, MGMWeeklyChartViewDelegate, MGMPopoutViewDelegate>
 
-@property (strong) MGMWeeklyChartModalView* modalView;
+@property (strong) MGMPopoutView* modalView;
 @property (strong) MGMCoreDataTableViewDataSource* dataSource;
 @property (strong) NSManagedObjectID* weeklyChartMoid;
 @property (strong) NSDateFormatter* dateFormatter;
@@ -48,10 +48,11 @@
 
     self.dataSource = [[MGMCoreDataTableViewDataSource alloc] initWithCellId:CELL_ID];
 
-    self.modalView = [[MGMWeeklyChartModalView alloc] initWithFrame:[self fullscreenRect]];
+    Class modalViewClass = mgm_isIpad() ? [MGMWeeklyChartModalViewPad class] : [MGMWeeklyChartModalViewPhone class];
+    self.modalView = [[modalViewClass alloc] initWithFrame:[self fullscreenRect]];
     self.modalView.delegate = self;
-    self.modalView.timePeriodTable.dataSource = self.dataSource;
-    self.modalView.timePeriodTable.delegate = self;
+    self.modalView.tableView.dataSource = self.dataSource;
+    self.modalView.tableView.delegate = self;
 
     self.view = weeklyChartView;
 }
@@ -101,14 +102,14 @@
             NSArray* renderables = [self.core.coreDataAccess mainThreadVersions:moids];
             [self.dataSource setRenderables:renderables];
             
-            [self.modalView.timePeriodTable reloadData];
+            [self.modalView.tableView reloadData];
             
             if (self.weeklyChartMoid == nil && renderables.count > 0)
             {
                 // Auto-populate for 1st entry...
                 NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-                [self.modalView.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-                [self tableView:self.modalView.timePeriodTable didSelectRowAtIndexPath:firstItem];
+                [self.modalView.tableView selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+                [self tableView:self.modalView.tableView didSelectRowAtIndexPath:firstItem];
             }
         }
     }];
@@ -202,7 +203,7 @@
 }
 
 #pragma mark -
-#pragma mark MGMWeeklyChartModalViewDelegate
+#pragma mark MGMPopoutViewDelegate
 
 - (void) cancelButtonPressed:(id)sender
 {
