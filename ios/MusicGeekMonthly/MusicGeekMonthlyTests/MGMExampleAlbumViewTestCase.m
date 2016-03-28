@@ -21,7 +21,8 @@
 
 - (void)runTestInFrame:(CGRect)frame
 {
-    MGMExampleAlbumView *view = [[MGMExampleAlbumView alloc] initWithFrame:frame];
+    Class viewClass = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ? [MGMExampleAlbumViewPad class] : [MGMExampleAlbumViewPhone class];
+    MGMExampleAlbumView *view = [[viewClass alloc] initWithFrame:frame];
     view.albumView.artistName = @"Sigur Rós";
     view.albumView.albumName = @"Takk...";
 

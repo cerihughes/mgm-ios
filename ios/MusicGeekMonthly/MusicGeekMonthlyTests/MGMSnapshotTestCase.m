@@ -91,6 +91,8 @@
 - (void)snapshotView:(UIView *)view withIdentifier:(NSString *)identifier
 {
     [[NSRunLoop currentRunLoop] runUntilDate:[[NSDate date] dateByAddingTimeInterval:0.1]];
+    [view setNeedsLayout];
+    [view layoutIfNeeded];
     FBSnapshotVerifyView(view, identifier);
 }
 
