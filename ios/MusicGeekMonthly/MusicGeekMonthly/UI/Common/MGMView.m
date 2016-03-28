@@ -80,46 +80,6 @@
     return button;
 }
 
-- (void) commonInit
-{
-    if (mgm_isIpad())
-    {
-        [self commonInitIpad];
-    }
-    else
-    {
-        [self commonInitIphone];
-    }
-}
-
-- (void) commonInitIphone
-{
-    // Override
-}
-
-- (void) commonInitIpad
-{
-    // Override
-}
-
-- (id) initWithFrame:(CGRect)frame
-{
-    if (self = [super initWithFrame:frame])
-    {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (id) initWithCoder:(NSCoder *)aDecoder
-{
-    if (self = [super initWithCoder:aDecoder])
-    {
-        [self commonInit];
-    }
-    return self;
-}
-
 - (void)updateConstraints
 {
     if (!self.createdConstraints) {
@@ -132,28 +92,6 @@
 }
 
 - (void)addFixedConstraints
-{
-    // Override
-}
-
-- (void) layoutSubviews
-{
-    if (mgm_isIpad())
-    {
-        [self layoutSubviewsIpad];
-    }
-    else
-    {
-        [self layoutSubviewsIphone];
-    }
-}
-
-- (void) layoutSubviewsIphone
-{
-    // Override
-}
-
-- (void) layoutSubviewsIpad
 {
     // Override
 }

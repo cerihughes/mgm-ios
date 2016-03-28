@@ -44,6 +44,10 @@
 - (void) setupAlbumsInRow:(NSUInteger)albumsInRow
 {
     CGSize size = self.frame.size;
+    if (CGSizeEqualToSize(size, CGSizeZero)) {
+        return;
+    }
+
     CGFloat width = size.width;
     CGFloat height = size.height;
     CGFloat albumWidth = width / albumsInRow;

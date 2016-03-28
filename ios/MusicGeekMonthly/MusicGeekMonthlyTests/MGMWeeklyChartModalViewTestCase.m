@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) MGMCoreDataAccess *coreDataAccessMock;
 
-@property (nonatomic, strong) MGMWeeklyChartModalView *view;
+@property (nonatomic, strong) MGMPopoutView *view;
 @property (nonatomic, strong) MGMCoreDataTableViewDataSource *dataSource;
 
 @end
@@ -60,8 +60,9 @@
 
 - (void)runTestInFrame:(CGRect)frame
 {
-    self.view = [[MGMWeeklyChartModalView alloc] initWithFrame:frame];
-    self.view.timePeriodTable.dataSource = self.dataSource;
+    Class viewClass = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ? [MGMWeeklyChartModalViewPad class] : [MGMWeeklyChartModalViewPhone class];
+    self.view = [[viewClass alloc] initWithFrame:frame];
+    self.view.tableView.dataSource = self.dataSource;
 
     [self.view layoutIfNeeded];
 

@@ -251,11 +251,9 @@
     }];
 }
 
-- (void) layoutSubviews
+- (void)drawRect:(CGRect)rect
 {
-    [super layoutSubviews];
-
-    CGFloat quarterHeight = self.frame.size.height / 4.0;
+    CGFloat quarterHeight = rect.size.height / 4.0;
     CGFloat fontSize = quarterHeight / 1.25;
     self.rankLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:fontSize];
 
@@ -265,6 +263,8 @@
     self.artistLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:fontSize];
     self.albumLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:fontSize];
     self.listenersLabel.font = [UIFont fontWithName:DEFAULT_FONT_ITALIC size:fontSize];
+
+    [super drawRect:rect];
 }
 
 - (void) addFixedConstraints

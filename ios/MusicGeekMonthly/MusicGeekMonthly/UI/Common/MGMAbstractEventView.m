@@ -18,36 +18,37 @@
 
 @implementation MGMAbstractEventView
 
-- (void) commonInit
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super commonInit];
-    
-    _classicAlbumLabel = [MGMView italicTitleLabelWithText:@"Classic Album"];
-    _newlyReleasedAlbumLabel = [MGMView italicTitleLabelWithText:@"New Album"];
-    _playlistLabel = [MGMView italicTitleLabelWithText:@"Playlist"];
+    if (self = [super initWithFrame:frame]) {
+        _classicAlbumLabel = [MGMView italicTitleLabelWithText:@"Classic Album"];
+        _newlyReleasedAlbumLabel = [MGMView italicTitleLabelWithText:@"New Album"];
+        _playlistLabel = [MGMView italicTitleLabelWithText:@"Playlist"];
 
-    _classicAlbumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
-    _classicAlbumView.translatesAutoresizingMaskIntoConstraints = NO;
-    _classicAlbumView.alphaOn = 1;
-    _classicAlbumView.animationTime = 0.25;
-    _classicAlbumView.pressable = YES;
-    _classicAlbumView.delegate = self;
-    _classicAlbumView.detailViewShowing = YES;
+        _classicAlbumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
+        _classicAlbumView.translatesAutoresizingMaskIntoConstraints = NO;
+        _classicAlbumView.alphaOn = 1;
+        _classicAlbumView.animationTime = 0.25;
+        _classicAlbumView.pressable = YES;
+        _classicAlbumView.delegate = self;
+        _classicAlbumView.detailViewShowing = YES;
 
-    _newlyReleasedAlbumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
-    _newlyReleasedAlbumView.translatesAutoresizingMaskIntoConstraints = NO;
-    _newlyReleasedAlbumView.alphaOn = 1;
-    _newlyReleasedAlbumView.animationTime = 0.25;
-    _newlyReleasedAlbumView.pressable = YES;
-    _newlyReleasedAlbumView.delegate = self;
-    _newlyReleasedAlbumView.detailViewShowing = YES;
+        _newlyReleasedAlbumView = [[MGMAlbumView alloc] initWithFrame:CGRectZero];
+        _newlyReleasedAlbumView.translatesAutoresizingMaskIntoConstraints = NO;
+        _newlyReleasedAlbumView.alphaOn = 1;
+        _newlyReleasedAlbumView.animationTime = 0.25;
+        _newlyReleasedAlbumView.pressable = YES;
+        _newlyReleasedAlbumView.delegate = self;
+        _newlyReleasedAlbumView.detailViewShowing = YES;
 
-    _playlistViewRowCount = mgm_isIpad() ? 5 : 3;
+        _playlistViewRowCount = mgm_isIpad() ? 5 : 3;
 
-    _playlistView = [[MGMAlbumGridView alloc] initWithFrame:CGRectZero];
-    _playlistView.translatesAutoresizingMaskIntoConstraints = NO;
-    _playlistView.delegate = self;
-    [_playlistView setAlbumCount:_playlistViewRowCount * _playlistViewRowCount detailViewShowing:NO];
+        _playlistView = [[MGMAlbumGridView alloc] initWithFrame:CGRectZero];
+        _playlistView.translatesAutoresizingMaskIntoConstraints = NO;
+        _playlistView.delegate = self;
+        [_playlistView setAlbumCount:_playlistViewRowCount * _playlistViewRowCount detailViewShowing:NO];
+    }
+    return self;
 }
 
 - (void) updatePlaylistAlbumSizes

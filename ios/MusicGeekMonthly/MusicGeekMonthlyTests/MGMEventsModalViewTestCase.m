@@ -30,7 +30,7 @@
 @property (nonatomic, strong) MGMAlbumRenderService *albumRenderServiceMock;
 @property (nonatomic, strong) MGMImageHelper *imageHelperMock;
 
-@property (nonatomic, strong) MGMEventsModalView *view;
+@property (nonatomic, strong) MGMPopoutView *view;
 @property (nonatomic, strong) MGMEventTableViewDataSource *dataSource;
 
 @end
@@ -86,7 +86,7 @@
 {
     Class viewClass = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? [MGMEventsModalViewPad class] : [MGMEventsModalViewPhone class];
     self.view = [[viewClass alloc] initWithFrame:frame];
-    self.view.eventsTable.dataSource = self.dataSource;
+    self.view.tableView.dataSource = self.dataSource;
 
     [self.view layoutIfNeeded];
     

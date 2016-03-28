@@ -14,13 +14,6 @@
 + (UIButton *)shadowedButtonWithText:(NSString *)text image:(UIImage *)image;
 + (UIButton *)buttonWithText:(NSString *)text image:(UIImage *)image;
 
-- (void)commonInit;
-- (void)commonInitIphone;
-- (void)commonInitIpad;
-
 - (void)addFixedConstraints;
-
-- (void)layoutSubviewsIphone;
-- (void)layoutSubviewsIpad;
 
 @end

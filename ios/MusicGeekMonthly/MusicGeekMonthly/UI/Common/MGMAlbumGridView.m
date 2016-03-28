@@ -9,35 +9,31 @@
 #import "MGMAlbumGridView.h"
 
 #import "MGMAlbumView.h"
+#import "NSLayoutConstraint+MGM.h"
 
 @interface MGMAlbumGridView () <MGMAlbumViewDelegate>
 
-@property (readonly) UIScrollView* scrollView;
-@property (readonly) NSLock* albumViewsLock;
-@property (readonly) NSMutableArray* albumViews;
+@property (nonatomic, readonly) UIScrollView *scrollView;
+@property (nonatomic, readonly) NSLock *albumViewsLock;
+@property (nonatomic, readonly) NSMutableArray *albumViews;
 
 @end
 
 @implementation MGMAlbumGridView
 
-- (id) initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame])
     {
         _albumViewsLock = [[NSLock alloc] init];
         _albumViews = [NSMutableArray arrayWithCapacity:25];
-    }
-    return self;
+
+        _scrollView = [[UIScrollView alloc] initWithFrame:frame];
+        _scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;  
+
+        [self addSubview:_scrollView];
 }
-
-- (void) commonInit
-{
-    [super commonInit];
-
-    CGSize parentSize = self.frame.size;
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, parentSize.width, parentSize.height)];
-    _scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self addSubview:_scrollView];
+    return self;
 }
 
 - (NSUInteger) albumCount
@@ -101,16 +97,6 @@
     self.scrollView.contentSize = CGRectUnion(existingContent, frame).size;
 }
 
-- (void) updateContentSize
-{
-    CGRect rect = CGRectZero;
-    for (MGMAlbumView* albumView in self.albumViews)
-    {
-        rect = CGRectUnion(rect, albumView.frame);
-    }
-    self.scrollView.contentSize = rect.size;
-}
-
 - (void) setActivityInProgressForAllRanks:(BOOL)inProgress
 {
     [self.albumViewsLock lock];
@@ -158,8 +144,7 @@
     return nil;
 }
 
-#pragma mark -
-#pragma mark MGMAlbumViewDelegate
+#pragma mark - MGMAlbumViewDelegate
 
 - (void) albumPressed:(MGMAlbumView *)albumView
 {
