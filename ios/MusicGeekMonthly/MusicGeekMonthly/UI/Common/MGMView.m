@@ -1,39 +1,18 @@
 
 #import "MGMView.h"
 
+@interface MGMView ()
+
+@property (nonatomic) BOOL createdConstraints;
+
+@end
+
 @implementation MGMView
 
-static MGMViewScreenSize _screenSize;
-
-+ (void) initialize
++ (BOOL)requiresConstraintBasedLayout
 {
-    if (self != [MGMView class]) {
-        return;
-    }
-
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
-    {
-        _screenSize = MGMViewScreenSizeiPad;
-    }
-    else
-    {
-        if ([UIScreen mainScreen].bounds.size.height > 480)
-        {
-            _screenSize = MGMViewScreenSizeiPhone576;
-        }
-        else
-        {
-            _screenSize = MGMViewScreenSizeiPhone480;
-        }
-    }
+    return YES;
 }
-
-#if DEBUG
-+ (void)setScreenSize:(MGMViewScreenSize)screenSize
-{
-    _screenSize = screenSize;
-}
-#endif
 
 + (UILabel*) boldTitleLabelWithText:(NSString *)text
 {
@@ -57,17 +36,18 @@ static MGMViewScreenSize _screenSize;
 
 + (CGFloat) titleTextSize
 {
-    return (_screenSize == MGMViewScreenSizeiPad ? 28.0 : 17.0);
+    return (mgm_isIpad() ? 28.0 : 17.0);
 }
 
 + (CGFloat) subtitleTextSize
 {
-    return (_screenSize == MGMViewScreenSizeiPad ? 20.0 : 13.0);
+    return (mgm_isIpad() ? 20.0 : 13.0);
 }
 
 + (UILabel*) labelWithText:(NSString *)text fontName:(NSString*)fontName size:(CGFloat)size
 {
     UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.translatesAutoresizingMaskIntoConstraints = NO;
     label.text = text;
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor blackColor];
@@ -79,7 +59,7 @@ static MGMViewScreenSize _screenSize;
 + (UIButton*) buttonWithText:(NSString*)text image:(UIImage*)image;
 {
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:(_screenSize == MGMViewScreenSizeiPad ? 20.0 : 12.0)];
+    button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:(mgm_isIpad() ? 20.0 : 12.0)];
     if (image)
     {
         [button setBackgroundImage:image forState:UIControlStateNormal];
@@ -100,91 +80,18 @@ static MGMViewScreenSize _screenSize;
     return button;
 }
 
-- (MGMViewScreenSize) screenSize
+- (void)updateConstraints
 {
-    return _screenSize;
-}
+    if (!self.createdConstraints) {
 
-- (CGFloat) statusBarHeight
-{
-    return 20.0;
-}
-
-- (CGFloat) navigationBarHeight
-{
-    return 44.0;
-}
-
-- (CGFloat) tabBarHeight
-{
-    if (_screenSize == MGMViewScreenSizeiPad)
-    {
-        return 56.0;
+        self.createdConstraints = YES;
+        [self addFixedConstraints];
     }
-    else
-    {
-        return 49.0;
-    }
+
+    [super updateConstraints];
 }
 
-- (void) commonInit
-{
-    if (_screenSize == MGMViewScreenSizeiPad)
-    {
-        [self commonInitIpad];
-    }
-    else
-    {
-        [self commonInitIphone];
-    }
-}
-
-- (void) commonInitIphone
-{
-    // Override
-}
-
-- (void) commonInitIpad
-{
-    // Override
-}
-
-- (id) initWithFrame:(CGRect)frame
-{
-    if (self = [super initWithFrame:frame])
-    {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (id) initWithCoder:(NSCoder *)aDecoder
-{
-    if (self = [super initWithCoder:aDecoder])
-    {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (void) layoutSubviews
-{
-    if (_screenSize == MGMViewScreenSizeiPad)
-    {
-        [self layoutSubviewsIpad];
-    }
-    else
-    {
-        [self layoutSubviewsIphone];
-    }
-}
-
-- (void) layoutSubviewsIphone
-{
-    // Override
-}
-
-- (void) layoutSubviewsIpad
+- (void)addFixedConstraints
 {
     // Override
 }

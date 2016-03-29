@@ -16,11 +16,15 @@
 
 @implementation MGMAbstractPlayerSelectionView
 
--  (void) commonInit
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super commonInit];
-    _groupView = [[MGMPlayerGroupView alloc] initWithFrame:CGRectZero];
-    _groupView.delegate = self;
+    self = [super initWithFrame:frame];
+    if (self) {
+        _groupView = [[MGMPlayerGroupView alloc] initWithFrame:CGRectZero];
+        _groupView.translatesAutoresizingMaskIntoConstraints = NO;
+        _groupView.delegate = self;
+    }
+    return self;
 }
 
 - (void) setSelectedServiceType:(MGMAlbumServiceType)selectedServiceType

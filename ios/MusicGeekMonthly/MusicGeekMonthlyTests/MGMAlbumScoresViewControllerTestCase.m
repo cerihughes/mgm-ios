@@ -94,6 +94,7 @@
     UIWindow *window = [[UIWindow alloc] initWithFrame:frame];
     window.rootViewController = self.viewController;
     [window makeKeyAndVisible];
+    window.frame = frame;
 
     [self.viewController.view layoutIfNeeded];
 

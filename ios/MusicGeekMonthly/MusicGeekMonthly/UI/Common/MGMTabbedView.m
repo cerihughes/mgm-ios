@@ -10,12 +10,14 @@
 
 @implementation MGMTabbedView
 
-- (void) commonInit
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super commonInit];
-
-    _albumContainer = [[UIView alloc] initWithFrame:self.frame];
-    [self addSubview:_albumContainer];
+    self = [super initWithFrame:frame];
+    if (self) {
+        _albumContainer = [[UIView alloc] initWithFrame:self.frame];
+        [self addSubview:_albumContainer];
+    }
+    return self;
 }
 
 @end

@@ -12,6 +12,14 @@
 
 @interface MGMPlayerSelectionView : MGMAbstractPlayerSelectionView
 
-@property MGMPlayerSelectionMode mode;
+@property (nonatomic) MGMPlayerSelectionMode mode;
+
+@end
+
+@interface MGMPlayerSelectionViewPhone : MGMPlayerSelectionView
+
+@end
+
+@interface MGMPlayerSelectionViewPad : MGMPlayerSelectionView
 
 @end

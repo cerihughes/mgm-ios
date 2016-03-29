@@ -56,7 +56,7 @@
         _exampleAlbumModalViewController = [[MGMExampleAlbumViewController alloc] init];
         _exampleAlbumModalViewController.ui = ui;
 
-        if (ui.ipad)
+        if (mgm_isIpad())
         {
             _playerSelectionModalViewController.modalPresentationStyle = UIModalPresentationFormSheet;
             _exampleAlbumModalViewController.modalPresentationStyle = UIModalPresentationFormSheet;

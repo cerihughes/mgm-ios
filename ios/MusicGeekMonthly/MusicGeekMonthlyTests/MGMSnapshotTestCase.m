@@ -8,6 +8,8 @@
 
 #import "MGMSnapshotTestCase.h"
 
+#import <objc/runtime.h>
+
 #import "MGMDefaultMockContainer.h"
 #import "MGMTestCaseUtilities.h"
 
@@ -38,6 +40,14 @@
     _utilities = nil;
 
     [super tearDown];
+}
+
+- (UIUserInterfaceIdiom)idiomForDevice:(MGMSnapshotTestCaseDevice)device
+{
+    if (device == MGMSnapshotTestCaseDeviceIpad || device == MGMSnapshotTestCaseDeviceIpadPro || device == MGMSnapshotTestCaseDeviceIpadFormSheet) {
+        return UIUserInterfaceIdiomPad;
+    }
+    return UIUserInterfaceIdiomPhone;
 }
 
 - (CGRect)frameForDevice:(MGMSnapshotTestCaseDevice)device
@@ -81,69 +91,84 @@
 - (void)snapshotView:(UIView *)view withIdentifier:(NSString *)identifier
 {
     [[NSRunLoop currentRunLoop] runUntilDate:[[NSDate date] dateByAddingTimeInterval:0.1]];
+    [view setNeedsLayout];
+    [view layoutIfNeeded];
     FBSnapshotVerifyView(view, identifier);
 }
 
 @end
 
-#import "MGMUI.h"
-#import "MGMView.h"
-
 @implementation MGMSnapshotFullscreenDeviceTestCase
+
+- (void)swizzleInstanceMethodSelector:(SEL)selector
+                            fromClass:(Class)fromClass
+                            withBlock:(id)swizzledMethodBlock
+                             forBlock:(dispatch_block_t)block
+{
+    Method instanceMethod = class_getInstanceMethod(fromClass, selector);
+
+    IMP originalImplementation = method_getImplementation(instanceMethod);
+    IMP swizzledImplementation = imp_implementationWithBlock(swizzledMethodBlock);
+
+    method_setImplementation(instanceMethod, swizzledImplementation);
+    block();
+    method_setImplementation(instanceMethod, originalImplementation);
+}
+
+- (void)useDevice:(MGMSnapshotTestCaseDevice)device forBlock:(dispatch_block_t)block
+{
+    UIUserInterfaceIdiom idiom = [self idiomForDevice:device];
+    CGRect frame = [self frameForDevice:device];
+    [self swizzleInstanceMethodSelector:@selector(userInterfaceIdiom) fromClass:[UIDevice class] withBlock:^UIUserInterfaceIdiom{
+        return idiom;
+    } forBlock:^{
+        [self swizzleInstanceMethodSelector:@selector(bounds) fromClass:[UIScreen class] withBlock:^CGRect{
+            return frame;
+        } forBlock:block];
+    }];
+}
 
 - (void)testIphone4
 {
-    [MGMUI setIpad:NO];
-    [MGMView setScreenSize:MGMViewScreenSizeiPhone480];
     [self runTestOnDevice:MGMSnapshotTestCaseDeviceIphone4];
 }
 
 - (void)testIphone5
 {
-    [MGMUI setIpad:NO];
-    [MGMView setScreenSize:MGMViewScreenSizeiPhone576];
     [self runTestOnDevice:MGMSnapshotTestCaseDeviceIphone5];
 }
 
 - (void)testIphone6
 {
-    [MGMUI setIpad:NO];
-    [MGMView setScreenSize:MGMViewScreenSizeiPhone576];
     [self runTestOnDevice:MGMSnapshotTestCaseDeviceIphone6];
 }
 
 - (void)testIphone6Plus
 {
-    [MGMUI setIpad:NO];
-    [MGMView setScreenSize:MGMViewScreenSizeiPhone576];
     [self runTestOnDevice:MGMSnapshotTestCaseDeviceIphone6Plus];
 }
 
 - (void)testIpad
 {
-    [MGMUI setIpad:YES];
-    [MGMView setScreenSize:MGMViewScreenSizeiPad];
     [self runTestOnDevice:MGMSnapshotTestCaseDeviceIpad];
 }
 
 - (void)testIpadPro
 {
-    [MGMUI setIpad:YES];
-    [MGMView setScreenSize:MGMViewScreenSizeiPad];
     [self runTestOnDevice:MGMSnapshotTestCaseDeviceIpadPro];
 }
 
 - (void)testIpadFormSheet
 {
-    [MGMUI setIpad:YES];
-    [MGMView setScreenSize:MGMViewScreenSizeiPad];
     [self runTestOnDevice:MGMSnapshotTestCaseDeviceIpadFormSheet];
 }
 
 - (void)runTestOnDevice:(MGMSnapshotTestCaseDevice)device
 {
     CGRect frame = [self frameForDevice:device];
-    [self runTestInFrame:frame];
+    [self useDevice:device forBlock:^{
+        [self runTestInFrame:frame];
+    }];
 }
 
 - (void)runTestInFrame:(CGRect)frame

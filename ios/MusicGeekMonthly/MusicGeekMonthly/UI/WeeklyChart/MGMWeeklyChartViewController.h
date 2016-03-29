@@ -7,7 +7,8 @@
 //
 
 #import "MGMAlbumViewController.h"
+#import "MGMWeeklyChartView.h"
 
-@interface MGMWeeklyChartViewController : MGMAlbumViewController
+@interface MGMWeeklyChartViewController : MGMAlbumViewController<MGMWeeklyChartView *>
 
 @end

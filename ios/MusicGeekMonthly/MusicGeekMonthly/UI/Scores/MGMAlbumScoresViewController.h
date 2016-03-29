@@ -7,7 +7,8 @@
 //
 
 #import "MGMAlbumViewController.h"
+#import "MGMAlbumScoresView.h"
 
-@interface MGMAlbumScoresViewController : MGMAlbumViewController
+@interface MGMAlbumScoresViewController : MGMAlbumViewController<MGMAlbumScoresView *>
 
 @end

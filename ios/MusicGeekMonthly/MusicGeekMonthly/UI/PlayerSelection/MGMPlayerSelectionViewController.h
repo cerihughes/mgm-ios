@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Ceri Hughes. All rights reserved.
 //
 
+#import "MGMModalView.h"
+#import "MGMPlayerSelectionView.h"
 #import "MGMViewController.h"
 
 #import "MGMAlbumServiceType.h"
@@ -17,7 +19,7 @@
 
 @end
 
-@interface MGMPlayerSelectionViewController : MGMViewController
+@interface MGMPlayerSelectionViewController : MGMViewController<MGMModalView<MGMPlayerSelectionView *> *>
 
 @property (weak) id<MGMPlayerSelectionViewControllerDelegate> delegate;
 

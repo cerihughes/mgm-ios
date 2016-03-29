@@ -16,12 +16,14 @@ PODS:
   - OHHTTPStubs/NSURLSession (4.7.0):
     - OHHTTPStubs/Core
   - OHHTTPStubs/OHPathHelpers (4.7.0)
+  - Reveal-iOS-SDK (1.6.2)
   - SPTDataLoader (1.1.0)
 
 DEPENDENCIES:
   - FBSnapshotTestCase/Core
   - OCMockito (~> 3.0)
   - OHHTTPStubs
+  - Reveal-iOS-SDK
   - SPTDataLoader (~> 1.0)
 
 SPEC CHECKSUMS:
@@ -29,6 +31,7 @@ SPEC CHECKSUMS:
   OCHamcrest: 218dc4022a5e928a275771da70c5dbea9f859287
   OCMockito: 9eee3c61e42f7cb8aa015d66f8cc16849701d973
   OHHTTPStubs: d2bf6a0f407620d67e75a1d3f12d86a2b1dd15c0
+  Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   SPTDataLoader: 2e47b36f070cc627ab28d5a7ab601f8c6d763c8a
 
 COCOAPODS: 0.39.0

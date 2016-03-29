@@ -35,61 +35,31 @@
 
 @interface MGMPlayerSelectionView ()
 
-@property (readonly) UINavigationBar* navigationBar;
-@property (readonly) UIButton* closeButton;
 @property (readonly) UILabel* titleLabel;
 @property (readonly) UILabel* subtitleLabel;
 
 @end
 
 @implementation MGMPlayerSelectionView
+
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    MGMPlayerSelectionMode _mode;
-}
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor whiteColor];
 
-- (void) commonInit
-{
-    [super commonInit];
+        _titleLabel = [MGMView boldSubtitleLabelWithText:@""];
+        _titleLabel.numberOfLines = 2;
+        _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _subtitleLabel = [MGMView italicSubtitleLabelWithText:@""];
+        _subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _subtitleLabel.numberOfLines = 2;
 
-    self.backgroundColor = [UIColor whiteColor];
-
-    _titleLabel = [MGMView boldSubtitleLabelWithText:@""];
-    _titleLabel.numberOfLines = 2;
-    _subtitleLabel = [MGMView italicSubtitleLabelWithText:@""];
-    _subtitleLabel.numberOfLines = 2;
-
-    [self addSubview:_titleLabel];
-    [self addSubview:_subtitleLabel];
-    [self addSubview:self.groupView];
-}
-
-- (void) commonInitIphone
-{
-    [super commonInitIphone];
-
-    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
-    UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@"Player Selection"];
-    UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleBordered target:self action:@selector(closeButtonPressed:)];
-    [navigationItem setRightBarButtonItem:bbi];
-    [_navigationBar pushNavigationItem:navigationItem animated:YES];
-
-    [self addSubview:_navigationBar];
-}
-
-- (void) commonInitIpad
-{
-    [super commonInitIpad];
-
-    _closeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_closeButton setTitle:@"Close" forState:UIControlStateNormal];
-    [_closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-
-    [self addSubview:_closeButton];
-}
-
-- (MGMPlayerSelectionMode) mode
-{
-    return _mode;
+        [self addSubview:_titleLabel];
+        [self addSubview:_subtitleLabel];
+        [self addSubview:self.groupView];
+    }
+    return self;
 }
 
 - (void) setMode:(MGMPlayerSelectionMode)mode
@@ -122,38 +92,232 @@
     self.subtitleLabel.text = subtitle;
 }
 
-- (void) closeButtonPressed:(UIButton*)sender
+@end
+
+@implementation MGMPlayerSelectionViewPhone
+
+- (void)addFixedConstraints
 {
-    [self.delegate playerSelectionComplete:(MGMAlbumServiceTypeNone)];
+    [super addFixedConstraints];
+
+    NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
+
+    // Title label
+    CGFloat textInset = 20;
+    CGFloat textHeight = 60;
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:-2 * textInset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:5]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:textHeight]];
+
+    // Subtitle label
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.subtitleLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.subtitleLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.subtitleLabel
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.subtitleLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:0]];
+
+    // Group view
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.groupView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.groupView
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.groupView
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.subtitleLabel
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:5]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.groupView
+                                                        attribute:NSLayoutAttributeBottom
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
-- (void) layoutSubviewsIphone
+@end
+
+@implementation MGMPlayerSelectionViewPad
+
+- (void)addFixedConstraints
 {
-    [super layoutSubviewsIphone];
+    [super addFixedConstraints];
 
-    self.navigationBar.frame = CGRectMake(0, 20, 320, 44);
+    NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
 
-    CGSize size = self.frame.size;
-    CGFloat width = size.width;
-    self.titleLabel.frame = CGRectMake(20, 100, width - 40, 60);
-    self.subtitleLabel.frame = CGRectMake(20, 160, width - 40, 60);
+    // Title label
+    CGFloat textInset = 20;
+    CGFloat textHeight = 60;
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
 
-    CGFloat remainingHeight = self.frame.size.height - 220;
-    CGFloat groupY = 220 + ((remainingHeight - 200) / 2);
-    self.groupView.frame = CGRectMake(0, groupY, 320, 200);
-}
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:-2 * textInset]];
 
-- (void) layoutSubviewsIpad
-{
-    [super layoutSubviewsIpad];
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:20]];
 
-    CGSize size = self.frame.size;
-    CGFloat width = size.width;
-    self.titleLabel.frame = CGRectMake(20, 60, width - 40, 60);
-    self.subtitleLabel.frame = CGRectMake(20, 120, width - 40, 60);
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:textHeight]];
 
-    self.closeButton.frame = CGRectMake(447, 20, 74, 44);
-    self.groupView.frame = CGRectMake(0, 250, 540, 320);
+    // Subtitle label
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.subtitleLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.subtitleLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.subtitleLabel
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.subtitleLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.titleLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:0]];
+
+    // Group view
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.groupView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.groupView
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.groupView
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.subtitleLabel
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:20]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.groupView
+                                                        attribute:NSLayoutAttributeBottom
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 @end

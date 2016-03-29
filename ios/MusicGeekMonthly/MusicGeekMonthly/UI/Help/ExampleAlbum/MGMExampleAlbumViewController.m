@@ -12,9 +12,9 @@
 #import "MGMAlbumImageUriDto.h"
 #import "MGMAlbumMetadataDto.h"
 #import "MGMAlbumView.h"
-#import "MGMExampleAlbumView.h"
+#import "MGMLastFmConstants.h"
 
-@interface MGMExampleAlbumViewController () <MGMExampleAlbumViewDelegate>
+@interface MGMExampleAlbumViewController () <MGMExampleAlbumViewDelegate, MGMModalViewDelegate>
 
 @end
 
@@ -24,10 +24,20 @@
 {
     [super loadView];
 
-    MGMExampleAlbumView* exampleAlbumView = [[MGMExampleAlbumView alloc] initWithFrame:[self fullscreenRect]];
-    exampleAlbumView.delegate = self;
+    CGRect frame = [self fullscreenRect];
 
-    self.view = exampleAlbumView;
+    Class viewClass = mgm_isIpad() ? [MGMExampleAlbumViewPad class] : [MGMExampleAlbumViewPhone class];
+    MGMExampleAlbumView* view = [[viewClass alloc] initWithFrame:frame];
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    view.delegate = self;
+
+    MGMModalView *modalView = mgm_isIpad() ?
+        [[MGMModalViewPad alloc] initWithFrame:frame buttonTitle:@"Got it!" contentView:view] :
+        [[MGMModalViewPhone alloc] initWithFrame:frame navigationTitle:@"Album Example" buttonTitle:@"Got it!" contentView:view];
+
+    modalView.delegate = self;
+
+    self.view = modalView;
 }
 
 - (void) viewDidLoad
@@ -37,13 +47,18 @@
 
 - (MGMAlbumDto*) createExampleData
 {
-    NSString* mbid = @"598385f8-4cfd-49cf-9e25-ceb3c464d9b3";
+    NSString* mbid = @"eb03ba58-e017-492f-8d50-5e016075f2bd";
     MGMAlbumDto* exampleAlbum = [[MGMAlbumDto alloc] init];
     exampleAlbum.albumMbid = mbid;
     exampleAlbum.albumName = @"Takk...";
     exampleAlbum.artistName = @"Sigur Rós";
 
     MGMAlbumImageUriDto* uri = [[MGMAlbumImageUriDto alloc] init];
+    uri.size = MGMAlbumImageSize256;
+    uri.uri = [NSString stringWithFormat:MUSIC_BRAINZ_IMAGE_URL, mbid, MUSIC_BRAINZ_IMAGE_250];
+    [exampleAlbum.imageUris addObject:uri];
+
+    uri = [[MGMAlbumImageUriDto alloc] init];
     uri.size = MGMAlbumImageSize256;
     uri.uri = @"http://userserve-ak.last.fm/serve/300x300/30803371.png";
     [exampleAlbum.imageUris addObject:uri];
@@ -88,9 +103,8 @@
 
 - (void) loadExampleAlbum
 {
-    MGMExampleAlbumView* exampleAlbumView = (MGMExampleAlbumView*)self.view;
     MGMAlbumDto* exampleAlbum = [self createExampleData];
-    [self displayAlbumDto:exampleAlbum inAlbumView:exampleAlbumView.albumView];
+    [self displayAlbumDto:exampleAlbum inAlbumView:self.view.contentView.albumView];
 }
 
 - (void) displayAlbumDto:(MGMAlbumDto*)album inAlbumView:(MGMAlbumView*)albumView
@@ -129,9 +143,18 @@
     return [array copy];
 }
 
-- (void) gotIt
+#pragma mark - MGMExampleAlbumViewDelegate
+
+- (void)gotIt
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark - MGMModalViewDelegate
+
+- (void)modalButtonPressed
+{
+    [self gotIt];
 }
 
 @end

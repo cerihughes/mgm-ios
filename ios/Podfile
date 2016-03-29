@@ -2,6 +2,8 @@ xcodeproj 'MusicGeekMonthly/MusicGeekMonthly.xcodeproj'
 
 pod 'SPTDataLoader', '~> 1.0'
 
+pod 'Reveal-iOS-SDK', :configurations => ['Debug']
+
 target :MusicGeekMonthlyTests, :exclusive => true do
   pod 'OCMockito', '~> 3.0'
   pod 'OHHTTPStubs'

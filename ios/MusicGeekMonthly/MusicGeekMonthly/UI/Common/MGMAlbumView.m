@@ -9,6 +9,7 @@
 #import "MGMAlbumView.h"
 
 #import "MGMAlbumScoreView.h"
+#import "NSLayoutConstraint+MGM.h"
 
 #define LISTENER_FORMAT @"%d geek listening this week"
 #define LISTENERS_FORMAT @"%d geeks listening this week"
@@ -43,66 +44,69 @@
     label.textColor = [UIColor whiteColor];
     label.shadowColor = [UIColor blackColor];
     label.shadowOffset = CGSizeMake(2, 2);
+    label.translatesAutoresizingMaskIntoConstraints = NO;
     return label;
 }
 
-- (void) commonInit
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super commonInit];
-    
-    self.alphaOff = 0.0f;
-    self.alphaOn = 1.0f;
-    self.animationTime = 1;
-    self.backgroundColor = [UIColor clearColor];
-    
-    CGSize parentSize = self.frame.size;
-    CGRect frame = CGRectMake(0, 0, parentSize.width, parentSize.height);
-    _button = [MGMView shadowedButtonWithText:nil image:nil];
-    _button.frame = frame;
-    _button.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    _button.alpha = self.alphaOff;
-    _button.backgroundColor = [UIColor whiteColor];
-    [_button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.pressable = NO;
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor clearColor];
 
-    _rankLabel = [MGMAlbumView createLabel];
-    _rankLabel.alpha = 0.75;
-    _rankLabel.textColor = [UIColor yellowColor];
+        _alphaOff = 0.0f;
+        _alphaOn = 1.0f;
+        _animationTime = 1;
 
-    _albumScoreView = [[MGMAlbumScoreView alloc] initWithFrame:CGRectZero];
-    _albumScoreView.hidden = YES;
+        _button = [MGMView shadowedButtonWithText:nil image:nil];
+        _button.translatesAutoresizingMaskIntoConstraints = NO;
+        _button.alpha = self.alphaOff;
+        _button.backgroundColor = [UIColor whiteColor];
+        [_button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        self.pressable = NO;
 
-    _detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    _detailButton.frame = CGRectZero;
-    _detailButton.alpha = 0;
-    [_detailButton addTarget:self action:@selector(detailPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.detailViewShowing = NO;
+        _rankLabel = [MGMAlbumView createLabel];
+        _rankLabel.alpha = 0.75;
+        _rankLabel.textColor = [UIColor yellowColor];
 
-    _textParentView = [[UIView alloc] initWithFrame:CGRectZero];
-    _textParentView.autoresizesSubviews = YES;
-    _textParentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    _textParentView.backgroundColor = [UIColor clearColor];
+        _albumScoreView = [[MGMAlbumScoreView alloc] initWithFrame:CGRectZero];
+        _albumScoreView.hidden = YES;
+        _albumScoreView.translatesAutoresizingMaskIntoConstraints = NO;
 
-    _artistLabel = [MGMAlbumView createLabel];
-    _albumLabel = [MGMAlbumView createLabel];
-    _listenersLabel = [MGMAlbumView createLabel];
+        _detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        _detailButton.translatesAutoresizingMaskIntoConstraints = NO;
+        _detailButton.frame = CGRectZero;
+        _detailButton.alpha = 0;
+        [_detailButton addTarget:self action:@selector(detailPressed:) forControlEvents:UIControlEventTouchUpInside];
+        self.detailViewShowing = NO;
 
-    _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    _activityIndicatorView.frame = frame;
-    _activityIndicatorView.userInteractionEnabled = NO;
-    self.activityInProgress = NO;
+        _textParentView = [[UIView alloc] initWithFrame:CGRectZero];
+        _textParentView.translatesAutoresizingMaskIntoConstraints = NO;
+        _textParentView.backgroundColor = [UIColor clearColor];
 
-    [self addSubview:_button];
-    [_button addSubview:_rankLabel];
-    [_button addSubview:_albumScoreView];
+        _artistLabel = [MGMAlbumView createLabel];
+        _albumLabel = [MGMAlbumView createLabel];
+        _listenersLabel = [MGMAlbumView createLabel];
 
-    [_button addSubview:_textParentView];
-    [_textParentView addSubview:_artistLabel];
-    [_textParentView addSubview:_albumLabel];
-    [_textParentView addSubview:_listenersLabel];
+        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        _activityIndicatorView.frame = frame;
+        _activityIndicatorView.userInteractionEnabled = NO;
+        _activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.activityInProgress = NO;
 
-    [_button addSubview:_detailButton];
-    [self addSubview:_activityIndicatorView];
+        [self addSubview:_button];
+        [_button addSubview:_rankLabel];
+        [_button addSubview:_albumScoreView];
+
+        [_button addSubview:_textParentView];
+        [_textParentView addSubview:_artistLabel];
+        [_textParentView addSubview:_albumLabel];
+        [_textParentView addSubview:_listenersLabel];
+
+        [_button addSubview:_detailButton];
+        [self addSubview:_activityIndicatorView];
+    }
+    return self;
 }
 
 - (BOOL) pressable
@@ -247,46 +251,269 @@
     }];
 }
 
-- (void) layoutSubviews
+- (void)drawRect:(CGRect)rect
 {
-    [super layoutSubviews];
-
-    CGSize parentSize = self.frame.size;
-    CGRect frame = CGRectMake(0, 0, parentSize.width, parentSize.height);
-    self.button.frame = frame;
-
-    CGSize size = self.frame.size;
-    CGFloat width = size.width - 4;
-    CGFloat height = size.height - 4;
-
-    CGFloat fontSize = height / 4 / 1.25;
-    self.rankLabel.frame = CGRectMake(2, 2, width / 4, height / 4);
+    CGFloat quarterHeight = rect.size.height / 4.0;
+    CGFloat fontSize = quarterHeight / 1.25;
     self.rankLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:fontSize];
 
-    self.albumScoreView.frame = CGRectMake(parentSize.width * 0.375f, 0, parentSize.width * 0.25f, parentSize.height * 0.25f);
-
-    CGFloat detailWidth = 34;
-    CGFloat detailHeight = detailWidth;
-    CGFloat detailX = width - (detailWidth + 10);
-    CGFloat detailY = 10;
-    self.detailButton.frame = CGRectMake(detailX, detailY, detailWidth, detailHeight);
-
-    CGFloat textParentViewHeight = height / 4;
-    CGFloat y = height - textParentViewHeight - 2;
-    self.textParentView.frame = CGRectMake(2, y, width, textParentViewHeight);
-
-    CGFloat textWidth = width - 4;
-    CGFloat textHeight = textParentViewHeight / 3;
+    CGFloat textHeight = quarterHeight / 3;
     fontSize = textHeight / 1.25;
-    self.artistLabel.frame = CGRectMake(2, 0, textWidth, textHeight);
-    self.albumLabel.frame = CGRectMake(2, textHeight, textWidth, textHeight);
-    self.listenersLabel.frame = CGRectMake(2, 2 * textHeight, textWidth, textHeight);
 
     self.artistLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:fontSize];
     self.albumLabel.font = [UIFont fontWithName:DEFAULT_FONT_MEDIUM size:fontSize];
     self.listenersLabel.font = [UIFont fontWithName:DEFAULT_FONT_ITALIC size:fontSize];
-    
-    self.activityIndicatorView.frame = frame;
+
+    [super drawRect:rect];
+}
+
+- (void) addFixedConstraints
+{
+    [super addFixedConstraints];
+
+    NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
+
+    // Button
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.button toView:self]];
+
+    // Rank label
+    CGFloat inset = 2.0;
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.rankLabel
+                                                        attribute:NSLayoutAttributeLeft
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeLeft
+                                                       multiplier:1
+                                                         constant:inset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.rankLabel
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:inset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.rankLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:0.25
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.rankLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:0.25
+                                                         constant:0]];
+
+    // Album score
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumScoreView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumScoreView
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumScoreView
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:0.25
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumScoreView
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:0.25
+                                                         constant:0]];
+
+    // Detail button
+    CGFloat detailInset = 10.0;
+    CGFloat detailSize = 34.0;
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.detailButton
+                                                        attribute:NSLayoutAttributeRight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeRight
+                                                       multiplier:1
+                                                         constant:-detailInset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.detailButton
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:detailInset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.detailButton
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:detailSize]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.detailButton
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.detailButton
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    // Text parent
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.textParentView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.textParentView
+                                                        attribute:NSLayoutAttributeBottom
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:-inset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.textParentView
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:(-2 * inset)]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.textParentView
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:0.25
+                                                         constant:0]];
+
+    // Artist label
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.artistLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.textParentView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.artistLabel
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.textParentView
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.artistLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.textParentView
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:(-2 * inset)]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.artistLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.textParentView
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1.0/3.0
+                                                         constant:0]];
+
+    // Album label
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.artistLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumLabel
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.artistLabel
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.artistLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.albumLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.artistLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:0]];
+
+    // Listeners label
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.listenersLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.albumLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.listenersLabel
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.albumLabel
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.listenersLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.albumLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.listenersLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.albumLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:0]];
+
+    // Activity view
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.activityIndicatorView toView:self]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 @end

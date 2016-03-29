@@ -14,12 +14,11 @@
 #import "MGMUI.h"
 #import "MGMWeeklyChart.h"
 #import "MGMWeeklyChartModalView.h"
-#import "MGMWeeklyChartView.h"
 #import "UIViewController+MGMAdditions.h"
 
-@interface MGMWeeklyChartViewController () <MGMAlbumGridViewDelegate, UITableViewDelegate, MGMWeeklyChartViewDelegate, MGMWeeklyChartModalViewDelegate>
+@interface MGMWeeklyChartViewController () <MGMAlbumGridViewDelegate, UITableViewDelegate, MGMWeeklyChartViewDelegate, MGMPopoutViewDelegate>
 
-@property (strong) MGMWeeklyChartModalView* modalView;
+@property (strong) MGMPopoutView* modalView;
 @property (strong) MGMCoreDataTableViewDataSource* dataSource;
 @property (strong) NSManagedObjectID* weeklyChartMoid;
 @property (strong) NSDateFormatter* dateFormatter;
@@ -49,29 +48,41 @@
 
     self.dataSource = [[MGMCoreDataTableViewDataSource alloc] initWithCellId:CELL_ID];
 
-    self.modalView = [[MGMWeeklyChartModalView alloc] initWithFrame:[self fullscreenRect]];
+    Class modalViewClass = mgm_isIpad() ? [MGMWeeklyChartModalViewPad class] : [MGMWeeklyChartModalViewPhone class];
+    self.modalView = [[modalViewClass alloc] initWithFrame:[self fullscreenRect]];
     self.modalView.delegate = self;
-    self.modalView.timePeriodTable.dataSource = self.dataSource;
-    self.modalView.timePeriodTable.delegate = self;
+    self.modalView.tableView.dataSource = self.dataSource;
+    self.modalView.tableView.delegate = self;
 
     self.view = weeklyChartView;
 }
 
+- (NSUInteger)rowsForGridView:(MGMAlbumGridView *)gridView
+{
+    CGFloat gridWidth = gridView.frame.size.width;
+    if (gridWidth > 768) {
+        return 5;
+    } else if (gridWidth > 414) {
+        return 4;
+    } else if (gridWidth > 375) {
+        return 3;
+    }
+    return 2;
+}
+
 - (void) viewDidLoad
 {
-    MGMWeeklyChartView* weeklyChartView = (MGMWeeklyChartView*)self.view;
-
     NSUInteger albumCount = 25;
-    [weeklyChartView.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
-    NSUInteger rowCount = self.ipad ? 4 : 2;
-    CGFloat albumSize = weeklyChartView.albumGridView.frame.size.width / rowCount;
+    [self.view.albumGridView setAlbumCount:albumCount detailViewShowing:YES];
+    NSUInteger rowCount = [self rowsForGridView:self.view.albumGridView];
+    CGFloat albumSize = self.view.albumGridView.frame.size.width / rowCount;
     NSArray* gridData = [MGMGridManager rectsForRowSize:rowCount defaultRectSize:albumSize count:albumCount];
 
     for (NSUInteger i = 0; i < albumCount; i++)
     {
         NSValue* value = [gridData objectAtIndex:i];
         CGRect frame = [value CGRectValue];
-        [weeklyChartView.albumGridView setAlbumFrame:frame forRank:i + 1];
+        [self.view.albumGridView setAlbumFrame:frame forRank:i + 1];
     }
 }
 
@@ -91,14 +102,14 @@
             NSArray* renderables = [self.core.coreDataAccess mainThreadVersions:moids];
             [self.dataSource setRenderables:renderables];
             
-            [self.modalView.timePeriodTable reloadData];
+            [self.modalView.tableView reloadData];
             
             if (self.weeklyChartMoid == nil && renderables.count > 0)
             {
                 // Auto-populate for 1st entry...
                 NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-                [self.modalView.timePeriodTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-                [self tableView:self.modalView.timePeriodTable didSelectRowAtIndexPath:firstItem];
+                [self.modalView.tableView selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+                [self tableView:self.modalView.tableView didSelectRowAtIndexPath:firstItem];
             }
         }
     }];
@@ -106,10 +117,8 @@
 
 - (void) loadAlbumsForPeriod:(MGMTimePeriod*)timePeriod
 {
-    MGMWeeklyChartView* weeklyChartView = (MGMWeeklyChartView*)self.view;
-
-    [weeklyChartView setTitle:timePeriod.groupValue];
-    [weeklyChartView.albumGridView setActivityInProgressForAllRanks:YES];
+    [self.view setTitle:timePeriod.groupValue];
+    [self.view.albumGridView setActivityInProgressForAllRanks:YES];
 
     [self.core.dao fetchWeeklyChartForStartDate:timePeriod.startDate endDate:timePeriod.endDate completion:^(MGMDaoData* weeklyChartData) {
         NSError* fetchError = weeklyChartData.error;
@@ -142,12 +151,10 @@
 
 - (void) renderChartEntry:(MGMChartEntry*)chartEntry
 {
-    MGMWeeklyChartView* weeklyChartView = (MGMWeeklyChartView*)self.view;
-
     NSUInteger rank = chartEntry.rank.intValue;
     NSUInteger listeners = chartEntry.listeners.intValue;
 
-    MGMAlbumView* albumView = [weeklyChartView.albumGridView albumViewForRank:rank];
+    MGMAlbumView* albumView = [self.view.albumGridView albumViewForRank:rank];
     [self displayAlbum:chartEntry.album inAlbumView:albumView rank:rank listeners:listeners completion:^(NSError* error) {
         [self.ui logError:error];
     }];
@@ -196,7 +203,7 @@
 }
 
 #pragma mark -
-#pragma mark MGMWeeklyChartModalViewDelegate
+#pragma mark MGMPopoutViewDelegate
 
 - (void) cancelButtonPressed:(id)sender
 {

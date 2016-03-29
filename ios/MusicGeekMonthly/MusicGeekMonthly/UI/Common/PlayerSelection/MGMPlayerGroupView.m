@@ -18,11 +18,13 @@
 
 @implementation MGMPlayerGroupView
 
-- (void) commonInit
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super  commonInit];
-    
-    _buttons = [NSMutableArray array];
+    self = [super initWithFrame:frame];
+    if (self) {
+        _buttons = [NSMutableArray array];
+    }
+    return self;
 }
 
 - (void) clearAll

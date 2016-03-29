@@ -9,6 +9,7 @@
 #import "MGMAlbumScoresView.h"
 
 #import "MGMAlbumGridView.h"
+#import "NSLayoutConstraint+MGM.h"
 
 @interface MGMAlbumScoresView ()
 
@@ -19,25 +20,44 @@
 
 @implementation MGMAlbumScoresView
 
-- (void) commonInit
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super commonInit];
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor whiteColor];
 
-    self.backgroundColor = [UIColor whiteColor];
+        _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+        _navigationBar.translatesAutoresizingMaskIntoConstraints = NO;
+        UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@""];
 
-    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
-    UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@""];
+        _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Classic Albums", @"New Albums", @"All Albums"]];
+        [_segmentedControl addTarget:self action:@selector(controlChanged:) forControlEvents:UIControlEventValueChanged];
 
-    _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Classic Albums", @"New Albums", @"All Albums"]];
-    [_segmentedControl addTarget:self action:@selector(controlChanged:) forControlEvents:UIControlEventValueChanged];
+        navigationItem.titleView = _segmentedControl;
+        [_navigationBar pushNavigationItem:navigationItem animated:YES];
 
-    navigationItem.titleView = _segmentedControl;
-    [_navigationBar pushNavigationItem:navigationItem animated:YES];
+        _albumGridView = [[MGMAlbumGridView alloc] initWithFrame:frame];
+        _albumGridView.translatesAutoresizingMaskIntoConstraints = NO;
 
-    _albumGridView = [[MGMAlbumGridView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y + 64, self.frame.size.width, self.frame.size.height - (64 + self.tabBarHeight))];
+        [self addSubview:_albumGridView];
+        [self addSubview:_navigationBar];
+    }
+    return self;
+}
 
-    [self addSubview:_albumGridView];
-    [self addSubview:_navigationBar];
+- (void)addFixedConstraints
+{
+    [super addFixedConstraints];
+
+    NSMutableArray *constraints = [NSMutableArray array];
+
+    // Navigation bar
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherNavigationBar:self.navigationBar toSuperview:self]];
+
+    // Album grid
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.albumGridView belowNavigationBar:self.navigationBar aboveTabBarInSuperview:self]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 - (void) controlChanged:(UISegmentedControl*)sender
@@ -51,20 +71,6 @@
 
     // Fire the delegate, as this won't happen automatically when setting.
     [self controlChanged:self.segmentedControl];
-}
-
-- (void) layoutSubviewsIphone
-{
-    [super layoutSubviewsIphone];
-
-    self.navigationBar.frame = CGRectMake(0, 20, 320, 44);
-}
-
-- (void) layoutSubviewsIpad
-{
-    [super layoutSubviewsIpad];
-
-    self.navigationBar.frame = CGRectMake(0, 20, 768, 44);
 }
 
 @end

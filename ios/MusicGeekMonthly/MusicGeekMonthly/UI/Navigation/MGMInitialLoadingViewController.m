@@ -16,7 +16,6 @@
 #import "MGMDao.h"
 #import "MGMDaoData.h"
 #import "MGMEvent.h"
-#import "MGMInitialLoadingView.h"
 #import "MGMLastFmConstants.h"
 #import "MGMTimePeriod.h"
 #import "MGMWeeklyChart.h"
@@ -28,7 +27,6 @@
 - (void) loadView
 {
     MGMInitialLoadingView* view = [[MGMInitialLoadingView alloc] initWithFrame:[self fullscreenRect]];
-
     self.view = view;
 }
 
@@ -36,8 +34,7 @@
 {
     [super viewWillAppear:animated];
 
-    MGMInitialLoadingView* view = (MGMInitialLoadingView*) self.view;
-    [view setOperationInProgress:YES];
+    [self.view setOperationInProgress:YES];
 
     // Preload data if needed
     [self.core.dao preloadEvents:^(MGMDaoData* events) {
@@ -72,11 +69,10 @@
 {
     NSArray* events = [self.core.coreDataAccess mainThreadVersions:eventMoids];
     MGMWeeklyChart* weeklyChart = [self.core.coreDataAccess mainThreadVersion:weeklyChartMoid];
-    MGMAlbumImageSize preferredSize = self.ui.ipad ? MGMAlbumImageSize128 : MGMAlbumImageSize64;
+    MGMAlbumImageSize preferredSize = mgm_isIpad() ? MGMAlbumImageSize128 : MGMAlbumImageSize64;
     MGMBackgroundAlbumArtCollection* albumArt = [self albumArtForEvents:events weeklyChart:weeklyChart preferredSize:preferredSize];
 
-    MGMInitialLoadingView* view = (MGMInitialLoadingView*) self.view;
-    [view setOperationInProgress:NO];
+    [self.view setOperationInProgress:NO];
     [self.delegate initialisationComplete:albumArt];
 }
 

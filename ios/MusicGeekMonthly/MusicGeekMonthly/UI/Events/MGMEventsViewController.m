@@ -14,15 +14,14 @@
 #import "MGMDao.h"
 #import "MGMDaoData.h"
 #import "MGMEvent.h"
-#import "MGMEventsView.h"
 #import "MGMEventsModalView.h"
 #import "MGMEventTableViewDataSource.h"
 #import "MGMUI.h"
 #import "UIViewController+MGMAdditions.h"
 
-@interface MGMEventsViewController () <UITableViewDelegate, MGMEventsViewDelegate, MGMEventsModalViewDelegate>
+@interface MGMEventsViewController () <UITableViewDelegate, MGMEventsViewDelegate, MGMPopoutViewDelegate>
 
-@property (strong) MGMEventsModalView* modalView;
+@property (strong) MGMPopoutView* modalView;
 @property (strong) MGMEventTableViewDataSource* dataSource;
 
 @end
@@ -35,7 +34,8 @@
 
 - (void) loadView
 {
-    MGMEventsView* eventsView = [[MGMEventsView alloc] initWithFrame:[self fullscreenRect]];
+    Class viewClass = mgm_isIpad() ? [MGMEventsViewPad class] : [MGMEventsViewPhone class];
+    MGMEventsView *eventsView = [[viewClass alloc] initWithFrame:[self fullscreenRect]];
     eventsView.classicAlbumView.animationTime = 0.25;
     eventsView.newlyReleasedAlbumView.animationTime = 0.25;
     eventsView.delegate = self;
@@ -45,9 +45,10 @@
     self.dataSource.albumRenderService = self.core.albumRenderService;
     self.dataSource.imageHelper = self.ui.imageHelper;
 
-    self.modalView = [[MGMEventsModalView alloc] initWithFrame:[self fullscreenRect]];
-    self.modalView.eventsTable.dataSource = self.dataSource;
-    self.modalView.eventsTable.delegate = self;
+    Class modalViewClass = mgm_isIpad() ? [MGMEventsModalViewPad class] : [MGMEventsModalViewPhone class];
+    self.modalView = [[modalViewClass alloc] initWithFrame:[self fullscreenRect]];
+    self.modalView.tableView.dataSource = self.dataSource;
+    self.modalView.tableView.delegate = self;
     self.modalView.delegate = self;
 
     self.view = eventsView;
@@ -68,14 +69,14 @@
             NSArray* renderables = [self.core.coreDataAccess mainThreadVersions:moids];
             [self.dataSource setRenderables:renderables];
             
-            [self.modalView.eventsTable reloadData];
+            [self.modalView.tableView reloadData];
             
             if (self.event == nil && renderables.count > 0)
             {
                 // Auto-populate for 1st entry...
                 NSIndexPath* firstItem = [NSIndexPath indexPathForItem:0 inSection:0];
-                [self.modalView.eventsTable selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
-                [self tableView:self.modalView.eventsTable didSelectRowAtIndexPath:firstItem];
+                [self.modalView.tableView selectRowAtIndexPath:firstItem animated:YES scrollPosition:UITableViewScrollPositionTop];
+                [self tableView:self.modalView.tableView didSelectRowAtIndexPath:firstItem];
             }
         }
     }];
@@ -83,11 +84,9 @@
 
 - (void) displayEvent:(MGMEvent*)event
 {
-    MGMEventsView* eventsView = (MGMEventsView*)self.view;
-
 	NSString* dateString = event.groupValue;
     NSString* newTitle = [NSString stringWithFormat:EVENT_TITLE_PATTERN, event.eventNumber, dateString];
-    [eventsView setTitle:newTitle];
+    [self.view setTitle:newTitle];
 
     NSString* playlistId = event.playlistId;
     if (playlistId)
@@ -141,7 +140,7 @@
 }
 
 #pragma mark -
-#pragma mark MGMEventsModalViewDelegate
+#pragma mark MGMPopoutViewDelegate
 
 - (void) cancelButtonPressed:(id)sender
 {

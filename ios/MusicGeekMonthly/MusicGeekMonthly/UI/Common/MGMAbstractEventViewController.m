@@ -8,7 +8,6 @@
 
 #import "MGMAbstractEventViewController.h"
 
-#import "MGMAbstractEventView.h"
 #import "MGMAlbumGridView.h"
 #import "MGMAlbumView.h"
 #import "MGMEvent.h"
@@ -24,15 +23,16 @@
 
 @implementation MGMAbstractEventViewController
 
+@dynamic view;
+
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
     if (self.renderedFirstEvent == NO)
     {
-        MGMAbstractEventView* eventView = (MGMAbstractEventView*)self.view;
-        [eventView.classicAlbumView setActivityInProgress:YES];
-        [eventView.newlyReleasedAlbumView setActivityInProgress:YES];
+        [self.view.classicAlbumView setActivityInProgress:YES];
+        [self.view.newlyReleasedAlbumView setActivityInProgress:YES];
         self.renderedFirstEvent = YES;
     }
 }
@@ -42,15 +42,13 @@
     _event = event;
     _playlist = playlist;
 
-    MGMAbstractEventView* eventView = (MGMAbstractEventView*)self.view;
-
     BOOL hasPlaylist = YES;
     if (playlist)
     {
         NSUInteger rank = 1;
         for (MGMPlaylistItem* item in playlist.playlistItems)
         {
-            MGMAlbumView* albumView = [eventView.playlistView albumViewForRank:rank++];
+            MGMAlbumView* albumView = [self.view.playlistView albumViewForRank:rank++];
             [self displayPlaylistItem:item inAlbumView:albumView completion:^(NSError* error) {
                 [self.ui logError:error];
             }];
@@ -59,11 +57,11 @@
     else if (event.playlistId)
     {
         // There's been an error loading the playlist.
-        NSUInteger albumCount = eventView.playlistView.albumCount;
+        NSUInteger albumCount = self.view.playlistView.albumCount;
         for (NSUInteger i = 0; i < albumCount; i++)
         {
             NSUInteger rank = i + 1;
-            MGMAlbumView* albumView = [eventView.playlistView albumViewForRank:rank++];
+            MGMAlbumView* albumView = [self.view.playlistView albumViewForRank:rank++];
             [self displayPlaylistItem:nil inAlbumView:albumView completion:^(NSError* error) {
                 [self.ui logError:error];
             }];
@@ -75,18 +73,18 @@
     }
 
 
-    eventView.playlistView.hidden = (hasPlaylist == NO);
-    eventView.playlistLabel.hidden = (hasPlaylist == NO);
+    self.view.playlistView.hidden = (hasPlaylist == NO);
+    self.view.playlistLabel.hidden = (hasPlaylist == NO);
 
-    [self displayAlbum:event.classicAlbum inAlbumView:eventView.classicAlbumView completion:^(NSError* error) {
+    [self displayAlbum:event.classicAlbum inAlbumView:self.view.classicAlbumView completion:^(NSError* error) {
         [self logError:error];
     }];
 
-    [self displayAlbum:event.newlyReleasedAlbum inAlbumView:eventView.newlyReleasedAlbumView completion:^(NSError* error) {
+    [self displayAlbum:event.newlyReleasedAlbum inAlbumView:self.view.newlyReleasedAlbumView completion:^(NSError* error) {
         [self logError:error];
     }];
 
-    [eventView setNeedsLayout];
+    [self.view setNeedsLayout];
 }
 
 - (void) displayPlaylistItem:(MGMPlaylistItem*)playlistItem inAlbumView:(MGMAlbumView*)albumView completion:(ALBUM_DISPLAY_COMPLETION)completion

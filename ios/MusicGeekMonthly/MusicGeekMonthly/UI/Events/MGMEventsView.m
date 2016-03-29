@@ -10,54 +10,55 @@
 
 #import "MGMAlbumView.h"
 #import "MGMAlbumGridView.h"
+#import "NSLayoutConstraint+MGM.h"
 
 @interface MGMEventsView ()
 
-@property (readonly) UIView* parentView;
-@property (readonly) UINavigationBar* navigationBar;
-@property (readonly) UINavigationItem* navigationItem;
+@property (nonatomic, readonly) UIScrollView *parentView;
+@property (nonatomic, readonly) UIView *leftGuideView;
+@property (nonatomic, readonly) UIView *rightGuideView;
+@property (nonatomic, readonly) UINavigationBar *navigationBar;
+@property (nonatomic, readonly) UINavigationItem *navigationItem;
 
 @end
 
 @implementation MGMEventsView
 
-@synthesize delegate;
+@dynamic delegate;
 
-- (void) commonInit
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super commonInit];
-    
-    self.backgroundColor = [UIColor whiteColor];
-    
-    _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
-    _navigationItem = [[UINavigationItem alloc] initWithTitle:@""];
-    UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"More..." style:UIBarButtonItemStyleBordered target:self action:@selector(moreButtonPressed:)];
-    [_navigationItem setRightBarButtonItem:bbi];
-    [_navigationBar pushNavigationItem:_navigationItem animated:YES];
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor whiteColor];
 
-    [_parentView addSubview:self.classicAlbumLabel];
-    [_parentView addSubview:self.classicAlbumView];
-    [_parentView addSubview:self.newlyReleasedAlbumLabel];
-    [_parentView addSubview:self.newlyReleasedAlbumView];
-    [_parentView addSubview:self.playlistLabel];
-    [_parentView addSubview:self.playlistView];
-    [self addSubview:_parentView];
-    [self addSubview:_navigationBar];
-}
+        _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+        _navigationBar.translatesAutoresizingMaskIntoConstraints = NO;
+        _navigationItem = [[UINavigationItem alloc] initWithTitle:@""];
+        UIBarButtonItem* bbi = [[UIBarButtonItem alloc] initWithTitle:@"More..." style:UIBarButtonItemStyleBordered target:self action:@selector(moreButtonPressed:)];
+        [_navigationItem setRightBarButtonItem:bbi];
+        [_navigationBar pushNavigationItem:_navigationItem animated:YES];
 
-- (void) commonInitIphone
-{
-    [super commonInitIphone];
+        _leftGuideView = [[UIView alloc] initWithFrame:CGRectZero];
+        _leftGuideView.translatesAutoresizingMaskIntoConstraints = NO;
+        _rightGuideView = [[UIView alloc] initWithFrame:CGRectZero];
+        _rightGuideView.translatesAutoresizingMaskIntoConstraints = NO;
 
-    CGRect frame = CGRectMake(0, 20, self.frame.size.width, self.frame.size.height - 20);
-    _parentView = [[UIScrollView alloc] initWithFrame:frame];
-}
+        _parentView = [[UIScrollView alloc] initWithFrame:frame];
+        _parentView.translatesAutoresizingMaskIntoConstraints = NO;
+        [_parentView addSubview:self.classicAlbumLabel];
+        [_parentView addSubview:self.classicAlbumView];
+        [_parentView addSubview:self.newlyReleasedAlbumLabel];
+        [_parentView addSubview:self.newlyReleasedAlbumView];
+        [_parentView addSubview:self.playlistLabel];
+        [_parentView addSubview:self.playlistView];
 
-- (void) commonInitIpad
-{
-    [super commonInitIpad];
-
-    _parentView = [[UIView alloc] initWithFrame:self.frame];
+        [self addSubview:_leftGuideView];
+        [self addSubview:_rightGuideView];
+        [self addSubview:_parentView];
+        [self addSubview:_navigationBar];
+    }
+    return self;
 }
 
 - (void) setTitle:(NSString*)title
@@ -70,43 +71,318 @@
     [self.delegate moreButtonPressed:sender];
 }
 
-- (void) layoutSubviewsIphone
+- (void)addFixedConstraints
 {
-    [super layoutSubviewsIphone];
+    [super addFixedConstraints];
 
-    self.navigationBar.frame = CGRectMake(0, 20, 320, 44);
-    self.classicAlbumLabel.frame = CGRectMake(0, 70, 160, 21);
-    self.newlyReleasedAlbumLabel.frame = CGRectMake(160, 70, 160, 21);
-    self.classicAlbumView.frame = CGRectMake(0, 100, 160, 160);
-    self.newlyReleasedAlbumView.frame = CGRectMake(160, 100, 160, 160);
+    NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
 
-    UIView* lastView = self.newlyReleasedAlbumView;
-    if (self.playlistLabel.hidden == NO)
-    {
-        self.playlistLabel.frame = CGRectMake(0, 280, 320, 21);
-        self.playlistView.frame = CGRectMake(50, 310, 220, 220);
-        lastView = self.playlistView;
-    }
+    // Self
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherViewToSuperview:self]];
 
-    // Need to create a contentRect that's got space to scroll over the tab bar...
-    CGRect contentRect = CGRectUnion(CGRectZero, lastView.frame);
-    contentRect = CGRectInset(contentRect, 0, -self.tabBarHeight);
+    // Navigation bar
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherNavigationBar:self.navigationBar toSuperview:self]];
 
-    UIScrollView* scrollView = (UIScrollView*)self.parentView;
-    scrollView.contentSize = contentRect.size;
+    // Parent view
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.parentView belowNavigationBar:self.navigationBar aboveTabBarInSuperview:self]];
+
+    // Guide views
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.leftGuideView
+                                                        attribute:NSLayoutAttributeLeft
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeLeft
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.leftGuideView
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:0.5
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.leftGuideView
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.leftGuideView
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.rightGuideView
+                                                        attribute:NSLayoutAttributeRight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeRight
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.rightGuideView
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:0.5
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.rightGuideView
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.rightGuideView
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:0]];
+
+    // Classic album label
+    CGFloat labelOffset = mgm_isIpad() ? 45 : 25;
+    CGFloat labelHeight = mgm_isIpad() ? 30 : 21;
+    CGFloat labelWidth = mgm_isIpad() ? 196 : 160;
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.classicAlbumLabel
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.navigationBar
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:labelOffset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.classicAlbumLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:labelHeight]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.classicAlbumLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:labelWidth]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.classicAlbumLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.leftGuideView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    // Newly released album label
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.newlyReleasedAlbumLabel
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.classicAlbumLabel
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.newlyReleasedAlbumLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.classicAlbumLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.newlyReleasedAlbumLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:labelWidth]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.newlyReleasedAlbumLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.rightGuideView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    // Classic album view
+    CGFloat albumOffset = 10;
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.classicAlbumView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.classicAlbumLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.classicAlbumView
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.classicAlbumLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.classicAlbumView
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.classicAlbumLabel
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:albumOffset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.classicAlbumView
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.classicAlbumView
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    // Newly released album view
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.newlyReleasedAlbumView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.newlyReleasedAlbumLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.newlyReleasedAlbumView
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.newlyReleasedAlbumLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.newlyReleasedAlbumView
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.newlyReleasedAlbumLabel
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:albumOffset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.newlyReleasedAlbumView
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.newlyReleasedAlbumView
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    // Playlist label
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.playlistLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.playlistLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.playlistLabel
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.classicAlbumView
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:labelOffset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.playlistLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:labelHeight]];
+
+    // Playlist view
+    CGFloat  playlistViewSize = mgm_isIpad() ? 528 : 220;
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.playlistView
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.playlistView
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:playlistViewSize]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.playlistView
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.playlistLabel
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:albumOffset]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.playlistView
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.playlistView
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
-- (void) layoutSubviewsIpad
-{
-    [super layoutSubviewsIpad];
-    
-    self.navigationBar.frame = CGRectMake(0, 20, 768, 44);
-    self.classicAlbumLabel.frame = CGRectMake(20, 90, 364, 30);;
-    self.classicAlbumView.frame = CGRectMake(104, 130, 196, 196);
-    self.newlyReleasedAlbumLabel.frame = CGRectMake(384, 90, 364, 30);;
-    self.newlyReleasedAlbumView.frame = CGRectMake(468, 130, 196, 196);
-    self.playlistLabel.frame = CGRectMake(20, 360, 728, 30);
-    self.playlistView.frame = CGRectMake(120, 420, 528, 528);
-}
+@end
+
+@implementation MGMEventsViewPhone
+
+//- (void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//
+//    // Need to create a contentRect that's got space to scroll over the tab bar...
+//    UIView* lastView = self.newlyReleasedAlbumView;
+//    if (self.playlistLabel.hidden == NO)
+//    {
+//        lastView = self.playlistView;
+//    }
+//
+//    CGRect contentRect = CGRectUnion(self.frame, lastView.frame);
+//    CGFloat offset = self.tabBarHeight / 4.0;
+//    contentRect = CGRectInset(contentRect, 0, -offset);
+//    contentRect = CGRectOffset(contentRect, 0, offset);
+//
+//    self.parentView.contentSize = contentRect.size;
+//}
+
+@end
+
+@implementation MGMEventsViewPad
 
 @end

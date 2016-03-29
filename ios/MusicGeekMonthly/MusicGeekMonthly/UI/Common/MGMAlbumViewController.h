@@ -10,7 +10,7 @@
 
 @protocol MGMAlbumSelectionDelegate;
 
-@interface MGMAlbumViewController : MGMTabbedViewController
+@interface MGMAlbumViewController<ViewType:MGMTabbedView *> : MGMTabbedViewController<ViewType>
 
 @property (weak) id<MGMAlbumSelectionDelegate> albumSelectionDelegate;
 

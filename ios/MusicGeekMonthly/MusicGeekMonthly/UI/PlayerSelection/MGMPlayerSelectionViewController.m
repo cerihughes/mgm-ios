@@ -11,12 +11,11 @@
 #import "MGMAlbumPlayer.h"
 #import "MGMAlbumServiceType.h"
 #import "MGMCore.h"
-#import "MGMPlayerSelectionView.h"
 #import "MGMSettingsDao.h"
 #import "MGMUI.h"
 #import "UIViewController+MGMAdditions.h"
 
-@interface MGMPlayerSelectionViewController () <MGMAbstractPlayerSelectionViewDelegate>
+@interface MGMPlayerSelectionViewController () <MGMAbstractPlayerSelectionViewDelegate, MGMModalViewDelegate>
 
 @end
 
@@ -24,17 +23,27 @@
 
 - (void) loadView
 {
-    MGMPlayerSelectionView* view = [[MGMPlayerSelectionView alloc] initWithFrame:[self fullscreenRect]];
+    CGRect frame = [self fullscreenRect];
+
+    Class viewClass = mgm_isIpad() ? [MGMPlayerSelectionViewPad class] : [MGMPlayerSelectionViewPhone class];
+    MGMPlayerSelectionView* view = [[viewClass alloc] initWithFrame:frame];
+    view.translatesAutoresizingMaskIntoConstraints = NO;
     view.delegate = self;
-    self.view = view;
+
+    MGMModalView *modalView = mgm_isIpad() ?
+        [[MGMModalViewPad alloc] initWithFrame:frame buttonTitle:@"Close" contentView:view] :
+        [[MGMModalViewPhone alloc] initWithFrame:frame navigationTitle:@"Player Selection" buttonTitle:@"Close" contentView:view];
+
+    modalView.delegate = self;
+
+    self.view = modalView;
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    MGMPlayerSelectionView* view = (MGMPlayerSelectionView*)self.view;
-    [view clearServiceTypes];
+    [self.view.contentView clearServiceTypes];
 
     NSUInteger capabilities = [self.ui.albumPlayer determineCapabilities];
     MGMAlbumServiceType serviceType = MGMAlbumServiceTypeLastFm;
@@ -42,35 +51,39 @@
     {
         NSString* label = [self.ui labelForServiceType:serviceType];
         UIImage* image = [self.ui imageForServiceType:serviceType];
-        [view addServiceType:serviceType text:label image:image available:(capabilities & serviceType)];
+        [self.view.contentView addServiceType:serviceType text:label image:image available:(capabilities & serviceType)];
         serviceType = serviceType << 1;
     }
 
     MGMAlbumServiceType defaultServiceType = self.core.settingsDao.defaultServiceType;
-    view.selectedServiceType = defaultServiceType;
+    self.view.contentView.selectedServiceType = defaultServiceType;
 }
 
 - (MGMPlayerSelectionMode) mode
 {
-    MGMPlayerSelectionView* view = (MGMPlayerSelectionView*)self.view;
-    return view.mode;
+    return self.view.contentView.mode;
 }
 
 - (void) setMode:(MGMPlayerSelectionMode)mode
 {
-    MGMPlayerSelectionView* view = (MGMPlayerSelectionView*)self.view;
-    view.mode = mode;
+    self.view.contentView.mode = mode;
 }
 
-#pragma mark -
-#pragma mark MGMAbstractPlayerSelectionViewDelegate
+#pragma mark - MGMAbstractPlayerSelectionViewDelegate
 
-- (void) playerSelectionComplete:(MGMAlbumServiceType)selectedServiceType
+- (void)playerSelectionComplete:(MGMAlbumServiceType)selectedServiceType
 {
     self.core.settingsDao.defaultServiceType = selectedServiceType;
     [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
         [self.delegate playerSelectionChangedFrom:self.existingServiceType to:selectedServiceType];
     }];
+}
+
+#pragma mark - MGMModalViewDelegate
+
+- (void)modalButtonPressed
+{
+    [self playerSelectionComplete:(MGMAlbumServiceTypeNone)];
 }
 
 @end

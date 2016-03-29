@@ -24,17 +24,14 @@
 
 @implementation MGMViewController
 
+@dynamic view;
+
 - (instancetype)init
 {
     if (self = [super init]) {
         _screenScale = [UIScreen mainScreen].scale;
     }
     return self;
-}
-
-- (BOOL) ipad
-{
-    return self.ui.ipad;
 }
 
 - (void) transitionCompleteWithState:(id)state
@@ -59,7 +56,7 @@
 
 - (void) presentViewModally:(UIView*)view sender:(id)sender
 {
-    if (self.ipad)
+    if (mgm_isIpad())
     {
         [self presentIpadViewModally:view sender:sender];
     }
@@ -72,7 +69,7 @@
 - (void) dismissModalPresentation:(UIView *)view
 {
     if ([self isPresentingModally:view]) {
-        if (self.ipad) {
+        if (mgm_isIpad()) {
             [self dismissIpadModalPresentation:view];
         } else {
             [self dismissIphoneModalPresentation:view];
@@ -82,7 +79,7 @@
 
 - (BOOL) isPresentingModally:(UIView *)view
 {
-    if (self.ipad)
+    if (mgm_isIpad())
     {
         return [self isIpadPresentingModally:view];
     }

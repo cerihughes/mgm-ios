@@ -14,11 +14,6 @@
 
 @interface MGMUI : NSObject <MGMAlbumSelectionDelegate, MGMPlaylistSelectionDelegate>
 
-#if DEBUG
-+ (void)setIpad:(BOOL)ipad;
-#endif
-
-@property (readonly) BOOL ipad;
 @property (readonly) MGMCore* core;
 @property (readonly) MGMNavigationController* mainController;
 @property (readonly) MGMAlbumPlayer* albumPlayer;

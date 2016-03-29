@@ -8,16 +8,19 @@
 
 @import UIKit;
 
+#import "MGMView.h"
+
 @class MGMAlbum;
 @class MGMAlbumView;
 @class MGMUI;
 
 typedef void (^ALBUM_DISPLAY_COMPLETION) (NSError*);
 
-@interface MGMViewController : UIViewController
+@interface MGMViewController<ViewType:MGMView *> : UIViewController
+
+@property (nonatomic, strong) ViewType view;
 
 @property (weak) MGMUI* ui;
-@property (readonly) BOOL ipad;
 @property (readonly) CGFloat screenScale;
 
 - (CGRect) fullscreenRect;

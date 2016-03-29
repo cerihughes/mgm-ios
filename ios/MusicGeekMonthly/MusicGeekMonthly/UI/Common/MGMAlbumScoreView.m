@@ -8,6 +8,8 @@
 
 #import "MGMAlbumScoreView.h"
 
+#import "NSLayoutConstraint+MGM.h"
+
 @interface MGMAlbumScoreView ()
 
 @property (readonly) UIImageView* imageView;
@@ -17,24 +19,73 @@
 
 @implementation MGMAlbumScoreView
 
-- (void) commonInit
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super commonInit];
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor clearColor];
 
-    _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _imageView.image = [UIImage imageNamed:@"gold_bar.png"];
-    _imageView.backgroundColor = [UIColor clearColor];
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _imageView.image = [UIImage imageNamed:@"gold_bar.png"];
+        _imageView.backgroundColor = [UIColor clearColor];
+        _imageView.translatesAutoresizingMaskIntoConstraints = NO;
 
-    _scoreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _scoreLabel.textAlignment = NSTextAlignmentCenter;
-    _scoreLabel.backgroundColor = [UIColor clearColor];
-    _scoreLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:15];
-    _scoreLabel.adjustsFontSizeToFitWidth = YES;
+        _scoreLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _scoreLabel.textAlignment = NSTextAlignmentCenter;
+        _scoreLabel.backgroundColor = [UIColor clearColor];
+        _scoreLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:15];
+        _scoreLabel.adjustsFontSizeToFitWidth = YES;
+        _scoreLabel.translatesAutoresizingMaskIntoConstraints = NO;
 
-    [self addSubview:_imageView];
-    [_imageView addSubview:_scoreLabel];
+        [self addSubview:_imageView];
+        [_imageView addSubview:_scoreLabel];
+    }
+    return self;
+}
 
-    self.backgroundColor = [UIColor clearColor];
+- (void)addFixedConstraints
+{
+    [super addFixedConstraints];
+
+    NSMutableArray<__kindof NSLayoutConstraint *> *constraints = [NSMutableArray array];
+
+    // Image view
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsThatTetherView:self.imageView toView:self]];
+
+    // Score label
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.scoreLabel
+                                                        attribute:NSLayoutAttributeCenterX
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterX
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.scoreLabel
+                                                        attribute:NSLayoutAttributeCenterY
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeCenterY
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.scoreLabel
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:0]];
+
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.scoreLabel
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1.0/3.0
+                                                         constant:0]];
+
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 - (NSString*) score
@@ -45,13 +96,6 @@
 - (void) setScore:(NSString*)score
 {
     self.scoreLabel.text = score;
-}
-
-- (void) layoutSubviews
-{
-    CGSize size = self.frame.size;
-    self.imageView.frame = CGRectMake(0, 0, size.width, size.height);
-    self.scoreLabel.frame = CGRectMake(0, size.height/3.0f, size.width, size.height/3.0);
 }
 
 @end

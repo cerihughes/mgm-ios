@@ -10,16 +10,16 @@
 
 @class MGMAlbumView;
 
-@protocol MGMAlbumDetailViewDelegate <MGMAbstractPlayerSelectionViewDelegate>
+@interface MGMAlbumDetailView : MGMAbstractPlayerSelectionView
 
-- (void) cancelButtonPressed:(id)sender;
+@property (readonly) MGMAlbumView* albumView;
 
 @end
 
-@interface MGMAlbumDetailView : MGMAbstractPlayerSelectionView
+@interface MGMAlbumDetailViewPhone : MGMAlbumDetailView
 
-@property (weak) id<MGMAlbumDetailViewDelegate> delegate;
+@end
 
-@property (readonly) MGMAlbumView* albumView;
+@interface MGMAlbumDetailViewPad : MGMAlbumDetailView
 
 @end
