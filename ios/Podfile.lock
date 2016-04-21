@@ -1,5 +1,5 @@
 PODS:
-  - FBSnapshotTestCase/Core (2.0.7)
+  - FBSnapshotTestCase/Core (2.1.0)
   - OCHamcrest (5.2.0)
   - OCMockito (3.0.1):
     - OCHamcrest (~> 5.1)
@@ -20,14 +20,14 @@ PODS:
   - SPTDataLoader (1.1.0)
 
 DEPENDENCIES:
-  - FBSnapshotTestCase/Core
+  - FBSnapshotTestCase/Core (= 2.1.0)
   - OCMockito (~> 3.0)
   - OHHTTPStubs
   - Reveal-iOS-SDK
   - SPTDataLoader (~> 1.0)
 
 SPEC CHECKSUMS:
-  FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
+  FBSnapshotTestCase: 366ecd378511d7716c79991cd8067d1eed23578d
   OCHamcrest: 218dc4022a5e928a275771da70c5dbea9f859287
   OCMockito: 9eee3c61e42f7cb8aa015d66f8cc16849701d973
   OHHTTPStubs: d2bf6a0f407620d67e75a1d3f12d86a2b1dd15c0
