@@ -1,5 +1,10 @@
+.DS_Store
+
+build/
+DerivedData/
+
 **/xcuserdata
 **/xcshareddata
 
 ios/MusicGeekMonthly/MusicGeekMonthly/Core/MGMSecrets.h
-ios/Pods/**
+ios/MusicGeekMonthly/Carthage
