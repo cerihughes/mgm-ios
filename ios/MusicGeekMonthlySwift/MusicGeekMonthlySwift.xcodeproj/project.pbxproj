@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		65BDAA8F2189F55C007E887B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA8E2189F55C007E887B /* AppDelegate.swift */; };
-		65BDAA912189F55C007E887B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA902189F55C007E887B /* ViewController.swift */; };
+		65BDAA912189F55C007E887B /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA902189F55C007E887B /* ScoresViewController.swift */; };
 		65BDAA962189F55D007E887B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65BDAA952189F55D007E887B /* Assets.xcassets */; };
 		65BDAA992189F55D007E887B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65BDAA972189F55D007E887B /* LaunchScreen.storyboard */; };
 		65BDAAAF2189F55D007E887B /* MusicGeekMonthlyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAAE2189F55D007E887B /* MusicGeekMonthlyUITests.swift */; };
@@ -27,6 +27,9 @@
 		65BDAAD5218A07C5007E887B /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */; };
 		65BDAAD6218A07C9007E887B /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC32189F992007E887B /* JSONModel.swift */; };
 		65BDAAD8218A096A007E887B /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAD7218A096A007E887B /* XCTestCase+Extensions.swift */; };
+		65D2AD98218B3105002BB0C9 /* ScoresViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD97218B3105002BB0C9 /* ScoresViewModel.swift */; };
+		65D2AD9A218B330D002BB0C9 /* ScoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */; };
+		65D2AD9C218B36DD002BB0C9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +52,7 @@
 /* Begin PBXFileReference section */
 		65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicGeekMonthly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65BDAA8E2189F55C007E887B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		65BDAA902189F55C007E887B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		65BDAA902189F55C007E887B /* ScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewController.swift; sourceTree = "<group>"; };
 		65BDAA952189F55D007E887B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65BDAA982189F55D007E887B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65BDAA9A2189F55D007E887B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -68,6 +71,9 @@
 		65BDAACE218A068E007E887B /* DataLoaderTestImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoaderTestImplementation.swift; sourceTree = "<group>"; };
 		65BDAAD2218A076B007E887B /* GoodData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GoodData.json; sourceTree = "<group>"; };
 		65BDAAD7218A096A007E887B /* XCTestCase+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extensions.swift"; sourceTree = "<group>"; };
+		65D2AD97218B3105002BB0C9 /* ScoresViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewModel.swift; sourceTree = "<group>"; };
+		65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewModel.swift; sourceTree = "<group>"; };
+		65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,8 +126,9 @@
 			children = (
 				65BDAABD2189F683007E887B /* DataLoader */,
 				65BDAAC22189F97F007E887B /* Model */,
+				65D2AD96218B30E7002BB0C9 /* View */,
+				65D2AD95218B3015002BB0C9 /* ViewModel */,
 				65BDAA8E2189F55C007E887B /* AppDelegate.swift */,
-				65BDAA902189F55C007E887B /* ViewController.swift */,
 				65BDAA952189F55D007E887B /* Assets.xcassets */,
 				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
 				65BDAA9A2189F55D007E887B /* Info.plist */,
@@ -154,6 +161,7 @@
 			children = (
 				65BDAABE2189F69C007E887B /* DataLoader.swift */,
 				65BDAAC02189F6CC007E887B /* GoogleSheetsDataLoader.swift */,
+				65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */,
 				65BDAAC52189FDA4007E887B /* DataConverter.swift */,
 			);
 			path = DataLoader;
@@ -176,6 +184,23 @@
 				65BDAAD2218A076B007E887B /* GoodData.json */,
 			);
 			path = DataLoader;
+			sourceTree = "<group>";
+		};
+		65D2AD95218B3015002BB0C9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				65D2AD97218B3105002BB0C9 /* ScoresViewModel.swift */,
+				65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		65D2AD96218B30E7002BB0C9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				65BDAA902189F55C007E887B /* ScoresViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,11 +334,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				65BDAAC42189F992007E887B /* JSONModel.swift in Sources */,
-				65BDAA912189F55C007E887B /* ViewController.swift in Sources */,
+				65D2AD9A218B330D002BB0C9 /* ScoreViewModel.swift in Sources */,
+				65BDAA912189F55C007E887B /* ScoresViewController.swift in Sources */,
 				65BDAAC82189FDE9007E887B /* DateFormatter+Extensions.swift in Sources */,
 				65BDAAC12189F6CC007E887B /* GoogleSheetsDataLoader.swift in Sources */,
+				65D2AD9C218B36DD002BB0C9 /* ImageLoader.swift in Sources */,
 				65BDAA8F2189F55C007E887B /* AppDelegate.swift in Sources */,
 				65BDAAC62189FDA4007E887B /* DataConverter.swift in Sources */,
+				65D2AD98218B3105002BB0C9 /* ScoresViewModel.swift in Sources */,
 				65BDAABF2189F69C007E887B /* DataLoader.swift in Sources */,
 				65BDAACA2189FEF8007E887B /* Model.swift in Sources */,
 			);
