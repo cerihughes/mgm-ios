@@ -62,10 +62,38 @@ extension ScoresViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) ?? UITableViewCell(style: .subtitle, reuseIdentifier: cellReuseIdentifier)
+        cell.imageView?.contentMode = .scaleAspectFit
         if let cellViewModel = viewModel.scoreViewModel(at: indexPath.row) {
             cell.textLabel?.text = cellViewModel.albumName
             cell.detailTextLabel?.text = cellViewModel.artistName
         }
         return cell
+    }
+
+    // MARK: UITableViewDelegate
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard
+            let imageView = cell.imageView,
+            let cellViewModel = viewModel.scoreViewModel(at: indexPath.row)
+            else {
+                return
+        }
+
+        imageView.image = cellViewModel.loadingImage
+
+        cellViewModel.loadAlbumCover { (image) in
+            if let image = image {
+                imageView.image = image
+            }
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cellViewModel = viewModel.scoreViewModel(at: indexPath.row) else {
+            return
+        }
+
+        cellViewModel.cancelLoadAlbumCover()
     }
 }

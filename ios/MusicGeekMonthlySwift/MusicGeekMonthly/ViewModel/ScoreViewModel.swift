@@ -10,26 +10,39 @@ protocol ScoreViewModel {
     /// An image to represent the restaurant's rating
     var ratingImage: UIImage? {get}
 
+    /// An image to show while the album art is loading
+    var loadingImage: UIImage? {get}
+
     /// Loads an album cover. Image data will be passed into the given completion block
     ///
+    /// - Parameter largestDimension: the largest dimension of the image to load (the loaded
+    ///                               image can be larger or smaller - this is just a guide)
     /// - Parameter completion: the completion block
-    func loadAlbumCover(_ completion: @escaping (UIImage?) -> Void)
+    func loadAlbumCover(largestDimension: Int, _ completion: @escaping (UIImage?) -> Void)
 
     /// Cancels any ongoing image load.
     func cancelLoadAlbumCover()
 }
 
-fileprivate let musicBrainzImageURLFormat = "http://coverartarchive.org/release/%@/front-250.jpg"
+extension ScoreViewModel {
+    func loadAlbumCover(_ completion: @escaping (UIImage?) -> Void) {
+        loadAlbumCover(largestDimension: 250, completion)
+    }
+}
+
+fileprivate let musicBrainzImageURLFormat = "https://coverartarchive.org/release/%@/front-%d.jpg"
 
 final class ScoreViewModelImplementation: NSObject, ScoreViewModel {
     private let imageLoader: ImageLoader
     private let album: Album
+    private let index: Int
 
     private var dataLoaderToken: DataLoaderToken? = nil
 
-    init(imageLoader: ImageLoader, album: Album) {
+    init(imageLoader: ImageLoader, album: Album, index: Int) {
         self.imageLoader = imageLoader
         self.album = album
+        self.index = index
     }
 
     var albumName: String {
@@ -44,8 +57,15 @@ final class ScoreViewModelImplementation: NSObject, ScoreViewModel {
         return nil
     }
 
-    func loadAlbumCover(_ completion: @escaping (UIImage?) -> Void) {
-        let urlString = String(format: musicBrainzImageURLFormat, album.MBID)
+    var loadingImage: UIImage? {
+        let suffix = (index % 3) + 1
+        let imageName = "album\(suffix)"
+        return UIImage(named: imageName)
+    }
+
+    func loadAlbumCover(largestDimension: Int, _ completion: @escaping (UIImage?) -> Void) {
+        let resolution = largestDimension >= 500 ? 500 : 250
+        let urlString = String(format: musicBrainzImageURLFormat, album.MBID, resolution)
         guard let url = URL(string: urlString) else {
             completion(nil)
             return
