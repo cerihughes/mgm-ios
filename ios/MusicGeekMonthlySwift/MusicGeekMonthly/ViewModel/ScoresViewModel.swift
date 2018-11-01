@@ -32,7 +32,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     private var scoreViewModels: [ScoreViewModel] = []
     private var dataLoaderToken: DataLoaderToken? = nil
 
-    let title = "Just Eat Restaurant Finder"
+    let title = "Album Scores"
     var message: String? = nil
 
     init(dataLoader: GoogleSheetsDataLoader, dataConverter: DataConverter, imageLoader: ImageLoader) {
@@ -99,9 +99,10 @@ final class ScoresViewModelImplementation: ScoresViewModel {
                 albums.append(newAlbum)
             }
         }
+
         // Descending sort by score
-        albums = albums.sorted { $0.score ?? 0.0 < $1.score ?? 0.0 }
-        self.scoreViewModels = albums.map { ScoreViewModelImplementation(imageLoader: imageLoader, album: $0) }
+        albums = albums.sorted { $0.score ?? 0.0 > $1.score ?? 0.0 }
+        self.scoreViewModels = albums.enumerated().map { ScoreViewModelImplementation(imageLoader: imageLoader, album: $0.element, index: $0.offset) }
         self.message = message
         completion()
     }
