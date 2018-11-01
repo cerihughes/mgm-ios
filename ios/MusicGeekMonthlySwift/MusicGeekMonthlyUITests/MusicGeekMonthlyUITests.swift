@@ -1,6 +1,6 @@
 //
-//  MusicGeekMonthlySwiftUITests.swift
-//  MusicGeekMonthlySwiftUITests
+//  MusicGeekMonthlyUITests.swift
+//  MusicGeekMonthlyUITests
 //
 //  Created by Ceri Hughes on 31/10/2018.
 //  Copyright © 2018 Ceri Hughes. All rights reserved.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class MusicGeekMonthlySwiftUITests: XCTestCase {
+class MusicGeekMonthlyUITests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
