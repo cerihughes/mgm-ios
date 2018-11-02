@@ -22,10 +22,10 @@ struct Images {
     let size640: String?
 
     func image(for size: Int) -> String? {
-        if size > 640 {
+        if size > 300 {
             return size640 ?? size300 ?? size64
         }
-        if size > 300 {
+        if size > 64 {
             return size300 ?? size640 ?? size64
         }
         return size64 ?? size300 ?? size640
