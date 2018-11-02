@@ -68,13 +68,18 @@ final class ScoreViewModelImplementation: NSObject, ScoreViewModel {
             return
         }
 
-        let urlString = String(format: spotifyImageURLFormat, imageID)
-        guard let url = URL(string: urlString) else {
+        var url = URL(string: imageID)
+        if url?.scheme == nil {
+            let urlString = String(format: spotifyImageURLFormat, imageID)
+            url = URL(string: urlString)
+        }
+
+        guard let imageURL = url else {
             completion(nil)
             return
         }
 
-        dataLoaderToken = imageLoader.loadImage(url: url) { (response) in
+        dataLoaderToken = imageLoader.loadImage(url: imageURL) { (response) in
             DispatchQueue.main.async {
                 switch (response) {
                 case .success(let image):
