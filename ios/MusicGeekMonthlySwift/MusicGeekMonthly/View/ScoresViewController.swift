@@ -85,8 +85,10 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
         }
 
         scoresCell.imageView.image = cellViewModel.loadingImage
+        scoresCell.showActivityIndicator()
 
         cellViewModel.loadAlbumCover { (image) in
+            scoresCell.hideActivityIndicator()
             if let image = image {
                 scoresCell.imageView.image = image
             }
