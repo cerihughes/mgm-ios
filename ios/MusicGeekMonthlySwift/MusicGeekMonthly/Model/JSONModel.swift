@@ -14,14 +14,18 @@ struct JSONEntry: Codable {
     let playlist: JSONStringValue?
     let classicArtist: JSONStringValue?
     let classicAlbum: JSONStringValue?
-    let classicMBID: JSONStringValue?
     let classicScore: JSONStringValue?
     let classicSpotifyID: JSONStringValue?
+    let classicImage64: JSONStringValue?
+    let classicImage300: JSONStringValue?
+    let classicImage640: JSONStringValue?
     let newArtist: JSONStringValue?
     let newAlbum: JSONStringValue?
-    let newMBID: JSONStringValue?
     let newScore: JSONStringValue?
     let newSpotifyID: JSONStringValue?
+    let newImage64: JSONStringValue?
+    let newImage300: JSONStringValue?
+    let newImage640: JSONStringValue?
 
     private enum CodingKeys: String, CodingKey {
         case ID = "gsx$id"
@@ -29,14 +33,18 @@ struct JSONEntry: Codable {
         case playlist = "gsx$playlist"
         case classicArtist = "gsx$classicartist"
         case classicAlbum = "gsx$classicalbum"
-        case classicMBID = "gsx$classicmbid"
         case classicScore = "gsx$classicscore"
         case classicSpotifyID = "gsx$classicspotifyid"
+        case classicImage64 = "gsx$classicimage64"
+        case classicImage300 = "gsx$classicimage300"
+        case classicImage640 = "gsx$classicimage640"
         case newArtist = "gsx$newartist"
         case newAlbum = "gsx$newalbum"
-        case newMBID = "gsx$newmbid"
         case newScore = "gsx$newscore"
         case newSpotifyID = "gsx$newspotifyid"
+        case newImage64 = "gsx$newimage64"
+        case newImage300 = "gsx$newimage300"
+        case newImage640 = "gsx$newimage640"
     }
 }
 

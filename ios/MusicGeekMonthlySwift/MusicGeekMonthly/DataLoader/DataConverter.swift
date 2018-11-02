@@ -43,7 +43,7 @@ final class DataConverterImplementation: DataConverter {
         }
 
         for entry in entries {
-            if let event = createEvent(for: entry) {
+            if let event = createEvent(from: entry) {
                 events.append(event)
             }
         }
@@ -51,7 +51,7 @@ final class DataConverterImplementation: DataConverter {
         return events
     }
 
-    private func createEvent(for entry: JSONEntry) -> Event? {
+    private func createEvent(from entry: JSONEntry) -> Event? {
         guard let number = Int(entry.ID?.processedValue ?? "") else {
             return nil
         }
@@ -59,8 +59,8 @@ final class DataConverterImplementation: DataConverter {
         let dateString = entry.date?.processedValue
         let date = dateFormatter.date(from: dateString ?? "")
         let spotifyPlaylistID = entry.playlist?.processedValue
-        let classicAlbum = createClassicAlbum(for: entry)
-        let newAlbum = createNewAlbum(for: entry)
+        let classicAlbum = createClassicAlbum(from: entry)
+        let newAlbum = createNewAlbum(from: entry)
         return Event(number: number,
                      date: date,
                      spotifyPlaylistID: spotifyPlaylistID,
@@ -68,9 +68,8 @@ final class DataConverterImplementation: DataConverter {
                      newAlbum: newAlbum)
     }
 
-    private func createClassicAlbum(for entry: JSONEntry) -> Album? {
+    private func createClassicAlbum(from entry: JSONEntry) -> Album? {
         guard
-            let MBID = entry.classicMBID?.processedValue,
             let name = entry.classicAlbum?.processedValue,
             let artist = entry.classicArtist?.processedValue
             else {
@@ -79,17 +78,23 @@ final class DataConverterImplementation: DataConverter {
 
         let score = Float(entry.classicScore?.processedValue ?? "")
         let spotifyID = entry.classicSpotifyID?.processedValue
+        let images = createClassicImages(from: entry)
 
         return Album(spotifyID: spotifyID,
-                     MBID: MBID,
                      name: name,
                      artist: artist,
-                     score: score)
+                     score: score,
+                     images: images)
     }
 
-    private func createNewAlbum(for entry: JSONEntry) -> Album? {
+    private func createClassicImages(from entry: JSONEntry) -> Images {
+        return Images(size64: entry.classicImage64?.processedValue,
+                      size300: entry.classicImage300?.processedValue,
+                      size640: entry.classicImage640?.processedValue)
+    }
+
+    private func createNewAlbum(from entry: JSONEntry) -> Album? {
         guard
-            let MBID = entry.newMBID?.processedValue,
             let name = entry.newAlbum?.processedValue,
             let artist = entry.newArtist?.processedValue
             else {
@@ -98,11 +103,18 @@ final class DataConverterImplementation: DataConverter {
 
         let score = Float(entry.newScore?.processedValue ?? "")
         let spotifyID = entry.newSpotifyID?.processedValue
+        let images = createNewImages(from: entry)
 
         return Album(spotifyID: spotifyID,
-                     MBID: MBID,
                      name: name,
                      artist: artist,
-                     score: score)
+                     score: score,
+                     images: images)
+    }
+
+    private func createNewImages(from entry: JSONEntry) -> Images {
+        return Images(size64: entry.newImage64?.processedValue,
+                      size300: entry.newImage300?.processedValue,
+                      size640: entry.newImage640?.processedValue)
     }
 }

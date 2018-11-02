@@ -30,7 +30,7 @@ extension ScoreViewModel {
     }
 }
 
-fileprivate let musicBrainzImageURLFormat = "https://coverartarchive.org/release/%@/front-%d.jpg"
+fileprivate let spotifyImageURLFormat = "https://i.scdn.co/image/%@"
 
 final class ScoreViewModelImplementation: NSObject, ScoreViewModel {
     private let imageLoader: ImageLoader
@@ -64,8 +64,11 @@ final class ScoreViewModelImplementation: NSObject, ScoreViewModel {
     }
 
     func loadAlbumCover(largestDimension: Int, _ completion: @escaping (UIImage?) -> Void) {
-        let resolution = largestDimension >= 500 ? 500 : 250
-        let urlString = String(format: musicBrainzImageURLFormat, album.MBID, resolution)
+        guard let imageID = album.images.image(for: largestDimension) else {
+            return
+        }
+
+        let urlString = String(format: spotifyImageURLFormat, imageID)
         guard let url = URL(string: urlString) else {
             completion(nil)
             return
