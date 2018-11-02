@@ -32,8 +32,9 @@ class ScoresViewController: UIViewController {
 
         navigationItem.title = viewModel.title
 
-        view.tableView.dataSource = self
-        view.tableView.delegate = self
+        view.collectionView.register(ScoresCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        view.collectionView.dataSource = self
+        view.collectionView.delegate = self
     }
 
     // MARK: Private
@@ -47,49 +48,52 @@ class ScoresViewController: UIViewController {
             ratesView.showMessage(message)
         } else {
             ratesView.showTableView()
-            ratesView.tableView.reloadData()
+            ratesView.collectionView.reloadData()
         }
     }
 }
 
-extension ScoresViewController: UITableViewDataSource, UITableViewDelegate {
+extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
-    // MARK: UITableViewDataSource
+    // MARK: UICollectionViewDataSource
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfScores
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) ?? UITableViewCell(style: .subtitle, reuseIdentifier: cellReuseIdentifier)
-        cell.imageView?.contentMode = .scaleAspectFit
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
+        guard let scoresCell = cell as? ScoresCollectionViewCell else {
+            return cell
+        }
+
         if let cellViewModel = viewModel.scoreViewModel(at: indexPath.row) {
-            cell.textLabel?.text = cellViewModel.albumName
-            cell.detailTextLabel?.text = cellViewModel.artistName
+            scoresCell.albumLabel.text = cellViewModel.albumName
+            scoresCell.artistLabel.text = cellViewModel.artistName
         }
         return cell
     }
 
-    // MARK: UITableViewDelegate
+    // MARK: UICollectionViewDelegate
 
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard
-            let imageView = cell.imageView,
-            let cellViewModel = viewModel.scoreViewModel(at: indexPath.row)
+            let cellViewModel = viewModel.scoreViewModel(at: indexPath.row),
+            let scoresCell = cell as? ScoresCollectionViewCell
             else {
                 return
         }
 
-        imageView.image = cellViewModel.loadingImage
+        scoresCell.imageView.image = cellViewModel.loadingImage
 
         cellViewModel.loadAlbumCover { (image) in
             if let image = image {
-                imageView.image = image
+                scoresCell.imageView.image = image
             }
         }
     }
 
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cellViewModel = viewModel.scoreViewModel(at: indexPath.row) else {
             return
         }

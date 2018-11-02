@@ -2,19 +2,21 @@ import UIKit
 
 /// A view that represents a list of albums and their scores
 class ScoresView: UIView {
-    let tableView = UITableView()
+    let collectionView: UICollectionView
     let searchBar = UISearchBar()
     private let messageView = UILabel()
     private let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
 
     override init(frame: CGRect) {
+        let layout = ScoresCollectionViewLayout(itemHeight: 64.0, verticalSpacing: 4.0)
+        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         super.init(frame: frame)
 
         backgroundColor = .lightGray
 
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.isHidden = true
-        tableView.accessibilityIdentifier = "mgm:scores:tableView"
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isHidden = true
+        collectionView.accessibilityIdentifier = "mgm:scores:collectionView"
 
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = "Filter"
@@ -29,32 +31,31 @@ class ScoresView: UIView {
         activityIndicatorView.hidesWhenStopped = true
         activityIndicatorView.accessibilityIdentifier = "mgm:scores:activityView"
 
-        addSubview(tableView)
+        addSubview(collectionView)
         addSubview(searchBar)
         addSubview(messageView)
         addSubview(activityIndicatorView)
 
-        let messageViewCenterX = messageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor)
-        let messageViewCenterY = messageView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor)
-        let messageViewLeading = messageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor)
-        let messageViewTrailing = messageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
+        var constraints: [NSLayoutConstraint] = []
 
-        let searchBarLeading = searchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor)
-        let searchBarTrailing = searchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
-        let searchBarTop = searchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
+        constraints.append(contentsOf: messageView.anchorTo(leadingAnchor: safeAreaLayoutGuide.leadingAnchor,
+                                                            trailingAnchor: safeAreaLayoutGuide.trailingAnchor,
+                                                            centerXAnchor: safeAreaLayoutGuide.centerXAnchor,
+                                                            centerYAnchor: safeAreaLayoutGuide.centerYAnchor))
 
-        let tableViewLeading = tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor)
-        let tableViewTrailing = tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
-        let tableViewTop = tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor)
-        let tableViewBottom = tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+        constraints.append(contentsOf: searchBar.anchorTo(leadingAnchor: safeAreaLayoutGuide.leadingAnchor,
+                                                          trailingAnchor: safeAreaLayoutGuide.trailingAnchor,
+                                                          topAnchor: safeAreaLayoutGuide.topAnchor))
 
-        let activityIndicatorViewCenterX = activityIndicatorView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor)
-        let activityIndicatorViewCenterY = activityIndicatorView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor)
+        constraints.append(contentsOf: collectionView.anchorTo(leadingAnchor: safeAreaLayoutGuide.leadingAnchor,
+                                                               trailingAnchor: safeAreaLayoutGuide.trailingAnchor,
+                                                               topAnchor: searchBar.bottomAnchor,
+                                                               bottomAnchor: safeAreaLayoutGuide.bottomAnchor))
 
-        NSLayoutConstraint.activate([messageViewCenterX, messageViewCenterY, messageViewLeading, messageViewTrailing,
-                                     searchBarLeading, searchBarTrailing, searchBarTop,
-                                     tableViewLeading, tableViewTrailing, tableViewTop, tableViewBottom,
-                                     activityIndicatorViewCenterX, activityIndicatorViewCenterY])
+        constraints.append(contentsOf: activityIndicatorView.anchorTo(centerXAnchor: safeAreaLayoutGuide.centerXAnchor,
+                                                                      centerYAnchor: safeAreaLayoutGuide.centerYAnchor))
+
+        NSLayoutConstraint.activate(constraints)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -63,13 +64,13 @@ class ScoresView: UIView {
 
     func showTableView() {
         messageView.isHidden = true
-        tableView.isHidden = false
+        collectionView.isHidden = false
     }
 
     func showMessage(_ message: String) {
         messageView.text = message
         messageView.isHidden = false
-        tableView.isHidden = true
+        collectionView.isHidden = true
     }
 
     func showActivityIndicator() {
