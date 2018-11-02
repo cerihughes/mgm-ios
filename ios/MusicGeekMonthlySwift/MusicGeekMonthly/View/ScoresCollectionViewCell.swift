@@ -6,10 +6,12 @@ class ScoresCollectionViewCell: UICollectionViewCell {
     let albumLabel = UILabel()
     let artistLabel = UILabel()
 
-    private let spacing: CGFloat = 8.0
+    private let spacing: CGFloat = 4.0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        backgroundColor = .darkGray
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -18,7 +20,10 @@ class ScoresCollectionViewCell: UICollectionViewCell {
         activityIndicatorView.hidesWhenStopped = true
 
         albumLabel.translatesAutoresizingMaskIntoConstraints = false
+        albumLabel.font = UIFont.systemFont(ofSize: 14)
+
         artistLabel.translatesAutoresizingMaskIntoConstraints = false
+        artistLabel.font = UIFont.italicSystemFont(ofSize: 14)
 
         addSubview(imageView)
         addSubview(activityIndicatorView)
@@ -27,9 +32,19 @@ class ScoresCollectionViewCell: UICollectionViewCell {
 
         var constraints: [NSLayoutConstraint] = []
 
+        constraints.append(contentsOf: albumLabel.anchorTo(leadingAnchor: imageView.trailingAnchor, leadingConstant: spacing,
+                                                           trailingAnchor: trailingAnchor, trailingConstant: -spacing,
+                                                            topAnchor: topAnchor, topConstant: spacing,
+                                                            bottomAnchor: artistLabel.topAnchor, bottomConstant: -spacing));
+
+        constraints.append(contentsOf: artistLabel.anchorTo(leadingAnchor: imageView.trailingAnchor, leadingConstant: spacing,
+                                                            trailingAnchor: trailingAnchor, trailingConstant: -spacing,
+                                                            bottomAnchor: bottomAnchor, bottomConstant: -spacing,
+                                                            heightAnchor: albumLabel.heightAnchor));
+
         constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: leadingAnchor, leadingConstant: spacing,
                                                           topAnchor: topAnchor, topConstant: spacing,
-                                                          bottomAnchor: bottomAnchor, bottomConstant: spacing,
+                                                          bottomAnchor: bottomAnchor, bottomConstant: -spacing,
                                                           widthAnchor: imageView.heightAnchor));
 
         constraints.append(contentsOf: activityIndicatorView.anchorTo(centerXAnchor: imageView.centerXAnchor,

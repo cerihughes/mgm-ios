@@ -24,12 +24,6 @@ protocol ScoreViewModel {
     func cancelLoadAlbumCover()
 }
 
-extension ScoreViewModel {
-    func loadAlbumCover(_ completion: @escaping (UIImage?) -> Void) {
-        loadAlbumCover(largestDimension: 250, completion)
-    }
-}
-
 fileprivate let spotifyImageURLFormat = "https://i.scdn.co/image/%@"
 
 final class ScoreViewModelImplementation: NSObject, ScoreViewModel {
