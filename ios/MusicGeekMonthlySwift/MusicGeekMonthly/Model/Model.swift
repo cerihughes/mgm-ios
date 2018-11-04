@@ -8,7 +8,12 @@ struct Event {
     let newAlbum: Album?
 }
 
+enum AlbumType {
+    case classic, new
+}
+
 struct Album {
+    let type: AlbumType
     let spotifyID: String?
     let name: String
     let artist: String
