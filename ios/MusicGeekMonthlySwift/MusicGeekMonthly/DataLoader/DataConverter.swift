@@ -80,7 +80,8 @@ final class DataConverterImplementation: DataConverter {
         let spotifyID = entry.classicSpotifyID?.processedValue
         let images = createClassicImages(from: entry)
 
-        return Album(spotifyID: spotifyID,
+        return Album(type: .classic,
+                     spotifyID: spotifyID,
                      name: name,
                      artist: artist,
                      score: score,
@@ -105,7 +106,8 @@ final class DataConverterImplementation: DataConverter {
         let spotifyID = entry.newSpotifyID?.processedValue
         let images = createNewImages(from: entry)
 
-        return Album(spotifyID: spotifyID,
+        return Album(type: .new,
+                     spotifyID: spotifyID,
                      name: name,
                      artist: artist,
                      score: score,
