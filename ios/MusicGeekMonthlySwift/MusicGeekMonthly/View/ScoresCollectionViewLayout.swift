@@ -69,6 +69,9 @@ class ScoresCollectionViewLayout: UICollectionViewLayout {
     }
 
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return false
+        guard let collectionView = collectionView else {
+            return false
+        }
+        return collectionView.bounds.width != newBounds.width
     }
 }

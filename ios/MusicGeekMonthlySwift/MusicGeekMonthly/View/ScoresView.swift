@@ -8,7 +8,7 @@ class ScoresView: UIView {
     private let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
 
     override init(frame: CGRect) {
-        let layout = ScoresCollectionViewLayout(itemHeight: 64.0, spacing: 4.0)
+        let layout = ScoresCollectionViewLayout(itemHeight: 64.0, spacing: 1.0)
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.backgroundColor = .black
 
