@@ -13,6 +13,12 @@ protocol ScoresViewModel {
     /// Any error / info message that needs to be rendered.
     var message: String? {get}
 
+    /// The placeholder to show when no filter is used
+    var filterPlaceholder: String {get}
+
+    /// A filter to apply to results
+    var filter: String? {get set}
+
     /// Loads data. The completion block will be fired when data is available.
     func loadData(_ completion: @escaping () -> Void)
 
@@ -30,10 +36,18 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     private let imageLoader: ImageLoader
 
     private var scoreViewModels: [ScoreViewModel] = []
+    private var filteredScoreViewModels: [ScoreViewModel] = []
     private var dataLoaderToken: DataLoaderToken? = nil
+
+    var filter: String? = nil {
+        didSet {
+            applyFilter()
+        }
+    }
 
     let title = "Album Scores"
     var message: String? = nil
+    let filterPlaceholder = "Filter by album, artist or score"
 
     init(dataLoader: GoogleSheetsDataLoader, dataConverter: DataConverter, imageLoader: ImageLoader) {
         self.dataLoader = dataLoader
@@ -61,15 +75,15 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     }
 
     var numberOfScores: Int {
-        return scoreViewModels.count
+        return filteredScoreViewModels.count
     }
 
     func scoreViewModel(at index: Int) -> ScoreViewModel? {
-        guard index < scoreViewModels.count else {
+        guard index < filteredScoreViewModels.count else {
             return nil
         }
 
-        return scoreViewModels[index]
+        return filteredScoreViewModels[index]
     }
 
     // MARK: Private
@@ -100,10 +114,33 @@ final class ScoresViewModelImplementation: ScoresViewModel {
             }
         }
 
-        // Descending sort by score
-        albums = albums.sorted { $0.score ?? 0.0 > $1.score ?? 0.0 }
+        // Remove scoreless albums, then apply descending sort by score
+        albums = albums.filter { $0.score != nil }.sorted { $0.score ?? 0.0 > $1.score ?? 0.0 }
         self.scoreViewModels = albums.enumerated().map { ScoreViewModelImplementation(imageLoader: imageLoader, album: $0.element, index: $0.offset) }
         self.message = message
+
+        applyFilter()
         completion()
+    }
+
+    private func applyFilter() {
+        guard
+            let trimmed = filter?.trimmingCharacters(in: .whitespacesAndNewlines),
+            trimmed.count > 0,
+            self.scoreViewModels.count > 0
+            else {
+                self.filteredScoreViewModels = self.scoreViewModels
+                self.message = nil
+                return
+        }
+
+        self.filteredScoreViewModels = self.scoreViewModels.filter { $0.albumName.mgm_contains(filter: trimmed) || $0.artistName.mgm_contains(filter: trimmed) || $0.rating.starts(with: trimmed) }
+        self.message = self.filteredScoreViewModels.count == 0 ? "No results for filter: \(trimmed)" : nil
+    }
+}
+
+extension String {
+    func mgm_contains(filter: String) -> Bool {
+        return self.range(of: filter, options: .caseInsensitive) != nil
     }
 }
