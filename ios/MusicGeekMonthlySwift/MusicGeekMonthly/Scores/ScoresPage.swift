@@ -23,7 +23,11 @@ class ScoresPage: PageFactory, Page {
         let dataConverter = DataConverterImplementation()
         let viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: googleSheetsDataLoader, dataConverter: dataConverter)
         let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
-        return ScoresViewController(forwardNavigationContext: forwardNavigationContext, viewModel: viewModel)
+        let viewController = ScoresViewController(forwardNavigationContext: forwardNavigationContext, viewModel: viewModel)
+        viewController.tabBarItem.title = "Album Scores"
+        viewController.tabBarItem.image = UIImage(named: "ruler")
+
+        return viewController
     }
 
 }

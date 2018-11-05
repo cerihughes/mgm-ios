@@ -5,7 +5,7 @@ import UIKit
 /// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
 class NavigationUI: ForwardNavigationContext {
     private let registry = ViewControllerRegistry<ResourceLocator>()
-    private let navigationController = UINavigationController()
+    private let tabBarController = UITabBarController()
 
     init(pageLoader: PageLoader) {
         registry.forwardNavigationContext = self
@@ -16,33 +16,25 @@ class NavigationUI: ForwardNavigationContext {
             page.register(with: registry)
         }
 
-        let initialViewController = registry.createInitialViewController()
-        navigationController.pushViewController(initialViewController, animated: false)
+        let initialViewControllers = registry.createInitialViewControllers()
+        // For now, sort by reverse alphabetic order (so that "Latest Event" comes 1st - improve this when we need to...
+        let sortedViewControllers = initialViewControllers.sorted { $0.tabBarItem.title ?? "" > $1.tabBarItem.title ?? "" }
+        let navigationControllers = sortedViewControllers.map { UINavigationController(rootViewController: $0) }
+        tabBarController.viewControllers = navigationControllers
     }
 
     var initialViewController: UIViewController {
-        return navigationController
+        return tabBarController
     }
 
     // MARK: ForwardNavigationContext
 
-    func navigate<T>(with token: T, animated: Bool) -> Bool {
-        if let rl = token as? ResourceLocator, let viewController = registry.createViewController(from: rl) {
-            navigationController.pushViewController(viewController, animated: animated)
+    func navigate<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> Bool {
+        if let rl = token as? ResourceLocator,
+            let toViewController = registry.createViewController(from: rl),
+            let navigationController = fromViewController.navigationController {
+            navigationController.pushViewController(toViewController, animated: animated)
         }
-        return false
-    }
-
-    func leave(viewController: UIViewController, animated: Bool) -> Bool {
-        guard let topViewController = navigationController.topViewController else {
-            return false
-        }
-
-        if topViewController == viewController {
-            navigationController.popViewController(animated: animated)
-            return true
-        }
-
         return false
     }
 }

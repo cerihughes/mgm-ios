@@ -11,7 +11,7 @@ class LatestEventPage: PageFactory, Page {
     // MARK: Page
 
     func register<T>(with registry: ViewControllerRegistry<T>) {
-//        _ = registry.add(initialRegistryFunction: createViewController(forwardNavigationContext:))
+        _ = registry.add(initialRegistryFunction: createViewController(forwardNavigationContext:))
     }
 
     // MARK: Private
@@ -23,6 +23,11 @@ class LatestEventPage: PageFactory, Page {
         let dataConverter = DataConverterImplementation()
         let viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: googleSheetsDataLoader, dataConverter: dataConverter)
         let viewModel = LatestEventViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
-        return LatestEventViewController(forwardNavigationContext: forwardNavigationContext, viewModel: viewModel)
+        let viewController = LatestEventViewController(forwardNavigationContext: forwardNavigationContext, viewModel: viewModel)
+        viewController.tabBarItem.title = "Latest Event"
+        viewController.tabBarItem.image = UIImage(named: "calendar")
+
+        return viewController
+
     }
 }
