@@ -12,6 +12,9 @@ protocol LatestEventAlbumViewModel: AlbumArtViewModel {
 
     // The event date
     var eventDate: String {get}
+
+    /// The spotify album ID to navigate to on interaction
+    var spotifyAlbumID: String? {get}
 }
 
 final class LatestEventAlbumViewModelImplementation: AlbumArtViewModelImplementation, LatestEventAlbumViewModel {
@@ -43,5 +46,9 @@ final class LatestEventAlbumViewModelImplementation: AlbumArtViewModelImplementa
 
     var eventDate: String {
         return ""
+    }
+
+    var spotifyAlbumID: String? {
+        return album.spotifyID
     }
 }

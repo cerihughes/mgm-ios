@@ -127,4 +127,16 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
 
         albumViewModel.cancelLoadAlbumCover()
     }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard
+            let albumViewModel = albumViewModel(for: indexPath),
+            let spotifyAlbumID = albumViewModel.spotifyAlbumID
+            else {
+                return
+        }
+
+        let rl = ResourceLocator.createSpotifyResourceLocator(albumID: spotifyAlbumID)
+        _ = forwardNavigationContext.navigate(with: rl, from: self, animated: true)
+    }
 }
