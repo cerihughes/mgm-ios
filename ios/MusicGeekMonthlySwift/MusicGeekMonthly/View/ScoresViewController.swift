@@ -82,7 +82,7 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
         guard
             let cellViewModel = viewModel.scoreViewModel(at: indexPath.row),
             let scoresCell = cell as? ScoresCollectionViewCell,
-            let layout = collectionView.collectionViewLayout as? ScoresCollectionViewLayout
+            let layout = collectionView.collectionViewLayout as? FullWidthCollectionViewLayout
             else {
                 return
         }
@@ -96,7 +96,7 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
 
         scoresCell.showActivityIndicator()
 
-        let imageViewSize = layout.imageViewSize
+        let imageViewSize = layout.contentViewSize
         let largestDimension = Int(max(imageViewSize.width, imageViewSize.height) * collectionView.traitCollection.displayScale)
 
         cellViewModel.loadAlbumCover(largestDimension: largestDimension) { (image) in

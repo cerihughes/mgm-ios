@@ -1,12 +1,11 @@
 import UIKit
 
-/// A view that represents a list of albums and their scores
-class ScoresView: View {
+/// A view that represents the latest event, and the albums being reviewed
+class LatestEventView: View {
     let collectionView: UICollectionView
-    let searchBar = UISearchBar()
 
     override init(frame: CGRect) {
-        let layout = FullWidthCollectionViewLayout(itemHeight: 64.0, spacing: 1.0)
+        let layout = FullWidthCollectionViewLayout(itemHeight: 128.0, spacing: 4.0)
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
 
         super.init(frame: frame)
@@ -16,23 +15,15 @@ class ScoresView: View {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .lightGray
         collectionView.isHidden = true
-        collectionView.accessibilityIdentifier = "mgm:scores:collectionView"
-
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.showsCancelButton = true
+        collectionView.accessibilityIdentifier = "mgm:latestEvent:collectionView"
 
         addSubview(collectionView)
-        addSubview(searchBar)
 
         var constraints: [NSLayoutConstraint] = []
 
-        constraints.append(contentsOf: searchBar.anchorTo(leadingAnchor: safeAreaLayoutGuide.leadingAnchor,
-                                                          trailingAnchor: safeAreaLayoutGuide.trailingAnchor,
-                                                          topAnchor: safeAreaLayoutGuide.topAnchor))
-
         constraints.append(contentsOf: collectionView.anchorTo(leadingAnchor: safeAreaLayoutGuide.leadingAnchor,
                                                                trailingAnchor: safeAreaLayoutGuide.trailingAnchor,
-                                                               topAnchor: searchBar.bottomAnchor,
+                                                               topAnchor: safeAreaLayoutGuide.topAnchor,
                                                                bottomAnchor: safeAreaLayoutGuide.bottomAnchor))
 
         NSLayoutConstraint.activate(constraints)

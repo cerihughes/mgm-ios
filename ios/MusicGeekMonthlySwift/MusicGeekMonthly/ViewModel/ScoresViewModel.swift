@@ -31,8 +31,7 @@ protocol ScoresViewModel {
 
 /// Default implementation of ScoresViewModel
 final class ScoresViewModelImplementation: ScoresViewModel {
-    private let dataLoader: GoogleSheetsDataLoader
-    private let dataConverter: DataConverter
+    private let dataLoader: ViewModelDataLoader
     private let imageLoader: ImageLoader
 
     private var scoreViewModels: [ScoreViewModel] = []
@@ -49,9 +48,8 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     var message: String? = nil
     let filterPlaceholder = "Filter by album, artist or score"
 
-    init(dataLoader: GoogleSheetsDataLoader, dataConverter: DataConverter, imageLoader: ImageLoader) {
+    init(dataLoader: ViewModelDataLoader, imageLoader: ImageLoader) {
         self.dataLoader = dataLoader
-        self.dataConverter = dataConverter
         self.imageLoader = imageLoader
     }
 
@@ -65,8 +63,8 @@ final class ScoresViewModelImplementation: ScoresViewModel {
                 self.dataLoaderToken = nil
 
                 switch (response) {
-                case .success(let data):
-                    self.handleDataLoaderSuccess(data: data, completion)
+                case .success(let events):
+                    self.handleDataLoaderSuccess(events: events, completion)
                 case .failure(let error):
                     self.handleDataLoaderFailure(error: error, completion)
                 }
@@ -88,15 +86,9 @@ final class ScoresViewModelImplementation: ScoresViewModel {
 
     // MARK: Private
 
-    private func handleDataLoaderSuccess(data: Data, _ completion: () -> Void) {
-        let response = dataConverter.convert(data: data)
-        switch (response) {
-        case .success(let events):
-            let message = events.count == 0 ? "No events returned" : nil
-            updateStateAndNotify(events: events, message: message, completion)
-        case .failure(let error):
-            handleDataLoaderFailure(error: error, completion)
-        }
+    private func handleDataLoaderSuccess(events: [Event], _ completion: () -> Void) {
+        let message = events.count == 0 ? "No events returned" : nil
+        updateStateAndNotify(events: events, message: message, completion)
     }
 
     private func handleDataLoaderFailure(error: Error, _ completion: () -> Void) {
