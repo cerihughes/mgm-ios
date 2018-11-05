@@ -1,7 +1,7 @@
 import UIKit
 
 /// A view that represents the latest event, and the albums being reviewed
-class LatestEventView: View {
+class LatestEventView: DataLoadingView {
     let collectionView: UICollectionView
 
     override init(frame: CGRect) {

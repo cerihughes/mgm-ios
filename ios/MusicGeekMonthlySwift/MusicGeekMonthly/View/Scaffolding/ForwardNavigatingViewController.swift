@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController {
+class ForwardNavigatingViewController: UIViewController {
     let forwardNavigationContext: ForwardNavigationContext
 
     init(forwardNavigationContext: ForwardNavigationContext) {

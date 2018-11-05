@@ -2,7 +2,7 @@ import UIKit
 
 fileprivate let cellReuseIdentifier = "ScoresViewController_CellReuseIdentifier"
 
-class ScoresViewController: ViewController {
+class ScoresViewController: ForwardNavigatingViewController {
     private var viewModel: ScoresViewModel
 
     init(forwardNavigationContext: ForwardNavigationContext, viewModel: ScoresViewModel) {

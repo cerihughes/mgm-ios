@@ -1,7 +1,7 @@
 import UIKit
 
 /// A view that represents a list of albums and their scores
-class ScoresView: View {
+class ScoresView: DataLoadingView {
     let collectionView: UICollectionView
     let searchBar = UISearchBar()
 
