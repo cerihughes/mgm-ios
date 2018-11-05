@@ -38,8 +38,8 @@ final class ViewControllerRegistry<T> {
         registry.removeValue(forKey: token)
     }
 
-    func createInitialViewController() -> UIViewController {
-        guard let initialFunction = initialRegistry.values.first else {
+    func createInitialViewControllers() -> [UIViewController] {
+        guard initialRegistry.count > 0 else {
             fatalError("No initial view controllers are registered")
         }
 
@@ -47,11 +47,7 @@ final class ViewControllerRegistry<T> {
             fatalError("Forward navigation context not set")
         }
 
-        if initialRegistry.count > 1 {
-            print("Warning: More than 1 initial registry function is registered. There are no guarantees about which will be used.")
-        }
-
-        return initialFunction(forwardNavigationContext)
+        return initialRegistry.values.map { $0(forwardNavigationContext) }
     }
 
     func createViewController(from token: T) -> UIViewController? {

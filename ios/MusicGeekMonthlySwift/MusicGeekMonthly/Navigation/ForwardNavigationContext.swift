@@ -1,5 +1,5 @@
-import Foundation
+import UIKit
 
 protocol ForwardNavigationContext: class {
-    func navigate<T>(with token: T, animated: Bool) -> Bool
+    func navigate<T>(with token: T, from fromViewController: UIViewController, animated: Bool) -> Bool
 }

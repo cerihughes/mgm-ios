@@ -126,7 +126,7 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
         }
 
         let rl = ResourceLocator.createSpotifyResourceLocator(albumID: spotifyAlbumID)
-        _ = forwardNavigationContext.navigate(with: rl, animated: true)
+        _ = forwardNavigationContext.navigate(with: rl, from: self, animated: true)
     }
 
     private func dismissKeyboard() {
