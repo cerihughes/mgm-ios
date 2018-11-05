@@ -13,13 +13,15 @@ class ScoresView: UIView {
 
         super.init(frame: frame)
 
+        backgroundColor = .white
+
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .lightGray
         collectionView.isHidden = true
         collectionView.accessibilityIdentifier = "mgm:scores:collectionView"
 
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.placeholder = "Filter"
+        searchBar.showsCancelButton = true
 
         messageView.translatesAutoresizingMaskIntoConstraints = false
         messageView.isHidden = true
@@ -62,7 +64,7 @@ class ScoresView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func showTableView() {
+    func showResults() {
         messageView.isHidden = true
         collectionView.isHidden = false
     }
