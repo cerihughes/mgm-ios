@@ -2,15 +2,15 @@ import UIKit
 
 let spotifyLaunchPageIdentifier = "spotifyLaunchPageIdentifier"
 
-class SpotifyLaunchPage: ViewControllerProviderFactory, ViewControllerProvider {
+class SpotifyLaunchPage: PageFactory, Page {
 
-    // MARK: ViewControllerProviderFactory
+    // MARK: PageFactory
 
-    static func createViewControllerProvider() -> ViewControllerProvider {
+    static func createPage() -> Page {
         return SpotifyLaunchPage()
     }
 
-    // MARK: ViewControllerProvider
+    // MARK: Page
 
     func register<T>(with registry: ViewControllerRegistry<T>) {
         _ = registry.add(registryFunction: createViewController(token:context:))

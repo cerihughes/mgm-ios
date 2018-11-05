@@ -7,13 +7,13 @@ class UI: ForwardNavigationContext {
     private let registry = ViewControllerRegistry<ResourceLocator>()
     private let navigationController = UINavigationController()
 
-    init(viewControllerProviderLoader: ViewControllerProviderLoader) {
+    init(pageLoader: PageLoader) {
         registry.forwardNavigationContext = self
 
-        let viewControllerProviderFactories = viewControllerProviderLoader.viewControllerProviderFactories()
-        for viewControllerProviderFactory in viewControllerProviderFactories {
-            let viewControllerProvider = viewControllerProviderFactory.createViewControllerProvider()
-            viewControllerProvider.register(with: registry)
+        let pageFactories = pageLoader.pageFactories()
+        for pageFactory in pageFactories {
+            let page = pageFactory.createPage()
+            page.register(with: registry)
         }
 
         let initialViewController = registry.createInitialViewController()

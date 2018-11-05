@@ -1,14 +1,14 @@
 import UIKit
 
-class ScoresPage: ViewControllerProviderFactory, ViewControllerProvider {
+class ScoresPage: PageFactory, Page {
 
-    // MARK: ViewControllerProviderFactory
+    // MARK: PageFactory
 
-    static func createViewControllerProvider() -> ViewControllerProvider {
+    static func createPage() -> Page {
         return ScoresPage()
     }
 
-    // MARK: ViewControllerProvider
+    // MARK: Page
 
     func register<T>(with registry: ViewControllerRegistry<T>) {
         _ = registry.add(initialRegistryFunction: createViewController(forwardNavigationContext:))
