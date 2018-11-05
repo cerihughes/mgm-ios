@@ -1,6 +1,6 @@
 import UIKit
 
-class ScoresCollectionViewLayout: UICollectionViewLayout {
+class FullWidthCollectionViewLayout: UICollectionViewLayout {
     private let itemHeight: CGFloat
     private let spacing: CGFloat
 
@@ -17,7 +17,7 @@ class ScoresCollectionViewLayout: UICollectionViewLayout {
         fatalError("init(coder:) has not been implemented")
     }
 
-    var imageViewSize: CGSize {
+    var contentViewSize: CGSize {
         let dimension = itemHeight - (2 * spacing)
         return CGSize(width: dimension, height: dimension)
     }

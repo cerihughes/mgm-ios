@@ -12,8 +12,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let googleSheetsDataLoader = GoogleSheetsDataLoaderImplementation(dataLoader: dataLoader)
         let imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)
         let dataConverter = DataConverterImplementation()
-        let viewModel = ScoresViewModelImplementation(dataLoader: googleSheetsDataLoader, dataConverter: dataConverter, imageLoader: imageLoader)
+        let viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: googleSheetsDataLoader, dataConverter: dataConverter)
+        let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
         let viewController = ScoresViewController(viewModel: viewModel)
+//        let viewModel = LatestEventViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
+//        let viewController = LatestEventViewController(viewModel: viewModel)
         let navigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()

@@ -1,6 +1,6 @@
 import UIKit
 
-protocol ScoreViewModel {
+protocol ScoreViewModel: AlbumArtViewModel {
     /// The album name
     var albumName: String {get}
 
@@ -18,22 +18,7 @@ protocol ScoreViewModel {
 
     /// The "chart" position
     var position: String {get}
-
-    /// An image to show while the album art is loading
-    var loadingImage: UIImage? {get}
-
-    /// Loads an album cover. Image data will be passed into the given completion block
-    ///
-    /// - Parameter largestDimension: the largest dimension of the image to load (the loaded
-    ///                               image can be larger or smaller - this is just a guide)
-    /// - Parameter completion: the completion block
-    func loadAlbumCover(largestDimension: Int, _ completion: @escaping (UIImage?) -> Void)
-
-    /// Cancels any ongoing image load.
-    func cancelLoadAlbumCover()
 }
-
-fileprivate let spotifyImageURLFormat = "https://i.scdn.co/image/%@"
 
 private enum Award {
     case gold, silver, bronze, none
@@ -78,19 +63,17 @@ private enum Award {
     }
 }
 
-final class ScoreViewModelImplementation: NSObject, ScoreViewModel {
-    private let imageLoader: ImageLoader
+final class ScoreViewModelImplementation: AlbumArtViewModelImplementation, ScoreViewModel {
     private let album: Album
     private let index: Int
     private let award: Award
 
-    private var dataLoaderToken: DataLoaderToken? = nil
-
     init(imageLoader: ImageLoader, album: Album, index: Int) {
-        self.imageLoader = imageLoader
         self.album = album
         self.index = index
         self.award = Award.award(for: album.score ?? 0.0)
+
+        super.init(imageLoader: imageLoader, images: album.images, loadingImageIndex: (index % 3) + 1)
     }
 
     var albumName: String {
@@ -118,45 +101,6 @@ final class ScoreViewModelImplementation: NSObject, ScoreViewModel {
 
     var position: String {
         return String(index + 1)
-    }
-
-    var loadingImage: UIImage? {
-        let suffix = (index % 3) + 1
-        let imageName = "album\(suffix)"
-        return UIImage(named: imageName)
-    }
-
-    func loadAlbumCover(largestDimension: Int, _ completion: @escaping (UIImage?) -> Void) {
-        guard let imageID = album.images.image(for: largestDimension) else {
-            return
-        }
-
-        var url = URL(string: imageID)
-        if url?.scheme == nil {
-            let urlString = String(format: spotifyImageURLFormat, imageID)
-            url = URL(string: urlString)
-        }
-
-        guard let imageURL = url else {
-            completion(nil)
-            return
-        }
-
-        dataLoaderToken = imageLoader.loadImage(url: imageURL) { (response) in
-            DispatchQueue.main.async {
-                switch (response) {
-                case .success(let image):
-                    completion(image)
-                case .failure(_):
-                    completion(nil)
-                }
-            }
-        }
-    }
-
-    func cancelLoadAlbumCover() {
-        dataLoaderToken?.cancel()
-        dataLoaderToken = nil
     }
 }
 
