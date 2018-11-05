@@ -8,6 +8,7 @@ class ScoresCollectionViewCell: UICollectionViewCell {
     let artistLabel = UILabel()
     let awardImageView = UIImageView()
     let ratingLabel = UILabel()
+    let positionLabel = UILabel()
 
     private let spacing: CGFloat = 4.0
 
@@ -34,10 +35,15 @@ class ScoresCollectionViewCell: UICollectionViewCell {
         artistLabel.textColor = .black
 
         awardImageView.translatesAutoresizingMaskIntoConstraints = false
+        awardImageView.contentMode = .scaleAspectFit
 
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         ratingLabel.font = UIFont.boldSystemFont(ofSize: 19)
-        ratingLabel.alpha = 0.75
+
+        positionLabel.translatesAutoresizingMaskIntoConstraints = false
+        positionLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        positionLabel.textColor = .black
+        positionLabel.textAlignment = .center
 
         addSubview(borderView)
         addSubview(imageView)
@@ -46,6 +52,7 @@ class ScoresCollectionViewCell: UICollectionViewCell {
         addSubview(artistLabel)
         addSubview(awardImageView)
         addSubview(ratingLabel)
+        addSubview(positionLabel)
 
         var constraints: [NSLayoutConstraint] = []
 
@@ -81,6 +88,10 @@ class ScoresCollectionViewCell: UICollectionViewCell {
         constraints.append(contentsOf: ratingLabel.anchorTo(centerXAnchor: awardImageView.centerXAnchor,
                                                             centerYAnchor: awardImageView.centerYAnchor))
 
+        constraints.append(contentsOf: positionLabel.anchorTo(topAnchor: topAnchor, topConstant: spacing,
+                                                              centerXAnchor: awardImageView.centerXAnchor))
+        constraints.append(positionLabel.heightAnchor.constraint(equalTo: awardImageView.heightAnchor, multiplier: 0.333))
+
         NSLayoutConstraint.activate(constraints)
     }
 
@@ -101,6 +112,8 @@ class ScoresCollectionViewCell: UICollectionViewCell {
         hideActivityIndicator()
     }
 
+    // MARK: API
+
     func showActivityIndicator() {
         activityIndicatorView.startAnimating()
     }
@@ -109,4 +122,3 @@ class ScoresCollectionViewCell: UICollectionViewCell {
         activityIndicatorView.stopAnimating()
     }
 }
-

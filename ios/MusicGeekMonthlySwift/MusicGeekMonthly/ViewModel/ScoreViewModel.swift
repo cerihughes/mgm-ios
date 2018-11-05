@@ -16,6 +16,9 @@ protocol ScoreViewModel {
     /// An image to represent the restaurant's rating award
     var awardImage: UIImage? {get}
 
+    /// The "chart" position
+    var position: String {get}
+
     /// An image to show while the album art is loading
     var loadingImage: UIImage? {get}
 
@@ -44,20 +47,20 @@ private enum Award {
         case .bronze:
             return UIImage(named: "plate")
         default:
-            return nil
+            return UIImage(named: "none")
         }
     }
 
     var ratingFontColor: UIColor {
         switch self {
         case .gold:
-            return .gold
+            return .mgm_gold
         case .silver:
-            return .silver
+            return .mgm_silver
         case .bronze:
-            return .bronze
+            return .mgm_bronze
         default:
-            return .black
+            return .mgm_green
         }
     }
 
@@ -113,6 +116,10 @@ final class ScoreViewModelImplementation: NSObject, ScoreViewModel {
         return award.awardImage
     }
 
+    var position: String {
+        return String(index + 1)
+    }
+
     var loadingImage: UIImage? {
         let suffix = (index % 3) + 1
         let imageName = "album\(suffix)"
@@ -154,7 +161,8 @@ final class ScoreViewModelImplementation: NSObject, ScoreViewModel {
 }
 
 extension UIColor {
-    static var gold = UIColor.init(red: 238.0 / 255.0, green: 187.0 / 255.0, blue: 100.0 / 255.0, alpha: 1.0)
-    static var silver = UIColor.init(red: 180.0 / 255.0, green: 180.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0)
-    static var bronze = UIColor.init(red: 217.0 / 255.0, green: 162.0 / 255.0, blue: 129.0 / 255.0, alpha: 1.0)
+    static var mgm_gold = UIColor.init(red: 238.0 / 255.0, green: 187.0 / 255.0, blue: 100.0 / 255.0, alpha: 1.0)
+    static var mgm_silver = UIColor.init(red: 180.0 / 255.0, green: 180.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0)
+    static var mgm_bronze = UIColor.init(red: 217.0 / 255.0, green: 162.0 / 255.0, blue: 129.0 / 255.0, alpha: 1.0)
+    static var mgm_green = UIColor.init(red: 55.0 / 255.0, green: 106.0 / 255.0, blue: 77.0 / 255.0, alpha: 1.0)
 }

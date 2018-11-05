@@ -87,6 +87,7 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
 
         scoresCell.imageView.image = cellViewModel.loadingImage
 
+        scoresCell.positionLabel.text = cellViewModel.position
         scoresCell.ratingLabel.text = cellViewModel.rating
         scoresCell.ratingLabel.textColor = cellViewModel.ratingFontColor
         scoresCell.awardImageView.image = cellViewModel.awardImage
