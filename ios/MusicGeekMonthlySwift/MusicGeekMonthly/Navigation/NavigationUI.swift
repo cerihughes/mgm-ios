@@ -2,8 +2,8 @@ import UIKit
 
 /// A class that presents view controllers, and manages the navigation between them.
 ///
-///At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
-class UI: ForwardNavigationContext {
+/// At the moment, this is achieved with a UINavigationController that can be pushed / popped to / from.
+class NavigationUI: ForwardNavigationContext {
     private let registry = ViewControllerRegistry<ResourceLocator>()
     private let navigationController = UINavigationController()
 

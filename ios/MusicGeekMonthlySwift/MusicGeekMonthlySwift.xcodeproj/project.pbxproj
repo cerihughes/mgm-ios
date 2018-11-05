@@ -21,7 +21,7 @@
 		6566197A2190969A0068EA1B /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619792190969A0068EA1B /* AlbumCollectionViewCell.swift */; };
 		6566197E21909EAB0068EA1B /* ForwardNavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566197D21909EAB0068EA1B /* ForwardNavigationContext.swift */; };
 		6566198021909EE80068EA1B /* ViewControllerRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566197F21909EE80068EA1B /* ViewControllerRegistry.swift */; };
-		656619822190A0A30068EA1B /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619812190A0A30068EA1B /* UI.swift */; };
+		656619822190A0A30068EA1B /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619812190A0A30068EA1B /* NavigationUI.swift */; };
 		656619842190A0E40068EA1B /* PageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619832190A0E40068EA1B /* PageLoader.swift */; };
 		656619862190A1300068EA1B /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619852190A1300068EA1B /* Page.swift */; };
 		656619882190A1620068EA1B /* RuntimePageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619872190A1620068EA1B /* RuntimePageLoader.swift */; };
@@ -89,7 +89,7 @@
 		656619792190969A0068EA1B /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
 		6566197D21909EAB0068EA1B /* ForwardNavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardNavigationContext.swift; sourceTree = "<group>"; };
 		6566197F21909EE80068EA1B /* ViewControllerRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRegistry.swift; sourceTree = "<group>"; };
-		656619812190A0A30068EA1B /* UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
+		656619812190A0A30068EA1B /* NavigationUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUI.swift; sourceTree = "<group>"; };
 		656619832190A0E40068EA1B /* PageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLoader.swift; sourceTree = "<group>"; };
 		656619852190A1300068EA1B /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		656619872190A1620068EA1B /* RuntimePageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimePageLoader.swift; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 				656619832190A0E40068EA1B /* PageLoader.swift */,
 				656619872190A1620068EA1B /* RuntimePageLoader.swift */,
 				6566198D2190A8910068EA1B /* ResourceLocator.swift */,
-				656619812190A0A30068EA1B /* UI.swift */,
+				656619812190A0A30068EA1B /* NavigationUI.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -457,7 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6553CF8D21907CB30020EEC2 /* LatestEventAlbumViewModel.swift in Sources */,
-				656619822190A0A30068EA1B /* UI.swift in Sources */,
+				656619822190A0A30068EA1B /* NavigationUI.swift in Sources */,
 				6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */,
 				656619932190ACCD0068EA1B /* SpotifyLaunchPage.swift in Sources */,
 				6566197521908CE20068EA1B /* LatestEventViewController.swift in Sources */,
