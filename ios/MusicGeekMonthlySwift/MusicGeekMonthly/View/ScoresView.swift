@@ -10,11 +10,11 @@ class ScoresView: UIView {
     override init(frame: CGRect) {
         let layout = ScoresCollectionViewLayout(itemHeight: 64.0, spacing: 1.0)
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
-        collectionView.backgroundColor = .black
 
         super.init(frame: frame)
 
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .lightGray
         collectionView.isHidden = true
         collectionView.accessibilityIdentifier = "mgm:scores:collectionView"
 
