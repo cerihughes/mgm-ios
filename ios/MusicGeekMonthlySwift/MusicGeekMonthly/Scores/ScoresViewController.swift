@@ -2,13 +2,13 @@ import UIKit
 
 fileprivate let cellReuseIdentifier = "ScoresViewController_CellReuseIdentifier"
 
-class ScoresViewController: UIViewController {
+class ScoresViewController: ForwardNavigatingViewController {
     private var viewModel: ScoresViewModel
 
-    init(viewModel: ScoresViewModel) {
+    init(forwardNavigationContext: ForwardNavigationContext, viewModel: ScoresViewModel) {
         self.viewModel = viewModel
 
-        super.init(nibName: nil, bundle: nil)
+        super.init(forwardNavigationContext: forwardNavigationContext)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -117,6 +117,16 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         dismissKeyboard()
+
+        guard
+            let cellViewModel = viewModel.scoreViewModel(at: indexPath.row),
+            let spotifyAlbumID = cellViewModel.spotifyAlbumID
+            else {
+                return
+        }
+
+        let rl = ResourceLocator.createSpotifyResourceLocator(albumID: spotifyAlbumID)
+        _ = forwardNavigationContext.navigate(with: rl, animated: true)
     }
 
     private func dismissKeyboard() {

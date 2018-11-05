@@ -18,6 +18,9 @@ protocol ScoreViewModel: AlbumArtViewModel {
 
     /// The "chart" position
     var position: String {get}
+
+    /// The spotify album ID to navigate to on interaction
+    var spotifyAlbumID: String? {get}
 }
 
 private enum Award {
@@ -101,6 +104,10 @@ final class ScoreViewModelImplementation: AlbumArtViewModelImplementation, Score
 
     var position: String {
         return String(index + 1)
+    }
+
+    var spotifyAlbumID: String? {
+        return album.spotifyID
     }
 }
 

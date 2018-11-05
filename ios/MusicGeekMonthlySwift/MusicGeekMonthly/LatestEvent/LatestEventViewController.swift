@@ -2,13 +2,13 @@ import UIKit
 
 fileprivate let cellReuseIdentifier = "LatestEventViewController_CellReuseIdentifier"
 
-class LatestEventViewController: UIViewController {
+class LatestEventViewController: ForwardNavigatingViewController {
     private var viewModel: LatestEventViewModel
 
-    init(viewModel: LatestEventViewModel) {
+    init(forwardNavigationContext: ForwardNavigationContext, viewModel: LatestEventViewModel) {
         self.viewModel = viewModel
 
-        super.init(nibName: nil, bundle: nil)
+        super.init(forwardNavigationContext: forwardNavigationContext)
     }
 
     required init?(coder aDecoder: NSCoder) {

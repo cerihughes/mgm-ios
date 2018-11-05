@@ -1,7 +1,7 @@
 import UIKit
 
 /// An abstract view that contains a loading indicator and message view
-class View: UIView {
+class DataLoadingView: UIView {
     private let messageView = UILabel()
     private let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
 
