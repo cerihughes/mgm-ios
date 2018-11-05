@@ -3,11 +3,16 @@ import UIKit
 let spotifyLaunchPageIdentifier = "spotifyLaunchPageIdentifier"
 
 class SpotifyLaunchPage: PageFactory, Page {
+    private let application: UIApplication
+
+    init(application: UIApplication) {
+        self.application = application
+    }
 
     // MARK: PageFactory
 
     static func createPage() -> Page {
-        return SpotifyLaunchPage()
+        return SpotifyLaunchPage(application: UIApplication.shared)
     }
 
     // MARK: Page
@@ -24,12 +29,12 @@ class SpotifyLaunchPage: PageFactory, Page {
             rl.identifier == spotifyLaunchPageIdentifier,
             let albumID = rl.spt_albumID,
             let spotifyURL = URL(string: "spotify:album:\(albumID)"),
-            UIApplication.shared.canOpenURL(spotifyURL)
+            application.canOpenURL(spotifyURL)
             else {
                 return nil
         }
 
-        UIApplication.shared.open(spotifyURL, options: [:], completionHandler: nil)
+        application.open(spotifyURL, options: [:], completionHandler: nil)
 
         return nil
     }
