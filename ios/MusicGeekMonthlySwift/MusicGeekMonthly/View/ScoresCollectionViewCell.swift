@@ -108,6 +108,7 @@ class ScoresCollectionViewCell: UICollectionViewCell {
         awardImageView.image = nil
         ratingLabel.text = nil
         ratingLabel.textColor = .black
+        positionLabel.text = nil
 
         hideActivityIndicator()
     }
