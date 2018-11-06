@@ -21,7 +21,7 @@ protocol DataConverter {
 
 /// Default implementation of DataConverter
 final class DataConverterImplementation: DataConverter {
-    private let dateFormatter = DateFormatter.mgm_dateFormatter()
+    private static let dateFormatter = DateFormatter.mgm_modelDateFormatter()
 
     func convert(data: Data) -> DataConverterResponse {
         do {
@@ -57,7 +57,7 @@ final class DataConverterImplementation: DataConverter {
         }
 
         let dateString = entry.date?.processedValue
-        let date = dateFormatter.date(from: dateString ?? "")
+        let date = DataConverterImplementation.dateFormatter.date(from: dateString ?? "")
         let spotifyPlaylistID = entry.playlist?.processedValue
         let classicAlbum = createClassicAlbum(from: entry)
         let newAlbum = createNewAlbum(from: entry)

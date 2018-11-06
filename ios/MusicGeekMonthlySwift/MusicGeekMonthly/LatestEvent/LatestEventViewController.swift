@@ -44,6 +44,8 @@ class LatestEventViewController: ForwardNavigatingViewController {
             return
         }
 
+        navigationItem.title = viewModel.title
+
         if let message = viewModel.message {
             scoresView.showMessage(message)
         } else {
