@@ -19,8 +19,8 @@ protocol ScoreViewModel: AlbumArtViewModel {
     /// The "chart" position
     var position: String {get}
 
-    /// The spotify album ID to navigate to on interaction
-    var spotifyAlbumID: String? {get}
+    /// The spotify URL to navigate to on interaction
+    var spotifyURLString: String? {get}
 }
 
 private enum Award {
@@ -76,7 +76,7 @@ final class ScoreViewModelImplementation: AlbumArtViewModelImplementation, Score
         self.index = index
         self.award = Award.award(for: album.score ?? 0.0)
 
-        super.init(imageLoader: imageLoader, images: album.images, loadingImageIndex: (index % 3) + 1)
+        super.init(imageLoader: imageLoader, images: album.images, imageURLFormat: spotifyAlbumImageURLFormat, loadingImageIndex: (index % 3) + 1)
     }
 
     var albumName: String {
@@ -106,8 +106,11 @@ final class ScoreViewModelImplementation: AlbumArtViewModelImplementation, Score
         return String(index + 1)
     }
 
-    var spotifyAlbumID: String? {
-        return album.spotifyID
+    var spotifyURLString: String? {
+        guard let spotifyID = album.spotifyID else {
+            return nil
+        }
+        return String.createSpotifyAlbumURLString(albumID: spotifyID)
     }
 }
 

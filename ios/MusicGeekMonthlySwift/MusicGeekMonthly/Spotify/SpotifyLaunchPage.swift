@@ -27,8 +27,8 @@ class SpotifyLaunchPage: PageFactory, Page {
         guard
             let rl = token as? ResourceLocator,
             rl.identifier == spotifyLaunchPageIdentifier,
-            let albumID = rl.spt_albumID,
-            let spotifyURL = URL(string: "spotify:album:\(albumID)"),
+            let spotifyURLString = rl.spotifyURLString,
+            let spotifyURL = URL(string: spotifyURLString),
             externalAppLauncher.canOpen(externalURL: spotifyURL)
             else {
                 return nil
@@ -41,13 +41,13 @@ class SpotifyLaunchPage: PageFactory, Page {
 }
 
 extension ResourceLocator {
-    private static let spotifyAlbumIDKey = "spotifyAlbumID"
+    private static let spotifyURLString = "spotifyURLString"
 
-    static func createSpotifyResourceLocator(albumID: String) -> ResourceLocator {
-        return ResourceLocator(identifier: spotifyLaunchPageIdentifier, data: [spotifyAlbumIDKey: albumID])
+    static func createSpotifyResourceLocator(spotifyURLString: String) -> ResourceLocator {
+        return ResourceLocator(identifier: spotifyLaunchPageIdentifier, data: [spotifyURLString: spotifyURLString])
     }
 
-    var spt_albumID: String? {
-        return data[ResourceLocator.spotifyAlbumIDKey]
+    var spotifyURLString: String? {
+        return data[ResourceLocator.spotifyURLString]
     }
 }

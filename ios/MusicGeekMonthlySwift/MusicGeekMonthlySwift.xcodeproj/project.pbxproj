@@ -56,6 +56,7 @@
 		65D2AD9A218B330D002BB0C9 /* ScoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */; };
 		65D2AD9C218B36DD002BB0C9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */; };
 		65D2AD9E218B5143002BB0C9 /* ScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9D218B5143002BB0C9 /* ScoresView.swift */; };
+		65E9AEB62191E09F001B36D6 /* String+SpotifyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9AEB52191E09F001B36D6 /* String+SpotifyExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +127,7 @@
 		65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewModel.swift; sourceTree = "<group>"; };
 		65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		65D2AD9D218B5143002BB0C9 /* ScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView.swift; sourceTree = "<group>"; };
+		65E9AEB52191E09F001B36D6 /* String+SpotifyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SpotifyExtensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +260,7 @@
 				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
 				65BDAA9A2189F55D007E887B /* Info.plist */,
 				65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */,
+				65E9AEB52191E09F001B36D6 /* String+SpotifyExtensions.swift */,
 			);
 			path = MusicGeekMonthly;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6553CF8D21907CB30020EEC2 /* LatestEventAlbumViewModel.swift in Sources */,
+				65E9AEB62191E09F001B36D6 /* String+SpotifyExtensions.swift in Sources */,
 				656619822190A0A30068EA1B /* NavigationUI.swift in Sources */,
 				6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */,
 				656619932190ACCD0068EA1B /* SpotifyLaunchPage.swift in Sources */,
