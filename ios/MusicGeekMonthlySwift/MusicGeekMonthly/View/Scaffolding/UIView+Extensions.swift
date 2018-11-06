@@ -8,8 +8,8 @@ extension UIView {
                   bottomAnchor: NSLayoutYAxisAnchor? = nil, bottomConstant: CGFloat = 0,
                   centerXAnchor: NSLayoutXAxisAnchor? = nil, centerXConstant: CGFloat = 0,
                   centerYAnchor: NSLayoutYAxisAnchor? = nil, centerYConstant: CGFloat = 0,
-                  widthAnchor: NSLayoutDimension? = nil, widthConstant: CGFloat = 0,
-                  heightAnchor: NSLayoutDimension? = nil, heightConstant: CGFloat = 0) -> [NSLayoutConstraint] {
+                  widthAnchor: NSLayoutDimension? = nil, widthConstant: CGFloat = 0, widthMultiplier: CGFloat = 1,
+                  heightAnchor: NSLayoutDimension? = nil, heightConstant: CGFloat = 0, heightMultiplier: CGFloat = 1) -> [NSLayoutConstraint] {
 
         var constraints: [NSLayoutConstraint] = []
 
@@ -38,13 +38,20 @@ extension UIView {
         }
 
         if let anchor = widthAnchor {
-            constraints.append(self.widthAnchor.constraint(equalTo: anchor, constant: widthConstant))
+            constraints.append(self.widthAnchor.constraint(equalTo: anchor, multiplier: widthMultiplier, constant: widthConstant))
         }
 
         if let anchor = heightAnchor {
-            constraints.append(self.heightAnchor.constraint(equalTo: anchor, constant: heightConstant))
+            constraints.append(self.heightAnchor.constraint(equalTo: anchor, multiplier: heightMultiplier, constant: heightConstant))
         }
 
         return constraints
+    }
+
+    func anchorTo(other: UIView, inset: CGFloat = 0) -> [NSLayoutConstraint] {
+        return anchorTo(leadingAnchor: other.leadingAnchor, leadingConstant: inset,
+                        trailingAnchor: other.trailingAnchor, trailingConstant: -inset,
+                        topAnchor: other.topAnchor, topConstant: inset,
+                        bottomAnchor: other.bottomAnchor, bottomConstant: -inset)
     }
 }

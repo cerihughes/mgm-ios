@@ -44,6 +44,8 @@ class LatestEventViewController: ForwardNavigatingViewController {
             return
         }
 
+        navigationItem.title = viewModel.title
+
         if let message = viewModel.message {
             scoresView.showMessage(message)
         } else {
@@ -106,6 +108,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         }
 
         eventCell.imageView.image = albumViewModel.loadingImage
+        eventCell.backgroundImageView.image = albumViewModel.loadingImage
 
         eventCell.showActivityIndicator()
 
@@ -115,6 +118,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         albumViewModel.loadAlbumCover(largestDimension: largestDimension) { (image) in
             eventCell.hideActivityIndicator()
             if let image = image {
+                eventCell.backgroundImageView.image = image
                 eventCell.imageView.image = image
             }
         }

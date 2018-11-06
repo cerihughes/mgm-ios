@@ -26,6 +26,8 @@ protocol LatestEventViewModel {
 
 /// Default implementation of LatestEventViewModel
 final class LatestEventViewModelImplementation: LatestEventViewModel {
+    private static let dateFormatter = DateFormatter.mgm_latestEventDateFormatter()
+
     private let dataLoader: ViewModelDataLoader
     private let imageLoader: ImageLoader
 
@@ -36,11 +38,17 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
     var classicAlbumViewModel: LatestEventAlbumViewModel? = nil
     var newAlbumViewModel: LatestEventAlbumViewModel? = nil
 
-    let title = "Next Event"
-
     init(dataLoader: ViewModelDataLoader, imageLoader: ImageLoader) {
         self.dataLoader = dataLoader
         self.imageLoader = imageLoader
+    }
+
+    var title: String {
+        guard let date = event?.date else {
+            return "Next Event"
+        }
+        let dateString = LatestEventViewModelImplementation.dateFormatter.string(from: date)
+        return String(format: "Next Event: %@", dateString)
     }
 
     func loadData(_ completion: @escaping () -> Void) {

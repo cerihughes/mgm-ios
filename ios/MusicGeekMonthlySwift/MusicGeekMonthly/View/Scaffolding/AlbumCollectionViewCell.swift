@@ -28,9 +28,6 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         constraints.append(contentsOf: activityIndicatorView.anchorTo(centerXAnchor: imageView.centerXAnchor,
                                                                       centerYAnchor: imageView.centerYAnchor))
 
-        constraints.append(contentsOf: borderView.anchorTo(centerXAnchor: imageView.centerXAnchor,
-                                                           centerYAnchor: imageView.centerYAnchor))
-
         NSLayoutConstraint.activate(constraints)
     }
 
@@ -51,9 +48,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     func apply(borderSpacing: CGFloat) {
         var constraints: [NSLayoutConstraint] = []
 
-        let constant = 2.0 * borderSpacing
-        constraints.append(contentsOf: borderView.anchorTo(widthAnchor: imageView.widthAnchor, widthConstant: constant,
-                                                           heightAnchor: imageView.heightAnchor, heightConstant: constant))
+        constraints.append(contentsOf: borderView.anchorTo(other: imageView, inset: -borderSpacing))
 
         NSLayoutConstraint.activate(constraints)
     }
