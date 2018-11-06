@@ -1,6 +1,7 @@
 import UIKit
 
 class LatestEventCollectionViewCell: AlbumCollectionViewCell {
+    let backgroundImageView = UIImageView()
     let typeLabel = UILabel()
     let albumLabel = UILabel()
     private let byLabel = UILabel()
@@ -10,6 +11,15 @@ class LatestEventCollectionViewCell: AlbumCollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.clipsToBounds = true
+
+        let blurEffect = UIBlurEffect(style: .extraLight)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImageView.addSubview(blurView)
 
         typeLabel.translatesAutoresizingMaskIntoConstraints = false
         typeLabel.font = UIFont.boldSystemFont(ofSize: 16)
@@ -32,12 +42,16 @@ class LatestEventCollectionViewCell: AlbumCollectionViewCell {
         artistLabel.textColor = .black
         artistLabel.textAlignment = .center
 
+        insertSubview(backgroundImageView, belowSubview: imageView)
         addSubview(typeLabel)
         addSubview(albumLabel)
         addSubview(byLabel)
         addSubview(artistLabel)
 
         var constraints: [NSLayoutConstraint] = []
+
+        constraints.append(contentsOf: backgroundImageView.anchorTo(other: self))
+        constraints.append(contentsOf: blurView.anchorTo(other: backgroundImageView))
 
         constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: leadingAnchor, leadingConstant: spacing,
                                                           topAnchor: topAnchor, topConstant: spacing,
