@@ -29,6 +29,9 @@ protocol ImageLoader {
     func loadImage(url: URL, _ completion: @escaping (ImageLoaderResponse) -> Void) -> DataLoaderToken?
 }
 
+let spotifyAlbumImageURLFormat = "https://i.scdn.co/image/%@"
+let spotifyPlaylistImageURLFormat = "https://mosaic.scdn.co/300/%@"
+
 /// Default implementation of ImageLoader
 final class ImageLoaderImplementation: ImageLoader {
     private let dataLoader: DataLoader

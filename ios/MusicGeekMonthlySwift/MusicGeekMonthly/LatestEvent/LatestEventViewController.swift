@@ -60,40 +60,24 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
     // MARK: UICollectionViewDataSource
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard
-            let _ = viewModel.classicAlbumViewModel,
-            let _ = viewModel.newAlbumViewModel
-            else {
-                return 0
-        }
-        return 2
+        return viewModel.numberOfAlbums
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
         guard
             let eventCell = cell as? LatestEventCollectionViewCell,
-            let albumViewModel = albumViewModel(for: indexPath)
+            let albumViewModel = viewModel.eventAlbumViewModel(at: indexPath.row)
             else {
                 return cell
         }
 
         eventCell.typeLabel.text = albumViewModel.albumType
         eventCell.albumLabel.text = albumViewModel.albumName
+        eventCell.byLabel.text = albumViewModel.byString
         eventCell.artistLabel.text = albumViewModel.artistName
 
         return cell
-    }
-
-    private func albumViewModel(for indexPath: IndexPath) -> LatestEventAlbumViewModel? {
-        switch indexPath.row {
-        case 0:
-            return viewModel.classicAlbumViewModel
-        case 1:
-            return viewModel.newAlbumViewModel
-        default:
-            return nil
-        }
     }
 
     // MARK: UICollectionViewDelegate
@@ -101,7 +85,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard
             let eventCell = cell as? LatestEventCollectionViewCell,
-            let albumViewModel = albumViewModel(for: indexPath),
+            let albumViewModel = viewModel.eventAlbumViewModel(at: indexPath.row),
             let layout = collectionView.collectionViewLayout as? FullWidthCollectionViewLayout
             else {
                 return
@@ -125,7 +109,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
     }
 
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let albumViewModel = albumViewModel(for: indexPath) else {
+        guard let albumViewModel = viewModel.eventAlbumViewModel(at: indexPath.row) else {
             return
         }
 
@@ -134,13 +118,13 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard
-            let albumViewModel = albumViewModel(for: indexPath),
-            let spotifyAlbumID = albumViewModel.spotifyAlbumID
+            let albumViewModel = viewModel.eventAlbumViewModel(at: indexPath.row),
+            let spotifyURLString = albumViewModel.spotifyURLString
             else {
                 return
         }
 
-        let rl = ResourceLocator.createSpotifyResourceLocator(albumID: spotifyAlbumID)
+        let rl = ResourceLocator.createSpotifyResourceLocator(spotifyURLString: spotifyURLString)
         _ = forwardNavigationContext.navigate(with: rl, from: self, animated: true)
     }
 }

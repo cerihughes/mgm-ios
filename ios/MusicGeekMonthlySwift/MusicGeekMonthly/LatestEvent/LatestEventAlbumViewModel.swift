@@ -7,14 +7,14 @@ protocol LatestEventAlbumViewModel: AlbumArtViewModel {
     /// The album name
     var albumName: String {get}
 
+    /// The "by" string
+    var byString: String? {get}
+
     /// The artist name
     var artistName: String {get}
 
-    // The event date
-    var eventDate: String {get}
-
-    /// The spotify album ID to navigate to on interaction
-    var spotifyAlbumID: String? {get}
+    /// The spotify URL to navigate to on interaction
+    var spotifyURLString: String? {get}
 }
 
 final class LatestEventAlbumViewModelImplementation: AlbumArtViewModelImplementation, LatestEventAlbumViewModel {
@@ -23,7 +23,7 @@ final class LatestEventAlbumViewModelImplementation: AlbumArtViewModelImplementa
     init(imageLoader: ImageLoader, album: Album) {
         self.album = album
 
-        super.init(imageLoader: imageLoader, images: album.images)
+        super.init(imageLoader: imageLoader, images: album.images, imageURLFormat: spotifyAlbumImageURLFormat)
     }
 
     var albumType: String {
@@ -33,22 +33,57 @@ final class LatestEventAlbumViewModelImplementation: AlbumArtViewModelImplementa
         case .new:
             return "NEW ALBUM"
         }
-
     }
 
     var albumName: String {
         return album.name
     }
 
+    var byString: String? {
+        return "by"
+    }
+
     var artistName: String {
         return album.artist
     }
 
-    var eventDate: String {
+    var spotifyURLString: String? {
+        guard let spotifyID = album.spotifyID else {
+            return nil
+        }
+        return String.createSpotifyAlbumURLString(albumID: spotifyID)
+    }
+}
+
+final class LatestEventPlaylistViewModelImplementation: AlbumArtViewModelImplementation, LatestEventAlbumViewModel {
+    private let playlist: Playlist
+
+    init(imageLoader: ImageLoader, playlist: Playlist) {
+        self.playlist = playlist
+
+        super.init(imageLoader: imageLoader, images: playlist.images, imageURLFormat: spotifyPlaylistImageURLFormat)
+    }
+
+    var albumType: String {
+        return "PLAYLIST"
+    }
+
+    var albumName: String {
         return ""
     }
 
-    var spotifyAlbumID: String? {
-        return album.spotifyID
+    var byString: String? {
+        return nil
+    }
+
+    var artistName: String {
+        return ""
+    }
+
+    var spotifyURLString: String? {
+        guard let playlistID = playlist.spotifyID else {
+            return nil
+        }
+        return String.createSpotifyPlaylistURLString(playlistID: playlistID)
     }
 }

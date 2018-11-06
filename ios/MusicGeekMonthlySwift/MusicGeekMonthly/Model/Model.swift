@@ -3,7 +3,7 @@ import Foundation
 struct Event {
     let number: Int
     let date: Date?
-    let spotifyPlaylistID: String?
+    let playlist: Playlist?
     let classicAlbum: Album?
     let newAlbum: Album?
 }
@@ -18,6 +18,11 @@ struct Album {
     let name: String
     let artist: String
     let score: Float?
+    let images: Images
+}
+
+struct Playlist {
+    let spotifyID: String?
     let images: Images
 }
 

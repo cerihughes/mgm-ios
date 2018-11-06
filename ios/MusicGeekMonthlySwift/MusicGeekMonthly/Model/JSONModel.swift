@@ -12,6 +12,7 @@ struct JSONEntry: Codable {
     let ID: JSONStringValue?
     let date: JSONStringValue?
     let playlist: JSONStringValue?
+    let playlistImage: JSONStringValue?
     let classicArtist: JSONStringValue?
     let classicAlbum: JSONStringValue?
     let classicScore: JSONStringValue?
@@ -31,6 +32,7 @@ struct JSONEntry: Codable {
         case ID = "gsx$id"
         case date = "gsx$date"
         case playlist = "gsx$playlist"
+        case playlistImage = "gsx$playlistimage"
         case classicArtist = "gsx$classicartist"
         case classicAlbum = "gsx$classicalbum"
         case classicScore = "gsx$classicscore"

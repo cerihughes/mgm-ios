@@ -15,18 +15,18 @@ protocol AlbumArtViewModel {
     func cancelLoadAlbumCover()
 }
 
-fileprivate let spotifyImageURLFormat = "https://i.scdn.co/image/%@"
-
 class AlbumArtViewModelImplementation: AlbumArtViewModel {
     private let imageLoader: ImageLoader
     private let images: Images
+    private let imageURLFormat: String
     private let loadingImageIndex: Int
 
     private var dataLoaderToken: DataLoaderToken? = nil
 
-    init(imageLoader: ImageLoader, images: Images, loadingImageIndex: Int = -1) {
+    init(imageLoader: ImageLoader, images: Images, imageURLFormat: String, loadingImageIndex: Int = -1) {
         self.imageLoader = imageLoader
         self.images = images
+        self.imageURLFormat = imageURLFormat
         let range = 1 ... 3
         self.loadingImageIndex = range ~= loadingImageIndex ? loadingImageIndex : Int.random(in: range)
     }
@@ -43,7 +43,7 @@ class AlbumArtViewModelImplementation: AlbumArtViewModel {
 
         var url = URL(string: imageID)
         if url?.scheme == nil {
-            let urlString = String(format: spotifyImageURLFormat, imageID)
+            let urlString = String(format: imageURLFormat, imageID)
             url = URL(string: urlString)
         }
 
