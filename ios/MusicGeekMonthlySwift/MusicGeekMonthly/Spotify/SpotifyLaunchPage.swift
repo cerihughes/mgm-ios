@@ -41,13 +41,13 @@ class SpotifyLaunchPage: PageFactory, Page {
 }
 
 extension ResourceLocator {
-    private static let spotifyURLString = "spotifyURLString"
+    private static let spotifyURLStringKey = "spotifyURLString"
 
     static func createSpotifyResourceLocator(spotifyURLString: String) -> ResourceLocator {
-        return ResourceLocator(identifier: spotifyLaunchPageIdentifier, data: [spotifyURLString: spotifyURLString])
+        return ResourceLocator(identifier: spotifyLaunchPageIdentifier, data: [spotifyURLStringKey: spotifyURLString])
     }
 
     var spotifyURLString: String? {
-        return data[ResourceLocator.spotifyURLString]
+        return data[ResourceLocator.spotifyURLStringKey]
     }
 }
