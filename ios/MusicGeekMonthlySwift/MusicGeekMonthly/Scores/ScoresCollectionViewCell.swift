@@ -66,8 +66,8 @@ class ScoresCollectionViewCell: AlbumCollectionViewCell {
                                                             centerYAnchor: awardImageView.centerYAnchor))
 
         constraints.append(contentsOf: positionLabel.anchorTo(topAnchor: topAnchor, topConstant: spacing,
-                                                              centerXAnchor: awardImageView.centerXAnchor))
-        constraints.append(positionLabel.heightAnchor.constraint(equalTo: awardImageView.heightAnchor, multiplier: 0.333))
+                                                              centerXAnchor: awardImageView.centerXAnchor,
+                                                              heightAnchor: awardImageView.heightAnchor, heightMultiplier: 0.333))
 
         NSLayoutConstraint.activate(constraints)
     }
