@@ -19,6 +19,9 @@ protocol DataConverter {
     func convert(data: Data) -> DataConverterResponse
 }
 
+fileprivate let spotifyAlbumImageURLFormat = "https://i.scdn.co/image/%@"
+fileprivate let spotifyPlaylistImageURLFormat = "https://mosaic.scdn.co/%d/%@"
+
 /// Default implementation of DataConverter
 final class DataConverterImplementation: DataConverter {
     private static let dateFormatter = DateFormatter.mgm_modelDateFormatter()
@@ -79,7 +82,9 @@ final class DataConverterImplementation: DataConverter {
 
     private func createPlaylistImages(from entry: JSONEntry) -> Images {
         let value = entry.playlistImage?.processedValue
-        return Images(size64: value, size300: value, size640: value)
+        return Images(size64: createPlaylistImageURLString(value: value, size: 60),
+                      size300: createPlaylistImageURLString(value: value, size: 300),
+                      size640: createPlaylistImageURLString(value: value, size: 640))
     }
 
     private func createClassicAlbum(from entry: JSONEntry) -> Album? {
@@ -103,9 +108,9 @@ final class DataConverterImplementation: DataConverter {
     }
 
     private func createClassicImages(from entry: JSONEntry) -> Images {
-        return Images(size64: entry.classicImage64?.processedValue,
-                      size300: entry.classicImage300?.processedValue,
-                      size640: entry.classicImage640?.processedValue)
+        return Images(size64: createAlbumImageURLString(value: entry.classicImage64?.processedValue),
+                      size300: createAlbumImageURLString(value: entry.classicImage300?.processedValue),
+                      size640: createAlbumImageURLString(value: entry.classicImage640?.processedValue))
     }
 
     private func createNewAlbum(from entry: JSONEntry) -> Album? {
@@ -129,8 +134,26 @@ final class DataConverterImplementation: DataConverter {
     }
 
     private func createNewImages(from entry: JSONEntry) -> Images {
-        return Images(size64: entry.newImage64?.processedValue,
-                      size300: entry.newImage300?.processedValue,
-                      size640: entry.newImage640?.processedValue)
+        return Images(size64: createAlbumImageURLString(value: entry.newImage64?.processedValue),
+                      size300: createAlbumImageURLString(value: entry.newImage300?.processedValue),
+                      size640: createAlbumImageURLString(value: entry.newImage640?.processedValue))
+    }
+
+    private func createAlbumImageURLString(value: String?) -> String? {
+        guard let value = value else {
+            return nil
+        }
+        if let url = URL(string: value), url.scheme != nil {
+            // Already returned as a URL
+            return value
+        }
+        return String(format: spotifyAlbumImageURLFormat, value)
+    }
+
+    private func createPlaylistImageURLString(value: String?, size: Int) -> String? {
+        guard let value = value else {
+            return nil
+        }
+        return String(format: spotifyPlaylistImageURLFormat, size, value)
     }
 }
