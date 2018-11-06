@@ -23,7 +23,7 @@ final class LatestEventAlbumViewModelImplementation: AlbumArtViewModelImplementa
     init(imageLoader: ImageLoader, album: Album) {
         self.album = album
 
-        super.init(imageLoader: imageLoader, images: album.images, imageURLFormat: spotifyAlbumImageURLFormat)
+        super.init(imageLoader: imageLoader, images: album.images)
     }
 
     var albumType: String {
@@ -61,7 +61,7 @@ final class LatestEventPlaylistViewModelImplementation: AlbumArtViewModelImpleme
     init(imageLoader: ImageLoader, playlist: Playlist) {
         self.playlist = playlist
 
-        super.init(imageLoader: imageLoader, images: playlist.images, imageURLFormat: spotifyPlaylistImageURLFormat)
+        super.init(imageLoader: imageLoader, images: playlist.images)
     }
 
     var albumType: String {

@@ -76,7 +76,7 @@ final class ScoreViewModelImplementation: AlbumArtViewModelImplementation, Score
         self.index = index
         self.award = Award.award(for: album.score ?? 0.0)
 
-        super.init(imageLoader: imageLoader, images: album.images, imageURLFormat: spotifyAlbumImageURLFormat, loadingImageIndex: (index % 3) + 1)
+        super.init(imageLoader: imageLoader, images: album.images, loadingImageIndex: (index % 3) + 1)
     }
 
     var albumName: String {
