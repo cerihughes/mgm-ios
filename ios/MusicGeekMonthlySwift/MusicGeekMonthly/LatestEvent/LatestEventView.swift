@@ -5,7 +5,7 @@ class LatestEventView: DataLoadingView {
     let collectionView: UICollectionView
 
     override init(frame: CGRect) {
-        let layout = FullWidthCollectionViewLayout(itemHeight: 128.0, spacing: 4.0)
+        let layout = FullWidthCollectionViewLayout(defaultItemHeight: 128.0, itemHeightOverrides:[0 : 192.0], spacing: 4.0)
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
 
         super.init(frame: frame)
