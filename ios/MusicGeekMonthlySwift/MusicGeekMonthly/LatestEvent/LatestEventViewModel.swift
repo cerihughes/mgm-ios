@@ -31,6 +31,9 @@ protocol LatestEventViewModel {
     /// The number of locations to render
     var numberOfLocations: Int {get}
 
+    /// The title for the given section
+    func headerTitle(for section:Int) -> String?
+
     /// Returns an entity view model (album or playlist) for the given index
     ///
     /// - Parameter index: the index
@@ -106,6 +109,14 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
             return 1
         }
         return 0
+    }
+
+    func headerTitle(for section: Int) -> String? {
+        switch section {
+        case 0: return "LOCATION"
+        case 1: return "LISTENING TO"
+        default: return nil
+        }
     }
 
     func eventEntityViewModel(at index: Int) -> LatestEventEntityViewModel? {

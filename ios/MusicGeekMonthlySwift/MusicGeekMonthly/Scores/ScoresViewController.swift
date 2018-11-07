@@ -96,8 +96,8 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
 
         scoresCell.showActivityIndicator()
 
-        let imageViewSize = layout.contentViewSize
-        let largestDimension = Int(max(imageViewSize.width, imageViewSize.height) * collectionView.traitCollection.displayScale)
+        let contentViewHeight = layout.contentViewSize(in: indexPath.section).height
+        let largestDimension = Int(contentViewHeight * collectionView.traitCollection.displayScale)
 
         cellViewModel.loadAlbumCover(largestDimension: largestDimension) { (image) in
             scoresCell.hideActivityIndicator()
