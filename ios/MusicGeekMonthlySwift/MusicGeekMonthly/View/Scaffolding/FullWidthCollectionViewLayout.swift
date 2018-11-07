@@ -1,14 +1,18 @@
 import UIKit
 
 class FullWidthCollectionViewLayout: UICollectionViewLayout {
-    private let itemHeight: CGFloat
-    private let spacing: CGFloat
+    private let defaultItemHeight: CGFloat
+    private let borderSpacing: CGFloat
+    private let itemSpacing: CGFloat
+    private let sectionSpacing: CGFloat
 
     private var cache = [UICollectionViewLayoutAttributes]()
 
     init(itemHeight: CGFloat, spacing: CGFloat) {
-        self.itemHeight = itemHeight
-        self.spacing = spacing
+        self.defaultItemHeight = itemHeight
+        self.borderSpacing = spacing
+        self.itemSpacing = spacing
+        self.sectionSpacing = spacing
 
         super.init()
     }
@@ -17,9 +21,14 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
         fatalError("init(coder:) has not been implemented")
     }
 
-    var contentViewSize: CGSize {
-        let dimension = itemHeight - (2 * spacing)
-        return CGSize(width: dimension, height: dimension)
+    func contentViewSize(in section: Int) -> CGSize {
+        var contentWidth: CGFloat = 0.0
+        if let collectionView = collectionView {
+            contentWidth = collectionView.bounds.width - (2 * itemSpacing)
+        }
+        let height = itemHeight(in: section)
+        let contentHeight = height - (2 * itemSpacing)
+        return CGSize(width: contentWidth, height: contentHeight)
     }
 
     // MARK: UICollectionViewLayout
@@ -29,9 +38,18 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
             return .zero
         }
 
-        let numberOfItems = CGFloat(collectionView.numberOfItems(inSection: 0))
         let contentWidth = collectionView.bounds.width
-        let contentHeight = ((itemHeight + spacing) * numberOfItems) + spacing
+        var contentHeight: CGFloat = borderSpacing * 2.0
+
+        for section in 0 ..< collectionView.numberOfSections {
+            let items = CGFloat(collectionView.numberOfItems(inSection: section))
+            let height = itemHeight(in: section)
+            let sectionHeight = ((height + itemSpacing) * items) - itemSpacing
+
+            contentHeight += sectionHeight + sectionSpacing
+        }
+
+        contentHeight -= sectionSpacing
 
         return CGSize(width: contentWidth, height: contentHeight)
     }
@@ -41,20 +59,20 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
             return
         }
 
-        cache.removeAll(keepingCapacity: false)
+        cache.removeAll()
 
-        let x: CGFloat = spacing
-        var y: CGFloat = spacing
-        let width = collectionView.bounds.size.width - (2 * spacing)
+        let x: CGFloat = itemSpacing
+        var y: CGFloat = itemSpacing
+        let width = collectionView.bounds.width - (2 * itemSpacing)
         for section in 0 ..< collectionView.numberOfSections {
             for item in 0 ..< collectionView.numberOfItems(inSection: section) {
                 let indexPath = IndexPath(item: item, section: section)
                 let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-
-                let frame = CGRect(x: x, y: y, width: width, height: itemHeight)
+                let height = itemHeight(in: section)
+                let frame = CGRect(x: x, y: y, width: width, height: height)
                 attributes.frame = frame
                 cache.append(attributes)
-                y += itemHeight + spacing
+                y += height + itemSpacing
             }
         }
     }
@@ -74,5 +92,11 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
             return false
         }
         return collectionView.bounds.width != newBounds.width
+    }
+
+    // MARK: Private
+
+    func itemHeight(in section: Int) -> CGFloat {
+        return defaultItemHeight
     }
 }
