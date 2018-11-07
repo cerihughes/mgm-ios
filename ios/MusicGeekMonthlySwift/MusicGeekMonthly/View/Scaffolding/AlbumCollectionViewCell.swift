@@ -19,9 +19,9 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicatorView.hidesWhenStopped = true
 
-        addSubview(borderView)
-        addSubview(imageView)
-        addSubview(activityIndicatorView)
+        contentView.addSubview(borderView)
+        contentView.addSubview(imageView)
+        contentView.addSubview(activityIndicatorView)
 
         var constraints: [NSLayoutConstraint] = []
 
