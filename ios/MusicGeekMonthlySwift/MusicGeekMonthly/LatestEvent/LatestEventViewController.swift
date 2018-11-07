@@ -1,6 +1,7 @@
 import CoreLocation
 import UIKit
 
+fileprivate let sectionHeaderReuseIdentifier = "LatestEventViewController_CellReuseIdentifier_SectionHeader"
 fileprivate let locationCellReuseIdentifier = "LatestEventViewController_CellReuseIdentifier_Location"
 fileprivate let entityCellReuseIdentifier = "LatestEventViewController_CellReuseIdentifier_Enity"
 
@@ -34,6 +35,9 @@ class LatestEventViewController: ForwardNavigatingViewController {
 
         navigationItem.title = viewModel.title
 
+        view.collectionView.register(LatestEventCollectionSectionHeaderView.self,
+                                     forSupplementaryViewOfKind: FullWidthCollectionViewLayout.Element.sectionHeader.value,
+                                     withReuseIdentifier: sectionHeaderReuseIdentifier)
         view.collectionView.register(LatestEventLocationCollectionViewCell.self, forCellWithReuseIdentifier: locationCellReuseIdentifier)
         view.collectionView.register(LatestEventEntityCollectionViewCell.self, forCellWithReuseIdentifier: entityCellReuseIdentifier)
 
@@ -77,6 +81,20 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         default:
             return viewModel.numberOfEntites
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderReuseIdentifier, for: indexPath)
+        guard
+            let headerView = view as? LatestEventCollectionSectionHeaderView,
+            let headerTitle = viewModel.headerTitle(for: indexPath.section)
+            else {
+                return view
+        }
+
+        headerView.label.text = headerTitle
+
+        return headerView
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

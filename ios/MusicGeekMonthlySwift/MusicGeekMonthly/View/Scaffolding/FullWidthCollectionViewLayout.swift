@@ -1,15 +1,15 @@
 import UIKit
 
-enum Element: String {
-    case sectionHeader
-    case item
-
-    var value: String {
-        return self.rawValue
-    }
-}
-
 class FullWidthCollectionViewLayout: UICollectionViewLayout {
+    enum Element: String {
+        case sectionHeader
+        case item
+
+        var value: String {
+            return self.rawValue
+        }
+    }
+
     private let sectionHeaderHeight: CGFloat
     private let defaultItemHeight: CGFloat
     private let itemHeightOverrides: [Int : CGFloat]
