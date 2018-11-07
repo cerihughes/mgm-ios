@@ -7,9 +7,17 @@ enum LatestEventViewModelError: Error {
     case noEvent(String)
 }
 
+typealias MapReference = (latitude: Double, longitude: Double)
+
 protocol LatestEventViewModel {
     /// The title to display in the UI
     var title: String {get}
+
+    /// The location name
+    var locationName: String? {get}
+
+    /// The map reference
+    var mapReference: MapReference? {get}
 
     /// Any error / info message that needs to be rendered.
     var message: String? {get}
@@ -51,6 +59,20 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
         }
         let dateString = LatestEventViewModelImplementation.dateFormatter.string(from: date)
         return String(format: "Next Event: %@", dateString)
+    }
+
+    var locationName: String? {
+        guard let location = event?.location else {
+            return nil
+        }
+        return location.name
+    }
+
+    var mapReference: MapReference? {
+        guard let location = event?.location else {
+            return nil
+        }
+        return (latitude: location.latitude, longitude: location.longitude)
     }
 
     func loadData(_ completion: @escaping () -> Void) {

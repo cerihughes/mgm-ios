@@ -1,3 +1,4 @@
+import CoreLocation
 import UIKit
 
 fileprivate let cellReuseIdentifier = "LatestEventViewController_CellReuseIdentifier"
@@ -45,6 +46,11 @@ class LatestEventViewController: ForwardNavigatingViewController {
         }
 
         navigationItem.title = viewModel.title
+
+        if let mapReference = viewModel.mapReference, let locationName = viewModel.locationName {
+            let location = CLLocation(latitude: mapReference.latitude, longitude: mapReference.longitude)
+            scoresView.dropPin(at: location, title: locationName)
+        }
 
         if let message = viewModel.message {
             scoresView.showMessage(message)

@@ -59,12 +59,18 @@ final class DataConverterImplementation: DataConverter {
             return nil
         }
 
+        // Hardcode the location for now:
+        let location = Location(name: "Crafty Devil's Cellar",
+                                latitude: 51.48227690,
+                                longitude: -3.20186570)
+
         let dateString = entry.date?.processedValue
         let date = DataConverterImplementation.dateFormatter.date(from: dateString ?? "")
         let playlist = createPlaylist(from: entry, number: number)
         let classicAlbum = createClassicAlbum(from: entry)
         let newAlbum = createNewAlbum(from: entry)
         return Event(number: number,
+                     location: location,
                      date: date,
                      playlist: playlist,
                      classicAlbum: classicAlbum,
