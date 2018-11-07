@@ -31,17 +31,17 @@ class ScoresCollectionViewCell: AlbumCollectionViewCell {
         positionLabel.textColor = .black
         positionLabel.textAlignment = .center
 
-        addSubview(albumLabel)
-        addSubview(artistLabel)
-        addSubview(awardImageView)
-        addSubview(ratingLabel)
-        addSubview(positionLabel)
+        contentView.addSubview(albumLabel)
+        contentView.addSubview(artistLabel)
+        contentView.addSubview(awardImageView)
+        contentView.addSubview(ratingLabel)
+        contentView.addSubview(positionLabel)
 
         var constraints: [NSLayoutConstraint] = []
 
-        constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: leadingAnchor, leadingConstant: spacing,
-                                                          topAnchor: topAnchor, topConstant: spacing,
-                                                          bottomAnchor: bottomAnchor, bottomConstant: -spacing,
+        constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: contentView.leadingAnchor, leadingConstant: spacing,
+                                                          topAnchor: contentView.topAnchor, topConstant: spacing,
+                                                          bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
                                                           widthAnchor: imageView.heightAnchor))
 
         let borderSpacing = spacing / 2.0
@@ -49,23 +49,23 @@ class ScoresCollectionViewCell: AlbumCollectionViewCell {
 
         constraints.append(contentsOf: albumLabel.anchorTo(leadingAnchor: imageView.trailingAnchor, leadingConstant: spacing + borderSpacing,
                                                            trailingAnchor: awardImageView.leadingAnchor, trailingConstant: -spacing,
-                                                           topAnchor: topAnchor, topConstant: spacing,
+                                                           topAnchor: contentView.topAnchor, topConstant: spacing,
                                                            bottomAnchor: artistLabel.topAnchor, bottomConstant: -spacing))
 
         constraints.append(contentsOf: artistLabel.anchorTo(leadingAnchor: albumLabel.leadingAnchor,
                                                             trailingAnchor: albumLabel.trailingAnchor,
-                                                            bottomAnchor: bottomAnchor, bottomConstant: -spacing,
+                                                            bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
                                                             heightAnchor: albumLabel.heightAnchor));
 
-        constraints.append(contentsOf: awardImageView.anchorTo(trailingAnchor: trailingAnchor, trailingConstant: -spacing,
-                                                               topAnchor: topAnchor, topConstant: spacing,
-                                                               bottomAnchor: bottomAnchor, bottomConstant: -spacing,
+        constraints.append(contentsOf: awardImageView.anchorTo(trailingAnchor: contentView.trailingAnchor, trailingConstant: -spacing,
+                                                               topAnchor: contentView.topAnchor, topConstant: spacing,
+                                                               bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
                                                                widthAnchor: awardImageView.heightAnchor))
 
         constraints.append(contentsOf: ratingLabel.anchorTo(centerXAnchor: awardImageView.centerXAnchor,
                                                             centerYAnchor: awardImageView.centerYAnchor))
 
-        constraints.append(contentsOf: positionLabel.anchorTo(topAnchor: topAnchor, topConstant: spacing,
+        constraints.append(contentsOf: positionLabel.anchorTo(topAnchor: contentView.topAnchor, topConstant: spacing,
                                                               centerXAnchor: awardImageView.centerXAnchor,
                                                               heightAnchor: awardImageView.heightAnchor, heightMultiplier: 0.333))
 

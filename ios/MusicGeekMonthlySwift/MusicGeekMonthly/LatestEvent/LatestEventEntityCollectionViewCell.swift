@@ -1,7 +1,6 @@
 import UIKit
 
 class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
-    let backgroundImageView = UIImageView()
     let typeLabel = UILabel()
     let albumLabel = UILabel()
     private let byLabel = UILabel()
@@ -12,6 +11,7 @@ class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        let backgroundImageView = UIImageView()
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.contentMode = .scaleAspectFill
         backgroundImageView.clipsToBounds = true
@@ -20,6 +20,8 @@ class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.addSubview(blurView)
+
+        backgroundView = backgroundImageView
 
         typeLabel.translatesAutoresizingMaskIntoConstraints = false
         typeLabel.font = UIFont.boldSystemFont(ofSize: 16)
@@ -42,29 +44,27 @@ class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
         artistLabel.textColor = .black
         artistLabel.textAlignment = .center
 
-        addSubview(backgroundImageView)
-        sendSubviewToBack(backgroundImageView)
-        addSubview(typeLabel)
-        addSubview(albumLabel)
-        addSubview(byLabel)
-        addSubview(artistLabel)
+        contentView.addSubview(typeLabel)
+        contentView.addSubview(albumLabel)
+        contentView.addSubview(byLabel)
+        contentView.addSubview(artistLabel)
 
         var constraints: [NSLayoutConstraint] = []
 
         constraints.append(contentsOf: backgroundImageView.anchorTo(view: self))
         constraints.append(contentsOf: blurView.anchorTo(view: backgroundImageView))
 
-        constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: leadingAnchor, leadingConstant: spacing,
-                                                          topAnchor: topAnchor, topConstant: spacing,
-                                                          bottomAnchor: bottomAnchor, bottomConstant: -spacing,
+        constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: contentView.leadingAnchor, leadingConstant: spacing,
+                                                          topAnchor: contentView.topAnchor, topConstant: spacing,
+                                                          bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
                                                           widthAnchor: imageView.heightAnchor))
 
         let halfSpacing = spacing / 2.0
         apply(borderSpacing: halfSpacing)
 
         constraints.append(contentsOf: typeLabel.anchorTo(leadingAnchor: imageView.trailingAnchor, leadingConstant: spacing + halfSpacing,
-                                                          trailingAnchor: trailingAnchor, trailingConstant: -spacing,
-                                                          topAnchor: topAnchor, topConstant: spacing,
+                                                          trailingAnchor: contentView.trailingAnchor, trailingConstant: -spacing,
+                                                          topAnchor: contentView.topAnchor, topConstant: spacing,
                                                           bottomAnchor: albumLabel.topAnchor, bottomConstant: -spacing))
 
         constraints.append(contentsOf: albumLabel.anchorTo(leadingAnchor: typeLabel.leadingAnchor,
@@ -79,7 +79,7 @@ class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
 
         constraints.append(contentsOf: artistLabel.anchorTo(leadingAnchor: albumLabel.leadingAnchor,
                                                             trailingAnchor: albumLabel.trailingAnchor,
-                                                            bottomAnchor: bottomAnchor, bottomConstant: -spacing,
+                                                            bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
                                                             heightAnchor: albumLabel.heightAnchor));
 
         NSLayoutConstraint.activate(constraints)

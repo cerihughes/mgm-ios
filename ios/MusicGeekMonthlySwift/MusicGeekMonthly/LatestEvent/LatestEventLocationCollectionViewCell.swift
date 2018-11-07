@@ -10,9 +10,9 @@ class LatestEventLocationCollectionViewCell: UICollectionViewCell {
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.isUserInteractionEnabled = false
 
-        addSubview(mapView)
+        contentView.addSubview(mapView)
 
-        let constraints: [NSLayoutConstraint] = mapView.anchorTo(view: self)
+        let constraints: [NSLayoutConstraint] = mapView.anchorTo(view: contentView)
         NSLayoutConstraint.activate(constraints)
     }
 

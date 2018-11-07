@@ -155,6 +155,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         guard
             indexPath.section == 1,
             let entityCell = cell as? LatestEventEntityCollectionViewCell,
+            let backgroundImageView = entityCell.backgroundView as? UIImageView,
             let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row),
             let layout = collectionView.collectionViewLayout as? FullWidthCollectionViewLayout
             else {
@@ -162,7 +163,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         }
 
         entityCell.imageView.image = entityViewModel.loadingImage
-        entityCell.backgroundImageView.image = entityViewModel.loadingImage
+        backgroundImageView.image = entityViewModel.loadingImage
 
         entityCell.showActivityIndicator()
 
@@ -172,7 +173,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         entityViewModel.loadAlbumCover(largestDimension: largestDimension) { (image) in
             entityCell.hideActivityIndicator()
             if let image = image {
-                entityCell.backgroundImageView.image = image
+                backgroundImageView.image = image
                 entityCell.imageView.image = image
             }
         }
