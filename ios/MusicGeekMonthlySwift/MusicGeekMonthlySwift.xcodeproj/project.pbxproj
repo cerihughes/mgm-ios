@@ -10,6 +10,8 @@
 		6507A1FC218C8FE200C26202 /* FullWidthCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507A1FB218C8FE200C26202 /* FullWidthCollectionViewLayout.swift */; };
 		6512F30421933D06004CD379 /* LatestEventCollectionSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6512F30321933D06004CD379 /* LatestEventCollectionSectionHeaderView.swift */; };
 		6512F30621934DEE004CD379 /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6512F30521934DEE004CD379 /* ErrorMessages.swift */; };
+		6528005C2193840D00100167 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6528005A2193840C00100167 /* Fabric.framework */; };
+		6528005D2193840D00100167 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6528005B2193840D00100167 /* Crashlytics.framework */; };
 		6540A51B218C85260028B382 /* ScoresCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6540A51A218C85260028B382 /* ScoresCollectionViewCell.swift */; };
 		6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6540A51C218C87010028B382 /* UIView+Extensions.swift */; };
 		6553CF8B21907C4A0020EEC2 /* LatestEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553CF8A21907C4A0020EEC2 /* LatestEventViewModel.swift */; };
@@ -84,6 +86,8 @@
 		6507A1FB218C8FE200C26202 /* FullWidthCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullWidthCollectionViewLayout.swift; sourceTree = "<group>"; };
 		6512F30321933D06004CD379 /* LatestEventCollectionSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventCollectionSectionHeaderView.swift; sourceTree = "<group>"; };
 		6512F30521934DEE004CD379 /* ErrorMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessages.swift; sourceTree = "<group>"; };
+		6528005A2193840C00100167 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		6528005B2193840D00100167 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		6540A51A218C85260028B382 /* ScoresCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresCollectionViewCell.swift; sourceTree = "<group>"; };
 		6540A51C218C87010028B382 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		6553CF8A21907C4A0020EEC2 /* LatestEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventViewModel.swift; sourceTree = "<group>"; };
@@ -143,6 +147,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6528005D2193840D00100167 /* Crashlytics.framework in Frameworks */,
+				6528005C2193840D00100167 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,11 +281,13 @@
 				656619912190ACAE0068EA1B /* Spotify */,
 				659DED6F21931FDE00226579 /* AppleMaps */,
 				65BDAA8E2189F55C007E887B /* AppDelegate.swift */,
-				65BDAA952189F55D007E887B /* Assets.xcassets */,
-				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
-				65BDAA9A2189F55D007E887B /* Info.plist */,
 				65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */,
 				65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */,
+				65BDAA952189F55D007E887B /* Assets.xcassets */,
+				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
+				6528005B2193840D00100167 /* Crashlytics.framework */,
+				6528005A2193840C00100167 /* Fabric.framework */,
+				65BDAA9A2189F55D007E887B /* Info.plist */,
 			);
 			path = MusicGeekMonthly;
 			sourceTree = "<group>";
@@ -359,9 +367,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65BDAAB32189F55D007E887B /* Build configuration list for PBXNativeTarget "MusicGeekMonthly" */;
 			buildPhases = (
+				6528005E2193861B00100167 /* ShellScript */,
 				65BDAA872189F55C007E887B /* Sources */,
 				65BDAA882189F55C007E887B /* Frameworks */,
 				65BDAA892189F55C007E887B /* Resources */,
+				652589C321938DE100B23275 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -476,6 +486,43 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		652589C321938DE100B23275 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$PROJECT_DIR/BuildPhases/run-fabric.sh\n";
+		};
+		6528005E2193861B00100167 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$PROJECT_DIR/BuildPhases/copy-plist.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		65BDAA872189F55C007E887B /* Sources */ = {
@@ -699,7 +746,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
-				INFOPLIST_FILE = MusicGeekMonthly/Info.plist;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MusicGeekMonthly",
+				);
+				INFOPLIST_FILE = MusicGeekMonthly/Secret.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -717,7 +768,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
-				INFOPLIST_FILE = MusicGeekMonthly/Info.plist;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MusicGeekMonthly",
+				);
+				INFOPLIST_FILE = MusicGeekMonthly/Secret.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
