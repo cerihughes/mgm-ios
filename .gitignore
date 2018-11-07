@@ -6,5 +6,8 @@ DerivedData/
 **/xcuserdata
 **/xcshareddata
 
+Secrets.txt
+Secret.plist
+
 ios/MusicGeekMonthly/MusicGeekMonthly/Core/MGMSecrets.h
 ios/MusicGeekMonthly/Carthage
