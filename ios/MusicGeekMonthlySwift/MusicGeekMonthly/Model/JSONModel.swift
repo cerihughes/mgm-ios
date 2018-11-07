@@ -30,7 +30,7 @@ struct JSONEntry: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case ID = "gsx$id"
-        case date = "gsx$date"
+        case date = "gsx$eventdate"
         case playlist = "gsx$playlist"
         case playlistImage = "gsx$playlistimage"
         case classicArtist = "gsx$classicartist"
