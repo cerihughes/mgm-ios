@@ -1,5 +1,12 @@
 import Foundation
 
+/// Domain-specific errors for the ScoresViewModel
+///
+/// - noEvents: There are no events to render
+enum ScoresViewModelError: Error {
+    case noEvents(String)
+}
+
 /// The ScoresViewModel is reponsible for all interactions with the scores UI for the
 /// app. It takes care of loading model data and translating it into view-specific
 /// representations.
@@ -10,8 +17,14 @@ protocol ScoresViewModel {
     /// The title to display in the UI
     var title: String {get}
 
+    /// Whether the data has loaded successfully
+    var dataLoaded: Bool {get}
+
     /// Any error / info message that needs to be rendered.
     var message: String? {get}
+
+    /// The title of the retry button (when visible)
+    var retryButtonTitle: String {get}
 
     /// The placeholder to show when no filter is used
     var filterPlaceholder: String {get}
@@ -45,6 +58,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     }
 
     let title = "Album Scores"
+    let retryButtonTitle = "Retry"
     var message: String? = nil
     let filterPlaceholder = "Filter by album, artist or score"
 
@@ -72,6 +86,10 @@ final class ScoresViewModelImplementation: ScoresViewModel {
         }
     }
 
+    var dataLoaded: Bool {
+        return scoreViewModels.count > 0
+    }
+
     var numberOfScores: Int {
         return filteredScoreViewModels.count
     }
@@ -87,15 +105,22 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     // MARK: Private
 
     private func handleDataLoaderSuccess(events: [Event], _ completion: () -> Void) {
-        let message = events.count == 0 ? "No events returned" : nil
-        updateStateAndNotify(events: events, message: message, completion)
+        guard events.count > 0 else {
+            let error = ScoresViewModelError.noEvents("No events returned")
+            handleDataLoaderFailure(error: error, completion)
+            return
+        }
+        updateStateAndNotify(events: events, completion)
     }
 
     private func handleDataLoaderFailure(error: Error, _ completion: () -> Void) {
-        updateStateAndNotify(events: [], message: error.localizedDescription, completion)
+        self.scoreViewModels = []
+        self.filteredScoreViewModels = []
+        self.message = dataLoaderErrorMessage
+        completion()
     }
 
-    private func updateStateAndNotify(events: [Event], message: String?, _ completion: () -> Void) {
+    private func updateStateAndNotify(events: [Event], _ completion: () -> Void) {
         var albums: [Album] = []
         for event in events {
             if let classicAlbum = event.classicAlbum {
@@ -109,7 +134,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
         // Remove scoreless albums, then apply descending sort by score
         albums = albums.filter { $0.score != nil }.sorted { $0.score ?? 0.0 > $1.score ?? 0.0 }
         self.scoreViewModels = albums.enumerated().map { ScoreViewModelImplementation(imageLoader: imageLoader, album: $0.element, index: $0.offset) }
-        self.message = message
+        self.message = nil
 
         applyFilter()
         completion()

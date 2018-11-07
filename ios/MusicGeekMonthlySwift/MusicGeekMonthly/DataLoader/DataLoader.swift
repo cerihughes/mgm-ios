@@ -40,7 +40,13 @@ protocol DataLoaderToken {
 
 /// Default implementation of DataLoader
 final class DataLoaderImplementation: DataLoader {
-    private let urlSession = URLSession.shared
+    private let urlSession: URLSession
+
+    init() {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForResource = 10.0
+        self.urlSession = URLSession(configuration: configuration)
+    }
 
     func loadData(url: URL, _ completion: @escaping (DataLoaderResponse) -> Void) -> DataLoaderToken? {
         let urlRequest = URLRequest(url: url)
