@@ -115,7 +115,7 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
         eventAlbumViewModels.append(LatestEventAlbumViewModelImplementation(imageLoader: imageLoader, album: classicAlbum))
         eventAlbumViewModels.append(LatestEventAlbumViewModelImplementation(imageLoader: imageLoader, album: newAlbum))
         if let playlist = event.playlist {
-            eventAlbumViewModels.append(LatestEventPlaylistViewModelImplementation(imageLoader: imageLoader, playlist: playlist))
+            eventAlbumViewModels.append(LatestEventAlbumViewModelImplementation(imageLoader: imageLoader, playlist: playlist))
         }
         self.message = nil
         completion()

@@ -72,10 +72,9 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
                 return cell
         }
 
-        eventCell.typeLabel.text = albumViewModel.albumType
-        eventCell.albumLabel.text = albumViewModel.albumName
-        eventCell.byLabel.text = albumViewModel.byString
-        eventCell.artistLabel.text = albumViewModel.artistName
+        eventCell.typeLabel.text = albumViewModel.entityType
+        eventCell.albumLabel.text = albumViewModel.entityName
+        eventCell.artistLabel.text = albumViewModel.entityOwner
 
         return cell
     }
