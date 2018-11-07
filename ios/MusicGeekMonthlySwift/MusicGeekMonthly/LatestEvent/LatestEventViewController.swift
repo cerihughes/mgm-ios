@@ -1,6 +1,8 @@
+import CoreLocation
 import UIKit
 
-fileprivate let cellReuseIdentifier = "LatestEventViewController_CellReuseIdentifier"
+fileprivate let locationCellReuseIdentifier = "LatestEventViewController_CellReuseIdentifier_Location"
+fileprivate let entityCellReuseIdentifier = "LatestEventViewController_CellReuseIdentifier_Enity"
 
 class LatestEventViewController: ForwardNavigatingViewController {
     private var viewModel: LatestEventViewModel
@@ -32,7 +34,9 @@ class LatestEventViewController: ForwardNavigatingViewController {
 
         navigationItem.title = viewModel.title
 
-        view.collectionView.register(LatestEventCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        view.collectionView.register(LatestEventLocationCollectionViewCell.self, forCellWithReuseIdentifier: locationCellReuseIdentifier)
+        view.collectionView.register(LatestEventEntityCollectionViewCell.self, forCellWithReuseIdentifier: entityCellReuseIdentifier)
+
         view.collectionView.dataSource = self
         view.collectionView.delegate = self
     }
@@ -59,71 +63,129 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
 
     // MARK: UICollectionViewDataSource
 
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if viewModel.numberOfLocations > 0 {
+            return 2
+        }
+        return 1
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfAlbums
+        switch section {
+        case 0:
+            return viewModel.numberOfLocations
+        default:
+            return viewModel.numberOfEntites
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
+        if indexPath.section == 0 {
+            return self.collectionView(collectionView, locationCellForItemAt:indexPath)
+        }
+        return self.collectionView(collectionView, entityCellForItemAt:indexPath)
+    }
+
+    private func collectionView(_ collectionView: UICollectionView, locationCellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: locationCellReuseIdentifier, for: indexPath)
         guard
-            let eventCell = cell as? LatestEventCollectionViewCell,
+            let mapReference = viewModel.mapReference,
+            let locationName = viewModel.locationName,
+            let locationCell = cell as? LatestEventLocationCollectionViewCell
+            else {
+                return cell
+        }
+
+        let location = CLLocation(latitude: mapReference.latitude, longitude: mapReference.longitude)
+        locationCell.dropPin(at: location, title: locationName)
+
+        return locationCell
+    }
+
+    private func collectionView(_ collectionView: UICollectionView, entityCellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: entityCellReuseIdentifier, for: indexPath)
+        guard
+            let entityCell = cell as? LatestEventEntityCollectionViewCell,
             let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row)
             else {
                 return cell
         }
 
-        eventCell.typeLabel.text = entityViewModel.entityType
-        eventCell.albumLabel.text = entityViewModel.entityName
-        eventCell.artistLabel.text = entityViewModel.entityOwner
+        entityCell.typeLabel.text = entityViewModel.entityType
+        entityCell.albumLabel.text = entityViewModel.entityName
+        entityCell.artistLabel.text = entityViewModel.entityOwner
 
-        return cell
+        return entityCell
     }
 
     // MARK: UICollectionViewDelegate
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard
-            let eventCell = cell as? LatestEventCollectionViewCell,
+            indexPath.section == 1,
+            let entityCell = cell as? LatestEventEntityCollectionViewCell,
             let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row),
             let layout = collectionView.collectionViewLayout as? FullWidthCollectionViewLayout
             else {
                 return
         }
 
-        eventCell.imageView.image = entityViewModel.loadingImage
-        eventCell.backgroundImageView.image = entityViewModel.loadingImage
+        entityCell.imageView.image = entityViewModel.loadingImage
+        entityCell.backgroundImageView.image = entityViewModel.loadingImage
 
-        eventCell.showActivityIndicator()
+        entityCell.showActivityIndicator()
 
         let imageViewSize = layout.contentViewSize
         let largestDimension = Int(max(imageViewSize.width, imageViewSize.height) * collectionView.traitCollection.displayScale)
 
         entityViewModel.loadAlbumCover(largestDimension: largestDimension) { (image) in
-            eventCell.hideActivityIndicator()
+            entityCell.hideActivityIndicator()
             if let image = image {
-                eventCell.backgroundImageView.image = image
-                eventCell.imageView.image = image
+                entityCell.backgroundImageView.image = image
+                entityCell.imageView.image = image
             }
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row) else {
-            return
+        guard
+            indexPath.section == 1,
+            let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row)
+            else {
+                return
         }
 
         entityViewModel.cancelLoadAlbumCover()
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            self.collectionView(collectionView, didSelectLocationItemAt: indexPath)
+        }
+        self.collectionView(collectionView, didSelectEntityItemAt: indexPath)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectLocationItemAt indexPath: IndexPath) {
         guard
-            let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row),
-            let spotifyURLString = entityViewModel.spotifyURLString
+            let locationName = viewModel.locationName,
+            let mapReference = viewModel.mapReference
             else {
                 return
         }
 
-        let rl = ResourceLocator.createSpotifyResourceLocator(spotifyURLString: spotifyURLString)
+        let rl = ResourceLocator.createAppleMapsResourceLocator(appleMapsLocationName: locationName, appleMapsLatitude: mapReference.latitude, appleMapsLongitude: mapReference.longitude)
+        _ = forwardNavigationContext.navigate(with: rl, from: self, animated: true)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectEntityItemAt indexPath: IndexPath) {
+        guard
+            let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row),
+            let spotifyURL = entityViewModel.spotifyURL
+            else {
+                return
+        }
+
+        let rl = ResourceLocator.createSpotifyResourceLocator(spotifyURL: spotifyURL)
         _ = forwardNavigationContext.navigate(with: rl, from: self, animated: true)
     }
 }

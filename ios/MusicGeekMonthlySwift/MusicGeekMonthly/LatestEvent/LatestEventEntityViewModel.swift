@@ -11,20 +11,20 @@ protocol LatestEventEntityViewModel: AlbumArtViewModel {
     var entityOwner: String {get}
 
     /// The spotify URL to navigate to on interaction
-    var spotifyURLString: String? {get}
+    var spotifyURL: URL? {get}
 }
 
 final class LatestEventEntityViewModelImplementation: AlbumArtViewModelImplementation, LatestEventEntityViewModel {
     let entityType: String
     let entityName: String
     let entityOwner: String
-    let spotifyURLString: String?
+    let spotifyURL: URL?
 
     init(imageLoader: ImageLoader, album: Album) {
         self.entityType = album.type == .classic ? "CLASSIC ALBUM" : "NEW ALBUM"
         self.entityName = album.name
         self.entityOwner = album.artist
-        self.spotifyURLString = String.createSpotifyAlbumURLString(albumID: album.spotifyID)
+        self.spotifyURL = .createSpotifyAlbumURL(albumID: album.spotifyID)
 
         super.init(imageLoader: imageLoader, images: album.images)
     }
@@ -33,7 +33,7 @@ final class LatestEventEntityViewModelImplementation: AlbumArtViewModelImplement
         self.entityType = "PLAYLIST"
         self.entityName = playlist.name
         self.entityOwner = playlist.owner
-        self.spotifyURLString = String.createSpotifyPlaylistURLString(playlistID: playlist.spotifyID)
+        self.spotifyURL = .createSpotifyPlaylistURL(playlistID: playlist.spotifyID)
 
         super.init(imageLoader: imageLoader, images: playlist.images)
     }

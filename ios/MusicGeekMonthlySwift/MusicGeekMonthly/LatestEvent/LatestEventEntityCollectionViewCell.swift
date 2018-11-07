@@ -1,6 +1,6 @@
 import UIKit
 
-class LatestEventCollectionViewCell: AlbumCollectionViewCell {
+class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
     let backgroundImageView = UIImageView()
     let typeLabel = UILabel()
     let albumLabel = UILabel()
@@ -51,8 +51,8 @@ class LatestEventCollectionViewCell: AlbumCollectionViewCell {
 
         var constraints: [NSLayoutConstraint] = []
 
-        constraints.append(contentsOf: backgroundImageView.anchorTo(other: self))
-        constraints.append(contentsOf: blurView.anchorTo(other: backgroundImageView))
+        constraints.append(contentsOf: backgroundImageView.anchorTo(view: self))
+        constraints.append(contentsOf: blurView.anchorTo(view: backgroundImageView))
 
         constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: leadingAnchor, leadingConstant: spacing,
                                                           topAnchor: topAnchor, topConstant: spacing,

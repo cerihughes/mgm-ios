@@ -46,10 +46,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     // MARK: API
 
     func apply(borderSpacing: CGFloat) {
-        var constraints: [NSLayoutConstraint] = []
-
-        constraints.append(contentsOf: borderView.anchorTo(other: imageView, inset: -borderSpacing))
-
+        let constraints: [NSLayoutConstraint] = borderView.anchorTo(view: imageView, inset: -borderSpacing)
         NSLayoutConstraint.activate(constraints)
     }
 

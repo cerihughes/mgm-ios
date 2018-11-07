@@ -48,10 +48,17 @@ extension UIView {
         return constraints
     }
 
-    func anchorTo(other: UIView, inset: CGFloat = 0) -> [NSLayoutConstraint] {
-        return anchorTo(leadingAnchor: other.leadingAnchor, leadingConstant: inset,
-                        trailingAnchor: other.trailingAnchor, trailingConstant: -inset,
-                        topAnchor: other.topAnchor, topConstant: inset,
-                        bottomAnchor: other.bottomAnchor, bottomConstant: -inset)
+    func anchorTo(view: UIView, inset: CGFloat = 0) -> [NSLayoutConstraint] {
+        return anchorTo(leadingAnchor: view.leadingAnchor, leadingConstant: inset,
+                        trailingAnchor: view.trailingAnchor, trailingConstant: -inset,
+                        topAnchor: view.topAnchor, topConstant: inset,
+                        bottomAnchor: view.bottomAnchor, bottomConstant: -inset)
+    }
+
+    func anchorTo(layoutGuide: UILayoutGuide, inset: CGFloat = 0) -> [NSLayoutConstraint] {
+        return anchorTo(leadingAnchor: layoutGuide.leadingAnchor, leadingConstant: inset,
+                        trailingAnchor: layoutGuide.trailingAnchor, trailingConstant: -inset,
+                        topAnchor: layoutGuide.topAnchor, topConstant: inset,
+                        bottomAnchor: layoutGuide.bottomAnchor, bottomConstant: -inset)
     }
 }

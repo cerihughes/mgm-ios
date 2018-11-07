@@ -7,9 +7,17 @@ enum LatestEventViewModelError: Error {
     case noEvent(String)
 }
 
+typealias MapReference = (latitude: Double, longitude: Double)
+
 protocol LatestEventViewModel {
     /// The title to display in the UI
     var title: String {get}
+
+    /// The location name
+    var locationName: String? {get}
+
+    /// The map reference
+    var mapReference: MapReference? {get}
 
     /// Any error / info message that needs to be rendered.
     var message: String? {get}
@@ -17,8 +25,11 @@ protocol LatestEventViewModel {
     /// Loads data. The completion block will be fired when data is available.
     func loadData(_ completion: @escaping () -> Void)
 
-    /// The number of albums to render
-    var numberOfAlbums: Int {get}
+    /// The number of entities (albums and playlists) to render
+    var numberOfEntites: Int {get}
+
+    /// The number of locations to render
+    var numberOfLocations: Int {get}
 
     /// Returns an entity view model (album or playlist) for the given index
     ///
@@ -53,6 +64,20 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
         return String(format: "Next Event: %@", dateString)
     }
 
+    var locationName: String? {
+        guard let location = event?.location else {
+            return nil
+        }
+        return location.name
+    }
+
+    var mapReference: MapReference? {
+        guard let location = event?.location else {
+            return nil
+        }
+        return (latitude: location.latitude, longitude: location.longitude)
+    }
+
     func loadData(_ completion: @escaping () -> Void) {
         if let dataLoaderToken = dataLoaderToken {
             dataLoaderToken.cancel()
@@ -72,8 +97,15 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
         }
     }
 
-    var numberOfAlbums: Int {
+    var numberOfEntites: Int {
         return eventEntityViewModels.count
+    }
+
+    var numberOfLocations: Int {
+        if event?.location != nil {
+            return 1
+        }
+        return 0
     }
 
     func eventEntityViewModel(at index: Int) -> LatestEventEntityViewModel? {
@@ -88,7 +120,7 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
 
     private func handleDataLoaderSuccess(events: [Event], _ completion: () -> Void) {
         // Remove events without albums, then apply descending sort by ID
-        let sortedEvents = events.filter { $0.classicAlbum != nil && $0.newAlbum != nil && $0.playlist != nil }.sorted { $0.number > $1.number }
+        let sortedEvents = events.filter { $0.classicAlbum != nil && $0.newAlbum != nil }.sorted { $0.number > $1.number }
 
         guard
             let event = sortedEvents.first,

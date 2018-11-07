@@ -19,19 +19,15 @@ class LatestEventView: DataLoadingView {
 
         addSubview(collectionView)
 
-        var constraints: [NSLayoutConstraint] = []
-
-        constraints.append(contentsOf: collectionView.anchorTo(leadingAnchor: safeAreaLayoutGuide.leadingAnchor,
-                                                               trailingAnchor: safeAreaLayoutGuide.trailingAnchor,
-                                                               topAnchor: safeAreaLayoutGuide.topAnchor,
-                                                               bottomAnchor: safeAreaLayoutGuide.bottomAnchor))
-
+        let constraints: [NSLayoutConstraint] = collectionView.anchorTo(layoutGuide: safeAreaLayoutGuide)
         NSLayoutConstraint.activate(constraints)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: API
 
     func showResults() {
         hideMessage()

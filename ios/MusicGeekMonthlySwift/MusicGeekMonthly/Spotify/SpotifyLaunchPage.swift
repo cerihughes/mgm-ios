@@ -1,6 +1,6 @@
 import UIKit
 
-let spotifyLaunchPageIdentifier = "spotifyLaunchPageIdentifier"
+private let spotifyLaunchPageIdentifier = "spotifyLaunchPageIdentifier"
 
 class SpotifyLaunchPage: PageFactory, Page {
     private let externalAppLauncher: ExternalAppLauncher
@@ -27,8 +27,7 @@ class SpotifyLaunchPage: PageFactory, Page {
         guard
             let rl = token as? ResourceLocator,
             rl.identifier == spotifyLaunchPageIdentifier,
-            let spotifyURLString = rl.spotifyURLString,
-            let spotifyURL = URL(string: spotifyURLString),
+            let spotifyURL = rl.spotifyURL,
             externalAppLauncher.canOpen(externalURL: spotifyURL)
             else {
                 return nil
@@ -41,13 +40,13 @@ class SpotifyLaunchPage: PageFactory, Page {
 }
 
 extension ResourceLocator {
-    private static let spotifyURLStringKey = "spotifyURLString"
+    private static let spotifyURLKey = "spotifyURL"
 
-    static func createSpotifyResourceLocator(spotifyURLString: String) -> ResourceLocator {
-        return ResourceLocator(identifier: spotifyLaunchPageIdentifier, data: [spotifyURLStringKey: spotifyURLString])
+    static func createSpotifyResourceLocator(spotifyURL: URL) -> ResourceLocator {
+        return ResourceLocator(identifier: spotifyLaunchPageIdentifier, data: [spotifyURLKey : spotifyURL])
     }
 
-    var spotifyURLString: String? {
-        return data[ResourceLocator.spotifyURLStringKey]
+    var spotifyURL: URL? {
+        return data[ResourceLocator.spotifyURLKey] as? URL
     }
 }
