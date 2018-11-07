@@ -37,9 +37,12 @@ class ScoresCollectionViewCell: AlbumCollectionViewCell {
         contentView.addSubview(ratingLabel)
         contentView.addSubview(positionLabel)
 
+        let readableLeadingAnchor = contentView.readableContentGuide.leadingAnchor
+        let readableTrailingAnchor = contentView.readableContentGuide.trailingAnchor
+
         var constraints: [NSLayoutConstraint] = []
 
-        constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: contentView.leadingAnchor, leadingConstant: spacing,
+        constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: readableLeadingAnchor, leadingConstant: spacing,
                                                           topAnchor: contentView.topAnchor, topConstant: spacing,
                                                           bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
                                                           widthAnchor: imageView.heightAnchor))
@@ -57,7 +60,7 @@ class ScoresCollectionViewCell: AlbumCollectionViewCell {
                                                             bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
                                                             heightAnchor: albumLabel.heightAnchor));
 
-        constraints.append(contentsOf: awardImageView.anchorTo(trailingAnchor: contentView.trailingAnchor, trailingConstant: -spacing,
+        constraints.append(contentsOf: awardImageView.anchorTo(trailingAnchor: readableTrailingAnchor, trailingConstant: -spacing,
                                                                topAnchor: contentView.topAnchor, topConstant: spacing,
                                                                bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
                                                                widthAnchor: awardImageView.heightAnchor))
