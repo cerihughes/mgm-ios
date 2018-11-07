@@ -18,8 +18,6 @@ private let urlPathString = "/feeds/list/1SytsfXWjxomYL10F7y9V7LawxNPSfnLTXGZYE5
 private let altQueryKey = "alt"
 private let altQueryValue = "json"
 
-//https://spreadsheets.google.com/feeds/list/1SytsfXWjxomYL10F7y9V7LawxNPSfnLTXGZYE5F0nh0/od6/public/values?alt=json
-
 /// Default implementation of FixerIODataLoader
 final class GoogleSheetsDataLoaderImplementation: GoogleSheetsDataLoader {
     private let dataLoader: DataLoader

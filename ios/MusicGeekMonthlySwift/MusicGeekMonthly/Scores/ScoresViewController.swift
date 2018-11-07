@@ -26,19 +26,32 @@ class ScoresViewController: ForwardNavigatingViewController {
             return
         }
 
-        view.showActivityIndicator()
-        viewModel.loadData { [unowned self] in
-            view.hideActivityIndicator()
-            self.updateUI()
-        }
-
         navigationItem.title = viewModel.title
 
         view.collectionView.register(ScoresCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         view.collectionView.dataSource = self
         view.collectionView.delegate = self
+
         view.searchBar.placeholder = viewModel.filterPlaceholder
         view.searchBar.delegate = self
+
+        view.retryButton.setTitle(viewModel.retryButtonTitle, for: .normal)
+        view.retryButton.addTarget(self, action: #selector(tapGesture(sender:)), for: .touchUpInside)
+
+        loadData()
+    }
+
+    private func loadData() {
+        guard let view = view as? ScoresView else {
+            return
+        }
+
+        view.hideMessage()
+        view.showActivityIndicator()
+        viewModel.loadData { [unowned self] in
+            view.hideActivityIndicator()
+            self.updateUI()
+        }
     }
 
     // MARK: Private
@@ -49,7 +62,7 @@ class ScoresViewController: ForwardNavigatingViewController {
         }
 
         if let message = viewModel.message {
-            scoresView.showMessage(message)
+            scoresView.showMessage(message, showRetryButton: !viewModel.dataLoaded)
         } else {
             scoresView.showResults()
             scoresView.collectionView.reloadData()
@@ -164,5 +177,15 @@ extension ScoresViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         dismissKeyboard()
+    }
+}
+
+extension ScoresViewController {
+
+    // MARK: UIButton interactions
+
+    @objc
+    private func tapGesture(sender: UIBarButtonItem) {
+        loadData()
     }
 }

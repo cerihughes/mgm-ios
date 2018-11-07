@@ -34,8 +34,8 @@ class LatestEventView: DataLoadingView {
         collectionView.isHidden = false
     }
 
-    override func showMessage(_ message: String) {
-        super.showMessage(message)
+    override func showMessage(_ message: String, showRetryButton: Bool) {
+        super.showMessage(message, showRetryButton: showRetryButton)
         collectionView.isHidden = true
     }
 }

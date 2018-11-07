@@ -29,12 +29,6 @@ class LatestEventViewController: ForwardNavigatingViewController {
             return
         }
 
-        view.showActivityIndicator()
-        viewModel.loadData { [unowned self] in
-            view.hideActivityIndicator()
-            self.updateUI()
-        }
-
         navigationItem.title = viewModel.title
 
         view.collectionView.register(LatestEventCollectionSectionHeaderView.self,
@@ -42,12 +36,29 @@ class LatestEventViewController: ForwardNavigatingViewController {
                                      withReuseIdentifier: sectionHeaderReuseIdentifier)
         view.collectionView.register(LatestEventLocationCollectionViewCell.self, forCellWithReuseIdentifier: locationCellReuseIdentifier)
         view.collectionView.register(LatestEventEntityCollectionViewCell.self, forCellWithReuseIdentifier: entityCellReuseIdentifier)
-
         view.collectionView.dataSource = self
         view.collectionView.delegate = self
+
+        view.retryButton.setTitle(viewModel.retryButtonTitle, for: .normal)
+        view.retryButton.addTarget(self, action: #selector(tapGesture(sender:)), for: .touchUpInside)
+
+        loadData()
     }
 
     // MARK: Private
+
+    private func loadData() {
+        guard let view = view as? LatestEventView else {
+            return
+        }
+
+        view.hideMessage()
+        view.showActivityIndicator()
+        viewModel.loadData { [unowned self] in
+            view.hideActivityIndicator()
+            self.updateUI()
+        }
+    }
 
     private func updateUI() {
         guard let scoresView = view as? LatestEventView else {
@@ -57,7 +68,7 @@ class LatestEventViewController: ForwardNavigatingViewController {
         navigationItem.title = viewModel.title
 
         if let message = viewModel.message {
-            scoresView.showMessage(message)
+            scoresView.showMessage(message, showRetryButton: true)
         } else {
             scoresView.showResults()
             scoresView.collectionView.reloadData()
@@ -207,5 +218,15 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
 
         let rl = ResourceLocator.createSpotifyResourceLocator(spotifyURL: spotifyURL)
         _ = forwardNavigationContext.navigate(with: rl, from: self, animated: true)
+    }
+}
+
+extension LatestEventViewController {
+
+    // MARK: UIButton interactions
+
+    @objc
+    private func tapGesture(sender: UIBarButtonItem) {
+        loadData()
     }
 }

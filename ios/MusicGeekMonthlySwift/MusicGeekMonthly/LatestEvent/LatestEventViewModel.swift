@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 /// Domain-specific errors for the LatestEventViewModel
 ///
@@ -21,6 +21,9 @@ protocol LatestEventViewModel {
 
     /// Any error / info message that needs to be rendered.
     var message: String? {get}
+
+    /// The title of the retry button (when visible)
+    var retryButtonTitle: String {get}
 
     /// Loads data. The completion block will be fired when data is available.
     func loadData(_ completion: @escaping () -> Void)
@@ -51,6 +54,7 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
     private var eventEntityViewModels: [LatestEventEntityViewModel] = []
     private var dataLoaderToken: DataLoaderToken? = nil
 
+    let retryButtonTitle = "Retry"
     var event: Event? = nil
     var message: String? = nil
 
@@ -149,7 +153,7 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
     private func handleDataLoaderFailure(error: Error, _ completion: () -> Void) {
         self.event = nil
         self.eventEntityViewModels = []
-        self.message = error.localizedDescription
+        self.message = dataLoaderErrorMessage
         completion()
     }
 
