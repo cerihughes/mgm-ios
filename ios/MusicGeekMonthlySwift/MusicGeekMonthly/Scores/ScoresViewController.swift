@@ -26,7 +26,9 @@ class ScoresViewController: ForwardNavigatingViewController {
             return
         }
 
+        view.showActivityIndicator()
         viewModel.loadData { [unowned self] in
+            view.hideActivityIndicator()
             self.updateUI()
         }
 
