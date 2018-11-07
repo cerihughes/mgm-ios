@@ -3,7 +3,7 @@ import UIKit
 /// An abstract view that contains a loading indicator and message view
 class DataLoadingView: UIView {
     private let messageView = UILabel()
-    private let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+    private let activityIndicatorView = UIActivityIndicatorView(style: .gray)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
