@@ -49,12 +49,15 @@ class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
         contentView.addSubview(byLabel)
         contentView.addSubview(artistLabel)
 
+        let readableLeadingAnchor = contentView.readableContentGuide.leadingAnchor
+        let readableTrailingAnchor = contentView.readableContentGuide.trailingAnchor
+
         var constraints: [NSLayoutConstraint] = []
 
         constraints.append(contentsOf: backgroundImageView.anchorTo(view: self))
         constraints.append(contentsOf: blurView.anchorTo(view: backgroundImageView))
 
-        constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: contentView.leadingAnchor, leadingConstant: spacing,
+        constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: readableLeadingAnchor, leadingConstant: spacing,
                                                           topAnchor: contentView.topAnchor, topConstant: spacing,
                                                           bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
                                                           widthAnchor: imageView.heightAnchor))
@@ -63,7 +66,7 @@ class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
         apply(borderSpacing: halfSpacing)
 
         constraints.append(contentsOf: typeLabel.anchorTo(leadingAnchor: imageView.trailingAnchor, leadingConstant: spacing + halfSpacing,
-                                                          trailingAnchor: contentView.trailingAnchor, trailingConstant: -spacing,
+                                                          trailingAnchor: readableTrailingAnchor, trailingConstant: -spacing,
                                                           topAnchor: contentView.topAnchor, topConstant: spacing,
                                                           bottomAnchor: albumLabel.topAnchor, bottomConstant: -spacing))
 
