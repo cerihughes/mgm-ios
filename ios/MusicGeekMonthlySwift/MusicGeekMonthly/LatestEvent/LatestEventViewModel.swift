@@ -110,7 +110,7 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
 
     private func handleDataLoaderSuccess(events: [Event], _ completion: () -> Void) {
         // Remove events without albums, then apply descending sort by ID
-        let sortedEvents = events.filter { $0.classicAlbum != nil && $0.newAlbum != nil && $0.playlist != nil }.sorted { $0.number > $1.number }
+        let sortedEvents = events.filter { $0.classicAlbum != nil && $0.newAlbum != nil }.sorted { $0.number > $1.number }
 
         guard
             let event = sortedEvents.first,
