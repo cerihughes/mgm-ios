@@ -120,12 +120,12 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
 
         guard
             let cellViewModel = viewModel.scoreViewModel(at: indexPath.row),
-            let spotifyURLString = cellViewModel.spotifyURLString
+            let spotifyURL = cellViewModel.spotifyURL
             else {
                 return
         }
 
-        let rl = ResourceLocator.createSpotifyResourceLocator(spotifyURLString: spotifyURLString)
+        let rl = ResourceLocator.createSpotifyResourceLocator(spotifyURL: spotifyURL)
         _ = forwardNavigationContext.navigate(with: rl, from: self, animated: true)
     }
 

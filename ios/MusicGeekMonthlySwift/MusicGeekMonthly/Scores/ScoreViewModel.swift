@@ -20,7 +20,7 @@ protocol ScoreViewModel: AlbumArtViewModel {
     var position: String {get}
 
     /// The spotify URL to navigate to on interaction
-    var spotifyURLString: String? {get}
+    var spotifyURL: URL? {get}
 }
 
 private enum Award {
@@ -106,11 +106,11 @@ final class ScoreViewModelImplementation: AlbumArtViewModelImplementation, Score
         return String(index + 1)
     }
 
-    var spotifyURLString: String? {
+    var spotifyURL: URL? {
         guard let spotifyID = album.spotifyID else {
             return nil
         }
-        return String.createSpotifyAlbumURLString(albumID: spotifyID)
+        return .createSpotifyAlbumURL(albumID: spotifyID)
     }
 }
 

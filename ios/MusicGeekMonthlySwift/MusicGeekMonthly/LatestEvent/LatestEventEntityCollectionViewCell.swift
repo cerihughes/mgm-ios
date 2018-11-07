@@ -1,6 +1,6 @@
 import UIKit
 
-class LatestEventCollectionViewCell: AlbumCollectionViewCell {
+class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
     let backgroundImageView = UIImageView()
     let typeLabel = UILabel()
     let albumLabel = UILabel()

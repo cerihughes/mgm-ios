@@ -46,15 +46,16 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
         let x: CGFloat = spacing
         var y: CGFloat = spacing
         let width = collectionView.bounds.size.width - (2 * spacing)
-        let numberOfItems = collectionView.numberOfItems(inSection: 0)
-        for i in 0 ..< numberOfItems {
-            let indexPath = IndexPath(item: i, section: 0)
-            let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+        for section in 0 ..< collectionView.numberOfSections {
+            for item in 0 ..< collectionView.numberOfItems(inSection: section) {
+                let indexPath = IndexPath(item: item, section: section)
+                let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
 
-            let frame = CGRect(x: x, y: y, width: width, height: itemHeight)
-            attributes.frame = frame
-            cache.append(attributes)
-            y += itemHeight + spacing
+                let frame = CGRect(x: x, y: y, width: width, height: itemHeight)
+                attributes.frame = frame
+                cache.append(attributes)
+                y += itemHeight + spacing
+            }
         }
     }
 

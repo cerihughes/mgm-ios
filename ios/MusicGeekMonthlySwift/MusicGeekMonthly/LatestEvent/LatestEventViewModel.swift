@@ -25,8 +25,11 @@ protocol LatestEventViewModel {
     /// Loads data. The completion block will be fired when data is available.
     func loadData(_ completion: @escaping () -> Void)
 
-    /// The number of albums to render
-    var numberOfAlbums: Int {get}
+    /// The number of entities (albums and playlists) to render
+    var numberOfEntites: Int {get}
+
+    /// The number of locations to render
+    var numberOfLocations: Int {get}
 
     /// Returns an entity view model (album or playlist) for the given index
     ///
@@ -94,8 +97,15 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
         }
     }
 
-    var numberOfAlbums: Int {
+    var numberOfEntites: Int {
         return eventEntityViewModels.count
+    }
+
+    var numberOfLocations: Int {
+        if event?.location != nil {
+            return 1
+        }
+        return 0
     }
 
     func eventEntityViewModel(at index: Int) -> LatestEventEntityViewModel? {

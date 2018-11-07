@@ -15,7 +15,7 @@
 		6553CF9121907F9A0020EEC2 /* ViewModelDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553CF9021907F9A0020EEC2 /* ViewModelDataLoader.swift */; };
 		6553CF932190890B0020EEC2 /* LatestEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553CF922190890B0020EEC2 /* LatestEventView.swift */; };
 		6553CF95219089560020EEC2 /* DataLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553CF94219089560020EEC2 /* DataLoadingView.swift */; };
-		6566197321908BFA0068EA1B /* LatestEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566197221908BFA0068EA1B /* LatestEventCollectionViewCell.swift */; };
+		6566197321908BFA0068EA1B /* LatestEventEntityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566197221908BFA0068EA1B /* LatestEventEntityCollectionViewCell.swift */; };
 		6566197521908CE20068EA1B /* LatestEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566197421908CE20068EA1B /* LatestEventViewController.swift */; };
 		65661978219092080068EA1B /* AlbumArtViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65661977219092080068EA1B /* AlbumArtViewModel.swift */; };
 		6566197A2190969A0068EA1B /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619792190969A0068EA1B /* AlbumCollectionViewCell.swift */; };
@@ -32,6 +32,8 @@
 		656619952190AFBF0068EA1B /* ForwardNavigatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */; };
 		656619972190BB5F0068EA1B /* ExternalAppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */; };
 		658AE763218DF75C002D4AE5 /* AverageColorProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */; };
+		659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */; };
+		659DED7121931FFF00226579 /* AppleMapsLaunchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED7021931FFF00226579 /* AppleMapsLaunchPage.swift */; };
 		65BDAA8F2189F55C007E887B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA8E2189F55C007E887B /* AppDelegate.swift */; };
 		65BDAA912189F55C007E887B /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA902189F55C007E887B /* ScoresViewController.swift */; };
 		65BDAA962189F55D007E887B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65BDAA952189F55D007E887B /* Assets.xcassets */; };
@@ -56,7 +58,7 @@
 		65D2AD9A218B330D002BB0C9 /* ScoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */; };
 		65D2AD9C218B36DD002BB0C9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */; };
 		65D2AD9E218B5143002BB0C9 /* ScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9D218B5143002BB0C9 /* ScoresView.swift */; };
-		65E9AEB62191E09F001B36D6 /* String+SpotifyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9AEB52191E09F001B36D6 /* String+SpotifyExtensions.swift */; };
+		65E9AEB62191E09F001B36D6 /* URL+SpotifyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +87,7 @@
 		6553CF9021907F9A0020EEC2 /* ViewModelDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDataLoader.swift; sourceTree = "<group>"; };
 		6553CF922190890B0020EEC2 /* LatestEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventView.swift; sourceTree = "<group>"; };
 		6553CF94219089560020EEC2 /* DataLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingView.swift; sourceTree = "<group>"; };
-		6566197221908BFA0068EA1B /* LatestEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventCollectionViewCell.swift; sourceTree = "<group>"; };
+		6566197221908BFA0068EA1B /* LatestEventEntityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventEntityCollectionViewCell.swift; sourceTree = "<group>"; };
 		6566197421908CE20068EA1B /* LatestEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventViewController.swift; sourceTree = "<group>"; };
 		65661977219092080068EA1B /* AlbumArtViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumArtViewModel.swift; sourceTree = "<group>"; };
 		656619792190969A0068EA1B /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -102,6 +104,8 @@
 		656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardNavigatingViewController.swift; sourceTree = "<group>"; };
 		656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalAppLauncher.swift; sourceTree = "<group>"; };
 		658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageColorProcessor.swift; sourceTree = "<group>"; };
+		659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventLocationCollectionViewCell.swift; sourceTree = "<group>"; };
+		659DED7021931FFF00226579 /* AppleMapsLaunchPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsLaunchPage.swift; sourceTree = "<group>"; };
 		65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicGeekMonthly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65BDAA8E2189F55C007E887B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65BDAA902189F55C007E887B /* ScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewController.swift; sourceTree = "<group>"; };
@@ -127,7 +131,7 @@
 		65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewModel.swift; sourceTree = "<group>"; };
 		65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		65D2AD9D218B5143002BB0C9 /* ScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView.swift; sourceTree = "<group>"; };
-		65E9AEB52191E09F001B36D6 /* String+SpotifyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SpotifyExtensions.swift"; sourceTree = "<group>"; };
+		65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+SpotifyExtensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,7 +212,8 @@
 				6566198F2190A9470068EA1B /* LatestEventPage.swift */,
 				6566197421908CE20068EA1B /* LatestEventViewController.swift */,
 				6553CF922190890B0020EEC2 /* LatestEventView.swift */,
-				6566197221908BFA0068EA1B /* LatestEventCollectionViewCell.swift */,
+				6566197221908BFA0068EA1B /* LatestEventEntityCollectionViewCell.swift */,
+				659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */,
 				6553CF8A21907C4A0020EEC2 /* LatestEventViewModel.swift */,
 				6553CF8C21907CB30020EEC2 /* LatestEventEntityViewModel.swift */,
 			);
@@ -222,6 +227,14 @@
 				656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */,
 			);
 			path = Spotify;
+			sourceTree = "<group>";
+		};
+		659DED6F21931FDE00226579 /* AppleMaps */ = {
+			isa = PBXGroup;
+			children = (
+				659DED7021931FFF00226579 /* AppleMapsLaunchPage.swift */,
+			);
+			path = AppleMaps;
 			sourceTree = "<group>";
 		};
 		65BDAA822189F55C007E887B = {
@@ -255,12 +268,13 @@
 				656619892190A7090068EA1B /* Scores */,
 				6566198A2190A7330068EA1B /* LatestEvent */,
 				656619912190ACAE0068EA1B /* Spotify */,
+				659DED6F21931FDE00226579 /* AppleMaps */,
 				65BDAA8E2189F55C007E887B /* AppDelegate.swift */,
 				65BDAA952189F55D007E887B /* Assets.xcassets */,
 				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
 				65BDAA9A2189F55D007E887B /* Info.plist */,
 				65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */,
-				65E9AEB52191E09F001B36D6 /* String+SpotifyExtensions.swift */,
+				65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */,
 			);
 			path = MusicGeekMonthly;
 			sourceTree = "<group>";
@@ -463,7 +477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6553CF8D21907CB30020EEC2 /* LatestEventEntityViewModel.swift in Sources */,
-				65E9AEB62191E09F001B36D6 /* String+SpotifyExtensions.swift in Sources */,
+				65E9AEB62191E09F001B36D6 /* URL+SpotifyExtensions.swift in Sources */,
 				656619822190A0A30068EA1B /* NavigationUI.swift in Sources */,
 				6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */,
 				656619932190ACCD0068EA1B /* SpotifyLaunchPage.swift in Sources */,
@@ -485,6 +499,8 @@
 				6566198021909EE80068EA1B /* ViewControllerRegistry.swift in Sources */,
 				658AE763218DF75C002D4AE5 /* AverageColorProcessor.swift in Sources */,
 				6553CF8B21907C4A0020EEC2 /* LatestEventViewModel.swift in Sources */,
+				659DED7121931FFF00226579 /* AppleMapsLaunchPage.swift in Sources */,
+				659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */,
 				6553CF9121907F9A0020EEC2 /* ViewModelDataLoader.swift in Sources */,
 				65BDAAC82189FDE9007E887B /* DateFormatter+Extensions.swift in Sources */,
 				65661978219092080068EA1B /* AlbumArtViewModel.swift in Sources */,
@@ -496,7 +512,7 @@
 				65BDAAC62189FDA4007E887B /* DataConverter.swift in Sources */,
 				656619952190AFBF0068EA1B /* ForwardNavigatingViewController.swift in Sources */,
 				65D2AD98218B3105002BB0C9 /* ScoresViewModel.swift in Sources */,
-				6566197321908BFA0068EA1B /* LatestEventCollectionViewCell.swift in Sources */,
+				6566197321908BFA0068EA1B /* LatestEventEntityCollectionViewCell.swift in Sources */,
 				6540A51B218C85260028B382 /* ScoresCollectionViewCell.swift in Sources */,
 				65BDAABF2189F69C007E887B /* DataLoader.swift in Sources */,
 				65BDAACA2189FEF8007E887B /* Model.swift in Sources */,
