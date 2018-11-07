@@ -20,11 +20,11 @@ protocol LatestEventViewModel {
     /// The number of albums to render
     var numberOfAlbums: Int {get}
 
-    /// Returns ae event album view model for the given index
+    /// Returns an entity view model (album or playlist) for the given index
     ///
     /// - Parameter index: the index
-    /// - Returns: the event album view model, or nil if no model exists with the given index
-    func eventAlbumViewModel(at index: Int) -> LatestEventAlbumViewModel?
+    /// - Returns: the entity view model, or nil if no model exists with the given index
+    func eventEntityViewModel(at index: Int) -> LatestEventEntityViewModel?
 }
 
 /// Default implementation of LatestEventViewModel
@@ -34,7 +34,7 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
     private let dataLoader: ViewModelDataLoader
     private let imageLoader: ImageLoader
 
-    private var eventAlbumViewModels: [LatestEventAlbumViewModel] = []
+    private var eventEntityViewModels: [LatestEventEntityViewModel] = []
     private var dataLoaderToken: DataLoaderToken? = nil
 
     var event: Event? = nil
@@ -73,15 +73,15 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
     }
 
     var numberOfAlbums: Int {
-        return eventAlbumViewModels.count
+        return eventEntityViewModels.count
     }
 
-    func eventAlbumViewModel(at index: Int) -> LatestEventAlbumViewModel? {
-        guard index < eventAlbumViewModels.count else {
+    func eventEntityViewModel(at index: Int) -> LatestEventEntityViewModel? {
+        guard index < eventEntityViewModels.count else {
             return nil
         }
 
-        return eventAlbumViewModels[index]
+        return eventEntityViewModels[index]
     }
 
     // MARK: Private
@@ -105,17 +105,17 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
 
     private func handleDataLoaderFailure(error: Error, _ completion: () -> Void) {
         self.event = nil
-        self.eventAlbumViewModels = []
+        self.eventEntityViewModels = []
         self.message = error.localizedDescription
         completion()
     }
 
     private func updateStateAndNotify(event: Event, classicAlbum: Album, newAlbum: Album, _ completion: () -> Void) {
         self.event = event
-        eventAlbumViewModels.append(LatestEventAlbumViewModelImplementation(imageLoader: imageLoader, album: classicAlbum))
-        eventAlbumViewModels.append(LatestEventAlbumViewModelImplementation(imageLoader: imageLoader, album: newAlbum))
+        eventEntityViewModels.append(LatestEventEntityViewModelImplementation(imageLoader: imageLoader, album: classicAlbum))
+        eventEntityViewModels.append(LatestEventEntityViewModelImplementation(imageLoader: imageLoader, album: newAlbum))
         if let playlist = event.playlist {
-            eventAlbumViewModels.append(LatestEventPlaylistViewModelImplementation(imageLoader: imageLoader, playlist: playlist))
+            eventEntityViewModels.append(LatestEventEntityViewModelImplementation(imageLoader: imageLoader, playlist: playlist))
         }
         self.message = nil
         completion()

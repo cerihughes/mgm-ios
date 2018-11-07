@@ -4,7 +4,7 @@ class LatestEventCollectionViewCell: AlbumCollectionViewCell {
     let backgroundImageView = UIImageView()
     let typeLabel = UILabel()
     let albumLabel = UILabel()
-    let byLabel = UILabel()
+    private let byLabel = UILabel()
     let artistLabel = UILabel()
 
     private let spacing: CGFloat = 16.0
@@ -35,6 +35,7 @@ class LatestEventCollectionViewCell: AlbumCollectionViewCell {
         byLabel.font = UIFont.italicSystemFont(ofSize: 12)
         byLabel.textColor = .black
         byLabel.textAlignment = .center
+        byLabel.text = "by"
 
         artistLabel.translatesAutoresizingMaskIntoConstraints = false
         artistLabel.font = UIFont.systemFont(ofSize: 14)

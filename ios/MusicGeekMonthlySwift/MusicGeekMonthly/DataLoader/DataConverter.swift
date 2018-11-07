@@ -61,7 +61,7 @@ final class DataConverterImplementation: DataConverter {
 
         let dateString = entry.date?.processedValue
         let date = DataConverterImplementation.dateFormatter.date(from: dateString ?? "")
-        let playlist = createPlaylist(from: entry)
+        let playlist = createPlaylist(from: entry, number: number)
         let classicAlbum = createClassicAlbum(from: entry)
         let newAlbum = createNewAlbum(from: entry)
         return Event(number: number,
@@ -71,13 +71,15 @@ final class DataConverterImplementation: DataConverter {
                      newAlbum: newAlbum)
     }
 
-    private func createPlaylist(from entry: JSONEntry) -> Playlist? {
+    private func createPlaylist(from entry: JSONEntry, number: Int) -> Playlist? {
         guard let spotifyID = entry.playlist?.processedValue else {
             return nil
         }
 
         let images = createPlaylistImages(from: entry)
-        return Playlist(spotifyID: spotifyID, images: images)
+        let name = String(format: "Music Geek Monthly %d", number)
+        let owner = "Andrew Jones"
+        return Playlist(spotifyID: spotifyID, name: name, owner: owner, images: images)
     }
 
     private func createPlaylistImages(from entry: JSONEntry) -> Images {

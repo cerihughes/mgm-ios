@@ -23,6 +23,8 @@ struct Album {
 
 struct Playlist {
     let spotifyID: String?
+    let name: String
+    let owner: String
     let images: Images
 }
 
