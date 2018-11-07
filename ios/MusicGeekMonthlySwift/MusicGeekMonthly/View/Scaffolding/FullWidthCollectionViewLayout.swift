@@ -2,19 +2,26 @@ import UIKit
 
 class FullWidthCollectionViewLayout: UICollectionViewLayout {
     private let defaultItemHeight: CGFloat
+    private let itemHeightOverrides: [Int : CGFloat]
+
     private let borderSpacing: CGFloat
     private let itemSpacing: CGFloat
     private let sectionSpacing: CGFloat
 
     private var cache = [UICollectionViewLayoutAttributes]()
 
-    init(itemHeight: CGFloat, spacing: CGFloat) {
-        self.defaultItemHeight = itemHeight
+    init(defaultItemHeight: CGFloat, itemHeightOverrides: [Int : CGFloat], spacing: CGFloat) {
+        self.defaultItemHeight = defaultItemHeight
+        self.itemHeightOverrides = itemHeightOverrides
         self.borderSpacing = spacing
         self.itemSpacing = spacing
         self.sectionSpacing = spacing
 
         super.init()
+    }
+
+    convenience init(itemHeight: CGFloat, spacing: CGFloat) {
+        self.init(defaultItemHeight: itemHeight, itemHeightOverrides: [:], spacing: spacing)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -97,6 +104,9 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
     // MARK: Private
 
     func itemHeight(in section: Int) -> CGFloat {
-        return defaultItemHeight
+        guard let itemHeight = itemHeightOverrides[section] else {
+            return defaultItemHeight
+        }
+        return itemHeight
     }
 }
