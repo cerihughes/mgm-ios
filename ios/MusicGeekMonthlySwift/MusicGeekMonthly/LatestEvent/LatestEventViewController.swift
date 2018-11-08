@@ -193,8 +193,9 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             self.collectionView(collectionView, didSelectLocationItemAt: indexPath)
+        } else {
+            self.collectionView(collectionView, didSelectEntityItemAt: indexPath)
         }
-        self.collectionView(collectionView, didSelectEntityItemAt: indexPath)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectLocationItemAt indexPath: IndexPath) {
