@@ -138,7 +138,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
         // Categorise, remove scoreless albums and apply descending sort by score
         classicAlbums = events.compactMap { $0.classicAlbum }.filter { $0.score != nil }.sorted(by: descendingScoresSort)
         newAlbums = events.compactMap { $0.newAlbum }.filter { $0.score != nil }.sorted(by: descendingScoresSort)
-        allAlbums = classicAlbums + newAlbums.sorted(by: descendingScoresSort)
+        allAlbums = (classicAlbums + newAlbums).sorted(by: descendingScoresSort)
 
         applyAlbumTypeFilter()
         completion()
