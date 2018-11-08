@@ -40,7 +40,7 @@ class LatestEventViewController: ForwardNavigatingViewController {
         view.collectionView.delegate = self
 
         view.retryButton.setTitle(viewModel.retryButtonTitle, for: .normal)
-        view.retryButton.addTarget(self, action: #selector(tapGesture(sender:)), for: .touchUpInside)
+        view.retryButton.addTarget(self, action: #selector(buttonTapGesture(sender:)), for: .touchUpInside)
 
         loadData()
     }
@@ -228,7 +228,7 @@ extension LatestEventViewController {
     // MARK: UIButton interactions
 
     @objc
-    private func tapGesture(sender: UIBarButtonItem) {
+    private func buttonTapGesture(sender: UIButton) {
         loadData()
     }
 }

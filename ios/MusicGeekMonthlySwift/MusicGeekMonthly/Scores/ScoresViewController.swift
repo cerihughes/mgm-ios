@@ -26,8 +26,6 @@ class ScoresViewController: ForwardNavigatingViewController {
             return
         }
 
-        navigationItem.title = viewModel.title
-
         view.collectionView.register(ScoresCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         view.collectionView.dataSource = self
         view.collectionView.delegate = self
@@ -36,7 +34,12 @@ class ScoresViewController: ForwardNavigatingViewController {
         view.searchBar.delegate = self
 
         view.retryButton.setTitle(viewModel.retryButtonTitle, for: .normal)
-        view.retryButton.addTarget(self, action: #selector(tapGesture(sender:)), for: .touchUpInside)
+        view.retryButton.addTarget(self, action: #selector(buttonTapGesture(sender:)), for: .touchUpInside)
+
+        let segmentedControl = UISegmentedControl(items: viewModel.albumTypes)
+        segmentedControl.selectedSegmentIndex = viewModel.selectedAlbumType
+        segmentedControl.addTarget(self, action: #selector(segmentedControlTapGesture(sender:)), for: .valueChanged)
+        navigationItem.titleView = segmentedControl
 
         loadData()
     }
@@ -185,7 +188,18 @@ extension ScoresViewController {
     // MARK: UIButton interactions
 
     @objc
-    private func tapGesture(sender: UIBarButtonItem) {
+    private func buttonTapGesture(sender: UIButton) {
         loadData()
+    }
+}
+
+extension ScoresViewController {
+
+    // MARK: UISegmentedControl interactions
+
+    @objc
+    private func segmentedControlTapGesture(sender: UISegmentedControl) {
+        viewModel.selectedAlbumType = sender.selectedSegmentIndex
+        updateUI()
     }
 }

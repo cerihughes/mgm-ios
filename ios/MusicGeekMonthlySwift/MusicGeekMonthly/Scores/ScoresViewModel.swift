@@ -14,8 +14,11 @@ protocol ScoresViewModel {
     /// The number of scores loaded by the last query
     var numberOfScores: Int {get}
 
-    /// The title to display in the UI
-    var title: String {get}
+    /// The display strings for the different types of albums
+    var albumTypes: [String] {get}
+
+    /// The index of the selected album type
+    var selectedAlbumType: Int {get set}
 
     /// Whether the data has loaded successfully
     var dataLoaded: Bool {get}
@@ -42,14 +45,25 @@ protocol ScoresViewModel {
     func scoreViewModel(at index: Int) -> ScoreViewModel?
 }
 
+private let descendingScoresSort: (Album, Album) -> Bool = { $0.score ?? 0.0 > $1.score ?? 0.0 }
+
 /// Default implementation of ScoresViewModel
 final class ScoresViewModelImplementation: ScoresViewModel {
     private let dataLoader: ViewModelDataLoader
     private let imageLoader: ImageLoader
 
+    private var classicAlbums: [Album] = []
+    private var newAlbums: [Album] = []
+    private var allAlbums: [Album] = []
     private var scoreViewModels: [ScoreViewModel] = []
     private var filteredScoreViewModels: [ScoreViewModel] = []
     private var dataLoaderToken: DataLoaderToken? = nil
+
+    var selectedAlbumType = 2 {
+        didSet {
+            applyAlbumTypeFilter()
+        }
+    }
 
     var filter: String? = nil {
         didSet {
@@ -57,11 +71,11 @@ final class ScoresViewModelImplementation: ScoresViewModel {
         }
     }
 
-    let title = "Album Scores"
+    let albumTypes = ["Classic Albums", "New Albums", "All Albums"]
     let retryButtonTitle = "Retry"
-    var message: String? = nil
     let filterPlaceholder = "Filter by album, artist or score"
 
+    var message: String? = nil
     init(dataLoader: ViewModelDataLoader, imageLoader: ImageLoader) {
         self.dataLoader = dataLoader
         self.imageLoader = imageLoader
@@ -121,23 +135,26 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     }
 
     private func updateStateAndNotify(events: [Event], _ completion: () -> Void) {
-        var albums: [Album] = []
-        for event in events {
-            if let classicAlbum = event.classicAlbum {
-                albums.append(classicAlbum)
-            }
-            if let newAlbum = event.newAlbum {
-                albums.append(newAlbum)
-            }
-        }
+        // Categorise, remove scoreless albums and apply descending sort by score
+        classicAlbums = events.compactMap { $0.classicAlbum }.filter { $0.score != nil }.sorted(by: descendingScoresSort)
+        newAlbums = events.compactMap { $0.newAlbum }.filter { $0.score != nil }.sorted(by: descendingScoresSort)
+        allAlbums = classicAlbums + newAlbums.sorted(by: descendingScoresSort)
 
-        // Remove scoreless albums, then apply descending sort by score
-        albums = albums.filter { $0.score != nil }.sorted { $0.score ?? 0.0 > $1.score ?? 0.0 }
-        self.scoreViewModels = albums.enumerated().map { ScoreViewModelImplementation(imageLoader: imageLoader, album: $0.element, index: $0.offset) }
-        self.message = nil
-
-        applyFilter()
+        applyAlbumTypeFilter()
         completion()
+    }
+
+    private var filteredAlbums: [Album] {
+        switch selectedAlbumType {
+        case 0: return classicAlbums
+        case 1: return newAlbums
+        default: return allAlbums
+        }
+    }
+
+    private func applyAlbumTypeFilter() {
+        self.scoreViewModels = filteredAlbums.enumerated().map { ScoreViewModelImplementation(imageLoader: imageLoader, album: $0.element, index: $0.offset) }
+        applyFilter()
     }
 
     private func applyFilter() {
