@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6507A1FC218C8FE200C26202 /* FullWidthCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507A1FB218C8FE200C26202 /* FullWidthCollectionViewLayout.swift */; };
+		6508BD1F21945DA3009C7043 /* googleSheets.json in Resources */ = {isa = PBXBuildFile; fileRef = 6508BD1E21945DA2009C7043 /* googleSheets.json */; };
 		6512F30421933D06004CD379 /* LatestEventCollectionSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6512F30321933D06004CD379 /* LatestEventCollectionSectionHeaderView.swift */; };
 		6512F30621934DEE004CD379 /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6512F30521934DEE004CD379 /* ErrorMessages.swift */; };
 		6528005C2193840D00100167 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6528005A2193840C00100167 /* Fabric.framework */; };
@@ -84,6 +85,7 @@
 
 /* Begin PBXFileReference section */
 		6507A1FB218C8FE200C26202 /* FullWidthCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullWidthCollectionViewLayout.swift; sourceTree = "<group>"; };
+		6508BD1E21945DA2009C7043 /* googleSheets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = googleSheets.json; sourceTree = "<group>"; };
 		6512F30321933D06004CD379 /* LatestEventCollectionSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventCollectionSectionHeaderView.swift; sourceTree = "<group>"; };
 		6512F30521934DEE004CD379 /* ErrorMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessages.swift; sourceTree = "<group>"; };
 		6528005A2193840C00100167 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 			children = (
 				65BDAABE2189F69C007E887B /* DataLoader.swift */,
 				65BDAAC02189F6CC007E887B /* GoogleSheetsDataLoader.swift */,
+				6508BD1E21945DA2009C7043 /* googleSheets.json */,
 				65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */,
 				65BDAAC52189FDA4007E887B /* DataConverter.swift */,
 			);
@@ -467,6 +470,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6508BD1F21945DA3009C7043 /* googleSheets.json in Resources */,
 				65BDAA992189F55D007E887B /* LaunchScreen.storyboard in Resources */,
 				65BDAA962189F55D007E887B /* Assets.xcassets in Resources */,
 			);

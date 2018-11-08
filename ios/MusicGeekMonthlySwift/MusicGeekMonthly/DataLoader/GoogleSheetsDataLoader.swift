@@ -46,3 +46,65 @@ final class GoogleSheetsDataLoaderImplementation: GoogleSheetsDataLoader {
         return urlComponents.url
     }
 }
+
+class CachingGoogleSheetsDataLoaderImplementation: GoogleSheetsDataLoader {
+    private static let userDefaultsKey = "CachingGoogleSheetsDataLoaderImplementation_userDefaultsKey"
+
+    private let wrappedDataLoader: GoogleSheetsDataLoader
+    private let userDefaults: UserDefaults
+
+    init(wrappedDataLoader: GoogleSheetsDataLoader, userDefaults: UserDefaults) {
+        self.wrappedDataLoader = wrappedDataLoader
+        self.userDefaults = userDefaults
+    }
+
+    func loadData(_ completion: @escaping (DataLoaderResponse) -> Void) -> DataLoaderToken? {
+        return wrappedDataLoader.loadData() { [unowned self] (response) in
+            switch response {
+            case .success(let data):
+                self.handleDataLoaderSuccess(data: data, completion)
+            case .failure(let error):
+                self.handleDataLoaderFailure(error: error, completion)
+            }
+        }
+    }
+
+    // MARK: Private
+
+    private func handleDataLoaderSuccess(data: Data, _ completion: @escaping (DataLoaderResponse) -> Void) {
+        writeUserDefaultsData(data)
+        completion(.success(data))
+    }
+
+    private func handleDataLoaderFailure(error: Error, _ completion: @escaping (DataLoaderResponse) -> Void) {
+        if let data = readUserDefaultsData() {
+            completion(.success(data))
+            return
+        }
+
+        if let data = createFallbackData() {
+            completion(.success(data))
+            return
+        }
+
+        completion(.failure(error))
+    }
+
+    private func readUserDefaultsData() -> Data? {
+        return userDefaults.data(forKey: CachingGoogleSheetsDataLoaderImplementation.userDefaultsKey)
+    }
+
+    private func writeUserDefaultsData(_ data: Data) {
+        userDefaults.set(data, forKey: CachingGoogleSheetsDataLoaderImplementation.userDefaultsKey)
+    }
+
+    private func createFallbackData() -> Data? {
+        let bundle = Bundle(for: CachingGoogleSheetsDataLoaderImplementation.self)
+
+        if let path = bundle.path(forResource: "googleSheets", ofType: "json"),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
+            return data
+        }
+        return nil
+    }
+}
