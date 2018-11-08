@@ -5,7 +5,7 @@
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
-		<string><INVALID></string>
+		<string>_FABRIC_KEY_</string>
 		<key>Kits</key>
 		<array>
 			<dict>
@@ -31,9 +31,9 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>2.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>_BUILD_NUMBER_</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>spotify</string>
