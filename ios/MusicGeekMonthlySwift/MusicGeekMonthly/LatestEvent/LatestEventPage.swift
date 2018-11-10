@@ -21,7 +21,7 @@ class LatestEventPage: PageFactory, Page {
         let googleSheetsDataLoader = GoogleSheetsDataLoaderImplementation(dataLoader: dataLoader)
         let cachingGoogleSheetsDataLoader = CachingGoogleSheetsDataLoaderImplementation(wrappedDataLoader: googleSheetsDataLoader, userDefaults: UserDefaults.standard)
         let imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)
-        let dataConverter = DataConverterImplementation()
+        let dataConverter = GoogleSheetsDataConverterImplementation()
         let viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: cachingGoogleSheetsDataLoader, dataConverter: dataConverter)
         let viewModel = LatestEventViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
         let viewController = LatestEventViewController(forwardNavigationContext: forwardNavigationContext, viewModel: viewModel)

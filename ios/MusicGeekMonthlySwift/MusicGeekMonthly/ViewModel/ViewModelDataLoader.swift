@@ -1,7 +1,7 @@
 import Foundation
 
 /// The ViewModelDataLoader is used to load JSON responses from the Google Sheets backend and convert
-/// them to view-model-friendly data structures (via the DataConverter)
+/// them to view-model-friendly data structures (via the GoogleSheetsDataConverter)
 protocol ViewModelDataLoader {
     /// Loads and converts the latest data
     /// Multiple requests can take place simultaneously - a request can be cancelled
@@ -10,19 +10,19 @@ protocol ViewModelDataLoader {
     /// - Parameters:
     ///   - completion: the completion block
     /// - Returns: a data loader token than can be used to cancel the request.
-    func loadData(_ completion: @escaping (DataConverterResponse) -> Void) -> DataLoaderToken?
+    func loadData(_ completion: @escaping (GoogleSheetsDataConverterResponse) -> Void) -> DataLoaderToken?
 }
 
 final class ViewModelDataLoaderImplementation: ViewModelDataLoader {
     private let dataLoader: GoogleSheetsDataLoader
-    private let dataConverter: DataConverter
+    private let dataConverter: GoogleSheetsDataConverter
 
-    init(dataLoader: GoogleSheetsDataLoader, dataConverter: DataConverter) {
+    init(dataLoader: GoogleSheetsDataLoader, dataConverter: GoogleSheetsDataConverter) {
         self.dataLoader = dataLoader
         self.dataConverter = dataConverter
     }
 
-    func loadData(_ completion: @escaping (DataConverterResponse) -> Void) -> DataLoaderToken? {
+    func loadData(_ completion: @escaping (GoogleSheetsDataConverterResponse) -> Void) -> DataLoaderToken? {
         return dataLoader.loadData() { [unowned self] (response) in
             DispatchQueue.main.async {
                 switch (response) {
@@ -37,7 +37,7 @@ final class ViewModelDataLoaderImplementation: ViewModelDataLoader {
 
     // MARK: Private
 
-    private func handleDataLoaderSuccess(data: Data, _ completion: @escaping (DataConverterResponse) -> Void) {
+    private func handleDataLoaderSuccess(data: Data, _ completion: @escaping (GoogleSheetsDataConverterResponse) -> Void) {
         let response = dataConverter.convert(data: data)
         switch (response) {
         case .success(let events):
@@ -47,7 +47,7 @@ final class ViewModelDataLoaderImplementation: ViewModelDataLoader {
         }
     }
 
-    private func handleDataLoaderFailure(error: Error, _ completion: @escaping (DataConverterResponse) -> Void) {
+    private func handleDataLoaderFailure(error: Error, _ completion: @escaping (GoogleSheetsDataConverterResponse) -> Void) {
         completion(.failure(error))
     }
 }

@@ -47,13 +47,13 @@
 		65BDAABF2189F69C007E887B /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAABE2189F69C007E887B /* DataLoader.swift */; };
 		65BDAAC12189F6CC007E887B /* GoogleSheetsDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC02189F6CC007E887B /* GoogleSheetsDataLoader.swift */; };
 		65BDAAC42189F992007E887B /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC32189F992007E887B /* JSONModel.swift */; };
-		65BDAAC62189FDA4007E887B /* DataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC52189FDA4007E887B /* DataConverter.swift */; };
+		65BDAAC62189FDA4007E887B /* GoogleSheetsDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC52189FDA4007E887B /* GoogleSheetsDataConverter.swift */; };
 		65BDAAC82189FDE9007E887B /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */; };
 		65BDAACA2189FEF8007E887B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC92189FEF8007E887B /* Model.swift */; };
-		65BDAACD218A0626007E887B /* DataConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAACC218A0626007E887B /* DataConverterTests.swift */; };
+		65BDAACD218A0626007E887B /* GoogleSheetsDataConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAACC218A0626007E887B /* GoogleSheetsDataConverterTests.swift */; };
 		65BDAACF218A068E007E887B /* DataLoaderTestImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAACE218A068E007E887B /* DataLoaderTestImplementation.swift */; };
 		65BDAAD0218A06A3007E887B /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAABE2189F69C007E887B /* DataLoader.swift */; };
-		65BDAAD1218A0705007E887B /* DataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC52189FDA4007E887B /* DataConverter.swift */; };
+		65BDAAD1218A0705007E887B /* GoogleSheetsDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC52189FDA4007E887B /* GoogleSheetsDataConverter.swift */; };
 		65BDAAD3218A076B007E887B /* GoodData.json in Resources */ = {isa = PBXBuildFile; fileRef = 65BDAAD2218A076B007E887B /* GoodData.json */; };
 		65BDAAD4218A079F007E887B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC92189FEF8007E887B /* Model.swift */; };
 		65BDAAD5218A07C5007E887B /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */; };
@@ -130,10 +130,10 @@
 		65BDAABE2189F69C007E887B /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 		65BDAAC02189F6CC007E887B /* GoogleSheetsDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSheetsDataLoader.swift; sourceTree = "<group>"; };
 		65BDAAC32189F992007E887B /* JSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONModel.swift; sourceTree = "<group>"; };
-		65BDAAC52189FDA4007E887B /* DataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConverter.swift; sourceTree = "<group>"; };
+		65BDAAC52189FDA4007E887B /* GoogleSheetsDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSheetsDataConverter.swift; sourceTree = "<group>"; };
 		65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		65BDAAC92189FEF8007E887B /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		65BDAACC218A0626007E887B /* DataConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConverterTests.swift; sourceTree = "<group>"; };
+		65BDAACC218A0626007E887B /* GoogleSheetsDataConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSheetsDataConverterTests.swift; sourceTree = "<group>"; };
 		65BDAACE218A068E007E887B /* DataLoaderTestImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoaderTestImplementation.swift; sourceTree = "<group>"; };
 		65BDAAD2218A076B007E887B /* GoodData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GoodData.json; sourceTree = "<group>"; };
 		65BDAAD7218A096A007E887B /* XCTestCase+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extensions.swift"; sourceTree = "<group>"; };
@@ -320,9 +320,9 @@
 			children = (
 				65BDAABE2189F69C007E887B /* DataLoader.swift */,
 				65BDAAC02189F6CC007E887B /* GoogleSheetsDataLoader.swift */,
+				65BDAAC52189FDA4007E887B /* GoogleSheetsDataConverter.swift */,
 				6508BD1E21945DA2009C7043 /* googleSheets.json */,
 				65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */,
-				65BDAAC52189FDA4007E887B /* DataConverter.swift */,
 			);
 			path = DataLoader;
 			sourceTree = "<group>";
@@ -340,7 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				65BDAACE218A068E007E887B /* DataLoaderTestImplementation.swift */,
-				65BDAACC218A0626007E887B /* DataConverterTests.swift */,
+				65BDAACC218A0626007E887B /* GoogleSheetsDataConverterTests.swift */,
 				65BDAAD2218A076B007E887B /* GoodData.json */,
 			);
 			path = DataLoader;
@@ -570,7 +570,7 @@
 				6566198C2190A7730068EA1B /* ScoresPage.swift in Sources */,
 				65D2AD9C218B36DD002BB0C9 /* ImageLoader.swift in Sources */,
 				65BDAA8F2189F55C007E887B /* AppDelegate.swift in Sources */,
-				65BDAAC62189FDA4007E887B /* DataConverter.swift in Sources */,
+				65BDAAC62189FDA4007E887B /* GoogleSheetsDataConverter.swift in Sources */,
 				656619952190AFBF0068EA1B /* ForwardNavigatingViewController.swift in Sources */,
 				65D2AD98218B3105002BB0C9 /* ScoresViewModel.swift in Sources */,
 				6566197321908BFA0068EA1B /* LatestEventEntityCollectionViewCell.swift in Sources */,
@@ -585,9 +585,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				65BDAAD0218A06A3007E887B /* DataLoader.swift in Sources */,
-				65BDAAD1218A0705007E887B /* DataConverter.swift in Sources */,
+				65BDAAD1218A0705007E887B /* GoogleSheetsDataConverter.swift in Sources */,
 				65BDAAD5218A07C5007E887B /* DateFormatter+Extensions.swift in Sources */,
-				65BDAACD218A0626007E887B /* DataConverterTests.swift in Sources */,
+				65BDAACD218A0626007E887B /* GoogleSheetsDataConverterTests.swift in Sources */,
 				65BDAAD8218A096A007E887B /* XCTestCase+Extensions.swift in Sources */,
 				65BDAAD4218A079F007E887B /* Model.swift in Sources */,
 				65BDAAD6218A07C9007E887B /* JSONModel.swift in Sources */,
