@@ -9,9 +9,6 @@ DerivedData/
 Secrets.txt
 Secret.plist
 
-ios/MusicGeekMonthly/MusicGeekMonthly/Core/MGMSecrets.h
-ios/MusicGeekMonthly/Carthage
-
 server/mgm-gcp/out/
 server/mgm-gcp/target/
 server/mgm-gcp/.idea/modules.xml
