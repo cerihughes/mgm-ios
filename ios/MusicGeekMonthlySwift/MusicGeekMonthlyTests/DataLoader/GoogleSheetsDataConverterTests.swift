@@ -1,14 +1,14 @@
 import XCTest
 
-class DataConverterTests: XCTestCase {
+class GoogleSheetsDataConverterTests: XCTestCase {
 
     // MARK: CUT
-    private var dataConverter: DataConverterImplementation!
+    private var dataConverter: GoogleSheetsDataConverterImplementation!
 
     override func setUp() {
         super.setUp()
 
-        self.dataConverter = DataConverterImplementation()
+        self.dataConverter = GoogleSheetsDataConverterImplementation()
     }
 
     override func tearDown() {
@@ -34,7 +34,7 @@ class DataConverterTests: XCTestCase {
         return events
     }
 
-    private func createModel(resource: String) -> DataConverterResponse? {
+    private func createModel(resource: String) -> GoogleSheetsDataConverterResponse? {
         guard let data = loadData(forResource: resource, withExtension: "json") else {
             return nil
         }
@@ -46,7 +46,7 @@ class DataConverterTests: XCTestCase {
         return createModel(jsonString: jsonString)
     }
 
-    private func createModel(jsonString: String) -> DataConverterResponse? {
+    private func createModel(jsonString: String) -> GoogleSheetsDataConverterResponse? {
         guard let data = jsonString.data(using: .utf8) else {
             return nil
         }
@@ -55,7 +55,7 @@ class DataConverterTests: XCTestCase {
     }
 }
 
-extension DataConverterResponse {
+extension GoogleSheetsDataConverterResponse {
     func asSuccessData() -> [Event]? {
         guard case .success(let events) = self else {
             return nil

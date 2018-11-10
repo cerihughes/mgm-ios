@@ -1,32 +1,32 @@
 import Foundation
 
-/// All possible responses for DataConverter calls
+/// All possible responses for GoogleSheetsDataConverter calls
 ///
 /// - success: The data was successfully converted into a model
 /// - failure: The data could not be converted
-enum DataConverterResponse {
+enum GoogleSheetsDataConverterResponse {
     case success([Event])
     case failure(Error)
 }
 
-/// The DataConverter takes Data (typically received from the DataLoader) and converts
+/// The GoogleSheetsDataConverter takes Data (typically received from the DataLoader) and converts
 /// it into a model
-protocol DataConverter {
+protocol GoogleSheetsDataConverter {
     /// Converts the given Data into a model
     ///
     /// - Parameter data: the data to convert
     /// - Returns: the converted data, or an error response
-    func convert(data: Data) -> DataConverterResponse
+    func convert(data: Data) -> GoogleSheetsDataConverterResponse
 }
 
 fileprivate let spotifyAlbumImageURLFormat = "https://i.scdn.co/image/%@"
 fileprivate let spotifyPlaylistImageURLFormat = "https://mosaic.scdn.co/%d/%@"
 
-/// Default implementation of DataConverter
-final class DataConverterImplementation: DataConverter {
+/// Default implementation of GoogleSheetsDataConverter
+final class GoogleSheetsDataConverterImplementation: GoogleSheetsDataConverter {
     private static let dateFormatter = DateFormatter.mgm_modelDateFormatter()
 
-    func convert(data: Data) -> DataConverterResponse {
+    func convert(data: Data) -> GoogleSheetsDataConverterResponse {
         do {
             let decoder = JSONDecoder()
             let model = try decoder.decode(JSONModel.self, from: data)
@@ -65,7 +65,7 @@ final class DataConverterImplementation: DataConverter {
                                 longitude: -3.20186570)
 
         let dateString = entry.date?.processedValue
-        let date = DataConverterImplementation.dateFormatter.date(from: dateString ?? "")
+        let date = GoogleSheetsDataConverterImplementation.dateFormatter.date(from: dateString ?? "")
         let playlist = createPlaylist(from: entry, number: number)
         let classicAlbum = createClassicAlbum(from: entry)
         let newAlbum = createNewAlbum(from: entry)
