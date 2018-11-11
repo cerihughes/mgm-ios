@@ -55,7 +55,8 @@ public class SpotifyTranslation extends DataTranslation {
             }
 
         }
-        final List<String> albumIds = interimAlbums.stream().map(InterimAlbum::getSpotifyId)
+        final List<String> albumIds = interimAlbums.stream()
+                .map(InterimAlbum::getSpotifyId)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
         List<Album> albums = getAlbums.execute(spotifyApi, albumIds);
@@ -66,7 +67,8 @@ public class SpotifyTranslation extends DataTranslation {
     protected void preprocessPlaylists(List<InterimEvent> interimEvents) throws IOException {
         final List<String> playlistIds = interimEvents.stream()
                 .map(InterimEvent::getPlaylist)
-                .filter(Objects::nonNull)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .map(InterimPlaylist::getSpotifyId)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
@@ -96,77 +98,82 @@ public class SpotifyTranslation extends DataTranslation {
     }
 
     @Override
-    protected OutputAlbum translate(InterimAlbum interimAlbum) {
-        final OutputAlbum outputAlbum = new OutputAlbum();
+    protected Optional<OutputAlbum> translate(InterimAlbum interimAlbum) {
         final String spotifyId = interimAlbum.getSpotifyId();
 
         final Album spotifyAlbum = preprocessedAlbums.get(spotifyId);
         if (spotifyAlbum == null) {
-            return outputAlbum;
+            return Optional.empty();
         }
 
         final ArtistSimplified[] spotifyArtists = spotifyAlbum.getArtists();
         if (spotifyArtists == null || spotifyArtists.length == 0) {
-            return outputAlbum;
+            return Optional.empty();
         }
 
         final ArtistSimplified spotifyArtist = spotifyArtists[0];
+        final String name = spotifyAlbum.getName();
+        final String artist = spotifyArtist.getName();
+        if (name == null || artist == null) {
+            return Optional.empty();
+        }
 
-        outputAlbum.setType(interimAlbum.getType());
-        outputAlbum.setSpotifyId(spotifyId);
-        outputAlbum.setName(spotifyAlbum.getName());
-        outputAlbum.setArtist(spotifyArtist.getName());
-        outputAlbum.setScore(interimAlbum.getScore());
-        outputAlbum.setImages(getImages(spotifyAlbum.getImages()));
-
-        return outputAlbum;
+        return new OutputAlbum.Builder(spotifyId, name, artist)
+                .setScore(interimAlbum.getScore())
+                .setImages(getImages(spotifyAlbum.getImages()))
+                .build();
     }
 
     @Override
-    protected OutputPlaylist translate(InterimPlaylist interimPlaylist) {
-        final OutputPlaylist outputPlaylist = new OutputPlaylist();
+    protected Optional<OutputPlaylist> translate(InterimPlaylist interimPlaylist) {
         final String spotifyId = interimPlaylist.getSpotifyId();
 
         final Playlist spotifyPlaylist = preprocessedPlaylists.get(spotifyId);
         if (spotifyPlaylist == null) {
-            return outputPlaylist;
+            return Optional.empty();
         }
 
         final User spotifyUser = spotifyPlaylist.getOwner();
-
-        outputPlaylist.setSpotifyId(spotifyId);
-        outputPlaylist.setName(spotifyPlaylist.getName());
-        outputPlaylist.setOwner(spotifyUser != null ? spotifyUser.getDisplayName() : null);
-        outputPlaylist.setImages(getImages(spotifyPlaylist.getImages()));
-
-        return outputPlaylist;
-    }
-
-    private List<OutputImage> getImages(Image[] spotifyImages) {
-        if (spotifyImages == null || spotifyImages.length == 0) {
-            return null;
+        if (spotifyUser == null) {
+            return Optional.empty();
         }
 
-        return Arrays.stream(spotifyImages).map(i -> createOutputImage(i))
-                .filter(Objects::nonNull)
-                .sorted((o1, o2) -> new Integer(o1.getSize()).compareTo(new Integer(o2.getSize())))
-                .collect(Collectors.toList());
+        final String name = spotifyPlaylist.getName();
+        final String owner = spotifyUser.getDisplayName();
+        if (name == null || owner == null) {
+            return Optional.empty();
+        }
+
+        return new OutputPlaylist.Builder(spotifyId, name, owner)
+                .setImages(getImages(spotifyPlaylist.getImages()))
+                .build();
     }
 
-    private OutputImage createOutputImage(Image spotifyImage) {
+    private Optional<List<OutputImage>> getImages(Image[] spotifyImages) {
+        if (spotifyImages == null || spotifyImages.length == 0) {
+            return Optional.empty();
+        }
+
+        final List<OutputImage> outputImages = Arrays.stream(spotifyImages)
+                .map(i -> createOutputImage(i))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+        return Optional.of(outputImages);
+    }
+
+    private Optional<OutputImage> createOutputImage(Image spotifyImage) {
         final Integer width = spotifyImage.getWidth();
         final Integer height = spotifyImage.getHeight();
         final String url = spotifyImage.getUrl();
         if ((width == null || height == null) || url == null) {
-            return null;
+            return Optional.empty();
         }
 
         int w = width == null ? 0 : width;
         int h = height == null ? 0 : height;
+        int size = Math.max(w, h);
 
-        final OutputImage outputImage = new OutputImage();
-        outputImage.setSize(Math.max(width, height));
-        outputImage.setUrl(url);
-        return outputImage;
+        return new OutputImage.Builder(size, url).build();
     }
 }

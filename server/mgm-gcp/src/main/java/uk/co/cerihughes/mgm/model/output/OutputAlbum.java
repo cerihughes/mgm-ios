@@ -1,12 +1,11 @@
 package uk.co.cerihughes.mgm.model.output;
 
 import com.google.gson.annotations.SerializedName;
-import uk.co.cerihughes.mgm.model.AlbumType;
 
 import java.util.List;
+import java.util.Optional;
 
-public class OutputAlbum {
-    private transient AlbumType type;
+public final class OutputAlbum {
     @SerializedName("spotifyId")
     private String spotifyId;
     @SerializedName("name")
@@ -18,51 +17,47 @@ public class OutputAlbum {
     @SerializedName("images")
     private List<OutputImage> images;
 
-    public AlbumType getType() {
-        return type;
-    }
+    private OutputAlbum(String spotifyId, String name, String artist) {
+        super();
 
-    public void setType(AlbumType type) {
-        this.type = type;
-    }
-
-    public String getSpotifyId() {
-        return spotifyId;
-    }
-
-    public void setSpotifyId(String spotifyId) {
         this.spotifyId = spotifyId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public String getArtist() {
-        return artist;
-    }
-
-    public void setArtist(String artist) {
         this.artist = artist;
     }
 
-    public Float getScore() {
-        return score;
-    }
+    public static final class Builder {
+        private String spotifyId;
+        private String name;
+        private String artist;
+        private Float score;
+        private List<OutputImage> images;
 
-    public void setScore(Float score) {
-        this.score = score;
-    }
+        public Builder(String spotifyId, String name, String artist) {
+            super();
 
-    public List<OutputImage> getImages() {
-        return images;
-    }
+            this.spotifyId = spotifyId;
+            this.name = name;
+            this.artist = artist;
+        }
 
-    public void setImages(List<OutputImage> images) {
-        this.images = images;
+        public Builder setScore(Optional<Float> optionalScore) {
+            optionalScore.ifPresent(value -> score = value);
+            return this;
+        }
+
+        public Builder setImages(Optional<List<OutputImage>> optionalImages) {
+            optionalImages.ifPresent(value -> images = value);
+            return this;
+        }
+
+        public Optional<OutputAlbum> build() {
+            if (spotifyId == null || name == null || artist == null) {
+                return Optional.empty();
+            }
+            final OutputAlbum album = new OutputAlbum(spotifyId, name, artist);
+            album.score = score;
+            album.images = images;
+            return Optional.of(album);
+        }
     }
 }

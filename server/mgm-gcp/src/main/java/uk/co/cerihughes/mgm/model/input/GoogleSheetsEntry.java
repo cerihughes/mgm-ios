@@ -2,6 +2,8 @@ package uk.co.cerihughes.mgm.model.input;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Optional;
+
 public class GoogleSheetsEntry {
     @SerializedName("gsx$id")
     private GoogleSheetsString id;
@@ -18,31 +20,35 @@ public class GoogleSheetsEntry {
     @SerializedName("gsx$newscore")
     private GoogleSheetsString newScore;
 
-    public String resolvedId() {
-        return id == null ? null : id.resolvedValue();
+    public Optional<String> resolvedId() {
+        return resolve(id);
     }
 
-    public String resolvedDate() {
-        return date == null ? null : date.resolvedValue();
+    public Optional<String> resolvedDate() {
+        return resolve(date);
     }
 
-    public String resolvedPlaylist() {
-        return playlist == null ? null : playlist.resolvedValue();
+    public Optional<String> resolvedPlaylist() {
+        return resolve(playlist);
     }
 
-    public String resolvedClassicSpotifyId() {
-        return classicSpotifyId == null ? null : classicSpotifyId.resolvedValue();
+    public Optional<String> resolvedClassicSpotifyId() {
+        return resolve(classicSpotifyId);
     }
 
-    public String resolvedClassicScore() {
-        return classicScore == null ? null : classicScore.resolvedValue();
+    public Optional<String> resolvedClassicScore() {
+        return resolve(classicScore);
     }
 
-    public String resolvedNewSpotifyId() {
-        return newSpotifyId == null ? null : newSpotifyId.resolvedValue();
+    public Optional<String> resolvedNewSpotifyId() {
+        return resolve(newSpotifyId);
     }
 
-    public String resolvedNewScore() {
-        return newScore == null ? null : newScore.resolvedValue();
+    public Optional<String> resolvedNewScore() {
+        return resolve(newScore);
+    }
+
+    private Optional<String> resolve(GoogleSheetsString string) {
+        return Optional.ofNullable(string).flatMap(s -> s.resolvedValue());
     }
 }

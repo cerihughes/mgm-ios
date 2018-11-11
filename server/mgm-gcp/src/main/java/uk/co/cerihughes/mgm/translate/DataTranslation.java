@@ -10,6 +10,7 @@ import uk.co.cerihughes.mgm.model.output.OutputPlaylist;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class DataTranslation {
@@ -18,49 +19,40 @@ public abstract class DataTranslation {
 
         return interimEvents.stream()
                 .map(e -> translate(e))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toList());
     }
 
-    private OutputEvent translate(InterimEvent interimEvent) {
-        final OutputEvent outputEvent = new OutputEvent();
+    private Optional<OutputEvent> translate(InterimEvent interimEvent) {
+        final Optional<OutputAlbum> classicAlbum = translate(interimEvent.getClassicAlbum());
+        final Optional<OutputAlbum> newAlbum = translate(interimEvent.getNewAlbum());
+        final Optional<OutputPlaylist> playlist = interimEvent.getPlaylist().flatMap(this::translate);
 
-        outputEvent.setNumber(interimEvent.getNumber());
-        outputEvent.setDate(interimEvent.getDate());
-        outputEvent.setLocation(translateLocation());
-
-        final InterimAlbum classicAlbum = interimEvent.getClassicAlbum();
-        final InterimAlbum newAlbum = interimEvent.getNewAlbum();
-        final InterimPlaylist playlist = interimEvent.getPlaylist();
-
-        if (classicAlbum != null) {
-            outputEvent.setClassicAlbum(translate(classicAlbum));
+        if (classicAlbum.isPresent() && newAlbum.isPresent() == false) {
+            return Optional.empty();
         }
 
-        if (newAlbum != null) {
-            outputEvent.setNewAlbum(translate(newAlbum));
-        }
-
-        if (playlist != null) {
-            outputEvent.setPlaylist(translate(playlist));
-        }
-
-        return outputEvent;
+        return new OutputEvent.Builder(interimEvent.getNumber(), classicAlbum.get(), newAlbum.get())
+                .setDate(interimEvent.getDate())
+                .setLocation(translateLocation())
+                .setPlaylist(playlist)
+                .build();
     }
 
-    private OutputLocation translateLocation() {
-        final OutputLocation outputLocation = new OutputLocation();
+    private Optional<OutputLocation> translateLocation() {
+        final String name = "Crafty Devil's Cellar";
+        final double latitude = 51.48227690;
+        final double longitude = -3.20186570;
 
-        outputLocation.setName("Crafty Devil's Cellar");
-        outputLocation.setLatitude(51.48227690);
-        outputLocation.setLongitude(-3.20186570);
-
-        return outputLocation;
+        return new OutputLocation.Builder(name, latitude, longitude)
+                .build();
     }
 
     protected abstract void preprocess(List<InterimEvent> interimEvents) throws IOException;
 
-    protected abstract OutputAlbum translate(InterimAlbum interimAlbum);
+    protected abstract Optional<OutputAlbum> translate(InterimAlbum interimAlbum);
 
-    protected abstract OutputPlaylist translate(InterimPlaylist interimPlaylist);
+    protected abstract Optional<OutputPlaylist> translate(InterimPlaylist interimPlaylist);
 }
 

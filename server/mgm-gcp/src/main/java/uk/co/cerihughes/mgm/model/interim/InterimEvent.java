@@ -3,71 +3,85 @@ package uk.co.cerihughes.mgm.model.interim;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 
-public class InterimEvent {
-    private Integer number;
+public final class InterimEvent {
+    private int number;
     private LocalDate date;
     private InterimAlbum classicAlbum;
     private InterimAlbum newAlbum;
     private InterimPlaylist playlist;
 
-    public Integer getNumber() {
+    private InterimEvent(int number, InterimAlbum classicAlbum, InterimAlbum newAlbum) {
+        super();
+
+        this.number = number;
+        this.classicAlbum = classicAlbum;
+        this.newAlbum = newAlbum;
+    }
+
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public Optional<LocalDate> getDate() {
+        return Optional.ofNullable(date);
     }
 
     public InterimAlbum getClassicAlbum() {
         return classicAlbum;
     }
 
-    public void setClassicAlbum(InterimAlbum classicAlbum) {
-        this.classicAlbum = classicAlbum;
-    }
-
     public InterimAlbum getNewAlbum() {
         return newAlbum;
     }
 
-    public void setNewAlbum(InterimAlbum newAlbum) {
-        this.newAlbum = newAlbum;
+    public Optional<InterimPlaylist> getPlaylist() {
+        return Optional.ofNullable(playlist);
     }
 
-    public InterimPlaylist getPlaylist() {
-        return playlist;
-    }
+    public static final class Builder {
+        private int number;
+        private LocalDate date;
+        private InterimAlbum classicAlbum;
+        private InterimAlbum newAlbum;
+        private InterimPlaylist playlist;
 
-    public void setPlaylist(InterimPlaylist playlist) {
-        this.playlist = playlist;
-    }
+        public Builder(int number, InterimAlbum classicAlbum, InterimAlbum newAlbum) {
+            super();
 
-    public void setNumber(String numberString) {
-        Integer number;
-        try {
-            number = new Integer(numberString);
-        } catch (NumberFormatException | NullPointerException ex) {
-            number = null;
+            this.number = number;
+            this.classicAlbum = classicAlbum;
+            this.newAlbum = newAlbum;
         }
-        setNumber(number);
-    }
 
-    public void setDate(String dateString, DateTimeFormatter formatter) {
-        LocalDate date;
-        try {
-            date = LocalDate.parse(dateString, formatter);
-        } catch (DateTimeParseException | NullPointerException ex) {
-            date = null;
+        public Builder setDate(Optional<LocalDate> optionalDate) {
+            optionalDate.ifPresent(value -> date = value);
+            return this;
         }
-        setDate(date);
+
+        public Builder setPlaylist(Optional<InterimPlaylist> optionalPlaylist) {
+            optionalPlaylist.ifPresent(value -> playlist = value);
+            return this;
+        }
+
+        public Builder setDateString(Optional<String> dateString, DateTimeFormatter formatter) {
+            try {
+                setDate(dateString.map(value -> LocalDate.parse(value, formatter)));
+            } catch (DateTimeParseException e) {
+                // Swallow
+            }
+            return this;
+        }
+
+        public Optional<InterimEvent> build() {
+            if (classicAlbum == null || newAlbum == null) {
+                return Optional.empty();
+            }
+            final InterimEvent event = new InterimEvent(number, classicAlbum, newAlbum);
+            event.date = date;
+            event.playlist = playlist;
+            return Optional.of(event);
+        }
     }
 }
