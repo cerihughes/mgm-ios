@@ -6,8 +6,4 @@ public class GoogleSheetsModel {
     public GoogleSheetsFeed getFeed() {
         return feed;
     }
-
-    public void setFeed(GoogleSheetsFeed feed) {
-        this.feed = feed;
-    }
 }

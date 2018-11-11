@@ -18,62 +18,6 @@ public class GoogleSheetsEntry {
     @SerializedName("gsx$newscore")
     private GoogleSheetsString newScore;
 
-    public GoogleSheetsString getId() {
-        return id;
-    }
-
-    public void setId(GoogleSheetsString id) {
-        this.id = id;
-    }
-
-    public GoogleSheetsString getDate() {
-        return date;
-    }
-
-    public void setDate(GoogleSheetsString date) {
-        this.date = date;
-    }
-
-    public GoogleSheetsString getPlaylist() {
-        return playlist;
-    }
-
-    public void setPlaylist(GoogleSheetsString playlist) {
-        this.playlist = playlist;
-    }
-
-    public GoogleSheetsString getClassicSpotifyId() {
-        return classicSpotifyId;
-    }
-
-    public void setClassicSpotifyId(GoogleSheetsString classicSpotifyId) {
-        this.classicSpotifyId = classicSpotifyId;
-    }
-
-    public GoogleSheetsString getClassicScore() {
-        return classicScore;
-    }
-
-    public void setClassicScore(GoogleSheetsString classicScore) {
-        this.classicScore = classicScore;
-    }
-
-    public GoogleSheetsString getNewSpotifyId() {
-        return newSpotifyId;
-    }
-
-    public void setNewSpotifyId(GoogleSheetsString newSpotifyId) {
-        this.newSpotifyId = newSpotifyId;
-    }
-
-    public GoogleSheetsString getNewScore() {
-        return newScore;
-    }
-
-    public void setNewScore(GoogleSheetsString newScore) {
-        this.newScore = newScore;
-    }
-
     public String resolvedId() {
         return id == null ? null : id.resolvedValue();
     }

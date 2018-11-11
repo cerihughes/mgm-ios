@@ -11,8 +11,4 @@ public class GoogleSheetsFeed {
     public List<GoogleSheetsEntry> getEntries() {
         return entries;
     }
-
-    public void setEntries(List<GoogleSheetsEntry> entries) {
-        this.entries = entries;
-    }
 }
