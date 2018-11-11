@@ -3,10 +3,7 @@ package uk.co.cerihughes.mgm.translate.spotify;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
-import com.wrapper.spotify.model_objects.specification.Album;
-import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
-import com.wrapper.spotify.model_objects.specification.Image;
-import com.wrapper.spotify.model_objects.specification.Playlist;
+import com.wrapper.spotify.model_objects.specification.*;
 import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 import uk.co.cerihughes.mgm.model.interim.InterimAlbum;
 import uk.co.cerihughes.mgm.model.interim.InterimEvent;
@@ -30,12 +27,22 @@ public class SpotifyTranslation extends DataTranslation {
     private GetAlbumsOperation getAlbums = new GetAlbumsOperation();
     private GetPlaylistOperation getPlaylist = new GetPlaylistOperation();
 
-    private Map<String, Album> preprocessedAlbums;
+    private Map<String, Album> preprocessedAlbums = new HashMap<>();
+    private Map<String, Playlist> preprocessedPlaylists = new HashMap<>();
 
     @Override
     protected void preprocess(List<InterimEvent> interimEvents) throws IOException {
+        if (interimEvents == null || interimEvents.size() == 0) {
+            return;
+        }
+
         spotifyApi.setAccessToken(generateAccessToken());
 
+        preprocessAlbums(interimEvents);
+        preprocessPlaylists(interimEvents);
+    }
+
+    protected void preprocessAlbums(List<InterimEvent> interimEvents) throws IOException {
         final ArrayList<InterimAlbum> interimAlbums = new ArrayList<>();
         for (InterimEvent interimEvent : interimEvents) {
             InterimAlbum classicAlbum = interimEvent.getClassicAlbum();
@@ -48,10 +55,34 @@ public class SpotifyTranslation extends DataTranslation {
             }
 
         }
-        final List<String> albumIds = interimAlbums.stream().map(InterimAlbum::getSpotifyId).collect(Collectors.toList());
+        final List<String> albumIds = interimAlbums.stream().map(InterimAlbum::getSpotifyId)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
         List<Album> albums = getAlbums.execute(spotifyApi, albumIds);
         preprocessedAlbums = albums.stream()
                 .collect(Collectors.toMap(Album::getId, Function.identity()));
+    }
+
+    protected void preprocessPlaylists(List<InterimEvent> interimEvents) throws IOException {
+        final List<String> playlistIds = interimEvents.stream()
+                .map(InterimEvent::getPlaylist)
+                .filter(Objects::nonNull)
+                .map(InterimPlaylist::getSpotifyId)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        if (playlistIds.isEmpty()) {
+            return;
+        }
+
+        // For now, just process the last playlist as the app only renders the most recent event.
+        // The Spotify web API currently doesn't support batch gets on a playlist, so this saves unnecessary network
+        // calls too.
+        final String playlistId = playlistIds.get(playlistIds.size() - 1);
+        Playlist playlist = getPlaylist.execute(spotifyApi, playlistId);
+        if (playlist != null) {
+            preprocessedPlaylists.put(playlistId, playlist);
+        }
     }
 
     private String generateAccessToken() throws IOException {
@@ -82,7 +113,7 @@ public class SpotifyTranslation extends DataTranslation {
         final ArtistSimplified spotifyArtist = spotifyArtists[0];
 
         outputAlbum.setType(interimAlbum.getType());
-        outputAlbum.setSpotifyId(interimAlbum.getSpotifyId());
+        outputAlbum.setSpotifyId(spotifyId);
         outputAlbum.setName(spotifyAlbum.getName());
         outputAlbum.setArtist(spotifyArtist.getName());
         outputAlbum.setScore(interimAlbum.getScore());
@@ -93,7 +124,22 @@ public class SpotifyTranslation extends DataTranslation {
 
     @Override
     protected OutputPlaylist translate(InterimPlaylist interimPlaylist) {
-        return null;
+        final OutputPlaylist outputPlaylist = new OutputPlaylist();
+        final String spotifyId = interimPlaylist.getSpotifyId();
+
+        final Playlist spotifyPlaylist = preprocessedPlaylists.get(spotifyId);
+        if (spotifyPlaylist == null) {
+            return outputPlaylist;
+        }
+
+        final User spotifyUser = spotifyPlaylist.getOwner();
+
+        outputPlaylist.setSpotifyId(spotifyId);
+        outputPlaylist.setName(spotifyPlaylist.getName());
+        outputPlaylist.setOwner(spotifyUser != null ? spotifyUser.getDisplayName() : null);
+        outputPlaylist.setImages(getImages(spotifyPlaylist.getImages()));
+
+        return outputPlaylist;
     }
 
     private List<OutputImage> getImages(Image[] spotifyImages) {

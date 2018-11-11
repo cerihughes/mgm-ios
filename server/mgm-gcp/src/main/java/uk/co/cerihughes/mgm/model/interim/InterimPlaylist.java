@@ -7,7 +7,7 @@ public class InterimPlaylist {
         return spotifyId;
     }
 
-    public void setSpotifyId(String spotifyID) {
+    public void setSpotifyId(String spotifyId) {
         this.spotifyId = spotifyId;
     }
 }

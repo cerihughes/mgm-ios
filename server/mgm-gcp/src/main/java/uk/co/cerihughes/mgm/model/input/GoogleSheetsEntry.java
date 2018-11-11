@@ -58,7 +58,7 @@ public class GoogleSheetsEntry {
         this.classicScore = classicScore;
     }
 
-    public GoogleSheetsString getNewSpotifyID() {
+    public GoogleSheetsString getNewSpotifyId() {
         return newSpotifyId;
     }
 
