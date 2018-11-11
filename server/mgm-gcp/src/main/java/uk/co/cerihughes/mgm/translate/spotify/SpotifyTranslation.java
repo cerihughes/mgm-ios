@@ -49,7 +49,7 @@ public class SpotifyTranslation extends DataTranslation {
             }
 
         }
-        final List<String> albumIds = interimAlbums.stream().map(InterimAlbum::getSpotifyID).collect(Collectors.toList());
+        final List<String> albumIds = interimAlbums.stream().map(InterimAlbum::getSpotifyId).collect(Collectors.toList());
         List<Album> albums = getAlbums.execute(spotifyApi, albumIds);
         preprocessedAlbums = albums.stream()
                 .collect(Collectors.toMap(Album::getId, Function.identity()));
@@ -68,7 +68,7 @@ public class SpotifyTranslation extends DataTranslation {
     @Override
     protected OutputAlbum translate(InterimAlbum interimAlbum) {
         final OutputAlbum outputAlbum = new OutputAlbum();
-        final String spotifyId = interimAlbum.getSpotifyID();
+        final String spotifyId = interimAlbum.getSpotifyId();
 
         final Album spotifyAlbum = preprocessedAlbums.get(spotifyId);
         if (spotifyAlbum == null) {
@@ -82,8 +82,8 @@ public class SpotifyTranslation extends DataTranslation {
 
         final ArtistSimplified spotifyArtist = spotifyArtists[0];
 
-        outputAlbum.setType(interimAlbum.getType() == InterimAlbum.Type.CLASSIC ? OutputAlbum.Type.CLASSIC : OutputAlbum.Type.NEW);
-        outputAlbum.setSpotifyID(interimAlbum.getSpotifyID());
+        outputAlbum.setType(interimAlbum.getType());
+        outputAlbum.setSpotifyId(interimAlbum.getSpotifyId());
         outputAlbum.setName(spotifyAlbum.getName());
         outputAlbum.setArtist(spotifyArtist.getName());
         outputAlbum.setScore(interimAlbum.getScore());

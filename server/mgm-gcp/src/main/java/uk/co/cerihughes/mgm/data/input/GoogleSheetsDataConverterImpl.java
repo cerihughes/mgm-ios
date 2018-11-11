@@ -1,6 +1,8 @@
 package uk.co.cerihughes.mgm.data.input;
 
 import com.google.gson.Gson;
+import uk.co.cerihughes.mgm.data.DateTimeFormatterFactory;
+import uk.co.cerihughes.mgm.model.AlbumType;
 import uk.co.cerihughes.mgm.model.input.GoogleSheetsEntry;
 import uk.co.cerihughes.mgm.model.input.GoogleSheetsModel;
 import uk.co.cerihughes.mgm.model.interim.InterimAlbum;
@@ -13,7 +15,7 @@ import java.util.List;
 
 public class GoogleSheetsDataConverterImpl implements GoogleSheetsDataConverter {
     private Gson gson = new Gson();
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private DateTimeFormatter formatter = DateTimeFormatterFactory.formatter;
 
     public List<InterimEvent> convert(String json) {
         ArrayList<InterimEvent> events = new ArrayList<>();
@@ -53,9 +55,9 @@ public class GoogleSheetsDataConverterImpl implements GoogleSheetsDataConverter 
         }
 
         final InterimAlbum album = new InterimAlbum();
-        album.setType(InterimAlbum.Type.CLASSIC);
+        album.setType(AlbumType.CLASSIC);
         album.setScore(entry.resolvedClassicScore());
-        album.setSpotifyID(spotifyId);
+        album.setSpotifyId(spotifyId);
         return album;
     }
 
@@ -66,9 +68,9 @@ public class GoogleSheetsDataConverterImpl implements GoogleSheetsDataConverter 
         }
 
         final InterimAlbum album = new InterimAlbum();
-        album.setType(InterimAlbum.Type.NEW);
+        album.setType(AlbumType.NEW);
         album.setScore(entry.resolvedNewScore());
-        album.setSpotifyID(spotifyId);
+        album.setSpotifyId(spotifyId);
         return album;
     }
 
@@ -79,7 +81,7 @@ public class GoogleSheetsDataConverterImpl implements GoogleSheetsDataConverter 
         }
 
         final InterimPlaylist playlist = new InterimPlaylist();
-        playlist.setSpotifyID(spotifyId);
+        playlist.setSpotifyId(spotifyId);
         return playlist;
     }
 }

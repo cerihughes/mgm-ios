@@ -1,17 +1,23 @@
 package uk.co.cerihughes.mgm.model.output;
 
+import com.google.gson.annotations.SerializedName;
+
 public class OutputPlaylist {
-    private String spotifyID;
+    @SerializedName("spotifyId")
+    private String spotifyId;
+    @SerializedName("name")
     private String name;
+    @SerializedName("owner")
     private String owner;
+    @SerializedName("images")
     private OutputImages images;
 
-    public String getSpotifyID() {
-        return spotifyID;
+    public String getSpotifyId() {
+        return spotifyId;
     }
 
-    public void setSpotifyID(String spotifyID) {
-        this.spotifyID = spotifyID;
+    public void setSpotifyId(String spotifyId) {
+        this.spotifyId = spotifyId;
     }
 
     public String getName() {

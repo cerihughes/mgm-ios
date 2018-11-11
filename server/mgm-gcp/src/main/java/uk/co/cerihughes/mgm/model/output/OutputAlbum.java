@@ -1,29 +1,35 @@
 package uk.co.cerihughes.mgm.model.output;
 
-public class OutputAlbum {
-    public enum Type {CLASSIC, NEW}
+import com.google.gson.annotations.SerializedName;
+import uk.co.cerihughes.mgm.model.AlbumType;
 
-    private Type type;
-    private String spotifyID;
+public class OutputAlbum {
+    private transient AlbumType type;
+    @SerializedName("spotifyId")
+    private String spotifyId;
+    @SerializedName("name")
     private String name;
+    @SerializedName("artist")
     private String artist;
+    @SerializedName("score")
     private Float score;
+    @SerializedName("images")
     private OutputImages images;
 
-    public Type getType() {
+    public AlbumType getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(AlbumType type) {
         this.type = type;
     }
 
-    public String getSpotifyID() {
-        return spotifyID;
+    public String getSpotifyId() {
+        return spotifyId;
     }
 
-    public void setSpotifyID(String spotifyID) {
-        this.spotifyID = spotifyID;
+    public void setSpotifyId(String spotifyID) {
+        this.spotifyId = spotifyId;
     }
 
     public String getName() {
