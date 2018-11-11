@@ -1,13 +1,21 @@
 package uk.co.cerihughes.mgm.model.output;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.time.LocalDate;
 
 public class OutputEvent {
+    @SerializedName("number")
     private int number;
+    @SerializedName("date")
     private LocalDate date;
+    @SerializedName("location")
     private OutputLocation location;
+    @SerializedName("classicAlbum")
     private OutputAlbum classicAlbum;
+    @SerializedName("newAlbum")
     private OutputAlbum newAlbum;
+    @SerializedName("playlist")
     private OutputPlaylist playlist;
 
     public int getNumber() {

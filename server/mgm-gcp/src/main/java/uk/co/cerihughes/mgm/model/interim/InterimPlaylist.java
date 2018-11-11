@@ -1,13 +1,13 @@
 package uk.co.cerihughes.mgm.model.interim;
 
 public class InterimPlaylist {
-    private String spotifyID;
+    private String spotifyId;
 
-    public String getSpotifyID() {
-        return spotifyID;
+    public String getSpotifyId() {
+        return spotifyId;
     }
 
-    public void setSpotifyID(String spotifyID) {
-        this.spotifyID = spotifyID;
+    public void setSpotifyId(String spotifyID) {
+        this.spotifyId = spotifyId;
     }
 }

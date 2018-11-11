@@ -1,26 +1,26 @@
 package uk.co.cerihughes.mgm.model.interim;
 
-public class InterimAlbum {
-    public enum Type {CLASSIC, NEW}
+import uk.co.cerihughes.mgm.model.AlbumType;
 
-    private Type type;
-    private String spotifyID;
+public class InterimAlbum {
+    private AlbumType type;
+    private String spotifyId;
     private Float score;
 
-    public Type getType() {
+    public AlbumType getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(AlbumType type) {
         this.type = type;
     }
 
-    public String getSpotifyID() {
-        return spotifyID;
+    public String getSpotifyId() {
+        return spotifyId;
     }
 
-    public void setSpotifyID(String spotifyID) {
-        this.spotifyID = spotifyID;
+    public void setSpotifyId(String spotifyId) {
+        this.spotifyId = spotifyId;
     }
 
     public Float getScore() {

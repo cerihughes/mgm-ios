@@ -1,8 +1,13 @@
 package uk.co.cerihughes.mgm.model.output;
 
+import com.google.gson.annotations.SerializedName;
+
 public class OutputImages {
+    @SerializedName("size64")
     private String size64;
+    @SerializedName("size300")
     private String size300;
+    @SerializedName("size640")
     private String size640;
 
     public String getSize64() {
