@@ -5,20 +5,19 @@ import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
 import com.wrapper.spotify.model_objects.specification.Album;
 import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
+import com.wrapper.spotify.model_objects.specification.Image;
 import com.wrapper.spotify.model_objects.specification.Playlist;
 import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 import uk.co.cerihughes.mgm.model.interim.InterimAlbum;
 import uk.co.cerihughes.mgm.model.interim.InterimEvent;
 import uk.co.cerihughes.mgm.model.interim.InterimPlaylist;
 import uk.co.cerihughes.mgm.model.output.OutputAlbum;
-import uk.co.cerihughes.mgm.model.output.OutputImages;
+import uk.co.cerihughes.mgm.model.output.OutputImage;
 import uk.co.cerihughes.mgm.model.output.OutputPlaylist;
 import uk.co.cerihughes.mgm.translate.DataTranslation;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -87,7 +86,7 @@ public class SpotifyTranslation extends DataTranslation {
         outputAlbum.setName(spotifyAlbum.getName());
         outputAlbum.setArtist(spotifyArtist.getName());
         outputAlbum.setScore(interimAlbum.getScore());
-        outputAlbum.setImages(getImages(spotifyAlbum));
+        outputAlbum.setImages(getImages(spotifyAlbum.getImages()));
 
         return outputAlbum;
     }
@@ -97,13 +96,31 @@ public class SpotifyTranslation extends DataTranslation {
         return null;
     }
 
-    private OutputImages getImages(Album spotifyAlbum) {
-        final OutputImages images = new OutputImages();
-        return images;
+    private List<OutputImage> getImages(Image[] spotifyImages) {
+        if (spotifyImages == null || spotifyImages.length == 0) {
+            return null;
+        }
+
+        return Arrays.stream(spotifyImages).map(i -> createOutputImage(i))
+                .filter(Objects::nonNull)
+                .sorted((o1, o2) -> new Integer(o1.getSize()).compareTo(new Integer(o2.getSize())))
+                .collect(Collectors.toList());
     }
 
-    private OutputImages getImages(Playlist spotifyPlaylist) {
-        final OutputImages images = new OutputImages();
-        return images;
+    private OutputImage createOutputImage(Image spotifyImage) {
+        final Integer width = spotifyImage.getWidth();
+        final Integer height = spotifyImage.getHeight();
+        final String url = spotifyImage.getUrl();
+        if ((width == null || height == null) || url == null) {
+            return null;
+        }
+
+        int w = width == null ? 0 : width;
+        int h = height == null ? 0 : height;
+
+        final OutputImage outputImage = new OutputImage();
+        outputImage.setSize(Math.max(width, height));
+        outputImage.setUrl(url);
+        return outputImage;
     }
 }
