@@ -2,6 +2,8 @@ package uk.co.cerihughes.mgm.model.output;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class OutputPlaylist {
     @SerializedName("spotifyId")
     private String spotifyId;
@@ -10,7 +12,7 @@ public class OutputPlaylist {
     @SerializedName("owner")
     private String owner;
     @SerializedName("images")
-    private OutputImages images;
+    private List<OutputImage> images;
 
     public String getSpotifyId() {
         return spotifyId;
@@ -36,11 +38,11 @@ public class OutputPlaylist {
         this.owner = owner;
     }
 
-    public OutputImages getImages() {
+    public List<OutputImage> getImages() {
         return images;
     }
 
-    public void setImages(OutputImages images) {
+    public void setImages(List<OutputImage> images) {
         this.images = images;
     }
 }
