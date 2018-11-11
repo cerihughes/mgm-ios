@@ -3,8 +3,9 @@ package uk.co.cerihughes.mgm.model.output;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
-public class OutputEvent {
+public final class OutputEvent {
     @SerializedName("number")
     private int number;
     @SerializedName("date")
@@ -18,51 +19,55 @@ public class OutputEvent {
     @SerializedName("playlist")
     private OutputPlaylist playlist;
 
-    public int getNumber() {
-        return number;
-    }
+    private OutputEvent(int number, OutputAlbum classicAlbum, OutputAlbum newAlbum) {
+        super();
 
-    public void setNumber(int number) {
         this.number = number;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public OutputLocation getLocation() {
-        return location;
-    }
-
-    public void setLocation(OutputLocation location) {
-        this.location = location;
-    }
-
-    public OutputAlbum getClassicAlbum() {
-        return classicAlbum;
-    }
-
-    public void setClassicAlbum(OutputAlbum classicAlbum) {
         this.classicAlbum = classicAlbum;
-    }
-
-    public OutputAlbum getNewAlbum() {
-        return newAlbum;
-    }
-
-    public void setNewAlbum(OutputAlbum newAlbum) {
         this.newAlbum = newAlbum;
     }
 
-    public OutputPlaylist getPlaylist() {
-        return playlist;
-    }
+    public static final class Builder {
+        private int number;
+        private LocalDate date;
+        private OutputLocation location;
+        private OutputAlbum classicAlbum;
+        private OutputAlbum newAlbum;
+        private OutputPlaylist playlist;
 
-    public void setPlaylist(OutputPlaylist playlist) {
-        this.playlist = playlist;
+        public Builder(int number, OutputAlbum classicAlbum, OutputAlbum newAlbum) {
+            super();
+
+            this.number = number;
+            this.classicAlbum = classicAlbum;
+            this.newAlbum = newAlbum;
+        }
+
+        public Builder setDate(Optional<LocalDate> optionalDate) {
+            optionalDate.ifPresent(value -> date = value);
+            return this;
+        }
+
+        public Builder setLocation(Optional<OutputLocation> optionalLocation) {
+            optionalLocation.ifPresent(value -> location = value);
+            return this;
+        }
+
+        public Builder setPlaylist(Optional<OutputPlaylist> optionalPlaylist) {
+            optionalPlaylist.ifPresent(value -> playlist = value);
+            return this;
+        }
+
+        public Optional<OutputEvent> build() {
+            if (classicAlbum == null || newAlbum == null) {
+                return Optional.empty();
+            }
+            final OutputEvent event = new OutputEvent(number, classicAlbum, newAlbum);
+            event.date = date;
+            event.location = location;
+            event.playlist = playlist;
+            return Optional.of(event);
+        }
+
     }
 }

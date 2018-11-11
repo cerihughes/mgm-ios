@@ -2,42 +2,66 @@ package uk.co.cerihughes.mgm.model.interim;
 
 import uk.co.cerihughes.mgm.model.AlbumType;
 
-public class InterimAlbum {
+import java.util.Optional;
+
+public final class InterimAlbum {
     private AlbumType type;
     private String spotifyId;
     private Float score;
 
-    public AlbumType getType() {
-        return type;
+    private InterimAlbum(AlbumType type, String spotifyId) {
+        super();
+
+        this.type = type;
+        this.spotifyId = spotifyId;
     }
 
-    public void setType(AlbumType type) {
-        this.type = type;
+    public AlbumType getType() {
+        return type;
     }
 
     public String getSpotifyId() {
         return spotifyId;
     }
 
-    public void setSpotifyId(String spotifyId) {
-        this.spotifyId = spotifyId;
+    public Optional<Float> getScore() {
+        return Optional.ofNullable(score);
     }
 
-    public Float getScore() {
-        return score;
-    }
+    public static final class Builder {
+        private AlbumType type;
+        private String spotifyId;
+        private Float score;
 
-    public void setScore(Float score) {
-        this.score = score;
-    }
+        public Builder(AlbumType type, String spotifyId) {
+            super();
 
-    public void setScore(String scoreString) {
-        Float score;
-        try {
-            score = new Float(scoreString);
-        } catch (NumberFormatException | NullPointerException ex) {
-            score = null;
+            this.type = type;
+            this.spotifyId = spotifyId;
         }
-        setScore(score);
+
+        public Builder setScore(Optional<Float> optionalScore) {
+            optionalScore.ifPresent(value -> score = value);
+            return this;
+        }
+
+        public Builder setScoreString(Optional<String> scoreString) {
+            try {
+                setScore(scoreString.map(Float::new));
+            } catch (NumberFormatException e) {
+                // Swallow
+            }
+            return this;
+        }
+
+        public Optional<InterimAlbum> build() {
+            if (type == null || spotifyId == null) {
+                return Optional.empty();
+            }
+            final InterimAlbum album = new InterimAlbum(type, spotifyId);
+            album.spotifyId = spotifyId;
+            album.score = score;
+            return Optional.of(album);
+        }
     }
 }
