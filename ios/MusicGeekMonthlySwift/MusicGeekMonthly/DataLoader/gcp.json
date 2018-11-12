@@ -2904,23 +2904,73 @@
                     "url": "https://i.scdn.co/image/7dd16ab8e825fa1c9011c12cba62b7967926163f"
                 }
             ]
+        }
+    },
+    {
+        "number": 63,
+        "date": "30/10/2018",
+        "location": {
+            "name": "Crafty Devil\u0027s Cellar",
+            "latitude": 51.4822769,
+            "longitude": -3.2018657
+        },
+        "classicAlbum": {
+            "type": "classic",
+            "name": "Ys",
+            "artist": "Joanna Newsom",
+            "score": 8.5,
+            "images": [
+                {
+                    "size": 640,
+                    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music/ba/40/2e/mzi.dxublsnl.tif/640x0w.jpg"
+                },
+                {
+                    "size": 300,
+                    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music/ba/40/2e/mzi.dxublsnl.tif/300x0w.jpg"
+                },
+                {
+                    "size": 64,
+                    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music/ba/40/2e/mzi.dxublsnl.tif/64x0w.jpg"
+                }
+            ]
+        },
+        "newAlbum": {
+            "type": "new",
+            "spotifyId": "4i2XIJtswPyQE6G46wpKpH",
+            "name": "Hunter",
+            "artist": "Anna Calvi",
+            "score": 7.7,
+            "images": [
+                {
+                    "size": 640,
+                    "url": "https://i.scdn.co/image/3cb5f7af6b0928ffbff0b8ab3f5a6486826e9713"
+                },
+                {
+                    "size": 300,
+                    "url": "https://i.scdn.co/image/388bee63620322a7d8650e244ddf11f6ed3b83f3"
+                },
+                {
+                    "size": 64,
+                    "url": "https://i.scdn.co/image/4f786899c13c9fe60c1f2229a3effb468cf0a7c7"
+                }
+            ]
         },
         "playlist": {
-            "spotifyId": "08otR31L7wodE0AMopjFZq",
-            "name": "Music Geek Monthly 62",
+            "spotifyId": "0YxGrqyfugpn9tVL8Woezq",
+            "name": "Music Geek Monthly 63",
             "owner": "Andrew Jones",
             "images": [
                 {
                     "size": 640,
-                    "url": "https://mosaic.scdn.co/640/1b9878c4c4e6ad535ef1bbe56a26e18786b62c2173636b424853d6619c4d29d9c9c19ffceee830779c7539aed849734f2c3138bf94d6e33e8fae3b1ba8cb24db3381860f4f28238c35698565b769efe9"
+                    "url": "https://mosaic.scdn.co/640/2de83faa6cf283cd56743451ff3f4d2e1634247237a82f2595544d0dab4b3ecf3a20acc35f129e8f5c3093f9a84937efe8f370c06bf4c4b22869ccf08833e738623b71da1b5a34565cf943921e53a09e"
                 },
                 {
                     "size": 300,
-                    "url": "https://mosaic.scdn.co/300/1b9878c4c4e6ad535ef1bbe56a26e18786b62c2173636b424853d6619c4d29d9c9c19ffceee830779c7539aed849734f2c3138bf94d6e33e8fae3b1ba8cb24db3381860f4f28238c35698565b769efe9"
+                    "url": "https://mosaic.scdn.co/300/2de83faa6cf283cd56743451ff3f4d2e1634247237a82f2595544d0dab4b3ecf3a20acc35f129e8f5c3093f9a84937efe8f370c06bf4c4b22869ccf08833e738623b71da1b5a34565cf943921e53a09e"
                 },
                 {
                     "size": 60,
-                    "url": "https://mosaic.scdn.co/60/1b9878c4c4e6ad535ef1bbe56a26e18786b62c2173636b424853d6619c4d29d9c9c19ffceee830779c7539aed849734f2c3138bf94d6e33e8fae3b1ba8cb24db3381860f4f28238c35698565b769efe9"
+                    "url": "https://mosaic.scdn.co/60/2de83faa6cf283cd56743451ff3f4d2e1634247237a82f2595544d0dab4b3ecf3a20acc35f129e8f5c3093f9a84937efe8f370c06bf4c4b22869ccf08833e738623b71da1b5a34565cf943921e53a09e"
                 }
             ]
         }
