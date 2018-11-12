@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
     <servlet>
-        <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>uk.co.cerihughes.mgm.HelloServlet</servlet-class>
+        <servlet-name>MGMServlet</servlet-name>
+        <servlet-class>uk.co.cerihughes.mgm.servlet.MGMServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>HelloServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>MGMServlet</servlet-name>
+        <url-pattern>/mgm.json</url-pattern>
     </servlet-mapping>
 </web-app>
