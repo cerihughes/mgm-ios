@@ -25,28 +25,17 @@ struct Album {
     let name: String
     let artist: String
     let score: Float?
-    let images: Images
+    let images: [Image]
 }
 
 struct Playlist {
     let spotifyID: String?
     let name: String
     let owner: String
-    let images: Images
+    let images: [Image]
 }
 
-struct Images {
-    let size64: String?
-    let size300: String?
-    let size640: String?
-
-    func image(for size: Int) -> String? {
-        if size > 300 {
-            return size640 ?? size300 ?? size64
-        }
-        if size > 64 {
-            return size300 ?? size640 ?? size64
-        }
-        return size64 ?? size300 ?? size640
-    }
+struct Image {
+    let size: Int?
+    let url: String
 }

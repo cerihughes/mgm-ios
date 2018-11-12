@@ -17,12 +17,12 @@ protocol AlbumArtViewModel {
 
 class AlbumArtViewModelImplementation: AlbumArtViewModel {
     private let imageLoader: ImageLoader
-    private let images: Images
+    private let images: [Image]
     private let loadingImageIndex: Int
 
     private var dataLoaderToken: DataLoaderToken? = nil
 
-    init(imageLoader: ImageLoader, images: Images, loadingImageIndex: Int = -1) {
+    init(imageLoader: ImageLoader, images: [Image], loadingImageIndex: Int = -1) {
         self.imageLoader = imageLoader
         self.images = images
         let range = 1 ... 3
@@ -36,7 +36,7 @@ class AlbumArtViewModelImplementation: AlbumArtViewModel {
 
     func loadAlbumCover(largestDimension: Int, _ completion: @escaping (UIImage?) -> Void) {
         guard
-            let imageURLString = images.image(for: largestDimension),
+            let imageURLString = image(for: largestDimension),
             let imageURL = URL(string: imageURLString)
             else {
                 completion(nil)
@@ -58,5 +58,20 @@ class AlbumArtViewModelImplementation: AlbumArtViewModel {
     func cancelLoadAlbumCover() {
         dataLoaderToken?.cancel()
         dataLoaderToken = nil
+    }
+
+    // MARK: Private
+
+    private func image(for largestDimension: Int) -> String? {
+        var candidate: String? = nil
+        for image in images {
+            let size = image.size ?? 0
+            if size > largestDimension {
+                candidate = image.url
+            } else {
+                return candidate ?? image.url
+            }
+        }
+        return candidate
     }
 }
