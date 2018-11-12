@@ -7,16 +7,16 @@ import java.util.Optional;
 public class GoogleSheetsEntry {
     @SerializedName("gsx$id")
     private GoogleSheetsString id;
-    @SerializedName("gsx$eventdate")
+    @SerializedName("gsx$date")
     private GoogleSheetsString date;
     @SerializedName("gsx$playlist")
     private GoogleSheetsString playlist;
-    @SerializedName("gsx$classicspotifyid")
-    private GoogleSheetsString classicSpotifyId;
+    @SerializedName("gsx$classicalbum")
+    private GoogleSheetsString classicAlbum;
     @SerializedName("gsx$classicscore")
     private GoogleSheetsString classicScore;
-    @SerializedName("gsx$newspotifyid")
-    private GoogleSheetsString newSpotifyId;
+    @SerializedName("gsx$newalbum")
+    private GoogleSheetsString newAlbum;
     @SerializedName("gsx$newscore")
     private GoogleSheetsString newScore;
 
@@ -32,16 +32,16 @@ public class GoogleSheetsEntry {
         return resolve(playlist);
     }
 
-    public Optional<String> resolvedClassicSpotifyId() {
-        return resolve(classicSpotifyId);
+    public Optional<String> resolvedClassicAlbum() {
+        return resolve(classicAlbum);
     }
 
     public Optional<String> resolvedClassicScore() {
         return resolve(classicScore);
     }
 
-    public Optional<String> resolvedNewSpotifyId() {
-        return resolve(newSpotifyId);
+    public Optional<String> resolvedNewAlbum() {
+        return resolve(newAlbum);
     }
 
     public Optional<String> resolvedNewScore() {

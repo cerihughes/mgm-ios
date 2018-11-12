@@ -6,22 +6,22 @@ import java.util.Optional;
 
 public final class InterimAlbum {
     private AlbumType type;
-    private String spotifyId;
+    private String albumData;
     private Float score;
 
-    private InterimAlbum(AlbumType type, String spotifyId) {
+    private InterimAlbum(AlbumType type, String albumData) {
         super();
 
         this.type = type;
-        this.spotifyId = spotifyId;
+        this.albumData = albumData;
     }
 
     public AlbumType getType() {
         return type;
     }
 
-    public String getSpotifyId() {
-        return spotifyId;
+    public String getAlbumData() {
+        return albumData;
     }
 
     public Optional<Float> getScore() {
@@ -30,14 +30,14 @@ public final class InterimAlbum {
 
     public static final class Builder {
         private AlbumType type;
-        private String spotifyId;
+        private String albumData;
         private Float score;
 
-        public Builder(AlbumType type, String spotifyId) {
+        public Builder(AlbumType type, String albumData) {
             super();
 
             this.type = type;
-            this.spotifyId = spotifyId;
+            this.albumData = albumData;
         }
 
         public Builder setScore(Optional<Float> optionalScore) {
@@ -55,11 +55,11 @@ public final class InterimAlbum {
         }
 
         public Optional<InterimAlbum> build() {
-            if (type == null || spotifyId == null) {
+            if (type == null || albumData == null) {
                 return Optional.empty();
             }
-            final InterimAlbum album = new InterimAlbum(type, spotifyId);
-            album.spotifyId = spotifyId;
+            final InterimAlbum album = new InterimAlbum(type, albumData);
+            album.albumData = albumData;
             album.score = score;
             return Optional.of(album);
         }

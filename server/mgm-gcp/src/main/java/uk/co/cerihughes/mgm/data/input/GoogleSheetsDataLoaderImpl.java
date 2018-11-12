@@ -12,7 +12,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 
 public class GoogleSheetsDataLoaderImpl implements GoogleSheetsDataLoader {
-    private static String url = "https://spreadsheets.google.com/feeds/list/1SytsfXWjxomYL10F7y9V7LawxNPSfnLTXGZYE5F0nh0/od6/public/values?alt=json";
+    private static String url = "https://spreadsheets.google.com/feeds/list/1AeTjG2coPkJ_3XSsSUWmu1Pb5Tpm9YdHP3M3iBtgUew/od6/public/values?alt=json";
 
     public String loadJsonData() throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();

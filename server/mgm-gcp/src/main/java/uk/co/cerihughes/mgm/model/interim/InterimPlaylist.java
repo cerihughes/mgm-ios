@@ -3,32 +3,32 @@ package uk.co.cerihughes.mgm.model.interim;
 import java.util.Optional;
 
 public final class InterimPlaylist {
-    private String spotifyId;
+    private String playlistData;
 
-    private InterimPlaylist(String spotifyId) {
+    private InterimPlaylist(String playlistData) {
         super();
 
-        this.spotifyId = spotifyId;
+        this.playlistData = playlistData;
     }
 
-    public String getSpotifyId() {
-        return spotifyId;
+    public String getPlaylistData() {
+        return playlistData;
     }
 
     public static final class Builder {
-        private String spotifyId;
+        private String playlistData;
 
-        public Builder(String spotifyId) {
+        public Builder(String playlistData) {
             super();
 
-            this.spotifyId = spotifyId;
+            this.playlistData = playlistData;
         }
 
         public Optional<InterimPlaylist> build() {
-            if (spotifyId == null) {
+            if (playlistData == null) {
                 return Optional.empty();
             }
-            return Optional.of(new InterimPlaylist(spotifyId));
+            return Optional.of(new InterimPlaylist(playlistData));
         }
     }
 }

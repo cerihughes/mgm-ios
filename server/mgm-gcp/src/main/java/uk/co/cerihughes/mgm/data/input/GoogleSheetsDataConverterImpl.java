@@ -67,13 +67,13 @@ public class GoogleSheetsDataConverterImpl implements GoogleSheetsDataConverter 
     private Optional<InterimAlbum> createClassicAlbum(GoogleSheetsEntry entry) throws MissingRequiredDataException {
         return createAlbum(AlbumType.CLASSIC,
                 entry.resolvedClassicScore(),
-                entry.resolvedClassicSpotifyId().orElseThrow(exception("Missing Spotify ID")));
+                entry.resolvedClassicAlbum().orElseThrow(exception("Missing Classic Album")));
     }
 
     private Optional<InterimAlbum> createNewAlbum(GoogleSheetsEntry entry) throws MissingRequiredDataException {
         return createAlbum(AlbumType.NEW,
                 entry.resolvedNewScore(),
-                entry.resolvedNewSpotifyId().orElseThrow(exception("Missing Spotify ID")));
+                entry.resolvedNewAlbum().orElseThrow(exception("Missing New Album")));
     }
 
     private Optional<InterimAlbum> createAlbum(AlbumType type, Optional<String> score, String spotifyId) {

@@ -20,11 +20,10 @@ public final class OutputAlbum {
     @SerializedName("images")
     private List<OutputImage> images;
 
-    private OutputAlbum(AlbumType type, String spotifyId, String name, String artist) {
+    private OutputAlbum(AlbumType type, String name, String artist) {
         super();
 
         this.type = type;
-        this.spotifyId = spotifyId;
         this.name = name;
         this.artist = artist;
     }
@@ -37,13 +36,17 @@ public final class OutputAlbum {
         private Float score;
         private List<OutputImage> images;
 
-        public Builder(AlbumType type, String spotifyId, String name, String artist) {
+        public Builder(AlbumType type, String name, String artist) {
             super();
 
             this.type = type;
-            this.spotifyId = spotifyId;
             this.name = name;
             this.artist = artist;
+        }
+
+        public Builder setSpotifyId(String spotifyId) {
+            this.spotifyId = spotifyId;
+            return this;
         }
 
         public Builder setScore(Optional<Float> optionalScore) {
@@ -57,10 +60,11 @@ public final class OutputAlbum {
         }
 
         public Optional<OutputAlbum> build() {
-            if (type == null || spotifyId == null || name == null || artist == null) {
+            if (type == null || name == null || artist == null) {
                 return Optional.empty();
             }
-            final OutputAlbum album = new OutputAlbum(type, spotifyId, name, artist);
+            final OutputAlbum album = new OutputAlbum(type, name, artist);
+            album.spotifyId = spotifyId;
             album.score = score;
             album.images = images;
             return Optional.of(album);
