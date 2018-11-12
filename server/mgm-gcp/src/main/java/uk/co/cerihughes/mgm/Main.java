@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class Main {
+    private static final long MILLIS_IN_HOUR = 1000 * 60 * 60;
+
     public static void main(String[] args) throws IOException {
         final GoogleSheetsDataLoaderImpl loader = new GoogleSheetsDataLoaderImpl();
         final String input = loader.loadJsonData();
@@ -24,5 +26,12 @@ public class Main {
         final JsonSerialiserImpl serialiser = new JsonSerialiserImpl();
         final String output = serialiser.serialise(outputEvents);
         System.out.println(output);
+
+        long now = System.currentTimeMillis();
+        long mod = now % MILLIS_IN_HOUR;
+        long lastModified = now - mod;
+
+        System.out.println("Now: " + now);
+        System.out.println("Last modified: " + lastModified);
     }
 }

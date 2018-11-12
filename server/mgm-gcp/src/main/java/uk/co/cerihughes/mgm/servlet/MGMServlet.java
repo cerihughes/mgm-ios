@@ -15,9 +15,10 @@ import java.io.PrintWriter;
 import java.util.List;
 
 public class MGMServlet extends HttpServlet {
+    private static final long MILLIS_IN_HOUR = 1000 * 60 * 60;
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         final GoogleSheetsDataLoaderImpl loader = new GoogleSheetsDataLoaderImpl();
         final String input = loader.loadJsonData();
 
@@ -30,10 +31,21 @@ public class MGMServlet extends HttpServlet {
         final JsonSerialiserImpl serialiser = new JsonSerialiserImpl();
         final String output = serialiser.serialise(outputEvents);
 
-        resp.setContentType("application/json");
+        long expires = getLastModified(request) + MILLIS_IN_HOUR;
 
-        PrintWriter out = resp.getWriter();
+        response.setContentType("application/json");
+        response.setDateHeader("Expires", expires);
+        response.setHeader("ETag", String.valueOf(expires));
+
+        PrintWriter out = response.getWriter();
         out.write(output);
         out.flush();
+    }
+
+    @Override
+    protected long getLastModified(HttpServletRequest request) {
+        long now = System.currentTimeMillis();
+        long mod = now % MILLIS_IN_HOUR;
+        return now - mod;
     }
 }
