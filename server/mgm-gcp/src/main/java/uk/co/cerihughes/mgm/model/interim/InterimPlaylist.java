@@ -1,14 +1,10 @@
 package uk.co.cerihughes.mgm.model.interim;
 
-import java.util.Optional;
-
 public final class InterimPlaylist {
     private String playlistData;
 
-    private InterimPlaylist(String playlistData) {
+    private InterimPlaylist() {
         super();
-
-        this.playlistData = playlistData;
     }
 
     public String getPlaylistData() {
@@ -18,17 +14,18 @@ public final class InterimPlaylist {
     public static final class Builder {
         private String playlistData;
 
-        public Builder(String playlistData) {
-            super();
-
+        public Builder setPlaylistData(String playlistData) {
             this.playlistData = playlistData;
+            return this;
         }
 
-        public Optional<InterimPlaylist> build() {
+        public InterimPlaylist build() {
             if (playlistData == null) {
-                return Optional.empty();
+                return null;
             }
-            return Optional.of(new InterimPlaylist(playlistData));
+            final InterimPlaylist playlist = new InterimPlaylist();
+            playlist.playlistData = playlistData;
+            return playlist;
         }
     }
 }

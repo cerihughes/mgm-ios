@@ -2,8 +2,6 @@ package uk.co.cerihughes.mgm.model.output;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Optional;
-
 public class OutputLocation {
     @SerializedName("name")
     private String name;
@@ -12,33 +10,40 @@ public class OutputLocation {
     @SerializedName("longitude")
     private double longitude;
 
-    private OutputLocation(String name, double latitude, double longitude) {
+    private OutputLocation(double latitude, double longitude) {
         super();
 
-        this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
     public static final class Builder {
         private String name;
-        private double latitude;
-        private double longitude;
+        private Double latitude;
+        private Double longitude;
 
-        public Builder(String name, double latitude, double longitude) {
-            super();
-
+        public Builder setName(String name) {
             this.name = name;
-            this.latitude = latitude;
-            this.longitude = longitude;
+            return this;
         }
 
-        public Optional<OutputLocation> build() {
-            if (name == null) {
-                return Optional.empty();
+        public Builder setLatitude(Double latitude) {
+            this.latitude = latitude;
+            return this;
+        }
+
+        public Builder setLongitude(Double longitude) {
+            this.longitude = longitude;
+            return this;
+        }
+
+        public OutputLocation build() {
+            if (name == null || latitude == null || longitude == null) {
+                return null;
             }
-            final OutputLocation location = new OutputLocation(name, latitude, longitude);
-            return Optional.of(location);
+            final OutputLocation location = new OutputLocation(latitude, longitude);
+            location.name = name;
+            return location;
         }
     }
 }

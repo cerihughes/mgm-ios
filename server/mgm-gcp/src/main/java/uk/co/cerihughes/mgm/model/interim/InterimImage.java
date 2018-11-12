@@ -1,19 +1,15 @@
 package uk.co.cerihughes.mgm.model.interim;
 
-import java.util.Optional;
-
 public final class InterimImage {
     private Integer size;
     private String url;
 
-    private InterimImage(String url) {
+    private InterimImage() {
         super();
-
-        this.url = url;
     }
 
-    public Optional<Integer> getSize() {
-        return Optional.ofNullable(size);
+    public Integer getSize() {
+        return size;
     }
 
     public String getUrl() {
@@ -24,33 +20,33 @@ public final class InterimImage {
         private Integer size;
         private String url;
 
-        public Builder(String url) {
-            super();
-
-            this.url = url;
-        }
-
-        public Builder setSize(Optional<Integer> optionalSize) {
-            optionalSize.ifPresent(value -> size = size);
+        public Builder setSize(Integer size) {
+            this.size = size;
             return this;
         }
 
-        public Builder setSizeString(Optional<String> sizeString) {
+        public Builder setSize(String sizeString) {
             try {
-                setSize(sizeString.map(Integer::new));
-            } catch (NumberFormatException e) {
+                setSize(new Integer(sizeString));
+            } catch (NullPointerException | NumberFormatException e) {
                 // Swallow
             }
             return this;
         }
 
-        public Optional<InterimImage> build() {
+        public Builder setUrl(String url) {
+            this.url = url;
+            return this;
+        }
+
+        public InterimImage build() {
             if (url == null) {
-                return Optional.empty();
+                return null;
             }
-            final InterimImage image = new InterimImage(url);
+            final InterimImage image = new InterimImage();
             image.size = size;
-            return Optional.of(image);
+            image.url = url;
+            return image;
         }
     }
 }

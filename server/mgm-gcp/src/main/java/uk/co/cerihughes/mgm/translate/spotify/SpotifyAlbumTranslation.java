@@ -9,7 +9,10 @@ import uk.co.cerihughes.mgm.model.interim.InterimEvent;
 import uk.co.cerihughes.mgm.model.output.OutputAlbum;
 import uk.co.cerihughes.mgm.translate.AlbumTranslation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -57,36 +60,35 @@ public final class SpotifyAlbumTranslation extends SpotifyTranslation implements
     }
 
     @Override
-    public Optional<OutputAlbum> translate(InterimAlbum interimAlbum) {
+    public OutputAlbum translate(InterimAlbum interimAlbum) {
         final String spotifyId = interimAlbum.getAlbumData();
         if (isValidData(spotifyId) == false) {
-            return Optional.empty();
+            return null;
         }
 
         final AlbumType type = interimAlbum.getType();
         if (type == null || spotifyId == null) {
-            return Optional.empty();
+            return null;
         }
 
         final Album spotifyAlbum = preprocessedAlbums.get(spotifyId);
         if (spotifyAlbum == null) {
-            return Optional.empty();
+            return null;
         }
 
         final ArtistSimplified[] spotifyArtists = spotifyAlbum.getArtists();
         if (spotifyArtists == null || spotifyArtists.length == 0) {
-            return Optional.empty();
+            return null;
         }
 
         final ArtistSimplified spotifyArtist = spotifyArtists[0];
         final String name = spotifyAlbum.getName();
         final String artist = spotifyArtist.getName();
-        if (name == null || artist == null) {
-            return Optional.empty();
-        }
-
-        return new OutputAlbum.Builder(type, name, artist)
+        return new OutputAlbum.Builder()
+                .setType(type)
                 .setSpotifyId(spotifyId)
+                .setName(name)
+                .setArtist(artist)
                 .setScore(interimAlbum.getScore())
                 .setImages(getImages(spotifyAlbum.getImages()))
                 .build();

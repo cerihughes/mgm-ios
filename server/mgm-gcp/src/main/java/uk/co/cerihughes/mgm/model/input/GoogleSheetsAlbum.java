@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public final class GoogleSheetsAlbum {
     @SerializedName("name")
@@ -23,6 +22,6 @@ public final class GoogleSheetsAlbum {
     }
 
     public List<GoogleSheetsImage> getImages() {
-        return Optional.ofNullable(images).orElse(Collections.emptyList());
+        return images == null ? Collections.emptyList() : images;
     }
 }

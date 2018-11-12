@@ -2,18 +2,13 @@ package uk.co.cerihughes.mgm.model.interim;
 
 import uk.co.cerihughes.mgm.model.AlbumType;
 
-import java.util.Optional;
-
 public final class InterimAlbum {
     private AlbumType type;
     private String albumData;
     private Float score;
 
-    private InterimAlbum(AlbumType type, String albumData) {
+    private InterimAlbum() {
         super();
-
-        this.type = type;
-        this.albumData = albumData;
     }
 
     public AlbumType getType() {
@@ -24,8 +19,8 @@ public final class InterimAlbum {
         return albumData;
     }
 
-    public Optional<Float> getScore() {
-        return Optional.ofNullable(score);
+    public Float getScore() {
+        return score;
     }
 
     public static final class Builder {
@@ -33,35 +28,40 @@ public final class InterimAlbum {
         private String albumData;
         private Float score;
 
-        public Builder(AlbumType type, String albumData) {
-            super();
-
+        public Builder setType(AlbumType type) {
             this.type = type;
-            this.albumData = albumData;
-        }
-
-        public Builder setScore(Optional<Float> optionalScore) {
-            optionalScore.ifPresent(value -> score = value);
             return this;
         }
 
-        public Builder setScoreString(Optional<String> scoreString) {
+        public Builder setAlbumData(String albumData) {
+            this.albumData = albumData;
+            return this;
+        }
+
+        public Builder setScore(Float score) {
+            this.score = score;
+            return this;
+        }
+
+        public Builder setScore(String scoreString) {
             try {
-                setScore(scoreString.map(Float::new));
-            } catch (NumberFormatException e) {
+                setScore(new Float(scoreString));
+            } catch (NullPointerException | NumberFormatException e) {
                 // Swallow
             }
             return this;
         }
 
-        public Optional<InterimAlbum> build() {
+        public InterimAlbum build() {
             if (type == null || albumData == null) {
-                return Optional.empty();
+                return null;
             }
-            final InterimAlbum album = new InterimAlbum(type, albumData);
+            final InterimAlbum album = new InterimAlbum();
+            album.type = type;
+            album.albumData = albumData;
             album.albumData = albumData;
             album.score = score;
-            return Optional.of(album);
+            return album;
         }
     }
 }

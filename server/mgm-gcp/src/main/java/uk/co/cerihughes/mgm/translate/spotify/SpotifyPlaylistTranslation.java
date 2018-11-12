@@ -8,7 +8,10 @@ import uk.co.cerihughes.mgm.model.interim.InterimPlaylist;
 import uk.co.cerihughes.mgm.model.output.OutputPlaylist;
 import uk.co.cerihughes.mgm.translate.PlaylistTranslation;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class SpotifyPlaylistTranslation extends SpotifyTranslation implements PlaylistTranslation {
@@ -35,8 +38,7 @@ public final class SpotifyPlaylistTranslation extends SpotifyTranslation impleme
     protected void preprocessPlaylists(List<InterimEvent> interimEvents) {
         final List<String> playlistIds = interimEvents.stream()
                 .map(InterimEvent::getPlaylist)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+                .filter(Objects::nonNull)
                 .map(InterimPlaylist::getPlaylistData)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
@@ -49,36 +51,35 @@ public final class SpotifyPlaylistTranslation extends SpotifyTranslation impleme
         // The Spotify web API currently doesn't support batch gets on a playlist, so this saves unnecessary network
         // calls too.
         final String playlistId = playlistIds.get(playlistIds.size() - 1);
-        Optional<Playlist> playlist = getPlaylistOperation.execute(spotifyApi, playlistId);
-        if (playlist.isPresent()) {
-            preprocessedPlaylists.put(playlistId, playlist.get());
+        Playlist playlist = getPlaylistOperation.execute(spotifyApi, playlistId);
+        if (playlist != null) {
+            preprocessedPlaylists.put(playlistId, playlist);
         }
     }
 
     @Override
-    public Optional<OutputPlaylist> translate(InterimPlaylist interimPlaylist) {
+    public OutputPlaylist translate(InterimPlaylist interimPlaylist) {
         final String spotifyId = interimPlaylist.getPlaylistData();
         if (isValidData(spotifyId) == false) {
-            return Optional.empty();
+            return null;
         }
 
         final Playlist spotifyPlaylist = preprocessedPlaylists.get(spotifyId);
         if (spotifyPlaylist == null) {
-            return Optional.empty();
+            return null;
         }
 
         final User spotifyUser = spotifyPlaylist.getOwner();
         if (spotifyUser == null) {
-            return Optional.empty();
+            return null;
         }
 
         final String name = spotifyPlaylist.getName();
         final String owner = spotifyUser.getDisplayName();
-        if (name == null || owner == null) {
-            return Optional.empty();
-        }
-
-        return new OutputPlaylist.Builder(spotifyId, name, owner)
+        return new OutputPlaylist.Builder()
+                .setSpotifyId(spotifyId)
+                .setName(name)
+                .setOwner(owner)
                 .setImages(getImages(spotifyPlaylist.getImages()))
                 .build();
     }

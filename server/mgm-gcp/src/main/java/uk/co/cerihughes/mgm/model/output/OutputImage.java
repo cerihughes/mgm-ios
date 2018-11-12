@@ -2,38 +2,39 @@ package uk.co.cerihughes.mgm.model.output;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Optional;
-
 public final class OutputImage {
     @SerializedName("size")
     private int size;
     @SerializedName("url")
     private String url;
 
-    private OutputImage(int size, String url) {
+    private OutputImage(int size) {
         super();
 
         this.size = size;
-        this.url = url;
     }
 
     public static final class Builder {
-        private int size;
+        private Integer size;
         private String url;
 
-        public Builder(int size, String url) {
-            super();
-
+        public Builder setSize(Integer size) {
             this.size = size;
-            this.url = url;
+            return this;
         }
 
-        public Optional<OutputImage> build() {
+        public Builder setUrl(String url) {
+            this.url = url;
+            return this;
+        }
+
+        public OutputImage build() {
             if (url == null) {
-                return Optional.empty();
+                return null;
             }
-            final OutputImage image = new OutputImage(size, url);
-            return Optional.of(image);
+            final OutputImage image = new OutputImage(size == null ? 0 : size);
+            image.url = url;
+            return image;
         }
     }
 }

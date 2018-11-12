@@ -3,7 +3,6 @@ package uk.co.cerihughes.mgm.model.output;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-import java.util.Optional;
 
 public final class OutputPlaylist {
     @SerializedName("spotifyId")
@@ -15,12 +14,8 @@ public final class OutputPlaylist {
     @SerializedName("images")
     private List<OutputImage> images;
 
-    private OutputPlaylist(String spotifyId, String name, String owner) {
+    private OutputPlaylist() {
         super();
-
-        this.spotifyId = spotifyId;
-        this.name = name;
-        this.owner = owner;
     }
 
     public static final class Builder {
@@ -29,26 +24,36 @@ public final class OutputPlaylist {
         private String owner;
         private List<OutputImage> images;
 
-        public Builder(String spotifyId, String name, String owner) {
-            super();
-
+        public Builder setSpotifyId(String spotifyId) {
             this.spotifyId = spotifyId;
-            this.name = name;
-            this.owner = owner;
-        }
-
-        public Builder setImages(Optional<List<OutputImage>> optionalImages) {
-            optionalImages.ifPresent(value -> images = value);
             return this;
         }
 
-        public Optional<OutputPlaylist> build() {
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setOwner(String owner) {
+            this.owner = owner;
+            return this;
+        }
+
+        public Builder setImages(List<OutputImage> images) {
+            this.images = images;
+            return this;
+        }
+
+        public OutputPlaylist build() {
             if (spotifyId == null || name == null || owner == null) {
-                return Optional.empty();
+                return null;
             }
-            final OutputPlaylist playlist = new OutputPlaylist(spotifyId, name, owner);
+            final OutputPlaylist playlist = new OutputPlaylist();
+            playlist.spotifyId = spotifyId;
+            playlist.name = name;
+            playlist.owner = owner;
             playlist.images = images;
-            return Optional.of(playlist);
+            return playlist;
         }
     }
 }
