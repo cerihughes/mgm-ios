@@ -1,6 +1,6 @@
 import Foundation
 
-struct Event {
+struct Event: Codable {
     let number: Int
     let location: Location?
     let date: Date?
@@ -9,18 +9,18 @@ struct Event {
     let newAlbum: Album?
 }
 
-struct Location {
+struct Location: Codable {
     let name: String
     let latitude: Double
     let longitude: Double
 }
 
-enum AlbumType {
+enum AlbumType: String, Codable {
     case classic, new
 }
 
-struct Album {
-    let type: AlbumType
+struct Album: Codable {
+    let type: AlbumType?
     let spotifyID: String?
     let name: String
     let artist: String
@@ -28,14 +28,14 @@ struct Album {
     let images: [Image]
 }
 
-struct Playlist {
+struct Playlist: Codable {
     let spotifyID: String?
     let name: String
     let owner: String
     let images: [Image]
 }
 
-struct Image {
+struct Image: Codable {
     let size: Int?
     let url: String
 }

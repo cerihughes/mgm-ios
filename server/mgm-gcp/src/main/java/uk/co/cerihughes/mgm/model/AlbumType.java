@@ -1,3 +1,10 @@
 package uk.co.cerihughes.mgm.model;
 
-public enum AlbumType {CLASSIC, NEW}
+import com.google.gson.annotations.SerializedName;
+
+public enum AlbumType {
+    @SerializedName("classic")
+    CLASSIC,
+    @SerializedName("new")
+    NEW
+}

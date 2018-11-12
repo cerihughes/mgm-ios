@@ -18,11 +18,11 @@ class ScoresPage: PageFactory, Page {
 
     private func createViewController(forwardNavigationContext: ForwardNavigationContext) -> UIViewController {
         let dataLoader = DataLoaderImplementation()
-        let googleSheetsDataLoader = GoogleSheetsDataLoaderImplementation(dataLoader: dataLoader)
-        let cachingGoogleSheetsDataLoader = CachingGoogleSheetsDataLoaderImplementation(wrappedDataLoader: googleSheetsDataLoader, userDefaults: UserDefaults.standard)
+        let gcpDataLoader = GCPDataLoaderImplementation(dataLoader: dataLoader)
+        let cachingGCPDataLoader = CachingGCPDataLoaderImplementation(wrappedDataLoader: gcpDataLoader, userDefaults: UserDefaults.standard)
         let imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)
-        let dataConverter = GoogleSheetsDataConverterImplementation()
-        let viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: cachingGoogleSheetsDataLoader, dataConverter: dataConverter)
+        let dataConverter = GCPDataConverterImplementation()
+        let viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: cachingGCPDataLoader, dataConverter: dataConverter)
         let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
         let viewController = ScoresViewController(forwardNavigationContext: forwardNavigationContext, viewModel: viewModel)
         viewController.tabBarItem.title = "Album Scores"
