@@ -23,13 +23,13 @@ final class ViewModelDataLoaderImplementation: ViewModelDataLoader {
     }
 
     func loadData(_ completion: @escaping (GoogleSheetsDataConverterResponse) -> Void) -> DataLoaderToken? {
-        return dataLoader.loadData() { [unowned self] (response) in
+        return dataLoader.loadData() { [weak self] (response) in
             DispatchQueue.main.async {
                 switch (response) {
                 case .success(let data):
-                    self.handleDataLoaderSuccess(data: data, completion)
+                    self?.handleDataLoaderSuccess(data: data, completion)
                 case .failure(let error):
-                    self.handleDataLoaderFailure(error: error, completion)
+                    self?.handleDataLoaderFailure(error: error, completion)
                 }
             }
         }

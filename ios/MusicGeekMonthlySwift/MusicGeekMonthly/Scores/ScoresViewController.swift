@@ -51,9 +51,9 @@ class ScoresViewController: ForwardNavigatingViewController {
 
         view.hideMessage()
         view.showActivityIndicator()
-        viewModel.loadData { [unowned self] in
+        viewModel.loadData { [weak self] in
             view.hideActivityIndicator()
-            self.updateUI()
+            self?.updateUI()
         }
     }
 
@@ -161,14 +161,14 @@ extension ScoresViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // Wait a second so that we don't update the UI while typing is ongoing...
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [unowned self] in
-            // Get the filter a second time and only apply iy if the value is the same as it was a second ago...
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            // Get the filter a second time and only apply it if the value is the same as it was a second ago...
             guard let searchText2 = searchBar.text, searchText == searchText2 else {
                 return
             }
 
-            self.viewModel.filter = searchBar.text
-            self.updateUI()
+            self?.viewModel.filter = searchBar.text
+            self?.updateUI()
         }
     }
 

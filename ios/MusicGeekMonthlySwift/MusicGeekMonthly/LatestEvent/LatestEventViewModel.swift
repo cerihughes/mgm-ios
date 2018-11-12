@@ -90,15 +90,15 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
             dataLoaderToken.cancel()
         }
 
-        dataLoaderToken = dataLoader.loadData() { [unowned self] (response) in
+        dataLoaderToken = dataLoader.loadData() { [weak self] (response) in
             DispatchQueue.main.async {
-                self.dataLoaderToken = nil
+                self?.dataLoaderToken = nil
 
                 switch (response) {
                 case .success(let events):
-                    self.handleDataLoaderSuccess(events: events, completion)
+                    self?.handleDataLoaderSuccess(events: events, completion)
                 case .failure(let error):
-                    self.handleDataLoaderFailure(error: error, completion)
+                    self?.handleDataLoaderFailure(error: error, completion)
                 }
             }
         }

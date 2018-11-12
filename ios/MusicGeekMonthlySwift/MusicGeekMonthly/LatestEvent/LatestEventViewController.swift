@@ -54,9 +54,9 @@ class LatestEventViewController: ForwardNavigatingViewController {
 
         view.hideMessage()
         view.showActivityIndicator()
-        viewModel.loadData { [unowned self] in
+        viewModel.loadData { [weak self] in
             view.hideActivityIndicator()
-            self.updateUI()
+            self?.updateUI()
         }
     }
 
