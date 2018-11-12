@@ -5,6 +5,7 @@ import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
 import com.wrapper.spotify.model_objects.specification.*;
 import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
+import uk.co.cerihughes.mgm.model.AlbumType;
 import uk.co.cerihughes.mgm.model.interim.InterimAlbum;
 import uk.co.cerihughes.mgm.model.interim.InterimEvent;
 import uk.co.cerihughes.mgm.model.interim.InterimPlaylist;
@@ -99,7 +100,11 @@ public class SpotifyTranslation extends DataTranslation {
 
     @Override
     protected Optional<OutputAlbum> translate(InterimAlbum interimAlbum) {
+        final AlbumType type = interimAlbum.getType();
         final String spotifyId = interimAlbum.getSpotifyId();
+        if (type == null || spotifyId == null) {
+            return Optional.empty();
+        }
 
         final Album spotifyAlbum = preprocessedAlbums.get(spotifyId);
         if (spotifyAlbum == null) {
@@ -118,7 +123,7 @@ public class SpotifyTranslation extends DataTranslation {
             return Optional.empty();
         }
 
-        return new OutputAlbum.Builder(spotifyId, name, artist)
+        return new OutputAlbum.Builder(type, spotifyId, name, artist)
                 .setScore(interimAlbum.getScore())
                 .setImages(getImages(spotifyAlbum.getImages()))
                 .build();

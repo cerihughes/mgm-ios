@@ -1,7 +1,7 @@
 import Foundation
 
-/// The GoogleSheetsDataLoader is used to load JSON responses from the Google Sheets backend.
-protocol GoogleSheetsDataLoader {
+/// The GCPDataLoader is used to load JSON responses from the GCP backend.
+protocol GCPDataLoader {
     /// Loads the latest data
     /// Multiple requests can take place simultaneously - a request can be cancelled
     /// by invoking the cancel method on the returned DataLoaderToken.
@@ -13,13 +13,11 @@ protocol GoogleSheetsDataLoader {
 }
 
 private let urlSchemeString = "https"
-private let urlHostString = "spreadsheets.google.com"
-private let urlPathString = "/feeds/list/1SytsfXWjxomYL10F7y9V7LawxNPSfnLTXGZYE5F0nh0/od6/public/values"
-private let altQueryKey = "alt"
-private let altQueryValue = "json"
+private let urlHostString = "mgm-gcp.appspot.com"
+private let urlPathString = "/mgm.json"
 
-/// Default implementation of GoogleSheetsDataLoader
-final class GoogleSheetsDataLoaderImplementation: GoogleSheetsDataLoader {
+/// Default implementation of GCPDataLoader
+final class GCPDataLoaderImplementation: GCPDataLoader {
     private let dataLoader: DataLoader
 
     init(dataLoader: DataLoader) {
@@ -41,19 +39,17 @@ final class GoogleSheetsDataLoaderImplementation: GoogleSheetsDataLoader {
         urlComponents.scheme = urlSchemeString
         urlComponents.host = urlHostString
         urlComponents.path = urlPathString
-        urlComponents.queryItems = [URLQueryItem(name: altQueryKey, value: altQueryValue)]
-
         return urlComponents.url
     }
 }
 
-class CachingGoogleSheetsDataLoaderImplementation: GoogleSheetsDataLoader {
-    private static let userDefaultsKey = "CachingGoogleSheetsDataLoaderImplementation_userDefaultsKey"
+class CachingGCPDataLoaderImplementation: GCPDataLoader {
+    private static let userDefaultsKey = "CachingGCPDataLoaderImplementation_userDefaultsKey"
 
-    private let wrappedDataLoader: GoogleSheetsDataLoader
+    private let wrappedDataLoader: GCPDataLoader
     private let userDefaults: UserDefaults
 
-    init(wrappedDataLoader: GoogleSheetsDataLoader, userDefaults: UserDefaults) {
+    init(wrappedDataLoader: GCPDataLoader, userDefaults: UserDefaults) {
         self.wrappedDataLoader = wrappedDataLoader
         self.userDefaults = userDefaults
     }
@@ -91,17 +87,17 @@ class CachingGoogleSheetsDataLoaderImplementation: GoogleSheetsDataLoader {
     }
 
     private func readUserDefaultsData() -> Data? {
-        return userDefaults.data(forKey: CachingGoogleSheetsDataLoaderImplementation.userDefaultsKey)
+        return userDefaults.data(forKey: CachingGCPDataLoaderImplementation.userDefaultsKey)
     }
 
     private func writeUserDefaultsData(_ data: Data) {
-        userDefaults.set(data, forKey: CachingGoogleSheetsDataLoaderImplementation.userDefaultsKey)
+        userDefaults.set(data, forKey: CachingGCPDataLoaderImplementation.userDefaultsKey)
     }
 
     private func createFallbackData() -> Data? {
-        let bundle = Bundle(for: CachingGoogleSheetsDataLoaderImplementation.self)
+        let bundle = Bundle(for: CachingGCPDataLoaderImplementation.self)
 
-        if let path = bundle.path(forResource: "googleSheets", ofType: "json"),
+        if let path = bundle.path(forResource: "gcp", ofType: "json"),
             let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
             return data
         }

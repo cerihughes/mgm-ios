@@ -21,7 +21,7 @@ final class LatestEventEntityViewModelImplementation: AlbumArtViewModelImplement
     let spotifyURL: URL?
 
     init(imageLoader: ImageLoader, album: Album) {
-        self.entityType = album.type == .classic ? "CLASSIC ALBUM" : "NEW ALBUM"
+        self.entityType = album.type == .classic ? "CLASSIC ALBUM" : album.type == .new ? "NEW ALBUM" : "ALBUM"
         self.entityName = album.name
         self.entityOwner = album.artist
         self.spotifyURL = .createSpotifyAlbumURL(albumID: album.spotifyID)

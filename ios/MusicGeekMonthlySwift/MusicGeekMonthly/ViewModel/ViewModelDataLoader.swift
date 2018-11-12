@@ -14,10 +14,10 @@ protocol ViewModelDataLoader {
 }
 
 final class ViewModelDataLoaderImplementation: ViewModelDataLoader {
-    private let dataLoader: GoogleSheetsDataLoader
-    private let dataConverter: GoogleSheetsDataConverter
+    private let dataLoader: GCPDataLoader
+    private let dataConverter: GCPDataConverter
 
-    init(dataLoader: GoogleSheetsDataLoader, dataConverter: GoogleSheetsDataConverter) {
+    init(dataLoader: GCPDataLoader, dataConverter: GCPDataConverter) {
         self.dataLoader = dataLoader
         self.dataConverter = dataConverter
     }

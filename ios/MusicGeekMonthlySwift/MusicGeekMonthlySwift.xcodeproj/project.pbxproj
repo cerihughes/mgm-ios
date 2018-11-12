@@ -63,6 +63,9 @@
 		65D2AD9A218B330D002BB0C9 /* ScoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */; };
 		65D2AD9C218B36DD002BB0C9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */; };
 		65D2AD9E218B5143002BB0C9 /* ScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9D218B5143002BB0C9 /* ScoresView.swift */; };
+		65E485572199C78D00CCE895 /* GCPDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E485562199C78D00CCE895 /* GCPDataLoader.swift */; };
+		65E485592199C82A00CCE895 /* gcp.json in Resources */ = {isa = PBXBuildFile; fileRef = 65E485582199C82A00CCE895 /* gcp.json */; };
+		65E4855B2199C86400CCE895 /* GCPDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4855A2199C86400CCE895 /* GCPDataConverter.swift */; };
 		65E9AEB62191E09F001B36D6 /* URL+SpotifyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +144,9 @@
 		65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewModel.swift; sourceTree = "<group>"; };
 		65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		65D2AD9D218B5143002BB0C9 /* ScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView.swift; sourceTree = "<group>"; };
+		65E485562199C78D00CCE895 /* GCPDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCPDataLoader.swift; sourceTree = "<group>"; };
+		65E485582199C82A00CCE895 /* gcp.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = gcp.json; sourceTree = "<group>"; };
+		65E4855A2199C86400CCE895 /* GCPDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCPDataConverter.swift; sourceTree = "<group>"; };
 		65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+SpotifyExtensions.swift"; sourceTree = "<group>"; };
 		65EA1D5D219450C2001FF06E /* Secret.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -319,6 +325,9 @@
 			isa = PBXGroup;
 			children = (
 				65BDAABE2189F69C007E887B /* DataLoader.swift */,
+				65E485562199C78D00CCE895 /* GCPDataLoader.swift */,
+				65E4855A2199C86400CCE895 /* GCPDataConverter.swift */,
+				65E485582199C82A00CCE895 /* gcp.json */,
 				65BDAAC02189F6CC007E887B /* GoogleSheetsDataLoader.swift */,
 				65BDAAC52189FDA4007E887B /* GoogleSheetsDataConverter.swift */,
 				6508BD1E21945DA2009C7043 /* googleSheets.json */,
@@ -472,6 +481,7 @@
 			files = (
 				6508BD1F21945DA3009C7043 /* googleSheets.json in Resources */,
 				65BDAA992189F55D007E887B /* LaunchScreen.storyboard in Resources */,
+				65E485592199C82A00CCE895 /* gcp.json in Resources */,
 				65BDAA962189F55D007E887B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -536,9 +546,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6553CF8D21907CB30020EEC2 /* LatestEventEntityViewModel.swift in Sources */,
+				65E485572199C78D00CCE895 /* GCPDataLoader.swift in Sources */,
 				65E9AEB62191E09F001B36D6 /* URL+SpotifyExtensions.swift in Sources */,
 				656619822190A0A30068EA1B /* NavigationUI.swift in Sources */,
 				6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */,
+				65E4855B2199C86400CCE895 /* GCPDataConverter.swift in Sources */,
 				656619932190ACCD0068EA1B /* SpotifyLaunchPage.swift in Sources */,
 				6566197521908CE20068EA1B /* LatestEventViewController.swift in Sources */,
 				6566198E2190A8910068EA1B /* ResourceLocator.swift in Sources */,

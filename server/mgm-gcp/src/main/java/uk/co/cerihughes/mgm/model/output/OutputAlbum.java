@@ -1,11 +1,14 @@
 package uk.co.cerihughes.mgm.model.output;
 
 import com.google.gson.annotations.SerializedName;
+import uk.co.cerihughes.mgm.model.AlbumType;
 
 import java.util.List;
 import java.util.Optional;
 
 public final class OutputAlbum {
+    @SerializedName("type")
+    private AlbumType type;
     @SerializedName("spotifyId")
     private String spotifyId;
     @SerializedName("name")
@@ -17,24 +20,27 @@ public final class OutputAlbum {
     @SerializedName("images")
     private List<OutputImage> images;
 
-    private OutputAlbum(String spotifyId, String name, String artist) {
+    private OutputAlbum(AlbumType type, String spotifyId, String name, String artist) {
         super();
 
+        this.type = type;
         this.spotifyId = spotifyId;
         this.name = name;
         this.artist = artist;
     }
 
     public static final class Builder {
+        private AlbumType type;
         private String spotifyId;
         private String name;
         private String artist;
         private Float score;
         private List<OutputImage> images;
 
-        public Builder(String spotifyId, String name, String artist) {
+        public Builder(AlbumType type, String spotifyId, String name, String artist) {
             super();
 
+            this.type = type;
             this.spotifyId = spotifyId;
             this.name = name;
             this.artist = artist;
@@ -51,10 +57,10 @@ public final class OutputAlbum {
         }
 
         public Optional<OutputAlbum> build() {
-            if (spotifyId == null || name == null || artist == null) {
+            if (type == null || spotifyId == null || name == null || artist == null) {
                 return Optional.empty();
             }
-            final OutputAlbum album = new OutputAlbum(spotifyId, name, artist);
+            final OutputAlbum album = new OutputAlbum(type, spotifyId, name, artist);
             album.score = score;
             album.images = images;
             return Optional.of(album);
