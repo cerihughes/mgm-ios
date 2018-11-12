@@ -19,12 +19,10 @@ public final class OutputEvent {
     @SerializedName("playlist")
     private OutputPlaylist playlist;
 
-    private OutputEvent(int number, OutputAlbum classicAlbum, OutputAlbum newAlbum) {
+    private OutputEvent(int number) {
         super();
 
         this.number = number;
-        this.classicAlbum = classicAlbum;
-        this.newAlbum = newAlbum;
     }
 
     public static final class Builder {
@@ -35,12 +33,20 @@ public final class OutputEvent {
         private OutputAlbum newAlbum;
         private OutputPlaylist playlist;
 
-        public Builder(int number, OutputAlbum classicAlbum, OutputAlbum newAlbum) {
+        public Builder(int number) {
             super();
 
             this.number = number;
-            this.classicAlbum = classicAlbum;
-            this.newAlbum = newAlbum;
+        }
+
+        public Builder setClassicAlbum(Optional<OutputAlbum> optionalClassicAlbum) {
+            optionalClassicAlbum.ifPresent(value -> classicAlbum = value);
+            return this;
+        }
+
+        public Builder setNewAlbum(Optional<OutputAlbum> optionalNewAlbum) {
+            optionalNewAlbum.ifPresent(value -> newAlbum = value);
+            return this;
         }
 
         public Builder setDate(Optional<LocalDate> optionalDate) {
@@ -62,9 +68,11 @@ public final class OutputEvent {
             if (classicAlbum == null || newAlbum == null) {
                 return Optional.empty();
             }
-            final OutputEvent event = new OutputEvent(number, classicAlbum, newAlbum);
+            final OutputEvent event = new OutputEvent(number);
             event.date = date;
             event.location = location;
+            event.classicAlbum = classicAlbum;
+            event.newAlbum = newAlbum;
             event.playlist = playlist;
             return Optional.of(event);
         }
