@@ -88,11 +88,8 @@ final class GoogleSheetsDataConverterImplementation: GoogleSheetsDataConverter {
         return Playlist(spotifyID: spotifyID, name: name, owner: owner, images: images)
     }
 
-    private func createPlaylistImages(from entry: JSONEntry) -> Images {
-        let value = entry.playlistImage?.processedValue
-        return Images(size64: createPlaylistImageURLString(value: value, size: 60),
-                      size300: createPlaylistImageURLString(value: value, size: 300),
-                      size640: createPlaylistImageURLString(value: value, size: 640))
+    private func createPlaylistImages(from entry: JSONEntry) -> [Image] {
+        return [createPlaylistImage(size: 300, value: entry.playlistImage?.processedValue)].compactMap { $0 }
     }
 
     private func createClassicAlbum(from entry: JSONEntry) -> Album? {
@@ -115,10 +112,10 @@ final class GoogleSheetsDataConverterImplementation: GoogleSheetsDataConverter {
                      images: images)
     }
 
-    private func createClassicImages(from entry: JSONEntry) -> Images {
-        return Images(size64: createAlbumImageURLString(value: entry.classicImage64?.processedValue),
-                      size300: createAlbumImageURLString(value: entry.classicImage300?.processedValue),
-                      size640: createAlbumImageURLString(value: entry.classicImage640?.processedValue))
+    private func createClassicImages(from entry: JSONEntry) -> [Image] {
+        return [createAlbumImage(size: 640, value: entry.classicImage640?.processedValue),
+                createAlbumImage(size: 300, value: entry.classicImage300?.processedValue),
+                createAlbumImage(size: 64, value: entry.classicImage64?.processedValue)].compactMap { $0 }
     }
 
     private func createNewAlbum(from entry: JSONEntry) -> Album? {
@@ -141,10 +138,17 @@ final class GoogleSheetsDataConverterImplementation: GoogleSheetsDataConverter {
                      images: images)
     }
 
-    private func createNewImages(from entry: JSONEntry) -> Images {
-        return Images(size64: createAlbumImageURLString(value: entry.newImage64?.processedValue),
-                      size300: createAlbumImageURLString(value: entry.newImage300?.processedValue),
-                      size640: createAlbumImageURLString(value: entry.newImage640?.processedValue))
+    private func createNewImages(from entry: JSONEntry) -> [Image] {
+        return [createAlbumImage(size: 640, value: entry.newImage640?.processedValue),
+                createAlbumImage(size: 300, value: entry.newImage300?.processedValue),
+                createAlbumImage(size: 64, value: entry.newImage64?.processedValue)].compactMap { $0 }
+    }
+
+    private func createAlbumImage(size: Int, value: String?) -> Image? {
+        guard let urlString = createAlbumImageURLString(value: value) else {
+            return nil
+        }
+        return Image(size: size, url: urlString)
     }
 
     private func createAlbumImageURLString(value: String?) -> String? {
@@ -158,10 +162,11 @@ final class GoogleSheetsDataConverterImplementation: GoogleSheetsDataConverter {
         return String(format: spotifyAlbumImageURLFormat, value)
     }
 
-    private func createPlaylistImageURLString(value: String?, size: Int) -> String? {
+    private func createPlaylistImage(size: Int, value: String?) -> Image? {
         guard let value = value else {
             return nil
         }
-        return String(format: spotifyPlaylistImageURLFormat, size, value)
+        let urlString = String(format: spotifyPlaylistImageURLFormat, size, value)
+        return Image(size: size, url: urlString)
     }
 }
