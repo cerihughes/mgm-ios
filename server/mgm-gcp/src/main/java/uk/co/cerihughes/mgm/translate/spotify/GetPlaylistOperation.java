@@ -6,15 +6,14 @@ import com.wrapper.spotify.model_objects.specification.Playlist;
 import com.wrapper.spotify.requests.data.playlists.GetPlaylistRequest;
 
 import java.io.IOException;
-import java.util.Optional;
 
 public class GetPlaylistOperation {
-    public Optional<Playlist> execute(SpotifyApi spotifyApi, String playlistId) {
+    public Playlist execute(SpotifyApi spotifyApi, String playlistId) {
         try {
             final GetPlaylistRequest getPlaylistRequest = spotifyApi.getPlaylist(playlistId).build();
-            return Optional.ofNullable(getPlaylistRequest.execute());
+            return getPlaylistRequest.execute();
         } catch (IOException | SpotifyWebApiException e) {
-            return Optional.empty();
+            return null;
         }
     }
 }

@@ -3,7 +3,6 @@ package uk.co.cerihughes.mgm.model.output;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 public final class OutputEvent {
     @SerializedName("number")
@@ -39,34 +38,34 @@ public final class OutputEvent {
             this.number = number;
         }
 
-        public Builder setClassicAlbum(Optional<OutputAlbum> optionalClassicAlbum) {
-            optionalClassicAlbum.ifPresent(value -> classicAlbum = value);
+        public Builder setDate(LocalDate date) {
+            this.date = date;
             return this;
         }
 
-        public Builder setNewAlbum(Optional<OutputAlbum> optionalNewAlbum) {
-            optionalNewAlbum.ifPresent(value -> newAlbum = value);
+        public Builder setLocation(OutputLocation location) {
+            this.location = location;
             return this;
         }
 
-        public Builder setDate(Optional<LocalDate> optionalDate) {
-            optionalDate.ifPresent(value -> date = value);
+        public Builder setClassicAlbum(OutputAlbum classicAlbum) {
+            this.classicAlbum = classicAlbum;
             return this;
         }
 
-        public Builder setLocation(Optional<OutputLocation> optionalLocation) {
-            optionalLocation.ifPresent(value -> location = value);
+        public Builder setNewAlbum(OutputAlbum newAlbum) {
+            this.newAlbum = newAlbum;
             return this;
         }
 
-        public Builder setPlaylist(Optional<OutputPlaylist> optionalPlaylist) {
-            optionalPlaylist.ifPresent(value -> playlist = value);
+        public Builder setPlaylist(OutputPlaylist playlist) {
+            this.playlist = playlist;
             return this;
         }
 
-        public Optional<OutputEvent> build() {
+        public OutputEvent build() {
             if (classicAlbum == null || newAlbum == null) {
-                return Optional.empty();
+                return null;
             }
             final OutputEvent event = new OutputEvent(number);
             event.date = date;
@@ -74,7 +73,7 @@ public final class OutputEvent {
             event.classicAlbum = classicAlbum;
             event.newAlbum = newAlbum;
             event.playlist = playlist;
-            return Optional.of(event);
+            return event;
         }
 
     }

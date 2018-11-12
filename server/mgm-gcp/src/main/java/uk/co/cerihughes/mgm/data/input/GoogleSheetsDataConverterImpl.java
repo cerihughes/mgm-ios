@@ -13,8 +13,8 @@ import uk.co.cerihughes.mgm.model.interim.InterimPlaylist;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Supplier;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class GoogleSheetsDataConverterImpl implements GoogleSheetsDataConverter {
     private Gson gson = new Gson();
@@ -24,65 +24,59 @@ public class GoogleSheetsDataConverterImpl implements GoogleSheetsDataConverter 
         ArrayList<InterimEvent> events = new ArrayList<>();
 
         final GoogleSheetsModel model = deserialise(json);
-        final Optional<GoogleSheetsFeed> feed = model.getFeed();
-        if (feed.isPresent()) {
-            final List<GoogleSheetsEntry> entries = model.getFeed().get().resolvedEntries();
+        final GoogleSheetsFeed feed = model.getFeed();
+        if (feed != null) {
+            final List<GoogleSheetsEntry> entries = feed.resolvedEntries();
             for (GoogleSheetsEntry entry : entries) {
-                try {
-                    events.add(createEvent(entry));
-                } catch (MissingRequiredDataException e) {
-                    // Swallow
-                }
+                events.add(createEvent(entry));
             }
         }
 
-        return events;
+        return events.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     private GoogleSheetsModel deserialise(String json) {
         return gson.fromJson(json, GoogleSheetsModel.class);
     }
 
-    private InterimEvent createEvent(GoogleSheetsEntry entry) throws MissingRequiredDataException {
-        final String numberString = entry.resolvedId().orElseThrow(exception("Missing event ID"));
-        final InterimAlbum classicAlbum = createClassicAlbum(entry).orElseThrow(exception("Missing classic album"));
-        final InterimAlbum newAlbum = createNewAlbum(entry).orElseThrow(exception("Missing new album"));
+    private InterimEvent createEvent(GoogleSheetsEntry entry) {
+        final InterimAlbum classicAlbum = createClassicAlbum(entry);
+        final InterimAlbum newAlbum = createNewAlbum(entry);
 
-        try {
-            int number = new Integer(numberString);
-            return new InterimEvent.Builder(number, classicAlbum, newAlbum)
-                    .setDateString(entry.resolvedDate(), formatter)
-                    .setPlaylist(createPlaylist(entry))
-                    .build()
-                    .orElseThrow(exception("Missing event data"));
-        } catch (NumberFormatException e) {
-            throw new MissingRequiredDataException(e);
-        }
-    }
-
-    private Supplier<MissingRequiredDataException> exception(String message) {
-        return () -> new MissingRequiredDataException(message);
-    }
-
-    private Optional<InterimAlbum> createClassicAlbum(GoogleSheetsEntry entry) throws MissingRequiredDataException {
-        return createAlbum(AlbumType.CLASSIC,
-                entry.resolvedClassicScore(),
-                entry.resolvedClassicAlbum().orElseThrow(exception("Missing Classic Album")));
-    }
-
-    private Optional<InterimAlbum> createNewAlbum(GoogleSheetsEntry entry) throws MissingRequiredDataException {
-        return createAlbum(AlbumType.NEW,
-                entry.resolvedNewScore(),
-                entry.resolvedNewAlbum().orElseThrow(exception("Missing New Album")));
-    }
-
-    private Optional<InterimAlbum> createAlbum(AlbumType type, Optional<String> score, String spotifyId) {
-        return new InterimAlbum.Builder(type, spotifyId)
-                .setScoreString(score)
+        return new InterimEvent.Builder()
+                .setNumber(entry.resolvedId())
+                .setDate(entry.resolvedDate(), formatter)
+                .setClassicAlbum(classicAlbum)
+                .setNewAlbum(newAlbum)
+                .setPlaylist(createPlaylist(entry))
                 .build();
     }
 
-    private Optional<InterimPlaylist> createPlaylist(GoogleSheetsEntry entry) {
-        return entry.resolvedPlaylist().flatMap(value -> new InterimPlaylist.Builder(value).build());
+    private InterimAlbum createClassicAlbum(GoogleSheetsEntry entry) {
+        return createAlbum(AlbumType.CLASSIC,
+                entry.resolvedClassicScore(),
+                entry.resolvedClassicAlbum());
+    }
+
+    private InterimAlbum createNewAlbum(GoogleSheetsEntry entry) {
+        return createAlbum(AlbumType.NEW,
+                entry.resolvedNewScore(),
+                entry.resolvedNewAlbum());
+    }
+
+    private InterimAlbum createAlbum(AlbumType type, String score, String albumData) {
+        return new InterimAlbum.Builder()
+                .setType(type)
+                .setAlbumData(albumData)
+                .setScore(score)
+                .build();
+    }
+
+    private InterimPlaylist createPlaylist(GoogleSheetsEntry entry) {
+        return new InterimPlaylist.Builder()
+                .setPlaylistData(entry.resolvedPlaylist())
+                .build();
     }
 }

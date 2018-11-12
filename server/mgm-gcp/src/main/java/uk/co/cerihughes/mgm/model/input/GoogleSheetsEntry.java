@@ -2,8 +2,6 @@ package uk.co.cerihughes.mgm.model.input;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Optional;
-
 public class GoogleSheetsEntry {
     @SerializedName("gsx$id")
     private GoogleSheetsString id;
@@ -20,35 +18,35 @@ public class GoogleSheetsEntry {
     @SerializedName("gsx$newscore")
     private GoogleSheetsString newScore;
 
-    public Optional<String> resolvedId() {
+    public String resolvedId() {
         return resolve(id);
     }
 
-    public Optional<String> resolvedDate() {
+    public String resolvedDate() {
         return resolve(date);
     }
 
-    public Optional<String> resolvedPlaylist() {
+    public String resolvedPlaylist() {
         return resolve(playlist);
     }
 
-    public Optional<String> resolvedClassicAlbum() {
+    public String resolvedClassicAlbum() {
         return resolve(classicAlbum);
     }
 
-    public Optional<String> resolvedClassicScore() {
+    public String resolvedClassicScore() {
         return resolve(classicScore);
     }
 
-    public Optional<String> resolvedNewAlbum() {
+    public String resolvedNewAlbum() {
         return resolve(newAlbum);
     }
 
-    public Optional<String> resolvedNewScore() {
+    public String resolvedNewScore() {
         return resolve(newScore);
     }
 
-    private Optional<String> resolve(GoogleSheetsString string) {
-        return Optional.ofNullable(string).flatMap(s -> s.resolvedValue());
+    private String resolve(GoogleSheetsString string) {
+        return string == null ? null : string.resolvedValue();
     }
 }

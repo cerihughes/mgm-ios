@@ -10,7 +10,7 @@ import uk.co.cerihughes.mgm.model.output.OutputPlaylist;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -32,15 +32,14 @@ public final class DataTranslation {
 
         return interimEvents.stream()
                 .map(e -> translate(e))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
-    private Optional<OutputEvent> translate(InterimEvent interimEvent) {
-        final Optional<OutputAlbum> classicAlbum = translate(interimEvent.getClassicAlbum());
-        final Optional<OutputAlbum> newAlbum = translate(interimEvent.getNewAlbum());
-        final Optional<OutputPlaylist> playlist = interimEvent.getPlaylist().flatMap(this::translate);
+    private OutputEvent translate(InterimEvent interimEvent) {
+        final OutputAlbum classicAlbum = translate(interimEvent.getClassicAlbum());
+        final OutputAlbum newAlbum = translate(interimEvent.getNewAlbum());
+        final OutputPlaylist playlist = translate(interimEvent.getPlaylist());
 
         return new OutputEvent.Builder(interimEvent.getNumber())
                 .setDate(interimEvent.getDate())
@@ -51,32 +50,45 @@ public final class DataTranslation {
                 .build();
     }
 
-    private Optional<OutputAlbum> translate(InterimAlbum interimAlbum) {
+    private OutputAlbum translate(InterimAlbum interimAlbum) {
+        if (interimAlbum == null) {
+            return null;
+        }
+
         for (AlbumTranslation albumTranslation : albumTranslations) {
-            Optional<OutputAlbum> outputAlbum = albumTranslation.translate(interimAlbum);
-            if (outputAlbum.isPresent()) {
+            OutputAlbum outputAlbum = albumTranslation.translate(interimAlbum);
+            if (outputAlbum != null) {
                 return outputAlbum;
             }
         }
-        return Optional.empty();
+
+        return null;
     }
 
-    private Optional<OutputPlaylist> translate(InterimPlaylist interimAlbum) {
+    private OutputPlaylist translate(InterimPlaylist interimPlaylist) {
+        if (interimPlaylist == null) {
+            return null;
+        }
+
         for (PlaylistTranslation playlistTranslation : playlistTranslations) {
-            Optional<OutputPlaylist> outputPlaylist = playlistTranslation.translate(interimAlbum);
-            if (outputPlaylist.isPresent()) {
+            OutputPlaylist outputPlaylist = playlistTranslation.translate(interimPlaylist);
+            if (outputPlaylist != null) {
                 return outputPlaylist;
             }
         }
-        return Optional.empty();
+
+        return null;
     }
 
-    private Optional<OutputLocation> translateLocation() {
+    private OutputLocation translateLocation() {
         final String name = "Crafty Devil's Cellar";
         final double latitude = 51.48227690;
         final double longitude = -3.20186570;
 
-        return new OutputLocation.Builder(name, latitude, longitude)
+        return new OutputLocation.Builder()
+                .setName(name)
+                .setLatitude(latitude)
+                .setLongitude(longitude)
                 .build();
     }
 }
