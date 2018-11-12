@@ -50,8 +50,8 @@ final class DataLoaderImplementation: DataLoader {
 
     func loadData(url: URL, _ completion: @escaping (DataLoaderResponse) -> Void) -> DataLoaderToken? {
         let urlRequest = URLRequest(url: url)
-        let dataTask = urlSession.dataTask(with: urlRequest) { [unowned self] (data, response, error) in
-            if let response = self.createDataLoaderResponse(data: data, response: response, error: error) {
+        let dataTask = urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
+            if let response = self?.createDataLoaderResponse(data: data, response: response, error: error) {
                 completion(response)
             }
         }

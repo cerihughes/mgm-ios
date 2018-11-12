@@ -8,8 +8,8 @@ final class AverageColorProcessorImplementation: AverageColorProcessor {
     private let context = CIContext()
 
     func calculateAverageColor(for image: UIImage, _ completion: @escaping (UIColor?) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
-            let color = self.calculateAverageColor(for: image)
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            let color = self?.calculateAverageColor(for: image)
             DispatchQueue.main.async {
                 completion(color)
             }
