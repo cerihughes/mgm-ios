@@ -1,5 +1,7 @@
 package uk.co.cerihughes.mgm.model.interim;
 
+import uk.co.cerihughes.mgm.data.DateTimeFormatterFactory;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -38,6 +40,8 @@ public final class InterimEvent {
     }
 
     public static final class Builder {
+        private static DateTimeFormatter formatter = DateTimeFormatterFactory.formatter;
+
         private Integer number;
         private LocalDate date;
         private InterimAlbum classicAlbum;
@@ -63,7 +67,7 @@ public final class InterimEvent {
             return this;
         }
 
-        public Builder setDate(String dateString, DateTimeFormatter formatter) {
+        public Builder setDate(String dateString) {
             try {
                 setDate(LocalDate.parse(dateString, formatter));
             } catch (NullPointerException | DateTimeParseException e) {

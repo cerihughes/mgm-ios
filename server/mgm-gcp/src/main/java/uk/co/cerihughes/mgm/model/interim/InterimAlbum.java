@@ -53,7 +53,7 @@ public final class InterimAlbum {
         }
 
         public InterimAlbum build() {
-            if (type == null || albumData == null) {
+            if (type == null || albumData == null || albumData.trim().length() == 0) {
                 return null;
             }
             final InterimAlbum album = new InterimAlbum();

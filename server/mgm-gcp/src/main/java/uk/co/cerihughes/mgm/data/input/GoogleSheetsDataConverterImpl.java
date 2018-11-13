@@ -1,7 +1,6 @@
 package uk.co.cerihughes.mgm.data.input;
 
 import com.google.gson.Gson;
-import uk.co.cerihughes.mgm.data.DateTimeFormatterFactory;
 import uk.co.cerihughes.mgm.model.AlbumType;
 import uk.co.cerihughes.mgm.model.input.GoogleSheetsEntry;
 import uk.co.cerihughes.mgm.model.input.GoogleSheetsFeed;
@@ -10,7 +9,6 @@ import uk.co.cerihughes.mgm.model.interim.InterimAlbum;
 import uk.co.cerihughes.mgm.model.interim.InterimEvent;
 import uk.co.cerihughes.mgm.model.interim.InterimPlaylist;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +16,6 @@ import java.util.stream.Collectors;
 
 public class GoogleSheetsDataConverterImpl implements GoogleSheetsDataConverter {
     private Gson gson = new Gson();
-    private DateTimeFormatter formatter = DateTimeFormatterFactory.formatter;
 
     public List<InterimEvent> convert(String json) {
         ArrayList<InterimEvent> events = new ArrayList<>();
@@ -47,7 +44,7 @@ public class GoogleSheetsDataConverterImpl implements GoogleSheetsDataConverter 
 
         return new InterimEvent.Builder()
                 .setNumber(entry.resolvedId())
-                .setDate(entry.resolvedDate(), formatter)
+                .setDate(entry.resolvedDate())
                 .setClassicAlbum(classicAlbum)
                 .setNewAlbum(newAlbum)
                 .setPlaylist(createPlaylist(entry))

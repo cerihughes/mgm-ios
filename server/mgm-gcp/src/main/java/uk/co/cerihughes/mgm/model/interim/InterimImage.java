@@ -40,7 +40,7 @@ public final class InterimImage {
         }
 
         public InterimImage build() {
-            if (url == null) {
+            if (url == null || url.trim().length() == 0) {
                 return null;
             }
             final InterimImage image = new InterimImage();
