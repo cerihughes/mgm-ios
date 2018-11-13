@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 public class GoogleSheetsDataConverterImpl implements GoogleSheetsDataConverter {
     private Gson gson = new Gson();
-    private DateTimeFormatter formatter = DateTimeFormatterFactory.formatter;
 
     public List<InterimEvent> convert(String json) {
         ArrayList<InterimEvent> events = new ArrayList<>();
@@ -47,7 +46,7 @@ public class GoogleSheetsDataConverterImpl implements GoogleSheetsDataConverter 
 
         return new InterimEvent.Builder()
                 .setNumber(entry.resolvedId())
-                .setDate(entry.resolvedDate(), formatter)
+                .setDate(entry.resolvedDate())
                 .setClassicAlbum(classicAlbum)
                 .setNewAlbum(newAlbum)
                 .setPlaylist(createPlaylist(entry))

@@ -20,7 +20,7 @@ public final class InterimPlaylist {
         }
 
         public InterimPlaylist build() {
-            if (playlistData == null) {
+            if (playlistData == null || playlistData.trim().length() == 0) {
                 return null;
             }
             final InterimPlaylist playlist = new InterimPlaylist();
