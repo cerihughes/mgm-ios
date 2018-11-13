@@ -5,9 +5,7 @@ import uk.co.cerihughes.mgm.model.AlbumType;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class InterimEventTest {
     private static final Integer NUMBER = 2;

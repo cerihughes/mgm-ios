@@ -3,9 +3,7 @@ package uk.co.cerihughes.mgm.model.interim;
 import org.junit.jupiter.api.Test;
 import uk.co.cerihughes.mgm.model.AlbumType;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class InterimAlbumTest {
     private static final AlbumType ALBUM_TYPE = AlbumType.CLASSIC;

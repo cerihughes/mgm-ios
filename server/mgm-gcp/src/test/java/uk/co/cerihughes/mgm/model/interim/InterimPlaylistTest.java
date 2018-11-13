@@ -2,9 +2,7 @@ package uk.co.cerihughes.mgm.model.interim;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class InterimPlaylistTest {
     private static final String PLAYLILST_DATA = "PLAYLIST DATA";
