@@ -1,9 +1,11 @@
+import Madog
 import MapKit
 import UIKit
 
 private let appleMapsLaunchPageIdentifier = "appleMapsLaunchPageIdentifier"
 
 class AppleMapsLaunchPage: PageFactory, Page {
+    private var uuid: UUID?
 
     // MARK: PageFactory
 
@@ -13,13 +15,21 @@ class AppleMapsLaunchPage: PageFactory, Page {
 
     // MARK: Page
 
-    func register<T>(with registry: ViewControllerRegistry<T>) {
-        _ = registry.add(registryFunction: createViewController(token:context:))
+    func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
+        uuid = registry.add(registryFunction: createViewController(token:context:))
+    }
+
+    func unregister<Token, Context>(from registry: ViewControllerRegistry<Token, Context>) {
+        guard let uuid = uuid else {
+            return
+        }
+
+        registry.removeRegistryFunction(uuid: uuid)
     }
 
     // MARK: Private
 
-    private func createViewController<T>(token: T, context: ForwardNavigationContext) -> UIViewController? {
+    private func createViewController<Token, Context>(token: Token, context: Context) -> UIViewController? {
         guard
             let rl = token as? ResourceLocator,
             rl.identifier == appleMapsLaunchPageIdentifier,
