@@ -1,9 +1,12 @@
+import Madog
 import UIKit
 
 private let spotifyLaunchPageIdentifier = "spotifyLaunchPageIdentifier"
 
 class SpotifyLaunchPage: PageFactory, Page {
     private let externalAppLauncher: ExternalAppLauncher
+
+    private var uuid: UUID?
 
     init(externalAppLauncher: ExternalAppLauncher) {
         self.externalAppLauncher = externalAppLauncher
@@ -17,13 +20,21 @@ class SpotifyLaunchPage: PageFactory, Page {
 
     // MARK: Page
 
-    func register<T>(with registry: ViewControllerRegistry<T>) {
+    func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
         _ = registry.add(registryFunction: createViewController(token:context:))
+    }
+
+    func unregister<Token, Context>(from registry: Registry<Token, Context, UIViewController>) {
+        guard let uuid = uuid else {
+            return
+        }
+
+        registry.removeRegistryFunction(uuid: uuid)
     }
 
     // MARK: Private
 
-    private func createViewController<T>(token: T, context: ForwardNavigationContext) -> UIViewController? {
+    private func createViewController<Token, Context>(token: Token, context: Context) -> UIViewController? {
         guard
             let rl = token as? ResourceLocator,
             rl.identifier == spotifyLaunchPageIdentifier,

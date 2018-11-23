@@ -1,3 +1,4 @@
+import Madog
 import UIKit
 
 class ForwardNavigatingViewController: UIViewController {

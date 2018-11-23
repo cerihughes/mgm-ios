@@ -1,6 +1,8 @@
+import Madog
 import UIKit
 
 class ScoresPage: PageFactory, Page {
+    private var uuid: UUID?
 
     // MARK: PageFactory
 
@@ -10,13 +12,25 @@ class ScoresPage: PageFactory, Page {
 
     // MARK: Page
 
-    func register<T>(with registry: ViewControllerRegistry<T>) {
-        _ = registry.add(initialRegistryFunction: createViewController(forwardNavigationContext:))
+    func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
+        uuid = registry.add(globalRegistryFunction: createViewController(context:))
+    }
+
+    func unregister<Token, Context>(from registry: Registry<Token, Context, UIViewController>) {
+        guard let uuid = uuid else {
+            return
+        }
+
+        registry.removeGlobalRegistryFunction(uuid: uuid)
     }
 
     // MARK: Private
 
-    private func createViewController(forwardNavigationContext: ForwardNavigationContext) -> UIViewController {
+    private func createViewController<Context>(context: Context) -> UIViewController? {
+        guard let forwardNavigationContext = context as? ForwardNavigationContext else {
+            return nil
+        }
+
         let dataLoader = DataLoaderImplementation()
         let gcpDataLoader = GCPDataLoaderImplementation(dataLoader: dataLoader)
         let cachingGCPDataLoader = CachingGCPDataLoaderImplementation(wrappedDataLoader: gcpDataLoader, userDefaults: UserDefaults.standard)

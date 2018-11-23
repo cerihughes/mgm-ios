@@ -24,18 +24,13 @@
 		6566197521908CE20068EA1B /* LatestEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566197421908CE20068EA1B /* LatestEventViewController.swift */; };
 		65661978219092080068EA1B /* AlbumArtViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65661977219092080068EA1B /* AlbumArtViewModel.swift */; };
 		6566197A2190969A0068EA1B /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619792190969A0068EA1B /* AlbumCollectionViewCell.swift */; };
-		6566197E21909EAB0068EA1B /* ForwardNavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566197D21909EAB0068EA1B /* ForwardNavigationContext.swift */; };
-		6566198021909EE80068EA1B /* ViewControllerRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566197F21909EE80068EA1B /* ViewControllerRegistry.swift */; };
-		656619822190A0A30068EA1B /* NavigationUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619812190A0A30068EA1B /* NavigationUI.swift */; };
-		656619842190A0E40068EA1B /* PageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619832190A0E40068EA1B /* PageLoader.swift */; };
-		656619862190A1300068EA1B /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619852190A1300068EA1B /* Page.swift */; };
-		656619882190A1620068EA1B /* RuntimePageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619872190A1620068EA1B /* RuntimePageLoader.swift */; };
 		6566198C2190A7730068EA1B /* ScoresPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566198B2190A7730068EA1B /* ScoresPage.swift */; };
 		6566198E2190A8910068EA1B /* ResourceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566198D2190A8910068EA1B /* ResourceLocator.swift */; };
 		656619902190A9470068EA1B /* LatestEventPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566198F2190A9470068EA1B /* LatestEventPage.swift */; };
 		656619932190ACCD0068EA1B /* SpotifyLaunchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619922190ACCD0068EA1B /* SpotifyLaunchPage.swift */; };
 		656619952190AFBF0068EA1B /* ForwardNavigatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */; };
 		656619972190BB5F0068EA1B /* ExternalAppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */; };
+		6589F77821A8641900D08A0A /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6589F77721A8641900D08A0A /* Madog.framework */; };
 		658AE763218DF75C002D4AE5 /* AverageColorProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */; };
 		659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */; };
 		659DED7121931FFF00226579 /* AppleMapsLaunchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED7021931FFF00226579 /* AppleMapsLaunchPage.swift */; };
@@ -104,18 +99,13 @@
 		6566197421908CE20068EA1B /* LatestEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventViewController.swift; sourceTree = "<group>"; };
 		65661977219092080068EA1B /* AlbumArtViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumArtViewModel.swift; sourceTree = "<group>"; };
 		656619792190969A0068EA1B /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
-		6566197D21909EAB0068EA1B /* ForwardNavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardNavigationContext.swift; sourceTree = "<group>"; };
-		6566197F21909EE80068EA1B /* ViewControllerRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRegistry.swift; sourceTree = "<group>"; };
-		656619812190A0A30068EA1B /* NavigationUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUI.swift; sourceTree = "<group>"; };
-		656619832190A0E40068EA1B /* PageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLoader.swift; sourceTree = "<group>"; };
-		656619852190A1300068EA1B /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
-		656619872190A1620068EA1B /* RuntimePageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimePageLoader.swift; sourceTree = "<group>"; };
 		6566198B2190A7730068EA1B /* ScoresPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresPage.swift; sourceTree = "<group>"; };
 		6566198D2190A8910068EA1B /* ResourceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLocator.swift; sourceTree = "<group>"; };
 		6566198F2190A9470068EA1B /* LatestEventPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventPage.swift; sourceTree = "<group>"; };
 		656619922190ACCD0068EA1B /* SpotifyLaunchPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyLaunchPage.swift; sourceTree = "<group>"; };
 		656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardNavigatingViewController.swift; sourceTree = "<group>"; };
 		656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalAppLauncher.swift; sourceTree = "<group>"; };
+		6589F77721A8641900D08A0A /* Madog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Madog.framework; path = Carthage/Build/iOS/Madog.framework; sourceTree = SOURCE_ROOT; };
 		658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageColorProcessor.swift; sourceTree = "<group>"; };
 		659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		659DED7021931FFF00226579 /* AppleMapsLaunchPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsLaunchPage.swift; sourceTree = "<group>"; };
@@ -156,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6589F77821A8641900D08A0A /* Madog.framework in Frameworks */,
 				6528005D2193840D00100167 /* Crashlytics.framework in Frameworks */,
 				6528005C2193840D00100167 /* Fabric.framework in Frameworks */,
 			);
@@ -201,13 +192,7 @@
 		6566197C21909E750068EA1B /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				6566197D21909EAB0068EA1B /* ForwardNavigationContext.swift */,
-				6566197F21909EE80068EA1B /* ViewControllerRegistry.swift */,
-				656619852190A1300068EA1B /* Page.swift */,
-				656619832190A0E40068EA1B /* PageLoader.swift */,
-				656619872190A1620068EA1B /* RuntimePageLoader.swift */,
 				6566198D2190A8910068EA1B /* ResourceLocator.swift */,
-				656619812190A0A30068EA1B /* NavigationUI.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -294,6 +279,7 @@
 				65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */,
 				65BDAA952189F55D007E887B /* Assets.xcassets */,
 				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
+				6589F77721A8641900D08A0A /* Madog.framework */,
 				6528005B2193840D00100167 /* Crashlytics.framework */,
 				6528005A2193840C00100167 /* Fabric.framework */,
 				65BDAA9A2189F55D007E887B /* Info.plist */,
@@ -385,6 +371,7 @@
 				65BDAA872189F55C007E887B /* Sources */,
 				65BDAA882189F55C007E887B /* Frameworks */,
 				65BDAA892189F55C007E887B /* Resources */,
+				65C014D921A86CEC0064E845 /* ShellScript */,
 				652589C321938DE100B23275 /* ShellScript */,
 			);
 			buildRules = (
@@ -538,6 +525,25 @@
 			shellPath = /bin/sh;
 			shellScript = "$PROJECT_DIR/BuildPhases/copy-plist.sh\n";
 		};
+		65C014D921A86CEC0064E845 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Madog.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Madog.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -548,7 +554,6 @@
 				6553CF8D21907CB30020EEC2 /* LatestEventEntityViewModel.swift in Sources */,
 				65E485572199C78D00CCE895 /* GCPDataLoader.swift in Sources */,
 				65E9AEB62191E09F001B36D6 /* URL+SpotifyExtensions.swift in Sources */,
-				656619822190A0A30068EA1B /* NavigationUI.swift in Sources */,
 				6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */,
 				65E4855B2199C86400CCE895 /* GCPDataConverter.swift in Sources */,
 				656619932190ACCD0068EA1B /* SpotifyLaunchPage.swift in Sources */,
@@ -560,16 +565,11 @@
 				6512F30421933D06004CD379 /* LatestEventCollectionSectionHeaderView.swift in Sources */,
 				6507A1FC218C8FE200C26202 /* FullWidthCollectionViewLayout.swift in Sources */,
 				6553CF95219089560020EEC2 /* DataLoadingView.swift in Sources */,
-				656619862190A1300068EA1B /* Page.swift in Sources */,
 				6512F30621934DEE004CD379 /* ErrorMessages.swift in Sources */,
 				65D2AD9A218B330D002BB0C9 /* ScoreViewModel.swift in Sources */,
 				6553CF932190890B0020EEC2 /* LatestEventView.swift in Sources */,
 				656619972190BB5F0068EA1B /* ExternalAppLauncher.swift in Sources */,
 				65BDAA912189F55C007E887B /* ScoresViewController.swift in Sources */,
-				656619882190A1620068EA1B /* RuntimePageLoader.swift in Sources */,
-				656619842190A0E40068EA1B /* PageLoader.swift in Sources */,
-				6566197E21909EAB0068EA1B /* ForwardNavigationContext.swift in Sources */,
-				6566198021909EE80068EA1B /* ViewControllerRegistry.swift in Sources */,
 				658AE763218DF75C002D4AE5 /* AverageColorProcessor.swift in Sources */,
 				6553CF8B21907C4A0020EEC2 /* LatestEventViewModel.swift in Sources */,
 				659DED7121931FFF00226579 /* AppleMapsLaunchPage.swift in Sources */,
@@ -768,6 +768,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MusicGeekMonthly",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = MusicGeekMonthly/Secret.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -791,6 +792,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MusicGeekMonthly",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = MusicGeekMonthly/Secret.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

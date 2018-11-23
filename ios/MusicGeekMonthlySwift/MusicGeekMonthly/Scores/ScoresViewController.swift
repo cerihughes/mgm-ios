@@ -1,3 +1,4 @@
+import Madog
 import UIKit
 
 fileprivate let cellReuseIdentifier = "ScoresViewController_CellReuseIdentifier"

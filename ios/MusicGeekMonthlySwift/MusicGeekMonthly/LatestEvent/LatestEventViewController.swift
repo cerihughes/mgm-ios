@@ -1,4 +1,5 @@
 import CoreLocation
+import Madog
 import UIKit
 
 fileprivate let sectionHeaderReuseIdentifier = "LatestEventViewController_CellReuseIdentifier_SectionHeader"
