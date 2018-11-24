@@ -24,7 +24,7 @@ class SpotifyLaunchPage: PageFactory, Page {
         _ = registry.add(registryFunction: createViewController(token:context:))
     }
 
-    func unregister<Token, Context>(from registry: Registry<Token, Context, UIViewController>) {
+    func unregister<Token, Context>(from registry: ViewControllerRegistry<Token, Context>) {
         guard let uuid = uuid else {
             return
         }

@@ -6,10 +6,10 @@ fileprivate let cellReuseIdentifier = "ScoresViewController_CellReuseIdentifier"
 class ScoresViewController: ForwardNavigatingViewController {
     private var viewModel: ScoresViewModel
 
-    init(forwardNavigationContext: ForwardNavigationContext, viewModel: ScoresViewModel) {
+    init(navigationContext: TabBarNavigationContext, viewModel: ScoresViewModel) {
         self.viewModel = viewModel
 
-        super.init(forwardNavigationContext: forwardNavigationContext)
+        super.init(navigationContext: navigationContext)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -145,7 +145,7 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
         }
 
         let rl = ResourceLocator.createSpotifyResourceLocator(spotifyURL: spotifyURL)
-        _ = forwardNavigationContext.navigate(with: rl, from: self, animated: true)
+        _ = navigationContext.navigateForward(with: rl, from: self, animated: true)
     }
 
     private func dismissKeyboard() {
