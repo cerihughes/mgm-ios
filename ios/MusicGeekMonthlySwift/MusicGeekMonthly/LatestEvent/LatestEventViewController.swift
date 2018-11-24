@@ -9,10 +9,10 @@ fileprivate let entityCellReuseIdentifier = "LatestEventViewController_CellReuse
 class LatestEventViewController: ForwardNavigatingViewController {
     private var viewModel: LatestEventViewModel
 
-    init(forwardNavigationContext: ForwardNavigationContext, viewModel: LatestEventViewModel) {
+    init(navigationContext: TabBarNavigationContext, viewModel: LatestEventViewModel) {
         self.viewModel = viewModel
 
-        super.init(forwardNavigationContext: forwardNavigationContext)
+        super.init(navigationContext: navigationContext)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -208,7 +208,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         }
 
         let rl = ResourceLocator.createAppleMapsResourceLocator(appleMapsLocationName: locationName, appleMapsLatitude: mapReference.latitude, appleMapsLongitude: mapReference.longitude)
-        _ = forwardNavigationContext.navigate(with: rl, from: self, animated: true)
+        _ = navigationContext.navigateForward(with: rl, from: self, animated: true)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectEntityItemAt indexPath: IndexPath) {
@@ -220,7 +220,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         }
 
         let rl = ResourceLocator.createSpotifyResourceLocator(spotifyURL: spotifyURL)
-        _ = forwardNavigationContext.navigate(with: rl, from: self, animated: true)
+        _ = navigationContext.navigateForward(with: rl, from: self, animated: true)
     }
 }
 
