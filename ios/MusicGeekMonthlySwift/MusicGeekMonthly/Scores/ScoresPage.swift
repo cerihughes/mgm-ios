@@ -1,7 +1,9 @@
 import Madog
 import UIKit
 
-class ScoresPage: PageFactory, Page {
+class ScoresPage: PageFactory, StatefulPage {
+    private var imageLoader: ImageLoader?
+    private var viewModelDataLoader: ViewModelDataLoader?
     private var uuid: UUID?
 
     // MARK: PageFactory
@@ -11,6 +13,13 @@ class ScoresPage: PageFactory, Page {
     }
 
     // MARK: Page
+
+    func configure(with state: [String : State]) {
+        if let viewModelDataLoaderState = state[viewModelDataLoaderStateName] as? ViewModelDataLoaderState {
+            imageLoader = viewModelDataLoaderState.imageLoader
+            viewModelDataLoader = viewModelDataLoaderState.viewModelDataLoader
+        }
+    }
 
     func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
         uuid = registry.add(initialRegistryFunction: createViewController(context:))
@@ -27,16 +36,13 @@ class ScoresPage: PageFactory, Page {
     // MARK: Private
 
     private func createViewController<Context>(context: Context) -> UIViewController? {
-        guard let navigationContext = context as? TabBarNavigationContext else {
+        guard
+            let imageLoader = imageLoader,
+            let viewModelDataLoader = viewModelDataLoader,
+            let navigationContext = context as? TabBarNavigationContext else {
             return nil
         }
 
-        let dataLoader = DataLoaderImplementation()
-        let gcpDataLoader = GCPDataLoaderImplementation(dataLoader: dataLoader)
-        let cachingGCPDataLoader = CachingGCPDataLoaderImplementation(wrappedDataLoader: gcpDataLoader, userDefaults: UserDefaults.standard)
-        let imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)
-        let dataConverter = GCPDataConverterImplementation()
-        let viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: cachingGCPDataLoader, dataConverter: dataConverter)
         let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
         let viewController = ScoresViewController(navigationContext: navigationContext, viewModel: viewModel)
         viewController.tabBarItem.tag = 1
