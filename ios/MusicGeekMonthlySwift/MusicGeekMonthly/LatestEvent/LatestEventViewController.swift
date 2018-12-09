@@ -9,7 +9,7 @@ fileprivate let entityCellReuseIdentifier = "LatestEventViewController_CellReuse
 class LatestEventViewController: ForwardNavigatingViewController {
     private var viewModel: LatestEventViewModel
 
-    init(navigationContext: TabBarNavigationContext, viewModel: LatestEventViewModel) {
+    init(navigationContext: ForwardBackNavigationContext, viewModel: LatestEventViewModel) {
         self.viewModel = viewModel
 
         super.init(navigationContext: navigationContext)
@@ -207,8 +207,8 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
                 return
         }
 
-        let rl = ResourceLocator.createAppleMapsResourceLocator(appleMapsLocationName: locationName, appleMapsLatitude: mapReference.latitude, appleMapsLongitude: mapReference.longitude)
-        _ = navigationContext.navigateForward(with: rl, from: self, animated: true)
+        let rl = ResourceLocator.appleMaps(locationName: locationName, latitude: mapReference.latitude, longitude: mapReference.longitude)
+        _ = navigationContext.navigateForward(with: rl, animated: true)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectEntityItemAt indexPath: IndexPath) {
@@ -219,8 +219,8 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
                 return
         }
 
-        let rl = ResourceLocator.createSpotifyResourceLocator(spotifyURL: spotifyURL)
-        _ = navigationContext.navigateForward(with: rl, from: self, animated: true)
+        let rl = ResourceLocator.spotify(spotifyURL: spotifyURL)
+        _ = navigationContext.navigateForward(with: rl, animated: true)
     }
 }
 

@@ -3,21 +3,14 @@ import Madog
 
 let viewModelDataLoaderStateName = "viewModelDataLoaderStateName"
 
-class ViewModelDataLoaderState: StateFactory, State {
+class ViewModelDataLoaderState: StateObject {
     let imageLoader: ImageLoader
     let viewModelDataLoader: ViewModelDataLoader
 
-    // MARK: StateFactory
+    // MARK: StateObject
 
-    static func createState() -> State {
-        return ViewModelDataLoaderState()
-    }
 
-    // MARK: State
-
-    let name = viewModelDataLoaderStateName
-
-    init() {
+    required init() {
         let dataLoader = DataLoaderImplementation()
         let gcpDataLoader = GCPDataLoaderImplementation(dataLoader: dataLoader)
         let cachingGCPDataLoader = CachingGCPDataLoaderImplementation(wrappedDataLoader: gcpDataLoader, userDefaults: UserDefaults.standard)
@@ -25,5 +18,8 @@ class ViewModelDataLoaderState: StateFactory, State {
 
         self.imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)
         self.viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: cachingGCPDataLoader, dataConverter: dataConverter)
+
+        super.init()
+        name = viewModelDataLoaderStateName
     }
 }
