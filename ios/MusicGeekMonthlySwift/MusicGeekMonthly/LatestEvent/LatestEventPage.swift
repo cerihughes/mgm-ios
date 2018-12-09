@@ -1,31 +1,20 @@
 import Madog
 import UIKit
 
-class LatestEventPage: PageFactory, StatefulPage {
+fileprivate let latestEventIdentifier = "latestEventIdentifier"
+
+class LatestEventPage: PageObject {
     private var imageLoader: ImageLoader?
     private var viewModelDataLoader: ViewModelDataLoader?
     private var uuid: UUID?
 
-    // MARK: PageFactory
+    // MARK: PageObject
 
-    static func createPage() -> Page {
-        return LatestEventPage()
+    override func register(with registry: ViewControllerRegistry) {
+        uuid = registry.add(registryFunction: createViewController(token:context:))
     }
 
-    // MARK: Page
-
-    func configure(with state: [String : State]) {
-        if let viewModelDataLoaderState = state[viewModelDataLoaderStateName] as? ViewModelDataLoaderState {
-            imageLoader = viewModelDataLoaderState.imageLoader
-            viewModelDataLoader = viewModelDataLoaderState.viewModelDataLoader
-        }
-    }
-
-    func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
-        uuid = registry.add(initialRegistryFunction: createViewController(context:))
-    }
-
-    func unregister<Token, Context>(from registry: ViewControllerRegistry<Token, Context>) {
+    override func unregister(from registry: ViewControllerRegistry) {
         guard let uuid = uuid else {
             return
         }
@@ -33,13 +22,22 @@ class LatestEventPage: PageFactory, StatefulPage {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
+    override func configure(with state: [String : State]) {
+        if let viewModelDataLoaderState = state[viewModelDataLoaderStateName] as? ViewModelDataLoaderState {
+            imageLoader = viewModelDataLoaderState.imageLoader
+            viewModelDataLoader = viewModelDataLoaderState.viewModelDataLoader
+        }
+    }
+
     // MARK: Private
 
-    private func createViewController<Context>(context: Context) -> UIViewController? {
+    private func createViewController(token: Any, context: Context) -> UIViewController? {
         guard
             let imageLoader = imageLoader,
             let viewModelDataLoader = viewModelDataLoader,
-            let navigationContext = context as? TabBarNavigationContext else {
+            let token = token as? ResourceLocator,
+            token.identifier == latestEventIdentifier,
+            let navigationContext = context as? ForwardBackNavigationContext else {
                 return nil
         }
 
@@ -51,5 +49,11 @@ class LatestEventPage: PageFactory, StatefulPage {
 
         return viewController
 
+    }
+}
+
+extension ResourceLocator {
+    static func latestEvent() -> ResourceLocator {
+        return ResourceLocator(identifier: latestEventIdentifier, data: nil)
     }
 }

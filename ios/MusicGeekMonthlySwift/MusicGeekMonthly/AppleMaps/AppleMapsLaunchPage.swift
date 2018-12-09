@@ -2,24 +2,18 @@ import Madog
 import MapKit
 import UIKit
 
-private let appleMapsLaunchPageIdentifier = "appleMapsLaunchPageIdentifier"
+fileprivate let appleMapsIdentifier = "appleMapsIdentifier"
 
-class AppleMapsLaunchPage: PageFactory, Page {
+class AppleMapsLaunchPage: PageObject {
     private var uuid: UUID?
 
-    // MARK: PageFactory
+    // MARK: PageObject
 
-    static func createPage() -> Page {
-        return AppleMapsLaunchPage()
-    }
-
-    // MARK: Page
-
-    func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
+    override func register(with registry: ViewControllerRegistry) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
     }
 
-    func unregister<Token, Context>(from registry: ViewControllerRegistry<Token, Context>) {
+    override func unregister(from registry: ViewControllerRegistry) {
         guard let uuid = uuid else {
             return
         }
@@ -29,10 +23,10 @@ class AppleMapsLaunchPage: PageFactory, Page {
 
     // MARK: Private
 
-    private func createViewController<Token, Context>(token: Token, context: Context) -> UIViewController? {
+    private func createViewController(token: Any, context: Context) -> UIViewController? {
         guard
             let rl = token as? ResourceLocator,
-            rl.identifier == appleMapsLaunchPageIdentifier,
+            rl.identifier == appleMapsIdentifier,
             let appleMapsLocationName = rl.appleMapsLocationName,
             let appleMapsLatitude = rl.appleMapsLatitude,
             let appleMapsLongitude = rl.appleMapsLongitude
@@ -54,22 +48,22 @@ extension ResourceLocator {
     private static let appleMapsLatitudeKey = "appleMapsLatitude"
     private static let appleMapsLongitudeKey = "appleMapsLongitude"
 
-    static func createAppleMapsResourceLocator(appleMapsLocationName: String, appleMapsLatitude: Double, appleMapsLongitude: Double) -> ResourceLocator {
-        return ResourceLocator(identifier: appleMapsLaunchPageIdentifier,
-                               data: [appleMapsLocationNameKey : appleMapsLocationName,
-                                      appleMapsLatitudeKey : appleMapsLatitude,
-                                      appleMapsLongitudeKey: appleMapsLongitude])
+    static func appleMaps(locationName: String, latitude: Double, longitude: Double) -> ResourceLocator {
+        return ResourceLocator(identifier: appleMapsIdentifier,
+                               data: [appleMapsLocationNameKey : locationName,
+                                      appleMapsLatitudeKey : latitude,
+                                      appleMapsLongitudeKey: longitude])
     }
 
     var appleMapsLocationName: String? {
-        return data[ResourceLocator.appleMapsLocationNameKey] as? String
+        return data?[ResourceLocator.appleMapsLocationNameKey] as? String
     }
 
     var appleMapsLatitude: Double? {
-        return data[ResourceLocator.appleMapsLatitudeKey] as? Double
+        return data?[ResourceLocator.appleMapsLatitudeKey] as? Double
     }
 
     var appleMapsLongitude: Double? {
-        return data[ResourceLocator.appleMapsLongitudeKey] as? Double
+        return data?[ResourceLocator.appleMapsLongitudeKey] as? Double
     }
 }

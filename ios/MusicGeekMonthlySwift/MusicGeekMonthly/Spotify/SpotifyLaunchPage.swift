@@ -1,30 +1,20 @@
 import Madog
 import UIKit
 
-private let spotifyLaunchPageIdentifier = "spotifyLaunchPageIdentifier"
+fileprivate let spotifyLaunchPageIdentifier = "spotifyLaunchPageIdentifier"
 
-class SpotifyLaunchPage: PageFactory, Page {
-    private let externalAppLauncher: ExternalAppLauncher
+class SpotifyLaunchPage: PageObject {
+    private let externalAppLauncher: ExternalAppLauncher = UIApplication.shared
 
     private var uuid: UUID?
 
-    init(externalAppLauncher: ExternalAppLauncher) {
-        self.externalAppLauncher = externalAppLauncher
-    }
+    // MARK: PageObject
 
-    // MARK: PageFactory
-
-    static func createPage() -> Page {
-        return SpotifyLaunchPage(externalAppLauncher: UIApplication.shared)
-    }
-
-    // MARK: Page
-
-    func register<Token, Context>(with registry: ViewControllerRegistry<Token, Context>) {
+    override func register(with registry: ViewControllerRegistry) {
         _ = registry.add(registryFunction: createViewController(token:context:))
     }
 
-    func unregister<Token, Context>(from registry: ViewControllerRegistry<Token, Context>) {
+    override func unregister(from registry: ViewControllerRegistry) {
         guard let uuid = uuid else {
             return
         }
@@ -34,7 +24,7 @@ class SpotifyLaunchPage: PageFactory, Page {
 
     // MARK: Private
 
-    private func createViewController<Token, Context>(token: Token, context: Context) -> UIViewController? {
+    private func createViewController(token: Any, context: Context) -> UIViewController? {
         guard
             let rl = token as? ResourceLocator,
             rl.identifier == spotifyLaunchPageIdentifier,
@@ -53,11 +43,11 @@ class SpotifyLaunchPage: PageFactory, Page {
 extension ResourceLocator {
     private static let spotifyURLKey = "spotifyURL"
 
-    static func createSpotifyResourceLocator(spotifyURL: URL) -> ResourceLocator {
+    static func spotify(spotifyURL: URL) -> ResourceLocator {
         return ResourceLocator(identifier: spotifyLaunchPageIdentifier, data: [spotifyURLKey : spotifyURL])
     }
 
     var spotifyURL: URL? {
-        return data[ResourceLocator.spotifyURLKey] as? URL
+        return data?[ResourceLocator.spotifyURLKey] as? URL
     }
 }
