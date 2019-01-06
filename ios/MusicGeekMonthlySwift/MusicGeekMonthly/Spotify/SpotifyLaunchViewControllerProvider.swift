@@ -1,9 +1,9 @@
 import Madog
 import UIKit
 
-fileprivate let spotifyLaunchPageIdentifier = "spotifyLaunchPageIdentifier"
+fileprivate let spotifyLaunchIdentifier = "spotifyLaunchIdentifier"
 
-class SpotifyLaunchPage: ViewControllerProviderObject {
+class SpotifyLaunchViewControllerProvider: ViewControllerProviderObject {
     private let externalAppLauncher: ExternalAppLauncher = UIApplication.shared
 
     private var uuid: UUID?
@@ -27,7 +27,7 @@ class SpotifyLaunchPage: ViewControllerProviderObject {
     private func createViewController(token: Any, context: Context) -> UIViewController? {
         guard
             let rl = token as? ResourceLocator,
-            rl.identifier == spotifyLaunchPageIdentifier,
+            rl.identifier == spotifyLaunchIdentifier,
             let spotifyURL = rl.spotifyURL,
             externalAppLauncher.canOpen(externalURL: spotifyURL)
             else {
@@ -44,7 +44,7 @@ extension ResourceLocator {
     private static let spotifyURLKey = "spotifyURL"
 
     static func spotify(spotifyURL: URL) -> ResourceLocator {
-        return ResourceLocator(identifier: spotifyLaunchPageIdentifier, data: [spotifyURLKey : spotifyURL])
+        return ResourceLocator(identifier: spotifyLaunchIdentifier, data: [spotifyURLKey : spotifyURL])
     }
 
     var spotifyURL: URL? {

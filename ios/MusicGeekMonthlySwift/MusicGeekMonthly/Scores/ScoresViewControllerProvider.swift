@@ -1,9 +1,9 @@
 import Madog
 import UIKit
 
-fileprivate let latestEventIdentifier = "latestEventIdentifier"
+fileprivate let scoresIdentifier = "scoresIdentifier"
 
-class LatestEventPage: ViewControllerProviderObject {
+class ScoresViewControllerProvider: ViewControllerProviderObject {
     private var imageLoader: ImageLoader?
     private var viewModelDataLoader: ViewModelDataLoader?
     private var uuid: UUID?
@@ -22,10 +22,10 @@ class LatestEventPage: ViewControllerProviderObject {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    override func configure(with state: [String : ResourceProvider]) {
-        if let viewModelDataLoaderState = state[viewModelDataLoaderStateName] as? ViewModelDataLoaderState {
-            imageLoader = viewModelDataLoaderState.imageLoader
-            viewModelDataLoader = viewModelDataLoaderState.viewModelDataLoader
+    override func configure(with resourceProviders: [String : ResourceProvider]) {
+        if let resourceProvider = resourceProviders[viewModelDataLoaderResourceName] as? ViewModelDataLoaderResourceProvider {
+            imageLoader = resourceProvider.imageLoader
+            viewModelDataLoader = resourceProvider.viewModelDataLoader
         }
     }
 
@@ -36,24 +36,23 @@ class LatestEventPage: ViewControllerProviderObject {
             let imageLoader = imageLoader,
             let viewModelDataLoader = viewModelDataLoader,
             let token = token as? ResourceLocator,
-            token.identifier == latestEventIdentifier,
+            token.identifier == scoresIdentifier,
             let navigationContext = context as? ForwardBackNavigationContext else {
                 return nil
         }
 
-        let viewModel = LatestEventViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
-        let viewController = LatestEventViewController(navigationContext: navigationContext, viewModel: viewModel)
-        viewController.tabBarItem.tag = 0
-        viewController.tabBarItem.title = "Latest Event"
-        viewController.tabBarItem.image = UIImage(named: "calendar")
+        let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
+        let viewController = ScoresViewController(navigationContext: navigationContext, viewModel: viewModel)
+        viewController.tabBarItem.tag = 1
+        viewController.tabBarItem.title = "Album Scores"
+        viewController.tabBarItem.image = UIImage(named: "ruler")
 
         return viewController
-
     }
 }
 
 extension ResourceLocator {
-    static func latestEvent() -> ResourceLocator {
-        return ResourceLocator(identifier: latestEventIdentifier, data: nil)
+    static func scores() -> ResourceLocator {
+        return ResourceLocator(identifier: scoresIdentifier, data: nil)
     }
 }

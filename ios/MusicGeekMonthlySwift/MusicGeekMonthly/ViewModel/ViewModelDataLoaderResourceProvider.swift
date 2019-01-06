@@ -1,9 +1,9 @@
 import Foundation
 import Madog
 
-let viewModelDataLoaderStateName = "viewModelDataLoaderStateName"
+let viewModelDataLoaderResourceName = "viewModelDataLoaderResourceName"
 
-class ViewModelDataLoaderState: ResourceProviderObject {
+class ViewModelDataLoaderResourceProvider: ResourceProviderObject {
     let imageLoader: ImageLoader
     let viewModelDataLoader: ViewModelDataLoader
 
@@ -19,6 +19,6 @@ class ViewModelDataLoaderState: ResourceProviderObject {
         self.viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: cachingGCPDataLoader, dataConverter: dataConverter)
 
         super.init(context: context)
-        name = viewModelDataLoaderStateName
+        name = viewModelDataLoaderResourceName
     }
 }

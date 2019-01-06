@@ -4,7 +4,7 @@ import UIKit
 
 fileprivate let appleMapsIdentifier = "appleMapsIdentifier"
 
-class AppleMapsLaunchPage: ViewControllerProviderObject {
+class AppleMapsLaunchViewControllerProvider: ViewControllerProviderObject {
     private var uuid: UUID?
 
     // MARK: ViewControllerProviderObject
