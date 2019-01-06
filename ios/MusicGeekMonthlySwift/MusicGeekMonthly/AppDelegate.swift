@@ -6,7 +6,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow()
-    let madog = Madog(resolver: RuntimeResolver())
+    let madog = Madog<ResourceLocator>()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
@@ -16,9 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window.makeKeyAndVisible()
 
+        madog.resolve(resolver: RuntimeResolver())
         let initialRLs = [ResourceLocator.latestEvent(), ResourceLocator.scores()]
-        let identifier = MultiPageUIIdentifier.createTabBarControllerIdentifier()
-        return madog.renderMultiPageUI(identifier, with: initialRLs, in: window)
+        let identifier = MultiUIIdentifier.createTabBarControllerIdentifier()
+        return madog.renderUI(identifier: identifier, tokens: initialRLs, in: window)
     }
 }
-

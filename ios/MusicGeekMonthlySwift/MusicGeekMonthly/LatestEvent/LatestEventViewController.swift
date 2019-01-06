@@ -208,7 +208,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         }
 
         let rl = ResourceLocator.appleMaps(locationName: locationName, latitude: mapReference.latitude, longitude: mapReference.longitude)
-        _ = navigationContext.navigateForward(with: rl, animated: true)
+        _ = navigationContext.navigateForward(token: rl, animated: true)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectEntityItemAt indexPath: IndexPath) {
@@ -220,7 +220,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         }
 
         let rl = ResourceLocator.spotify(spotifyURL: spotifyURL)
-        _ = navigationContext.navigateForward(with: rl, animated: true)
+        _ = navigationContext.navigateForward(token: rl, animated: true)
     }
 }
 

@@ -3,12 +3,12 @@ import UIKit
 
 fileprivate let latestEventIdentifier = "latestEventIdentifier"
 
-class LatestEventPage: PageObject {
+class LatestEventPage: ViewControllerProviderObject {
     private var imageLoader: ImageLoader?
     private var viewModelDataLoader: ViewModelDataLoader?
     private var uuid: UUID?
 
-    // MARK: PageObject
+    // MARK: ViewControllerProviderObject
 
     override func register(with registry: ViewControllerRegistry) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
@@ -22,7 +22,7 @@ class LatestEventPage: PageObject {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    override func configure(with state: [String : State]) {
+    override func configure(with state: [String : ResourceProvider]) {
         if let viewModelDataLoaderState = state[viewModelDataLoaderStateName] as? ViewModelDataLoaderState {
             imageLoader = viewModelDataLoaderState.imageLoader
             viewModelDataLoader = viewModelDataLoaderState.viewModelDataLoader

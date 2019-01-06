@@ -3,12 +3,12 @@ import UIKit
 
 fileprivate let spotifyLaunchPageIdentifier = "spotifyLaunchPageIdentifier"
 
-class SpotifyLaunchPage: PageObject {
+class SpotifyLaunchPage: ViewControllerProviderObject {
     private let externalAppLauncher: ExternalAppLauncher = UIApplication.shared
 
     private var uuid: UUID?
 
-    // MARK: PageObject
+    // MARK: ViewControllerProviderObject
 
     override func register(with registry: ViewControllerRegistry) {
         _ = registry.add(registryFunction: createViewController(token:context:))

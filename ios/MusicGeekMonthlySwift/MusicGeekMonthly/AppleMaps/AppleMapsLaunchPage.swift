@@ -4,10 +4,10 @@ import UIKit
 
 fileprivate let appleMapsIdentifier = "appleMapsIdentifier"
 
-class AppleMapsLaunchPage: PageObject {
+class AppleMapsLaunchPage: ViewControllerProviderObject {
     private var uuid: UUID?
 
-    // MARK: PageObject
+    // MARK: ViewControllerProviderObject
 
     override func register(with registry: ViewControllerRegistry) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
