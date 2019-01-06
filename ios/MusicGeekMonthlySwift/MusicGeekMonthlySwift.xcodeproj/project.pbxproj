@@ -24,16 +24,17 @@
 		6566197521908CE20068EA1B /* LatestEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566197421908CE20068EA1B /* LatestEventViewController.swift */; };
 		65661978219092080068EA1B /* AlbumArtViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65661977219092080068EA1B /* AlbumArtViewModel.swift */; };
 		6566197A2190969A0068EA1B /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619792190969A0068EA1B /* AlbumCollectionViewCell.swift */; };
-		6566198C2190A7730068EA1B /* ScoresPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566198B2190A7730068EA1B /* ScoresPage.swift */; };
+		6566198C2190A7730068EA1B /* ScoresViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566198B2190A7730068EA1B /* ScoresViewControllerProvider.swift */; };
 		6566198E2190A8910068EA1B /* ResourceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566198D2190A8910068EA1B /* ResourceLocator.swift */; };
-		656619902190A9470068EA1B /* LatestEventPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566198F2190A9470068EA1B /* LatestEventPage.swift */; };
-		656619932190ACCD0068EA1B /* SpotifyLaunchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619922190ACCD0068EA1B /* SpotifyLaunchPage.swift */; };
+		656619902190A9470068EA1B /* LatestEventViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566198F2190A9470068EA1B /* LatestEventViewControllerProvider.swift */; };
+		656619932190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */; };
 		656619952190AFBF0068EA1B /* ForwardNavigatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */; };
 		656619972190BB5F0068EA1B /* ExternalAppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */; };
 		6589F77821A8641900D08A0A /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6589F77721A8641900D08A0A /* Madog.framework */; };
 		658AE763218DF75C002D4AE5 /* AverageColorProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */; };
 		659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */; };
-		659DED7121931FFF00226579 /* AppleMapsLaunchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED7021931FFF00226579 /* AppleMapsLaunchPage.swift */; };
+		659DED7121931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */; };
+		65A4C3FA21E25631000148EE /* TypedViewControllerProviderObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4C3F921E25631000148EE /* TypedViewControllerProviderObject.swift */; };
 		65BDAA8F2189F55C007E887B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA8E2189F55C007E887B /* AppDelegate.swift */; };
 		65BDAA912189F55C007E887B /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA902189F55C007E887B /* ScoresViewController.swift */; };
 		65BDAA962189F55D007E887B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65BDAA952189F55D007E887B /* Assets.xcassets */; };
@@ -58,7 +59,7 @@
 		65D2AD9A218B330D002BB0C9 /* ScoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */; };
 		65D2AD9C218B36DD002BB0C9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */; };
 		65D2AD9E218B5143002BB0C9 /* ScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9D218B5143002BB0C9 /* ScoresView.swift */; };
-		65E4374121A9C021001D9311 /* ViewModelDataLoaderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4374021A9C021001D9311 /* ViewModelDataLoaderState.swift */; };
+		65E4374121A9C021001D9311 /* ViewModelDataLoaderResourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4374021A9C021001D9311 /* ViewModelDataLoaderResourceProvider.swift */; };
 		65E485572199C78D00CCE895 /* GCPDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E485562199C78D00CCE895 /* GCPDataLoader.swift */; };
 		65E485592199C82A00CCE895 /* gcp.json in Resources */ = {isa = PBXBuildFile; fileRef = 65E485582199C82A00CCE895 /* gcp.json */; };
 		65E4855B2199C86400CCE895 /* GCPDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4855A2199C86400CCE895 /* GCPDataConverter.swift */; };
@@ -100,16 +101,17 @@
 		6566197421908CE20068EA1B /* LatestEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventViewController.swift; sourceTree = "<group>"; };
 		65661977219092080068EA1B /* AlbumArtViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumArtViewModel.swift; sourceTree = "<group>"; };
 		656619792190969A0068EA1B /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
-		6566198B2190A7730068EA1B /* ScoresPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresPage.swift; sourceTree = "<group>"; };
+		6566198B2190A7730068EA1B /* ScoresViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewControllerProvider.swift; sourceTree = "<group>"; };
 		6566198D2190A8910068EA1B /* ResourceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLocator.swift; sourceTree = "<group>"; };
-		6566198F2190A9470068EA1B /* LatestEventPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventPage.swift; sourceTree = "<group>"; };
-		656619922190ACCD0068EA1B /* SpotifyLaunchPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyLaunchPage.swift; sourceTree = "<group>"; };
+		6566198F2190A9470068EA1B /* LatestEventViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventViewControllerProvider.swift; sourceTree = "<group>"; };
+		656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyLaunchViewControllerProvider.swift; sourceTree = "<group>"; };
 		656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardNavigatingViewController.swift; sourceTree = "<group>"; };
 		656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalAppLauncher.swift; sourceTree = "<group>"; };
 		6589F77721A8641900D08A0A /* Madog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Madog.framework; path = Carthage/Build/iOS/Madog.framework; sourceTree = SOURCE_ROOT; };
 		658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageColorProcessor.swift; sourceTree = "<group>"; };
 		659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventLocationCollectionViewCell.swift; sourceTree = "<group>"; };
-		659DED7021931FFF00226579 /* AppleMapsLaunchPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsLaunchPage.swift; sourceTree = "<group>"; };
+		659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsLaunchViewControllerProvider.swift; sourceTree = "<group>"; };
+		65A4C3F921E25631000148EE /* TypedViewControllerProviderObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypedViewControllerProviderObject.swift; sourceTree = "<group>"; };
 		65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicGeekMonthly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65BDAA8E2189F55C007E887B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65BDAA902189F55C007E887B /* ScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewController.swift; sourceTree = "<group>"; };
@@ -135,7 +137,7 @@
 		65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewModel.swift; sourceTree = "<group>"; };
 		65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		65D2AD9D218B5143002BB0C9 /* ScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView.swift; sourceTree = "<group>"; };
-		65E4374021A9C021001D9311 /* ViewModelDataLoaderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDataLoaderState.swift; sourceTree = "<group>"; };
+		65E4374021A9C021001D9311 /* ViewModelDataLoaderResourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDataLoaderResourceProvider.swift; sourceTree = "<group>"; };
 		65E485562199C78D00CCE895 /* GCPDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCPDataLoader.swift; sourceTree = "<group>"; };
 		65E485582199C82A00CCE895 /* gcp.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = gcp.json; sourceTree = "<group>"; };
 		65E4855A2199C86400CCE895 /* GCPDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCPDataConverter.swift; sourceTree = "<group>"; };
@@ -202,7 +204,7 @@
 		656619892190A7090068EA1B /* Scores */ = {
 			isa = PBXGroup;
 			children = (
-				6566198B2190A7730068EA1B /* ScoresPage.swift */,
+				6566198B2190A7730068EA1B /* ScoresViewControllerProvider.swift */,
 				65BDAA902189F55C007E887B /* ScoresViewController.swift */,
 				65D2AD9D218B5143002BB0C9 /* ScoresView.swift */,
 				6540A51A218C85260028B382 /* ScoresCollectionViewCell.swift */,
@@ -215,7 +217,7 @@
 		6566198A2190A7330068EA1B /* LatestEvent */ = {
 			isa = PBXGroup;
 			children = (
-				6566198F2190A9470068EA1B /* LatestEventPage.swift */,
+				6566198F2190A9470068EA1B /* LatestEventViewControllerProvider.swift */,
 				6566197421908CE20068EA1B /* LatestEventViewController.swift */,
 				6553CF922190890B0020EEC2 /* LatestEventView.swift */,
 				6512F30321933D06004CD379 /* LatestEventCollectionSectionHeaderView.swift */,
@@ -230,7 +232,7 @@
 		656619912190ACAE0068EA1B /* Spotify */ = {
 			isa = PBXGroup;
 			children = (
-				656619922190ACCD0068EA1B /* SpotifyLaunchPage.swift */,
+				656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */,
 				656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */,
 			);
 			path = Spotify;
@@ -239,7 +241,7 @@
 		659DED6F21931FDE00226579 /* AppleMaps */ = {
 			isa = PBXGroup;
 			children = (
-				659DED7021931FFF00226579 /* AppleMapsLaunchPage.swift */,
+				659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */,
 			);
 			path = AppleMaps;
 			sourceTree = "<group>";
@@ -348,7 +350,8 @@
 			children = (
 				65661976219091F60068EA1B /* Scaffolding */,
 				6553CF9021907F9A0020EEC2 /* ViewModelDataLoader.swift */,
-				65E4374021A9C021001D9311 /* ViewModelDataLoaderState.swift */,
+				65E4374021A9C021001D9311 /* ViewModelDataLoaderResourceProvider.swift */,
+				65A4C3F921E25631000148EE /* TypedViewControllerProviderObject.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -559,8 +562,8 @@
 				65E9AEB62191E09F001B36D6 /* URL+SpotifyExtensions.swift in Sources */,
 				6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */,
 				65E4855B2199C86400CCE895 /* GCPDataConverter.swift in Sources */,
-				656619932190ACCD0068EA1B /* SpotifyLaunchPage.swift in Sources */,
-				65E4374121A9C021001D9311 /* ViewModelDataLoaderState.swift in Sources */,
+				656619932190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift in Sources */,
+				65E4374121A9C021001D9311 /* ViewModelDataLoaderResourceProvider.swift in Sources */,
 				6566197521908CE20068EA1B /* LatestEventViewController.swift in Sources */,
 				6566198E2190A8910068EA1B /* ResourceLocator.swift in Sources */,
 				65BDAAC42189F992007E887B /* JSONModel.swift in Sources */,
@@ -576,17 +579,18 @@
 				65BDAA912189F55C007E887B /* ScoresViewController.swift in Sources */,
 				658AE763218DF75C002D4AE5 /* AverageColorProcessor.swift in Sources */,
 				6553CF8B21907C4A0020EEC2 /* LatestEventViewModel.swift in Sources */,
-				659DED7121931FFF00226579 /* AppleMapsLaunchPage.swift in Sources */,
+				659DED7121931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift in Sources */,
 				659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */,
 				6553CF9121907F9A0020EEC2 /* ViewModelDataLoader.swift in Sources */,
 				65BDAAC82189FDE9007E887B /* DateFormatter+Extensions.swift in Sources */,
 				65661978219092080068EA1B /* AlbumArtViewModel.swift in Sources */,
 				65BDAAC12189F6CC007E887B /* GoogleSheetsDataLoader.swift in Sources */,
-				656619902190A9470068EA1B /* LatestEventPage.swift in Sources */,
-				6566198C2190A7730068EA1B /* ScoresPage.swift in Sources */,
+				656619902190A9470068EA1B /* LatestEventViewControllerProvider.swift in Sources */,
+				6566198C2190A7730068EA1B /* ScoresViewControllerProvider.swift in Sources */,
 				65D2AD9C218B36DD002BB0C9 /* ImageLoader.swift in Sources */,
 				65BDAA8F2189F55C007E887B /* AppDelegate.swift in Sources */,
 				65BDAAC62189FDA4007E887B /* GoogleSheetsDataConverter.swift in Sources */,
+				65A4C3FA21E25631000148EE /* TypedViewControllerProviderObject.swift in Sources */,
 				656619952190AFBF0068EA1B /* ForwardNavigatingViewController.swift in Sources */,
 				65D2AD98218B3105002BB0C9 /* ScoresViewModel.swift in Sources */,
 				6566197321908BFA0068EA1B /* LatestEventEntityCollectionViewCell.swift in Sources */,

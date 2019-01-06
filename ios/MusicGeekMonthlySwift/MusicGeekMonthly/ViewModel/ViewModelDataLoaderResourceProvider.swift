@@ -1,16 +1,15 @@
 import Foundation
 import Madog
 
-let viewModelDataLoaderStateName = "viewModelDataLoaderStateName"
+let viewModelDataLoaderResourceName = "viewModelDataLoaderResourceName"
 
-class ViewModelDataLoaderState: StateObject {
+class ViewModelDataLoaderResourceProvider: ResourceProviderObject {
     let imageLoader: ImageLoader
     let viewModelDataLoader: ViewModelDataLoader
 
-    // MARK: StateObject
+    // MARK: ResourceProviderObject
 
-
-    required init() {
+    required init(context: ResourceProviderCreationContext) {
         let dataLoader = DataLoaderImplementation()
         let gcpDataLoader = GCPDataLoaderImplementation(dataLoader: dataLoader)
         let cachingGCPDataLoader = CachingGCPDataLoaderImplementation(wrappedDataLoader: gcpDataLoader, userDefaults: UserDefaults.standard)
@@ -19,7 +18,7 @@ class ViewModelDataLoaderState: StateObject {
         self.imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)
         self.viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: cachingGCPDataLoader, dataConverter: dataConverter)
 
-        super.init()
-        name = viewModelDataLoaderStateName
+        super.init(context: context)
+        name = viewModelDataLoaderResourceName
     }
 }
