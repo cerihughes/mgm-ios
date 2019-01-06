@@ -3,32 +3,15 @@ import UIKit
 
 fileprivate let spotifyLaunchIdentifier = "spotifyLaunchIdentifier"
 
-class SpotifyLaunchViewControllerProvider: ViewControllerProviderObject {
+class SpotifyLaunchViewControllerProvider: TypedViewControllerProviderObject {
     private let externalAppLauncher: ExternalAppLauncher = UIApplication.shared
 
-    private var uuid: UUID?
+    // MARK: TypedViewControllerProviderObject
 
-    // MARK: ViewControllerProviderObject
-
-    override func register(with registry: ViewControllerRegistry) {
-        _ = registry.add(registryFunction: createViewController(token:context:))
-    }
-
-    override func unregister(from registry: ViewControllerRegistry) {
-        guard let uuid = uuid else {
-            return
-        }
-
-        registry.removeRegistryFunction(uuid: uuid)
-    }
-
-    // MARK: Private
-
-    private func createViewController(token: Any, context: Context) -> UIViewController? {
+    override func createViewController(resourceLocator: ResourceLocator, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
         guard
-            let rl = token as? ResourceLocator,
-            rl.identifier == spotifyLaunchIdentifier,
-            let spotifyURL = rl.spotifyURL,
+            resourceLocator.identifier == spotifyLaunchIdentifier,
+            let spotifyURL = resourceLocator.spotifyURL,
             externalAppLauncher.canOpen(externalURL: spotifyURL)
             else {
                 return nil

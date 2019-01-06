@@ -4,32 +4,16 @@ import UIKit
 
 fileprivate let appleMapsIdentifier = "appleMapsIdentifier"
 
-class AppleMapsLaunchViewControllerProvider: ViewControllerProviderObject {
-    private var uuid: UUID?
+class AppleMapsLaunchViewControllerProvider: TypedViewControllerProviderObject {
 
-    // MARK: ViewControllerProviderObject
+    // MARK: TypedViewControllerProviderObject
 
-    override func register(with registry: ViewControllerRegistry) {
-        uuid = registry.add(registryFunction: createViewController(token:context:))
-    }
-
-    override func unregister(from registry: ViewControllerRegistry) {
-        guard let uuid = uuid else {
-            return
-        }
-
-        registry.removeRegistryFunction(uuid: uuid)
-    }
-
-    // MARK: Private
-
-    private func createViewController(token: Any, context: Context) -> UIViewController? {
+    override func createViewController(resourceLocator: ResourceLocator, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
         guard
-            let rl = token as? ResourceLocator,
-            rl.identifier == appleMapsIdentifier,
-            let appleMapsLocationName = rl.appleMapsLocationName,
-            let appleMapsLatitude = rl.appleMapsLatitude,
-            let appleMapsLongitude = rl.appleMapsLongitude
+            resourceLocator.identifier == appleMapsIdentifier,
+            let appleMapsLocationName = resourceLocator.appleMapsLocationName,
+            let appleMapsLatitude = resourceLocator.appleMapsLatitude,
+            let appleMapsLongitude = resourceLocator.appleMapsLongitude
             else {
                 return nil
         }
