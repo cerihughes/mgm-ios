@@ -39,7 +39,7 @@ class LatestEventViewControllerProvider: TypedViewControllerProviderObject {
 }
 
 extension ResourceLocator {
-    static func latestEvent() -> ResourceLocator {
+    static var latestEvent: ResourceLocator {
         return ResourceLocator(identifier: latestEventIdentifier, data: nil)
     }
 }

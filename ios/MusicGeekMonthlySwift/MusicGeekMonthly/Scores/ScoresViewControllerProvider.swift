@@ -38,7 +38,7 @@ class ScoresViewControllerProvider: TypedViewControllerProviderObject {
 }
 
 extension ResourceLocator {
-    static func scores() -> ResourceLocator {
+    static var scores: ResourceLocator {
         return ResourceLocator(identifier: scoresIdentifier, data: nil)
     }
 }
