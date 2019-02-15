@@ -24,7 +24,7 @@ final class LatestEventEntityViewModelImplementation: AlbumArtViewModelImplement
         self.entityType = album.type == .classic ? "CLASSIC ALBUM" : album.type == .new ? "NEW ALBUM" : "ALBUM"
         self.entityName = album.name
         self.entityOwner = album.artist
-        self.spotifyURL = .createSpotifyAlbumURL(albumID: album.spotifyID)
+        self.spotifyURL = .createSpotifyAlbumURL(albumID: album.spotifyId)
 
         super.init(imageLoader: imageLoader, images: album.images)
     }
@@ -33,7 +33,7 @@ final class LatestEventEntityViewModelImplementation: AlbumArtViewModelImplement
         self.entityType = "PLAYLIST"
         self.entityName = playlist.name
         self.entityOwner = playlist.owner
-        self.spotifyURL = .createSpotifyPlaylistURL(playlistID: playlist.spotifyID)
+        self.spotifyURL = .createSpotifyPlaylistURL(playlistID: playlist.spotifyId)
 
         super.init(imageLoader: imageLoader, images: playlist.images)
     }
