@@ -21,7 +21,7 @@ enum AlbumType: String, Codable {
 
 struct Album: Codable {
     let type: AlbumType?
-    let spotifyID: String?
+    let spotifyId: String?
     let name: String
     let artist: String
     let score: Float?
@@ -29,7 +29,7 @@ struct Album: Codable {
 }
 
 struct Playlist: Codable {
-    let spotifyID: String?
+    let spotifyId: String?
     let name: String
     let owner: String
     let images: [Image]

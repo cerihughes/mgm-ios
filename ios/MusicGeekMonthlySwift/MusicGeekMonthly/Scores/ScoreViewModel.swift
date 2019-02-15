@@ -107,7 +107,7 @@ final class ScoreViewModelImplementation: AlbumArtViewModelImplementation, Score
     }
 
     var spotifyURL: URL? {
-        guard let spotifyID = album.spotifyID else {
+        guard let spotifyID = album.spotifyId else {
             return nil
         }
         return .createSpotifyAlbumURL(albumID: spotifyID)
