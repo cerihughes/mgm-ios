@@ -1,24 +1,21 @@
-package uk.co.cerihughes.mgm.android
+package uk.co.cerihughes.mgm.android.ui
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import uk.co.cerihughes.mgm.android.R
 
 class MainActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
-                message.setText(R.string.title_home)
+            R.id.navigation_latest_event -> {
+                message.setText(R.string.title_latest_event)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
-                message.setText(R.string.title_dashboard)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_notifications -> {
-                message.setText(R.string.title_notifications)
+            R.id.navigation_album_scores -> {
+                message.setText(R.string.title_album_scores)
                 return@OnNavigationItemSelectedListener true
             }
         }
