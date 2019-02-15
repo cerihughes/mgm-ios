@@ -59,7 +59,7 @@
 		65D2AD9A218B330D002BB0C9 /* ScoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */; };
 		65D2AD9C218B36DD002BB0C9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */; };
 		65D2AD9E218B5143002BB0C9 /* ScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9D218B5143002BB0C9 /* ScoresView.swift */; };
-		65E4374121A9C021001D9311 /* ViewModelDataLoaderResourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4374021A9C021001D9311 /* ViewModelDataLoaderResourceProvider.swift */; };
+		65E4374121A9C021001D9311 /* ViewModelDataLoaderServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4374021A9C021001D9311 /* ViewModelDataLoaderServiceProvider.swift */; };
 		65E485572199C78D00CCE895 /* GCPDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E485562199C78D00CCE895 /* GCPDataLoader.swift */; };
 		65E485592199C82A00CCE895 /* gcp.json in Resources */ = {isa = PBXBuildFile; fileRef = 65E485582199C82A00CCE895 /* gcp.json */; };
 		65E4855B2199C86400CCE895 /* GCPDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4855A2199C86400CCE895 /* GCPDataConverter.swift */; };
@@ -137,7 +137,7 @@
 		65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewModel.swift; sourceTree = "<group>"; };
 		65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		65D2AD9D218B5143002BB0C9 /* ScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView.swift; sourceTree = "<group>"; };
-		65E4374021A9C021001D9311 /* ViewModelDataLoaderResourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDataLoaderResourceProvider.swift; sourceTree = "<group>"; };
+		65E4374021A9C021001D9311 /* ViewModelDataLoaderServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDataLoaderServiceProvider.swift; sourceTree = "<group>"; };
 		65E485562199C78D00CCE895 /* GCPDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCPDataLoader.swift; sourceTree = "<group>"; };
 		65E485582199C82A00CCE895 /* gcp.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = gcp.json; sourceTree = "<group>"; };
 		65E4855A2199C86400CCE895 /* GCPDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCPDataConverter.swift; sourceTree = "<group>"; };
@@ -350,7 +350,7 @@
 			children = (
 				65661976219091F60068EA1B /* Scaffolding */,
 				6553CF9021907F9A0020EEC2 /* ViewModelDataLoader.swift */,
-				65E4374021A9C021001D9311 /* ViewModelDataLoaderResourceProvider.swift */,
+				65E4374021A9C021001D9311 /* ViewModelDataLoaderServiceProvider.swift */,
 				65A4C3F921E25631000148EE /* TypedViewControllerProviderObject.swift */,
 			);
 			path = ViewModel;
@@ -563,7 +563,7 @@
 				6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */,
 				65E4855B2199C86400CCE895 /* GCPDataConverter.swift in Sources */,
 				656619932190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift in Sources */,
-				65E4374121A9C021001D9311 /* ViewModelDataLoaderResourceProvider.swift in Sources */,
+				65E4374121A9C021001D9311 /* ViewModelDataLoaderServiceProvider.swift in Sources */,
 				6566197521908CE20068EA1B /* LatestEventViewController.swift in Sources */,
 				6566198E2190A8910068EA1B /* ResourceLocator.swift in Sources */,
 				65BDAAC42189F992007E887B /* JSONModel.swift in Sources */,

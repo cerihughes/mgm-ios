@@ -9,12 +9,12 @@ class ScoresViewControllerProvider: TypedViewControllerProviderObject {
 
     // MARK: ViewControllerProviderObject
 
-    override func configure(with resourceProviders: [String : ResourceProvider]) {
-        super.configure(with: resourceProviders)
+    override func configure(with serviceProviders: [String : ServiceProvider]) {
+        super.configure(with: serviceProviders)
 
-        if let resourceProvider = resourceProviders[viewModelDataLoaderResourceName] as? ViewModelDataLoaderResourceProvider {
-            imageLoader = resourceProvider.imageLoader
-            viewModelDataLoader = resourceProvider.viewModelDataLoader
+        if let serviceProvider = serviceProviders[viewModelDataLoaderServiceName] as? ViewModelDataLoaderServiceProvider {
+            imageLoader = serviceProvider.imageLoader
+            viewModelDataLoader = serviceProvider.viewModelDataLoader
         }
     }
 

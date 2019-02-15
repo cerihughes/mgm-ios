@@ -1,15 +1,15 @@
 import Foundation
 import Madog
 
-let viewModelDataLoaderResourceName = "viewModelDataLoaderResourceName"
+let viewModelDataLoaderServiceName = "viewModelDataLoaderServiceName"
 
-class ViewModelDataLoaderResourceProvider: ResourceProviderObject {
+class ViewModelDataLoaderServiceProvider: ServiceProviderObject {
     let imageLoader: ImageLoader
     let viewModelDataLoader: ViewModelDataLoader
 
-    // MARK: ResourceProviderObject
+    // MARK: ServiceProviderObject
 
-    required init(context: ResourceProviderCreationContext) {
+    required init(context: ServiceProviderCreationContext) {
         let dataLoader = DataLoaderImplementation()
         let gcpDataLoader = GCPDataLoaderImplementation(dataLoader: dataLoader)
         let cachingGCPDataLoader = CachingGCPDataLoaderImplementation(wrappedDataLoader: gcpDataLoader, userDefaults: UserDefaults.standard)
@@ -19,6 +19,6 @@ class ViewModelDataLoaderResourceProvider: ResourceProviderObject {
         self.viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: cachingGCPDataLoader, dataConverter: dataConverter)
 
         super.init(context: context)
-        name = viewModelDataLoaderResourceName
+        name = viewModelDataLoaderServiceName
     }
 }
