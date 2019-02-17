@@ -4,22 +4,11 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import uk.co.cerihughes.mgm.android.R
 
 class MainActivity : AppCompatActivity() {
-
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_latest_event -> {
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_album_scores -> {
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +16,19 @@ class MainActivity : AppCompatActivity() {
 
         loadFragment(LatestEventFragment())
 
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.setOnNavigationItemSelectedListener(object: BottomNavigationView.OnNavigationItemSelectedListener {
+            override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                when (item.itemId) {
+                    R.id.navigation_latest_event -> {
+                        return true
+                    }
+                    R.id.navigation_album_scores -> {
+                        return true
+                    }
+                }
+                return false
+            }
+        })
     }
 
     private fun loadFragment(fragment: Fragment) {
