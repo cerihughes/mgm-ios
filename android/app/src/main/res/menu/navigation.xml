@@ -4,11 +4,11 @@
     <item
         android:id="@+id/navigation_latest_event"
         android:icon="@drawable/ic_twotone_event_24px"
-        android:title="@string/title_latest_event" />
+        android:title="@string/navigation_latest_event_title" />
 
     <item
         android:id="@+id/navigation_album_scores"
         android:icon="@drawable/ic_twotone_show_chart_24px"
-        android:title="@string/title_album_scores" />
+        android:title="@string/navigation_album_scores_title" />
 
 </menu>
