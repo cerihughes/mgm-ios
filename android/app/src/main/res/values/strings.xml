@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Music Geek Monthly</string>
-    <string name="title_latest_event">Latest Event</string>
-    <string name="title_album_scores">Album Scores</string>
+    <string name="navigation_latest_event_title">Latest Event</string>
+    <string name="navigation_album_scores_title">Album Scores</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_latest_event_title">Latest Event</string>
+    <string name="fragment_album_scores_title">Album Scores</string>
 </resources>
