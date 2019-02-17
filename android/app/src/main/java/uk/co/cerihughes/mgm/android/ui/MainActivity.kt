@@ -20,9 +20,11 @@ class MainActivity : AppCompatActivity() {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 when (item.itemId) {
                     R.id.navigation_latest_event -> {
+                        loadFragment(LatestEventFragment())
                         return true
                     }
                     R.id.navigation_album_scores -> {
+                        loadFragment(AlbumScoresFragment())
                         return true
                     }
                 }
