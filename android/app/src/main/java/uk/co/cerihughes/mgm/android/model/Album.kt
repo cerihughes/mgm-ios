@@ -5,4 +5,4 @@ data class Album(val type: AlbumType?,
                  val name: String,
                  val artist: String,
                  val score: Float?,
-                 val images: Array<Image>)
+                 val images: List<Image>)
