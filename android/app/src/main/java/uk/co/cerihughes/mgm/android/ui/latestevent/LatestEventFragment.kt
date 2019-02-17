@@ -1,4 +1,4 @@
-package uk.co.cerihughes.mgm.android.ui
+package uk.co.cerihughes.mgm.android.ui.latestevent
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

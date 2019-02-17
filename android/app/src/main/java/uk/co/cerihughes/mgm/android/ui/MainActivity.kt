@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import uk.co.cerihughes.mgm.android.R
+import uk.co.cerihughes.mgm.android.ui.albumscores.AlbumScoresFragment
+import uk.co.cerihughes.mgm.android.ui.latestevent.LatestEventFragment
 
 class MainActivity : AppCompatActivity() {
 
