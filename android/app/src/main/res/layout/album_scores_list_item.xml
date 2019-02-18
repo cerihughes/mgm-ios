@@ -52,6 +52,7 @@
     />
     <ImageView
             android:id="@+id/awardIV"
+            android:contentDescription="@string/cd_award"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="4dp"
