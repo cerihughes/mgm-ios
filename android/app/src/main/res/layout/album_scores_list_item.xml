@@ -6,8 +6,13 @@
                                              android:layout_height="64dp">
     <ImageView
             android:id="@+id/coverArtIV"
+            android:contentDescription="@string/cd_album_art"
+            android:background="@drawable/image_border"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -16,28 +21,38 @@
     />
     <TextView
             android:id="@+id/albumNameTV"
-            android:text="Plunge"
+            android:text="This is a very long album name to see how the text wraps. Don't forget to remove it."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:maxLines="1"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toRightOf="@id/coverArtIV"
+            app:layout_constraintRight_toLeftOf="@id/awardIV"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintBottom_toTopOf="@+id/artistNameTV"/>
+            app:layout_constraintBottom_toTopOf="@+id/artistNameTV"
+    />
     <TextView
             android:id="@+id/artistNameTV"
-            android:text="Fever Ray"
+            android:text="This is a very long artist name to see how the text wraps. Don't forget to remove it."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="14sp"
+            android:textStyle="italic"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/albumNameTV"
-            app:layout_constraintHorizontal_bias="0.5"/>
+            app:layout_constraintHorizontal_bias="0.5"
+    />
     <ImageView
             android:id="@+id/awardIV"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
