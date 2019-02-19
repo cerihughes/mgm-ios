@@ -7,7 +7,7 @@
     <ImageView
             android:id="@+id/coverArtIV"
             android:contentDescription="@string/cd_album_art"
-            android:background="@drawable/image_border"
+            android:background="@drawable/album_scores_image_border"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"

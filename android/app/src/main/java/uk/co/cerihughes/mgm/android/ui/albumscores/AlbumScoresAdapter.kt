@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.album_scores_list_item.view.*
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.ui.inflate
 
-class AlbumScoresAdapter (private val viewModel: AlbumScoresViewModel) : RecyclerView.Adapter<AlbumScoresAdapter.AlbumScoresItemViewHolder>() {
+class AlbumScoresAdapter (private val viewModel: AlbumScoresViewModelImpl) : RecyclerView.Adapter<AlbumScoresAdapter.AlbumScoresItemViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): AlbumScoresItemViewHolder {
         val view = viewGroup.inflate(R.layout.album_scores_list_item, false)
