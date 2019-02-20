@@ -9,6 +9,11 @@ class LatestEventViewModel(val dataLoader: DataLoader) {
         private val dateFormatter = DateFormat.getDateInstance(DateFormat.LONG)
     }
 
+    enum class ItemType(val rawValue: Int) {
+        LOCATION(0),
+        ENTITY(1)
+    }
+
     private var event: Event? = null
     private var eventEntityViewModels: List<LatestEventEntityViewModel> = emptyList()
 
@@ -57,15 +62,27 @@ class LatestEventViewModel(val dataLoader: DataLoader) {
         return Pair(location.latitude, location.longitude)
     }
 
+    fun itemType(position: Int): ItemType {
+        return when (position) {
+            0 -> if (isLocationAvailable()) ItemType.LOCATION else ItemType.ENTITY
+            else -> ItemType.ENTITY
+        }
+    }
+
+    fun numberOfItems(): Int {
+        var locationCount = if (isLocationAvailable()) 1 else 0
+        return locationCount + numberOfEntites()
+    }
+
     fun numberOfEntites(): Int {
         return eventEntityViewModels.size
     }
 
-    fun numberOfLocations(): Int {
+    fun isLocationAvailable(): Boolean {
         event?.location?.let {
-            return 1
+            return true
         }
-        return 0
+        return false
     }
 
     fun headerTitle(section: Int): String? {
@@ -77,8 +94,9 @@ class LatestEventViewModel(val dataLoader: DataLoader) {
     }
 
     fun eventEntityViewModel(index: Int): LatestEventEntityViewModel? {
+        val entityIndex = if(isLocationAvailable()) index - 1 else index
         try {
-            return eventEntityViewModels[index]
+            return eventEntityViewModels[entityIndex]
         } catch (e: IndexOutOfBoundsException) {
             return null
         }

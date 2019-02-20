@@ -12,10 +12,6 @@ open class AlbumArtViewModelImpl(private val images: List<Image>) : AlbumArtView
     }
 
     override fun coverArtURL(largestDimension: Int): String? {
-        return image(largestDimension)
-    }
-
-    private fun image(largestDimension: Int): String? {
         var candidate: String? = null
         for (image in images) {
             val size = image.size ?: 0

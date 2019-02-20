@@ -6,26 +6,55 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.latest_event_entity_list_item.view.*
+import kotlinx.android.synthetic.main.latest_event_location_list_item.view.*
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.ui.inflate
 
-class LatestEventAdapter (private val viewModel: LatestEventViewModel) : RecyclerView.Adapter<LatestEventAdapter.LatestEventItemViewHolder>() {
+class LatestEventAdapter (private val viewModel: LatestEventViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): LatestEventItemViewHolder {
-        val view = viewGroup.inflate(R.layout.latest_event_entity_list_item, false)
-        return LatestEventItemViewHolder(view)
+    override fun getItemViewType(position: Int): Int {
+        return viewModel.itemType(position).rawValue
     }
 
-    override fun onBindViewHolder(holder: LatestEventItemViewHolder, index: Int) {
-        val eventEntityViewModel = viewModel.eventEntityViewModel(index) ?: return
-        holder.bind(eventEntityViewModel)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        when (viewType) {
+            LatestEventViewModel.ItemType.LOCATION.rawValue -> {
+                val view = viewGroup.inflate(R.layout.latest_event_location_list_item, false)
+                return LatestEventLocationItemViewHolder(view)
+            }
+            else -> {
+                val view = viewGroup.inflate(R.layout.latest_event_entity_list_item, false)
+                return LatestEventEntityItemViewHolder(view)
+            }
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (viewModel.itemType(position)) {
+            LatestEventViewModel.ItemType.LOCATION -> {
+                val holder = holder as? LatestEventLocationItemViewHolder ?: return
+                holder.bind(viewModel)
+            }
+            LatestEventViewModel.ItemType.ENTITY -> {
+                val holder = holder as? LatestEventEntityItemViewHolder ?: return
+                val eventEntityViewModel = viewModel.eventEntityViewModel(position) ?: return
+                holder.bind(eventEntityViewModel)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
-        return viewModel.numberOfEntites()
+        var locationCount = if (viewModel.isLocationAvailable()) 1 else 0
+        return locationCount + viewModel.numberOfEntites()
     }
 
-    class LatestEventItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class LatestEventLocationItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        fun bind(viewModel: LatestEventViewModel) {
+            itemView.locationTV.text = viewModel.locationName()
+        }
+    }
+
+    class LatestEventEntityItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(viewModel: LatestEventEntityViewModel) {
             viewModel.coverArtURL(itemView.coverArtIV.width)?.let {
                 Picasso.get()
