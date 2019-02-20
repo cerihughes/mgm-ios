@@ -56,7 +56,8 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
 
     class LatestEventEntityItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(viewModel: LatestEventEntityViewModel) {
-            viewModel.coverArtURL(itemView.coverArtIV.width)?.let {
+            val largestDimension = itemView.resources.getDimension(R.dimen.latest_event_entity_list_item_height)
+            viewModel.coverArtURL(largestDimension.toInt())?.let {
                 Picasso.get()
                     .load(it)
                     .placeholder(R.drawable.album1)

@@ -26,7 +26,8 @@ class AlbumScoresAdapter (private val viewModel: AlbumScoresViewModelImpl) : Rec
     class AlbumScoresItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(viewModel: AlbumScoreViewModel) {
-            viewModel.coverArtURL(itemView.coverArtIV.width)?.let {
+            val largestDimension = itemView.resources.getDimension(R.dimen.album_scores_list_item_height)
+            viewModel.coverArtURL(largestDimension.toInt())?.let {
                 Picasso.get()
                     .load(it)
                     .placeholder(R.drawable.album1)
