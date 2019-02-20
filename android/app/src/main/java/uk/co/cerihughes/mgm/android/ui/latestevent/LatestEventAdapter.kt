@@ -4,6 +4,9 @@ import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.latest_event_entity_list_item.view.*
 import kotlinx.android.synthetic.main.latest_event_location_list_item.view.*
@@ -50,7 +53,17 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
 
     class LatestEventLocationItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(viewModel: LatestEventViewModel) {
-            itemView.locationTV.text = viewModel.locationName()
+            viewModel.mapReference()?.let {
+                val position = LatLng(it.first, it.second)
+                itemView.mapView.onCreate(null)
+                itemView.mapView.getMapAsync {
+                    it.uiSettings.setAllGesturesEnabled(false)
+                    val marker = it.addMarker(MarkerOptions().position(position).title(viewModel.locationName()))
+                    it.moveCamera(CameraUpdateFactory.newLatLng(position))
+                    marker.showInfoWindow()
+                }
+                itemView.mapView.onResume()
+            }
         }
     }
 
