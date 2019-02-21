@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.album_scores_list_item.view.*
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.ui.inflate
 
-class AlbumScoresAdapter (private val viewModel: AlbumScoresViewModel) : RecyclerView.Adapter<AlbumScoresAdapter.AlbumScoresItemViewHolder>() {
+class AlbumScoresAdapter (private val viewModel: AlbumScoresViewModelImpl) : RecyclerView.Adapter<AlbumScoresAdapter.AlbumScoresItemViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): AlbumScoresItemViewHolder {
         val view = viewGroup.inflate(R.layout.album_scores_list_item, false)
@@ -26,7 +26,8 @@ class AlbumScoresAdapter (private val viewModel: AlbumScoresViewModel) : Recycle
     class AlbumScoresItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(viewModel: AlbumScoreViewModel) {
-            viewModel.coverArtURL(itemView.coverArtIV.width)?.let {
+            val largestDimension = itemView.resources.getDimension(R.dimen.album_scores_list_item_height)
+            viewModel.coverArtURL(largestDimension.toInt())?.let {
                 Picasso.get()
                     .load(it)
                     .placeholder(R.drawable.album1)

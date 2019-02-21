@@ -1,5 +1,11 @@
 package uk.co.cerihughes.mgm.android.model
 
+import com.google.gson.annotations.SerializedName
+
 enum class AlbumType {
-    CLASSIC, NEW
+    @SerializedName("classic")
+    CLASSIC,
+
+    @SerializedName("new")
+    NEW
 }

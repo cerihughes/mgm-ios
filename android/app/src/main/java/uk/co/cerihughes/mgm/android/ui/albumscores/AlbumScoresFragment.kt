@@ -18,7 +18,9 @@ class AlbumScoresFragment : Fragment() {
 
         val fragmentView = inflater.inflate(R.layout.fragment_album_scores, container, false)
         val dataLoader = DataLoader(activity)
-        val viewModel = AlbumScoresViewModel(dataLoader)
+        val viewModel = AlbumScoresViewModelImpl(dataLoader)
+        viewModel.loadData()
+
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         val dividerItemDecoration = DividerItemDecoration(activity, layoutManager.orientation)
         fragmentView.recycler_view.layoutManager = layoutManager
