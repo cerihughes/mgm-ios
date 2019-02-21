@@ -31,8 +31,8 @@ protocol LatestEventViewModel {
     /// The number of entities (albums and playlists) to render
     var numberOfEntites: Int {get}
 
-    /// The number of locations to render
-    var numberOfLocations: Int {get}
+    /// Whether there's a locations available
+    var isLocationAvailable: Bool {get}
 
     /// The title for the given section
     func headerTitle(for section:Int) -> String?
@@ -108,11 +108,8 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
         return eventEntityViewModels.count
     }
 
-    var numberOfLocations: Int {
-        if event?.location != nil {
-            return 1
-        }
-        return 0
+    var isLocationAvailable: Bool {
+        return event?.location != nil
     }
 
     func headerTitle(for section: Int) -> String? {
