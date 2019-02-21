@@ -1,9 +1,9 @@
 package uk.co.cerihughes.mgm.android.ui.albumscores
 
+import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
 import uk.co.cerihughes.mgm.android.model.Album
 import uk.co.cerihughes.mgm.android.ui.AlbumArtViewModel
-import java.net.URL
 
 class AlbumScoreViewModel(private val album: Album, private val index: Int) : AlbumArtViewModel(album.images) {
 
@@ -26,9 +26,14 @@ class AlbumScoreViewModel(private val album: Album, private val index: Int) : Al
         return String.format("%.01f", score)
     }
 
+    @ColorInt
+    fun ratingColour(): Int {
+        return award.colour
+    }
+
     @DrawableRes
     fun awardImage(): Int {
-        return award.awardImage()
+        return award.drawable
     }
 
     fun position(): String {

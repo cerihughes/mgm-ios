@@ -2,6 +2,7 @@ package uk.co.cerihughes.mgm.android.ui.albumscores
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,10 @@ class AlbumScoresFragment : Fragment() {
         val fragmentView = inflater.inflate(R.layout.fragment_album_scores, container, false)
         val dataLoader = DataLoader(activity)
         val viewModel = AlbumScoresViewModel(dataLoader)
-        fragmentView.recycler_view.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        val dividerItemDecoration = DividerItemDecoration(activity, layoutManager.orientation)
+        fragmentView.recycler_view.layoutManager = layoutManager
+        fragmentView.recycler_view.addItemDecoration(dividerItemDecoration)
         fragmentView.recycler_view.adapter = AlbumScoresAdapter(viewModel)
 
         return fragmentView

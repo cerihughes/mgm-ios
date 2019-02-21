@@ -36,6 +36,7 @@ class AlbumScoresAdapter (private val viewModel: AlbumScoresViewModel) : Recycle
             itemView.albumNameTV.text = viewModel.albumName()
             itemView.artistNameTV.text = viewModel.artistName()
             itemView.ratingTV.text = viewModel.rating()
+            itemView.ratingTV.setTextColor(viewModel.ratingColour())
             itemView.positionTV.text = viewModel.position()
 
             itemView.awardIV.setImageDrawable(ResourcesCompat.getDrawable(itemView.resources, viewModel.awardImage(), null))

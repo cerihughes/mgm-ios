@@ -3,7 +3,9 @@
     <string name="navigation_latest_event_title">Latest Event</string>
     <string name="navigation_album_scores_title">Album Scores</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="fragment_latest_event_title">Latest Event</string>
     <string name="fragment_album_scores_title">Album Scores</string>
+
+    <string name="cd_album_art">Album Art</string>
+    <string name="cd_award">Award</string>
 </resources>
