@@ -19,4 +19,5 @@ tasks.xml
 *.iml
 
 Secrets.java
-android/app/src/main/res/values/google_maps_api.xml
+android/app/src/main/res/values/secrets.xml
+android/app/google-services.json

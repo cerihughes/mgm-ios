@@ -5,6 +5,9 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
+
 import kotlinx.android.synthetic.main.activity_main.*
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.ui.albumscores.AlbumScoresFragment
@@ -14,8 +17,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+        Fabric.with(this, Crashlytics())
+
+        setContentView(R.layout.activity_main)
         loadFragment(LatestEventFragment())
 
         navigation.setOnNavigationItemSelectedListener(object: BottomNavigationView.OnNavigationItemSelectedListener {
