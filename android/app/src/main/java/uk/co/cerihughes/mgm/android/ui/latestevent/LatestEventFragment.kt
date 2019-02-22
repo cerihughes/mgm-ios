@@ -32,6 +32,9 @@ class LatestEventFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Event
     override fun onStart() {
         super.onStart()
 
+        val view = view ?: return
+        view.progress_loader.visibility = View.VISIBLE
+
         loaderManager.initLoader(AsyncTaskEventLoader.EVENT_LOADER_ID, null, this)
     }
 
@@ -42,6 +45,8 @@ class LatestEventFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Event
     override fun onLoadFinished(loader: Loader<List<Event>>, events: List<Event>?) {
         val view = view ?: return
         val events = events ?: return
+
+        view.progress_loader.visibility = View.GONE
 
         val viewModel = LatestEventViewModelImpl(events)
         view.recycler_view.adapter = LatestEventAdapter(viewModel)
