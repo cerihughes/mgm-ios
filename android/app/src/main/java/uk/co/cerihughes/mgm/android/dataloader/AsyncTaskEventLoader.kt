@@ -8,8 +8,18 @@ import uk.co.cerihughes.mgm.android.model.Event
 
 class AsyncTaskEventLoader(context: Context): AsyncTaskLoader<List<Event>>(context) {
 
+    private var cachedEvents: List<Event>? = null
+
     companion object {
         val EVENT_LOADER_ID = 422726
+    }
+
+    override fun onStartLoading() {
+        super.onStartLoading()
+
+        cachedEvents?.let {
+            deliverResult(cachedEvents)
+        } ?: forceLoad()
     }
 
     override fun loadInBackground(): List<Event>? {
@@ -20,9 +30,9 @@ class AsyncTaskEventLoader(context: Context): AsyncTaskLoader<List<Event>>(conte
         return serialEventLoader.getEvents()
     }
 
-    override fun onStartLoading() {
-        super.onStartLoading()
+    override fun deliverResult(data: List<Event>?) {
+        cachedEvents = data
 
-        forceLoad()
+        super.deliverResult(data)
     }
 }
