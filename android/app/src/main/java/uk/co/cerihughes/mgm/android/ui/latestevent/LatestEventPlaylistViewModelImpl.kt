@@ -18,7 +18,7 @@ class LatestEventPlaylistViewModelImpl(private val playlist: Playlist) : AlbumAr
     }
 
     override fun spotifyURL(): String? {
-        val playlistId = playlist.spotifyID ?: return null
+        val playlistId = playlist.spotifyId ?: return null
         return SpotifyURLGenerator.createSpotifyPlaylistURL(playlistId)
     }
 }

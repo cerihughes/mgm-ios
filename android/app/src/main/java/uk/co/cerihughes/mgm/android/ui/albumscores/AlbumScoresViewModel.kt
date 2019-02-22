@@ -1,6 +1,9 @@
 package uk.co.cerihughes.mgm.android.ui.albumscores
 
-interface AlbumScoresViewModel {
+import uk.co.cerihughes.mgm.android.ui.SpotifyAwareViewModel
+
+interface AlbumScoresViewModel: SpotifyAwareViewModel {
+
     fun loadData()
 
     fun numberOfScores(): Int

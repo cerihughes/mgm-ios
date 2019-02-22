@@ -6,6 +6,7 @@ import android.support.annotation.DrawableRes
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.model.Album
 import uk.co.cerihughes.mgm.android.ui.AlbumArtViewModelImpl
+import uk.co.cerihughes.mgm.android.ui.SpotifyURLGenerator
 
 class AlbumScoreViewModelImpl(private val album: Album, private val index: Int) : AlbumArtViewModelImpl(album.images), AlbumScoreViewModel {
 
@@ -62,5 +63,10 @@ class AlbumScoreViewModelImpl(private val album: Album, private val index: Int) 
 
     override fun position(): String {
         return String.format("%d", index + 1)
+    }
+
+    override fun spotifyURL(): String? {
+        val albumId = album.spotifyId ?: return null
+        return SpotifyURLGenerator.createSpotifyAlbumURL(albumId)
     }
 }

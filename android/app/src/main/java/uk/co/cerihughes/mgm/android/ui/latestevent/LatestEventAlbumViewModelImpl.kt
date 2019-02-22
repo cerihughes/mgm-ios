@@ -23,7 +23,7 @@ class LatestEventAlbumViewModelImpl(private val album: Album) : AlbumArtViewMode
     }
 
     override fun spotifyURL(): String? {
-        val albumId = album.spotifyID ?: return null
+        val albumId = album.spotifyId ?: return null
         return SpotifyURLGenerator.createSpotifyAlbumURL(albumId)
     }
 }

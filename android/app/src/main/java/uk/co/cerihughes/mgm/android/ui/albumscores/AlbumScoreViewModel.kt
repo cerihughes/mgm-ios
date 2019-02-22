@@ -5,6 +5,7 @@ import android.support.annotation.DrawableRes
 import uk.co.cerihughes.mgm.android.ui.AlbumArtViewModel
 
 interface AlbumScoreViewModel : AlbumArtViewModel {
+
     fun albumName(): String
 
     fun artistName(): String
@@ -18,4 +19,6 @@ interface AlbumScoreViewModel : AlbumArtViewModel {
     fun awardImage(): Int
 
     fun position(): String
+
+    fun spotifyURL(): String?
 }
