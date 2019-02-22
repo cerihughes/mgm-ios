@@ -2,15 +2,23 @@ package uk.co.cerihughes.mgm.android.ui.latestevent
 
 import uk.co.cerihughes.mgm.android.model.Playlist
 import uk.co.cerihughes.mgm.android.ui.AlbumArtViewModelImpl
+import uk.co.cerihughes.mgm.android.ui.SpotifyURLGenerator
 
-class LatestEventPlaylistViewModelImpl(playlist: Playlist) : AlbumArtViewModelImpl(playlist.images), LatestEventEntityViewModel {
-    override val entityType: String
-    override val entityName: String
-    override val entityOwner: String
+class LatestEventPlaylistViewModelImpl(private val playlist: Playlist) : AlbumArtViewModelImpl(playlist.images), LatestEventEntityViewModel {
+    override fun entityType(): String {
+        return "PLAYLIST"
+    }
 
-    init {
-        entityType = "PLAYLIST"
-        entityName = playlist.name
-        entityOwner = playlist.owner
+    override fun entityName(): String {
+        return playlist.name
+    }
+
+    override fun entityOwner(): String {
+        return playlist.owner
+    }
+
+    override fun spotifyURL(): String? {
+        val playlistId = playlist.spotifyId ?: return null
+        return SpotifyURLGenerator.createSpotifyPlaylistURL(playlistId)
     }
 }

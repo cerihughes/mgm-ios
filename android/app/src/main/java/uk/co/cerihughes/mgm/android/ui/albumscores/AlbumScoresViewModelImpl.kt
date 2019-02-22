@@ -2,8 +2,9 @@ package uk.co.cerihughes.mgm.android.ui.albumscores
 
 import uk.co.cerihughes.mgm.android.dataloader.DataLoader
 import uk.co.cerihughes.mgm.android.model.Album
+import uk.co.cerihughes.mgm.android.ui.SpotifyAwareViewModelImpl
 
-class AlbumScoresViewModelImpl(val dataLoader: DataLoader) : AlbumScoresViewModel {
+class AlbumScoresViewModelImpl(val dataLoader: DataLoader) : SpotifyAwareViewModelImpl(), AlbumScoresViewModel {
 
     private var classicAlbums: List<Album> = emptyList()
     private var newAlbums: List<Album> = emptyList()

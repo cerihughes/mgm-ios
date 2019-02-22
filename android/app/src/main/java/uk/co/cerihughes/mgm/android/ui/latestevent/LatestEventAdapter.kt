@@ -1,5 +1,6 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
+import android.content.Intent
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -12,6 +13,7 @@ import kotlinx.android.synthetic.main.latest_event_entity_list_item.view.*
 import kotlinx.android.synthetic.main.latest_event_location_list_item.view.*
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.ui.inflate
+import uk.co.cerihughes.mgm.android.ui.launchSpotify
 
 class LatestEventAdapter (private val viewModel: LatestEventViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -27,7 +29,9 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
             }
             else -> {
                 val view = viewGroup.inflate(R.layout.latest_event_entity_list_item, false)
-                return LatestEventEntityItemViewHolder(view)
+                val holder = LatestEventEntityItemViewHolder(viewModel, view)
+                view.setOnClickListener(holder)
+                return holder
             }
         }
     }
@@ -52,6 +56,7 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
     }
 
     class LatestEventLocationItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+
         fun bind(viewModel: LatestEventViewModel) {
             viewModel.mapReference()?.let {
                 val position = LatLng(it.first, it.second)
@@ -67,7 +72,8 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
         }
     }
 
-    class LatestEventEntityItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class LatestEventEntityItemViewHolder(private val viewModel: LatestEventViewModel, itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+
         fun bind(viewModel: LatestEventEntityViewModel) {
             val largestDimension = itemView.resources.getDimension(R.dimen.latest_event_entity_list_item_height)
             viewModel.coverArtURL(largestDimension.toInt())?.let {
@@ -77,9 +83,24 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
                     .into(itemView.coverArtIV)
             } ?: itemView.coverArtIV.setImageDrawable(ResourcesCompat.getDrawable(itemView.resources, R.drawable.album1, null))
 
-            itemView.entityTypeTV.text = viewModel.entityType
-            itemView.albumNameTV.text = viewModel.entityName
-            itemView.artistNameTV.text = viewModel.entityOwner
+            itemView.entityTypeTV.text = viewModel.entityType()
+            itemView.albumNameTV.text = viewModel.entityName()
+            itemView.artistNameTV.text = viewModel.entityOwner()
+        }
+
+        override fun onClick(v: View?) {
+            var view = v ?: return
+            var context = view.context
+
+            if (viewModel.isSpotifyInstalled(context) == false) {
+                return
+            }
+
+            val eventEntityViewModel = viewModel.eventEntityViewModel(adapterPosition) ?: return
+            var spotifyURL = eventEntityViewModel.spotifyURL() ?: return
+
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.launchSpotify(context, spotifyURL)
         }
     }
 }

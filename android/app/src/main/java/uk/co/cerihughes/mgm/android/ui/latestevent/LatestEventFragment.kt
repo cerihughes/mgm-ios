@@ -18,7 +18,7 @@ class LatestEventFragment : Fragment() {
 
         val fragmentView = inflater.inflate(R.layout.fragment_latest_event, container, false)
         val dataLoader = DataLoader(activity)
-        val viewModel = LatestEventViewModel(dataLoader)
+        val viewModel = LatestEventViewModelImpl(dataLoader)
         viewModel.loadData()
 
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
