@@ -8,8 +8,6 @@ interface LatestEventViewModel: SpotifyAwareViewModel {
         ENTITY(1)
     }
 
-    fun loadData()
-
     fun title(): String
 
     fun locationName(): String?

@@ -1,23 +1,25 @@
 package uk.co.cerihughes.mgm.android.dataloader
 
 import android.support.test.InstrumentationRegistry
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
+import uk.co.cerihughes.mgm.android.dataloader.fallback.FallbackEventLoader
 
-class DataLoaderTest {
+class FallbackEventLoaderTest {
 
-    private lateinit var dataLoader: DataLoader
+    private lateinit var dataLoader: FallbackEventLoader
 
     @Before
     fun setUp() {
         val context = InstrumentationRegistry.getTargetContext()
-        dataLoader = DataLoader(context)
+        dataLoader = FallbackEventLoader(context)
     }
 
     @Test
     fun testDataLoader() {
-        val events = dataLoader.getEvents()
+        val events = dataLoader.getEvents()!!
         assertEquals(60, events.size)
 
         var event = events.first()

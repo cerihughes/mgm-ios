@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
-
 import kotlinx.android.synthetic.main.activity_main.*
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.ui.albumscores.AlbumScoresFragment

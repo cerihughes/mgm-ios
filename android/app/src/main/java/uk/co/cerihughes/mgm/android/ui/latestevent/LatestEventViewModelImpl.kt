@@ -1,11 +1,10 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
-import uk.co.cerihughes.mgm.android.dataloader.DataLoader
 import uk.co.cerihughes.mgm.android.model.Event
 import uk.co.cerihughes.mgm.android.ui.SpotifyAwareViewModelImpl
 import java.text.DateFormat
 
-class LatestEventViewModelImpl(val dataLoader: DataLoader): SpotifyAwareViewModelImpl(), LatestEventViewModel {
+class LatestEventViewModelImpl(events: List<Event>): SpotifyAwareViewModelImpl(), LatestEventViewModel {
     companion object {
         private val dateFormatter = DateFormat.getDateInstance(DateFormat.LONG)
     }
@@ -13,30 +12,27 @@ class LatestEventViewModelImpl(val dataLoader: DataLoader): SpotifyAwareViewMode
     private var event: Event? = null
     private var eventEntityViewModels: List<LatestEventEntityViewModel> = emptyList()
 
-    override fun loadData() {
+    init {
         // Remove events without albums, then apply descending sort by ID
-        val events = dataLoader.getEvents()
         val sortedEvents = events.filter { it.classicAlbum != null && it.newAlbum != null }.sortedByDescending { it.number }
 
-        if (sortedEvents.size == 0) {
-            return
-        }
+        if (sortedEvents.size > 0) {
+            var entityViewModels: MutableList<LatestEventEntityViewModel> = mutableListOf()
+            var event = sortedEvents.first()
 
-        var entityViewModels: MutableList<LatestEventEntityViewModel> = mutableListOf()
-        var event = sortedEvents.first()
+            event.classicAlbum?.let {
+                entityViewModels.add(LatestEventAlbumViewModelImpl(it))
+            }
+            event.newAlbum?.let {
+                entityViewModels.add(LatestEventAlbumViewModelImpl(it))
+            }
+            event.playlist?.let {
+                entityViewModels.add(LatestEventPlaylistViewModelImpl(it))
+            }
 
-        event.classicAlbum?.let {
-            entityViewModels.add(LatestEventAlbumViewModelImpl(it))
+            this.event = event
+            this.eventEntityViewModels = entityViewModels
         }
-        event.newAlbum?.let {
-            entityViewModels.add(LatestEventAlbumViewModelImpl(it))
-        }
-        event.playlist?.let {
-            entityViewModels.add(LatestEventPlaylistViewModelImpl(it))
-        }
-
-        this.event = event
-        this.eventEntityViewModels = entityViewModels
     }
 
     override fun title(): String {
@@ -97,4 +93,5 @@ class LatestEventViewModelImpl(val dataLoader: DataLoader): SpotifyAwareViewMode
             return null
         }
     }
+
 }
