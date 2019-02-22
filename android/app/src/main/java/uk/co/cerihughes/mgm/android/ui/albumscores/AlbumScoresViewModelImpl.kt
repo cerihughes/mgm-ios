@@ -1,18 +1,17 @@
 package uk.co.cerihughes.mgm.android.ui.albumscores
 
-import uk.co.cerihughes.mgm.android.dataloader.DataLoader
 import uk.co.cerihughes.mgm.android.model.Album
+import uk.co.cerihughes.mgm.android.model.Event
 import uk.co.cerihughes.mgm.android.ui.SpotifyAwareViewModelImpl
 
-class AlbumScoresViewModelImpl(val dataLoader: DataLoader) : SpotifyAwareViewModelImpl(), AlbumScoresViewModel {
+class AlbumScoresViewModelImpl(events: List<Event>) : SpotifyAwareViewModelImpl(), AlbumScoresViewModel {
 
     private var classicAlbums: List<Album> = emptyList()
     private var newAlbums: List<Album> = emptyList()
     private var allAlbums: List<Album> = emptyList()
     private var scoreViewModels: List<AlbumScoreViewModelImpl> = emptyList()
 
-    override fun loadData() {
-        val events = dataLoader.getEvents()
+    init {
         classicAlbums = events.mapNotNull { it.classicAlbum }.filter { it.score != null }.sortedByDescending { it.score }
         newAlbums = events.mapNotNull { it.newAlbum }.filter { it.score != null }.sortedByDescending { it.score }
         allAlbums = (classicAlbums + newAlbums).sortedByDescending { it.score }
