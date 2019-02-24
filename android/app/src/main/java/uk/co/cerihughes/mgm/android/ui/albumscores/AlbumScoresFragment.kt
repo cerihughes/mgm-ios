@@ -1,5 +1,6 @@
 package uk.co.cerihughes.mgm.android.ui.albumscores
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.LoaderManager
@@ -16,24 +17,34 @@ import uk.co.cerihughes.mgm.android.model.Event
 
 class AlbumScoresFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Event>> {
 
+    lateinit var viewModel: AlbumScoresViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val activity = activity ?: return null
+        return inflater.inflate(R.layout.fragment_album_scores, container, false)
+    }
 
-        val fragmentView = inflater.inflate(R.layout.fragment_album_scores, container, false)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
+        viewModel = ViewModelProviders.of(this).get(AlbumScoresViewModel::class.java)
+
+        val recyclerView = view?.recycler_view ?: return
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         val dividerItemDecoration = DividerItemDecoration(activity, layoutManager.orientation)
-        fragmentView.recycler_view.layoutManager = layoutManager
-        fragmentView.recycler_view.addItemDecoration(dividerItemDecoration)
-
-        return fragmentView
+        recyclerView.layoutManager = layoutManager
+        recyclerView.addItemDecoration(dividerItemDecoration)
+        recyclerView.adapter = AlbumScoresAdapter(viewModel)
     }
 
     override fun onStart() {
         super.onStart()
 
-        val view = view ?: return
-        view.progress_loader.visibility = View.VISIBLE
+        if (viewModel.isLoaded()) {
+            return
+        }
+
+        val progressBar = view?.progress_loader ?: return
+        progressBar.visibility = View.VISIBLE
 
         loaderManager.initLoader(AsyncTaskEventLoader.EVENT_LOADER_ID, null, this)
     }
@@ -43,13 +54,14 @@ class AlbumScoresFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Event
     }
 
     override fun onLoadFinished(loader: Loader<List<Event>>, events: List<Event>?) {
-        val view = view ?: return
+        val recyclerView = view?.recycler_view ?: return
+        val progressBar = view?.progress_loader ?: return
         val events = events ?: return
 
-        view.progress_loader.visibility = View.GONE
+        progressBar.visibility = View.GONE
 
-        val viewModel = AlbumScoresViewModelImpl(events)
-        view.recycler_view.adapter = AlbumScoresAdapter(viewModel)
+        viewModel.setEvents(events)
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 
     override fun onLoaderReset(events: Loader<List<Event>>) {

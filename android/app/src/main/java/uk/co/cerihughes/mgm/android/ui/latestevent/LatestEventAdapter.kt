@@ -83,9 +83,9 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
                     .into(itemView.coverArtIV)
             } ?: itemView.coverArtIV.setImageDrawable(ResourcesCompat.getDrawable(itemView.resources, R.drawable.album1, null))
 
-            itemView.entityTypeTV.text = viewModel.entityType()
-            itemView.albumNameTV.text = viewModel.entityName()
-            itemView.artistNameTV.text = viewModel.entityOwner()
+            itemView.entityTypeTV.text = viewModel.entityType
+            itemView.albumNameTV.text = viewModel.entityName
+            itemView.artistNameTV.text = viewModel.entityOwner
         }
 
         override fun onClick(v: View?) {
@@ -97,7 +97,7 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
             }
 
             val eventEntityViewModel = viewModel.eventEntityViewModel(adapterPosition) ?: return
-            var spotifyURL = eventEntityViewModel.spotifyURL() ?: return
+            var spotifyURL = eventEntityViewModel.spotifyURL ?: return
 
             val intent = Intent(Intent.ACTION_VIEW)
             intent.launchSpotify(context, spotifyURL)
