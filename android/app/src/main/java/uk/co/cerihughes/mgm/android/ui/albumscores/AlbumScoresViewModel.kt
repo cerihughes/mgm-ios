@@ -11,6 +11,8 @@ class AlbumScoresViewModel : SpotifyAwareViewModel() {
     private var allAlbums: List<Album> = emptyList()
     private var scoreViewModels: List<AlbumScoreViewModel> = emptyList()
 
+    fun isLoaded(): Boolean = allAlbums.size > 0
+
     fun setEvents(events: List<Event>) {
         classicAlbums = events.mapNotNull { it.classicAlbum }.filter { it.score != null }.sortedByDescending { it.score }
         newAlbums = events.mapNotNull { it.newAlbum }.filter { it.score != null }.sortedByDescending { it.score }

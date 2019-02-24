@@ -18,6 +18,8 @@ class LatestEventViewModel: SpotifyAwareViewModel() {
     private var event: Event? = null
     private var eventEntityViewModels: List<LatestEventEntityViewModel> = emptyList()
 
+    fun isLoaded(): Boolean = event != null
+
     fun setEvents(events: List<Event>) {
         // Remove events without albums, then apply descending sort by ID
         val sortedEvents = events.filter { it.classicAlbum != null && it.newAlbum != null }.sortedByDescending { it.number }

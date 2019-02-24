@@ -17,7 +17,7 @@ import uk.co.cerihughes.mgm.android.model.Event
 
 class LatestEventFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Event>> {
 
-    var viewModel: LatestEventViewModel? = null
+    lateinit var viewModel: LatestEventViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_latest_event, container, false)
@@ -26,7 +26,7 @@ class LatestEventFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Event
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val viewModel = ViewModelProviders.of(this).get(LatestEventViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(LatestEventViewModel::class.java)
 
         val recyclerView = view?.recycler_view ?: return
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
@@ -34,12 +34,14 @@ class LatestEventFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Event
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.adapter = LatestEventAdapter(viewModel)
-
-        this.viewModel = viewModel
     }
 
     override fun onStart() {
         super.onStart()
+
+        if (viewModel.isLoaded()) {
+            return
+        }
 
         val progressBar = view?.progress_loader ?: return
         progressBar.visibility = View.VISIBLE
@@ -54,7 +56,6 @@ class LatestEventFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Event
     override fun onLoadFinished(loader: Loader<List<Event>>, events: List<Event>?) {
         val recyclerView = view?.recycler_view ?: return
         val progressBar = view?.progress_loader ?: return
-        val viewModel = viewModel ?: return
         val events = events ?: return
 
         progressBar.visibility = View.GONE
