@@ -6,6 +6,10 @@ import uk.co.cerihughes.mgm.android.ui.SpotifyAwareViewModel
 
 class AlbumScoresViewModel : SpotifyAwareViewModel() {
 
+    private val comparator = compareByDescending<Album> { it.score }
+        .thenBy { it.name }
+        .thenBy { it.artist }
+
     private var classicAlbums: List<Album> = emptyList()
     private var newAlbums: List<Album> = emptyList()
     private var allAlbums: List<Album> = emptyList()
@@ -14,10 +18,6 @@ class AlbumScoresViewModel : SpotifyAwareViewModel() {
     fun isLoaded(): Boolean = allAlbums.size > 0
 
     fun setEvents(events: List<Event>) {
-        val comparator = compareByDescending<Album> { it.score }
-            .thenBy { it.name }
-            .thenBy { it.artist }
-
         classicAlbums = events.mapNotNull { it.classicAlbum }
             .filter { it.score != null }
             .sortedWith(comparator)
