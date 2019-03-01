@@ -45,7 +45,21 @@ protocol ScoresViewModel {
     func scoreViewModel(at index: Int) -> ScoreViewModel?
 }
 
-private let descendingScoresSort: (Album, Album) -> Bool = { $0.score ?? 0.0 > $1.score ?? 0.0 }
+private let scoresSort: (Album, Album) -> Bool = {
+    let score0 = $0.score ?? 0.0
+    let score1 = $1.score ?? 0.0
+    if score0 != score1 {
+        return score0 > score1
+    }
+
+    let name0 = $0.name.lowercased()
+    let name1 = $1.name.lowercased()
+    if name0 != name1 {
+        return name0 < name1
+    }
+
+    return $0.artist.lowercased() < $1.artist.lowercased()
+}
 
 /// Default implementation of ScoresViewModel
 final class ScoresViewModelImplementation: ScoresViewModel {
@@ -136,9 +150,9 @@ final class ScoresViewModelImplementation: ScoresViewModel {
 
     private func updateStateAndNotify(events: [Event], _ completion: () -> Void) {
         // Categorise, remove scoreless albums and apply descending sort by score
-        classicAlbums = events.compactMap { $0.classicAlbum }.filter { $0.score != nil }.sorted(by: descendingScoresSort)
-        newAlbums = events.compactMap { $0.newAlbum }.filter { $0.score != nil }.sorted(by: descendingScoresSort)
-        allAlbums = (classicAlbums + newAlbums).sorted(by: descendingScoresSort)
+        classicAlbums = events.compactMap { $0.classicAlbum }.filter { $0.score != nil }.sorted(by: scoresSort)
+        newAlbums = events.compactMap { $0.newAlbum }.filter { $0.score != nil }.sorted(by: scoresSort)
+        allAlbums = (classicAlbums + newAlbums).sorted(by: scoresSort)
 
         applyAlbumTypeFilter()
         completion()
