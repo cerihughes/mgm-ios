@@ -1,6 +1,6 @@
 import Foundation
 
-class DataLoaderTestToken: DataLoaderToken {
+class MockDataLoaderToken: DataLoaderToken {
     var cancelled = false
 
     func cancel() {
@@ -10,7 +10,7 @@ class DataLoaderTestToken: DataLoaderToken {
 
 private typealias DataLoaderTuple = (response: DataLoaderResponse, token: DataLoaderToken)
 
-class DataLoaderTestImplementation: DataLoader {
+class MockDataLoader: DataLoader {
     var delay: TimeInterval = 0
 
     private var urlResponses: [URL : DataLoaderTuple] = [:]

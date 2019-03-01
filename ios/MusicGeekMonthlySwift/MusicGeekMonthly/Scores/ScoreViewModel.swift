@@ -69,11 +69,13 @@ private enum Award {
 final class ScoreViewModelImplementation: AlbumArtViewModelImplementation, ScoreViewModel {
     private let album: Album
     private let index: Int
+    internal let position: String
     private let award: Award
 
-    init(imageLoader: ImageLoader, album: Album, index: Int) {
+    init(imageLoader: ImageLoader, album: Album, index: Int, position: String) {
         self.album = album
         self.index = index
+        self.position = position
         self.award = Award.award(for: album.score ?? 0.0)
 
         super.init(imageLoader: imageLoader, images: album.images, loadingImageIndex: (index % 3) + 1)
@@ -100,10 +102,6 @@ final class ScoreViewModelImplementation: AlbumArtViewModelImplementation, Score
 
     var awardImage: UIImage? {
         return award.awardImage
-    }
-
-    var position: String {
-        return String(index + 1)
     }
 
     var spotifyURL: URL? {
