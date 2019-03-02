@@ -1,4 +1,4 @@
-package uk.co.cerihughes.mgm.android.dataloader
+package uk.co.cerihughes.mgm.android.repository
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

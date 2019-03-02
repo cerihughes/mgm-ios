@@ -2,9 +2,10 @@ package uk.co.cerihughes.mgm.android.ui.albumscores
 
 import uk.co.cerihughes.mgm.android.model.Album
 import uk.co.cerihughes.mgm.android.model.Event
-import uk.co.cerihughes.mgm.android.ui.SpotifyAwareViewModel
+import uk.co.cerihughes.mgm.android.repository.RemoteDataSource
+import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 
-class AlbumScoresViewModel : SpotifyAwareViewModel() {
+class AlbumScoresViewModel(remoteDataSource: RemoteDataSource) : RemoteDataLoadingViewModel(remoteDataSource) {
 
     private val comparator = compareByDescending<Album> { it.score }
         .thenBy { it.name.toLowerCase() }
@@ -17,7 +18,7 @@ class AlbumScoresViewModel : SpotifyAwareViewModel() {
 
     fun isLoaded(): Boolean = allAlbums.size > 0
 
-    fun setEvents(events: List<Event>) {
+    override fun setEvents(events: List<Event>) {
         classicAlbums = events.mapNotNull { it.classicAlbum }
             .filter { it.score != null }
             .sortedWith(comparator)

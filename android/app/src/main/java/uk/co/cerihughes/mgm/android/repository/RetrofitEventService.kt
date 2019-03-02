@@ -1,4 +1,4 @@
-package uk.co.cerihughes.mgm.android.dataloader.retrofit
+package uk.co.cerihughes.mgm.android.repository
 
 import retrofit2.Call
 import retrofit2.http.GET
