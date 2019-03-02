@@ -9,6 +9,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.album_scores_list_item.view.*
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.ui.inflate
+import uk.co.cerihughes.mgm.android.ui.isSpotifyInstalled
 import uk.co.cerihughes.mgm.android.ui.launchSpotify
 
 class AlbumScoresAdapter (private val viewModel: AlbumScoresViewModel) : RecyclerView.Adapter<AlbumScoresAdapter.AlbumScoresItemViewHolder>() {
@@ -51,7 +52,7 @@ class AlbumScoresAdapter (private val viewModel: AlbumScoresViewModel) : Recycle
             var view = v ?: return
             var context = view.context
 
-            if (viewModel.isSpotifyInstalled(context) == false) {
+            if (context.packageManager.isSpotifyInstalled() == false) {
                 return
             }
 

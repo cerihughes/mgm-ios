@@ -1,10 +1,11 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
 import uk.co.cerihughes.mgm.android.model.Event
-import uk.co.cerihughes.mgm.android.ui.SpotifyAwareViewModel
+import uk.co.cerihughes.mgm.android.repository.RemoteDataSource
+import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 import java.text.DateFormat
 
-class LatestEventViewModel: SpotifyAwareViewModel() {
+class LatestEventViewModel(remoteDataSource: RemoteDataSource): RemoteDataLoadingViewModel(remoteDataSource) {
 
     companion object {
         private val dateFormatter = DateFormat.getDateInstance(DateFormat.LONG)
@@ -20,7 +21,7 @@ class LatestEventViewModel: SpotifyAwareViewModel() {
 
     fun isLoaded(): Boolean = event != null
 
-    fun setEvents(events: List<Event>) {
+    override fun setEvents(events: List<Event>) {
         // Remove events without albums, then apply descending sort by ID
         val sortedEvents = events.filter { it.classicAlbum != null && it.newAlbum != null }.sortedByDescending { it.number }
 

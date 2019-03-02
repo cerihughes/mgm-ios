@@ -3,8 +3,6 @@ package uk.co.cerihughes.mgm.android.ui.albumscores
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.LoaderManager
-import android.support.v4.content.Loader
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -12,10 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_album_scores.view.*
 import uk.co.cerihughes.mgm.android.R
-import uk.co.cerihughes.mgm.android.dataloader.AsyncTaskEventLoader
-import uk.co.cerihughes.mgm.android.model.Event
+import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
+import uk.co.cerihughes.mgm.android.ui.ViewModelProviderFactory
 
-class AlbumScoresFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Event>> {
+class AlbumScoresFragment : Fragment() {
 
     lateinit var viewModel: AlbumScoresViewModel
 
@@ -26,7 +24,7 @@ class AlbumScoresFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Event
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(AlbumScoresViewModel::class.java)
+        viewModel = ViewModelProviders.of(activity!!, ViewModelProviderFactory.getInstance()).get(AlbumScoresViewModel::class.java)
 
         val recyclerView = view?.recycler_view ?: return
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
@@ -46,24 +44,14 @@ class AlbumScoresFragment : Fragment(), LoaderManager.LoaderCallbacks<List<Event
         val progressBar = view?.progress_loader ?: return
         progressBar.visibility = View.VISIBLE
 
-        loaderManager.initLoader(AsyncTaskEventLoader.EVENT_LOADER_ID, null, this)
-    }
+        viewModel.loadData(object: RemoteDataLoadingViewModel.LoadDataCallback {
+            override fun onDataLoaded() {
+                val recyclerView = view?.recycler_view ?: return
+                val progressBar = view?.progress_loader ?: return
 
-    override fun onCreateLoader(id: Int, args: Bundle?): Loader<List<Event>> {
-        return AsyncTaskEventLoader(activity!!)
-    }
-
-    override fun onLoadFinished(loader: Loader<List<Event>>, events: List<Event>?) {
-        val recyclerView = view?.recycler_view ?: return
-        val progressBar = view?.progress_loader ?: return
-        val events = events ?: return
-
-        progressBar.visibility = View.GONE
-
-        viewModel.setEvents(events)
-        recyclerView.adapter?.notifyDataSetChanged()
-    }
-
-    override fun onLoaderReset(events: Loader<List<Event>>) {
+                progressBar.visibility = View.GONE
+                recyclerView.adapter?.notifyDataSetChanged()
+            }
+        })
     }
 }

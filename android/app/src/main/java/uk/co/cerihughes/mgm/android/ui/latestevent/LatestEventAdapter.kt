@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.latest_event_entity_list_item.view.*
 import kotlinx.android.synthetic.main.latest_event_location_list_item.view.*
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.ui.inflate
+import uk.co.cerihughes.mgm.android.ui.isSpotifyInstalled
 import uk.co.cerihughes.mgm.android.ui.launchSpotify
 
 class LatestEventAdapter (private val viewModel: LatestEventViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -92,7 +93,7 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
             var view = v ?: return
             var context = view.context
 
-            if (viewModel.isSpotifyInstalled(context) == false) {
+            if (context.packageManager.isSpotifyInstalled() == false) {
                 return
             }
 
