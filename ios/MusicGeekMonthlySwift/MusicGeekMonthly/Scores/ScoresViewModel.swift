@@ -167,13 +167,13 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     }
 
     private func applyAlbumTypeFilter() {
-        let scores = filteredAlbums.map { $0.score ?? 0.0 }
-        let positions = calculatePositions(for: scores)
+        let positions = calculatePositions(for: filteredAlbums)
         self.scoreViewModels = filteredAlbums.enumerated().map { ScoreViewModelImplementation(imageLoader: imageLoader, album: $0.element, index: $0.offset, position: positions[$0.offset]) }
         applyFilter()
     }
 
-    private func calculatePositions(for scores: [Float]) -> [String] {
+    private func calculatePositions(for albums: [Album]) -> [String] {
+        let scores = albums.map { $0.score ?? 0.0 }
         var positions = [String]()
         var currentPosition = 0
         var currentValue: Float = 11.0

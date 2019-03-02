@@ -28,9 +28,9 @@ class ScoresViewModelTests: XCTestCase {
     }
 
     func testAlbums_scoreSort_differentScores() {
-        let event1 = createEvent(number: 2, classicAlbumScore: 8.0, newAlbumScore: 7.0)
-        let event2 = createEvent(number: 1, classicAlbumScore: 5.0, newAlbumScore: 6.0)
-        let event3 = createEvent(number: 1, classicAlbumScore: 10.0, newAlbumScore: 9.0)
+        let event1 = createEvent(number: 1, classicAlbumScore: 8.0, newAlbumScore: 7.0)
+        let event2 = createEvent(number: 2, classicAlbumScore: 5.0, newAlbumScore: 6.0)
+        let event3 = createEvent(number: 3, classicAlbumScore: 10.0, newAlbumScore: 9.0)
         viewModelDataLoader.response = .success([event1, event2, event3])
 
         let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
@@ -91,8 +91,8 @@ class ScoresViewModelTests: XCTestCase {
         let event1 = createEvent(number: 1, classicAlbumScore: 4.4, newAlbumScore: 5.5)
         let event2 = createEvent(number: 2, classicAlbumScore: 5.5, newAlbumScore: 4.4)
         let event3 = createEvent(number: 3, classicAlbumScore: 3.3, newAlbumScore: 5.5)
-        let event4 = createEvent(number: 3, classicAlbumScore: 6.6, newAlbumScore: 6.6)
-        let event5 = createEvent(number: 3, classicAlbumScore: 6.6, newAlbumScore: 6.6)
+        let event4 = createEvent(number: 4, classicAlbumScore: 6.6, newAlbumScore: 6.6)
+        let event5 = createEvent(number: 5, classicAlbumScore: 6.6, newAlbumScore: 6.6)
         viewModelDataLoader.response = .success([event1, event2, event3, event4, event5])
 
         let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
