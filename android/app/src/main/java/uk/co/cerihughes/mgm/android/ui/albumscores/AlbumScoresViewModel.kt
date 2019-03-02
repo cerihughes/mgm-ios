@@ -6,6 +6,10 @@ import uk.co.cerihughes.mgm.android.ui.SpotifyAwareViewModel
 
 class AlbumScoresViewModel : SpotifyAwareViewModel() {
 
+    private val comparator = compareByDescending<Album> { it.score }
+        .thenBy { it.name.toLowerCase() }
+        .thenBy { it.artist.toLowerCase() }
+
     private var classicAlbums: List<Album> = emptyList()
     private var newAlbums: List<Album> = emptyList()
     private var allAlbums: List<Album> = emptyList()
@@ -14,10 +18,18 @@ class AlbumScoresViewModel : SpotifyAwareViewModel() {
     fun isLoaded(): Boolean = allAlbums.size > 0
 
     fun setEvents(events: List<Event>) {
-        classicAlbums = events.mapNotNull { it.classicAlbum }.filter { it.score != null }.sortedByDescending { it.score }
-        newAlbums = events.mapNotNull { it.newAlbum }.filter { it.score != null }.sortedByDescending { it.score }
-        allAlbums = (classicAlbums + newAlbums).sortedByDescending { it.score }
-        scoreViewModels = allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, index) }
+        classicAlbums = events.mapNotNull { it.classicAlbum }
+            .filter { it.score != null }
+            .sortedWith(comparator)
+
+        newAlbums = events.mapNotNull { it.newAlbum }
+            .filter { it.score != null }
+            .sortedWith(comparator)
+
+        allAlbums = (classicAlbums + newAlbums).sortedWith(comparator)
+
+        val positions = calculatePositions(allAlbums)
+        scoreViewModels = allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, index, positions.get(index)) }
     }
 
     fun numberOfScores(): Int {
@@ -30,5 +42,20 @@ class AlbumScoresViewModel : SpotifyAwareViewModel() {
         } catch (e: IndexOutOfBoundsException) {
             return null
         }
+    }
+
+    private fun calculatePositions(albums: List<Album>): List<String> {
+        val scores = albums.map { it.score ?: 0.0f }
+        var positions: MutableList<String> = mutableListOf()
+        var currentPosition = 0
+        var currentValue = 11.0f
+        for ((index, value) in scores.iterator().withIndex()) {
+            if (value != currentValue) {
+                currentValue = value
+                currentPosition = index + 1
+            }
+            positions.add("$currentPosition")
+        }
+        return positions
     }
 }
