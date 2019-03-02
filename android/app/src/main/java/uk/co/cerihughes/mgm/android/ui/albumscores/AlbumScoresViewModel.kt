@@ -7,8 +7,8 @@ import uk.co.cerihughes.mgm.android.ui.SpotifyAwareViewModel
 class AlbumScoresViewModel : SpotifyAwareViewModel() {
 
     private val comparator = compareByDescending<Album> { it.score }
-        .thenBy { it.name }
-        .thenBy { it.artist }
+        .thenBy { it.name.toLowerCase() }
+        .thenBy { it.artist.toLowerCase() }
 
     private var classicAlbums: List<Album> = emptyList()
     private var newAlbums: List<Album> = emptyList()
@@ -27,7 +27,9 @@ class AlbumScoresViewModel : SpotifyAwareViewModel() {
             .sortedWith(comparator)
 
         allAlbums = (classicAlbums + newAlbums).sortedWith(comparator)
-        scoreViewModels = allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, index) }
+
+        val positions = calculatePositions(allAlbums)
+        scoreViewModels = allAlbums.mapIndexed { index, it -> AlbumScoreViewModel(it, index, positions.get(index)) }
     }
 
     fun numberOfScores(): Int {
@@ -40,5 +42,20 @@ class AlbumScoresViewModel : SpotifyAwareViewModel() {
         } catch (e: IndexOutOfBoundsException) {
             return null
         }
+    }
+
+    private fun calculatePositions(albums: List<Album>): List<String> {
+        val scores = albums.map { it.score ?: 0.0f }
+        var positions: MutableList<String> = mutableListOf()
+        var currentPosition = 0
+        var currentValue = 11.0f
+        for ((index, value) in scores.iterator().withIndex()) {
+            if (value != currentValue) {
+                currentValue = value
+                currentPosition = index + 1
+            }
+            positions.add("$currentPosition")
+        }
+        return positions
     }
 }
