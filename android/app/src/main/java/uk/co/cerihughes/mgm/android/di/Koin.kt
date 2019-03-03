@@ -9,6 +9,7 @@ import uk.co.cerihughes.mgm.android.repository.local.LocalDataSource
 import uk.co.cerihughes.mgm.android.repository.local.LocalDataSourceImpl
 import uk.co.cerihughes.mgm.android.repository.remote.RemoteDataSource
 import uk.co.cerihughes.mgm.android.repository.remote.RemoteDataSourceImpl
+import uk.co.cerihughes.mgm.android.ui.MainViewModel
 import uk.co.cerihughes.mgm.android.ui.albumscores.AlbumScoresViewModel
 import uk.co.cerihughes.mgm.android.ui.latestevent.LatestEventViewModel
 
@@ -23,6 +24,7 @@ val appModule = module {
     // single instance of Repository
     single<Repository> { RepositoryImpl(get(), get()) }
 
+    viewModel { MainViewModel() }
     viewModel { LatestEventViewModel(get()) }
     viewModel { AlbumScoresViewModel(get()) }
 }
