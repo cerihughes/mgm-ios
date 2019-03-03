@@ -2,10 +2,10 @@ package uk.co.cerihughes.mgm.android.ui.albumscores
 
 import uk.co.cerihughes.mgm.android.model.Album
 import uk.co.cerihughes.mgm.android.model.Event
-import uk.co.cerihughes.mgm.android.repository.RemoteDataSource
+import uk.co.cerihughes.mgm.android.repository.Repository
 import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 
-class AlbumScoresViewModel(remoteDataSource: RemoteDataSource) : RemoteDataLoadingViewModel(remoteDataSource) {
+class AlbumScoresViewModel(repository: Repository) : RemoteDataLoadingViewModel(repository) {
 
     private val comparator = compareByDescending<Album> { it.score }
         .thenBy { it.name.toLowerCase() }

@@ -1,11 +1,11 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
 import uk.co.cerihughes.mgm.android.model.Event
-import uk.co.cerihughes.mgm.android.repository.RemoteDataSource
+import uk.co.cerihughes.mgm.android.repository.Repository
 import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
 import java.text.DateFormat
 
-class LatestEventViewModel(remoteDataSource: RemoteDataSource): RemoteDataLoadingViewModel(remoteDataSource) {
+class LatestEventViewModel(repository: Repository): RemoteDataLoadingViewModel(repository) {
 
     companion object {
         private val dateFormatter = DateFormat.getDateInstance(DateFormat.LONG)
