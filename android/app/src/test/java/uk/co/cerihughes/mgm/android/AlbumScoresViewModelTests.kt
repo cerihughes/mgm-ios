@@ -1,19 +1,33 @@
 package uk.co.cerihughes.mgm.android
 
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.koin.standalone.StandAloneContext.startKoin
+import org.koin.standalone.StandAloneContext.stopKoin
+import org.koin.standalone.inject
+import org.koin.test.KoinTest
+import org.koin.test.declareMock
+import uk.co.cerihughes.mgm.android.di.appModule
 import uk.co.cerihughes.mgm.android.model.Album
 import uk.co.cerihughes.mgm.android.model.AlbumType
 import uk.co.cerihughes.mgm.android.model.Event
+import uk.co.cerihughes.mgm.android.repository.Repository
 import uk.co.cerihughes.mgm.android.ui.albumscores.AlbumScoresViewModel
 
-class AlbumScoresViewModelTests {
-    private lateinit var viewModel: AlbumScoresViewModel
+class AlbumScoresViewModelTests: KoinTest {
+    val viewModel: AlbumScoresViewModel by inject()
 
     @Before
     fun setUp() {
-        viewModel = AlbumScoresViewModel()
+        startKoin(listOf(appModule))
+        declareMock<Repository>()
+    }
+
+    @After
+    fun tearDown() {
+        stopKoin()
     }
 
     @Test

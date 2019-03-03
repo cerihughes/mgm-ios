@@ -4,9 +4,9 @@ import android.arch.lifecycle.ViewModel
 import android.os.Handler
 import android.os.Looper
 import uk.co.cerihughes.mgm.android.model.Event
-import uk.co.cerihughes.mgm.android.repository.RemoteDataSource
+import uk.co.cerihughes.mgm.android.repository.Repository
 
-open abstract class RemoteDataLoadingViewModel(private val remoteDataSource: RemoteDataSource): ViewModel() {
+open abstract class RemoteDataLoadingViewModel(private val repository: Repository): ViewModel() {
 
     private val backgroundThreadHandler = Handler()
     private val mainThreadHandler = Handler(Looper.getMainLooper())
@@ -17,17 +17,10 @@ open abstract class RemoteDataLoadingViewModel(private val remoteDataSource: Rem
 
     fun loadData(callback: LoadDataCallback) {
         backgroundThreadHandler.post {
-            remoteDataSource.getEvents(object: RemoteDataSource.GetEventsCallback {
+            repository.getEvents(object: Repository.GetEventsCallback {
                 override fun onEventsLoaded(data: List<Event>) {
                     mainThreadHandler.post {
                         setEvents(data)
-                        callback.onDataLoaded()
-                    }
-                }
-
-                override fun onDataNotAvailable() {
-                    mainThreadHandler.post {
-                        setEvents(emptyList())
                         callback.onDataLoaded()
                     }
                 }

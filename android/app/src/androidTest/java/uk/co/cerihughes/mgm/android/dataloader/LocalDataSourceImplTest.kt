@@ -5,21 +5,24 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
-import uk.co.cerihughes.mgm.android.dataloader.fallback.FallbackEventLoader
+import uk.co.cerihughes.mgm.android.model.Event
+import uk.co.cerihughes.mgm.android.repository.GsonFactory
+import uk.co.cerihughes.mgm.android.repository.local.LocalDataSourceImpl
 
-class FallbackEventLoaderTest {
+class LocalDataSourceImplTest {
 
-    private lateinit var dataLoader: FallbackEventLoader
+    private lateinit var localDataSource: LocalDataSourceImpl
 
     @Before
     fun setUp() {
         val context = InstrumentationRegistry.getTargetContext()
-        dataLoader = FallbackEventLoader(context)
+        localDataSource = LocalDataSourceImpl(context)
     }
 
     @Test
     fun testDataLoader() {
-        val events = dataLoader.getEvents()!!
+        val localData = localDataSource.getLocalData()!!
+        val events = GsonFactory.createGson().fromJson(localData , Array<Event>::class.java).toList()
         assertEquals(60, events.size)
 
         var event = events.first()
