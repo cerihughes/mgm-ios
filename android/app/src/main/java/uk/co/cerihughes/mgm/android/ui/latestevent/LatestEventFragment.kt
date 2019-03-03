@@ -1,6 +1,5 @@
 package uk.co.cerihughes.mgm.android.ui.latestevent
 
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
@@ -9,13 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_album_scores.view.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.ui.RemoteDataLoadingViewModel
-import uk.co.cerihughes.mgm.android.ui.ViewModelProviderFactory
 
 class LatestEventFragment : Fragment() {
 
-    lateinit var viewModel: LatestEventViewModel
+    val viewModel: LatestEventViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_latest_event, container, false)
@@ -23,8 +22,6 @@ class LatestEventFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        viewModel = ViewModelProviders.of(activity!!, ViewModelProviderFactory.getInstance()).get(LatestEventViewModel::class.java)
 
         val recyclerView = view?.recycler_view ?: return
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
