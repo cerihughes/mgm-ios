@@ -6,7 +6,7 @@ import android.os.Looper
 import uk.co.cerihughes.mgm.android.model.Event
 import uk.co.cerihughes.mgm.android.repository.Repository
 
-open abstract class RemoteDataLoadingViewModel(private val repository: Repository): ViewModel() {
+abstract class RemoteDataLoadingViewModel(private val repository: Repository): ViewModel() {
 
     private val backgroundThreadHandler = Handler()
     private val mainThreadHandler = Handler(Looper.getMainLooper())
