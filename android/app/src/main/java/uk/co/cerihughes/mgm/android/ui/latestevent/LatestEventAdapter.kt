@@ -40,11 +40,11 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (viewModel.itemType(position)) {
             LatestEventViewModel.ItemType.LOCATION -> {
-                val holder = holder as? LatestEventLocationItemViewHolder ?: return
+                holder as? LatestEventLocationItemViewHolder ?: return
                 holder.bind(viewModel)
             }
             LatestEventViewModel.ItemType.ENTITY -> {
-                val holder = holder as? LatestEventEntityItemViewHolder ?: return
+                holder as? LatestEventEntityItemViewHolder ?: return
                 val eventEntityViewModel = viewModel.eventEntityViewModel(position) ?: return
                 holder.bind(eventEntityViewModel)
             }

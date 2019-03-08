@@ -17,7 +17,7 @@ class LocalDataSourceImpl(context: Context): LocalDataSource {
         fallbackData = context.resources.openRawResource(R.raw.mgm).bufferedReader().use { it.readText() }
     }
 
-    override fun getLocalData(): String {
+    override fun getLocalData(): String? {
         return sharedPreferences.getString(PREFERENCES_KEY, fallbackData)
     }
 
