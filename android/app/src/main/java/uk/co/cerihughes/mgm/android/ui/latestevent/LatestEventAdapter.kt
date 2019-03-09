@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.latest_event_entity_list_item.view.*
 import kotlinx.android.synthetic.main.latest_event_location_list_item.view.*
 import uk.co.cerihughes.mgm.android.R
+import uk.co.cerihughes.mgm.android.ui.BlurTransformation
 import uk.co.cerihughes.mgm.android.ui.inflate
 import uk.co.cerihughes.mgm.android.ui.isSpotifyInstalled
 import uk.co.cerihughes.mgm.android.ui.launchSpotify
@@ -83,6 +84,13 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
                     .placeholder(R.drawable.album1)
                     .into(itemView.coverArtIV)
             } ?: itemView.coverArtIV.setImageDrawable(ResourcesCompat.getDrawable(itemView.resources, R.drawable.album1, null))
+
+            viewModel.coverArtURL(largestDimension.toInt())?.let {
+                Picasso.get()
+                    .load(it)
+                    .transform(BlurTransformation(itemView.context))
+                    .into(itemView.backgroundIV)
+            }
 
             itemView.entityTypeTV.text = viewModel.entityType
             itemView.albumNameTV.text = viewModel.entityName
