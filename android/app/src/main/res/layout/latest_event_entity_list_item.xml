@@ -5,6 +5,14 @@
                                              android:layout_width="match_parent"
                                              android:layout_height="@dimen/latest_event_entity_list_item_height">
     <ImageView
+            android:id="@+id/backgroundIV"
+            android:contentDescription="@string/cd_background_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.2"
+            android:scaleType="centerCrop"/>
+
+    <ImageView
             android:id="@+id/coverArtIV"
             android:contentDescription="@string/cd_album_art"
             android:background="@drawable/latest_event_entity_image_border"
