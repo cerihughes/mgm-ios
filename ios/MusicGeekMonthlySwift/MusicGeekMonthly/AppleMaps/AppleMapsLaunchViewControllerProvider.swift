@@ -4,9 +4,9 @@ import UIKit
 
 fileprivate let appleMapsIdentifier = "appleMapsIdentifier"
 
-class AppleMapsLaunchViewControllerProvider: TypedViewControllerProviderObject {
+class AppleMapsLaunchViewControllerProvider: TypedViewControllerProvider {
 
-    // MARK: TypedViewControllerProviderObject
+    // MARK: TypedViewControllerProvider
 
     override func createViewController(resourceLocator: ResourceLocator, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
         guard

@@ -3,11 +3,11 @@ import Madog
 
 let viewModelDataLoaderServiceName = "viewModelDataLoaderServiceName"
 
-class ViewModelDataLoaderServiceProvider: ServiceProviderObject {
+class ViewModelDataLoaderServiceProvider: ServiceProvider {
     let imageLoader: ImageLoader
     let viewModelDataLoader: ViewModelDataLoader
 
-    // MARK: ServiceProviderObject
+    // MARK: ServiceProvider
 
     required init(context: ServiceProviderCreationContext) {
         let dataLoader = DataLoaderImplementation()
