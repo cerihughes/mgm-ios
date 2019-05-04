@@ -46,9 +46,11 @@
 		658BD844222968F3008E0EB1 /* AlbumArtViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65661977219092080068EA1B /* AlbumArtViewModel.swift */; };
 		658BD84522296901008E0EB1 /* URL+SpotifyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */; };
 		658BD84622296913008E0EB1 /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6512F30521934DEE004CD379 /* ErrorMessages.swift */; };
+		65981ABC227DDADA0094248E /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65981ABB227DDAD90094248E /* Provident.framework */; };
+		65981ABE227DDB060094248E /* MGMResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65981ABD227DDB060094248E /* MGMResolver.swift */; };
 		659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */; };
 		659DED7121931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */; };
-		65A4C3FA21E25631000148EE /* TypedViewControllerProviderObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4C3F921E25631000148EE /* TypedViewControllerProviderObject.swift */; };
+		65A4C3FA21E25631000148EE /* TypedViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */; };
 		65BDAA8F2189F55C007E887B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA8E2189F55C007E887B /* AppDelegate.swift */; };
 		65BDAA912189F55C007E887B /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA902189F55C007E887B /* ScoresViewController.swift */; };
 		65BDAA962189F55D007E887B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65BDAA952189F55D007E887B /* Assets.xcassets */; };
@@ -117,9 +119,11 @@
 		658BD83122295CC3008E0EB1 /* ScoresViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewModelTests.swift; sourceTree = "<group>"; };
 		658BD83422295E3D008E0EB1 /* MockViewModelDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockViewModelDataLoader.swift; sourceTree = "<group>"; };
 		658BD83F222967E1008E0EB1 /* MockImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageLoader.swift; sourceTree = "<group>"; };
+		65981ABB227DDAD90094248E /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = SOURCE_ROOT; };
+		65981ABD227DDB060094248E /* MGMResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGMResolver.swift; sourceTree = "<group>"; };
 		659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsLaunchViewControllerProvider.swift; sourceTree = "<group>"; };
-		65A4C3F921E25631000148EE /* TypedViewControllerProviderObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypedViewControllerProviderObject.swift; sourceTree = "<group>"; };
+		65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypedViewControllerProvider.swift; sourceTree = "<group>"; };
 		65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicGeekMonthly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65BDAA8E2189F55C007E887B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65BDAA902189F55C007E887B /* ScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 			files = (
 				6589F77821A8641900D08A0A /* Madog.framework in Frameworks */,
 				6528005D2193840D00100167 /* Crashlytics.framework in Frameworks */,
+				65981ABC227DDADA0094248E /* Provident.framework in Frameworks */,
 				6528005C2193840D00100167 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,11 +305,13 @@
 				656619912190ACAE0068EA1B /* Spotify */,
 				659DED6F21931FDE00226579 /* AppleMaps */,
 				65BDAA8E2189F55C007E887B /* AppDelegate.swift */,
+				65981ABD227DDB060094248E /* MGMResolver.swift */,
 				65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */,
 				65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */,
 				65BDAA952189F55D007E887B /* Assets.xcassets */,
 				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
 				6589F77721A8641900D08A0A /* Madog.framework */,
+				65981ABB227DDAD90094248E /* Provident.framework */,
 				6528005B2193840D00100167 /* Crashlytics.framework */,
 				6528005A2193840C00100167 /* Fabric.framework */,
 				65BDAA9A2189F55D007E887B /* Info.plist */,
@@ -371,7 +378,7 @@
 				65661976219091F60068EA1B /* Scaffolding */,
 				6553CF9021907F9A0020EEC2 /* ViewModelDataLoader.swift */,
 				65E4374021A9C021001D9311 /* ViewModelDataLoaderServiceProvider.swift */,
-				65A4C3F921E25631000148EE /* TypedViewControllerProviderObject.swift */,
+				65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -393,12 +400,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65BDAAB32189F55D007E887B /* Build configuration list for PBXNativeTarget "MusicGeekMonthly" */;
 			buildPhases = (
-				6528005E2193861B00100167 /* ShellScript */,
+				6528005E2193861B00100167 /* Copy Plist */,
 				65BDAA872189F55C007E887B /* Sources */,
 				65BDAA882189F55C007E887B /* Frameworks */,
 				65BDAA892189F55C007E887B /* Resources */,
-				65C014D921A86CEC0064E845 /* ShellScript */,
-				652589C321938DE100B23275 /* ShellScript */,
+				65C014D921A86CEC0064E845 /* Copy Carthage Frameworks */,
+				652589C321938DE100B23275 /* Run Fabric */,
 			);
 			buildRules = (
 			);
@@ -516,7 +523,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		652589C321938DE100B23275 /* ShellScript */ = {
+		652589C321938DE100B23275 /* Run Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -525,6 +532,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Fabric";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -533,7 +541,7 @@
 			shellPath = /bin/sh;
 			shellScript = "$PROJECT_DIR/BuildPhases/run-fabric.sh\n";
 		};
-		6528005E2193861B00100167 /* ShellScript */ = {
+		6528005E2193861B00100167 /* Copy Plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -542,6 +550,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Copy Plist";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -550,7 +559,7 @@
 			shellPath = /bin/sh;
 			shellScript = "$PROJECT_DIR/BuildPhases/copy-plist.sh\n";
 		};
-		65C014D921A86CEC0064E845 /* ShellScript */ = {
+		65C014D921A86CEC0064E845 /* Copy Carthage Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -558,8 +567,10 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Provident.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Madog.framework",
 			);
+			name = "Copy Carthage Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -606,13 +617,14 @@
 				6566198C2190A7730068EA1B /* ScoresViewControllerProvider.swift in Sources */,
 				65D2AD9C218B36DD002BB0C9 /* ImageLoader.swift in Sources */,
 				65BDAA8F2189F55C007E887B /* AppDelegate.swift in Sources */,
-				65A4C3FA21E25631000148EE /* TypedViewControllerProviderObject.swift in Sources */,
+				65A4C3FA21E25631000148EE /* TypedViewControllerProvider.swift in Sources */,
 				656619952190AFBF0068EA1B /* ForwardNavigatingViewController.swift in Sources */,
 				65D2AD98218B3105002BB0C9 /* ScoresViewModel.swift in Sources */,
 				6566197321908BFA0068EA1B /* LatestEventEntityCollectionViewCell.swift in Sources */,
 				6540A51B218C85260028B382 /* ScoresCollectionViewCell.swift in Sources */,
 				65BDAABF2189F69C007E887B /* DataLoader.swift in Sources */,
 				65BDAACA2189FEF8007E887B /* Model.swift in Sources */,
+				65981ABE227DDB060094248E /* MGMResolver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

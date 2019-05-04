@@ -3,10 +3,10 @@ import UIKit
 
 fileprivate let spotifyLaunchIdentifier = "spotifyLaunchIdentifier"
 
-class SpotifyLaunchViewControllerProvider: TypedViewControllerProviderObject {
+class SpotifyLaunchViewControllerProvider: TypedViewControllerProvider {
     private let externalAppLauncher: ExternalAppLauncher = UIApplication.shared
 
-    // MARK: TypedViewControllerProviderObject
+    // MARK: TypedViewControllerProvider
 
     override func createViewController(resourceLocator: ResourceLocator, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
         guard

@@ -3,11 +3,11 @@ import UIKit
 
 fileprivate let scoresIdentifier = "scoresIdentifier"
 
-class ScoresViewControllerProvider: TypedViewControllerProviderObject {
+class ScoresViewControllerProvider: TypedViewControllerProvider {
     private var imageLoader: ImageLoader?
     private var viewModelDataLoader: ViewModelDataLoader?
 
-    // MARK: ViewControllerProviderObject
+    // MARK: ViewControllerProvider
 
     override func configure(with serviceProviders: [String : ServiceProvider]) {
         super.configure(with: serviceProviders)
@@ -18,7 +18,7 @@ class ScoresViewControllerProvider: TypedViewControllerProviderObject {
         }
     }
 
-    // MARK: TypedViewControllerProviderObject
+    // MARK: TypedViewControllerProvider
 
     override func createViewController(resourceLocator: ResourceLocator, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
         guard resourceLocator.identifier == scoresIdentifier,
