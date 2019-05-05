@@ -275,8 +275,8 @@
 		65BDAA822189F55C007E887B = {
 			isa = PBXGroup;
 			children = (
-				65BDAA8D2189F55C007E887B /* MusicGeekMonthly */,
-				65BDAAA22189F55D007E887B /* MusicGeekMonthlyTests */,
+				65BDAA8D2189F55C007E887B /* Source */,
+				65BDAAA22189F55D007E887B /* Tests */,
 				65676F0C227F1DB800E229A5 /* Frameworks */,
 				65676F0D227F1DD600E229A5 /* Carthage Frameworks */,
 				65BDAA8C2189F55C007E887B /* Products */,
@@ -292,7 +292,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		65BDAA8D2189F55C007E887B /* MusicGeekMonthly */ = {
+		65BDAA8D2189F55C007E887B /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				6566197C21909E750068EA1B /* Navigation */,
@@ -313,10 +313,10 @@
 				65BDAA9A2189F55D007E887B /* Info.plist */,
 				65EA1D5D219450C2001FF06E /* Secret.plist */,
 			);
-			path = MusicGeekMonthly;
+			path = Source;
 			sourceTree = "<group>";
 		};
-		65BDAAA22189F55D007E887B /* MusicGeekMonthlyTests */ = {
+		65BDAAA22189F55D007E887B /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				65BDAACB218A0610007E887B /* DataLoader */,
@@ -325,7 +325,7 @@
 				65BDAAA52189F55D007E887B /* Info.plist */,
 				65BDAAD7218A096A007E887B /* XCTestCase+Extensions.swift */,
 			);
-			path = MusicGeekMonthlyTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		65BDAABD2189F683007E887B /* DataLoader */ = {
@@ -506,13 +506,13 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				$PROJECT_DIR/MusicGeekMonthly/Info.plist,
+				$PROJECT_DIR/Source/Info.plist,
 			);
 			name = "Copy Plist";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$PROJECT_DIR/MusicGeekMonthly/Secret.plist,
+				$PROJECT_DIR/Source/Secret.plist,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -762,7 +762,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = MusicGeekMonthly/Secret.plist;
+				INFOPLIST_FILE = Source/Secret.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -786,7 +786,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = MusicGeekMonthly/Secret.plist;
+				INFOPLIST_FILE = Source/Secret.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -804,7 +804,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
-				INFOPLIST_FILE = MusicGeekMonthlyTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -823,7 +823,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
-				INFOPLIST_FILE = MusicGeekMonthlyTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
