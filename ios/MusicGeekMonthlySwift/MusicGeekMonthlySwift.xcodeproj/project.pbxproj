@@ -55,7 +55,6 @@
 		65BDAA912189F55C007E887B /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA902189F55C007E887B /* ScoresViewController.swift */; };
 		65BDAA962189F55D007E887B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65BDAA952189F55D007E887B /* Assets.xcassets */; };
 		65BDAA992189F55D007E887B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65BDAA972189F55D007E887B /* LaunchScreen.storyboard */; };
-		65BDAAAF2189F55D007E887B /* MusicGeekMonthlyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAAE2189F55D007E887B /* MusicGeekMonthlyUITests.swift */; };
 		65BDAABF2189F69C007E887B /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAABE2189F69C007E887B /* DataLoader.swift */; };
 		65BDAAC82189FDE9007E887B /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */; };
 		65BDAACA2189FEF8007E887B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC92189FEF8007E887B /* Model.swift */; };
@@ -76,13 +75,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		65BDAAA02189F55D007E887B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 65BDAA832189F55C007E887B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 65BDAA8A2189F55C007E887B;
-			remoteInfo = MusicGeekMonthlySwift;
-		};
-		65BDAAAB2189F55D007E887B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 65BDAA832189F55C007E887B /* Project object */;
 			proxyType = 1;
@@ -132,9 +124,6 @@
 		65BDAA9A2189F55D007E887B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65BDAA9F2189F55D007E887B /* MusicGeekMonthlyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicGeekMonthlyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65BDAAA52189F55D007E887B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65BDAAAA2189F55D007E887B /* MusicGeekMonthlyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicGeekMonthlyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		65BDAAAE2189F55D007E887B /* MusicGeekMonthlyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicGeekMonthlyUITests.swift; sourceTree = "<group>"; };
-		65BDAAB02189F55D007E887B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65BDAABE2189F69C007E887B /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 		65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		65BDAAC92189FEF8007E887B /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -167,13 +156,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		65BDAA9C2189F55D007E887B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		65BDAAA72189F55D007E887B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -277,7 +259,6 @@
 			children = (
 				65BDAA8D2189F55C007E887B /* MusicGeekMonthly */,
 				65BDAAA22189F55D007E887B /* MusicGeekMonthlyTests */,
-				65BDAAAD2189F55D007E887B /* MusicGeekMonthlyUITests */,
 				65BDAA8C2189F55C007E887B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -287,7 +268,6 @@
 			children = (
 				65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */,
 				65BDAA9F2189F55D007E887B /* MusicGeekMonthlyTests.xctest */,
-				65BDAAAA2189F55D007E887B /* MusicGeekMonthlyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -330,15 +310,6 @@
 				65BDAAD7218A096A007E887B /* XCTestCase+Extensions.swift */,
 			);
 			path = MusicGeekMonthlyTests;
-			sourceTree = "<group>";
-		};
-		65BDAAAD2189F55D007E887B /* MusicGeekMonthlyUITests */ = {
-			isa = PBXGroup;
-			children = (
-				65BDAAAE2189F55D007E887B /* MusicGeekMonthlyUITests.swift */,
-				65BDAAB02189F55D007E887B /* Info.plist */,
-			);
-			path = MusicGeekMonthlyUITests;
 			sourceTree = "<group>";
 		};
 		65BDAABD2189F683007E887B /* DataLoader */ = {
@@ -434,24 +405,6 @@
 			productReference = 65BDAA9F2189F55D007E887B /* MusicGeekMonthlyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		65BDAAA92189F55D007E887B /* MusicGeekMonthlyUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 65BDAAB92189F55D007E887B /* Build configuration list for PBXNativeTarget "MusicGeekMonthlyUITests" */;
-			buildPhases = (
-				65BDAAA62189F55D007E887B /* Sources */,
-				65BDAAA72189F55D007E887B /* Frameworks */,
-				65BDAAA82189F55D007E887B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				65BDAAAC2189F55D007E887B /* PBXTargetDependency */,
-			);
-			name = MusicGeekMonthlyUITests;
-			productName = MusicGeekMonthlySwiftUITests;
-			productReference = 65BDAAAA2189F55D007E887B /* MusicGeekMonthlyUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -467,10 +420,6 @@
 					};
 					65BDAA9E2189F55D007E887B = {
 						CreatedOnToolsVersion = 10.1;
-					};
-					65BDAAA92189F55D007E887B = {
-						CreatedOnToolsVersion = 10.1;
-						TestTargetID = 65BDAA8A2189F55C007E887B;
 					};
 				};
 			};
@@ -489,7 +438,6 @@
 			targets = (
 				65BDAA8A2189F55C007E887B /* MusicGeekMonthly */,
 				65BDAA9E2189F55D007E887B /* MusicGeekMonthlyTests */,
-				65BDAAA92189F55D007E887B /* MusicGeekMonthlyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -510,13 +458,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				65D89F47221721340075238E /* GoodData.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		65BDAAA82189F55D007E887B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,14 +596,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		65BDAAA62189F55D007E887B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65BDAAAF2189F55D007E887B /* MusicGeekMonthlyUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -670,11 +603,6 @@
 			isa = PBXTargetDependency;
 			target = 65BDAA8A2189F55C007E887B /* MusicGeekMonthly */;
 			targetProxy = 65BDAAA02189F55D007E887B /* PBXContainerItemProxy */;
-		};
-		65BDAAAC2189F55D007E887B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 65BDAA8A2189F55C007E887B /* MusicGeekMonthly */;
-			targetProxy = 65BDAAAB2189F55D007E887B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -892,46 +820,6 @@
 			};
 			name = Release;
 		};
-		65BDAABA2189F55D007E887B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y56955G4Q8;
-				INFOPLIST_FILE = MusicGeekMonthlyUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.MusicGeekMonthlyUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MusicGeekMonthly;
-			};
-			name = Debug;
-		};
-		65BDAABB2189F55D007E887B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y56955G4Q8;
-				INFOPLIST_FILE = MusicGeekMonthlyUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.cerihughes.MusicGeekMonthlyUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MusicGeekMonthly;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -958,15 +846,6 @@
 			buildConfigurations = (
 				65BDAAB72189F55D007E887B /* Debug */,
 				65BDAAB82189F55D007E887B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		65BDAAB92189F55D007E887B /* Build configuration list for PBXNativeTarget "MusicGeekMonthlyUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				65BDAABA2189F55D007E887B /* Debug */,
-				65BDAABB2189F55D007E887B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
