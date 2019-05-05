@@ -4,7 +4,6 @@ build/
 DerivedData/
 
 **/xcuserdata
-**/xcshareddata
 
 Secrets.txt
 Secret.plist
