@@ -29,7 +29,8 @@
 		656619932190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */; };
 		656619952190AFBF0068EA1B /* ForwardNavigatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */; };
 		656619972190BB5F0068EA1B /* ExternalAppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */; };
-		6589F77821A8641900D08A0A /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6589F77721A8641900D08A0A /* Madog.framework */; };
+		65676F10227F1E5E00E229A5 /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65676F0E227F1E5E00E229A5 /* Provident.framework */; };
+		65676F11227F1E5E00E229A5 /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65676F0F227F1E5E00E229A5 /* Madog.framework */; };
 		658AE763218DF75C002D4AE5 /* AverageColorProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */; };
 		658BD83222295CC3008E0EB1 /* ScoresViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658BD83122295CC3008E0EB1 /* ScoresViewModelTests.swift */; };
 		658BD83522295E3D008E0EB1 /* MockViewModelDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658BD83422295E3D008E0EB1 /* MockViewModelDataLoader.swift */; };
@@ -46,7 +47,6 @@
 		658BD844222968F3008E0EB1 /* AlbumArtViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65661977219092080068EA1B /* AlbumArtViewModel.swift */; };
 		658BD84522296901008E0EB1 /* URL+SpotifyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */; };
 		658BD84622296913008E0EB1 /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6512F30521934DEE004CD379 /* ErrorMessages.swift */; };
-		65981ABC227DDADA0094248E /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65981ABB227DDAD90094248E /* Provident.framework */; };
 		65981ABE227DDB060094248E /* MGMResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65981ABD227DDB060094248E /* MGMResolver.swift */; };
 		659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */; };
 		659DED7121931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */; };
@@ -106,12 +106,12 @@
 		656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyLaunchViewControllerProvider.swift; sourceTree = "<group>"; };
 		656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardNavigatingViewController.swift; sourceTree = "<group>"; };
 		656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalAppLauncher.swift; sourceTree = "<group>"; };
-		6589F77721A8641900D08A0A /* Madog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Madog.framework; path = Carthage/Build/iOS/Madog.framework; sourceTree = SOURCE_ROOT; };
+		65676F0E227F1E5E00E229A5 /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
+		65676F0F227F1E5E00E229A5 /* Madog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Madog.framework; path = Carthage/Build/iOS/Madog.framework; sourceTree = "<group>"; };
 		658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageColorProcessor.swift; sourceTree = "<group>"; };
 		658BD83122295CC3008E0EB1 /* ScoresViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewModelTests.swift; sourceTree = "<group>"; };
 		658BD83422295E3D008E0EB1 /* MockViewModelDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockViewModelDataLoader.swift; sourceTree = "<group>"; };
 		658BD83F222967E1008E0EB1 /* MockImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageLoader.swift; sourceTree = "<group>"; };
-		65981ABB227DDAD90094248E /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = SOURCE_ROOT; };
 		65981ABD227DDB060094248E /* MGMResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGMResolver.swift; sourceTree = "<group>"; };
 		659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsLaunchViewControllerProvider.swift; sourceTree = "<group>"; };
@@ -148,10 +148,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6589F77821A8641900D08A0A /* Madog.framework in Frameworks */,
 				6528005D2193840D00100167 /* Crashlytics.framework in Frameworks */,
-				65981ABC227DDADA0094248E /* Provident.framework in Frameworks */,
+				65676F10227F1E5E00E229A5 /* Provident.framework in Frameworks */,
 				6528005C2193840D00100167 /* Fabric.framework in Frameworks */,
+				65676F11227F1E5E00E229A5 /* Madog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +230,24 @@
 			path = Spotify;
 			sourceTree = "<group>";
 		};
+		65676F0C227F1DB800E229A5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6528005B2193840D00100167 /* Crashlytics.framework */,
+				6528005A2193840C00100167 /* Fabric.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		65676F0D227F1DD600E229A5 /* Carthage Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				65676F0F227F1E5E00E229A5 /* Madog.framework */,
+				65676F0E227F1E5E00E229A5 /* Provident.framework */,
+			);
+			name = "Carthage Frameworks";
+			sourceTree = "<group>";
+		};
 		658BD83022295C9C008E0EB1 /* Scores */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +277,8 @@
 			children = (
 				65BDAA8D2189F55C007E887B /* MusicGeekMonthly */,
 				65BDAAA22189F55D007E887B /* MusicGeekMonthlyTests */,
+				65676F0C227F1DB800E229A5 /* Frameworks */,
+				65676F0D227F1DD600E229A5 /* Carthage Frameworks */,
 				65BDAA8C2189F55C007E887B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -290,10 +310,6 @@
 				65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */,
 				65BDAA952189F55D007E887B /* Assets.xcassets */,
 				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
-				6589F77721A8641900D08A0A /* Madog.framework */,
-				65981ABB227DDAD90094248E /* Provident.framework */,
-				6528005B2193840D00100167 /* Crashlytics.framework */,
-				6528005A2193840C00100167 /* Fabric.framework */,
 				65BDAA9A2189F55D007E887B /* Info.plist */,
 				65EA1D5D219450C2001FF06E /* Secret.plist */,
 			);
@@ -743,7 +759,7 @@
 				DEVELOPMENT_TEAM = Y56955G4Q8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/MusicGeekMonthly",
+					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = MusicGeekMonthly/Secret.plist;
@@ -767,7 +783,7 @@
 				DEVELOPMENT_TEAM = Y56955G4Q8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/MusicGeekMonthly",
+					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = MusicGeekMonthly/Secret.plist;
