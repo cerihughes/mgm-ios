@@ -1,0 +1,30 @@
+language: swift
+osx_image: xcode10.2
+
+cache:
+  directories:
+  - Carthage
+
+env:
+  global:
+    - PROJECT_NAME="MusicGeekMonthlySwift.xcodeproj"
+    - SCHEME_IOS_FRAMEWORK="MusicGeekMonthly"
+    - IOS_SDK=iphonesimulator12.2
+  matrix:
+    - DESTINATION="OS=12.2,name=iPhone X" SCHEME="$SCHEME_IOS_FRAMEWORK" SDK="$IOS_SDK"
+
+before_install:
+  - brew install carthage || true
+  - brew outdated carthage || brew upgrade carthage
+  - gem install xcpretty-travis-formatter --quiet
+
+before_script:
+  - cd ios/MusicGeekMonthlySwift
+  - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
+
+script:
+  - echo 0123456789012345678901234567890123456789 > Secrets.txt
+  - echo 0123456789012345678901234567890123456789012345678901234567890123 >> Secrets.txt
+  - set -o pipefail
+  - xcodebuild clean test -project "$PROJECT_NAME" -scheme "$SCHEME" -destination "$DESTINATION" -sdk "$SDK" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty -f `xcpretty-travis-formatter`
+  

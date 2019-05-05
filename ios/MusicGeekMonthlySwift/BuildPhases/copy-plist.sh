@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 apiKey=$(sed -n '1p' < Secrets.txt)
 secretKey=$(sed -n '2p' < Secrets.txt)
 

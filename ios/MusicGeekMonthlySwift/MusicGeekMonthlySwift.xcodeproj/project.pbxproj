@@ -549,11 +549,13 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				$PROJECT_DIR/MusicGeekMonthly/Info.plist,
 			);
 			name = "Copy Plist";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				$PROJECT_DIR/MusicGeekMonthly/Secret.plist,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
