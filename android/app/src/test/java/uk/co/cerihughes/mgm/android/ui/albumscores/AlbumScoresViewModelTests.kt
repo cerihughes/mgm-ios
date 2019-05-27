@@ -1,4 +1,4 @@
-package uk.co.cerihughes.mgm.android
+package uk.co.cerihughes.mgm.android.ui.albumscores
 
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -10,11 +10,8 @@ import org.koin.standalone.inject
 import org.koin.test.KoinTest
 import org.koin.test.declareMock
 import uk.co.cerihughes.mgm.android.di.appModule
-import uk.co.cerihughes.mgm.android.model.Album
-import uk.co.cerihughes.mgm.android.model.AlbumType
-import uk.co.cerihughes.mgm.android.model.Event
+import uk.co.cerihughes.mgm.android.model.*
 import uk.co.cerihughes.mgm.android.repository.Repository
-import uk.co.cerihughes.mgm.android.ui.albumscores.AlbumScoresViewModel
 
 class AlbumScoresViewModelTests: KoinTest {
     val viewModel: AlbumScoresViewModel by inject()
@@ -113,32 +110,6 @@ class AlbumScoresViewModelTests: KoinTest {
             ratings = listOf("10.0", "10.0", "10.0", "9.0", "9.0", "9.0", "8.0", "8.0", "7.0", "7.0"),
             albumNames = listOf("A0", "A1", "A1", "B2", "B2", "B2", "aaa", "zzz", "1", "2"),
             artistNames = listOf("ZZZ", "A2", "Z1", "xxx", "yyy", "zzz", "zzz", "aaa", "Art", "Art"))
-    }
-
-    private fun createEvent(number: Int, classicAlbumScore: Float, newAlbumScore: Float): Event {
-        val classicAlbum = createAlbum(AlbumType.CLASSIC, score = classicAlbumScore)
-        val newAlbum = createAlbum(AlbumType.NEW, score = newAlbumScore)
-        return createEvent(number, classicAlbum, newAlbum)
-    }
-
-    private fun createEventByAlbumName(number: Int, classicAlbumName: String, newAlbumName: String): Event {
-        val classicAlbum = createAlbum(AlbumType.CLASSIC, name = classicAlbumName)
-        val newAlbum = createAlbum(AlbumType.NEW, name = newAlbumName)
-        return createEvent(number, classicAlbum, newAlbum)
-    }
-
-    private fun createEventByAlbumArtist(number: Int, classicAlbumArtist: String, newAlbumArtist: String): Event {
-        val classicAlbum = createAlbum(AlbumType.CLASSIC, artist = classicAlbumArtist)
-        val newAlbum = createAlbum(AlbumType.NEW, artist = newAlbumArtist)
-        return createEvent(number, classicAlbum, newAlbum)
-    }
-
-    private fun createEvent(number: Int, classicAlbum: Album, newAlbum: Album): Event {
-        return Event(number, null, null, null, classicAlbum, newAlbum)
-    }
-
-    private fun createAlbum(type: AlbumType, name: String = "name", artist: String = "artist", score: Float = 5.0f): Album {
-        return Album(type, null, name, artist, score, emptyList())
     }
 
     private fun assert(positions: List<String>,
