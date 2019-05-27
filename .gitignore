@@ -1,13 +1,13 @@
 .DS_Store
 
 build/
+Carthage/
 DerivedData/
 
 **/xcuserdata
 
 Secrets.txt
 Secret.plist
-ios/MusicGeekMonthlySwift/Carthage
 
 server/mgm-gcp/out/
 server/mgm-gcp/target/
