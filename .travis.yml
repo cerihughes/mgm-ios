@@ -19,7 +19,6 @@ before_install:
   - gem install xcpretty-travis-formatter --quiet
 
 before_script:
-  - cd ios/MusicGeekMonthlySwift
   - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
 
 script:
