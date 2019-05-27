@@ -1,4 +1,4 @@
-package uk.co.cerihughes.mgm.android.dataloader
+package uk.co.cerihughes.mgm.android.repository.local
 
 import android.support.test.InstrumentationRegistry
 import org.junit.Assert.assertEquals
