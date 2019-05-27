@@ -12,8 +12,9 @@ class LatestEventViewModel(repository: Repository): RemoteDataLoadingViewModel(r
     }
 
     enum class ItemType(val rawValue: Int) {
-        LOCATION(0),
-        ENTITY(1)
+        TITLE(0),
+        LOCATION(1),
+        ENTITY(2)
     }
 
     private var event: Event? = null
@@ -63,16 +64,9 @@ class LatestEventViewModel(repository: Repository): RemoteDataLoadingViewModel(r
         return Pair(location.latitude, location.longitude)
     }
 
-    fun itemType(position: Int): LatestEventViewModel.ItemType {
-        return when (position) {
-            0 -> if (isLocationAvailable()) LatestEventViewModel.ItemType.LOCATION else LatestEventViewModel.ItemType.ENTITY
-            else -> LatestEventViewModel.ItemType.ENTITY
-        }
-    }
-
     fun numberOfItems(): Int {
-        var locationCount = if (isLocationAvailable()) 1 else 0
-        return locationCount + numberOfEntites()
+        var locationCount = if (isLocationAvailable()) 2 else 0
+        return locationCount + numberOfEntites() + 1
     }
 
     fun numberOfEntites(): Int {
@@ -86,16 +80,29 @@ class LatestEventViewModel(repository: Repository): RemoteDataLoadingViewModel(r
         return false
     }
 
-    fun headerTitle(section: Int): String? {
-        when (section) {
-            0 -> return "LOCATION"
-            1 -> return "LISTENING TO"
-            else -> return null
+    fun itemType(position: Int): ItemType {
+        if (isLocationAvailable()) {
+            return when (position) {
+                0, 2 -> ItemType.TITLE
+                1 -> ItemType.LOCATION
+                else -> ItemType.ENTITY
+            }
+        }
+        return when (position) {
+            0 -> ItemType.TITLE
+            else -> ItemType.ENTITY
         }
     }
 
-    fun eventEntityViewModel(index: Int): LatestEventEntityViewModel? {
-        val entityIndex = if(isLocationAvailable()) index - 1 else index
+    fun headerTitle(position: Int): String? {
+        return when (position) {
+            0 -> if (isLocationAvailable()) "LOCATION" else "LISTENING TO"
+            else -> "LISTENING TO"
+        }
+    }
+
+    fun eventEntityViewModel(position: Int): LatestEventEntityViewModel? {
+        val entityIndex = if(isLocationAvailable()) position - 3 else position - 1
         try {
             return eventEntityViewModels[entityIndex]
         } catch (e: IndexOutOfBoundsException) {

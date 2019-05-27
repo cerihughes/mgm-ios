@@ -11,6 +11,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.latest_event_entity_list_item.view.*
 import kotlinx.android.synthetic.main.latest_event_location_list_item.view.*
+import kotlinx.android.synthetic.main.latest_event_title_list_item.view.*
 import uk.co.cerihughes.mgm.android.R
 import uk.co.cerihughes.mgm.android.ui.BlurTransformation
 import uk.co.cerihughes.mgm.android.ui.inflate
@@ -25,6 +26,10 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
+            LatestEventViewModel.ItemType.TITLE.rawValue -> {
+                val view = viewGroup.inflate(R.layout.latest_event_title_list_item, false)
+                return LatestEventTitleItemViewHolder(view)
+            }
             LatestEventViewModel.ItemType.LOCATION.rawValue -> {
                 val view = viewGroup.inflate(R.layout.latest_event_location_list_item, false)
                 return LatestEventLocationItemViewHolder(view)
@@ -40,6 +45,11 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (viewModel.itemType(position)) {
+            LatestEventViewModel.ItemType.TITLE -> {
+                holder as? LatestEventTitleItemViewHolder ?: return
+                val title = viewModel.headerTitle(position) ?: return
+                holder.bind(title)
+            }
             LatestEventViewModel.ItemType.LOCATION -> {
                 holder as? LatestEventLocationItemViewHolder ?: return
                 holder.bind(viewModel)
@@ -53,8 +63,14 @@ class LatestEventAdapter (private val viewModel: LatestEventViewModel) : Recycle
     }
 
     override fun getItemCount(): Int {
-        var locationCount = if (viewModel.isLocationAvailable()) 1 else 0
-        return locationCount + viewModel.numberOfEntites()
+        return viewModel.numberOfItems()
+    }
+
+    class LatestEventTitleItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+
+        fun bind(title: String) {
+            itemView.textView.text = title
+        }
     }
 
     class LatestEventLocationItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
