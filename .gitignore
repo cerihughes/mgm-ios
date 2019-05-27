@@ -1,6 +1,5 @@
 .DS_Store
 
-build/
 Carthage/
 DerivedData/
 
@@ -8,15 +7,3 @@ DerivedData/
 
 Secrets.txt
 Secret.plist
-
-server/mgm-gcp/out/
-server/mgm-gcp/target/
-server/mgm-gcp/.idea/modules.xml
-workspace.xml
-usage.statistics.xml
-tasks.xml
-*.iml
-
-Secrets.java
-android/app/src/main/res/values/secrets.xml
-android/app/google-services.json
