@@ -22,8 +22,5 @@ before_script:
   - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
 
 script:
-  - echo 0123456789012345678901234567890123456789 > Secrets.txt
-  - echo 0123456789012345678901234567890123456789012345678901234567890123 >> Secrets.txt
   - set -o pipefail
   - xcodebuild clean test -project "$PROJECT_NAME" -scheme "$SCHEME" -destination "$DESTINATION" -sdk "$SDK" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty -f `xcpretty-travis-formatter`
-  
