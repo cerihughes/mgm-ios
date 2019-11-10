@@ -9,7 +9,7 @@ class ViewModelDataLoaderServiceProvider: ServiceProvider {
 
     // MARK: ServiceProvider
 
-    required init(context: ServiceProviderCreationContext) {
+    override init(context: ServiceProviderCreationContext) {
         let dataLoader = DataLoaderImplementation()
         let gcpDataLoader = GCPDataLoaderImplementation(dataLoader: dataLoader)
         let cachingGCPDataLoader = CachingGCPDataLoaderImplementation(wrappedDataLoader: gcpDataLoader, userDefaults: UserDefaults.standard)
