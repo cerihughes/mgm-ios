@@ -18,6 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         madog.resolve(resolver: MGMResolver())
         let initialRLs: [ResourceLocator] = [.latestEvent, .scores]
         let identifier = MultiUIIdentifier.createTabBarControllerIdentifier()
-        return madog.renderUI(identifier: identifier, tokens: initialRLs, in: window)
+        return madog.renderUI(identifier: identifier, tokens: initialRLs, in: window) != nil
     }
 }
