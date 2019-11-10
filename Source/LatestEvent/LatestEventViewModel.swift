@@ -90,7 +90,7 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
             dataLoaderToken.cancel()
         }
 
-        dataLoaderToken = dataLoader.loadData() { [weak self] response in
+        dataLoaderToken = dataLoader.loadData { [weak self] response in
             DispatchQueue.main.async {
                 self?.dataLoaderToken = nil
 

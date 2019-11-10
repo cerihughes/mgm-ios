@@ -444,6 +444,7 @@
 			buildPhases = (
 				6528005E2193861B00100167 /* Copy Plist */,
 				65BDAA872189F55C007E887B /* Sources */,
+				654B11E72378516B005E0931 /* Swiftlint */,
 				65BDAA882189F55C007E887B /* Frameworks */,
 				65BDAA892189F55C007E887B /* Resources */,
 				65C014D921A86CEC0064E845 /* Copy Carthage Frameworks */,
@@ -576,6 +577,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "$PROJECT_DIR/BuildPhases/copy-plist.sh\n";
+		};
+		654B11E72378516B005E0931 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "swiftlint\n";
 		};
 		65C014D921A86CEC0064E845 /* Copy Carthage Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
