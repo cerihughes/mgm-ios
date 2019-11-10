@@ -78,17 +78,17 @@ class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
         constraints.append(contentsOf: byLabel.anchorTo(leadingAnchor: albumLabel.leadingAnchor,
                                                         trailingAnchor: albumLabel.trailingAnchor,
                                                         bottomAnchor: artistLabel.topAnchor, bottomConstant: -halfSpacing,
-                                                        heightAnchor: albumLabel.heightAnchor));
+                                                        heightAnchor: albumLabel.heightAnchor))
 
         constraints.append(contentsOf: artistLabel.anchorTo(leadingAnchor: albumLabel.leadingAnchor,
                                                             trailingAnchor: albumLabel.trailingAnchor,
                                                             bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
-                                                            heightAnchor: albumLabel.heightAnchor));
+                                                            heightAnchor: albumLabel.heightAnchor))
 
         NSLayoutConstraint.activate(constraints)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

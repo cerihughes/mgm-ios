@@ -13,7 +13,7 @@ private typealias DataLoaderTuple = (response: DataLoaderResponse, token: DataLo
 class MockDataLoader: DataLoader {
     var delay: TimeInterval = 0
 
-    private var urlResponses: [URL : DataLoaderTuple] = [:]
+    private var urlResponses: [URL: DataLoaderTuple] = [:]
     var requestedURLs: [URL] = []
 
     // MARK: DataLoader

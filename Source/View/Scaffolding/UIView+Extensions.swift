@@ -1,7 +1,6 @@
 import UIKit
 
 extension UIView {
-
     func anchorTo(leadingAnchor: NSLayoutXAxisAnchor? = nil, leadingConstant: CGFloat = 0,
                   trailingAnchor: NSLayoutXAxisAnchor? = nil, trailingConstant: CGFloat = 0,
                   topAnchor: NSLayoutYAxisAnchor? = nil, topConstant: CGFloat = 0,
@@ -10,7 +9,6 @@ extension UIView {
                   centerYAnchor: NSLayoutYAxisAnchor? = nil, centerYConstant: CGFloat = 0,
                   widthAnchor: NSLayoutDimension? = nil, widthConstant: CGFloat = 0, widthMultiplier: CGFloat = 1,
                   heightAnchor: NSLayoutDimension? = nil, heightConstant: CGFloat = 0, heightMultiplier: CGFloat = 1) -> [NSLayoutConstraint] {
-
         var constraints: [NSLayoutConstraint] = []
 
         if let anchor = leadingAnchor {

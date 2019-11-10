@@ -9,18 +9,18 @@
 import XCTest
 
 class GCPDataConverterTests: XCTestCase {
-
     // MARK: CUT
+
     private var dataConverter: GCPDataConverterImplementation!
 
     override func setUp() {
         super.setUp()
 
-        self.dataConverter = GCPDataConverterImplementation()
+        dataConverter = GCPDataConverterImplementation()
     }
 
     override func tearDown() {
-        self.dataConverter = nil
+        dataConverter = nil
 
         super.tearDown()
     }
@@ -47,6 +47,7 @@ class GCPDataConverterTests: XCTestCase {
     }
 
     // MARK: Private utilities
+
     private func runTestForSuccess(resource: String) -> [Event] {
         guard let events = createModel(resource: resource)?.asSuccessData() else {
             XCTFail("Expected events response")
@@ -78,14 +79,14 @@ class GCPDataConverterTests: XCTestCase {
 
 extension GCPDataConverterResponse {
     func asSuccessData() -> [Event]? {
-        guard case .success(let events) = self else {
+        guard case let .success(events) = self else {
             return nil
         }
         return events
     }
 
     func asFailureData() -> Error? {
-        guard case .failure(let error) = self else {
+        guard case let .failure(error) = self else {
             return nil
         }
         return error

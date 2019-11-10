@@ -1,7 +1,7 @@
 import Madog
 import UIKit
 
-fileprivate let scoresIdentifier = "scoresIdentifier"
+private let scoresIdentifier = "scoresIdentifier"
 
 class ScoresViewControllerProvider: TypedViewControllerProvider {
     private var imageLoader: ImageLoader?
@@ -9,7 +9,7 @@ class ScoresViewControllerProvider: TypedViewControllerProvider {
 
     // MARK: ViewControllerProvider
 
-    override func configure(with serviceProviders: [String : ServiceProvider]) {
+    override func configure(with serviceProviders: [String: ServiceProvider]) {
         super.configure(with: serviceProviders)
 
         if let serviceProvider = serviceProviders[viewModelDataLoaderServiceName] as? ViewModelDataLoaderServiceProvider {
@@ -24,7 +24,7 @@ class ScoresViewControllerProvider: TypedViewControllerProvider {
         guard resourceLocator.identifier == scoresIdentifier,
             let imageLoader = imageLoader,
             let viewModelDataLoader = viewModelDataLoader else {
-                return nil
+            return nil
         }
 
         let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)

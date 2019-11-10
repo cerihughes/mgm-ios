@@ -29,7 +29,7 @@ final class GCPDataConverterImplementation: GCPDataConverter {
             decoder.dateDecodingStrategy = .formatted(DateFormatter.mgm_modelDateFormatter())
             let events = try decoder.decode([Event].self, from: data)
             return .success(events)
-        } catch let error {
+        } catch {
             return .failure(error)
         }
     }

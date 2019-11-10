@@ -1,7 +1,7 @@
 import Madog
 import UIKit
 
-fileprivate let cellReuseIdentifier = "ScoresViewController_CellReuseIdentifier"
+private let cellReuseIdentifier = "ScoresViewController_CellReuseIdentifier"
 
 class ScoresViewController: ForwardNavigatingViewController {
     private var viewModel: ScoresViewModel
@@ -12,7 +12,7 @@ class ScoresViewController: ForwardNavigatingViewController {
         super.init(navigationContext: navigationContext)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -75,10 +75,9 @@ class ScoresViewController: ForwardNavigatingViewController {
 }
 
 extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-
     // MARK: UICollectionViewDataSource
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         return viewModel.numberOfScores
     }
 
@@ -102,8 +101,8 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
             let cellViewModel = viewModel.scoreViewModel(at: indexPath.row),
             let scoresCell = cell as? ScoresCollectionViewCell,
             let layout = collectionView.collectionViewLayout as? FullWidthCollectionViewLayout
-            else {
-                return
+        else {
+            return
         }
 
         scoresCell.imageView.image = cellViewModel.loadingImage
@@ -118,7 +117,7 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
         let contentViewHeight = layout.contentViewSize(in: indexPath.section).height
         let largestDimension = Int(contentViewHeight * collectionView.traitCollection.displayScale)
 
-        cellViewModel.loadAlbumCover(largestDimension: largestDimension) { (image) in
+        cellViewModel.loadAlbumCover(largestDimension: largestDimension) { image in
             scoresCell.hideActivityIndicator()
             if let image = image {
                 scoresCell.imageView.image = image
@@ -126,7 +125,7 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, didEndDisplaying _: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cellViewModel = viewModel.scoreViewModel(at: indexPath.row) else {
             return
         }
@@ -134,14 +133,14 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
         cellViewModel.cancelLoadAlbumCover()
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         dismissKeyboard()
 
         guard
             let cellViewModel = viewModel.scoreViewModel(at: indexPath.row),
             let spotifyURL = cellViewModel.spotifyURL
-            else {
-                return
+        else {
+            return
         }
 
         let rl = ResourceLocator.spotify(spotifyURL: spotifyURL)
@@ -157,7 +156,6 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
 }
 
 extension ScoresViewController: UISearchBarDelegate {
-
     // MARK: - UISearchBarDelegate
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -179,23 +177,21 @@ extension ScoresViewController: UISearchBarDelegate {
         dismissKeyboard()
     }
 
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_: UISearchBar) {
         dismissKeyboard()
     }
 }
 
 extension ScoresViewController {
-
     // MARK: UIButton interactions
 
     @objc
-    private func buttonTapGesture(sender: UIButton) {
+    private func buttonTapGesture(sender _: UIButton) {
         loadData()
     }
 }
 
 extension ScoresViewController {
-
     // MARK: UISegmentedControl interactions
 
     @objc

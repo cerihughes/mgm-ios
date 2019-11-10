@@ -9,7 +9,6 @@
 import XCTest
 
 class ScoresViewModelTests: XCTestCase {
-
     private var viewModelDataLoader: MockViewModelDataLoader!
     private var imageLoader: MockImageLoader!
 
@@ -123,7 +122,7 @@ class ScoresViewModelTests: XCTestCase {
         let event1 = createEvent(number: 1, classicAlbumName: "AA", newAlbumName: "dd")
         let event2 = createEvent(number: 2, classicAlbumName: "bb", newAlbumName: "EE")
         let event3 = createEvent(number: 3, classicAlbumName: "CC", newAlbumName: "ff")
-        viewModelDataLoader.response = .success([event1, event2, event3, ])
+        viewModelDataLoader.response = .success([event1, event2, event3])
 
         let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
         let loadingExpectation = expectation(description: "Data Loaded")
@@ -143,7 +142,7 @@ class ScoresViewModelTests: XCTestCase {
         let event1 = createEvent(number: 1, classicAlbumArtist: "Aa", newAlbumArtist: "ab")
         let event2 = createEvent(number: 2, classicAlbumArtist: "ACa1", newAlbumArtist: "ACA2")
         let event3 = createEvent(number: 3, classicAlbumArtist: "aDEe3", newAlbumArtist: "AdeE4")
-        viewModelDataLoader.response = .success([event1, event2, event3, ])
+        viewModelDataLoader.response = .success([event1, event2, event3])
 
         let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
         let loadingExpectation = expectation(description: "Data Loaded")

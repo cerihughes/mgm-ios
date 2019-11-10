@@ -2,7 +2,7 @@ import UIKit
 
 protocol AlbumArtViewModel {
     /// An image to show while the album art is loading
-    var loadingImage: UIImage? {get}
+    var loadingImage: UIImage? { get }
 
     /// Loads an album cover. Image data will be passed into the given completion block
     ///
@@ -20,7 +20,7 @@ class AlbumArtViewModelImplementation: AlbumArtViewModel {
     private let images: [Image]
     private let loadingImageIndex: Int
 
-    private var dataLoaderToken: DataLoaderToken? = nil
+    private var dataLoaderToken: DataLoaderToken?
 
     init(imageLoader: ImageLoader, images: [Image], loadingImageIndex: Int = -1) {
         self.imageLoader = imageLoader
@@ -38,17 +38,17 @@ class AlbumArtViewModelImplementation: AlbumArtViewModel {
         guard
             let imageURLString = image(for: largestDimension),
             let imageURL = URL(string: imageURLString)
-            else {
-                completion(nil)
-                return
+        else {
+            completion(nil)
+            return
         }
 
-        dataLoaderToken = imageLoader.loadImage(url: imageURL) { (response) in
+        dataLoaderToken = imageLoader.loadImage(url: imageURL) { response in
             DispatchQueue.main.async {
-                switch (response) {
-                case .success(let image):
+                switch response {
+                case let .success(image):
                     completion(image)
-                case .failure(_):
+                case .failure:
                     completion(nil)
                 }
             }
@@ -63,7 +63,7 @@ class AlbumArtViewModelImplementation: AlbumArtViewModel {
     // MARK: Private
 
     private func image(for largestDimension: Int) -> String? {
-        var candidate: String? = nil
+        var candidate: String?
         for image in images {
             let size = image.size ?? 0
             if size > largestDimension {

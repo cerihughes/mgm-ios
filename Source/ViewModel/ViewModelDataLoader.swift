@@ -23,12 +23,12 @@ final class ViewModelDataLoaderImplementation: ViewModelDataLoader {
     }
 
     func loadData(_ completion: @escaping (GCPDataConverterResponse) -> Void) -> DataLoaderToken? {
-        return dataLoader.loadData() { [weak self] (response) in
+        return dataLoader.loadData { [weak self] response in
             DispatchQueue.main.async {
-                switch (response) {
-                case .success(let data):
+                switch response {
+                case let .success(data):
                     self?.handleDataLoaderSuccess(data: data, completion)
-                case .failure(let error):
+                case let .failure(error):
                     self?.handleDataLoaderFailure(error: error, completion)
                 }
             }
@@ -39,10 +39,10 @@ final class ViewModelDataLoaderImplementation: ViewModelDataLoader {
 
     private func handleDataLoaderSuccess(data: Data, _ completion: @escaping (GCPDataConverterResponse) -> Void) {
         let response = dataConverter.convert(data: data)
-        switch (response) {
-        case .success(let events):
+        switch response {
+        case let .success(events):
             completion(.success(events))
-        case .failure(let error):
+        case let .failure(error):
             handleDataLoaderFailure(error: error, completion)
         }
     }

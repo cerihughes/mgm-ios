@@ -2,9 +2,9 @@ import CoreLocation
 import Madog
 import UIKit
 
-fileprivate let sectionHeaderReuseIdentifier = "LatestEventViewController_CellReuseIdentifier_SectionHeader"
-fileprivate let locationCellReuseIdentifier = "LatestEventViewController_CellReuseIdentifier_Location"
-fileprivate let entityCellReuseIdentifier = "LatestEventViewController_CellReuseIdentifier_Enity"
+private let sectionHeaderReuseIdentifier = "LatestEventViewController_CellReuseIdentifier_SectionHeader"
+private let locationCellReuseIdentifier = "LatestEventViewController_CellReuseIdentifier_Location"
+private let entityCellReuseIdentifier = "LatestEventViewController_CellReuseIdentifier_Enity"
 
 class LatestEventViewController: ForwardNavigatingViewController {
     private var viewModel: LatestEventViewModel
@@ -15,7 +15,7 @@ class LatestEventViewController: ForwardNavigatingViewController {
         super.init(navigationContext: navigationContext)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -78,17 +78,16 @@ class LatestEventViewController: ForwardNavigatingViewController {
 }
 
 extension LatestEventViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-
     // MARK: UICollectionViewDataSource
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in _: UICollectionView) -> Int {
         if viewModel.isLocationAvailable {
             return 2
         }
         return 1
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
             return viewModel.isLocationAvailable ? 1 : viewModel.numberOfEntites
@@ -102,8 +101,8 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         guard
             let headerView = view as? LatestEventCollectionSectionHeaderView,
             let headerTitle = viewModel.headerTitle(for: indexPath.section)
-            else {
-                return view
+        else {
+            return view
         }
 
         headerView.label.text = headerTitle
@@ -113,9 +112,9 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
-            return self.collectionView(collectionView, locationCellForItemAt:indexPath)
+            return self.collectionView(collectionView, locationCellForItemAt: indexPath)
         }
-        return self.collectionView(collectionView, entityCellForItemAt:indexPath)
+        return self.collectionView(collectionView, entityCellForItemAt: indexPath)
     }
 
     private func collectionView(_ collectionView: UICollectionView, locationCellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -124,8 +123,8 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
             let mapReference = viewModel.mapReference,
             let locationName = viewModel.locationName,
             let locationCell = cell as? LatestEventLocationCollectionViewCell
-            else {
-                return cell
+        else {
+            return cell
         }
 
         let location = CLLocation(latitude: mapReference.latitude, longitude: mapReference.longitude)
@@ -139,8 +138,8 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         guard
             let entityCell = cell as? LatestEventEntityCollectionViewCell,
             let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row)
-            else {
-                return cell
+        else {
+            return cell
         }
 
         entityCell.typeLabel.text = entityViewModel.entityType
@@ -159,8 +158,8 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
             let backgroundImageView = entityCell.backgroundView as? UIImageView,
             let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row),
             let layout = collectionView.collectionViewLayout as? FullWidthCollectionViewLayout
-            else {
-                return
+        else {
+            return
         }
 
         entityCell.imageView.image = entityViewModel.loadingImage
@@ -171,7 +170,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         let contentViewHeight = layout.contentViewSize(in: indexPath.section).height
         let largestDimension = Int(contentViewHeight * collectionView.traitCollection.displayScale)
 
-        entityViewModel.loadAlbumCover(largestDimension: largestDimension) { (image) in
+        entityViewModel.loadAlbumCover(largestDimension: largestDimension) { image in
             entityCell.hideActivityIndicator()
             if let image = image {
                 backgroundImageView.image = image
@@ -180,12 +179,12 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, didEndDisplaying _: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard
             indexPath.section == 1,
             let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row)
-            else {
-                return
+        else {
+            return
         }
 
         entityViewModel.cancelLoadAlbumCover()
@@ -199,24 +198,24 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectLocationItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, didSelectLocationItemAt _: IndexPath) {
         guard
             let locationName = viewModel.locationName,
             let mapReference = viewModel.mapReference
-            else {
-                return
+        else {
+            return
         }
 
         let rl = ResourceLocator.appleMaps(locationName: locationName, latitude: mapReference.latitude, longitude: mapReference.longitude)
         _ = navigationContext.navigateForward(token: rl, animated: true)
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectEntityItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, didSelectEntityItemAt indexPath: IndexPath) {
         guard
             let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row),
             let spotifyURL = entityViewModel.spotifyURL
-            else {
-                return
+        else {
+            return
         }
 
         let rl = ResourceLocator.spotify(spotifyURL: spotifyURL)
@@ -225,11 +224,10 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
 }
 
 extension LatestEventViewController {
-
     // MARK: UIButton interactions
 
     @objc
-    private func buttonTapGesture(sender: UIButton) {
+    private func buttonTapGesture(sender _: UIButton) {
         loadData()
     }
 }

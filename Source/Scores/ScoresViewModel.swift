@@ -12,28 +12,28 @@ enum ScoresViewModelError: Error {
 /// representations.
 protocol ScoresViewModel {
     /// The number of scores loaded by the last query
-    var numberOfScores: Int {get}
+    var numberOfScores: Int { get }
 
     /// The display strings for the different types of albums
-    var albumTypes: [String] {get}
+    var albumTypes: [String] { get }
 
     /// The index of the selected album type
-    var selectedAlbumType: Int {get set}
+    var selectedAlbumType: Int { get set }
 
     /// Whether the data has loaded successfully
-    var dataLoaded: Bool {get}
+    var dataLoaded: Bool { get }
 
     /// Any error / info message that needs to be rendered.
-    var message: String? {get}
+    var message: String? { get }
 
     /// The title of the retry button (when visible)
-    var retryButtonTitle: String {get}
+    var retryButtonTitle: String { get }
 
     /// The placeholder to show when no filter is used
-    var filterPlaceholder: String {get}
+    var filterPlaceholder: String { get }
 
     /// A filter to apply to results
-    var filter: String? {get set}
+    var filter: String? { get set }
 
     /// Loads data. The completion block will be fired when data is available.
     func loadData(_ completion: @escaping () -> Void)
@@ -71,7 +71,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     private var allAlbums: [Album] = []
     private var scoreViewModels: [ScoreViewModel] = []
     private var filteredScoreViewModels: [ScoreViewModel] = []
-    private var dataLoaderToken: DataLoaderToken? = nil
+    private var dataLoaderToken: DataLoaderToken?
 
     var selectedAlbumType = 2 {
         didSet {
@@ -79,7 +79,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
         }
     }
 
-    var filter: String? = nil {
+    var filter: String? {
         didSet {
             applyFilter()
         }
@@ -89,7 +89,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     let retryButtonTitle = "Retry"
     let filterPlaceholder = "Filter by album, artist or score"
 
-    var message: String? = nil
+    var message: String?
     init(dataLoader: ViewModelDataLoader, imageLoader: ImageLoader) {
         self.dataLoader = dataLoader
         self.imageLoader = imageLoader
@@ -100,14 +100,14 @@ final class ScoresViewModelImplementation: ScoresViewModel {
             dataLoaderToken.cancel()
         }
 
-        dataLoaderToken = dataLoader.loadData() { [weak self] (response) in
+        dataLoaderToken = dataLoader.loadData() { [weak self] response in
             DispatchQueue.main.async {
                 self?.dataLoaderToken = nil
 
-                switch (response) {
-                case .success(let events):
+                switch response {
+                case let .success(events):
                     self?.handleDataLoaderSuccess(events: events, completion)
-                case .failure(let error):
+                case let .failure(error):
                     self?.handleDataLoaderFailure(error: error, completion)
                 }
             }
@@ -141,10 +141,10 @@ final class ScoresViewModelImplementation: ScoresViewModel {
         updateStateAndNotify(events: events, completion)
     }
 
-    private func handleDataLoaderFailure(error: Error, _ completion: () -> Void) {
-        self.scoreViewModels = []
-        self.filteredScoreViewModels = []
-        self.message = dataLoaderErrorMessage
+    private func handleDataLoaderFailure(error _: Error, _ completion: () -> Void) {
+        scoreViewModels = []
+        filteredScoreViewModels = []
+        message = dataLoaderErrorMessage
         completion()
     }
 
@@ -168,7 +168,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
 
     private func applyAlbumTypeFilter() {
         let positions = calculatePositions(for: filteredAlbums)
-        self.scoreViewModels = filteredAlbums.enumerated().map { ScoreViewModelImplementation(imageLoader: imageLoader, album: $0.element, index: $0.offset, position: positions[$0.offset]) }
+        scoreViewModels = filteredAlbums.enumerated().map { ScoreViewModelImplementation(imageLoader: imageLoader, album: $0.element, index: $0.offset, position: positions[$0.offset]) }
         applyFilter()
     }
 
@@ -192,10 +192,10 @@ final class ScoresViewModelImplementation: ScoresViewModel {
             let trimmed = filter?.trimmingCharacters(in: .whitespacesAndNewlines),
             trimmed.count > 0,
             self.scoreViewModels.count > 0
-            else {
-                self.filteredScoreViewModels = self.scoreViewModels
-                self.message = nil
-                return
+        else {
+            self.filteredScoreViewModels = self.scoreViewModels
+            self.message = nil
+            return
         }
 
         self.filteredScoreViewModels = self.scoreViewModels.filter { $0.albumName.mgm_contains(filter: trimmed) || $0.artistName.mgm_contains(filter: trimmed) || $0.rating.starts(with: trimmed) }
@@ -205,6 +205,6 @@ final class ScoresViewModelImplementation: ScoresViewModel {
 
 extension String {
     func mgm_contains(filter: String) -> Bool {
-        return self.range(of: filter, options: .caseInsensitive) != nil
+        return range(of: filter, options: .caseInsensitive) != nil
     }
 }

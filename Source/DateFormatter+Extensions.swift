@@ -5,7 +5,7 @@ extension DateFormatter {
         self.init()
 
         self.dateFormat = dateFormat
-        self.timeZone = TimeZone(identifier: timeZoneIdentifier)
+        timeZone = TimeZone(identifier: timeZoneIdentifier)
     }
 
     static func mgm_modelDateFormatter() -> DateFormatter {

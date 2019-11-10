@@ -58,7 +58,7 @@ class ScoresCollectionViewCell: AlbumCollectionViewCell {
         constraints.append(contentsOf: artistLabel.anchorTo(leadingAnchor: albumLabel.leadingAnchor,
                                                             trailingAnchor: albumLabel.trailingAnchor,
                                                             bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
-                                                            heightAnchor: albumLabel.heightAnchor));
+                                                            heightAnchor: albumLabel.heightAnchor))
 
         constraints.append(contentsOf: awardImageView.anchorTo(trailingAnchor: readableTrailingAnchor, trailingConstant: -spacing,
                                                                topAnchor: contentView.topAnchor, topConstant: spacing,
@@ -75,7 +75,7 @@ class ScoresCollectionViewCell: AlbumCollectionViewCell {
         NSLayoutConstraint.activate(constraints)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
