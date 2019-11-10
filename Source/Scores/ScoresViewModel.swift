@@ -100,7 +100,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
             dataLoaderToken.cancel()
         }
 
-        dataLoaderToken = dataLoader.loadData() { [weak self] response in
+        dataLoaderToken = dataLoader.loadData { [weak self] response in
             DispatchQueue.main.async {
                 self?.dataLoaderToken = nil
 
@@ -168,7 +168,9 @@ final class ScoresViewModelImplementation: ScoresViewModel {
 
     private func applyAlbumTypeFilter() {
         let positions = calculatePositions(for: filteredAlbums)
-        scoreViewModels = filteredAlbums.enumerated().map { ScoreViewModelImplementation(imageLoader: imageLoader, album: $0.element, index: $0.offset, position: positions[$0.offset]) }
+        scoreViewModels = filteredAlbums
+            .enumerated()
+            .map { ScoreViewModelImplementation(imageLoader: imageLoader, album: $0.element, index: $0.offset, position: positions[$0.offset]) }
         applyFilter()
     }
 
@@ -198,7 +200,8 @@ final class ScoresViewModelImplementation: ScoresViewModel {
             return
         }
 
-        self.filteredScoreViewModels = self.scoreViewModels.filter { $0.albumName.mgm_contains(filter: trimmed) || $0.artistName.mgm_contains(filter: trimmed) || $0.rating.starts(with: trimmed) }
+        self.filteredScoreViewModels = self.scoreViewModels
+            .filter { $0.albumName.mgm_contains(filter: trimmed) || $0.artistName.mgm_contains(filter: trimmed) || $0.rating.starts(with: trimmed) }
         self.message = self.filteredScoreViewModels.count == 0 ? "No results for filter: \(trimmed)" : nil
     }
 }

@@ -42,13 +42,13 @@ private enum Award {
     var ratingFontColor: UIColor {
         switch self {
         case .gold:
-            return .mgm_gold
+            return .goldCup
         case .silver:
-            return .mgm_silver
+            return .silverCup
         case .bronze:
-            return .mgm_bronze
+            return .bronzeCup
         default:
-            return .mgm_green
+            return .greenCup
         }
     }
 
@@ -113,8 +113,8 @@ final class ScoreViewModelImplementation: AlbumArtViewModelImplementation, Score
 }
 
 extension UIColor {
-    static var mgm_gold = UIColor(red: 238.0 / 255.0, green: 187.0 / 255.0, blue: 100.0 / 255.0, alpha: 1.0)
-    static var mgm_silver = UIColor(red: 180.0 / 255.0, green: 180.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0)
-    static var mgm_bronze = UIColor(red: 217.0 / 255.0, green: 162.0 / 255.0, blue: 129.0 / 255.0, alpha: 1.0)
-    static var mgm_green = UIColor(red: 55.0 / 255.0, green: 106.0 / 255.0, blue: 77.0 / 255.0, alpha: 1.0)
+    static var goldCup = UIColor(red: 238.0 / 255.0, green: 187.0 / 255.0, blue: 100.0 / 255.0, alpha: 1.0)
+    static var silverCup = UIColor(red: 180.0 / 255.0, green: 180.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0)
+    static var bronzeCup = UIColor(red: 217.0 / 255.0, green: 162.0 / 255.0, blue: 129.0 / 255.0, alpha: 1.0)
+    static var greenCup = UIColor(red: 55.0 / 255.0, green: 106.0 / 255.0, blue: 77.0 / 255.0, alpha: 1.0)
 }
