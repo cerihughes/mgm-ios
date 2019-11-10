@@ -11,31 +11,31 @@ typealias MapReference = (latitude: Double, longitude: Double)
 
 protocol LatestEventViewModel {
     /// The title to display in the UI
-    var title: String {get}
+    var title: String { get }
 
     /// The location name
-    var locationName: String? {get}
+    var locationName: String? { get }
 
     /// The map reference
-    var mapReference: MapReference? {get}
+    var mapReference: MapReference? { get }
 
     /// Any error / info message that needs to be rendered.
-    var message: String? {get}
+    var message: String? { get }
 
     /// The title of the retry button (when visible)
-    var retryButtonTitle: String {get}
+    var retryButtonTitle: String { get }
 
     /// Loads data. The completion block will be fired when data is available.
     func loadData(_ completion: @escaping () -> Void)
 
     /// The number of entities (albums and playlists) to render
-    var numberOfEntites: Int {get}
+    var numberOfEntites: Int { get }
 
     /// Whether there's a locations available
-    var isLocationAvailable: Bool {get}
+    var isLocationAvailable: Bool { get }
 
     /// The title for the given section
-    func headerTitle(for section:Int) -> String?
+    func headerTitle(for section: Int) -> String?
 
     /// Returns an entity view model (album or playlist) for the given index
     ///
@@ -52,11 +52,11 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
     private let imageLoader: ImageLoader
 
     private var eventEntityViewModels: [LatestEventEntityViewModel] = []
-    private var dataLoaderToken: DataLoaderToken? = nil
+    private var dataLoaderToken: DataLoaderToken?
 
     let retryButtonTitle = "Retry"
-    var event: Event? = nil
-    var message: String? = nil
+    var event: Event?
+    var message: String?
 
     init(dataLoader: ViewModelDataLoader, imageLoader: ImageLoader) {
         self.dataLoader = dataLoader
@@ -90,14 +90,14 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
             dataLoaderToken.cancel()
         }
 
-        dataLoaderToken = dataLoader.loadData() { [weak self] (response) in
+        dataLoaderToken = dataLoader.loadData() { [weak self] response in
             DispatchQueue.main.async {
                 self?.dataLoaderToken = nil
 
-                switch (response) {
-                case .success(let events):
+                switch response {
+                case let .success(events):
                     self?.handleDataLoaderSuccess(events: events, completion)
-                case .failure(let error):
+                case let .failure(error):
                     self?.handleDataLoaderFailure(error: error, completion)
                 }
             }
@@ -138,19 +138,19 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
             let event = sortedEvents.first,
             let classicAlbum = event.classicAlbum,
             let newAlbum = event.newAlbum
-            else {
-                let error = LatestEventViewModelError.noEvent("No events returned")
-                handleDataLoaderFailure(error: error, completion)
-                return
+        else {
+            let error = LatestEventViewModelError.noEvent("No events returned")
+            handleDataLoaderFailure(error: error, completion)
+            return
         }
 
         updateStateAndNotify(event: event, classicAlbum: classicAlbum, newAlbum: newAlbum, completion)
     }
 
-    private func handleDataLoaderFailure(error: Error, _ completion: () -> Void) {
-        self.event = nil
-        self.eventEntityViewModels = []
-        self.message = dataLoaderErrorMessage
+    private func handleDataLoaderFailure(error _: Error, _ completion: () -> Void) {
+        event = nil
+        eventEntityViewModels = []
+        message = dataLoaderErrorMessage
         completion()
     }
 
@@ -161,7 +161,7 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
         if let playlist = event.playlist {
             eventEntityViewModels.append(LatestEventEntityViewModelImplementation(imageLoader: imageLoader, playlist: playlist))
         }
-        self.message = nil
+        message = nil
         completion()
     }
 }

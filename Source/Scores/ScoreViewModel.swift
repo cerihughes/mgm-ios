@@ -2,25 +2,25 @@ import UIKit
 
 protocol ScoreViewModel: AlbumArtViewModel {
     /// The album name
-    var albumName: String {get}
+    var albumName: String { get }
 
     /// The artist name
-    var artistName: String {get}
+    var artistName: String { get }
 
     // The album rating, to 1 decimal place
-    var rating: String {get}
+    var rating: String { get }
 
     // The colour of the rating text
-    var ratingFontColor: UIColor {get}
+    var ratingFontColor: UIColor { get }
 
     /// An image to represent the restaurant's rating award
-    var awardImage: UIImage? {get}
+    var awardImage: UIImage? { get }
 
     /// The "chart" position
-    var position: String {get}
+    var position: String { get }
 
     /// The spotify URL to navigate to on interaction
-    var spotifyURL: URL? {get}
+    var spotifyURL: URL? { get }
 }
 
 private enum Award {
@@ -76,7 +76,7 @@ final class ScoreViewModelImplementation: AlbumArtViewModelImplementation, Score
         self.album = album
         self.index = index
         self.position = position
-        self.award = Award.award(for: album.score ?? 0.0)
+        award = Award.award(for: album.score ?? 0.0)
 
         super.init(imageLoader: imageLoader, images: album.images, loadingImageIndex: (index % 3) + 1)
     }
@@ -113,8 +113,8 @@ final class ScoreViewModelImplementation: AlbumArtViewModelImplementation, Score
 }
 
 extension UIColor {
-    static var mgm_gold = UIColor.init(red: 238.0 / 255.0, green: 187.0 / 255.0, blue: 100.0 / 255.0, alpha: 1.0)
-    static var mgm_silver = UIColor.init(red: 180.0 / 255.0, green: 180.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0)
-    static var mgm_bronze = UIColor.init(red: 217.0 / 255.0, green: 162.0 / 255.0, blue: 129.0 / 255.0, alpha: 1.0)
-    static var mgm_green = UIColor.init(red: 55.0 / 255.0, green: 106.0 / 255.0, blue: 77.0 / 255.0, alpha: 1.0)
+    static var mgm_gold = UIColor(red: 238.0 / 255.0, green: 187.0 / 255.0, blue: 100.0 / 255.0, alpha: 1.0)
+    static var mgm_silver = UIColor(red: 180.0 / 255.0, green: 180.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0)
+    static var mgm_bronze = UIColor(red: 217.0 / 255.0, green: 162.0 / 255.0, blue: 129.0 / 255.0, alpha: 1.0)
+    static var mgm_green = UIColor(red: 55.0 / 255.0, green: 106.0 / 255.0, blue: 77.0 / 255.0, alpha: 1.0)
 }

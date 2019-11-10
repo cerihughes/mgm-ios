@@ -36,13 +36,13 @@ final class ImageLoaderImplementation: ImageLoader {
     init(dataLoader: DataLoader) {
         self.dataLoader = dataLoader
     }
-    
+
     func loadImage(url: URL, _ completion: @escaping (ImageLoaderResponse) -> Void) -> DataLoaderToken? {
-        return dataLoader.loadData(url: url) { [weak self] (response) in
-            switch (response) {
-            case .success(let data):
+        return dataLoader.loadData(url: url) { [weak self] response in
+            switch response {
+            case let .success(data):
                 self?.handleDataLoaderSuccess(data: data, completion)
-            case .failure(let error):
+            case let .failure(error):
                 self?.handleDataLoaderFailure(error: error, completion)
             }
         }

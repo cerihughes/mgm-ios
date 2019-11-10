@@ -19,6 +19,6 @@ class MGMResolver: Resolver<ResourceLocator> {
 
     override func serviceProviderCreationFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
         let serviceProviderCreationFunction = { context in ViewModelDataLoaderServiceProvider(context: context) }
-        return [ serviceProviderCreationFunction ]
+        return [serviceProviderCreationFunction]
     }
 }

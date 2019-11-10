@@ -1,7 +1,7 @@
 import Madog
 import UIKit
 
-fileprivate let latestEventIdentifier = "latestEventIdentifier"
+private let latestEventIdentifier = "latestEventIdentifier"
 
 class LatestEventViewControllerProvider: TypedViewControllerProvider {
     private var imageLoader: ImageLoader?
@@ -9,7 +9,7 @@ class LatestEventViewControllerProvider: TypedViewControllerProvider {
 
     // MARK: ViewControllerProvider
 
-    override func configure(with serviceProviders: [String : ServiceProvider]) {
+    override func configure(with serviceProviders: [String: ServiceProvider]) {
         super.configure(with: serviceProviders)
 
         if let serviceProvider = serviceProviders[viewModelDataLoaderServiceName] as? ViewModelDataLoaderServiceProvider {
@@ -24,7 +24,7 @@ class LatestEventViewControllerProvider: TypedViewControllerProvider {
         guard resourceLocator.identifier == latestEventIdentifier,
             let imageLoader = imageLoader,
             let viewModelDataLoader = viewModelDataLoader else {
-                return nil
+            return nil
         }
 
         let viewModel = LatestEventViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
@@ -34,7 +34,6 @@ class LatestEventViewControllerProvider: TypedViewControllerProvider {
         viewController.tabBarItem.image = UIImage(named: "calendar")
 
         return viewController
-
     }
 }
 

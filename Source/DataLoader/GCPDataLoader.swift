@@ -55,11 +55,11 @@ class CachingGCPDataLoaderImplementation: GCPDataLoader {
     }
 
     func loadData(_ completion: @escaping (DataLoaderResponse) -> Void) -> DataLoaderToken? {
-        return wrappedDataLoader.loadData() { [weak self] (response) in
+        return wrappedDataLoader.loadData { [weak self] response in
             switch response {
-            case .success(let data):
+            case let .success(data):
                 self?.handleDataLoaderSuccess(data: data, completion)
-            case .failure(let error):
+            case let .failure(error):
                 self?.handleDataLoaderFailure(error: error, completion)
             }
         }

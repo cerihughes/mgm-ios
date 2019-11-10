@@ -15,8 +15,8 @@ class ViewModelDataLoaderServiceProvider: ServiceProvider {
         let cachingGCPDataLoader = CachingGCPDataLoaderImplementation(wrappedDataLoader: gcpDataLoader, userDefaults: UserDefaults.standard)
         let dataConverter = GCPDataConverterImplementation()
 
-        self.imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)
-        self.viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: cachingGCPDataLoader, dataConverter: dataConverter)
+        imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)
+        viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: cachingGCPDataLoader, dataConverter: dataConverter)
 
         super.init(context: context)
         name = viewModelDataLoaderServiceName

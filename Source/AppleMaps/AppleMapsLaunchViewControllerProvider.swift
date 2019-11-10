@@ -2,24 +2,23 @@ import Madog
 import MapKit
 import UIKit
 
-fileprivate let appleMapsIdentifier = "appleMapsIdentifier"
+private let appleMapsIdentifier = "appleMapsIdentifier"
 
 class AppleMapsLaunchViewControllerProvider: TypedViewControllerProvider {
-
     // MARK: TypedViewControllerProvider
 
-    override func createViewController(resourceLocator: ResourceLocator, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
+    override func createViewController(resourceLocator: ResourceLocator, navigationContext _: ForwardBackNavigationContext) -> UIViewController? {
         guard
             resourceLocator.identifier == appleMapsIdentifier,
             let appleMapsLocationName = resourceLocator.appleMapsLocationName,
             let appleMapsLatitude = resourceLocator.appleMapsLatitude,
             let appleMapsLongitude = resourceLocator.appleMapsLongitude
-            else {
-                return nil
+        else {
+            return nil
         }
 
         let coordinate = CLLocationCoordinate2DMake(appleMapsLatitude, appleMapsLongitude)
-        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary: nil))
         mapItem.name = appleMapsLocationName
         mapItem.openInMaps(launchOptions: nil)
 
@@ -34,8 +33,8 @@ extension ResourceLocator {
 
     static func appleMaps(locationName: String, latitude: Double, longitude: Double) -> ResourceLocator {
         return ResourceLocator(identifier: appleMapsIdentifier,
-                               data: [appleMapsLocationNameKey : locationName,
-                                      appleMapsLatitudeKey : latitude,
+                               data: [appleMapsLocationNameKey: locationName,
+                                      appleMapsLatitudeKey: latitude,
                                       appleMapsLongitudeKey: longitude])
     }
 

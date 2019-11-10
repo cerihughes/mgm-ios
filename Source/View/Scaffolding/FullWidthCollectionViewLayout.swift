@@ -6,13 +6,13 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
         case item
 
         var value: String {
-            return self.rawValue
+            return rawValue
         }
     }
 
     private let sectionHeaderHeight: CGFloat
     private let defaultItemHeight: CGFloat
-    private let itemHeightOverrides: [Int : CGFloat]
+    private let itemHeightOverrides: [Int: CGFloat]
 
     private let borderSpacing: CGFloat
     private let itemSpacing: CGFloat
@@ -21,18 +21,18 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
     private var itemCache: [UICollectionViewLayoutAttributes] = []
     private var sectionHeaderCache: [UICollectionViewLayoutAttributes] = []
 
-    init(sectionHeaderHeight: CGFloat, defaultItemHeight: CGFloat, itemHeightOverrides: [Int : CGFloat], spacing: CGFloat) {
+    init(sectionHeaderHeight: CGFloat, defaultItemHeight: CGFloat, itemHeightOverrides: [Int: CGFloat], spacing: CGFloat) {
         self.sectionHeaderHeight = sectionHeaderHeight
         self.defaultItemHeight = defaultItemHeight
         self.itemHeightOverrides = itemHeightOverrides
-        self.borderSpacing = spacing
-        self.itemSpacing = spacing
-        self.sectionSpacing = spacing
+        borderSpacing = spacing
+        itemSpacing = spacing
+        sectionSpacing = spacing
 
         super.init()
     }
 
-    convenience init(defaultItemHeight: CGFloat, itemHeightOverrides: [Int : CGFloat], spacing: CGFloat) {
+    convenience init(defaultItemHeight: CGFloat, itemHeightOverrides: [Int: CGFloat], spacing: CGFloat) {
         self.init(sectionHeaderHeight: 0.0, defaultItemHeight: defaultItemHeight, itemHeightOverrides: itemHeightOverrides, spacing: spacing)
     }
 
@@ -44,7 +44,7 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
         self.init(defaultItemHeight: itemHeight, itemHeightOverrides: [:], spacing: spacing)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

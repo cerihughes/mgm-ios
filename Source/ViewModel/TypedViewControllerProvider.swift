@@ -18,7 +18,7 @@ class TypedViewControllerProvider: ViewControllerProvider<ResourceLocator> {
         registry.removeRegistryFunction(uuid: uuid)
     }
 
-    func createViewController(resourceLocator: ResourceLocator, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
+    func createViewController(resourceLocator _: ResourceLocator, navigationContext _: ForwardBackNavigationContext) -> UIViewController? {
         // Override
         return nil
     }

@@ -40,7 +40,7 @@ final class AverageColorProcessorImplementation: AverageColorProcessor {
         }
 
         let outputExtent = outputImage.extent
-        guard outputExtent.size.width == 1 && outputExtent.size.height == 1 else {
+        guard outputExtent.size.width == 1, outputExtent.size.height == 1 else {
             return nil
         }
 

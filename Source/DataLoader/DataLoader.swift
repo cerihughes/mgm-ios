@@ -45,12 +45,12 @@ final class DataLoaderImplementation: DataLoader {
     init() {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForResource = 10.0
-        self.urlSession = URLSession(configuration: configuration)
+        urlSession = URLSession(configuration: configuration)
     }
 
     func loadData(url: URL, _ completion: @escaping (DataLoaderResponse) -> Void) -> DataLoaderToken? {
         let urlRequest = URLRequest(url: url)
-        let dataTask = urlSession.dataTask(with: urlRequest) { [weak self] (data, response, error) in
+        let dataTask = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
             if let response = self?.createDataLoaderResponse(data: data, response: response, error: error) {
                 completion(response)
             }
@@ -61,14 +61,14 @@ final class DataLoaderImplementation: DataLoader {
         return dataTask
     }
 
-    private func createDataLoaderResponse(data: Data?, response: URLResponse?, error: Error?) -> DataLoaderResponse? {
+    private func createDataLoaderResponse(data: Data?, response _: URLResponse?, error: Error?) -> DataLoaderResponse? {
         if let data = data {
             return .success(data)
         }
 
         if let error = error {
             let systemError = error as NSError
-            if systemError.domain == NSURLErrorDomain && systemError.code == NSURLErrorCancelled {
+            if systemError.domain == NSURLErrorDomain, systemError.code == NSURLErrorCancelled {
                 // Ignore "errors" due to cancelled requests
                 return nil
             }
@@ -79,5 +79,4 @@ final class DataLoaderImplementation: DataLoader {
     }
 }
 
-extension URLSessionDataTask: DataLoaderToken {
-}
+extension URLSessionDataTask: DataLoaderToken {}
