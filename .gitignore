@@ -5,5 +5,5 @@ DerivedData/
 
 **/xcuserdata
 
-Secrets.txt
 Secret.plist
+GoogleService-Info.plist
