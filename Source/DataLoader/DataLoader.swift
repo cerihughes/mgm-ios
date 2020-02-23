@@ -43,9 +43,7 @@ final class DataLoaderImplementation: DataLoader {
     private let urlSession: URLSession
 
     init() {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForResource = 10.0
-        urlSession = URLSession(configuration: configuration)
+        urlSession = URLSession(configuration: .default)
     }
 
     func loadData(url: URL, _ completion: @escaping (DataLoaderResponse) -> Void) -> DataLoaderToken? {
