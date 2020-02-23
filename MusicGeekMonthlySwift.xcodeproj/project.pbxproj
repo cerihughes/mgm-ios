@@ -203,10 +203,10 @@
 		6566197121908B6C0068EA1B /* Scaffolding */ = {
 			isa = PBXGroup;
 			children = (
-				656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */,
-				6553CF94219089560020EEC2 /* DataLoadingView.swift */,
-				6507A1FB218C8FE200C26202 /* FullWidthCollectionViewLayout.swift */,
 				656619792190969A0068EA1B /* AlbumCollectionViewCell.swift */,
+				6553CF94219089560020EEC2 /* DataLoadingView.swift */,
+				656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */,
+				6507A1FB218C8FE200C26202 /* FullWidthCollectionViewLayout.swift */,
 				6540A51C218C87010028B382 /* UIView+Extensions.swift */,
 			);
 			path = Scaffolding;
@@ -231,10 +231,10 @@
 		656619892190A7090068EA1B /* Scores */ = {
 			isa = PBXGroup;
 			children = (
-				6566198B2190A7730068EA1B /* ScoresViewControllerProvider.swift */,
-				65BDAA902189F55C007E887B /* ScoresViewController.swift */,
-				65D2AD9D218B5143002BB0C9 /* ScoresView.swift */,
 				6540A51A218C85260028B382 /* ScoresCollectionViewCell.swift */,
+				65D2AD9D218B5143002BB0C9 /* ScoresView.swift */,
+				65BDAA902189F55C007E887B /* ScoresViewController.swift */,
+				6566198B2190A7730068EA1B /* ScoresViewControllerProvider.swift */,
 				65D2AD97218B3105002BB0C9 /* ScoresViewModel.swift */,
 				65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */,
 			);
@@ -244,14 +244,14 @@
 		6566198A2190A7330068EA1B /* LatestEvent */ = {
 			isa = PBXGroup;
 			children = (
-				6566198F2190A9470068EA1B /* LatestEventViewControllerProvider.swift */,
-				6566197421908CE20068EA1B /* LatestEventViewController.swift */,
-				6553CF922190890B0020EEC2 /* LatestEventView.swift */,
 				6512F30321933D06004CD379 /* LatestEventCollectionSectionHeaderView.swift */,
 				6566197221908BFA0068EA1B /* LatestEventEntityCollectionViewCell.swift */,
-				659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */,
-				6553CF8A21907C4A0020EEC2 /* LatestEventViewModel.swift */,
 				6553CF8C21907CB30020EEC2 /* LatestEventEntityViewModel.swift */,
+				659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */,
+				6553CF922190890B0020EEC2 /* LatestEventView.swift */,
+				6566197421908CE20068EA1B /* LatestEventViewController.swift */,
+				6566198F2190A9470068EA1B /* LatestEventViewControllerProvider.swift */,
+				6553CF8A21907C4A0020EEC2 /* LatestEventViewModel.swift */,
 			);
 			path = LatestEvent;
 			sourceTree = "<group>";
@@ -259,8 +259,8 @@
 		656619912190ACAE0068EA1B /* Spotify */ = {
 			isa = PBXGroup;
 			children = (
-				656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */,
 				656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */,
+				656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */,
 			);
 			path = Spotify;
 			sourceTree = "<group>";
@@ -288,7 +288,6 @@
 			isa = PBXGroup;
 			children = (
 				657BE92D2375B45D00039947 /* FIRAnalyticsConnector.framework */,
-				657BE93D2375B67000039947 /* Firebase.h */,
 				657BE92E2375B45D00039947 /* FirebaseAnalytics.framework */,
 				657BE92A2375B45B00039947 /* FirebaseCore.framework */,
 				657BE9292375B45B00039947 /* FirebaseCoreDiagnostics.framework */,
@@ -297,10 +296,19 @@
 				657BE92C2375B45C00039947 /* GoogleDataTransport.framework */,
 				657BE92F2375B45D00039947 /* GoogleDataTransportCCTSupport.framework */,
 				657BE9282375B45B00039947 /* GoogleUtilities.framework */,
-				657BE93C2375B67000039947 /* module.modulemap */,
 				657BE9302375B45D00039947 /* nanopb.framework */,
+				657BE93D2375B67000039947 /* Firebase.h */,
+				657BE93C2375B67000039947 /* module.modulemap */,
 			);
 			path = Firebase;
+			sourceTree = "<group>";
+		};
+		65820CB52402C5CD0081C6DC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				65BDAABD2189F683007E887B /* DataLoader */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		658BD83022295C9C008E0EB1 /* Scores */ = {
@@ -351,24 +359,24 @@
 		65BDAA8D2189F55C007E887B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				6566197C21909E750068EA1B /* Navigation */,
-				65BDAABD2189F683007E887B /* DataLoader */,
-				65BDAAC22189F97F007E887B /* Model */,
-				65D2AD96218B30E7002BB0C9 /* View */,
-				65D2AD95218B3015002BB0C9 /* ViewModel */,
-				656619892190A7090068EA1B /* Scores */,
-				6566198A2190A7330068EA1B /* LatestEvent */,
-				656619912190ACAE0068EA1B /* Spotify */,
-				659DED6F21931FDE00226579 /* AppleMaps */,
-				65BDAA8E2189F55C007E887B /* AppDelegate.swift */,
-				65981ABD227DDB060094248E /* MGMResolver.swift */,
-				65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */,
-				65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */,
-				65BDAA952189F55D007E887B /* Assets.xcassets */,
-				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
+				657BE9432375B9D200039947 /* GoogleService-Info.plist */,
 				65BDAA9A2189F55D007E887B /* Info.plist */,
 				65EA1D5D219450C2001FF06E /* Secret.plist */,
-				657BE9432375B9D200039947 /* GoogleService-Info.plist */,
+				65BDAA8E2189F55C007E887B /* AppDelegate.swift */,
+				65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */,
+				65981ABD227DDB060094248E /* MGMResolver.swift */,
+				65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */,
+				65BDAA952189F55D007E887B /* Assets.xcassets */,
+				659DED6F21931FDE00226579 /* AppleMaps */,
+				65820CB52402C5CD0081C6DC /* Components */,
+				6566198A2190A7330068EA1B /* LatestEvent */,
+				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
+				65BDAAC22189F97F007E887B /* Model */,
+				6566197C21909E750068EA1B /* Navigation */,
+				656619892190A7090068EA1B /* Scores */,
+				656619912190ACAE0068EA1B /* Spotify */,
+				65D2AD96218B30E7002BB0C9 /* View */,
+				65D2AD95218B3015002BB0C9 /* ViewModel */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -376,11 +384,11 @@
 		65BDAAA22189F55D007E887B /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				65BDAACB218A0610007E887B /* DataLoader */,
-				658BD83322295E10008E0EB1 /* ViewModel */,
-				658BD83022295C9C008E0EB1 /* Scores */,
 				65BDAAA52189F55D007E887B /* Info.plist */,
 				65BDAAD7218A096A007E887B /* XCTestCase+Extensions.swift */,
+				65BDAACB218A0610007E887B /* DataLoader */,
+				658BD83022295C9C008E0EB1 /* Scores */,
+				658BD83322295E10008E0EB1 /* ViewModel */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -388,10 +396,10 @@
 		65BDAABD2189F683007E887B /* DataLoader */ = {
 			isa = PBXGroup;
 			children = (
-				65BDAABE2189F69C007E887B /* DataLoader.swift */,
-				65E485562199C78D00CCE895 /* GCPDataLoader.swift */,
-				65E4855A2199C86400CCE895 /* GCPDataConverter.swift */,
 				65E485582199C82A00CCE895 /* gcp.json */,
+				65BDAABE2189F69C007E887B /* DataLoader.swift */,
+				65E4855A2199C86400CCE895 /* GCPDataConverter.swift */,
+				65E485562199C78D00CCE895 /* GCPDataLoader.swift */,
 				65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */,
 			);
 			path = DataLoader;
@@ -408,10 +416,10 @@
 		65BDAACB218A0610007E887B /* DataLoader */ = {
 			isa = PBXGroup;
 			children = (
+				65D89F46221721340075238E /* GoodData.json */,
+				65D89F43221720A90075238E /* GCPDataConverterTests.swift */,
 				65BDAACE218A068E007E887B /* MockDataLoader.swift */,
 				658BD83F222967E1008E0EB1 /* MockImageLoader.swift */,
-				65D89F43221720A90075238E /* GCPDataConverterTests.swift */,
-				65D89F46221721340075238E /* GoodData.json */,
 			);
 			path = DataLoader;
 			sourceTree = "<group>";
@@ -419,10 +427,10 @@
 		65D2AD95218B3015002BB0C9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				65661976219091F60068EA1B /* Scaffolding */,
+				65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */,
 				6553CF9021907F9A0020EEC2 /* ViewModelDataLoader.swift */,
 				65E4374021A9C021001D9311 /* ViewModelDataLoaderServiceProvider.swift */,
-				65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */,
+				65661976219091F60068EA1B /* Scaffolding */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -430,9 +438,9 @@
 		65D2AD96218B30E7002BB0C9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6566197121908B6C0068EA1B /* Scaffolding */,
-				6512F30521934DEE004CD379 /* ErrorMessages.swift */,
 				658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */,
+				6512F30521934DEE004CD379 /* ErrorMessages.swift */,
+				6566197121908B6C0068EA1B /* Scaffolding */,
 			);
 			path = View;
 			sourceTree = "<group>";
