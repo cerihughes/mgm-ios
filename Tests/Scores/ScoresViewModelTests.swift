@@ -1,19 +1,19 @@
 import XCTest
 
-class ScoresViewModelTests: XCTestCase {
-    private var viewModelDataLoader: MockViewModelDataLoader!
+class ScoresViewModelTests: DataRepositoryTestCase {
+    private var encoder: JSONEncoder!
     private var imageLoader: MockImageLoader!
 
     override func setUp() {
         super.setUp()
 
-        viewModelDataLoader = MockViewModelDataLoader()
+        encoder = JSONEncoder.create()
         imageLoader = MockImageLoader()
     }
 
     override func tearDown() {
-        viewModelDataLoader = nil
         imageLoader = nil
+        encoder = nil
 
         super.tearDown()
     }
@@ -22,9 +22,10 @@ class ScoresViewModelTests: XCTestCase {
         let event1 = createEvent(number: 1, classicAlbumScore: 8.0, newAlbumScore: 7.0)
         let event2 = createEvent(number: 2, classicAlbumScore: 5.0, newAlbumScore: 6.0)
         let event3 = createEvent(number: 3, classicAlbumScore: 10.0, newAlbumScore: 9.0)
-        viewModelDataLoader.response = .success([event1, event2, event3])
+        let data = try! encoder.encode(events: [event1, event2, event3])
+        remoteDataSource.loadEventDataResponse = .success(data)
 
-        let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
+        let viewModel = ScoresViewModelImplementation(dataRepository: dataRepository, imageLoader: imageLoader)
         let loadingExpectation = expectation(description: "Data Loaded")
         viewModel.loadData {
             loadingExpectation.fulfill()
@@ -52,9 +53,10 @@ class ScoresViewModelTests: XCTestCase {
         let event1 = createEvent(number: 1, classicAlbumScore: 10.0, newAlbumScore: 9.5)
         let event2 = createEvent(number: 2, classicAlbumScore: 10.0, newAlbumScore: 9.5)
         let event3 = createEvent(number: 3, classicAlbumScore: 10.0, newAlbumScore: 9.5)
-        viewModelDataLoader.response = .success([event1, event2, event3])
+        let data = try! encoder.encode([event1, event2, event3])
+        remoteDataSource.loadEventDataResponse = .success(data)
 
-        let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
+        let viewModel = ScoresViewModelImplementation(dataRepository: dataRepository, imageLoader: imageLoader)
         let loadingExpectation = expectation(description: "Data Loaded")
         viewModel.loadData {
             loadingExpectation.fulfill()
@@ -84,9 +86,10 @@ class ScoresViewModelTests: XCTestCase {
         let event3 = createEvent(number: 3, classicAlbumScore: 3.3, newAlbumScore: 5.5)
         let event4 = createEvent(number: 4, classicAlbumScore: 6.6, newAlbumScore: 6.6)
         let event5 = createEvent(number: 5, classicAlbumScore: 6.6, newAlbumScore: 6.6)
-        viewModelDataLoader.response = .success([event1, event2, event3, event4, event5])
+        let data = try! encoder.encode([event1, event2, event3, event4, event5])
+        remoteDataSource.loadEventDataResponse = .success(data)
 
-        let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
+        let viewModel = ScoresViewModelImplementation(dataRepository: dataRepository, imageLoader: imageLoader)
         let loadingExpectation = expectation(description: "Data Loaded")
         viewModel.loadData {
             loadingExpectation.fulfill()
@@ -114,9 +117,10 @@ class ScoresViewModelTests: XCTestCase {
         let event1 = createEvent(number: 1, classicAlbumName: "AA", newAlbumName: "dd")
         let event2 = createEvent(number: 2, classicAlbumName: "bb", newAlbumName: "EE")
         let event3 = createEvent(number: 3, classicAlbumName: "CC", newAlbumName: "ff")
-        viewModelDataLoader.response = .success([event1, event2, event3])
+        let data = try! encoder.encode([event1, event2, event3])
+        remoteDataSource.loadEventDataResponse = .success(data)
 
-        let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
+        let viewModel = ScoresViewModelImplementation(dataRepository: dataRepository, imageLoader: imageLoader)
         let loadingExpectation = expectation(description: "Data Loaded")
         viewModel.loadData {
             loadingExpectation.fulfill()
@@ -134,9 +138,10 @@ class ScoresViewModelTests: XCTestCase {
         let event1 = createEvent(number: 1, classicAlbumArtist: "Aa", newAlbumArtist: "ab")
         let event2 = createEvent(number: 2, classicAlbumArtist: "ACa1", newAlbumArtist: "ACA2")
         let event3 = createEvent(number: 3, classicAlbumArtist: "aDEe3", newAlbumArtist: "AdeE4")
-        viewModelDataLoader.response = .success([event1, event2, event3])
+        let data = try! encoder.encode([event1, event2, event3])
+        remoteDataSource.loadEventDataResponse = .success(data)
 
-        let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
+        let viewModel = ScoresViewModelImplementation(dataRepository: dataRepository, imageLoader: imageLoader)
         let loadingExpectation = expectation(description: "Data Loaded")
         viewModel.loadData {
             loadingExpectation.fulfill()
@@ -169,9 +174,10 @@ class ScoresViewModelTests: XCTestCase {
         let event4 = createEvent(number: 4, classicAlbum: classicAlbum4, newAlbum: newAlbum4)
         let event5 = createEvent(number: 5, classicAlbum: classicAlbum5, newAlbum: newAlbum5)
 
-        viewModelDataLoader.response = .success([event1, event2, event3, event4, event5])
+        let data = try! encoder.encode([event1, event2, event3, event4, event5])
+        remoteDataSource.loadEventDataResponse = .success(data)
 
-        let viewModel = ScoresViewModelImplementation(dataLoader: viewModelDataLoader, imageLoader: imageLoader)
+        let viewModel = ScoresViewModelImplementation(dataRepository: dataRepository, imageLoader: imageLoader)
         let loadingExpectation = expectation(description: "Data Loaded")
         viewModel.loadData {
             loadingExpectation.fulfill()

@@ -48,7 +48,7 @@ protocol LatestEventViewModel {
 final class LatestEventViewModelImplementation: LatestEventViewModel {
     private static let dateFormatter = DateFormatter.mgm_latestEventDateFormatter()
 
-    private let dataLoader: ViewModelDataLoader
+    private let dataRepository: DataRepository
     private let imageLoader: ImageLoader
 
     private var eventEntityViewModels: [LatestEventEntityViewModel] = []
@@ -58,8 +58,8 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
     var event: Event?
     var message: String?
 
-    init(dataLoader: ViewModelDataLoader, imageLoader: ImageLoader) {
-        self.dataLoader = dataLoader
+    init(dataRepository: DataRepository, imageLoader: ImageLoader) {
+        self.dataRepository = dataRepository
         self.imageLoader = imageLoader
     }
 
@@ -90,7 +90,7 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
             dataLoaderToken.cancel()
         }
 
-        dataLoaderToken = dataLoader.loadData { [weak self] response in
+        dataLoaderToken = dataRepository.getEventData { [weak self] response in
             DispatchQueue.main.async {
                 self?.dataLoaderToken = nil
 

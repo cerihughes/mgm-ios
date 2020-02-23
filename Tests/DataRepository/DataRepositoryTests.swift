@@ -1,22 +1,6 @@
 import XCTest
 
-class GCPDataConverterTests: XCTestCase {
-    // MARK: CUT
-
-    private var dataConverter: GCPDataConverterImplementation!
-
-    override func setUp() {
-        super.setUp()
-
-        dataConverter = GCPDataConverterImplementation()
-    }
-
-    override func tearDown() {
-        dataConverter = nil
-
-        super.tearDown()
-    }
-
+class DataRepositoryTests: DataRepositoryTestCase {
     func testGoodData() {
         let events = runTestForSuccess(resource: "GoodData")
         XCTAssertEqual(events.count, 59)
@@ -41,36 +25,32 @@ class GCPDataConverterTests: XCTestCase {
     // MARK: Private utilities
 
     private func runTestForSuccess(resource: String) -> [Event] {
-        guard let events = createModel(resource: resource)?.asSuccessData() else {
-            XCTFail("Expected events response")
-            fatalError()
+        remoteDataSource.loadEventDataResponse = createDataLoaderResponse(resource: resource)
+
+        var events: [Event]?
+
+        let testExpectation = expectation(description: "Remote Data Fetch")
+        _ = dataRepository.getEventData { response in
+            events = response.asSuccessData()
+            testExpectation.fulfill()
         }
-        return events
+        waitForExpectations(timeout: 1)
+
+        return events!
     }
 
-    private func createModel(resource: String) -> GCPDataConverterResponse? {
+    private func createDataLoaderResponse(resource: String) -> DataLoaderResponse {
         guard let data = loadData(forResource: resource, withExtension: "json") else {
-            return nil
+            XCTFail("Cannot load test data from \(resource)")
+            return .failure(NSError())
         }
 
-        guard let jsonString = String(data: data, encoding: .utf8) else {
-            return nil
-        }
-
-        return createModel(jsonString: jsonString)
-    }
-
-    private func createModel(jsonString: String) -> GCPDataConverterResponse? {
-        guard let data = jsonString.data(using: .utf8) else {
-            return nil
-        }
-
-        return dataConverter.convert(data: data)
+        return .success(data)
     }
 }
 
-extension GCPDataConverterResponse {
-    func asSuccessData() -> [Event]? {
+extension DataRepositoryResponse {
+    func asSuccessData() -> T? {
         guard case let .success(events) = self else {
             return nil
         }

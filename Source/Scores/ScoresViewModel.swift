@@ -63,7 +63,7 @@ private let scoresSort: (Album, Album) -> Bool = {
 
 /// Default implementation of ScoresViewModel
 final class ScoresViewModelImplementation: ScoresViewModel {
-    private let dataLoader: ViewModelDataLoader
+    private let dataRepository: DataRepository
     private let imageLoader: ImageLoader
 
     private var classicAlbums: [Album] = []
@@ -90,8 +90,8 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     let filterPlaceholder = "Filter by album, artist or score"
 
     var message: String?
-    init(dataLoader: ViewModelDataLoader, imageLoader: ImageLoader) {
-        self.dataLoader = dataLoader
+    init(dataRepository: DataRepository, imageLoader: ImageLoader) {
+        self.dataRepository = dataRepository
         self.imageLoader = imageLoader
     }
 
@@ -100,7 +100,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
             dataLoaderToken.cancel()
         }
 
-        dataLoaderToken = dataLoader.loadData { [weak self] response in
+        dataLoaderToken = dataRepository.getEventData { [weak self] response in
             DispatchQueue.main.async {
                 self?.dataLoaderToken = nil
 

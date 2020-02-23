@@ -35,24 +35,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         madog.resolve(resolver: MGMResolver())
 
-        guard let serviceProvider = serviceProvider else {
+        guard let dataRepository = serviceProvider?.dataRepository else {
             completionHandler(.failed)
             return
         }
 
-        let localStorage = serviceProvider.localStorage
-        _ = serviceProvider.gcpDataLoader.loadData { response in
+        let previousEvents = dataRepository.localEvents
+        _ = dataRepository.getEventData { response in
             switch response {
-            case let .success(data):
-                if let eventData = localStorage.eventData {
-                    if eventData == data {
-                        completionHandler(.noData)
-                    } else {
-                        localStorage.eventData = data
-                        completionHandler(.newData)
-                    }
+            case let .success(events):
+                if events == previousEvents {
+                    completionHandler(.noData)
                 } else {
-                    localStorage.eventData = data
                     completionHandler(.newData)
                 }
             case .failure:
