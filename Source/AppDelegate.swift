@@ -6,7 +6,7 @@ private let twelveHours = 60.0 * 60.0 * 12.0
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    let window = UIWindow()
+    var window: UIWindow?
     let madog = Madog<ResourceLocator>()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let cache = URLCache(memoryCapacity: 16 * 1024 * 1024, diskCapacity: 128 * 1024 * 1024, diskPath: nil)
         URLCache.shared = cache
 
+        let window = UIWindow()
         window.makeKeyAndVisible()
+        self.window = window
 
         madog.resolve(resolver: MGMResolver())
         let initialRLs: [ResourceLocator] = [.latestEvent, .scores]
