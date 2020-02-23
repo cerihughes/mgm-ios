@@ -44,14 +44,12 @@ final class GCPDataLoaderImplementation: GCPDataLoader {
 }
 
 class CachingGCPDataLoaderImplementation: GCPDataLoader {
-    private static let userDefaultsKey = "CachingGCPDataLoaderImplementation_userDefaultsKey"
-
     private let wrappedDataLoader: GCPDataLoader
-    private let userDefaults: UserDefaults
+    private let localStorage: LocalStorage
 
-    init(wrappedDataLoader: GCPDataLoader, userDefaults: UserDefaults) {
+    init(wrappedDataLoader: GCPDataLoader, localStorage: LocalStorage) {
         self.wrappedDataLoader = wrappedDataLoader
-        self.userDefaults = userDefaults
+        self.localStorage = localStorage
     }
 
     func loadData(_ completion: @escaping (DataLoaderResponse) -> Void) -> DataLoaderToken? {
@@ -68,12 +66,12 @@ class CachingGCPDataLoaderImplementation: GCPDataLoader {
     // MARK: Private
 
     private func handleDataLoaderSuccess(data: Data, _ completion: @escaping (DataLoaderResponse) -> Void) {
-        writeUserDefaultsData(data)
+        localStorage.eventData = data
         completion(.success(data))
     }
 
     private func handleDataLoaderFailure(error: Error, _ completion: @escaping (DataLoaderResponse) -> Void) {
-        if let data = readUserDefaultsData() {
+        if let data = localStorage.eventData {
             completion(.success(data))
             return
         }
@@ -84,14 +82,6 @@ class CachingGCPDataLoaderImplementation: GCPDataLoader {
         }
 
         completion(.failure(error))
-    }
-
-    private func readUserDefaultsData() -> Data? {
-        return userDefaults.data(forKey: CachingGCPDataLoaderImplementation.userDefaultsKey)
-    }
-
-    private func writeUserDefaultsData(_ data: Data) {
-        userDefaults.set(data, forKey: CachingGCPDataLoaderImplementation.userDefaultsKey)
     }
 
     private func createFallbackData() -> Data? {

@@ -12,7 +12,7 @@ class LatestEventViewControllerProvider: TypedViewControllerProvider {
     override func configure(with serviceProviders: [String: ServiceProvider]) {
         super.configure(with: serviceProviders)
 
-        if let serviceProvider = serviceProviders[viewModelDataLoaderServiceName] as? ViewModelDataLoaderServiceProvider {
+        if let serviceProvider = serviceProviders[mgmServiceProviderName] as? MGMServiceProvider {
             imageLoader = serviceProvider.imageLoader
             viewModelDataLoader = serviceProvider.viewModelDataLoader
         }
