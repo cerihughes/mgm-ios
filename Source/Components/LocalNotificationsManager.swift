@@ -46,8 +46,7 @@ class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManag
         content.title = type.title
         content.body = type.body
 
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
 
         notificationCenter.add(request) { error in
             completion(error == nil)
