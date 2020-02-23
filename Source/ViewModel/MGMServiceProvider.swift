@@ -4,6 +4,7 @@ import Madog
 let mgmServiceProviderName = "mgmServiceProviderName"
 
 protocol MGMServiceProvider {
+    var localNotificationsManager: LocalNotificationsManager { get }
     var localStorage: LocalStorage { get }
     var dataLoader: DataLoader { get }
     var gcpDataLoader: GCPDataLoader { get }
@@ -14,6 +15,7 @@ protocol MGMServiceProvider {
 }
 
 class MGMServiceProviderImplementation: ServiceProvider, MGMServiceProvider {
+    let localNotificationsManager: LocalNotificationsManager
     let localStorage: LocalStorage
     let dataLoader: DataLoader
     let gcpDataLoader: GCPDataLoader
@@ -25,6 +27,7 @@ class MGMServiceProviderImplementation: ServiceProvider, MGMServiceProvider {
     // MARK: ServiceProvider
 
     override init(context: ServiceProviderCreationContext) {
+        localNotificationsManager = LocalNotificationsManagerImplementation(notificationCenter: .current())
         localStorage = UserDefaults.standard
         dataLoader = DataLoaderImplementation()
         gcpDataLoader = GCPDataLoaderImplementation(dataLoader: dataLoader)

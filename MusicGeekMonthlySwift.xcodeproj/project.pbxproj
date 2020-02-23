@@ -64,6 +64,7 @@
 		659DED7121931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */; };
 		65A4C3FA21E25631000148EE /* TypedViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */; };
 		65B6335F2402D2DB006FC00F /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65820CB62402C6790081C6DC /* LocalStorage.swift */; };
+		65B633612402D923006FC00F /* LocalNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B633602402D923006FC00F /* LocalNotificationsManager.swift */; };
 		65BDAA8F2189F55C007E887B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA8E2189F55C007E887B /* AppDelegate.swift */; };
 		65BDAA912189F55C007E887B /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA902189F55C007E887B /* ScoresViewController.swift */; };
 		65BDAA962189F55D007E887B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65BDAA952189F55D007E887B /* Assets.xcassets */; };
@@ -144,6 +145,7 @@
 		659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsLaunchViewControllerProvider.swift; sourceTree = "<group>"; };
 		65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypedViewControllerProvider.swift; sourceTree = "<group>"; };
+		65B633602402D923006FC00F /* LocalNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsManager.swift; sourceTree = "<group>"; };
 		65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicGeekMonthly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65BDAA8E2189F55C007E887B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65BDAA902189F55C007E887B /* ScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 		65820CB52402C5CD0081C6DC /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				65B633602402D923006FC00F /* LocalNotificationsManager.swift */,
 				65820CB62402C6790081C6DC /* LocalStorage.swift */,
 				65BDAABD2189F683007E887B /* DataLoader */,
 			);
@@ -664,6 +667,7 @@
 				6553CF9121907F9A0020EEC2 /* ViewModelDataLoader.swift in Sources */,
 				65BDAAC82189FDE9007E887B /* DateFormatter+Extensions.swift in Sources */,
 				65661978219092080068EA1B /* AlbumArtViewModel.swift in Sources */,
+				65B633612402D923006FC00F /* LocalNotificationsManager.swift in Sources */,
 				656619902190A9470068EA1B /* LatestEventViewControllerProvider.swift in Sources */,
 				6566198C2190A7730068EA1B /* ScoresViewControllerProvider.swift in Sources */,
 				65D2AD9C218B36DD002BB0C9 /* ImageLoader.swift in Sources */,
