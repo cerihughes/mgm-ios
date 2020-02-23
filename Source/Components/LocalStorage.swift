@@ -4,7 +4,7 @@ protocol LocalStorage {
     var eventData: Data? { get nonmutating set }
 }
 
-private let eventDataKey = "LocalStorage_eventDataKey"
+private let eventDataKey = "CachingGCPDataLoaderImplementation_userDefaultsKey"
 
 extension UserDefaults: LocalStorage {
     var eventData: Data? {
