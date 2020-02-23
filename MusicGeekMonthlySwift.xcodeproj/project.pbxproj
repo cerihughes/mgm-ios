@@ -42,6 +42,7 @@
 		657BE9412375B8A400039947 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657BE93F2375B8A300039947 /* Fabric.framework */; };
 		657BE9422375B8A400039947 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657BE9402375B8A400039947 /* Crashlytics.framework */; };
 		657BE9442375B9D200039947 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 657BE9432375B9D200039947 /* GoogleService-Info.plist */; };
+		65820CB72402C6790081C6DC /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65820CB62402C6790081C6DC /* LocalStorage.swift */; };
 		658AE763218DF75C002D4AE5 /* AverageColorProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */; };
 		658BD83222295CC3008E0EB1 /* ScoresViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658BD83122295CC3008E0EB1 /* ScoresViewModelTests.swift */; };
 		658BD83522295E3D008E0EB1 /* MockViewModelDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658BD83422295E3D008E0EB1 /* MockViewModelDataLoader.swift */; };
@@ -77,7 +78,7 @@
 		65D2AD9E218B5143002BB0C9 /* ScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9D218B5143002BB0C9 /* ScoresView.swift */; };
 		65D89F44221720A90075238E /* GCPDataConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D89F43221720A90075238E /* GCPDataConverterTests.swift */; };
 		65D89F47221721340075238E /* GoodData.json in Resources */ = {isa = PBXBuildFile; fileRef = 65D89F46221721340075238E /* GoodData.json */; };
-		65E4374121A9C021001D9311 /* ViewModelDataLoaderServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4374021A9C021001D9311 /* ViewModelDataLoaderServiceProvider.swift */; };
+		65E4374121A9C021001D9311 /* MGMServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4374021A9C021001D9311 /* MGMServiceProvider.swift */; };
 		65E485572199C78D00CCE895 /* GCPDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E485562199C78D00CCE895 /* GCPDataLoader.swift */; };
 		65E485592199C82A00CCE895 /* gcp.json in Resources */ = {isa = PBXBuildFile; fileRef = 65E485582199C82A00CCE895 /* gcp.json */; };
 		65E4855B2199C86400CCE895 /* GCPDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4855A2199C86400CCE895 /* GCPDataConverter.swift */; };
@@ -133,6 +134,7 @@
 		657BE9402375B8A400039947 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		657BE9432375B9D200039947 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		65820CB42402C1610081C6DC /* MusicGeekMonthly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusicGeekMonthly.entitlements; sourceTree = "<group>"; };
+		65820CB62402C6790081C6DC /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageColorProcessor.swift; sourceTree = "<group>"; };
 		658BD83122295CC3008E0EB1 /* ScoresViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewModelTests.swift; sourceTree = "<group>"; };
 		658BD83422295E3D008E0EB1 /* MockViewModelDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockViewModelDataLoader.swift; sourceTree = "<group>"; };
@@ -160,7 +162,7 @@
 		65D2AD9D218B5143002BB0C9 /* ScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView.swift; sourceTree = "<group>"; };
 		65D89F43221720A90075238E /* GCPDataConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCPDataConverterTests.swift; sourceTree = "<group>"; };
 		65D89F46221721340075238E /* GoodData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GoodData.json; sourceTree = "<group>"; };
-		65E4374021A9C021001D9311 /* ViewModelDataLoaderServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDataLoaderServiceProvider.swift; sourceTree = "<group>"; };
+		65E4374021A9C021001D9311 /* MGMServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MGMServiceProvider.swift; path = ViewModel/MGMServiceProvider.swift; sourceTree = "<group>"; };
 		65E485562199C78D00CCE895 /* GCPDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCPDataLoader.swift; sourceTree = "<group>"; };
 		65E485582199C82A00CCE895 /* gcp.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = gcp.json; sourceTree = "<group>"; };
 		65E4855A2199C86400CCE895 /* GCPDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCPDataConverter.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 		65820CB52402C5CD0081C6DC /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				65820CB62402C6790081C6DC /* LocalStorage.swift */,
 				65BDAABD2189F683007E887B /* DataLoader */,
 			);
 			path = Components;
@@ -365,6 +368,7 @@
 				65BDAA8E2189F55C007E887B /* AppDelegate.swift */,
 				65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */,
 				65981ABD227DDB060094248E /* MGMResolver.swift */,
+				65E4374021A9C021001D9311 /* MGMServiceProvider.swift */,
 				65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */,
 				65BDAA952189F55D007E887B /* Assets.xcassets */,
 				659DED6F21931FDE00226579 /* AppleMaps */,
@@ -429,7 +433,6 @@
 			children = (
 				65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */,
 				6553CF9021907F9A0020EEC2 /* ViewModelDataLoader.swift */,
-				65E4374021A9C021001D9311 /* ViewModelDataLoaderServiceProvider.swift */,
 				65661976219091F60068EA1B /* Scaffolding */,
 			);
 			path = ViewModel;
@@ -640,7 +643,7 @@
 				6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */,
 				65E4855B2199C86400CCE895 /* GCPDataConverter.swift in Sources */,
 				656619932190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift in Sources */,
-				65E4374121A9C021001D9311 /* ViewModelDataLoaderServiceProvider.swift in Sources */,
+				65E4374121A9C021001D9311 /* MGMServiceProvider.swift in Sources */,
 				6566197521908CE20068EA1B /* LatestEventViewController.swift in Sources */,
 				6566198E2190A8910068EA1B /* ResourceLocator.swift in Sources */,
 				6566197A2190969A0068EA1B /* AlbumCollectionViewCell.swift in Sources */,
@@ -670,6 +673,7 @@
 				6566197321908BFA0068EA1B /* LatestEventEntityCollectionViewCell.swift in Sources */,
 				6540A51B218C85260028B382 /* ScoresCollectionViewCell.swift in Sources */,
 				65BDAABF2189F69C007E887B /* DataLoader.swift in Sources */,
+				65820CB72402C6790081C6DC /* LocalStorage.swift in Sources */,
 				65BDAACA2189FEF8007E887B /* Model.swift in Sources */,
 				65981ABE227DDB060094248E /* MGMResolver.swift in Sources */,
 			);

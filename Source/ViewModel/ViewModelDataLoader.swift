@@ -40,8 +40,8 @@ final class ViewModelDataLoaderImplementation: ViewModelDataLoader {
     private func handleDataLoaderSuccess(data: Data, _ completion: @escaping (GCPDataConverterResponse) -> Void) {
         let response = dataConverter.convert(data: data)
         switch response {
-        case let .success(events):
-            completion(.success(events))
+        case let .success(data):
+            completion(.success(data))
         case let .failure(error):
             handleDataLoaderFailure(error: error, completion)
         }
