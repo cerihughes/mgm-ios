@@ -17,12 +17,9 @@ class MGMResolver: Resolver<ResourceLocator> {
         return [latestEvent, scores, spotify, appleMaps]
     }
 
-    // swiftlint:disable opening_brace
     override func serviceProviderCreationFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
         return [
-            { MGMServiceProviderImplementation(context: $0) }
+            MGMServiceProviderImplementation.init(context:)
         ]
     }
-
-    // swiftlint:enable opening_brace
 }
