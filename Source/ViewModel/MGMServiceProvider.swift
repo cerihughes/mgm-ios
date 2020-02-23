@@ -5,34 +5,29 @@ let mgmServiceProviderName = "mgmServiceProviderName"
 
 protocol MGMServiceProvider {
     var localStorage: LocalStorage { get }
-    var dataLoader: DataLoader { get }
-    var gcpDataLoader: GCPDataLoader { get }
-    var cachingGCPDataLoader: GCPDataLoader { get }
-    var dataConverter: GCPDataConverter { get }
+    var localDataSource: LocalDataSource { get }
+    var remoteDataSource: RemoteDataSource { get }
+    var dataRepository: DataRepository { get }
     var imageLoader: ImageLoader { get }
-    var viewModelDataLoader: ViewModelDataLoader { get }
 }
 
 class MGMServiceProviderImplementation: ServiceProvider, MGMServiceProvider {
     let localStorage: LocalStorage
-    let dataLoader: DataLoader
-    let gcpDataLoader: GCPDataLoader
-    let cachingGCPDataLoader: GCPDataLoader
-    let dataConverter: GCPDataConverter
+    var localDataSource: LocalDataSource
+    var remoteDataSource: RemoteDataSource
+    var dataRepository: DataRepository
     let imageLoader: ImageLoader
-    let viewModelDataLoader: ViewModelDataLoader
 
     // MARK: ServiceProvider
 
     override init(context: ServiceProviderCreationContext) {
         localStorage = UserDefaults.standard
-        dataLoader = DataLoaderImplementation()
-        gcpDataLoader = GCPDataLoaderImplementation(dataLoader: dataLoader)
-        cachingGCPDataLoader = CachingGCPDataLoaderImplementation(wrappedDataLoader: gcpDataLoader, localStorage: localStorage)
-        dataConverter = GCPDataConverterImplementation()
+        localDataSource = LocalDataSourceImplementation(localStorage: localStorage)
 
+        let dataLoader = DataLoaderImplementation()
+        remoteDataSource = RemoteDataSourceImplementation(dataLoader: dataLoader)
+        dataRepository = DataRepositoryImplementation(localDataSource: localDataSource, remoteDataSource: remoteDataSource)
         imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)
-        viewModelDataLoader = ViewModelDataLoaderImplementation(dataLoader: cachingGCPDataLoader, dataConverter: dataConverter)
 
         super.init(context: context)
         name = mgmServiceProviderName
