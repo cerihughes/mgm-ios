@@ -63,6 +63,7 @@
 		659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */; };
 		659DED7121931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */; };
 		65A4C3FA21E25631000148EE /* TypedViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */; };
+		65B6335F2402D2DB006FC00F /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65820CB62402C6790081C6DC /* LocalStorage.swift */; };
 		65BDAA8F2189F55C007E887B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA8E2189F55C007E887B /* AppDelegate.swift */; };
 		65BDAA912189F55C007E887B /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA902189F55C007E887B /* ScoresViewController.swift */; };
 		65BDAA962189F55D007E887B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65BDAA952189F55D007E887B /* Assets.xcassets */; };
@@ -701,6 +702,7 @@
 				658BD83B2229606D008E0EB1 /* DateFormatter+Extensions.swift in Sources */,
 				65D89F44221720A90075238E /* GCPDataConverterTests.swift in Sources */,
 				658BD841222967EC008E0EB1 /* ImageLoader.swift in Sources */,
+				65B6335F2402D2DB006FC00F /* LocalStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
