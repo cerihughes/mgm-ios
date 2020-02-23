@@ -33,9 +33,11 @@ extension ResourceLocator {
 
     static func appleMaps(locationName: String, latitude: Double, longitude: Double) -> ResourceLocator {
         return ResourceLocator(identifier: appleMapsIdentifier,
-                               data: [appleMapsLocationNameKey: locationName,
-                                      appleMapsLatitudeKey: latitude,
-                                      appleMapsLongitudeKey: longitude])
+                               data: [
+                                   appleMapsLocationNameKey: locationName,
+                                   appleMapsLatitudeKey: latitude,
+                                   appleMapsLongitudeKey: longitude
+                               ])
     }
 
     var appleMapsLocationName: String? {

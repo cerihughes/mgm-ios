@@ -115,7 +115,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     }
 
     var dataLoaded: Bool {
-        return scoreViewModels.count > 0
+        return !scoreViewModels.isEmpty
     }
 
     var numberOfScores: Int {
@@ -133,7 +133,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     // MARK: Private
 
     private func handleDataLoaderSuccess(events: [Event], _ completion: () -> Void) {
-        guard events.count > 0 else {
+        guard !events.isEmpty else {
             let error = ScoresViewModelError.noEvents("No events returned")
             handleDataLoaderFailure(error: error, completion)
             return
@@ -192,8 +192,8 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     private func applyFilter() {
         guard
             let trimmed = filter?.trimmingCharacters(in: .whitespacesAndNewlines),
-            trimmed.count > 0,
-            self.scoreViewModels.count > 0
+            !trimmed.isEmpty,
+            !self.scoreViewModels.isEmpty
         else {
             self.filteredScoreViewModels = self.scoreViewModels
             self.message = nil
