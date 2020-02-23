@@ -41,10 +41,15 @@ class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManag
 
     func scheduleLocalNotification(type: LocalNotificationType,
                                    completion: @escaping (Bool) -> Void) {
+        guard let body = type.body else {
+            completion(false)
+            return
+        }
+
         let identifier = type.identifier
         let content = UNMutableNotificationContent()
         content.title = type.title
-        content.body = type.body
+        content.body = body
 
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
 
@@ -91,16 +96,21 @@ private extension LocalNotificationType {
         }
     }
 
-    var body: String {
+    var body: String? {
         switch self {
         case .newEvent:
             return "Next month's albums have been published. Tap to check them out..."
         case .scoresPublished:
             return "The scores are in for last month's albums. Tap to check them out..."
-        case .eventScheduled:
-            return "This month's event has been scheduled"
+        case let .eventScheduled(event):
+            let formatter = DateFormatter.mgm_latestEventDateFormatter()
+            guard let date = event.date else {
+                return nil
+            }
+            let dateString = formatter.string(from: date)
+            return "This month's event has been scheduled for \(dateString)"
         case .eventCancelled:
-            return "A new event has been published"
+            return "A new event has been published. Tap to check it out..."
         }
     }
 }
