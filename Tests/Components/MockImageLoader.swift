@@ -1,11 +1,3 @@
-//
-//  MockImageLoader.swift
-//  MusicGeekMonthlyTests
-//
-//  Created by Ceri Hughes on 01/03/2019.
-//  Copyright © 2019 Ceri Hughes. All rights reserved.
-//
-
 import Foundation
 
 class MockImageLoader: ImageLoader {
