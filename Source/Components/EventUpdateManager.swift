@@ -1,12 +1,21 @@
 import Foundation
 
+enum EventUpdate: Equatable {
+    case newEvent(Event)
+    case scoresPublished(Event)
+    case eventScheduled(Event)
+    case eventRescheduled(Event)
+    case eventCancelled(Event)
+    case playlistPublished(Event)
+}
+
 protocol EventUpdateManager {
-    func processEventUpdate(oldEvents: [Event], newEvents: [Event]) -> [LocalNotificationType]
+    func processEventUpdate(oldEvents: [Event], newEvents: [Event]) -> [EventUpdate]
 }
 
 class EventUpdateManagerImplementation: EventUpdateManager {
-    func processEventUpdate(oldEvents: [Event], newEvents: [Event]) -> [LocalNotificationType] {
-        var results = [LocalNotificationType]()
+    func processEventUpdate(oldEvents: [Event], newEvents: [Event]) -> [EventUpdate] {
+        var results = [EventUpdate]()
         guard let oldLastEvent = oldEvents.last,
             let newLastEvent = newEvents.last else {
             return results
@@ -28,14 +37,14 @@ class EventUpdateManagerImplementation: EventUpdateManager {
         return results
     }
 
-    private func eventCreated(_ newEvent: Event) -> [LocalNotificationType] {
+    private func eventCreated(_ newEvent: Event) -> [EventUpdate] {
         guard newEvent.classicAlbum != nil, newEvent.newAlbum != nil else {
             return []
         }
         return [.newEvent(newEvent)]
     }
 
-    private func eventChanged(oldEvent: Event, newEvent: Event) -> [LocalNotificationType] {
+    private func eventChanged(oldEvent: Event, newEvent: Event) -> [EventUpdate] {
         return [
             playlistChanged(oldEvent: oldEvent, newEvent: newEvent),
             scoresChanged(oldEvent: oldEvent, newEvent: newEvent),
@@ -43,14 +52,14 @@ class EventUpdateManagerImplementation: EventUpdateManager {
         ].compactMap { $0 }
     }
 
-    private func playlistChanged(oldEvent: Event, newEvent: Event) -> LocalNotificationType? {
+    private func playlistChanged(oldEvent: Event, newEvent: Event) -> EventUpdate? {
         guard oldEvent.playlist == nil, newEvent.playlist != nil else {
             return nil
         }
         return .playlistPublished(newEvent)
     }
 
-    private func scoresChanged(oldEvent: Event, newEvent: Event) -> LocalNotificationType? {
+    private func scoresChanged(oldEvent: Event, newEvent: Event) -> EventUpdate? {
         guard scoresChanged(oldAlbum: oldEvent.classicAlbum, newAlbum: newEvent.classicAlbum) ||
             scoresChanged(oldAlbum: oldEvent.newAlbum, newAlbum: newEvent.newAlbum) else {
             return nil
@@ -67,7 +76,7 @@ class EventUpdateManagerImplementation: EventUpdateManager {
         return true
     }
 
-    private func dateChanged(oldEvent: Event, newEvent: Event) -> LocalNotificationType? {
+    private func dateChanged(oldEvent: Event, newEvent: Event) -> EventUpdate? {
         switch (oldEvent.date, newEvent.date) {
         case (nil, nil):
             return nil

@@ -14,12 +14,19 @@ protocol DataRepository {
 class DataRepositoryImplementation: DataRepository {
     private let localDataSource: LocalDataSource
     private let remoteDataSource: RemoteDataSource
+    private let eventUpdateManager: EventUpdateManager
+    private let localNotificationsManager: LocalNotificationsManager
 
     private let decoder = JSONDecoder.create()
 
-    init(localDataSource: LocalDataSource, remoteDataSource: RemoteDataSource) {
+    init(localDataSource: LocalDataSource,
+         remoteDataSource: RemoteDataSource,
+         eventUpdateManager: EventUpdateManager,
+         localNotificationsManager: LocalNotificationsManager) {
         self.localDataSource = localDataSource
         self.remoteDataSource = remoteDataSource
+        self.eventUpdateManager = eventUpdateManager
+        self.localNotificationsManager = localNotificationsManager
     }
 
     var localEvents: [Event]? {
@@ -44,12 +51,14 @@ class DataRepositoryImplementation: DataRepository {
     // MARK: Private
 
     private func handleDataLoaderSuccess(data: Data, _ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void) {
-        let existingEvents = self.existingEvents
+        let oldEvents = existingEvents ?? []
 
         localDataSource.localStorage.eventData = data
         do {
-            let events = try decoder.decode(eventsData: data)
-            completion(.success(events))
+            let newEvents = try decoder.decode(eventsData: data)
+            let eventUpdates = eventUpdateManager.processEventUpdate(oldEvents: oldEvents, newEvents: newEvents)
+            localNotificationsManager.scheduleLocalNotifications(eventUpdates: eventUpdates)
+            completion(.success(newEvents))
         } catch {
             completion(.failure(error))
         }

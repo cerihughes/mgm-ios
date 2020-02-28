@@ -1,19 +1,26 @@
 import UserNotifications
 
-enum LocalNotificationType: Equatable {
-    case newEvent(Event)
-    case scoresPublished(Event)
-    case eventScheduled(Event)
-    case eventRescheduled(Event)
-    case eventCancelled(Event)
-    case playlistPublished(Event)
-}
-
 protocol LocalNotificationsManager {
     func isAuthorized(completion: @escaping (Bool) -> Void)
     func requestAuthorization(completion: @escaping (Bool) -> Void)
-    func scheduleLocalNotification(type: LocalNotificationType,
-                                   completion: @escaping (Bool) -> Void)
+    func scheduleLocalNotification(eventUpdate: EventUpdate)
+}
+
+extension LocalNotificationsManager {
+    func scheduleLocalNotifications(eventUpdates: [EventUpdate]) {
+        eventUpdates.forEach { scheduleLocalNotification(eventUpdate: $0) }
+    }
+}
+
+private extension Array {
+    func removedFirst() -> Array? {
+        guard first != nil else {
+            return nil
+        }
+        var array = self
+        array.removeFirst()
+        return array
+    }
 }
 
 class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManager {
@@ -41,23 +48,19 @@ class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManag
         }
     }
 
-    func scheduleLocalNotification(type: LocalNotificationType,
-                                   completion: @escaping (Bool) -> Void) {
-        guard let body = type.body else {
-            completion(false)
+    func scheduleLocalNotification(eventUpdate: EventUpdate) {
+        guard let body = eventUpdate.body else {
             return
         }
 
-        let identifier = type.identifier
+        let identifier = eventUpdate.identifier
         let content = UNMutableNotificationContent()
-        content.title = type.title
+        content.title = eventUpdate.title
         content.body = body
 
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
 
-        notificationCenter.add(request) { error in
-            completion(error == nil)
-        }
+        notificationCenter.add(request, withCompletionHandler: nil)
     }
 }
 
@@ -75,7 +78,7 @@ extension LocalNotificationsManagerImplementation: UNUserNotificationCenterDeleg
     }
 }
 
-private extension LocalNotificationType {
+private extension EventUpdate {
     var identifier: String {
         switch self {
         case let .newEvent(event):
