@@ -91,6 +91,7 @@
 		65E4374121A9C021001D9311 /* MGMServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4374021A9C021001D9311 /* MGMServiceProvider.swift */; };
 		65E485592199C82A00CCE895 /* gcp.json in Resources */ = {isa = PBXBuildFile; fileRef = 65E485582199C82A00CCE895 /* gcp.json */; };
 		65E9AEB62191E09F001B36D6 /* URL+SpotifyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */; };
+		65FA3CCA240937CE002ED84E /* Model+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FA3CC9240937CE002ED84E /* Model+Testing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +182,7 @@
 		65E485582199C82A00CCE895 /* gcp.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = gcp.json; sourceTree = "<group>"; };
 		65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+SpotifyExtensions.swift"; sourceTree = "<group>"; };
 		65EA1D5D219450C2001FF06E /* Secret.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
+		65FA3CC9240937CE002ED84E /* Model+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Testing.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -458,6 +460,7 @@
 				65BDAAD7218A096A007E887B /* XCTestCase+Extensions.swift */,
 				6581221224030C6F001666A1 /* Components */,
 				6581220924030B9A001666A1 /* DataRepository */,
+				65FA3CC82409375D002ED84E /* Model */,
 				658BD83022295C9C008E0EB1 /* Scores */,
 			);
 			path = Tests;
@@ -488,6 +491,14 @@
 				6566197121908B6C0068EA1B /* Scaffolding */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		65FA3CC82409375D002ED84E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				65FA3CC9240937CE002ED84E /* Model+Testing.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -734,6 +745,7 @@
 				658BD83222295CC3008E0EB1 /* ScoresViewModelTests.swift in Sources */,
 				658BD84522296901008E0EB1 /* URL+SpotifyExtensions.swift in Sources */,
 				6581221524030DBE001666A1 /* LocalDataSource.swift in Sources */,
+				65FA3CCA240937CE002ED84E /* Model+Testing.swift in Sources */,
 				65BDAAD8218A096A007E887B /* XCTestCase+Extensions.swift in Sources */,
 				658BD844222968F3008E0EB1 /* AlbumArtViewModel.swift in Sources */,
 				6581221024030C27001666A1 /* DataRepositoryTests.swift in Sources */,
