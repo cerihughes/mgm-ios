@@ -1,10 +1,12 @@
 import UserNotifications
 
-enum LocalNotificationType {
+enum LocalNotificationType: Equatable {
     case newEvent(Event)
     case scoresPublished(Event)
     case eventScheduled(Event)
+    case eventRescheduled(Event)
     case eventCancelled(Event)
+    case playlistPublished(Event)
 }
 
 protocol LocalNotificationsManager {
@@ -60,11 +62,15 @@ class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManag
 }
 
 extension LocalNotificationsManagerImplementation: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
         completionHandler()
     }
 
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(.alert)
     }
 }
@@ -78,8 +84,12 @@ private extension LocalNotificationType {
             return "scoresPublished\(event.number)"
         case let .eventScheduled(event):
             return "eventScheduled\(event.number)"
+        case let .eventRescheduled(event):
+            return "eventRescheduled\(event.number)"
         case let .eventCancelled(event):
             return "eventCancelled\(event.number)"
+        case let .playlistPublished(event):
+            return "playlistPublished\(event.number)"
         }
     }
 
@@ -88,29 +98,49 @@ private extension LocalNotificationType {
         case let .newEvent(event):
             return "New Event - MGM \(event.number)"
         case let .scoresPublished(event):
-            return "Scores Published - MGM \(event.number)"
+            return "Scores Available - MGM \(event.number)"
         case let .eventScheduled(event):
             return "Event Scheduled - MGM \(event.number)"
+        case let .eventRescheduled(event):
+            return "Event Rescheduled - MGM \(event.number)"
         case let .eventCancelled(event):
             return "Event Cancelled - MGM \(event.number)"
+        case let .playlistPublished(event):
+            return "Playlist Available - MGM \(event.number)"
         }
     }
 
     var body: String? {
         switch self {
         case .newEvent:
-            return "Next month's albums have been published. Tap to check them out..."
+            return "Next month's albums are now available."
         case .scoresPublished:
-            return "The scores are in for last month's albums. Tap to check them out..."
+            return "The scores are in for last month's albums."
         case let .eventScheduled(event):
-            let formatter = DateFormatter.mgm_latestEventDateFormatter()
-            guard let date = event.date else {
+            guard let dateString = event.dateString else {
                 return nil
             }
-            let dateString = formatter.string(from: date)
             return "This month's event has been scheduled for \(dateString)"
+        case let .eventRescheduled(event):
+            guard let dateString = event.dateString else {
+                return nil
+            }
+            return "This month's event has been rescheduled for \(dateString)"
         case .eventCancelled:
-            return "A new event has been published. Tap to check it out..."
+            return "This month's event has been cancelled. Check the Facebook group for more details."
+        case .playlistPublished:
+            return "This month's playlist is now available."
         }
+    }
+}
+
+private extension Event {
+    var dateString: String? {
+        guard let date = date else {
+            return nil
+        }
+
+        let formatter = DateFormatter.mgm_latestEventDateFormatter()
+        return formatter.string(from: date)
     }
 }

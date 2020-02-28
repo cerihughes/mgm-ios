@@ -44,6 +44,8 @@ class DataRepositoryImplementation: DataRepository {
     // MARK: Private
 
     private func handleDataLoaderSuccess(data: Data, _ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void) {
+        let existingEvents = self.existingEvents
+
         localDataSource.localStorage.eventData = data
         do {
             let events = try decoder.decode(eventsData: data)
@@ -64,6 +66,14 @@ class DataRepositoryImplementation: DataRepository {
         } else {
             completion(.failure(error))
         }
+    }
+
+    private var existingEvents: [Event]? {
+        guard let existingData = localDataSource.localStorage.eventData else {
+            return nil
+        }
+
+        return try? decoder.decode(eventsData: existingData)
     }
 }
 
