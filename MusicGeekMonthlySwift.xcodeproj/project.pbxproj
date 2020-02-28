@@ -70,7 +70,6 @@
 		659CC8CB24080DAF0081D5BC /* EventUpdateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CC8C924080D980081D5BC /* EventUpdateManagerTests.swift */; };
 		659CC8CC24080DE80081D5BC /* EventUpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CC8C7240801D50081D5BC /* EventUpdateManager.swift */; };
 		659CC8CD24080E0F0081D5BC /* LocalNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B633602402D923006FC00F /* LocalNotificationsManager.swift */; };
-		659CC8D124080F380081D5BC /* Model+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CC8CF24080F340081D5BC /* Model+Testing.swift */; };
 		659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */; };
 		659DED7121931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */; };
 		65A4C3FA21E25631000148EE /* TypedViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */; };
@@ -156,7 +155,6 @@
 		65981ABD227DDB060094248E /* MGMResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGMResolver.swift; sourceTree = "<group>"; };
 		659CC8C7240801D50081D5BC /* EventUpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUpdateManager.swift; sourceTree = "<group>"; };
 		659CC8C924080D980081D5BC /* EventUpdateManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUpdateManagerTests.swift; sourceTree = "<group>"; };
-		659CC8CF24080F340081D5BC /* Model+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Testing.swift"; sourceTree = "<group>"; };
 		659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsLaunchViewControllerProvider.swift; sourceTree = "<group>"; };
 		65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypedViewControllerProvider.swift; sourceTree = "<group>"; };
@@ -397,14 +395,6 @@
 			path = Scores;
 			sourceTree = "<group>";
 		};
-		659CC8CE24080F250081D5BC /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				659CC8CF24080F340081D5BC /* Model+Testing.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		659DED6F21931FDE00226579 /* AppleMaps */ = {
 			isa = PBXGroup;
 			children = (
@@ -468,7 +458,6 @@
 				65BDAAD7218A096A007E887B /* XCTestCase+Extensions.swift */,
 				6581221224030C6F001666A1 /* Components */,
 				6581220924030B9A001666A1 /* DataRepository */,
-				659CC8CE24080F250081D5BC /* Model */,
 				658BD83022295C9C008E0EB1 /* Scores */,
 			);
 			path = Tests;
@@ -746,7 +735,6 @@
 				658BD84522296901008E0EB1 /* URL+SpotifyExtensions.swift in Sources */,
 				6581221524030DBE001666A1 /* LocalDataSource.swift in Sources */,
 				65BDAAD8218A096A007E887B /* XCTestCase+Extensions.swift in Sources */,
-				659CC8D124080F380081D5BC /* Model+Testing.swift in Sources */,
 				658BD844222968F3008E0EB1 /* AlbumArtViewModel.swift in Sources */,
 				6581221024030C27001666A1 /* DataRepositoryTests.swift in Sources */,
 				659CC8CD24080E0F0081D5BC /* LocalNotificationsManager.swift in Sources */,
