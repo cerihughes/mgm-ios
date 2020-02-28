@@ -1,11 +1,3 @@
-//
-//  GCPDataConverterTests.swift
-//  MusicGeekMonthlyTests
-//
-//  Created by Ceri Hughes on 15/02/2019.
-//  Copyright © 2019 Ceri Hughes. All rights reserved.
-//
-
 import XCTest
 
 class DataRepositoryTests: DataRepositoryTestCase {
