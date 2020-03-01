@@ -1,0 +1,3 @@
+[submodule "mgm-schema"]
+	path = mgm-schema
+	url = https://github.com/cerihughes/mgm-schema.git
