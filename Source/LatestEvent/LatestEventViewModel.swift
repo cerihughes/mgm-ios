@@ -52,7 +52,6 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
     private let imageLoader: ImageLoader
 
     private var eventEntityViewModels: [LatestEventEntityViewModel] = []
-    private var dataLoaderToken: DataLoaderToken?
 
     let retryButtonTitle = "Retry"
     var event: Event?
@@ -86,14 +85,8 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
     }
 
     func loadData(_ completion: @escaping () -> Void) {
-        if let dataLoaderToken = dataLoaderToken {
-            dataLoaderToken.cancel()
-        }
-
-        dataLoaderToken = dataRepository.getEventData { [weak self] response in
+        dataRepository.getEventData { [weak self] response in
             DispatchQueue.main.async {
-                self?.dataLoaderToken = nil
-
                 switch response {
                 case let .success(events):
                     self?.handleDataLoaderSuccess(events: events, completion)

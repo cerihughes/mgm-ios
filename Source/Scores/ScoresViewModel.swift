@@ -71,7 +71,6 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     private var allAlbums: [Album] = []
     private var scoreViewModels: [ScoreViewModel] = []
     private var filteredScoreViewModels: [ScoreViewModel] = []
-    private var dataLoaderToken: DataLoaderToken?
 
     var selectedAlbumType = 2 {
         didSet {
@@ -96,14 +95,8 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     }
 
     func loadData(_ completion: @escaping () -> Void) {
-        if let dataLoaderToken = dataLoaderToken {
-            dataLoaderToken.cancel()
-        }
-
-        dataLoaderToken = dataRepository.getEventData { [weak self] response in
+        dataRepository.getEventData { [weak self] response in
             DispatchQueue.main.async {
-                self?.dataLoaderToken = nil
-
                 switch response {
                 case let .success(events):
                     self?.handleDataLoaderSuccess(events: events, completion)
