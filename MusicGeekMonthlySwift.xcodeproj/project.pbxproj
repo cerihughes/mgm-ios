@@ -161,7 +161,7 @@
 		65E485582199C82A00CCE895 /* gcp.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = gcp.json; sourceTree = "<group>"; };
 		65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+SpotifyExtensions.swift"; sourceTree = "<group>"; };
 		65EA1D5D219450C2001FF06E /* Secret.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
-		65FA3CC9240937CE002ED84E /* Model+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Model+Testing.swift"; path = "../../Model/Model+Testing.swift"; sourceTree = "<group>"; };
+		65FA3CC9240937CE002ED84E /* Model+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Testing.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
