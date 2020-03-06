@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Madog",
+        "repositoryURL": "https://github.com/cerihughes/madog.git",
+        "state": {
+          "branch": null,
+          "revision": "83320b0d553881e143a5fa3f72c20635755ea72c",
+          "version": "4.1.1"
+        }
+      },
+      {
+        "package": "Provident",
+        "repositoryURL": "https://github.com/cerihughes/provident.git",
+        "state": {
+          "branch": null,
+          "revision": "d81b8cc223eb4e56ac40295acbba135d23d1fdde",
+          "version": "2.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
