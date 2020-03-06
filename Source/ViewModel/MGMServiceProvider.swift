@@ -7,6 +7,8 @@ protocol MGMServiceProvider {
     var localStorage: LocalStorage { get }
     var localDataSource: LocalDataSource { get }
     var remoteDataSource: RemoteDataSource { get }
+    var eventUpdateManager: EventUpdateManager { get }
+    var localNotificationsManager: LocalNotificationsManager { get }
     var dataRepository: DataRepository { get }
     var imageLoader: ImageLoader { get }
 }
@@ -15,6 +17,8 @@ class MGMServiceProviderImplementation: ServiceProvider, MGMServiceProvider {
     let localStorage: LocalStorage
     var localDataSource: LocalDataSource
     var remoteDataSource: RemoteDataSource
+    let eventUpdateManager: EventUpdateManager
+    let localNotificationsManager: LocalNotificationsManager
     var dataRepository: DataRepository
     let imageLoader: ImageLoader
 
@@ -26,7 +30,15 @@ class MGMServiceProviderImplementation: ServiceProvider, MGMServiceProvider {
 
         let basePath = "https://mgm-gcp.appspot.com"
         remoteDataSource = RemoteDataSourceImplementation(basePath: basePath)
-        dataRepository = DataRepositoryImplementation(localDataSource: localDataSource, remoteDataSource: remoteDataSource)
+
+        eventUpdateManager = EventUpdateManagerImplementation()
+        localNotificationsManager = LocalNotificationsManagerImplementation(notificationCenter: .current())
+
+        dataRepository = DataRepositoryImplementation(localDataSource: localDataSource,
+                                                      remoteDataSource: remoteDataSource,
+                                                      eventUpdateManager: eventUpdateManager,
+                                                      localNotificationsManager: localNotificationsManager)
+
         let dataLoader = DataLoaderImplementation()
         imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)
 

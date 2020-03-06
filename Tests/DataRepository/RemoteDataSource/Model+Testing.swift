@@ -52,7 +52,7 @@ extension AlbumApiModel {
 }
 
 extension PlaylistApiModel {
-    static func create(spotifyId: String,
+    static func create(spotifyId: String = "spotifyId",
                        name: String = "name",
                        owner: String = "owner",
                        images: [ImageApiModel]? = nil) -> PlaylistApiModel {
