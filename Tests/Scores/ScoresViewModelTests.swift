@@ -1,5 +1,7 @@
 import XCTest
 
+@testable import MusicGeekMonthly
+
 class ScoresViewModelTests: DataRepositoryTestCase {
     private var encoder: JSONEncoder!
     private var imageLoader: MockImageLoader!

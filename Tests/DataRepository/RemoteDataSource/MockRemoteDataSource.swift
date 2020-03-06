@@ -1,5 +1,7 @@
 import Foundation
 
+@testable import MusicGeekMonthly
+
 class MockRemoteDataSource: RemoteDataSource {
     var loadEventDataResponse = DataLoaderResponse.failure(NSError())
 

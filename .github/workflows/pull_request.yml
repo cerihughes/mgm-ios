@@ -1,0 +1,27 @@
+name: Build and test PRs
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      # Install dependencies
+      - run: brew update
+      - run: brew install swiftlint || true
+      - run: brew outdated swiftlint || brew upgrade swiftlint
+
+      # Checkout
+      - uses: actions/checkout@v2
+      - run: mkdir build
+
+      # Build and test
+      - run: set -o pipefail
+      - run: export PROJECT_DIR=.; /bin/sh BuildPhases/copy-plist.sh
+      - run: /bin/sh createFakeGoogleServices.sh
+      - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -destination "OS=13.3,name=iPhone 11" -sdk iphonesimulator13.2 CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      - name: Codecov
+        uses: codecov/codecov-action@v1.0.6

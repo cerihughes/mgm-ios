@@ -1,5 +1,7 @@
 import XCTest
 
+@testable import MusicGeekMonthly
+
 class DataRepositoryTests: DataRepositoryTestCase {
     func testGoodData() {
         let events = runTestForSuccess(resource: "GoodData")

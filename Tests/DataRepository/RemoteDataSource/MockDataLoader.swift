@@ -1,5 +1,7 @@
 import Foundation
 
+@testable import MusicGeekMonthly
+
 class MockDataLoaderToken: DataLoaderToken {
     var cancelled = false
 

@@ -1,5 +1,7 @@
 import Foundation
 
+@testable import MusicGeekMonthly
+
 extension Event {
     static func create(number: Int,
                        location: Location? = nil,
