@@ -10,9 +10,9 @@ jobs:
 
     steps:
       # Install dependencies
-      # - run: brew update
-      # - run: brew install swiftlint || true
-      # - run: brew outdated swiftlint || brew upgrade swiftlint
+      - run: brew update
+      - run: brew install swiftlint || true
+      - run: brew outdated swiftlint || brew upgrade swiftlint
 
       # Checkout
       - uses: actions/checkout@v2
