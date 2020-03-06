@@ -10,6 +10,9 @@ jobs:
 
     steps:
       # Install dependencies
+      - run: brew update
+      - run: brew install swiftlint || true
+      - run: brew outdated swiftlint || brew upgrade swiftlint
       - run: gem install xcpretty-travis-formatter --quiet
 
       # Checkout
