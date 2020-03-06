@@ -28,7 +28,6 @@
 		656619932190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */; };
 		656619952190AFBF0068EA1B /* ForwardNavigatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */; };
 		656619972190BB5F0068EA1B /* ExternalAppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */; };
-		6566473E2412E742002662EB /* DataRepositoryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581221924030EB6001666A1 /* DataRepositoryTestCase.swift */; };
 		657BE9322375B45E00039947 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657BE9282375B45B00039947 /* GoogleUtilities.framework */; };
 		657BE9332375B45E00039947 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657BE9292375B45B00039947 /* FirebaseCoreDiagnostics.framework */; };
 		657BE9342375B45E00039947 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657BE92A2375B45B00039947 /* FirebaseCore.framework */; };
@@ -49,6 +48,7 @@
 		6581221024030C27001666A1 /* DataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581220F24030C27001666A1 /* DataRepositoryTests.swift */; };
 		6581221424030C82001666A1 /* MockLocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581221324030C82001666A1 /* MockLocalStorage.swift */; };
 		6581221824030E85001666A1 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */; };
+		6581221A24030EB6001666A1 /* DataRepositoryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581221924030EB6001666A1 /* DataRepositoryTestCase.swift */; };
 		65820CB72402C6790081C6DC /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65820CB62402C6790081C6DC /* LocalStorage.swift */; };
 		658AE763218DF75C002D4AE5 /* AverageColorProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */; };
 		658BD83222295CC3008E0EB1 /* ScoresViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658BD83122295CC3008E0EB1 /* ScoresViewModelTests.swift */; };
@@ -690,6 +690,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				658BD840222967E1008E0EB1 /* MockImageLoader.swift in Sources */,
+				6581221A24030EB6001666A1 /* DataRepositoryTestCase.swift in Sources */,
 				653560CF2409457A000E7E86 /* MockLocalNotificationsManager.swift in Sources */,
 				658BD83222295CC3008E0EB1 /* ScoresViewModelTests.swift in Sources */,
 				65FA3CCA240937CE002ED84E /* Model+Testing.swift in Sources */,
@@ -699,7 +700,6 @@
 				65BDAACF218A068E007E887B /* MockDataLoader.swift in Sources */,
 				6581221424030C82001666A1 /* MockLocalStorage.swift in Sources */,
 				659CC8CB24080DAF0081D5BC /* EventUpdateManagerTests.swift in Sources */,
-				6566473E2412E742002662EB /* DataRepositoryTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
