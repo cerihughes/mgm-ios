@@ -56,6 +56,8 @@
 		659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */; };
 		659DED7121931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */; };
 		65A4C3FA21E25631000148EE /* TypedViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */; };
+		65A553152412E0E400277177 /* MGMRemoteApiClient in Frameworks */ = {isa = PBXBuildFile; productRef = 65A553142412E0E400277177 /* MGMRemoteApiClient */; };
+		65AF47A82412A3CE00A63D75 /* DataConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF47A72412A3CE00A63D75 /* DataConversion.swift */; };
 		65BDAA8F2189F55C007E887B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA8E2189F55C007E887B /* AppDelegate.swift */; };
 		65BDAA912189F55C007E887B /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA902189F55C007E887B /* ScoresViewController.swift */; };
 		65BDAA962189F55D007E887B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65BDAA952189F55D007E887B /* Assets.xcassets */; };
@@ -136,6 +138,7 @@
 		659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsLaunchViewControllerProvider.swift; sourceTree = "<group>"; };
 		65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypedViewControllerProvider.swift; sourceTree = "<group>"; };
+		65AF47A72412A3CE00A63D75 /* DataConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConversion.swift; sourceTree = "<group>"; };
 		65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicGeekMonthly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65BDAA8E2189F55C007E887B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65BDAA902189F55C007E887B /* ScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +173,7 @@
 				657BE93A2375B45E00039947 /* nanopb.framework in Frameworks */,
 				657BE9332375B45E00039947 /* FirebaseCoreDiagnostics.framework in Frameworks */,
 				657BE9342375B45E00039947 /* FirebaseCore.framework in Frameworks */,
+				65A553152412E0E400277177 /* MGMRemoteApiClient in Frameworks */,
 				657BE9322375B45E00039947 /* GoogleUtilities.framework in Frameworks */,
 				65454F8D2412C0FA00464D38 /* Madog in Frameworks */,
 				657BE9422375B8A400039947 /* Crashlytics.framework in Frameworks */,
@@ -290,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				658122002402FA69001666A1 /* DataRepository.swift */,
+				65AF47A72412A3CE00A63D75 /* DataConversion.swift */,
 				658122032402FA92001666A1 /* LocalDataSource */,
 				658122042402FA9A001666A1 /* RemoteDataSource */,
 			);
@@ -301,6 +306,7 @@
 			children = (
 				65E485582199C82A00CCE895 /* gcp.json */,
 				658122052402FAAA001666A1 /* LocalDataSource.swift */,
+				65BDAAC92189FEF8007E887B /* Model.swift */,
 			);
 			path = LocalDataSource;
 			sourceTree = "<group>";
@@ -330,6 +336,7 @@
 				65D89F46221721340075238E /* GoodData.json */,
 				65BDAACE218A068E007E887B /* MockDataLoader.swift */,
 				6581220B24030BC7001666A1 /* MockRemoteDataSource.swift */,
+				65FA3CC9240937CE002ED84E /* Model+Testing.swift */,
 			);
 			path = RemoteDataSource;
 			sourceTree = "<group>";
@@ -405,7 +412,6 @@
 				658122022402FA77001666A1 /* DataRepostory */,
 				6566198A2190A7330068EA1B /* LatestEvent */,
 				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
-				65BDAAC22189F97F007E887B /* Model */,
 				6566197C21909E750068EA1B /* Navigation */,
 				656619892190A7090068EA1B /* Scores */,
 				656619912190ACAE0068EA1B /* Spotify */,
@@ -422,18 +428,9 @@
 				65BDAAD7218A096A007E887B /* XCTestCase+Extensions.swift */,
 				6581221224030C6F001666A1 /* Components */,
 				6581220924030B9A001666A1 /* DataRepository */,
-				65FA3CC82409375D002ED84E /* Model */,
 				658BD83022295C9C008E0EB1 /* Scores */,
 			);
 			path = Tests;
-			sourceTree = "<group>";
-		};
-		65BDAAC22189F97F007E887B /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				65BDAAC92189FEF8007E887B /* Model.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		65D2AD95218B3015002BB0C9 /* ViewModel */ = {
@@ -453,14 +450,6 @@
 				6566197121908B6C0068EA1B /* Scaffolding */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		65FA3CC82409375D002ED84E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				65FA3CC9240937CE002ED84E /* Model+Testing.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -484,6 +473,7 @@
 			name = MusicGeekMonthly;
 			packageProductDependencies = (
 				65454F8C2412C0FA00464D38 /* Madog */,
+				65A553142412E0E400277177 /* MGMRemoteApiClient */,
 			);
 			productName = MusicGeekMonthlySwift;
 			productReference = 65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */;
@@ -539,6 +529,7 @@
 			mainGroup = 65BDAA822189F55C007E887B;
 			packageReferences = (
 				65454F8B2412C0FA00464D38 /* XCRemoteSwiftPackageReference "madog" */,
+				65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */,
 			);
 			productRefGroup = 65BDAA8C2189F55C007E887B /* Products */;
 			projectDirPath = "";
@@ -644,6 +635,7 @@
 				65E4374121A9C021001D9311 /* MGMServiceProvider.swift in Sources */,
 				6566197521908CE20068EA1B /* LatestEventViewController.swift in Sources */,
 				6566198E2190A8910068EA1B /* ResourceLocator.swift in Sources */,
+				65AF47A82412A3CE00A63D75 /* DataConversion.swift in Sources */,
 				6566197A2190969A0068EA1B /* AlbumCollectionViewCell.swift in Sources */,
 				65D2AD9E218B5143002BB0C9 /* ScoresView.swift in Sources */,
 				6512F30421933D06004CD379 /* LatestEventCollectionSectionHeaderView.swift in Sources */,
@@ -972,6 +964,14 @@
 				minimumVersion = 4.1.1;
 			};
 		};
+		65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cerihughes/mgm-schema";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.16.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -979,6 +979,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 65454F8B2412C0FA00464D38 /* XCRemoteSwiftPackageReference "madog" */;
 			productName = Madog;
+		};
+		65A553142412E0E400277177 /* MGMRemoteApiClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */;
+			productName = MGMRemoteApiClient;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

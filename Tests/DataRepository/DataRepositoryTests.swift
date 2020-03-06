@@ -1,3 +1,4 @@
+import MGMRemoteApiClient
 import XCTest
 
 @testable import MusicGeekMonthly
@@ -41,18 +42,19 @@ class DataRepositoryTests: DataRepositoryTestCase {
         return events!
     }
 
-    private func createDataLoaderResponse(resource: String) -> DataLoaderResponse {
-        guard let data = loadData(forResource: resource, withExtension: "json") else {
+    private func createDataLoaderResponse(resource: String) -> Result<[EventApiModel], Error> {
+        guard let data = loadData(forResource: resource, withExtension: "json"),
+            let events = try? JSONDecoder.create().decode(eventsData: data) else {
             XCTFail("Cannot load test data from \(resource)")
             return .failure(NSError())
         }
 
-        return .success(data)
+        return .success(events)
     }
 }
 
 extension DataRepositoryResponse {
-    func asSuccessData() -> T? {
+    func asSuccessData() -> Value? {
         guard case let .success(events) = self else {
             return nil
         }

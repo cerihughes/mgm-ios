@@ -24,9 +24,10 @@ class MGMServiceProviderImplementation: ServiceProvider, MGMServiceProvider {
         localStorage = UserDefaults.standard
         localDataSource = LocalDataSourceImplementation(localStorage: localStorage)
 
-        let dataLoader = DataLoaderImplementation()
-        remoteDataSource = RemoteDataSourceImplementation(dataLoader: dataLoader)
+        let basePath = "https://mgm-gcp.appspot.com"
+        remoteDataSource = RemoteDataSourceImplementation(basePath: basePath)
         dataRepository = DataRepositoryImplementation(localDataSource: localDataSource, remoteDataSource: remoteDataSource)
+        let dataLoader = DataLoaderImplementation()
         imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)
 
         super.init(context: context)
