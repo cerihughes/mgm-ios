@@ -1,5 +1,7 @@
 import XCTest
 
+@testable import MusicGeekMonthly
+
 class DataRepositoryTestCase: XCTestCase {
     var localStorage: MockLocalStorage!
     var remoteDataSource: MockRemoteDataSource!
