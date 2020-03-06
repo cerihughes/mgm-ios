@@ -13,6 +13,7 @@
 		653560CF2409457A000E7E86 /* MockLocalNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653560CE2409457A000E7E86 /* MockLocalNotificationsManager.swift */; };
 		6540A51B218C85260028B382 /* ScoresCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6540A51A218C85260028B382 /* ScoresCollectionViewCell.swift */; };
 		6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6540A51C218C87010028B382 /* UIView+Extensions.swift */; };
+		65454F8D2412C0FA00464D38 /* Madog in Frameworks */ = {isa = PBXBuildFile; productRef = 65454F8C2412C0FA00464D38 /* Madog */; };
 		6553CF8B21907C4A0020EEC2 /* LatestEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553CF8A21907C4A0020EEC2 /* LatestEventViewModel.swift */; };
 		6553CF8D21907CB30020EEC2 /* LatestEventEntityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553CF8C21907CB30020EEC2 /* LatestEventEntityViewModel.swift */; };
 		6553CF932190890B0020EEC2 /* LatestEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553CF922190890B0020EEC2 /* LatestEventView.swift */; };
@@ -27,8 +28,7 @@
 		656619932190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */; };
 		656619952190AFBF0068EA1B /* ForwardNavigatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */; };
 		656619972190BB5F0068EA1B /* ExternalAppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */; };
-		65676F10227F1E5E00E229A5 /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65676F0E227F1E5E00E229A5 /* Provident.framework */; };
-		65676F11227F1E5E00E229A5 /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65676F0F227F1E5E00E229A5 /* Madog.framework */; };
+		6566473E2412E742002662EB /* DataRepositoryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581221924030EB6001666A1 /* DataRepositoryTestCase.swift */; };
 		657BE9322375B45E00039947 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657BE9282375B45B00039947 /* GoogleUtilities.framework */; };
 		657BE9332375B45E00039947 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657BE9292375B45B00039947 /* FirebaseCoreDiagnostics.framework */; };
 		657BE9342375B45E00039947 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657BE92A2375B45B00039947 /* FirebaseCore.framework */; };
@@ -46,35 +46,21 @@
 		658122062402FAAA001666A1 /* LocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658122052402FAAA001666A1 /* LocalDataSource.swift */; };
 		658122082402FAB6001666A1 /* RemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658122072402FAB6001666A1 /* RemoteDataSource.swift */; };
 		6581220D24030BCF001666A1 /* MockRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581220B24030BC7001666A1 /* MockRemoteDataSource.swift */; };
-		6581220E24030BED001666A1 /* RemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658122072402FAB6001666A1 /* RemoteDataSource.swift */; };
 		6581221024030C27001666A1 /* DataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581220F24030C27001666A1 /* DataRepositoryTests.swift */; };
-		6581221124030C4E001666A1 /* DataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658122002402FA69001666A1 /* DataRepository.swift */; };
 		6581221424030C82001666A1 /* MockLocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581221324030C82001666A1 /* MockLocalStorage.swift */; };
-		6581221524030DBE001666A1 /* LocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658122052402FAAA001666A1 /* LocalDataSource.swift */; };
-		6581221724030E84001666A1 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */; };
 		6581221824030E85001666A1 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */; };
-		6581221A24030EB6001666A1 /* DataRepositoryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581221924030EB6001666A1 /* DataRepositoryTestCase.swift */; };
-		6581221B24030F63001666A1 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAABE2189F69C007E887B /* DataLoader.swift */; };
 		65820CB72402C6790081C6DC /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65820CB62402C6790081C6DC /* LocalStorage.swift */; };
 		658AE763218DF75C002D4AE5 /* AverageColorProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */; };
 		658BD83222295CC3008E0EB1 /* ScoresViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658BD83122295CC3008E0EB1 /* ScoresViewModelTests.swift */; };
-		658BD83A22296059008E0EB1 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC92189FEF8007E887B /* Model.swift */; };
-		658BD83B2229606D008E0EB1 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAAC72189FDE9007E887B /* DateFormatter+Extensions.swift */; };
 		658BD840222967E1008E0EB1 /* MockImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658BD83F222967E1008E0EB1 /* MockImageLoader.swift */; };
-		658BD84222296851008E0EB1 /* ScoresViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD97218B3105002BB0C9 /* ScoresViewModel.swift */; };
-		658BD843222968E3008E0EB1 /* ScoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2AD99218B330D002BB0C9 /* ScoreViewModel.swift */; };
-		658BD844222968F3008E0EB1 /* AlbumArtViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65661977219092080068EA1B /* AlbumArtViewModel.swift */; };
-		658BD84522296901008E0EB1 /* URL+SpotifyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */; };
-		658BD84622296913008E0EB1 /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6512F30521934DEE004CD379 /* ErrorMessages.swift */; };
 		65981ABE227DDB060094248E /* MGMResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65981ABD227DDB060094248E /* MGMResolver.swift */; };
 		659CC8C8240801D50081D5BC /* EventUpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CC8C7240801D50081D5BC /* EventUpdateManager.swift */; };
 		659CC8CB24080DAF0081D5BC /* EventUpdateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CC8C924080D980081D5BC /* EventUpdateManagerTests.swift */; };
-		659CC8CC24080DE80081D5BC /* EventUpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CC8C7240801D50081D5BC /* EventUpdateManager.swift */; };
-		659CC8CD24080E0F0081D5BC /* LocalNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B633602402D923006FC00F /* LocalNotificationsManager.swift */; };
 		659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */; };
 		659DED7121931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */; };
 		65A4C3FA21E25631000148EE /* TypedViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */; };
-		65B6335F2402D2DB006FC00F /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65820CB62402C6790081C6DC /* LocalStorage.swift */; };
+		65A553152412E0E400277177 /* MGMRemoteApiClient in Frameworks */ = {isa = PBXBuildFile; productRef = 65A553142412E0E400277177 /* MGMRemoteApiClient */; };
+		65AF47A82412A3CE00A63D75 /* DataConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AF47A72412A3CE00A63D75 /* DataConversion.swift */; };
 		65B633612402D923006FC00F /* LocalNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B633602402D923006FC00F /* LocalNotificationsManager.swift */; };
 		65BDAA8F2189F55C007E887B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA8E2189F55C007E887B /* AppDelegate.swift */; };
 		65BDAA912189F55C007E887B /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDAA902189F55C007E887B /* ScoresViewController.swift */; };
@@ -126,8 +112,6 @@
 		656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyLaunchViewControllerProvider.swift; sourceTree = "<group>"; };
 		656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardNavigatingViewController.swift; sourceTree = "<group>"; };
 		656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalAppLauncher.swift; sourceTree = "<group>"; };
-		65676F0E227F1E5E00E229A5 /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
-		65676F0F227F1E5E00E229A5 /* Madog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Madog.framework; path = Carthage/Build/iOS/Madog.framework; sourceTree = "<group>"; };
 		657BE9282375B45B00039947 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = "<group>"; };
 		657BE9292375B45B00039947 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
 		657BE92A2375B45B00039947 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = "<group>"; };
@@ -161,6 +145,7 @@
 		659DED6D219317F200226579 /* LatestEventLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		659DED7021931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsLaunchViewControllerProvider.swift; sourceTree = "<group>"; };
 		65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypedViewControllerProvider.swift; sourceTree = "<group>"; };
+		65AF47A72412A3CE00A63D75 /* DataConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConversion.swift; sourceTree = "<group>"; };
 		65B633602402D923006FC00F /* LocalNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsManager.swift; sourceTree = "<group>"; };
 		65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicGeekMonthly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65BDAA8E2189F55C007E887B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -192,12 +177,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65676F10227F1E5E00E229A5 /* Provident.framework in Frameworks */,
 				657BE9372375B45E00039947 /* FIRAnalyticsConnector.framework in Frameworks */,
 				657BE93A2375B45E00039947 /* nanopb.framework in Frameworks */,
 				657BE9332375B45E00039947 /* FirebaseCoreDiagnostics.framework in Frameworks */,
 				657BE9342375B45E00039947 /* FirebaseCore.framework in Frameworks */,
+				65A553152412E0E400277177 /* MGMRemoteApiClient in Frameworks */,
 				657BE9322375B45E00039947 /* GoogleUtilities.framework in Frameworks */,
+				65454F8D2412C0FA00464D38 /* Madog in Frameworks */,
 				657BE9422375B8A400039947 /* Crashlytics.framework in Frameworks */,
 				657BE9362375B45E00039947 /* GoogleDataTransport.framework in Frameworks */,
 				657BE9382375B45E00039947 /* FirebaseAnalytics.framework in Frameworks */,
@@ -205,7 +191,6 @@
 				657BE9352375B45E00039947 /* GoogleAppMeasurement.framework in Frameworks */,
 				657BE93B2375B45E00039947 /* FirebaseInstanceID.framework in Frameworks */,
 				657BE9392375B45E00039947 /* GoogleDataTransportCCTSupport.framework in Frameworks */,
-				65676F11227F1E5E00E229A5 /* Madog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,15 +279,6 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
-		65676F0D227F1DD600E229A5 /* Carthage Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				65676F0F227F1E5E00E229A5 /* Madog.framework */,
-				65676F0E227F1E5E00E229A5 /* Provident.framework */,
-			);
-			name = "Carthage Frameworks";
-			sourceTree = "<group>";
-		};
 		657BE93E2375B6BA00039947 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				658122002402FA69001666A1 /* DataRepository.swift */,
+				65AF47A72412A3CE00A63D75 /* DataConversion.swift */,
 				658122032402FA92001666A1 /* LocalDataSource */,
 				658122042402FA9A001666A1 /* RemoteDataSource */,
 			);
@@ -337,6 +314,7 @@
 			children = (
 				65E485582199C82A00CCE895 /* gcp.json */,
 				658122052402FAAA001666A1 /* LocalDataSource.swift */,
+				65BDAAC92189FEF8007E887B /* Model.swift */,
 			);
 			path = LocalDataSource;
 			sourceTree = "<group>";
@@ -366,6 +344,7 @@
 				65D89F46221721340075238E /* GoodData.json */,
 				65BDAACE218A068E007E887B /* MockDataLoader.swift */,
 				6581220B24030BC7001666A1 /* MockRemoteDataSource.swift */,
+				65FA3CC9240937CE002ED84E /* Model+Testing.swift */,
 			);
 			path = RemoteDataSource;
 			sourceTree = "<group>";
@@ -415,7 +394,6 @@
 				65BDAA8D2189F55C007E887B /* Source */,
 				65BDAAA22189F55D007E887B /* Tests */,
 				65676F0C227F1DB800E229A5 /* Frameworks */,
-				65676F0D227F1DD600E229A5 /* Carthage Frameworks */,
 				65BDAA8C2189F55C007E887B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -446,7 +424,6 @@
 				658122022402FA77001666A1 /* DataRepostory */,
 				6566198A2190A7330068EA1B /* LatestEvent */,
 				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
-				65BDAAC22189F97F007E887B /* Model */,
 				6566197C21909E750068EA1B /* Navigation */,
 				656619892190A7090068EA1B /* Scores */,
 				656619912190ACAE0068EA1B /* Spotify */,
@@ -463,18 +440,9 @@
 				65BDAAD7218A096A007E887B /* XCTestCase+Extensions.swift */,
 				6581221224030C6F001666A1 /* Components */,
 				6581220924030B9A001666A1 /* DataRepository */,
-				65FA3CC82409375D002ED84E /* Model */,
 				658BD83022295C9C008E0EB1 /* Scores */,
 			);
 			path = Tests;
-			sourceTree = "<group>";
-		};
-		65BDAAC22189F97F007E887B /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				65BDAAC92189FEF8007E887B /* Model.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		65D2AD95218B3015002BB0C9 /* ViewModel */ = {
@@ -496,14 +464,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		65FA3CC82409375D002ED84E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				65FA3CC9240937CE002ED84E /* Model+Testing.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -516,7 +476,6 @@
 				654B11E72378516B005E0931 /* Swiftlint */,
 				65BDAA882189F55C007E887B /* Frameworks */,
 				65BDAA892189F55C007E887B /* Resources */,
-				65C014D921A86CEC0064E845 /* Copy Carthage Frameworks */,
 				652589C321938DE100B23275 /* Run Fabric */,
 			);
 			buildRules = (
@@ -524,6 +483,10 @@
 			dependencies = (
 			);
 			name = MusicGeekMonthly;
+			packageProductDependencies = (
+				65454F8C2412C0FA00464D38 /* Madog */,
+				65A553142412E0E400277177 /* MGMRemoteApiClient */,
+			);
 			productName = MusicGeekMonthlySwift;
 			productReference = 65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */;
 			productType = "com.apple.product-type.application";
@@ -563,6 +526,7 @@
 					65BDAA9E2189F55D007E887B = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1120;
+						TestTargetID = 65BDAA8A2189F55C007E887B;
 					};
 				};
 			};
@@ -575,6 +539,10 @@
 				Base,
 			);
 			mainGroup = 65BDAA822189F55C007E887B;
+			packageReferences = (
+				65454F8B2412C0FA00464D38 /* XCRemoteSwiftPackageReference "madog" */,
+				65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */,
+			);
 			productRefGroup = 65BDAA8C2189F55C007E887B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -665,27 +633,6 @@
 			shellPath = /bin/sh;
 			shellScript = "swiftlint\n";
 		};
-		65C014D921A86CEC0064E845 /* Copy Carthage Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Provident.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Madog.framework",
-			);
-			name = "Copy Carthage Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Madog.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -700,6 +647,7 @@
 				65E4374121A9C021001D9311 /* MGMServiceProvider.swift in Sources */,
 				6566197521908CE20068EA1B /* LatestEventViewController.swift in Sources */,
 				6566198E2190A8910068EA1B /* ResourceLocator.swift in Sources */,
+				65AF47A82412A3CE00A63D75 /* DataConversion.swift in Sources */,
 				6566197A2190969A0068EA1B /* AlbumCollectionViewCell.swift in Sources */,
 				65D2AD9E218B5143002BB0C9 /* ScoresView.swift in Sources */,
 				6512F30421933D06004CD379 /* LatestEventCollectionSectionHeaderView.swift in Sources */,
@@ -741,32 +689,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				659CC8CC24080DE80081D5BC /* EventUpdateManager.swift in Sources */,
 				658BD840222967E1008E0EB1 /* MockImageLoader.swift in Sources */,
-				6581221A24030EB6001666A1 /* DataRepositoryTestCase.swift in Sources */,
-				6581221B24030F63001666A1 /* DataLoader.swift in Sources */,
 				653560CF2409457A000E7E86 /* MockLocalNotificationsManager.swift in Sources */,
 				658BD83222295CC3008E0EB1 /* ScoresViewModelTests.swift in Sources */,
-				658BD84522296901008E0EB1 /* URL+SpotifyExtensions.swift in Sources */,
-				6581221524030DBE001666A1 /* LocalDataSource.swift in Sources */,
 				65FA3CCA240937CE002ED84E /* Model+Testing.swift in Sources */,
 				65BDAAD8218A096A007E887B /* XCTestCase+Extensions.swift in Sources */,
-				658BD844222968F3008E0EB1 /* AlbumArtViewModel.swift in Sources */,
 				6581221024030C27001666A1 /* DataRepositoryTests.swift in Sources */,
-				659CC8CD24080E0F0081D5BC /* LocalNotificationsManager.swift in Sources */,
-				658BD843222968E3008E0EB1 /* ScoreViewModel.swift in Sources */,
 				6581220D24030BCF001666A1 /* MockRemoteDataSource.swift in Sources */,
-				6581221724030E84001666A1 /* ImageLoader.swift in Sources */,
-				6581221124030C4E001666A1 /* DataRepository.swift in Sources */,
-				658BD83A22296059008E0EB1 /* Model.swift in Sources */,
 				65BDAACF218A068E007E887B /* MockDataLoader.swift in Sources */,
-				6581220E24030BED001666A1 /* RemoteDataSource.swift in Sources */,
-				658BD84222296851008E0EB1 /* ScoresViewModel.swift in Sources */,
-				658BD84622296913008E0EB1 /* ErrorMessages.swift in Sources */,
 				6581221424030C82001666A1 /* MockLocalStorage.swift in Sources */,
 				659CC8CB24080DAF0081D5BC /* EventUpdateManagerTests.swift in Sources */,
-				658BD83B2229606D008E0EB1 /* DateFormatter+Extensions.swift in Sources */,
-				65B6335F2402D2DB006FC00F /* LocalStorage.swift in Sources */,
+				6566473E2412E742002662EB /* DataRepositoryTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -920,7 +853,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/Firebase",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Source/Secret.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -948,7 +880,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/Firebase",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Source/Secret.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -968,6 +899,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
 				INFOPLIST_FILE = Tests/Info.plist;
@@ -980,6 +912,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MusicGeekMonthly.app/MusicGeekMonthly";
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/Firebase";
 			};
 			name = Debug;
 		};
@@ -987,6 +921,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
 				INFOPLIST_FILE = Tests/Info.plist;
@@ -999,6 +934,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MusicGeekMonthly.app/MusicGeekMonthly";
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/Firebase";
 			};
 			name = Release;
 		};
@@ -1033,6 +970,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		65454F8B2412C0FA00464D38 /* XCRemoteSwiftPackageReference "madog" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cerihughes/madog.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.1;
+			};
+		};
+		65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cerihughes/mgm-schema";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.16.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		65454F8C2412C0FA00464D38 /* Madog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65454F8B2412C0FA00464D38 /* XCRemoteSwiftPackageReference "madog" */;
+			productName = Madog;
+		};
+		65A553142412E0E400277177 /* MGMRemoteApiClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */;
+			productName = MGMRemoteApiClient;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 65BDAA832189F55C007E887B /* Project object */;
 }

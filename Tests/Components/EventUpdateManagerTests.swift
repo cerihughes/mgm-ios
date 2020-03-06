@@ -1,4 +1,7 @@
+import MGMRemoteApiClient
 import XCTest
+
+@testable import MusicGeekMonthly
 
 class EventUpdateManagerTests: XCTestCase {
     private var cut: EventUpdateManager!
@@ -16,12 +19,13 @@ class EventUpdateManagerTests: XCTestCase {
     }
 
     func testNoChanges() {
-        let event = Event.create(number: 1,
-                                 location: Location.create(latitude: 1.234, longitude: 5.678),
-                                 date: Date(),
-                                 playlist: Playlist.create(),
-                                 classicAlbum: Album.create(type: .classic, score: 8.0),
-                                 newAlbum: Album.create(type: .new, score: 8.1))
+        let event = EventApiModel.create(number: 1,
+                                         date: "10/12/2020",
+                                         location: LocationApiModel.create(latitude: 1.234, longitude: 5.678),
+                                         classicAlbum: AlbumApiModel.create(type: .classic, score: 8.0),
+                                         newAlbum: AlbumApiModel.create(type: .new, score: 8.1),
+                                         playlist: PlaylistApiModel.create())
+            .convert()
 
         let result = cut.processEventUpdate(oldEvents: [event], newEvents: [event])
         XCTAssertEqual(result.count, 0)
@@ -33,35 +37,48 @@ class EventUpdateManagerTests: XCTestCase {
     }
 
     func testNewEvent_noPrevious() {
-        let newEvent = Event.create(number: 1)
+        let newEvent = EventApiModel.create(number: 1)
+            .convert()
         let result = cut.processEventUpdate(oldEvents: [], newEvents: [newEvent])
         XCTAssertEqual(result.count, 0)
     }
 
     func testNewEvent_noAlbums() {
-        let oldEvent = Event.create(number: 1)
-        let newEvent = Event.create(number: 2)
+        let oldEvent = EventApiModel.create(number: 1)
+            .convert()
+        let newEvent = EventApiModel.create(number: 2)
+            .convert()
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [oldEvent, newEvent])
         XCTAssertEqual(result.count, 0)
     }
 
     func testNewEvent_classisAlbum() {
-        let oldEvent = Event.create(number: 1)
-        let newEvent = Event.create(number: 2, classicAlbum: Album.create(type: .classic))
+        let oldEvent = EventApiModel.create(number: 1)
+            .convert()
+        let newEvent = EventApiModel.create(number: 2,
+                                            classicAlbum: AlbumApiModel.create(type: .classic))
+            .convert()
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [oldEvent, newEvent])
         XCTAssertEqual(result.count, 0)
     }
 
     func testNewEvent_newAlbum() {
-        let oldEvent = Event.create(number: 1)
-        let newEvent = Event.create(number: 2, newAlbum: Album.create(type: .new))
+        let oldEvent = EventApiModel.create(number: 1)
+            .convert()
+        let newEvent = EventApiModel.create(number: 2,
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [oldEvent, newEvent])
         XCTAssertEqual(result.count, 0)
     }
 
     func testNewEvent_bothAlbums() {
-        let oldEvent = Event.create(number: 1)
-        let newEvent = Event.create(number: 2, classicAlbum: Album.create(type: .classic), newAlbum: Album.create(type: .new))
+        let oldEvent = EventApiModel.create(number: 1)
+            .convert()
+        let newEvent = EventApiModel.create(number: 2,
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [oldEvent, newEvent])
         XCTAssertEqual(result.count, 1)
 
@@ -70,12 +87,14 @@ class EventUpdateManagerTests: XCTestCase {
     }
 
     func testUpdateEvent_addScores() {
-        let oldEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new))
-        let newEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic, score: 5.0),
-                                    newAlbum: Album.create(type: .new, score: 5.0))
+        let oldEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
+        let newEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic, score: 5.0),
+                                            newAlbum: AlbumApiModel.create(type: .new, score: 5.0))
+            .convert()
 
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [newEvent])
         XCTAssertEqual(result.count, 1)
@@ -85,12 +104,14 @@ class EventUpdateManagerTests: XCTestCase {
     }
 
     func testUpdateEvent_addClassicScore() {
-        let oldEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new))
-        let newEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic, score: 5.0),
-                                    newAlbum: Album.create(type: .new))
+        let oldEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
+        let newEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic, score: 5.0),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
 
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [newEvent])
         XCTAssertEqual(result.count, 1)
@@ -100,12 +121,14 @@ class EventUpdateManagerTests: XCTestCase {
     }
 
     func testUpdateEvent_addNewScore() {
-        let oldEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new))
-        let newEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new, score: 5.0))
+        let oldEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
+        let newEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new, score: 5.0))
+            .convert()
 
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [newEvent])
         XCTAssertEqual(result.count, 1)
@@ -115,12 +138,14 @@ class EventUpdateManagerTests: XCTestCase {
     }
 
     func testUpdateEvent_addClassicScore_existingNewScore() {
-        let oldEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new, score: 5.0))
-        let newEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic, score: 5.0),
-                                    newAlbum: Album.create(type: .new, score: 5.0))
+        let oldEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new, score: 5.0))
+            .convert()
+        let newEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic, score: 5.0),
+                                            newAlbum: AlbumApiModel.create(type: .new, score: 5.0))
+            .convert()
 
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [newEvent])
         XCTAssertEqual(result.count, 1)
@@ -130,12 +155,14 @@ class EventUpdateManagerTests: XCTestCase {
     }
 
     func testUpdateEvent_addNewScore_existingClassicScore() {
-        let oldEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic, score: 5.0),
-                                    newAlbum: Album.create(type: .new))
-        let newEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic, score: 5.0),
-                                    newAlbum: Album.create(type: .new, score: 5.0))
+        let oldEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic, score: 5.0),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
+        let newEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic, score: 5.0),
+                                            newAlbum: AlbumApiModel.create(type: .new, score: 5.0))
+            .convert()
 
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [newEvent])
         XCTAssertEqual(result.count, 1)
@@ -145,13 +172,15 @@ class EventUpdateManagerTests: XCTestCase {
     }
 
     func testUpdateEvent_addDate() {
-        let oldEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new))
-        let newEvent = Event.create(number: 1,
-                                    date: Date(),
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new))
+        let oldEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
+        let newEvent = EventApiModel.create(number: 1,
+                                            date: "01/01/2020",
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
 
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [newEvent])
         XCTAssertEqual(result.count, 1)
@@ -161,16 +190,18 @@ class EventUpdateManagerTests: XCTestCase {
     }
 
     func testUpdateEvent_changeDate() {
-        let initialDate = Date()
-        let updatedDate = Date(timeInterval: 1, since: initialDate)
-        let oldEvent = Event.create(number: 1,
-                                    date: initialDate,
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new))
-        let newEvent = Event.create(number: 1,
-                                    date: updatedDate,
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new))
+        let initialDate = "01/01/2020"
+        let updatedDate = "02/02/2020"
+        let oldEvent = EventApiModel.create(number: 1,
+                                            date: initialDate,
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
+        let newEvent = EventApiModel.create(number: 1,
+                                            date: updatedDate,
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
 
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [newEvent])
         XCTAssertEqual(result.count, 1)
@@ -180,13 +211,15 @@ class EventUpdateManagerTests: XCTestCase {
     }
 
     func testUpdateEvent_removeDate() {
-        let oldEvent = Event.create(number: 1,
-                                    date: Date(),
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new))
-        let newEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new))
+        let oldEvent = EventApiModel.create(number: 1,
+                                            date: "01/01/2020",
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
+        let newEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
 
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [newEvent])
         XCTAssertEqual(result.count, 1)
@@ -196,13 +229,16 @@ class EventUpdateManagerTests: XCTestCase {
     }
 
     func testPlaylistPublished() {
-        let oldEvent = Event.create(number: 1,
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new))
-        let newEvent = Event.create(number: 1,
-                                    playlist: Playlist.create(),
-                                    classicAlbum: Album.create(type: .classic),
-                                    newAlbum: Album.create(type: .new))
+        let oldEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            newAlbum: AlbumApiModel.create(type: .new))
+            .convert()
+        let newEvent = EventApiModel.create(number: 1,
+                                            classicAlbum: AlbumApiModel.create(type: .classic),
+                                            
+                                            newAlbum: AlbumApiModel.create(type: .new),
+                                            playlist: PlaylistApiModel.create())
+            .convert()
 
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [newEvent])
         XCTAssertEqual(result.count, 1)

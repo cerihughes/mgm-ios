@@ -17,12 +17,12 @@ protocol AlbumArtViewModel {
 
 class AlbumArtViewModelImplementation: AlbumArtViewModel {
     private let imageLoader: ImageLoader
-    private let images: [Image]
+    private let images: [Image]?
     private let loadingImageIndex: Int
 
     private var dataLoaderToken: DataLoaderToken?
 
-    init(imageLoader: ImageLoader, images: [Image], loadingImageIndex: Int = -1) {
+    init(imageLoader: ImageLoader, images: [Image]?, loadingImageIndex: Int = -1) {
         self.imageLoader = imageLoader
         self.images = images
         let range = 1 ... 3
@@ -63,6 +63,8 @@ class AlbumArtViewModelImplementation: AlbumArtViewModel {
     // MARK: Private
 
     private func image(for largestDimension: Int) -> String? {
+        guard let images = images else { return nil }
+
         var candidate: String?
         for image in images {
             let size = image.size ?? 0

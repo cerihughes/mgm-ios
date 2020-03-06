@@ -4,10 +4,7 @@ import Foundation
 ///
 /// - success: The data was successfully loaded (Data as a parameter)
 /// - failure: The data couldn't be loaded (Error as a parameter)
-enum DataLoaderResponse {
-    case success(Data)
-    case failure(Error)
-}
+typealias DataLoaderResponse = Result<Data, Error>
 
 /// Domain-specific errors for the DataLoader
 ///

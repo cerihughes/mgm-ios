@@ -1,30 +1,21 @@
 language: swift
-osx_image: xcode11
-
-cache:
-  directories:
-  - Carthage
+osx_image: xcode11.3
 
 env:
   global:
     - PROJECT_NAME="MusicGeekMonthlySwift.xcodeproj"
     - SCHEME_IOS_FRAMEWORK="MusicGeekMonthly"
-    - IOS_SDK=iphonesimulator13.0
+    - IOS_SDK=iphonesimulator13.2
   matrix:
-    - DESTINATION="OS=13.0,name=iPhone 11" SCHEME="$SCHEME_IOS_FRAMEWORK" SDK="$IOS_SDK"
+    - DESTINATION="OS=13.3,name=iPhone 11" SCHEME="$SCHEME_IOS_FRAMEWORK" SDK="$IOS_SDK"
 
 before_install:
-  - brew update
-  - brew install carthage || true
-  - brew outdated carthage || brew upgrade carthage
   - gem install xcpretty-travis-formatter --quiet
-
-before_script:
-  - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
 
 script:
   - set -o pipefail
-  - echo '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>API_KEY</key><string>1</string><key>PLIST_VERSION</key><string>1</string><key>BUNDLE_ID</key><string>uk.co.cerihughes.Music-Geek-Monthly</string><key>GOOGLE_APP_ID</key><string>1:111111111111:ios:1111111111111111</string></dict></plist>' > Source/GoogleService-Info.plist
+  - export PROJECT_DIR=.; /bin/sh BuildPhases/copy-plist.sh
+  - /bin/sh createFakeGoogleServices.sh
   - xcodebuild clean test -project "$PROJECT_NAME" -scheme "$SCHEME" -destination "$DESTINATION" -sdk "$SDK" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty -f `xcpretty-travis-formatter`
 
 after_success:

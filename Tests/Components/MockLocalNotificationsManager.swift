@@ -1,5 +1,7 @@
 import Foundation
 
+@testable import MusicGeekMonthly
+
 class MockLocalNotificationsManager: LocalNotificationsManager {
     var isAuthorizedResponse = false
     var requestAuthorizationResponse = false

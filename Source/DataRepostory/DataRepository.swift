@@ -1,14 +1,12 @@
 import Foundation
+import MGMRemoteApiClient
 
-enum DataRepositoryResponse<T> {
-    case success(T)
-    case failure(Error)
-}
+typealias DataRepositoryResponse<T> = Result<T, Error>
 
 protocol DataRepository {
     var localEvents: [Event]? { get }
 
-    func getEventData(_ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void) -> DataLoaderToken?
+    func getEventData(_ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void)
 }
 
 class DataRepositoryImplementation: DataRepository {
@@ -17,6 +15,7 @@ class DataRepositoryImplementation: DataRepository {
     private let eventUpdateManager: EventUpdateManager
     private let localNotificationsManager: LocalNotificationsManager
 
+    private let encoder = JSONEncoder.create()
     private let decoder = JSONDecoder.create()
 
     init(localDataSource: LocalDataSource,
@@ -35,40 +34,44 @@ class DataRepositoryImplementation: DataRepository {
         }
 
         return try? decoder.decode(eventsData: data)
+            .map { $0.convert() }
     }
 
-    func getEventData(_ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void) -> DataLoaderToken? {
+    func getEventData(_ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void) {
         return remoteDataSource.loadEventData { [weak self] response in
             switch response {
-            case let .success(data):
-                self?.handleDataLoaderSuccess(data: data, completion)
+            case let .success(events):
+                self?.handleRemoteSuccess(events: events, completion)
             case let .failure(error):
-                self?.handleDataLoaderFailure(error: error, completion)
+                self?.handleRemoteFailure(error: error, completion)
             }
         }
     }
 
     // MARK: Private
 
-    private func handleDataLoaderSuccess(data: Data, _ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void) {
-        let oldEvents = existingEvents ?? []
+    private func handleRemoteSuccess(events: [EventApiModel], _ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void) {
+        let oldEventApiModels = existingEventApiModels ?? []
 
-        localDataSource.localStorage.eventData = data
-        do {
-            let newEvents = try decoder.decode(eventsData: data)
-            let eventUpdates = eventUpdateManager.processEventUpdate(oldEvents: oldEvents, newEvents: newEvents)
-            localNotificationsManager.scheduleLocalNotifications(eventUpdates: eventUpdates)
-            completion(.success(newEvents))
-        } catch {
-            completion(.failure(error))
+        if let data = try? encoder.encode(events: events) {
+            localDataSource.localStorage.eventData = data
         }
+
+        let oldEvents = oldEventApiModels.map { $0.convert() }
+        let newEvents = events.map { $0.convert() }
+
+        let eventUpdates = eventUpdateManager.processEventUpdate(oldEvents: oldEvents, newEvents: newEvents)
+        localNotificationsManager.scheduleLocalNotifications(eventUpdates: eventUpdates)
+
+        completion(.success(newEvents))
     }
 
-    private func handleDataLoaderFailure(error: Error, _ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void) {
+    private func handleRemoteFailure(error: Error, _ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void) {
         if let data = localDataSource.localStorage.eventData {
             do {
                 let events = try decoder.decode(eventsData: data)
-                completion(.success(events))
+                let mapped = events.map { $0.convert() }
+                completion(.success(mapped))
             } catch {
                 completion(.failure(error))
             }
@@ -77,7 +80,7 @@ class DataRepositoryImplementation: DataRepository {
         }
     }
 
-    private var existingEvents: [Event]? {
+    private var existingEventApiModels: [EventApiModel]? {
         guard let existingData = localDataSource.localStorage.eventData else {
             return nil
         }
@@ -93,8 +96,8 @@ extension JSONDecoder {
         return decoder
     }
 
-    func decode(eventsData: Data) throws -> [Event] {
-        return try decode([Event].self, from: eventsData)
+    func decode(eventsData: Data) throws -> [EventApiModel] {
+        return try decode([EventApiModel].self, from: eventsData)
     }
 }
 
@@ -105,7 +108,7 @@ extension JSONEncoder {
         return encoder
     }
 
-    func encode(events: [Event]) throws -> Data {
+    func encode(events: [EventApiModel]) throws -> Data {
         return try encode(events)
     }
 }
