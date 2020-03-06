@@ -12,6 +12,7 @@
 		6512F30621934DEE004CD379 /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6512F30521934DEE004CD379 /* ErrorMessages.swift */; };
 		6540A51B218C85260028B382 /* ScoresCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6540A51A218C85260028B382 /* ScoresCollectionViewCell.swift */; };
 		6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6540A51C218C87010028B382 /* UIView+Extensions.swift */; };
+		65454F8D2412C0FA00464D38 /* Madog in Frameworks */ = {isa = PBXBuildFile; productRef = 65454F8C2412C0FA00464D38 /* Madog */; };
 		6553CF8B21907C4A0020EEC2 /* LatestEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553CF8A21907C4A0020EEC2 /* LatestEventViewModel.swift */; };
 		6553CF8D21907CB30020EEC2 /* LatestEventEntityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553CF8C21907CB30020EEC2 /* LatestEventEntityViewModel.swift */; };
 		6553CF932190890B0020EEC2 /* LatestEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553CF922190890B0020EEC2 /* LatestEventView.swift */; };
@@ -26,8 +27,6 @@
 		656619932190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */; };
 		656619952190AFBF0068EA1B /* ForwardNavigatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */; };
 		656619972190BB5F0068EA1B /* ExternalAppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */; };
-		65676F10227F1E5E00E229A5 /* Provident.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65676F0E227F1E5E00E229A5 /* Provident.framework */; };
-		65676F11227F1E5E00E229A5 /* Madog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65676F0F227F1E5E00E229A5 /* Madog.framework */; };
 		657BE9322375B45E00039947 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657BE9282375B45B00039947 /* GoogleUtilities.framework */; };
 		657BE9332375B45E00039947 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657BE9292375B45B00039947 /* FirebaseCoreDiagnostics.framework */; };
 		657BE9342375B45E00039947 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657BE92A2375B45B00039947 /* FirebaseCore.framework */; };
@@ -119,8 +118,6 @@
 		656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyLaunchViewControllerProvider.swift; sourceTree = "<group>"; };
 		656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardNavigatingViewController.swift; sourceTree = "<group>"; };
 		656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalAppLauncher.swift; sourceTree = "<group>"; };
-		65676F0E227F1E5E00E229A5 /* Provident.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Provident.framework; path = Carthage/Build/iOS/Provident.framework; sourceTree = "<group>"; };
-		65676F0F227F1E5E00E229A5 /* Madog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Madog.framework; path = Carthage/Build/iOS/Madog.framework; sourceTree = "<group>"; };
 		657BE9282375B45B00039947 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = "<group>"; };
 		657BE9292375B45B00039947 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
 		657BE92A2375B45B00039947 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = "<group>"; };
@@ -182,12 +179,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65676F10227F1E5E00E229A5 /* Provident.framework in Frameworks */,
 				657BE9372375B45E00039947 /* FIRAnalyticsConnector.framework in Frameworks */,
 				657BE93A2375B45E00039947 /* nanopb.framework in Frameworks */,
 				657BE9332375B45E00039947 /* FirebaseCoreDiagnostics.framework in Frameworks */,
 				657BE9342375B45E00039947 /* FirebaseCore.framework in Frameworks */,
 				657BE9322375B45E00039947 /* GoogleUtilities.framework in Frameworks */,
+				65454F8D2412C0FA00464D38 /* Madog in Frameworks */,
 				657BE9422375B8A400039947 /* Crashlytics.framework in Frameworks */,
 				657BE9362375B45E00039947 /* GoogleDataTransport.framework in Frameworks */,
 				657BE9382375B45E00039947 /* FirebaseAnalytics.framework in Frameworks */,
@@ -195,7 +192,6 @@
 				657BE9352375B45E00039947 /* GoogleAppMeasurement.framework in Frameworks */,
 				657BE93B2375B45E00039947 /* FirebaseInstanceID.framework in Frameworks */,
 				657BE9392375B45E00039947 /* GoogleDataTransportCCTSupport.framework in Frameworks */,
-				65676F11227F1E5E00E229A5 /* Madog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,15 +278,6 @@
 				657BE93E2375B6BA00039947 /* Firebase */,
 			);
 			path = Frameworks;
-			sourceTree = "<group>";
-		};
-		65676F0D227F1DD600E229A5 /* Carthage Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				65676F0F227F1E5E00E229A5 /* Madog.framework */,
-				65676F0E227F1E5E00E229A5 /* Provident.framework */,
-			);
-			name = "Carthage Frameworks";
 			sourceTree = "<group>";
 		};
 		657BE93E2375B6BA00039947 /* Firebase */ = {
@@ -401,7 +388,6 @@
 				65BDAA8D2189F55C007E887B /* Source */,
 				65BDAAA22189F55D007E887B /* Tests */,
 				65676F0C227F1DB800E229A5 /* Frameworks */,
-				65676F0D227F1DD600E229A5 /* Carthage Frameworks */,
 				65BDAA8C2189F55C007E887B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -502,7 +488,6 @@
 				654B11E72378516B005E0931 /* Swiftlint */,
 				65BDAA882189F55C007E887B /* Frameworks */,
 				65BDAA892189F55C007E887B /* Resources */,
-				65C014D921A86CEC0064E845 /* Copy Carthage Frameworks */,
 				652589C321938DE100B23275 /* Run Fabric */,
 			);
 			buildRules = (
@@ -510,6 +495,9 @@
 			dependencies = (
 			);
 			name = MusicGeekMonthly;
+			packageProductDependencies = (
+				65454F8C2412C0FA00464D38 /* Madog */,
+			);
 			productName = MusicGeekMonthlySwift;
 			productReference = 65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */;
 			productType = "com.apple.product-type.application";
@@ -561,6 +549,9 @@
 				Base,
 			);
 			mainGroup = 65BDAA822189F55C007E887B;
+			packageReferences = (
+				65454F8B2412C0FA00464D38 /* XCRemoteSwiftPackageReference "madog" */,
+			);
 			productRefGroup = 65BDAA8C2189F55C007E887B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -650,27 +641,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "swiftlint\n";
-		};
-		65C014D921A86CEC0064E845 /* Copy Carthage Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Provident.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Madog.framework",
-			);
-			name = "Copy Carthage Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Madog.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -900,7 +870,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/Firebase",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Source/Secret.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -928,7 +897,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/Firebase",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Source/Secret.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1013,6 +981,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		65454F8B2412C0FA00464D38 /* XCRemoteSwiftPackageReference "madog" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cerihughes/madog.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		65454F8C2412C0FA00464D38 /* Madog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65454F8B2412C0FA00464D38 /* XCRemoteSwiftPackageReference "madog" */;
+			productName = Madog;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 65BDAA832189F55C007E887B /* Project object */;
 }
