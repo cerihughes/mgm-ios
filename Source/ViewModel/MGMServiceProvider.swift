@@ -4,10 +4,6 @@ import Madog
 let mgmServiceProviderName = "mgmServiceProviderName"
 
 protocol MGMServiceProvider {
-    var localStorage: LocalStorage { get }
-    var localDataSource: LocalDataSource { get }
-    var remoteDataSource: RemoteDataSource { get }
-    var eventUpdateManager: EventUpdateManager { get }
     var localNotificationsManager: LocalNotificationsManager { get }
     var dataRepository: DataRepository { get }
     var imageLoader: ImageLoader { get }
