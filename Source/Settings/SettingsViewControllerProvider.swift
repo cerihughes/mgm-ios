@@ -16,7 +16,7 @@ class SettingsViewControllerProvider: TypedViewControllerProvider {
         let viewController = SettingsViewController(viewModel: viewModel)
         viewController.tabBarItem.tag = 2
         viewController.tabBarItem.title = "Settings"
-        viewController.tabBarItem.image = UIImage(named: "calendar")
+        viewController.tabBarItem.image = UIImage(named: "ruler")
 
         return viewController
     }
