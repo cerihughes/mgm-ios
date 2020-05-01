@@ -16,4 +16,12 @@ class SettingsViewController: UIViewController {
     override func loadView() {
         view = SettingsView()
     }
+
+    override func viewDidLoad() {
+        title = viewModel.title
+
+        guard let settingsView = view as? SettingsView else { return }
+
+        settingsView.localNotifications.labelView.text = viewModel.localNotificationsText
+    }
 }

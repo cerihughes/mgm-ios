@@ -84,6 +84,7 @@
 		F4FAB1CA245C28C0001BCDBA /* SettingsViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1C9245C28C0001BCDBA /* SettingsViewControllerProvider.swift */; };
 		F4FAB1CC245C28CA001BCDBA /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1CB245C28CA001BCDBA /* SettingsViewModel.swift */; };
 		F4FAB1CF245C2CC8001BCDBA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F4FAB1CE245C2CC8001BCDBA /* SnapKit */; };
+		F4FAB1D1245C2E82001BCDBA /* LabelWithSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1D0245C2E82001BCDBA /* LabelWithSwitch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +180,7 @@
 		F4FAB1C7245C28AA001BCDBA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F4FAB1C9245C28C0001BCDBA /* SettingsViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerProvider.swift; sourceTree = "<group>"; };
 		F4FAB1CB245C28CA001BCDBA /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		F4FAB1D0245C2E82001BCDBA /* LabelWithSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithSwitch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -470,6 +472,7 @@
 			children = (
 				658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */,
 				6512F30521934DEE004CD379 /* ErrorMessages.swift */,
+				F4FAB1D0245C2E82001BCDBA /* LabelWithSwitch.swift */,
 				6566197121908B6C0068EA1B /* Scaffolding */,
 			);
 			path = View;
@@ -688,6 +691,7 @@
 				6553CF8B21907C4A0020EEC2 /* LatestEventViewModel.swift in Sources */,
 				659DED7121931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift in Sources */,
 				659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */,
+				F4FAB1D1245C2E82001BCDBA /* LabelWithSwitch.swift in Sources */,
 				658122062402FAAA001666A1 /* LocalDataSource.swift in Sources */,
 				65BDAAC82189FDE9007E887B /* DateFormatter+Extensions.swift in Sources */,
 				65661978219092080068EA1B /* AlbumArtViewModel.swift in Sources */,
