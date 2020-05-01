@@ -83,7 +83,8 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .newEvent(newEvent))
+        XCTAssertEqual(notification.title, "New Event - MGM 2")
+        XCTAssertEqual(notification.body, "Next month's albums are now available.")
     }
 
     func testUpdateEvent_addScores() {
@@ -92,15 +93,19 @@ class EventUpdateManagerTests: XCTestCase {
                                             newAlbum: AlbumApiModel.create(type: .new))
             .convert()
         let newEvent = EventApiModel.create(number: 1,
-                                            classicAlbum: AlbumApiModel.create(type: .classic, score: 5.0),
-                                            newAlbum: AlbumApiModel.create(type: .new, score: 5.0))
+                                            classicAlbum: AlbumApiModel.create(type: .classic, name: "Classic Album", score: 5.0),
+                                            newAlbum: AlbumApiModel.create(type: .new, name: "New Album", score: 5.0))
             .convert()
 
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [newEvent])
         XCTAssertEqual(result.count, 2)
 
-        XCTAssertEqual(result[0], .scoresPublished(newEvent.classicAlbum!))
-        XCTAssertEqual(result[1], .scoresPublished(newEvent.newAlbum!))
+        let notification1 = result[0]
+        let notification2 = result[1]
+        XCTAssertEqual(notification1.title, "Scores Available - MGM 1")
+        XCTAssertEqual(notification1.body, "\"Classic Album\" scored 5.0")
+        XCTAssertEqual(notification2.title, "Scores Available - MGM 1")
+        XCTAssertEqual(notification2.body, "\"New Album\" scored 5.0")
     }
 
     func testUpdateEvent_addClassicScore() {
@@ -109,7 +114,7 @@ class EventUpdateManagerTests: XCTestCase {
                                             newAlbum: AlbumApiModel.create(type: .new))
             .convert()
         let newEvent = EventApiModel.create(number: 1,
-                                            classicAlbum: AlbumApiModel.create(type: .classic, score: 5.0),
+                                            classicAlbum: AlbumApiModel.create(type: .classic, score: 6.29),
                                             newAlbum: AlbumApiModel.create(type: .new))
             .convert()
 
@@ -117,33 +122,35 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .scoresPublished(newEvent.classicAlbum!))
+        XCTAssertEqual(notification.title, "Scores Available - MGM 1")
+        XCTAssertEqual(notification.body, "\"name\" scored 6.3")
     }
 
     func testUpdateEvent_addNewScore() {
-        let oldEvent = EventApiModel.create(number: 1,
+        let oldEvent = EventApiModel.create(number: 11,
                                             classicAlbum: AlbumApiModel.create(type: .classic),
                                             newAlbum: AlbumApiModel.create(type: .new))
             .convert()
-        let newEvent = EventApiModel.create(number: 1,
+        let newEvent = EventApiModel.create(number: 11,
                                             classicAlbum: AlbumApiModel.create(type: .classic),
-                                            newAlbum: AlbumApiModel.create(type: .new, score: 5.0))
+                                            newAlbum: AlbumApiModel.create(type: .new, score: 0.0001))
             .convert()
 
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [newEvent])
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .scoresPublished(newEvent.newAlbum!))
+        XCTAssertEqual(notification.title, "Scores Available - MGM 11")
+        XCTAssertEqual(notification.body, "\"name\" scored 0.0")
     }
 
     func testUpdateEvent_addClassicScore_existingNewScore() {
-        let oldEvent = EventApiModel.create(number: 1,
+        let oldEvent = EventApiModel.create(number: 131,
                                             classicAlbum: AlbumApiModel.create(type: .classic),
                                             newAlbum: AlbumApiModel.create(type: .new, score: 5.0))
             .convert()
-        let newEvent = EventApiModel.create(number: 1,
-                                            classicAlbum: AlbumApiModel.create(type: .classic, score: 5.0),
+        let newEvent = EventApiModel.create(number: 131,
+                                            classicAlbum: AlbumApiModel.create(type: .classic, score: 2.34),
                                             newAlbum: AlbumApiModel.create(type: .new, score: 5.0))
             .convert()
 
@@ -151,7 +158,8 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .scoresPublished(newEvent.classicAlbum!))
+        XCTAssertEqual(notification.title, "Scores Available - MGM 131")
+        XCTAssertEqual(notification.body, "\"name\" scored 2.3")
     }
 
     func testUpdateEvent_addNewScore_existingClassicScore() {
@@ -168,7 +176,8 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .scoresPublished(newEvent.newAlbum!))
+        XCTAssertEqual(notification.title, "Scores Available - MGM 1")
+        XCTAssertEqual(notification.body, "\"name\" scored 5.0")
     }
 
     func testUpdateEvent_addDate() {
@@ -186,7 +195,8 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .eventScheduled(newEvent))
+        XCTAssertEqual(notification.title, "Event Scheduled - MGM 1")
+        XCTAssertEqual(notification.body, "This month's event has been scheduled for January 1, 2020")
     }
 
     func testUpdateEvent_changeDate() {
@@ -207,7 +217,8 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .eventRescheduled(newEvent))
+        XCTAssertEqual(notification.title, "Event Rescheduled - MGM 1")
+        XCTAssertEqual(notification.body, "This month's event has been rescheduled for February 2, 2020")
     }
 
     func testUpdateEvent_removeDate() {
@@ -225,7 +236,8 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .eventCancelled(newEvent))
+        XCTAssertEqual(notification.title, "Event Cancelled - MGM 1")
+        XCTAssertEqual(notification.body, "This month's event has been cancelled. Check the Facebook group for more details.")
     }
 
     func testPlaylistPublished() {
@@ -244,6 +256,7 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .playlistPublished(newEvent))
+        XCTAssertEqual(notification.title, "Playlist Available - MGM 1")
+        XCTAssertEqual(notification.body, "This month's playlist is now available.")
     }
 }

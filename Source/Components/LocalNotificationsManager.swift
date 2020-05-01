@@ -79,7 +79,7 @@ extension LocalNotificationsManagerImplementation: UNUserNotificationCenterDeleg
     }
 }
 
-private extension EventUpdate {
+extension EventUpdate {
     var identifier: String {
         switch self {
         case let .newEvent(event):
@@ -120,7 +120,8 @@ private extension EventUpdate {
             return "Next month's albums are now available."
         case let .scoresPublished(album):
             guard let score = album.score else { return nil }
-            return "\(album.name) scored \(score)."
+            let formattedScore = String(format: "%.1f", score)
+            return "\"\(album.name)\" scored \(formattedScore)"
         case let .eventScheduled(event):
             guard let dateString = event.dateString else { return nil }
             return "This month's event has been scheduled for \(dateString)"
