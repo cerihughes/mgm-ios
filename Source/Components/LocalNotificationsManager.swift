@@ -1,13 +1,23 @@
 import UserNotifications
 
-protocol LocalNotificationsManager {
+enum AuthorizationStatus {
+    case notDetermined, authorized, denied
+}
+
+protocol LocalNotificationsManager: AnyObject {
     var isEnabled: Bool { get set }
-    func isAuthorized(completion: @escaping (Bool) -> Void)
+    func getAuthorizationStatus(completion: @escaping (AuthorizationStatus) -> Void)
     func requestAuthorization(completion: @escaping (Bool) -> Void)
     func scheduleLocalNotification(eventUpdate: EventUpdate)
 }
 
 extension LocalNotificationsManager {
+    func isAuthorized(completion: @escaping (Bool) -> Void) {
+        getAuthorizationStatus { authorizationStatus in
+            completion(authorizationStatus == .authorized)
+        }
+    }
+
     func scheduleLocalNotifications(eventUpdates: [EventUpdate]) {
         eventUpdates.forEach { scheduleLocalNotification(eventUpdate: $0) }
     }
@@ -35,11 +45,8 @@ class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManag
         }
     }
 
-    func isAuthorized(completion: @escaping (Bool) -> Void) {
-        notificationCenter.getNotificationSettings { settings in
-            let isAuthorized = settings.authorizationStatus == .authorized && settings.alertSetting == .enabled
-            completion(isAuthorized)
-        }
+    func getAuthorizationStatus(completion: @escaping (AuthorizationStatus) -> Void) {
+        notificationCenter.getNotificationSettings { completion($0.authorizationStatus.mgmValue) }
     }
 
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
@@ -76,6 +83,21 @@ extension LocalNotificationsManagerImplementation: UNUserNotificationCenterDeleg
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(.alert)
+    }
+}
+
+private extension UNAuthorizationStatus {
+    var mgmValue: AuthorizationStatus {
+        switch self {
+        case .notDetermined:
+            return .notDetermined
+        case .authorized, .provisional:
+            return .authorized
+        case .denied:
+            return .denied
+        @unknown default:
+            return .denied
+        }
     }
 }
 
