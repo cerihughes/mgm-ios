@@ -97,10 +97,10 @@ class EventUpdateManagerTests: XCTestCase {
             .convert()
 
         let result = cut.processEventUpdate(oldEvents: [oldEvent], newEvents: [newEvent])
-        XCTAssertEqual(result.count, 1)
+        XCTAssertEqual(result.count, 2)
 
-        let notification = result[0]
-        XCTAssertEqual(notification, .scoresPublished(newEvent))
+        XCTAssertEqual(result[0], .scoresPublished(newEvent.classicAlbum!))
+        XCTAssertEqual(result[1], .scoresPublished(newEvent.newAlbum!))
     }
 
     func testUpdateEvent_addClassicScore() {
@@ -117,7 +117,7 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .scoresPublished(newEvent))
+        XCTAssertEqual(notification, .scoresPublished(newEvent.classicAlbum!))
     }
 
     func testUpdateEvent_addNewScore() {
@@ -134,7 +134,7 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .scoresPublished(newEvent))
+        XCTAssertEqual(notification, .scoresPublished(newEvent.newAlbum!))
     }
 
     func testUpdateEvent_addClassicScore_existingNewScore() {
@@ -151,7 +151,7 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .scoresPublished(newEvent))
+        XCTAssertEqual(notification, .scoresPublished(newEvent.classicAlbum!))
     }
 
     func testUpdateEvent_addNewScore_existingClassicScore() {
@@ -168,7 +168,7 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
 
         let notification = result[0]
-        XCTAssertEqual(notification, .scoresPublished(newEvent))
+        XCTAssertEqual(notification, .scoresPublished(newEvent.newAlbum!))
     }
 
     func testUpdateEvent_addDate() {

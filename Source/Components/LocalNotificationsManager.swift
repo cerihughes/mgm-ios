@@ -84,8 +84,8 @@ private extension EventUpdate {
         switch self {
         case let .newEvent(event):
             return "newEvent\(event.number)"
-        case let .scoresPublished(event):
-            return "scoresPublished\(event.number)"
+        case let .scoresPublished(album):
+            return "scoresPublished\(album.uniqueID)"
         case let .eventScheduled(event):
             return "eventScheduled\(event.number)"
         case let .eventRescheduled(event):
@@ -101,8 +101,8 @@ private extension EventUpdate {
         switch self {
         case let .newEvent(event):
             return "New Event - MGM \(event.number)"
-        case let .scoresPublished(event):
-            return "Scores Available - MGM \(event.number)"
+        case let .scoresPublished(album):
+            return "Scores Available - MGM \(album.eventNumber)"
         case let .eventScheduled(event):
             return "Event Scheduled - MGM \(event.number)"
         case let .eventRescheduled(event):
@@ -118,17 +118,14 @@ private extension EventUpdate {
         switch self {
         case .newEvent:
             return "Next month's albums are now available."
-        case .scoresPublished:
-            return "The scores are in for last month's albums."
+        case let .scoresPublished(album):
+            guard let score = album.score else { return nil }
+            return "\(album.name) scored \(score)."
         case let .eventScheduled(event):
-            guard let dateString = event.dateString else {
-                return nil
-            }
+            guard let dateString = event.dateString else { return nil }
             return "This month's event has been scheduled for \(dateString)"
         case let .eventRescheduled(event):
-            guard let dateString = event.dateString else {
-                return nil
-            }
+            guard let dateString = event.dateString else { return nil }
             return "This month's event has been rescheduled for \(dateString)"
         case .eventCancelled:
             return "This month's event has been cancelled. Check the Facebook group for more details."
