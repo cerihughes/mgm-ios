@@ -3,6 +3,7 @@ import Foundation
 @testable import MusicGeekMonthly
 
 class MockLocalNotificationsManager: LocalNotificationsManager {
+    var isEnabled = false
     var isAuthorizedResponse = false
     var requestAuthorizationResponse = false
     var scheduleLocalNotifications = [EventUpdate]()

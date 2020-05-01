@@ -1,6 +1,7 @@
 import UserNotifications
 
 protocol LocalNotificationsManager {
+    var isEnabled: Bool { get set }
     func isAuthorized(completion: @escaping (Bool) -> Void)
     func requestAuthorization(completion: @escaping (Bool) -> Void)
     func scheduleLocalNotification(eventUpdate: EventUpdate)
@@ -12,26 +13,26 @@ extension LocalNotificationsManager {
     }
 }
 
-private extension Array {
-    func removedFirst() -> Array? {
-        guard first != nil else {
-            return nil
-        }
-        var array = self
-        array.removeFirst()
-        return array
-    }
-}
-
 class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManager {
+    private let localDataSource: LocalDataSource
     private let notificationCenter: UNUserNotificationCenter
 
-    init(notificationCenter: UNUserNotificationCenter) {
+    init(localDataSource: LocalDataSource, notificationCenter: UNUserNotificationCenter) {
+        self.localDataSource = localDataSource
         self.notificationCenter = notificationCenter
 
         super.init()
 
         notificationCenter.delegate = self
+    }
+
+    var isEnabled: Bool {
+        get {
+            return localDataSource.localStorage.localNotificationsEnabled
+        }
+        set {
+            localDataSource.localStorage.localNotificationsEnabled = newValue
+        }
     }
 
     func isAuthorized(completion: @escaping (Bool) -> Void) {
@@ -49,7 +50,7 @@ class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManag
     }
 
     func scheduleLocalNotification(eventUpdate: EventUpdate) {
-        guard let body = eventUpdate.body else {
+        guard isEnabled == true, let body = eventUpdate.body else {
             return
         }
 

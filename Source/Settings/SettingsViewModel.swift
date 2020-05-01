@@ -8,9 +8,9 @@ protocol SettingsViewModel {
 class SettingsViewModelImplementation: SettingsViewModel {
     let title = "Settings"
     let localNotificationsText = "Enable Local Notifications (beta)"
-    private let dataRepository: DataRepository
+    private let localNotificationsManager: LocalNotificationsManager
 
-    init(dataRepository: DataRepository) {
-        self.dataRepository = dataRepository
+    init(localNotificationsManager: LocalNotificationsManager) {
+        self.localNotificationsManager = localNotificationsManager
     }
 }

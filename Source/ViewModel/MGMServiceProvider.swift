@@ -28,7 +28,8 @@ class MGMServiceProviderImplementation: ServiceProvider, MGMServiceProvider {
         remoteDataSource = RemoteDataSourceImplementation(basePath: basePath)
 
         eventUpdateManager = EventUpdateManagerImplementation()
-        localNotificationsManager = LocalNotificationsManagerImplementation(notificationCenter: .current())
+        localNotificationsManager = LocalNotificationsManagerImplementation(localDataSource: localDataSource,
+                                                                            notificationCenter: .current())
 
         dataRepository = DataRepositoryImplementation(localDataSource: localDataSource,
                                                       remoteDataSource: remoteDataSource,
