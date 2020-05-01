@@ -83,6 +83,7 @@
 		F4FAB1C8245C28AA001BCDBA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1C7245C28AA001BCDBA /* SettingsViewController.swift */; };
 		F4FAB1CA245C28C0001BCDBA /* SettingsViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1C9245C28C0001BCDBA /* SettingsViewControllerProvider.swift */; };
 		F4FAB1CC245C28CA001BCDBA /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1CB245C28CA001BCDBA /* SettingsViewModel.swift */; };
+		F4FAB1CF245C2CC8001BCDBA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F4FAB1CE245C2CC8001BCDBA /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +195,7 @@
 				65454F8D2412C0FA00464D38 /* Madog in Frameworks */,
 				657BE9422375B8A400039947 /* Crashlytics.framework in Frameworks */,
 				657BE9362375B45E00039947 /* GoogleDataTransport.framework in Frameworks */,
+				F4FAB1CF245C2CC8001BCDBA /* SnapKit in Frameworks */,
 				657BE9382375B45E00039947 /* FirebaseAnalytics.framework in Frameworks */,
 				657BE9412375B8A400039947 /* Fabric.framework in Frameworks */,
 				657BE9352375B45E00039947 /* GoogleAppMeasurement.framework in Frameworks */,
@@ -506,6 +508,7 @@
 			packageProductDependencies = (
 				65454F8C2412C0FA00464D38 /* Madog */,
 				65A553142412E0E400277177 /* MGMRemoteApiClient */,
+				F4FAB1CE245C2CC8001BCDBA /* SnapKit */,
 			);
 			productName = MusicGeekMonthlySwift;
 			productReference = 65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */;
@@ -562,6 +565,7 @@
 			packageReferences = (
 				65454F8B2412C0FA00464D38 /* XCRemoteSwiftPackageReference "madog" */,
 				65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */,
+				F4FAB1CD245C2CC8001BCDBA /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 65BDAA8C2189F55C007E887B /* Products */;
 			projectDirPath = "";
@@ -1012,6 +1016,14 @@
 				minimumVersion = 1.16.0;
 			};
 		};
+		F4FAB1CD245C2CC8001BCDBA /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1024,6 +1036,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */;
 			productName = MGMRemoteApiClient;
+		};
+		F4FAB1CE245C2CC8001BCDBA /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4FAB1CD245C2CC8001BCDBA /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
