@@ -23,10 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         madog.resolve(resolver: MGMResolver())
 
-        if let localNotificationsManager = serviceProvider?.localNotificationsManager {
-            localNotificationsManager.requestAuthorization { _ in }
-        }
-
         let initialRLs: [ResourceLocator] = [.latestEvent, .scores, .settings]
         let identifier = MultiUIIdentifier.createTabBarControllerIdentifier()
         return madog.renderUI(identifier: identifier, tokens: initialRLs, in: window) != nil

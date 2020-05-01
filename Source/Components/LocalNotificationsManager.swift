@@ -46,13 +46,19 @@ class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManag
     }
 
     func getAuthorizationStatus(completion: @escaping (AuthorizationStatus) -> Void) {
-        notificationCenter.getNotificationSettings { completion($0.authorizationStatus.mgmValue) }
+        notificationCenter.getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                completion(settings.authorizationStatus.mgmValue)
+            }
+        }
     }
 
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         let options: UNAuthorizationOptions = [.alert]
         notificationCenter.requestAuthorization(options: options) { didAllow, _ in
-            completion(didAllow)
+            DispatchQueue.main.async {
+                completion(didAllow)
+            }
         }
     }
 
