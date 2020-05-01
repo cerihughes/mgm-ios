@@ -2,8 +2,9 @@ import SnapKit
 import UIKit
 
 class LabelWithSwitch: UIView {
-    let labelView = UILabel()
-    let switchView = UISwitch()
+    let title = UILabel()
+    let subtitle = UILabel()
+    let toggle = UISwitch()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -16,17 +17,29 @@ class LabelWithSwitch: UIView {
     }
 
     private func commonInit() {
-        addSubview(labelView)
-        addSubview(switchView)
+        title.font = UIFont.boldSystemFont(ofSize: 16)
+        title.numberOfLines = 1
+        subtitle.font = UIFont.italicSystemFont(ofSize: 12)
+        subtitle.numberOfLines = 0
 
-        labelView.snp.makeConstraints { make in
-            make.leading.top.bottom.equalToSuperview()
-            make.trailing.equalTo(switchView.snp.leading)
+        addSubview(title)
+        addSubview(subtitle)
+        addSubview(toggle)
+
+        title.snp.makeConstraints { make in
+            make.leading.top.equalToSuperview()
+            make.bottom.equalTo(subtitle.snp.top)
+            make.trailing.equalTo(toggle.snp.leading)
         }
 
-        switchView.snp.makeConstraints { make in
-            make.trailing.top.bottom.equalToSuperview()
-            make.height.equalTo(labelView)
+        toggle.snp.makeConstraints { make in
+            make.trailing.top.equalToSuperview()
+            make.bottom.equalTo(subtitle.snp.top)
+            make.height.equalTo(title)
+        }
+
+        subtitle.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
 }

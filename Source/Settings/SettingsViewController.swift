@@ -22,6 +22,7 @@ class SettingsViewController: UIViewController {
 
         guard let settingsView = view as? SettingsView else { return }
 
-        settingsView.localNotifications.labelView.text = viewModel.localNotificationsText
+        settingsView.localNotifications.title.text = viewModel.localNotificationsTitle
+        settingsView.localNotifications.subtitle.text = viewModel.localNotificationsSubtitle
     }
 }

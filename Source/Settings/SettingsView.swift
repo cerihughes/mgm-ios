@@ -18,8 +18,8 @@ class SettingsView: UIView {
         backgroundColor = .white
 
         localNotifications.accessibilityIdentifier = "mgm:settings:localNotifications"
-        localNotifications.labelView.accessibilityIdentifier = "mgm:settings:localNotifications:label"
-        localNotifications.switchView.accessibilityIdentifier = "mgm:settings:localNotifications:switch"
+        localNotifications.title.accessibilityIdentifier = "mgm:settings:localNotifications:label"
+        localNotifications.toggle.accessibilityIdentifier = "mgm:settings:localNotifications:switch"
 
         addSubview(localNotifications)
 
