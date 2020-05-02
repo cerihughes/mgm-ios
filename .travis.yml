@@ -5,9 +5,9 @@ env:
   global:
     - PROJECT_NAME="MusicGeekMonthlySwift.xcodeproj"
     - SCHEME_IOS_FRAMEWORK="MusicGeekMonthly"
-    - IOS_SDK=iphonesimulator13.2
+    - IOS_SDK=iphonesimulator
   matrix:
-    - DESTINATION="OS=13.3,name=iPhone 11" SCHEME="$SCHEME_IOS_FRAMEWORK" SDK="$IOS_SDK"
+    - DESTINATION="OS=latest,name=iPhone 11" SCHEME="$SCHEME_IOS_FRAMEWORK" SDK="$IOS_SDK"
 
 before_install:
   - gem install xcpretty-travis-formatter --quiet
