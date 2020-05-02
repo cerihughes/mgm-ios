@@ -16,6 +16,7 @@ script:
   - set -o pipefail
   - export PROJECT_DIR=.; /bin/sh BuildPhases/copy-plist.sh
   - /bin/sh createFakeGoogleServices.sh
+  - carthage update --platform ios
   - xcodebuild clean test -project "$PROJECT_NAME" -scheme "$SCHEME" -destination "$DESTINATION" -sdk "$SDK" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty -f `xcpretty-travis-formatter`
 
 after_success:
