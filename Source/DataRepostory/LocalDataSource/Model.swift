@@ -20,6 +20,7 @@ enum AlbumType: String {
 }
 
 struct Album: Equatable {
+    let eventNumber: Int
     let type: AlbumType
     let spotifyId: String?
     let name: String
@@ -38,4 +39,10 @@ struct Playlist: Equatable {
 struct Image: Equatable {
     let size: Int?
     let url: String
+}
+
+extension Album {
+    var uniqueID: String {
+        return "\(eventNumber)_\(type)"
+    }
 }

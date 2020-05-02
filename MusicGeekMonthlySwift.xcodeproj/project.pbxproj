@@ -79,6 +79,12 @@
 		65E485592199C82A00CCE895 /* gcp.json in Resources */ = {isa = PBXBuildFile; fileRef = 65E485582199C82A00CCE895 /* gcp.json */; };
 		65E9AEB62191E09F001B36D6 /* URL+SpotifyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */; };
 		65FA3CCA240937CE002ED84E /* Model+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FA3CC9240937CE002ED84E /* Model+Testing.swift */; };
+		F4FAB1C6245C2895001BCDBA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1C5245C2895001BCDBA /* SettingsView.swift */; };
+		F4FAB1C8245C28AA001BCDBA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1C7245C28AA001BCDBA /* SettingsViewController.swift */; };
+		F4FAB1CA245C28C0001BCDBA /* SettingsViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1C9245C28C0001BCDBA /* SettingsViewControllerProvider.swift */; };
+		F4FAB1CC245C28CA001BCDBA /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1CB245C28CA001BCDBA /* SettingsViewModel.swift */; };
+		F4FAB1CF245C2CC8001BCDBA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F4FAB1CE245C2CC8001BCDBA /* SnapKit */; };
+		F4FAB1D1245C2E82001BCDBA /* LabelWithSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1D0245C2E82001BCDBA /* LabelWithSwitch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +176,11 @@
 		65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+SpotifyExtensions.swift"; sourceTree = "<group>"; };
 		65EA1D5D219450C2001FF06E /* Secret.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
 		65FA3CC9240937CE002ED84E /* Model+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Testing.swift"; sourceTree = "<group>"; };
+		F4FAB1C5245C2895001BCDBA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F4FAB1C7245C28AA001BCDBA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F4FAB1C9245C28C0001BCDBA /* SettingsViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerProvider.swift; sourceTree = "<group>"; };
+		F4FAB1CB245C28CA001BCDBA /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		F4FAB1D0245C2E82001BCDBA /* LabelWithSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithSwitch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +197,7 @@
 				65454F8D2412C0FA00464D38 /* Madog in Frameworks */,
 				657BE9422375B8A400039947 /* Crashlytics.framework in Frameworks */,
 				657BE9362375B45E00039947 /* GoogleDataTransport.framework in Frameworks */,
+				F4FAB1CF245C2CC8001BCDBA /* SnapKit in Frameworks */,
 				657BE9382375B45E00039947 /* FirebaseAnalytics.framework in Frameworks */,
 				657BE9412375B8A400039947 /* Fabric.framework in Frameworks */,
 				657BE9352375B45E00039947 /* GoogleAppMeasurement.framework in Frameworks */,
@@ -426,6 +438,7 @@
 				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
 				6566197C21909E750068EA1B /* Navigation */,
 				656619892190A7090068EA1B /* Scores */,
+				F4FAB1C4245C2881001BCDBA /* Settings */,
 				656619912190ACAE0068EA1B /* Spotify */,
 				65D2AD96218B30E7002BB0C9 /* View */,
 				65D2AD95218B3015002BB0C9 /* ViewModel */,
@@ -459,9 +472,21 @@
 			children = (
 				658AE762218DF75C002D4AE5 /* AverageColorProcessor.swift */,
 				6512F30521934DEE004CD379 /* ErrorMessages.swift */,
+				F4FAB1D0245C2E82001BCDBA /* LabelWithSwitch.swift */,
 				6566197121908B6C0068EA1B /* Scaffolding */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		F4FAB1C4245C2881001BCDBA /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F4FAB1C5245C2895001BCDBA /* SettingsView.swift */,
+				F4FAB1C7245C28AA001BCDBA /* SettingsViewController.swift */,
+				F4FAB1C9245C28C0001BCDBA /* SettingsViewControllerProvider.swift */,
+				F4FAB1CB245C28CA001BCDBA /* SettingsViewModel.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -486,6 +511,7 @@
 			packageProductDependencies = (
 				65454F8C2412C0FA00464D38 /* Madog */,
 				65A553142412E0E400277177 /* MGMRemoteApiClient */,
+				F4FAB1CE245C2CC8001BCDBA /* SnapKit */,
 			);
 			productName = MusicGeekMonthlySwift;
 			productReference = 65BDAA8B2189F55C007E887B /* MusicGeekMonthly.app */;
@@ -542,6 +568,7 @@
 			packageReferences = (
 				65454F8B2412C0FA00464D38 /* XCRemoteSwiftPackageReference "madog" */,
 				65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */,
+				F4FAB1CD245C2CC8001BCDBA /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 65BDAA8C2189F55C007E887B /* Products */;
 			projectDirPath = "";
@@ -641,6 +668,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6553CF8D21907CB30020EEC2 /* LatestEventEntityViewModel.swift in Sources */,
+				F4FAB1CC245C28CA001BCDBA /* SettingsViewModel.swift in Sources */,
 				65E9AEB62191E09F001B36D6 /* URL+SpotifyExtensions.swift in Sources */,
 				6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */,
 				656619932190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift in Sources */,
@@ -652,6 +680,7 @@
 				65D2AD9E218B5143002BB0C9 /* ScoresView.swift in Sources */,
 				6512F30421933D06004CD379 /* LatestEventCollectionSectionHeaderView.swift in Sources */,
 				6507A1FC218C8FE200C26202 /* FullWidthCollectionViewLayout.swift in Sources */,
+				F4FAB1C6245C2895001BCDBA /* SettingsView.swift in Sources */,
 				6553CF95219089560020EEC2 /* DataLoadingView.swift in Sources */,
 				6512F30621934DEE004CD379 /* ErrorMessages.swift in Sources */,
 				65D2AD9A218B330D002BB0C9 /* ScoreViewModel.swift in Sources */,
@@ -662,6 +691,7 @@
 				6553CF8B21907C4A0020EEC2 /* LatestEventViewModel.swift in Sources */,
 				659DED7121931FFF00226579 /* AppleMapsLaunchViewControllerProvider.swift in Sources */,
 				659DED6E219317F200226579 /* LatestEventLocationCollectionViewCell.swift in Sources */,
+				F4FAB1D1245C2E82001BCDBA /* LabelWithSwitch.swift in Sources */,
 				658122062402FAAA001666A1 /* LocalDataSource.swift in Sources */,
 				65BDAAC82189FDE9007E887B /* DateFormatter+Extensions.swift in Sources */,
 				65661978219092080068EA1B /* AlbumArtViewModel.swift in Sources */,
@@ -674,6 +704,7 @@
 				658122012402FA69001666A1 /* DataRepository.swift in Sources */,
 				65D2AD98218B3105002BB0C9 /* ScoresViewModel.swift in Sources */,
 				6566197321908BFA0068EA1B /* LatestEventEntityCollectionViewCell.swift in Sources */,
+				F4FAB1C8245C28AA001BCDBA /* SettingsViewController.swift in Sources */,
 				6540A51B218C85260028B382 /* ScoresCollectionViewCell.swift in Sources */,
 				6581221824030E85001666A1 /* ImageLoader.swift in Sources */,
 				659CC8C8240801D50081D5BC /* EventUpdateManager.swift in Sources */,
@@ -681,6 +712,7 @@
 				65820CB72402C6790081C6DC /* LocalStorage.swift in Sources */,
 				65BDAACA2189FEF8007E887B /* Model.swift in Sources */,
 				65981ABE227DDB060094248E /* MGMResolver.swift in Sources */,
+				F4FAB1CA245C28C0001BCDBA /* SettingsViewControllerProvider.swift in Sources */,
 				658122082402FAB6001666A1 /* RemoteDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -988,6 +1020,14 @@
 				minimumVersion = 1.16.0;
 			};
 		};
+		F4FAB1CD245C2CC8001BCDBA /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1000,6 +1040,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */;
 			productName = MGMRemoteApiClient;
+		};
+		F4FAB1CE245C2CC8001BCDBA /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4FAB1CD245C2CC8001BCDBA /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

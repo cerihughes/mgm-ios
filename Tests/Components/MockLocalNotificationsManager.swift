@@ -3,12 +3,13 @@ import Foundation
 @testable import MusicGeekMonthly
 
 class MockLocalNotificationsManager: LocalNotificationsManager {
-    var isAuthorizedResponse = false
+    var isEnabled = false
+    var getAuthorizationStatusResponse = AuthorizationStatus.notDetermined
     var requestAuthorizationResponse = false
     var scheduleLocalNotifications = [EventUpdate]()
 
-    func isAuthorized(completion: @escaping (Bool) -> Void) {
-        let response = isAuthorizedResponse
+    func getAuthorizationStatus(completion: @escaping (AuthorizationStatus) -> Void) {
+        let response = getAuthorizationStatusResponse
         DispatchQueue.global().async {
             DispatchQueue.main.async {
                 completion(response)

@@ -4,10 +4,6 @@ import Madog
 let mgmServiceProviderName = "mgmServiceProviderName"
 
 protocol MGMServiceProvider {
-    var localStorage: LocalStorage { get }
-    var localDataSource: LocalDataSource { get }
-    var remoteDataSource: RemoteDataSource { get }
-    var eventUpdateManager: EventUpdateManager { get }
     var localNotificationsManager: LocalNotificationsManager { get }
     var dataRepository: DataRepository { get }
     var imageLoader: ImageLoader { get }
@@ -32,7 +28,8 @@ class MGMServiceProviderImplementation: ServiceProvider, MGMServiceProvider {
         remoteDataSource = RemoteDataSourceImplementation(basePath: basePath)
 
         eventUpdateManager = EventUpdateManagerImplementation()
-        localNotificationsManager = LocalNotificationsManagerImplementation(notificationCenter: .current())
+        localNotificationsManager = LocalNotificationsManagerImplementation(localDataSource: localDataSource,
+                                                                            notificationCenter: .current())
 
         dataRepository = DataRepositoryImplementation(localDataSource: localDataSource,
                                                       remoteDataSource: remoteDataSource,

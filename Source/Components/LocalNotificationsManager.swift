@@ -1,32 +1,34 @@
 import UserNotifications
 
-protocol LocalNotificationsManager {
-    func isAuthorized(completion: @escaping (Bool) -> Void)
+enum AuthorizationStatus {
+    case notDetermined, authorized, denied
+}
+
+protocol LocalNotificationsManager: AnyObject {
+    var isEnabled: Bool { get set }
+    func getAuthorizationStatus(completion: @escaping (AuthorizationStatus) -> Void)
     func requestAuthorization(completion: @escaping (Bool) -> Void)
     func scheduleLocalNotification(eventUpdate: EventUpdate)
 }
 
 extension LocalNotificationsManager {
+    func isAuthorized(completion: @escaping (Bool) -> Void) {
+        getAuthorizationStatus { authorizationStatus in
+            completion(authorizationStatus == .authorized)
+        }
+    }
+
     func scheduleLocalNotifications(eventUpdates: [EventUpdate]) {
         eventUpdates.forEach { scheduleLocalNotification(eventUpdate: $0) }
     }
 }
 
-private extension Array {
-    func removedFirst() -> Array? {
-        guard first != nil else {
-            return nil
-        }
-        var array = self
-        array.removeFirst()
-        return array
-    }
-}
-
 class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManager {
+    private let localDataSource: LocalDataSource
     private let notificationCenter: UNUserNotificationCenter
 
-    init(notificationCenter: UNUserNotificationCenter) {
+    init(localDataSource: LocalDataSource, notificationCenter: UNUserNotificationCenter) {
+        self.localDataSource = localDataSource
         self.notificationCenter = notificationCenter
 
         super.init()
@@ -34,22 +36,34 @@ class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManag
         notificationCenter.delegate = self
     }
 
-    func isAuthorized(completion: @escaping (Bool) -> Void) {
+    var isEnabled: Bool {
+        get {
+            return localDataSource.localStorage.localNotificationsEnabled
+        }
+        set {
+            localDataSource.localStorage.localNotificationsEnabled = newValue
+        }
+    }
+
+    func getAuthorizationStatus(completion: @escaping (AuthorizationStatus) -> Void) {
         notificationCenter.getNotificationSettings { settings in
-            let isAuthorized = settings.authorizationStatus == .authorized && settings.alertSetting == .enabled
-            completion(isAuthorized)
+            DispatchQueue.main.async {
+                completion(settings.authorizationStatus.mgmValue)
+            }
         }
     }
 
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         let options: UNAuthorizationOptions = [.alert]
         notificationCenter.requestAuthorization(options: options) { didAllow, _ in
-            completion(didAllow)
+            DispatchQueue.main.async {
+                completion(didAllow)
+            }
         }
     }
 
     func scheduleLocalNotification(eventUpdate: EventUpdate) {
-        guard let body = eventUpdate.body else {
+        guard isEnabled == true, let body = eventUpdate.body else {
             return
         }
 
@@ -78,13 +92,28 @@ extension LocalNotificationsManagerImplementation: UNUserNotificationCenterDeleg
     }
 }
 
-private extension EventUpdate {
+private extension UNAuthorizationStatus {
+    var mgmValue: AuthorizationStatus {
+        switch self {
+        case .notDetermined:
+            return .notDetermined
+        case .authorized, .provisional:
+            return .authorized
+        case .denied:
+            return .denied
+        @unknown default:
+            return .denied
+        }
+    }
+}
+
+extension EventUpdate {
     var identifier: String {
         switch self {
         case let .newEvent(event):
             return "newEvent\(event.number)"
-        case let .scoresPublished(event):
-            return "scoresPublished\(event.number)"
+        case let .scoresPublished(album):
+            return "scoresPublished\(album.uniqueID)"
         case let .eventScheduled(event):
             return "eventScheduled\(event.number)"
         case let .eventRescheduled(event):
@@ -100,8 +129,8 @@ private extension EventUpdate {
         switch self {
         case let .newEvent(event):
             return "New Event - MGM \(event.number)"
-        case let .scoresPublished(event):
-            return "Scores Available - MGM \(event.number)"
+        case let .scoresPublished(album):
+            return "Scores Available - MGM \(album.eventNumber)"
         case let .eventScheduled(event):
             return "Event Scheduled - MGM \(event.number)"
         case let .eventRescheduled(event):
@@ -117,17 +146,15 @@ private extension EventUpdate {
         switch self {
         case .newEvent:
             return "Next month's albums are now available."
-        case .scoresPublished:
-            return "The scores are in for last month's albums."
+        case let .scoresPublished(album):
+            guard let score = album.score else { return nil }
+            let formattedScore = String(format: "%.1f", score)
+            return "\"\(album.name)\" scored \(formattedScore)"
         case let .eventScheduled(event):
-            guard let dateString = event.dateString else {
-                return nil
-            }
+            guard let dateString = event.dateString else { return nil }
             return "This month's event has been scheduled for \(dateString)"
         case let .eventRescheduled(event):
-            guard let dateString = event.dateString else {
-                return nil
-            }
+            guard let dateString = event.dateString else { return nil }
             return "This month's event has been rescheduled for \(dateString)"
         case .eventCancelled:
             return "This month's event has been cancelled. Check the Facebook group for more details."

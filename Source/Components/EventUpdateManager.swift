@@ -2,7 +2,7 @@ import Foundation
 
 enum EventUpdate: Equatable {
     case newEvent(Event)
-    case scoresPublished(Event)
+    case scoresPublished(Album)
     case eventScheduled(Event)
     case eventRescheduled(Event)
     case eventCancelled(Event)
@@ -47,7 +47,8 @@ class EventUpdateManagerImplementation: EventUpdateManager {
     private func eventChanged(oldEvent: Event, newEvent: Event) -> [EventUpdate] {
         return [
             playlistChanged(oldEvent: oldEvent, newEvent: newEvent),
-            scoresChanged(oldEvent: oldEvent, newEvent: newEvent),
+            scoresChanged(oldAlbum: oldEvent.classicAlbum, newAlbum: newEvent.classicAlbum),
+            scoresChanged(oldAlbum: oldEvent.newAlbum, newAlbum: newEvent.newAlbum),
             dateChanged(oldEvent: oldEvent, newEvent: newEvent)
         ].compactMap { $0 }
     }
@@ -59,20 +60,16 @@ class EventUpdateManagerImplementation: EventUpdateManager {
         return .playlistPublished(newEvent)
     }
 
-    private func scoresChanged(oldEvent: Event, newEvent: Event) -> EventUpdate? {
-        guard scoresChanged(oldAlbum: oldEvent.classicAlbum, newAlbum: newEvent.classicAlbum) ||
-            scoresChanged(oldAlbum: oldEvent.newAlbum, newAlbum: newEvent.newAlbum) else {
-            return nil
-        }
-        return .scoresPublished(newEvent)
-    }
-
-    private func scoresChanged(oldAlbum: Album?, newAlbum: Album?) -> Bool {
+    private func scoresChanged(oldAlbum: Album?, newAlbum: Album?) -> EventUpdate? {
         guard let newAlbum = newAlbum,
             let newScore = newAlbum.score,
             oldAlbum?.score != newScore else {
-            return false
+            return nil
         }
+        return .scoresPublished(newAlbum)
+    }
+
+    private func scoresChanged(oldAlbum: Album?, newAlbum: Album?) -> Bool {
         return true
     }
 

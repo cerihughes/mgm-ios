@@ -8,8 +8,8 @@ extension EventApiModel {
                      location: location?.convert(),
                      date: dateFormatter.date(from: date ?? ""),
                      playlist: playlist?.convert(),
-                     classicAlbum: classicAlbum?.convert(),
-                     newAlbum: newAlbum?.convert())
+                     classicAlbum: classicAlbum?.convert(eventNumber: number),
+                     newAlbum: newAlbum?.convert(eventNumber: number))
     }
 }
 
@@ -33,8 +33,9 @@ extension AlbumApiModel.ModelType {
 }
 
 extension AlbumApiModel {
-    func convert() -> Album {
-        return Album(type: type.convert(),
+    func convert(eventNumber: Int) -> Album {
+        return Album(eventNumber: eventNumber,
+                     type: type.convert(),
                      spotifyId: spotifyId,
                      name: name,
                      artist: artist,

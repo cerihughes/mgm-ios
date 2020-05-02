@@ -17,7 +17,7 @@ class ScoresViewControllerProvider: TypedViewControllerProvider {
         let viewController = ScoresViewController(navigationContext: navigationContext, viewModel: viewModel)
         viewController.tabBarItem.tag = 1
         viewController.tabBarItem.title = "Album Scores"
-        viewController.tabBarItem.image = UIImage(named: "ruler")
+        viewController.tabBarItem.image = UIImage(named: "chart_line")
 
         return viewController
     }
