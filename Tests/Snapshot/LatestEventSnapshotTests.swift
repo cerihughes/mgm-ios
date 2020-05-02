@@ -33,6 +33,7 @@ class LatestEventSnapshotTests: MGMSnapshotTests {
         viewModel.locationName = "Location Name"
         viewModel.headerTitles = ["LOCATION", "LISTENING TO"]
         viewModel.eventEntityViewModels = [classicAlbum, newAlbum, playlist]
+
         FBSnapshotVerifyViewController(viewController)
     }
 }

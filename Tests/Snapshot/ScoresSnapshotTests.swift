@@ -27,6 +27,7 @@ class ScoresSnapshotTests: MGMSnapshotTests {
         let album3 = MockScoreViewModel(position: 3, rating: 8.8, color: .bronzeCup, awardImage: .plateAward, albumCover: .album3)
         let album4 = MockScoreViewModel(position: 4, rating: 7.7, color: .greenCup, awardImage: .noAward, albumCover: .album1)
         viewModel.scoreViewModels = [album1, album2, album3, album4]
+
         FBSnapshotVerifyViewController(viewController)
     }
 }
