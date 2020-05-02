@@ -16,7 +16,7 @@ class MockForwardBackNavigationContext: ForwardBackNavigationContext {
     func navigateBack(animated: Bool) -> Bool {
         return false
     }
-    
+
     func navigateBackToRoot(animated: Bool) -> Bool {
         return false
     }

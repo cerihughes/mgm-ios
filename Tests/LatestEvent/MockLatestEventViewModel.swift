@@ -16,11 +16,14 @@ class MockLatestEventViewModel: LatestEventViewModel {
     var mapReference: MapReference?
     var message: String?
     var retryButtonTitle = "Retry"
-    var numberOfEntites = 0
     var isLocationAvailable = false
 
     var headerTitles = [String]()
     var eventEntityViewModels = [MockLatestEventEntityViewModel]()
+
+    var numberOfEntites: Int {
+        return eventEntityViewModels.count
+    }
 
     func loadData(_ completion: @escaping () -> Void) {
         completion()
@@ -43,12 +46,12 @@ class MockLatestEventEntityViewModel: LatestEventEntityViewModel {
     var entityOwner = "EntityOwner"
     var spotifyURL: URL?
     var loadingImage: UIImage?
+
     var albumCover: UIImage?
 
     func loadAlbumCover(largestDimension: Int, _ completion: @escaping (UIImage?) -> Void) {
         completion(albumCover)
     }
 
-    func cancelLoadAlbumCover() {
-    }
+    func cancelLoadAlbumCover() {}
 }
