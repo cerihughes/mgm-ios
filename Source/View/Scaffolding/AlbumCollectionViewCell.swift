@@ -56,3 +56,13 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         activityIndicatorView.stopAnimating()
     }
 }
+
+extension UILabel {
+    static func createCollectionViewLabel(font: UIFont, color: UIColor = .black, alignment: NSTextAlignment = .center) -> UILabel {
+        let label = UILabel()
+        label.font = font
+        label.textColor = color
+        label.textAlignment = alignment
+        return label
+    }
+}

@@ -2,10 +2,10 @@ import SnapKit
 import UIKit
 
 class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
-    let typeLabel = UILabel()
-    let albumLabel = UILabel()
-    private let byLabel = UILabel()
-    let artistLabel = UILabel()
+    let typeLabel = UILabel.createCollectionViewLabel(font: .boldSystemFont(ofSize: 16))
+    let albumLabel = UILabel.createCollectionViewLabel(font: .systemFont(ofSize: 14))
+    private let byLabel = UILabel.createCollectionViewLabel(font: .italicSystemFont(ofSize: 12))
+    let artistLabel = UILabel.createCollectionViewLabel(font: .systemFont(ofSize: 14))
 
     private let spacing: CGFloat = 16.0
 
@@ -29,23 +29,7 @@ class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
         backgroundImageView.addSubview(blurView)
 
         backgroundView = backgroundImageView
-
-        typeLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        typeLabel.textColor = .black
-        typeLabel.textAlignment = .center
-
-        albumLabel.font = UIFont.systemFont(ofSize: 14)
-        albumLabel.textColor = .black
-        albumLabel.textAlignment = .center
-
-        byLabel.font = UIFont.italicSystemFont(ofSize: 12)
-        byLabel.textColor = .black
-        byLabel.textAlignment = .center
         byLabel.text = "by"
-
-        artistLabel.font = UIFont.systemFont(ofSize: 14)
-        artistLabel.textColor = .black
-        artistLabel.textAlignment = .center
 
         contentView.addSubview(typeLabel)
         contentView.addSubview(albumLabel)

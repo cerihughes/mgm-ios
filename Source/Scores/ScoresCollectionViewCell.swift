@@ -1,11 +1,11 @@
 import UIKit
 
 class ScoresCollectionViewCell: AlbumCollectionViewCell {
-    let albumLabel = UILabel()
-    let artistLabel = UILabel()
+    let albumLabel = UILabel.createCollectionViewLabel(font: .systemFont(ofSize: 14), alignment: .natural)
+    let artistLabel = UILabel.createCollectionViewLabel(font: .italicSystemFont(ofSize: 14), alignment: .natural)
     let awardImageView = UIImageView()
-    let ratingLabel = UILabel()
-    let positionLabel = UILabel()
+    let ratingLabel = UILabel.createCollectionViewLabel(font: .boldSystemFont(ofSize: 19), alignment: .natural)
+    let positionLabel = UILabel.createCollectionViewLabel(font: .boldSystemFont(ofSize: 14))
 
     private let spacing: CGFloat = 4.0
 
@@ -20,18 +20,7 @@ class ScoresCollectionViewCell: AlbumCollectionViewCell {
     }
 
     private func commonInit() {
-        albumLabel.font = UIFont.systemFont(ofSize: 14)
-        albumLabel.textColor = .black
-
-        artistLabel.font = UIFont.italicSystemFont(ofSize: 14)
-        artistLabel.textColor = .black
-
         awardImageView.contentMode = .scaleAspectFit
-        ratingLabel.font = UIFont.boldSystemFont(ofSize: 19)
-
-        positionLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        positionLabel.textColor = .black
-        positionLabel.textAlignment = .center
 
         contentView.addSubview(albumLabel)
         contentView.addSubview(artistLabel)
