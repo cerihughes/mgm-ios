@@ -2,6 +2,7 @@
 
 Carthage/
 DerivedData/
+Tests/Snapshot/ReferenceImagesFail/
 
 **/xcuserdata
 

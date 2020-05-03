@@ -79,6 +79,13 @@
 		65E485592199C82A00CCE895 /* gcp.json in Resources */ = {isa = PBXBuildFile; fileRef = 65E485582199C82A00CCE895 /* gcp.json */; };
 		65E9AEB62191E09F001B36D6 /* URL+SpotifyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */; };
 		65FA3CCA240937CE002ED84E /* Model+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FA3CC9240937CE002ED84E /* Model+Testing.swift */; };
+		F49C02CE245DB99E00F80D5E /* LatestEventSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C02CD245DB99E00F80D5E /* LatestEventSnapshotTests.swift */; };
+		F49C02D6245DBB0A00F80D5E /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F49C02D5245DBB0A00F80D5E /* FBSnapshotTestCase.framework */; };
+		F49C02D9245DBED500F80D5E /* MockLatestEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C02D8245DBED500F80D5E /* MockLatestEventViewModel.swift */; };
+		F49C02DB245DC08A00F80D5E /* MockForwardBackNavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C02DA245DC08A00F80D5E /* MockForwardBackNavigationContext.swift */; };
+		F49C02DD245DD55000F80D5E /* ScoresSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C02DC245DD55000F80D5E /* ScoresSnapshotTests.swift */; };
+		F49C02DF245DD56100F80D5E /* MGMSnapshotTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C02DE245DD56100F80D5E /* MGMSnapshotTestCase.swift */; };
+		F49C02E1245DD5CD00F80D5E /* MockScoresViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C02E0245DD5CD00F80D5E /* MockScoresViewModel.swift */; };
 		F4FAB1C6245C2895001BCDBA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1C5245C2895001BCDBA /* SettingsView.swift */; };
 		F4FAB1C8245C28AA001BCDBA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1C7245C28AA001BCDBA /* SettingsViewController.swift */; };
 		F4FAB1CA245C28C0001BCDBA /* SettingsViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAB1C9245C28C0001BCDBA /* SettingsViewControllerProvider.swift */; };
@@ -176,6 +183,13 @@
 		65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+SpotifyExtensions.swift"; sourceTree = "<group>"; };
 		65EA1D5D219450C2001FF06E /* Secret.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
 		65FA3CC9240937CE002ED84E /* Model+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Testing.swift"; sourceTree = "<group>"; };
+		F49C02CD245DB99E00F80D5E /* LatestEventSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventSnapshotTests.swift; sourceTree = "<group>"; };
+		F49C02D5245DBB0A00F80D5E /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = "<group>"; };
+		F49C02D8245DBED500F80D5E /* MockLatestEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLatestEventViewModel.swift; sourceTree = "<group>"; };
+		F49C02DA245DC08A00F80D5E /* MockForwardBackNavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockForwardBackNavigationContext.swift; sourceTree = "<group>"; };
+		F49C02DC245DD55000F80D5E /* ScoresSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresSnapshotTests.swift; sourceTree = "<group>"; };
+		F49C02DE245DD56100F80D5E /* MGMSnapshotTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGMSnapshotTestCase.swift; sourceTree = "<group>"; };
+		F49C02E0245DD5CD00F80D5E /* MockScoresViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockScoresViewModel.swift; sourceTree = "<group>"; };
 		F4FAB1C5245C2895001BCDBA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F4FAB1C7245C28AA001BCDBA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F4FAB1C9245C28C0001BCDBA /* SettingsViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerProvider.swift; sourceTree = "<group>"; };
@@ -210,6 +224,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F49C02D6245DBB0A00F80D5E /* FBSnapshotTestCase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +401,7 @@
 		658BD83022295C9C008E0EB1 /* Scores */ = {
 			isa = PBXGroup;
 			children = (
+				F49C02E0245DD5CD00F80D5E /* MockScoresViewModel.swift */,
 				658BD83122295CC3008E0EB1 /* ScoresViewModelTests.swift */,
 			);
 			path = Scores;
@@ -406,6 +422,7 @@
 				65BDAA8D2189F55C007E887B /* Source */,
 				65BDAAA22189F55D007E887B /* Tests */,
 				65676F0C227F1DB800E229A5 /* Frameworks */,
+				F49C02C7245DB71800F80D5E /* Carthage */,
 				65BDAA8C2189F55C007E887B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -450,10 +467,13 @@
 			isa = PBXGroup;
 			children = (
 				65BDAAA52189F55D007E887B /* Info.plist */,
+				F49C02DA245DC08A00F80D5E /* MockForwardBackNavigationContext.swift */,
 				65BDAAD7218A096A007E887B /* XCTestCase+Extensions.swift */,
 				6581221224030C6F001666A1 /* Components */,
 				6581220924030B9A001666A1 /* DataRepository */,
+				F49C02D7245DBEB300F80D5E /* LatestEvent */,
 				658BD83022295C9C008E0EB1 /* Scores */,
+				F49C02CC245DB95000F80D5E /* Snapshot */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -476,6 +496,32 @@
 				6566197121908B6C0068EA1B /* Scaffolding */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		F49C02C7245DB71800F80D5E /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				F49C02D5245DBB0A00F80D5E /* FBSnapshotTestCase.framework */,
+			);
+			name = Carthage;
+			sourceTree = "<group>";
+		};
+		F49C02CC245DB95000F80D5E /* Snapshot */ = {
+			isa = PBXGroup;
+			children = (
+				F49C02CD245DB99E00F80D5E /* LatestEventSnapshotTests.swift */,
+				F49C02DE245DD56100F80D5E /* MGMSnapshotTestCase.swift */,
+				F49C02DC245DD55000F80D5E /* ScoresSnapshotTests.swift */,
+			);
+			path = Snapshot;
+			sourceTree = "<group>";
+		};
+		F49C02D7245DBEB300F80D5E /* LatestEvent */ = {
+			isa = PBXGroup;
+			children = (
+				F49C02D8245DBED500F80D5E /* MockLatestEventViewModel.swift */,
+			);
+			path = LatestEvent;
 			sourceTree = "<group>";
 		};
 		F4FAB1C4245C2881001BCDBA /* Settings */ = {
@@ -524,6 +570,7 @@
 				65BDAA9B2189F55D007E887B /* Sources */,
 				65BDAA9C2189F55D007E887B /* Frameworks */,
 				65BDAA9D2189F55D007E887B /* Resources */,
+				F49C02D4245DBACF00F80D5E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -660,6 +707,24 @@
 			shellPath = /bin/sh;
 			shellScript = "swiftlint\n";
 		};
+		F49C02D4245DBACF00F80D5E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/FBSnapshotTestCase.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -722,6 +787,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				658BD840222967E1008E0EB1 /* MockImageLoader.swift in Sources */,
+				F49C02DF245DD56100F80D5E /* MGMSnapshotTestCase.swift in Sources */,
 				6581221A24030EB6001666A1 /* DataRepositoryTestCase.swift in Sources */,
 				653560CF2409457A000E7E86 /* MockLocalNotificationsManager.swift in Sources */,
 				658BD83222295CC3008E0EB1 /* ScoresViewModelTests.swift in Sources */,
@@ -729,9 +795,14 @@
 				65BDAAD8218A096A007E887B /* XCTestCase+Extensions.swift in Sources */,
 				6581221024030C27001666A1 /* DataRepositoryTests.swift in Sources */,
 				6581220D24030BCF001666A1 /* MockRemoteDataSource.swift in Sources */,
+				F49C02DD245DD55000F80D5E /* ScoresSnapshotTests.swift in Sources */,
+				F49C02DB245DC08A00F80D5E /* MockForwardBackNavigationContext.swift in Sources */,
 				65BDAACF218A068E007E887B /* MockDataLoader.swift in Sources */,
+				F49C02D9245DBED500F80D5E /* MockLatestEventViewModel.swift in Sources */,
 				6581221424030C82001666A1 /* MockLocalStorage.swift in Sources */,
 				659CC8CB24080DAF0081D5BC /* EventUpdateManagerTests.swift in Sources */,
+				F49C02CE245DB99E00F80D5E /* LatestEventSnapshotTests.swift in Sources */,
+				F49C02E1245DD5CD00F80D5E /* MockScoresViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -934,6 +1005,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -956,6 +1031,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

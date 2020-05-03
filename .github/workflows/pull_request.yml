@@ -20,6 +20,13 @@ jobs:
       - run: set -o pipefail
       - run: export PROJECT_DIR=.; /bin/sh BuildPhases/copy-plist.sh
       - run: /bin/sh createFakeGoogleServices.sh
+      - run: carthage update --platform ios
       - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -destination "OS=latest,name=iPhone 11" -destination "OS=latest,name=iPad (7th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      - name: Publish any snapshot test failures
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v1
+        with:
+          name: ReferenceImagesFail
+          path: Tests/Snapshot/ReferenceImagesFail
       - name: Codecov
         uses: codecov/codecov-action@v1.0.6

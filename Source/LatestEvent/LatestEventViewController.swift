@@ -81,18 +81,17 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
     // MARK: UICollectionViewDataSource
 
     func numberOfSections(in _: UICollectionView) -> Int {
-        if viewModel.isLocationAvailable {
-            return 2
-        }
-        return 1
+        return 2
     }
 
     func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return viewModel.isLocationAvailable ? 1 : viewModel.numberOfEntites
-        default:
+            return viewModel.isLocationAvailable ? 1 : 0
+        case 1:
             return viewModel.numberOfEntites
+        default:
+            return 0
         }
     }
 
