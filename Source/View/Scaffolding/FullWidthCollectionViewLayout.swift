@@ -144,3 +144,9 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
         return itemHeight
     }
 }
+
+extension UICollectionViewLayout {
+    func createCollectionView(frame: CGRect = .zero) -> UICollectionView {
+        return UICollectionView(frame: frame, collectionViewLayout: self)
+    }
+}

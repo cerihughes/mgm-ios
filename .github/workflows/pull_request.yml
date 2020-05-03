@@ -20,7 +20,7 @@ jobs:
       - run: set -o pipefail
       - run: export PROJECT_DIR=.; /bin/sh BuildPhases/copy-plist.sh
       - run: /bin/sh createFakeGoogleServices.sh
-      - run: carthage update --platform ios
+      - run: carthage update --platform ios --no-use-binaries
       - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -destination "OS=latest,name=iPhone 11" -destination "OS=latest,name=iPad (7th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
       - name: Publish any snapshot test failures
         if: ${{ failure() }}

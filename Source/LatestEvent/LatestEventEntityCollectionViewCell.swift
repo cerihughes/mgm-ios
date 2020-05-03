@@ -1,95 +1,80 @@
+import SnapKit
 import UIKit
 
 class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
-    let typeLabel = UILabel()
-    let albumLabel = UILabel()
-    private let byLabel = UILabel()
-    let artistLabel = UILabel()
+    let typeLabel = UILabel.createCollectionViewLabel(font: .boldSystemFont(ofSize: 16))
+    let albumLabel = UILabel.createCollectionViewLabel(font: .systemFont(ofSize: 14))
+    private let byLabel = UILabel.createCollectionViewLabel(font: .italicSystemFont(ofSize: 12))
+    let artistLabel = UILabel.createCollectionViewLabel(font: .systemFont(ofSize: 14))
 
     private let spacing: CGFloat = 16.0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        commonInit()
+    }
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+
+    private func commonInit() {
         let backgroundImageView = UIImageView()
-        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.contentMode = .scaleAspectFill
         backgroundImageView.clipsToBounds = true
 
         let blurEffect = UIBlurEffect(style: .extraLight)
         let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.addSubview(blurView)
 
         backgroundView = backgroundImageView
-
-        typeLabel.translatesAutoresizingMaskIntoConstraints = false
-        typeLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        typeLabel.textColor = .black
-        typeLabel.textAlignment = .center
-
-        albumLabel.translatesAutoresizingMaskIntoConstraints = false
-        albumLabel.font = UIFont.systemFont(ofSize: 14)
-        albumLabel.textColor = .black
-        albumLabel.textAlignment = .center
-
-        byLabel.translatesAutoresizingMaskIntoConstraints = false
-        byLabel.font = UIFont.italicSystemFont(ofSize: 12)
-        byLabel.textColor = .black
-        byLabel.textAlignment = .center
         byLabel.text = "by"
-
-        artistLabel.translatesAutoresizingMaskIntoConstraints = false
-        artistLabel.font = UIFont.systemFont(ofSize: 14)
-        artistLabel.textColor = .black
-        artistLabel.textAlignment = .center
 
         contentView.addSubview(typeLabel)
         contentView.addSubview(albumLabel)
         contentView.addSubview(byLabel)
         contentView.addSubview(artistLabel)
 
-        let readableLeadingAnchor = contentView.readableContentGuide.leadingAnchor
-        let readableTrailingAnchor = contentView.readableContentGuide.trailingAnchor
+        backgroundImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
 
-        var constraints: [NSLayoutConstraint] = []
+        blurView.snp.makeConstraints { make in
+            make.edges.equalTo(backgroundImageView)
+        }
 
-        constraints.append(contentsOf: backgroundImageView.anchorTo(view: self))
-        constraints.append(contentsOf: blurView.anchorTo(view: backgroundImageView))
-
-        constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: readableLeadingAnchor, leadingConstant: spacing,
-                                                          topAnchor: contentView.topAnchor, topConstant: spacing,
-                                                          bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
-                                                          widthAnchor: imageView.heightAnchor))
+        imageView.snp.makeConstraints { make in
+            make.leading.equalTo(contentView.readableContentGuide).inset(spacing)
+            make.top.bottom.equalTo(contentView).inset(spacing)
+            make.width.equalTo(imageView.snp.height)
+        }
 
         let halfSpacing = spacing / 2.0
         apply(borderSpacing: halfSpacing)
 
-        constraints.append(contentsOf: typeLabel.anchorTo(leadingAnchor: imageView.trailingAnchor, leadingConstant: spacing + halfSpacing,
-                                                          trailingAnchor: readableTrailingAnchor, trailingConstant: -spacing,
-                                                          topAnchor: contentView.topAnchor, topConstant: spacing,
-                                                          bottomAnchor: albumLabel.topAnchor, bottomConstant: -spacing))
+        typeLabel.snp.makeConstraints { make in
+            make.leading.equalTo(imageView.snp.trailing).offset(spacing + halfSpacing)
+            make.trailing.equalTo(contentView.readableContentGuide).inset(spacing)
+            make.top.equalTo(contentView).offset(spacing)
+            make.bottom.equalTo(albumLabel.snp.top).inset(-spacing)
+        }
 
-        constraints.append(contentsOf: albumLabel.anchorTo(leadingAnchor: typeLabel.leadingAnchor,
-                                                           trailingAnchor: typeLabel.trailingAnchor,
-                                                           bottomAnchor: byLabel.topAnchor, bottomConstant: -halfSpacing,
-                                                           heightAnchor: typeLabel.heightAnchor, heightMultiplier: 0.75))
+        albumLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(typeLabel)
+            make.bottom.equalTo(byLabel.snp.top).inset(-halfSpacing)
+            make.height.equalTo(typeLabel).multipliedBy(0.75)
+        }
 
-        constraints.append(contentsOf: byLabel.anchorTo(leadingAnchor: albumLabel.leadingAnchor,
-                                                        trailingAnchor: albumLabel.trailingAnchor,
-                                                        bottomAnchor: artistLabel.topAnchor, bottomConstant: -halfSpacing,
-                                                        heightAnchor: albumLabel.heightAnchor))
+        byLabel.snp.makeConstraints { make in
+            make.leading.trailing.height.equalTo(albumLabel)
+            make.bottom.equalTo(artistLabel.snp.top).inset(-halfSpacing)
+        }
 
-        constraints.append(contentsOf: artistLabel.anchorTo(leadingAnchor: albumLabel.leadingAnchor,
-                                                            trailingAnchor: albumLabel.trailingAnchor,
-                                                            bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
-                                                            heightAnchor: albumLabel.heightAnchor))
-
-        NSLayoutConstraint.activate(constraints)
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        artistLabel.snp.makeConstraints { make in
+            make.leading.trailing.height.equalTo(albumLabel)
+            make.bottom.equalTo(contentView).inset(spacing)
+        }
     }
 
     override func prepareForReuse() {

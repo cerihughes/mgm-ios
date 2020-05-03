@@ -1,3 +1,4 @@
+import SnapKit
 import UIKit
 
 /// An abstract view that contains a loading indicator and message view
@@ -9,20 +10,25 @@ class DataLoadingView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        commonInit()
+    }
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+
+    private func commonInit() {
         backgroundColor = .white
 
-        messageView.translatesAutoresizingMaskIntoConstraints = false
         messageView.isHidden = true
         messageView.numberOfLines = 0
         messageView.textAlignment = .center
         messageView.accessibilityIdentifier = "mgm:view:messageView"
 
-        retryButton.translatesAutoresizingMaskIntoConstraints = false
         retryButton.accessibilityIdentifier = "mgm:view:retryButton"
         retryButton.isHidden = true
 
-        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicatorView.hidesWhenStopped = true
         activityIndicatorView.accessibilityIdentifier = "mgm:view:activityView"
 
@@ -30,21 +36,18 @@ class DataLoadingView: UIView {
         addSubview(retryButton)
         addSubview(activityIndicatorView)
 
-        var constraints: [NSLayoutConstraint] = []
+        messageView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide)
+        }
 
-        constraints.append(contentsOf: messageView.anchorTo(layoutGuide: safeAreaLayoutGuide))
+        retryButton.snp.makeConstraints { make in
+            make.bottom.equalTo(messageView).inset(spacing)
+            make.centerX.equalTo(messageView)
+        }
 
-        constraints.append(contentsOf: retryButton.anchorTo(bottomAnchor: messageView.bottomAnchor, bottomConstant: -spacing,
-                                                            centerXAnchor: messageView.centerXAnchor))
-
-        constraints.append(contentsOf: activityIndicatorView.anchorTo(centerXAnchor: safeAreaLayoutGuide.centerXAnchor,
-                                                                      centerYAnchor: safeAreaLayoutGuide.centerYAnchor))
-
-        NSLayoutConstraint.activate(constraints)
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        activityIndicatorView.snp.makeConstraints { make in
+            make.center.equalTo(safeAreaLayoutGuide)
+        }
     }
 
     func hideMessage() {

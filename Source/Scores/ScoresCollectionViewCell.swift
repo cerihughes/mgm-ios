@@ -1,35 +1,26 @@
 import UIKit
 
 class ScoresCollectionViewCell: AlbumCollectionViewCell {
-    let albumLabel = UILabel()
-    let artistLabel = UILabel()
+    let albumLabel = UILabel.createCollectionViewLabel(font: .systemFont(ofSize: 14), alignment: .natural)
+    let artistLabel = UILabel.createCollectionViewLabel(font: .italicSystemFont(ofSize: 14), alignment: .natural)
     let awardImageView = UIImageView()
-    let ratingLabel = UILabel()
-    let positionLabel = UILabel()
+    let ratingLabel = UILabel.createCollectionViewLabel(font: .boldSystemFont(ofSize: 19), alignment: .natural)
+    let positionLabel = UILabel.createCollectionViewLabel(font: .boldSystemFont(ofSize: 14))
 
     private let spacing: CGFloat = 4.0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        commonInit()
+    }
 
-        albumLabel.translatesAutoresizingMaskIntoConstraints = false
-        albumLabel.font = UIFont.systemFont(ofSize: 14)
-        albumLabel.textColor = .black
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
 
-        artistLabel.translatesAutoresizingMaskIntoConstraints = false
-        artistLabel.font = UIFont.italicSystemFont(ofSize: 14)
-        artistLabel.textColor = .black
-
-        awardImageView.translatesAutoresizingMaskIntoConstraints = false
+    private func commonInit() {
         awardImageView.contentMode = .scaleAspectFit
-
-        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
-        ratingLabel.font = UIFont.boldSystemFont(ofSize: 19)
-
-        positionLabel.translatesAutoresizingMaskIntoConstraints = false
-        positionLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        positionLabel.textColor = .black
-        positionLabel.textAlignment = .center
 
         contentView.addSubview(albumLabel)
         contentView.addSubview(artistLabel)
@@ -37,46 +28,42 @@ class ScoresCollectionViewCell: AlbumCollectionViewCell {
         contentView.addSubview(ratingLabel)
         contentView.addSubview(positionLabel)
 
-        let readableLeadingAnchor = contentView.readableContentGuide.leadingAnchor
-        let readableTrailingAnchor = contentView.readableContentGuide.trailingAnchor
-
-        var constraints: [NSLayoutConstraint] = []
-
-        constraints.append(contentsOf: imageView.anchorTo(leadingAnchor: readableLeadingAnchor, leadingConstant: spacing,
-                                                          topAnchor: contentView.topAnchor, topConstant: spacing,
-                                                          bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
-                                                          widthAnchor: imageView.heightAnchor))
+        imageView.snp.makeConstraints { make in
+            make.leading.equalTo(contentView.readableContentGuide).inset(spacing)
+            make.top.bottom.equalTo(contentView).inset(spacing)
+            make.width.equalTo(imageView.snp.height)
+        }
 
         let borderSpacing = spacing / 2.0
         apply(borderSpacing: borderSpacing)
 
-        constraints.append(contentsOf: albumLabel.anchorTo(leadingAnchor: imageView.trailingAnchor, leadingConstant: spacing + borderSpacing,
-                                                           trailingAnchor: awardImageView.leadingAnchor, trailingConstant: -spacing,
-                                                           topAnchor: contentView.topAnchor, topConstant: spacing,
-                                                           bottomAnchor: artistLabel.topAnchor, bottomConstant: -spacing))
+        albumLabel.snp.makeConstraints { make in
+            make.leading.equalTo(imageView.snp.trailing).offset(spacing + borderSpacing)
+            make.trailing.equalTo(awardImageView.snp.leading).inset(-spacing)
+            make.top.equalTo(contentView).offset(spacing)
+            make.bottom.equalTo(artistLabel.snp.top).inset(-spacing)
+        }
 
-        constraints.append(contentsOf: artistLabel.anchorTo(leadingAnchor: albumLabel.leadingAnchor,
-                                                            trailingAnchor: albumLabel.trailingAnchor,
-                                                            bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
-                                                            heightAnchor: albumLabel.heightAnchor))
+        artistLabel.snp.makeConstraints { make in
+            make.leading.trailing.height.equalTo(albumLabel)
+            make.bottom.equalTo(contentView).inset(spacing)
+        }
 
-        constraints.append(contentsOf: awardImageView.anchorTo(trailingAnchor: readableTrailingAnchor, trailingConstant: -spacing,
-                                                               topAnchor: contentView.topAnchor, topConstant: spacing,
-                                                               bottomAnchor: contentView.bottomAnchor, bottomConstant: -spacing,
-                                                               widthAnchor: awardImageView.heightAnchor))
+        awardImageView.snp.makeConstraints { make in
+            make.trailing.equalTo(contentView.readableContentGuide).inset(spacing)
+            make.top.bottom.equalTo(contentView).inset(spacing)
+            make.width.equalTo(awardImageView.snp.height)
+        }
 
-        constraints.append(contentsOf: ratingLabel.anchorTo(centerXAnchor: awardImageView.centerXAnchor,
-                                                            centerYAnchor: awardImageView.centerYAnchor))
+        ratingLabel.snp.makeConstraints { make in
+            make.center.equalTo(awardImageView)
+        }
 
-        constraints.append(contentsOf: positionLabel.anchorTo(topAnchor: contentView.topAnchor, topConstant: spacing,
-                                                              centerXAnchor: awardImageView.centerXAnchor,
-                                                              heightAnchor: awardImageView.heightAnchor, heightMultiplier: 0.333))
-
-        NSLayoutConstraint.activate(constraints)
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        positionLabel.snp.makeConstraints { make in
+            make.top.equalTo(contentView).offset(spacing)
+            make.centerX.equalTo(awardImageView)
+            make.height.equalTo(awardImageView).multipliedBy(0.333)
+        }
     }
 
     override func prepareForReuse() {

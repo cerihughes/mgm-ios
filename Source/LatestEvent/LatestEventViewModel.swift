@@ -143,7 +143,7 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
     private func handleDataLoaderFailure(error _: Error, _ completion: () -> Void) {
         event = nil
         eventEntityViewModels = []
-        message = dataLoaderErrorMessage
+        message = .dataLoaderErrorMessage
         completion()
     }
 

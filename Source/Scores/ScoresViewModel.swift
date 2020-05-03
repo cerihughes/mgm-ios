@@ -137,7 +137,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     private func handleDataLoaderFailure(error _: Error, _ completion: () -> Void) {
         scoreViewModels = []
         filteredScoreViewModels = []
-        message = dataLoaderErrorMessage
+        message = .dataLoaderErrorMessage
         completion()
     }
 
