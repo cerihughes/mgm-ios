@@ -1,3 +1,4 @@
+import SnapKit
 import UIKit
 
 class LatestEventCollectionSectionHeaderView: UICollectionReusableView {
@@ -5,21 +6,24 @@ class LatestEventCollectionSectionHeaderView: UICollectionReusableView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        commonInit()
+    }
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    private func commonInit() {
         backgroundColor = .white
 
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textColor = .black
         label.textAlignment = .center
 
         addSubview(label)
 
-        let constraints: [NSLayoutConstraint] = label.anchorTo(view: self, inset: 4.0)
-        NSLayoutConstraint.activate(constraints)
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        label.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(4)
+        }
     }
 }

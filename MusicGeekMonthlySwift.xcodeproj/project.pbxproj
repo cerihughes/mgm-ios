@@ -12,7 +12,6 @@
 		6512F30621934DEE004CD379 /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6512F30521934DEE004CD379 /* ErrorMessages.swift */; };
 		653560CF2409457A000E7E86 /* MockLocalNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653560CE2409457A000E7E86 /* MockLocalNotificationsManager.swift */; };
 		6540A51B218C85260028B382 /* ScoresCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6540A51A218C85260028B382 /* ScoresCollectionViewCell.swift */; };
-		6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6540A51C218C87010028B382 /* UIView+Extensions.swift */; };
 		65454F8D2412C0FA00464D38 /* Madog in Frameworks */ = {isa = PBXBuildFile; productRef = 65454F8C2412C0FA00464D38 /* Madog */; };
 		6553CF8B21907C4A0020EEC2 /* LatestEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553CF8A21907C4A0020EEC2 /* LatestEventViewModel.swift */; };
 		6553CF8D21907CB30020EEC2 /* LatestEventEntityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6553CF8C21907CB30020EEC2 /* LatestEventEntityViewModel.swift */; };
@@ -110,7 +109,6 @@
 		6512F30521934DEE004CD379 /* ErrorMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessages.swift; sourceTree = "<group>"; };
 		653560CE2409457A000E7E86 /* MockLocalNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalNotificationsManager.swift; sourceTree = "<group>"; };
 		6540A51A218C85260028B382 /* ScoresCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresCollectionViewCell.swift; sourceTree = "<group>"; };
-		6540A51C218C87010028B382 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		6553CF8A21907C4A0020EEC2 /* LatestEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventViewModel.swift; sourceTree = "<group>"; };
 		6553CF8C21907CB30020EEC2 /* LatestEventEntityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventEntityViewModel.swift; sourceTree = "<group>"; };
 		6553CF922190890B0020EEC2 /* LatestEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventView.swift; sourceTree = "<group>"; };
@@ -238,7 +236,6 @@
 				6553CF94219089560020EEC2 /* DataLoadingView.swift */,
 				656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */,
 				6507A1FB218C8FE200C26202 /* FullWidthCollectionViewLayout.swift */,
-				6540A51C218C87010028B382 /* UIView+Extensions.swift */,
 			);
 			path = Scaffolding;
 			sourceTree = "<group>";
@@ -735,7 +732,6 @@
 				6553CF8D21907CB30020EEC2 /* LatestEventEntityViewModel.swift in Sources */,
 				F4FAB1CC245C28CA001BCDBA /* SettingsViewModel.swift in Sources */,
 				65E9AEB62191E09F001B36D6 /* URL+SpotifyExtensions.swift in Sources */,
-				6540A51D218C87010028B382 /* UIView+Extensions.swift in Sources */,
 				656619932190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift in Sources */,
 				65E4374121A9C021001D9311 /* MGMServiceProvider.swift in Sources */,
 				6566197521908CE20068EA1B /* LatestEventViewController.swift in Sources */,

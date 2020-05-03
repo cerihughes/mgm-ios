@@ -1,3 +1,4 @@
+import SnapKit
 import UIKit
 
 class AlbumCollectionViewCell: UICollectionViewCell {
@@ -7,32 +8,28 @@ class AlbumCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        commontInit()
+    }
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commontInit()
+    }
+
+    private func commontInit() {
         backgroundColor = .white
 
-        borderView.translatesAutoresizingMaskIntoConstraints = false
         borderView.backgroundColor = .black
-
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-
-        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicatorView.hidesWhenStopped = true
 
         contentView.addSubview(borderView)
         contentView.addSubview(imageView)
         contentView.addSubview(activityIndicatorView)
 
-        var constraints: [NSLayoutConstraint] = []
-
-        constraints.append(contentsOf: activityIndicatorView.anchorTo(centerXAnchor: imageView.centerXAnchor,
-                                                                      centerYAnchor: imageView.centerYAnchor))
-
-        NSLayoutConstraint.activate(constraints)
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        activityIndicatorView.snp.makeConstraints { make in
+            make.center.equalTo(imageView)
+        }
     }
 
     override func prepareForReuse() {
@@ -46,8 +43,9 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     // MARK: API
 
     func apply(borderSpacing: CGFloat) {
-        let constraints: [NSLayoutConstraint] = borderView.anchorTo(view: imageView, inset: -borderSpacing)
-        NSLayoutConstraint.activate(constraints)
+        borderView.snp.makeConstraints { make in
+            make.edges.equalTo(imageView).inset(-borderSpacing)
+        }
     }
 
     func showActivityIndicator() {

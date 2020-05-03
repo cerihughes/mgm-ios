@@ -1,30 +1,35 @@
+import SnapKit
 import UIKit
 
 /// A view that represents the latest event, and the albums being reviewed
 class LatestEventView: DataLoadingView {
-    let collectionView: UICollectionView
+    let collectionView = FullWidthCollectionViewLayout(sectionHeaderHeight: 32.0,
+                                                       defaultItemHeight: 128.0,
+                                                       itemHeightOverrides: [0: 192.0],
+                                                       spacing: 4.0).createCollectionView()
 
     override init(frame: CGRect) {
-        let layout = FullWidthCollectionViewLayout(sectionHeaderHeight: 32.0, defaultItemHeight: 128.0, itemHeightOverrides: [0: 192.0], spacing: 4.0)
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
-
         super.init(frame: frame)
+        commonInit()
+    }
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+
+    private func commonInit() {
         backgroundColor = .white
 
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .lightGray
         collectionView.isHidden = true
         collectionView.accessibilityIdentifier = "mgm:latestEvent:collectionView"
 
         addSubview(collectionView)
 
-        let constraints: [NSLayoutConstraint] = collectionView.anchorTo(layoutGuide: safeAreaLayoutGuide)
-        NSLayoutConstraint.activate(constraints)
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        collectionView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide)
+        }
     }
 
     // MARK: API

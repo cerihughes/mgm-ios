@@ -1,4 +1,5 @@
 import MapKit
+import SnapKit
 import UIKit
 
 class LatestEventLocationCollectionViewCell: UICollectionViewCell {
@@ -6,18 +7,22 @@ class LatestEventLocationCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        commonInit()
+    }
 
-        mapView.translatesAutoresizingMaskIntoConstraints = false
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+
+    private func commonInit() {
         mapView.isUserInteractionEnabled = false
 
         contentView.addSubview(mapView)
 
-        let constraints: [NSLayoutConstraint] = mapView.anchorTo(view: contentView)
-        NSLayoutConstraint.activate(constraints)
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        mapView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView)
+        }
     }
 
     // MARK: API

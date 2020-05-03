@@ -1,45 +1,41 @@
+import SnapKit
 import UIKit
 
 /// A view that represents a list of albums and their scores
 class ScoresView: DataLoadingView {
-    let collectionView: UICollectionView
+    let collectionView = FullWidthCollectionViewLayout(itemHeight: 64.0, spacing: 1.0).createCollectionView()
     let searchBar = UISearchBar()
 
     override init(frame: CGRect) {
-        let layout = FullWidthCollectionViewLayout(itemHeight: 64.0, spacing: 1.0)
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
-
         super.init(frame: frame)
+        commonInit()
+    }
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+
+    private func commonInit() {
         backgroundColor = .white
 
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .lightGray
         collectionView.isHidden = true
         collectionView.accessibilityIdentifier = "mgm:scores:collectionView"
 
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.showsCancelButton = true
 
         addSubview(collectionView)
         addSubview(searchBar)
 
-        var constraints: [NSLayoutConstraint] = []
+        searchBar.snp.makeConstraints { make in
+            make.leading.trailing.top.equalTo(safeAreaLayoutGuide)
+        }
 
-        constraints.append(contentsOf: searchBar.anchorTo(leadingAnchor: safeAreaLayoutGuide.leadingAnchor,
-                                                          trailingAnchor: safeAreaLayoutGuide.trailingAnchor,
-                                                          topAnchor: safeAreaLayoutGuide.topAnchor))
-
-        constraints.append(contentsOf: collectionView.anchorTo(leadingAnchor: safeAreaLayoutGuide.leadingAnchor,
-                                                               trailingAnchor: safeAreaLayoutGuide.trailingAnchor,
-                                                               topAnchor: searchBar.bottomAnchor,
-                                                               bottomAnchor: safeAreaLayoutGuide.bottomAnchor))
-
-        NSLayoutConstraint.activate(constraints)
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.leading.trailing.bottom.equalTo(safeAreaLayoutGuide)
+        }
     }
 
     func showResults() {
