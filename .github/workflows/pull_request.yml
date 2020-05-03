@@ -1,8 +1,6 @@
 name: Build and test PRs
 
-on:
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -23,6 +21,6 @@ jobs:
       - run: export PROJECT_DIR=.; /bin/sh BuildPhases/copy-plist.sh
       - run: /bin/sh createFakeGoogleServices.sh
       - run: carthage update --platform ios
-      - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -destination "OS=latest,name=iPhone 11" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -destination "OS=latest,name=iPhone 11" -destination "OS=latest,name=iPad (7th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
       - name: Codecov
         uses: codecov/codecov-action@v1.0.6
