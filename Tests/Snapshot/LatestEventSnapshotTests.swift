@@ -29,8 +29,7 @@ class LatestEventSnapshotTests: MGMSnapshotTests {
         newAlbum.albumCover = .album2
         let playlist = MockLatestEventEntityViewModel()
         playlist.albumCover = .album3
-        viewModel.isLocationAvailable = true
-        viewModel.locationName = "Location Name"
+        viewModel.isLocationAvailable = false
         viewModel.headerTitles = ["LOCATION", "LISTENING TO"]
         viewModel.eventEntityViewModels = [classicAlbum, newAlbum, playlist]
 
