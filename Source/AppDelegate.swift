@@ -10,16 +10,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let madog = Madog<ResourceLocator>()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        application.setMinimumBackgroundFetchInterval(twelveHours)
-
-        FirebaseApp.configure()
-
-        let cache = URLCache(memoryCapacity: 16 * 1024 * 1024, diskCapacity: 128 * 1024 * 1024, diskPath: nil)
-        URLCache.shared = cache
-
         let window = UIWindow()
         window.makeKeyAndVisible()
+
         self.window = window
+
+        #if DEBUG
+        if isRunningUnitTests {
+            window.rootViewController = UIViewController()
+            return true
+        }
+        #endif
+
+        FirebaseApp.configure()
+        application.setMinimumBackgroundFetchInterval(twelveHours)
+        let cache = URLCache(memoryCapacity: 16 * 1024 * 1024, diskCapacity: 128 * 1024 * 1024, diskPath: nil)
+        URLCache.shared = cache
 
         madog.resolve(resolver: MGMResolver())
 
@@ -55,3 +61,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return madog.serviceProviders[mgmServiceProviderName] as? MGMServiceProvider
     }
 }
+
+#if DEBUG
+extension UIApplicationDelegate {
+    var isRunningUnitTests: Bool {
+        return UserDefaults.standard.bool(forKey: "isRunningUnitTests")
+    }
+}
+#endif
