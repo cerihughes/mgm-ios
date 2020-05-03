@@ -1,3 +1,5 @@
 import Foundation
 
-let dataLoaderErrorMessage = "Unable to load data. Please check your connection and try again."
+extension String {
+    static let dataLoaderErrorMessage = "Unable to load data. Please check your connection and try again."
+}
