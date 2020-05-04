@@ -227,25 +227,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6566197121908B6C0068EA1B /* Scaffolding */ = {
-			isa = PBXGroup;
-			children = (
-				656619792190969A0068EA1B /* AlbumCollectionViewCell.swift */,
-				6553CF94219089560020EEC2 /* DataLoadingView.swift */,
-				656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */,
-				6507A1FB218C8FE200C26202 /* FullWidthCollectionViewLayout.swift */,
-			);
-			path = Scaffolding;
-			sourceTree = "<group>";
-		};
-		65661976219091F60068EA1B /* Scaffolding */ = {
-			isa = PBXGroup;
-			children = (
-				65661977219092080068EA1B /* AlbumArtViewModel.swift */,
-			);
-			path = Scaffolding;
-			sourceTree = "<group>";
-		};
 		6566197C21909E750068EA1B /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,7 +266,6 @@
 		656619912190ACAE0068EA1B /* Spotify */ = {
 			isa = PBXGroup;
 			children = (
-				656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */,
 				656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */,
 			);
 			path = Spotify;
@@ -386,6 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				659CC8C7240801D50081D5BC /* EventUpdateManager.swift */,
+				656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */,
 				65D2AD9B218B36DD002BB0C9 /* ImageLoader.swift */,
 				65B633602402D923006FC00F /* LocalNotificationsManager.swift */,
 				65820CB62402C6790081C6DC /* LocalStorage.swift */,
@@ -443,17 +424,9 @@
 				65E4374021A9C021001D9311 /* MGMServiceProvider.swift */,
 				65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */,
 				65BDAA952189F55D007E887B /* Assets.xcassets */,
-				659DED6F21931FDE00226579 /* AppleMaps */,
 				65820CB52402C5CD0081C6DC /* Components */,
 				658122022402FA77001666A1 /* DataRepostory */,
-				6566198A2190A7330068EA1B /* LatestEvent */,
-				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
-				6566197C21909E750068EA1B /* Navigation */,
-				656619892190A7090068EA1B /* Scores */,
-				F4FAB1C4245C2881001BCDBA /* Settings */,
-				656619912190ACAE0068EA1B /* Spotify */,
-				65D2AD96218B30E7002BB0C9 /* View */,
-				65D2AD95218B3015002BB0C9 /* ViewModel */,
+				F4743364245FF3A6007BCC87 /* UI */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -466,30 +439,41 @@
 				65BDAAD7218A096A007E887B /* XCTestCase+Extensions.swift */,
 				6581221224030C6F001666A1 /* Components */,
 				6581220924030B9A001666A1 /* DataRepository */,
-				F49C02D7245DBEB300F80D5E /* LatestEvent */,
-				658BD83022295C9C008E0EB1 /* Scores */,
 				F49C02CC245DB95000F80D5E /* Snapshot */,
+				F4743365245FF44A007BCC87 /* UI */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		65D2AD95218B3015002BB0C9 /* ViewModel */ = {
+		F4743364245FF3A6007BCC87 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				65661977219092080068EA1B /* AlbumArtViewModel.swift */,
+				656619792190969A0068EA1B /* AlbumCollectionViewCell.swift */,
+				6553CF94219089560020EEC2 /* DataLoadingView.swift */,
+				6512F30521934DEE004CD379 /* ErrorMessages.swift */,
+				656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */,
+				6507A1FB218C8FE200C26202 /* FullWidthCollectionViewLayout.swift */,
+				F4FAB1D0245C2E82001BCDBA /* LabelWithSwitch.swift */,
 				65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */,
-				65661976219091F60068EA1B /* Scaffolding */,
+				659DED6F21931FDE00226579 /* AppleMaps */,
+				6566198A2190A7330068EA1B /* LatestEvent */,
+				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
+				6566197C21909E750068EA1B /* Navigation */,
+				656619892190A7090068EA1B /* Scores */,
+				F4FAB1C4245C2881001BCDBA /* Settings */,
+				656619912190ACAE0068EA1B /* Spotify */,
 			);
-			path = ViewModel;
+			path = UI;
 			sourceTree = "<group>";
 		};
-		65D2AD96218B30E7002BB0C9 /* View */ = {
+		F4743365245FF44A007BCC87 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				6512F30521934DEE004CD379 /* ErrorMessages.swift */,
-				F4FAB1D0245C2E82001BCDBA /* LabelWithSwitch.swift */,
-				6566197121908B6C0068EA1B /* Scaffolding */,
+				F49C02D7245DBEB300F80D5E /* LatestEvent */,
+				658BD83022295C9C008E0EB1 /* Scores */,
 			);
-			path = View;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		F49C02C7245DB71800F80D5E /* Carthage */ = {
