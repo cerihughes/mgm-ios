@@ -1071,8 +1071,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/cerihughes/mgm-schema";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.16.0;
+				kind = exactVersion;
+				version = 1.18.0;
 			};
 		};
 		F4FAB1CD245C2CC8001BCDBA /* XCRemoteSwiftPackageReference "SnapKit" */ = {
