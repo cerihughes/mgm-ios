@@ -54,7 +54,7 @@ class DataRepositoryTests: DataRepositoryTestCase {
 }
 
 extension DataRepositoryResponse {
-    func asSuccessData() -> Value? {
+    func asSuccessData() -> Success? {
         guard case let .success(events) = self else {
             return nil
         }

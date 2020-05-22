@@ -8,17 +8,17 @@ class TypedViewControllerProvider: ViewControllerProvider<ResourceLocator> {
 
     // MARK: ViewControllerProvider
 
-    final override func configure(with serviceProviders: [String: ServiceProvider]) {
+    override final func configure(with serviceProviders: [String: ServiceProvider]) {
         super.configure(with: serviceProviders)
 
         serviceProvider = serviceProviders[mgmServiceProviderName] as? MGMServiceProvider
     }
 
-    final override func register(with registry: Registry<ResourceLocator>) {
+    override final func register(with registry: Registry<ResourceLocator>) {
         uuid = registry.add(registryFunction: createViewController(token:context:))
     }
 
-    final override func unregister(from registry: Registry<ResourceLocator>) {
+    override final func unregister(from registry: Registry<ResourceLocator>) {
         guard let uuid = uuid else {
             return
         }
