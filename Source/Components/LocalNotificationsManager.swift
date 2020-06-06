@@ -118,6 +118,8 @@ extension EventUpdate {
             return "eventScheduled\(event.number)"
         case let .eventRescheduled(event):
             return "eventRescheduled\(event.number)"
+        case let .eventMoved(event):
+            return "eventMoved\(event.number)"
         case let .eventCancelled(event):
             return "eventCancelled\(event.number)"
         case let .playlistPublished(event):
@@ -135,6 +137,8 @@ extension EventUpdate {
             return "Event Scheduled - MGM \(event.number)"
         case let .eventRescheduled(event):
             return "Event Rescheduled - MGM \(event.number)"
+        case let .eventMoved(event):
+            return "Event Moved - MGM \(event.number)"
         case let .eventCancelled(event):
             return "Event Cancelled - MGM \(event.number)"
         case let .playlistPublished(event):
@@ -156,6 +160,9 @@ extension EventUpdate {
         case let .eventRescheduled(event):
             guard let dateString = event.dateString else { return nil }
             return "This month's event has been rescheduled for \(dateString)"
+        case let .eventMoved(event):
+            guard let location = event.location else { return nil }
+            return "This month's event has been moved to \(location.name)"
         case .eventCancelled:
             return "This month's event has been cancelled. Check the Facebook group for more details."
         case .playlistPublished:

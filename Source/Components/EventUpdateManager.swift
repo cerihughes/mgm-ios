@@ -5,6 +5,7 @@ enum EventUpdate: Equatable {
     case scoresPublished(Album)
     case eventScheduled(Event)
     case eventRescheduled(Event)
+    case eventMoved(Event)
     case eventCancelled(Event)
     case playlistPublished(Event)
 }
