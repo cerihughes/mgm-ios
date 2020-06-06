@@ -156,7 +156,7 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
 }
 
 extension ScoresViewController: UISearchBarDelegate {
-    // MARK: - UISearchBarDelegate
+    // MARK: UISearchBarDelegate
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // Wait a second so that we don't update the UI while typing is ongoing...
