@@ -1,7 +1,7 @@
 import Madog
 
 class MGMResolver: Resolver<ResourceLocator> {
-    override func viewControllerProviderCreationFunctions() -> [() -> ViewControllerProvider<ResourceLocator>] {
+    override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<ResourceLocator>] {
         return [
             LatestEventViewControllerProvider.init,
             ScoresViewControllerProvider.init,
@@ -11,7 +11,7 @@ class MGMResolver: Resolver<ResourceLocator> {
         ]
     }
 
-    override func serviceProviderCreationFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
+    override func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
         return [
             MGMServiceProviderImplementation.init(context:)
         ]
