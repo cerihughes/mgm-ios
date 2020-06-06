@@ -16,23 +16,30 @@ protocol EventUpdateManager {
 
 class EventUpdateManagerImplementation: EventUpdateManager {
     func processEventUpdate(oldEvents: [Event], newEvents: [Event]) -> [EventUpdate] {
-        var results = [EventUpdate]()
-        guard let oldLastEvent = oldEvents.last,
-            let newLastEvent = newEvents.last else {
-            return results
+        if let oldLatestEvent = oldEvents.last, let newLatestEvent = newEvents.last {
+            let newPreviousEvent = newEvents.dropLast().last
+            return processEventUpdate(oldLatestEvent: oldLatestEvent,
+                                      newPreviousEvent: newPreviousEvent,
+                                      newLatestEvent: newLatestEvent)
         }
+        return []
+    }
 
-        let oldNumber = oldLastEvent.number
-        let newNumber = newLastEvent.number
-        if oldNumber == newNumber {
-            if oldLastEvent != newLastEvent {
-                results.append(contentsOf: eventChanged(oldEvent: oldLastEvent, newEvent: newLastEvent))
+    private func processEventUpdate(oldLatestEvent: Event, newPreviousEvent: Event?, newLatestEvent: Event) -> [EventUpdate] {
+        var results = [EventUpdate]()
+
+        let oldLatestEventNumber = oldLatestEvent.number
+        let newLatestEventNumber = newLatestEvent.number
+
+        if oldLatestEventNumber == newLatestEventNumber {
+            if oldLatestEvent != newLatestEvent {
+                results.append(contentsOf: eventChanged(oldEvent: oldLatestEvent, newEvent: newLatestEvent))
             }
-        } else if oldNumber < newNumber {
-            if let newUpdatedEvent = newEvents.findEvent(number: oldNumber) {
-                results.append(contentsOf: eventChanged(oldEvent: oldLastEvent, newEvent: newUpdatedEvent))
+        } else if oldLatestEventNumber < newLatestEventNumber, let newPreviousEvent = newPreviousEvent {
+            if oldLatestEventNumber == newPreviousEvent.number {
+                results.append(contentsOf: eventChanged(oldEvent: oldLatestEvent, newEvent: newPreviousEvent))
             }
-            results.append(contentsOf: eventCreated(newLastEvent))
+            results.append(contentsOf: eventCreated(newLatestEvent))
         }
 
         return results
@@ -85,12 +92,5 @@ class EventUpdateManagerImplementation: EventUpdateManager {
         case (_, _):
             return .eventRescheduled(newEvent)
         }
-    }
-}
-
-private extension Collection where Element == Event {
-    func findEvent(number: Int) -> Event? {
-        return filter { $0.number == number }
-            .first
     }
 }
