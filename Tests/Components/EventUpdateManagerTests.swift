@@ -105,6 +105,18 @@ class EventUpdateManagerTests: XCTestCase {
         XCTAssertEqual(notification.body, "Next month's albums are now available.")
     }
 
+    func testNewEvent_alreadyScored() {
+        // Don't report a new event if it's already been scored
+        let event1 = EventApiModel.create(number: 1)
+            .convert()
+        let event2 = EventApiModel.create(number: 2,
+                                          classicAlbum: AlbumApiModel.create(type: .classic, name: "Blah1", score: 7.0),
+                                          newAlbum: AlbumApiModel.create(type: .new, name: "Blah2", score: 8.22))
+            .convert()
+        let result = cut.processEventUpdate(oldEvents: [event1], newEvents: [event1, event2])
+        XCTAssertEqual(result.count, 0)
+    }
+
     func testNewEventAndUpdates() {
         // Since the scores are published, we should _not_ receive updates about location, playlist and date changes.
         let event1a = EventApiModel.create(number: 1,
@@ -123,8 +135,8 @@ class EventUpdateManagerTests: XCTestCase {
         let event2 = EventApiModel.create(number: 2,
                                           date: "10/11/2020",
                                           location: LocationApiModel.create(latitude: 2.234, longitude: 6.678),
-                                          classicAlbum: AlbumApiModel.create(type: .classic, score: 7.0),
-                                          newAlbum: AlbumApiModel.create(type: .new, score: 8.4),
+                                          classicAlbum: AlbumApiModel.create(type: .classic),
+                                          newAlbum: AlbumApiModel.create(type: .new),
                                           playlist: PlaylistApiModel.create())
             .convert()
 

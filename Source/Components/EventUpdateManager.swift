@@ -46,7 +46,11 @@ class EventUpdateManagerImplementation: EventUpdateManager {
     }
 
     private func eventCreated(_ newEvent: Event) -> [EventUpdate] {
-        guard newEvent.classicAlbum != nil, newEvent.newAlbum != nil else {
+        // If there's already a classic or new score, the event has taken place, so don't send an update.
+        guard let classicAlbum = newEvent.classicAlbum,
+            let newAlbum = newEvent.newAlbum,
+            classicAlbum.score == nil,
+            newAlbum.score == nil else {
             return []
         }
         return [.newEvent(newEvent)]
