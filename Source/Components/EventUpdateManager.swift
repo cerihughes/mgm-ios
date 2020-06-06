@@ -5,6 +5,7 @@ enum EventUpdate: Equatable {
     case scoresPublished(Album)
     case eventScheduled(Event)
     case eventRescheduled(Event)
+    case eventMoved(Event)
     case eventCancelled(Event)
     case playlistPublished(Event)
 }
@@ -15,30 +16,41 @@ protocol EventUpdateManager {
 
 class EventUpdateManagerImplementation: EventUpdateManager {
     func processEventUpdate(oldEvents: [Event], newEvents: [Event]) -> [EventUpdate] {
-        var results = [EventUpdate]()
-        guard let oldLastEvent = oldEvents.last,
-            let newLastEvent = newEvents.last else {
-            return results
+        if let oldLatestEvent = oldEvents.last, let newLatestEvent = newEvents.last {
+            let newPreviousEvent = newEvents.dropLast().last
+            return processEventUpdate(oldLatestEvent: oldLatestEvent,
+                                      newPreviousEvent: newPreviousEvent,
+                                      newLatestEvent: newLatestEvent)
         }
+        return []
+    }
 
-        let oldNumber = oldLastEvent.number
-        let newNumber = newLastEvent.number
-        if oldNumber == newNumber {
-            if oldLastEvent != newLastEvent {
-                results.append(contentsOf: eventChanged(oldEvent: oldLastEvent, newEvent: newLastEvent))
+    private func processEventUpdate(oldLatestEvent: Event, newPreviousEvent: Event?, newLatestEvent: Event) -> [EventUpdate] {
+        var results = [EventUpdate]()
+
+        let oldLatestEventNumber = oldLatestEvent.number
+        let newLatestEventNumber = newLatestEvent.number
+
+        if oldLatestEventNumber == newLatestEventNumber {
+            if oldLatestEvent != newLatestEvent {
+                results.append(contentsOf: eventChanged(oldEvent: oldLatestEvent, newEvent: newLatestEvent))
             }
-        } else if oldNumber < newNumber {
-            if let newUpdatedEvent = newEvents.findEvent(number: oldNumber) {
-                results.append(contentsOf: eventChanged(oldEvent: oldLastEvent, newEvent: newUpdatedEvent))
+        } else if oldLatestEventNumber < newLatestEventNumber, let newPreviousEvent = newPreviousEvent {
+            if oldLatestEventNumber == newPreviousEvent.number {
+                results.append(contentsOf: eventChanged(oldEvent: oldLatestEvent, newEvent: newPreviousEvent))
             }
-            results.append(contentsOf: eventCreated(newLastEvent))
+            results.append(contentsOf: eventCreated(newLatestEvent))
         }
 
         return results
     }
 
     private func eventCreated(_ newEvent: Event) -> [EventUpdate] {
-        guard newEvent.classicAlbum != nil, newEvent.newAlbum != nil else {
+        // If there's already a classic or new score, the event has taken place, so don't send an update.
+        guard let classicAlbum = newEvent.classicAlbum,
+            let newAlbum = newEvent.newAlbum,
+            classicAlbum.score == nil,
+            newAlbum.score == nil else {
             return []
         }
         return [.newEvent(newEvent)]
@@ -49,11 +61,16 @@ class EventUpdateManagerImplementation: EventUpdateManager {
             playlistChanged(oldEvent: oldEvent, newEvent: newEvent),
             scoresChanged(oldAlbum: oldEvent.classicAlbum, newAlbum: newEvent.classicAlbum),
             scoresChanged(oldAlbum: oldEvent.newAlbum, newAlbum: newEvent.newAlbum),
-            dateChanged(oldEvent: oldEvent, newEvent: newEvent)
+            dateChanged(oldEvent: oldEvent, newEvent: newEvent),
+            locationChanged(oldEvent: oldEvent, newEvent: newEvent)
         ].compactMap { $0 }
     }
 
     private func playlistChanged(oldEvent: Event, newEvent: Event) -> EventUpdate? {
+        // If there's already a classic or new score, the event has taken place, so don't send an update.
+        guard newEvent.classicAlbum?.score == nil, newEvent.newAlbum?.score == nil else {
+            return nil
+        }
         guard oldEvent.playlist == nil, newEvent.playlist != nil else {
             return nil
         }
@@ -62,19 +79,27 @@ class EventUpdateManagerImplementation: EventUpdateManager {
 
     private func scoresChanged(oldAlbum: Album?, newAlbum: Album?) -> EventUpdate? {
         guard let newAlbum = newAlbum,
-            let newScore = newAlbum.score,
-            oldAlbum?.score != newScore else {
+            newAlbum.score != nil,
+            oldAlbum?.score == nil else {
             return nil
         }
         return .scoresPublished(newAlbum)
     }
 
-    private func scoresChanged(oldAlbum: Album?, newAlbum: Album?) -> Bool {
-        return true
-    }
-
     private func dateChanged(oldEvent: Event, newEvent: Event) -> EventUpdate? {
-        switch (oldEvent.date, newEvent.date) {
+        // If there's already a classic or new score, the event has taken place, so don't send an update.
+        guard newEvent.classicAlbum?.score == nil, newEvent.newAlbum?.score == nil else {
+            return nil
+        }
+
+        let oldDate = oldEvent.date
+        let newDate = newEvent.date
+
+        guard oldDate != newDate else {
+            return nil
+        }
+
+        switch (oldDate, newDate) {
         case (nil, nil):
             return nil
         case (nil, _):
@@ -85,11 +110,18 @@ class EventUpdateManagerImplementation: EventUpdateManager {
             return .eventRescheduled(newEvent)
         }
     }
-}
 
-private extension Collection where Element == Event {
-    func findEvent(number: Int) -> Event? {
-        return filter { $0.number == number }
-            .first
+    private func locationChanged(oldEvent: Event, newEvent: Event) -> EventUpdate? {
+        // If there's already a classic or new score, the event has taken place, so don't send an update.
+        guard newEvent.classicAlbum?.score == nil, newEvent.newAlbum?.score == nil else {
+            return nil
+        }
+
+        // We only care if there was an old location and there's a different new location
+        guard let oldLocation = oldEvent.location, let newLocation = newEvent.location, oldLocation != newLocation else {
+            return nil
+        }
+
+        return .eventMoved(newEvent)
     }
 }
