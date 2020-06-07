@@ -30,8 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         madog.resolve(resolver: MGMResolver())
 
         let initialRLs: [ResourceLocator] = [.latestEvent, .scores, .settings]
-        let identifier = MultiUIIdentifier.createTabBarNavigationIdentifier()
-        return madog.renderUI(identifier: identifier, tokens: initialRLs, in: window) != nil
+        return madog.renderUI(identifier: .tabBarNavigation, tokenData: .multi(initialRLs), in: window) != nil
     }
 
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
