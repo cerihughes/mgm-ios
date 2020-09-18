@@ -8,7 +8,7 @@ jobs:
 
     steps:
       # Xcode select
-      - run: sudo xcode-select -switch /Applications/Xcode_11.5.app
+      - run: sudo xcode-select -switch /Applications/Xcode_12.app
 
       # Install dependencies
       - run: brew update
