@@ -28,6 +28,7 @@
 		656619972190BB5F0068EA1B /* ExternalAppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */; };
 		657BE9442375B9D200039947 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 657BE9432375B9D200039947 /* GoogleService-Info.plist */; };
 		657ECF46252490050032736E /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657ECF45252490050032736E /* Navigation.swift */; };
+		657ECF5A252497AE0032736E /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657ECF59252497AE0032736E /* UIKit+Extensions.swift */; };
 		658122012402FA69001666A1 /* DataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658122002402FA69001666A1 /* DataRepository.swift */; };
 		658122062402FAAA001666A1 /* LocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658122052402FAAA001666A1 /* LocalDataSource.swift */; };
 		658122082402FAB6001666A1 /* RemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658122072402FAB6001666A1 /* RemoteDataSource.swift */; };
@@ -113,6 +114,7 @@
 		656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalAppLauncher.swift; sourceTree = "<group>"; };
 		657BE9432375B9D200039947 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		657ECF45252490050032736E /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		657ECF59252497AE0032736E /* UIKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Extensions.swift"; sourceTree = "<group>"; };
 		658122002402FA69001666A1 /* DataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepository.swift; sourceTree = "<group>"; };
 		658122052402FAAA001666A1 /* LocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataSource.swift; sourceTree = "<group>"; };
 		658122072402FAB6001666A1 /* RemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataSource.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				F4FAB1D0245C2E82001BCDBA /* LabelWithSwitch.swift */,
 				657ECF45252490050032736E /* Navigation.swift */,
 				65A4C3F921E25631000148EE /* TypedViewControllerProvider.swift */,
+				657ECF59252497AE0032736E /* UIKit+Extensions.swift */,
 				659DED6F21931FDE00226579 /* AppleMaps */,
 				6566198A2190A7330068EA1B /* LatestEvent */,
 				65BDAA972189F55D007E887B /* LaunchScreen.storyboard */,
@@ -657,6 +660,7 @@
 				65D2AD98218B3105002BB0C9 /* ScoresViewModel.swift in Sources */,
 				6566197321908BFA0068EA1B /* LatestEventEntityCollectionViewCell.swift in Sources */,
 				F4FAB1C8245C28AA001BCDBA /* SettingsViewController.swift in Sources */,
+				657ECF5A252497AE0032736E /* UIKit+Extensions.swift in Sources */,
 				6540A51B218C85260028B382 /* ScoresCollectionViewCell.swift in Sources */,
 				6581221824030E85001666A1 /* ImageLoader.swift in Sources */,
 				659CC8C8240801D50081D5BC /* EventUpdateManager.swift in Sources */,

@@ -31,10 +31,7 @@ class LatestEventEntityCollectionViewCell: AlbumCollectionViewCell {
         backgroundView = backgroundImageView
         byLabel.text = "by"
 
-        contentView.addSubview(typeLabel)
-        contentView.addSubview(albumLabel)
-        contentView.addSubview(byLabel)
-        contentView.addSubview(artistLabel)
+        contentView.addSubviews(typeLabel, albumLabel, byLabel, artistLabel)
 
         backgroundImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
