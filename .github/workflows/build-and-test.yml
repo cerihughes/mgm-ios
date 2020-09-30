@@ -11,13 +11,15 @@ jobs:
       - run: sudo xcode-select -switch /Applications/Xcode_12.app
 
       # Caching
-      - name: Carthage Cache
+      - name: Cache
         uses: actions/cache@v2
         with:
           path: Carthage
           key: ${{ runner.os }}-carthage-xcode12-${{ hashFiles('**/Cartfile.resolved') }}
           restore-keys: |
             ${{ runner.os }}-carthage-xcode12-
+      - name: Cache
+        uses: actions/cache@v2
         with:
           path: SPM
           key: ${{ runner.os }}-spm-xcode12-${{ hashFiles('**/Package.resolved') }}
