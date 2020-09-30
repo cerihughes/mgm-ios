@@ -1,1 +1,0 @@
-"${PROJECT_DIR}/Frameworks/Fabric.framework/run"

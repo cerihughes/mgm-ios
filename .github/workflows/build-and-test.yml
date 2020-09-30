@@ -1,0 +1,51 @@
+name: Build and test
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      # Xcode select
+      - run: sudo xcode-select -switch /Applications/Xcode_12.app
+
+      # Caching
+      - name: Carthage Cache
+        uses: actions/cache@v2
+        with:
+          path: Carthage
+          key: ${{ runner.os }}-carthage-xcode12-${{ hashFiles('**/Cartfile.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-carthage-xcode12-
+      - name: SPM Cache
+        uses: actions/cache@v2
+        with:
+          path: SPM
+          key: ${{ runner.os }}-spm-xcode12-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-xcode12-
+
+      # Install dependencies
+      - run: brew install carthage swiftlint || true
+      - run: brew outdated carthage || brew upgrade carthage
+      - run: brew outdated swiftlint || brew upgrade swiftlint
+
+      # Checkout
+      - uses: actions/checkout@v2
+      - run: mkdir build
+
+      # Build and test
+      - run: set -o pipefail
+      - run: export PROJECT_DIR=.; /bin/sh BuildPhases/copy-plist.sh
+      - run: /bin/sh createFakeGoogleServices.sh
+      - run: ./carthage-xcode12 bootstrap --platform iOS --no-use-binaries --cache-builds
+      - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -clonedSourcePackagesDirPath SPM -destination "OS=14.0,name=iPhone 11" -destination "OS=14.0,name=iPad (8th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
+      - name: Publish any snapshot test failures
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v1
+        with:
+          name: ReferenceImagesFail
+          path: Tests/Snapshot/ReferenceImagesFail
+      - name: Codecov
+        uses: codecov/codecov-action@v1.0.13
