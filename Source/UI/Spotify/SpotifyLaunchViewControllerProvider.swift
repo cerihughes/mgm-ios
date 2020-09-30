@@ -8,7 +8,7 @@ class SpotifyLaunchViewControllerProvider: TypedViewControllerProvider {
 
     override func createViewController(token: Navigation, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
         guard
-            case .spotify(let spotifyURL) = token,
+            case let .spotify(spotifyURL) = token,
             externalAppLauncher.canOpen(externalURL: spotifyURL)
         else {
             return nil

@@ -44,6 +44,7 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
         self.init(defaultItemHeight: itemHeight, itemHeightOverrides: [:], spacing: spacing)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

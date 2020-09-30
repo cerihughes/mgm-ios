@@ -7,7 +7,7 @@ class AppleMapsLaunchViewControllerProvider: TypedViewControllerProvider {
 
     override func createViewController(token: Navigation, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
         guard
-            case .appleMaps(let locationName, let latitude, let longitude) = token
+            case let .appleMaps(locationName, latitude, longitude) = token
         else {
             return nil
         }
