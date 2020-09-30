@@ -356,7 +356,7 @@ class EventUpdateManagerTests: XCTestCase {
             .convert()
         let event1b = EventApiModel.create(number: 1,
                                            classicAlbum: AlbumApiModel.create(type: .classic),
-                                           
+
                                            newAlbum: AlbumApiModel.create(type: .new),
                                            playlist: PlaylistApiModel.create())
             .convert()

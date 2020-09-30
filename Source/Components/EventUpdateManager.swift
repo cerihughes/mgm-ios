@@ -50,7 +50,8 @@ class EventUpdateManagerImplementation: EventUpdateManager {
         guard let classicAlbum = newEvent.classicAlbum,
             let newAlbum = newEvent.newAlbum,
             classicAlbum.score == nil,
-            newAlbum.score == nil else {
+            newAlbum.score == nil
+        else {
             return []
         }
         return [.newEvent(newEvent)]
@@ -80,7 +81,8 @@ class EventUpdateManagerImplementation: EventUpdateManager {
     private func scoresChanged(oldAlbum: Album?, newAlbum: Album?) -> EventUpdate? {
         guard let newAlbum = newAlbum,
             newAlbum.score != nil,
-            oldAlbum?.score == nil else {
+            oldAlbum?.score == nil
+        else {
             return nil
         }
         return .scoresPublished(newAlbum)

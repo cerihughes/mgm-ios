@@ -1,7 +1,7 @@
 import Madog
 import UIKit
 
-class TypedViewControllerProvider: SingleViewControllerProvider<ResourceLocator> {
+class TypedViewControllerProvider: SingleViewControllerProvider<Navigation> {
     var serviceProvider: MGMServiceProvider?
 
     // MARK: SingleViewControllerProvider
@@ -12,15 +12,15 @@ class TypedViewControllerProvider: SingleViewControllerProvider<ResourceLocator>
         serviceProvider = serviceProviders[mgmServiceProviderName] as? MGMServiceProvider
     }
 
-    override func createViewController(token: ResourceLocator, context: Context) -> UIViewController? {
+    override func createViewController(token: Navigation, context: Context) -> UIViewController? {
         guard let navigationContext = context as? ForwardBackNavigationContext else {
             return nil
         }
 
-        return createViewController(resourceLocator: token, navigationContext: navigationContext)
+        return createViewController(token: token, navigationContext: navigationContext)
     }
 
-    func createViewController(resourceLocator _: ResourceLocator, navigationContext _: ForwardBackNavigationContext) -> UIViewController? {
+    func createViewController(token: Navigation, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
         // Override
         return nil
     }
