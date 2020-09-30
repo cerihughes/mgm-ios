@@ -143,7 +143,7 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
             return
         }
 
-        let rl = ResourceLocator.spotify(spotifyURL: spotifyURL)
+        let rl = Navigation.spotify(spotifyURL: spotifyURL)
         _ = navigationContext.navigateForward(token: rl, animated: true)
     }
 

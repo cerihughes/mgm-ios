@@ -207,7 +207,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
             return
         }
 
-        let rl = ResourceLocator.appleMaps(locationName: locationName, latitude: mapReference.latitude, longitude: mapReference.longitude)
+        let rl = Navigation.appleMaps(locationName: locationName, latitude: mapReference.latitude, longitude: mapReference.longitude)
         _ = navigationContext.navigateForward(token: rl, animated: true)
     }
 
@@ -219,7 +219,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
             return
         }
 
-        let rl = ResourceLocator.spotify(spotifyURL: spotifyURL)
+        let rl = Navigation.spotify(spotifyURL: spotifyURL)
         _ = navigationContext.navigateForward(token: rl, animated: true)
     }
 }

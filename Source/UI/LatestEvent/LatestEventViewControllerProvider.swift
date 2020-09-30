@@ -1,15 +1,15 @@
 import Madog
 import UIKit
 
-private let latestEventIdentifier = "latestEventIdentifier"
-
 class LatestEventViewControllerProvider: TypedViewControllerProvider {
     // MARK: TypedViewControllerProvider
 
-    override func createViewController(resourceLocator: ResourceLocator, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
-        guard resourceLocator.identifier == latestEventIdentifier,
+    override func createViewController(token: Navigation, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
+        guard
+            token == .latestEvent,
             let imageLoader = serviceProvider?.imageLoader,
-            let dataRepository = serviceProvider?.dataRepository else {
+            let dataRepository = serviceProvider?.dataRepository
+        else {
             return nil
         }
 
@@ -20,11 +20,5 @@ class LatestEventViewControllerProvider: TypedViewControllerProvider {
         viewController.tabBarItem.image = UIImage(named: "calendar")
 
         return viewController
-    }
-}
-
-extension ResourceLocator {
-    static var latestEvent: ResourceLocator {
-        return ResourceLocator(identifier: latestEventIdentifier, data: nil)
     }
 }

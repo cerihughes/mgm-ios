@@ -7,7 +7,7 @@ private let twelveHours = 60.0 * 60.0 * 12.0
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    let madog = Madog<ResourceLocator>()
+    let madog = Madog<Navigation>()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let window = UIWindow()
@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         madog.resolve(resolver: MGMResolver())
 
-        let initialRLs: [ResourceLocator] = [.latestEvent, .scores, .settings]
+        let initialRLs: [Navigation] = [.latestEvent, .scores, .settings]
         return madog.renderUI(identifier: .tabBarNavigation, tokenData: .multi(initialRLs), in: window) != nil
     }
 

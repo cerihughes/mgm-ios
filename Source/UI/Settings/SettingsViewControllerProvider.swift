@@ -1,14 +1,14 @@
 import Madog
 import UIKit
 
-private let settingsIdentifier = "settings"
-
 class SettingsViewControllerProvider: TypedViewControllerProvider {
     // MARK: TypedViewControllerProvider
 
-    override func createViewController(resourceLocator: ResourceLocator, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
-        guard resourceLocator.identifier == settingsIdentifier,
-            let localNotificationsManager = serviceProvider?.localNotificationsManager else {
+    override func createViewController(token: Navigation, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
+        guard
+            token == .settings,
+            let localNotificationsManager = serviceProvider?.localNotificationsManager
+        else {
             return nil
         }
 
@@ -19,11 +19,5 @@ class SettingsViewControllerProvider: TypedViewControllerProvider {
         viewController.tabBarItem.image = UIImage(named: "ruler")
 
         return viewController
-    }
-}
-
-extension ResourceLocator {
-    static var settings: ResourceLocator {
-        return ResourceLocator(identifier: settingsIdentifier, data: nil)
     }
 }

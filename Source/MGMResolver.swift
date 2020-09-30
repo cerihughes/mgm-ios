@@ -1,7 +1,7 @@
 import Madog
 
-class MGMResolver: Resolver<ResourceLocator> {
-    override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<ResourceLocator>] {
+class MGMResolver: Resolver<Navigation> {
+    override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<Navigation>] {
         return [
             LatestEventViewControllerProvider.init,
             ScoresViewControllerProvider.init,

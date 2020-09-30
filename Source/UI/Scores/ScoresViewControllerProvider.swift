@@ -1,15 +1,15 @@
 import Madog
 import UIKit
 
-private let scoresIdentifier = "scoresIdentifier"
-
 class ScoresViewControllerProvider: TypedViewControllerProvider {
     // MARK: TypedViewControllerProvider
 
-    override func createViewController(resourceLocator: ResourceLocator, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
-        guard resourceLocator.identifier == scoresIdentifier,
+    override func createViewController(token: Navigation, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
+        guard
+            token == .scores,
             let imageLoader = serviceProvider?.imageLoader,
-            let dataRepository = serviceProvider?.dataRepository else {
+            let dataRepository = serviceProvider?.dataRepository
+        else {
             return nil
         }
 
@@ -20,11 +20,5 @@ class ScoresViewControllerProvider: TypedViewControllerProvider {
         viewController.tabBarItem.image = UIImage(named: "chart_line")
 
         return viewController
-    }
-}
-
-extension ResourceLocator {
-    static var scores: ResourceLocator {
-        return ResourceLocator(identifier: scoresIdentifier, data: nil)
     }
 }
