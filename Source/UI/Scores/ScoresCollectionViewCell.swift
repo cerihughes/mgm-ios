@@ -22,11 +22,7 @@ class ScoresCollectionViewCell: AlbumCollectionViewCell {
     private func commonInit() {
         awardImageView.contentMode = .scaleAspectFit
 
-        contentView.addSubview(albumLabel)
-        contentView.addSubview(artistLabel)
-        contentView.addSubview(awardImageView)
-        contentView.addSubview(ratingLabel)
-        contentView.addSubview(positionLabel)
+        contentView.addSubviews(albumLabel, artistLabel, awardImageView, ratingLabel, positionLabel)
 
         imageView.snp.makeConstraints { make in
             make.leading.equalTo(contentView.readableContentGuide).inset(spacing)

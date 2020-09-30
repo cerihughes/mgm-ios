@@ -23,9 +23,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
         activityIndicatorView.hidesWhenStopped = true
 
-        contentView.addSubview(borderView)
-        contentView.addSubview(imageView)
-        contentView.addSubview(activityIndicatorView)
+        contentView.addSubviews(borderView, imageView, activityIndicatorView)
 
         activityIndicatorView.snp.makeConstraints { make in
             make.center.equalTo(imageView)
