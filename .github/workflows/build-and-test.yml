@@ -1,4 +1,4 @@
-name: Build and test PRs
+name: Build and test
 
 on: [push, pull_request]
 
@@ -10,9 +10,16 @@ jobs:
       # Xcode select
       - run: sudo xcode-select -switch /Applications/Xcode_12.app
 
+      # Caching
+      - name: Carthage Cache
+        uses: actions/cache@v2
+        with:
+          path: Carthage
+          key: ${{ runner.os }}-carthage-xcode12-${{ hashFiles('**/Cartfile.resolved') }}
+
       # Install dependencies
-      - run: brew update
-      - run: brew install swiftlint || true
+      - run: brew install carthage swiftlint || true
+      - run: brew outdated carthage || brew upgrade carthage
       - run: brew outdated swiftlint || brew upgrade swiftlint
 
       # Checkout
@@ -23,8 +30,8 @@ jobs:
       - run: set -o pipefail
       - run: export PROJECT_DIR=.; /bin/sh BuildPhases/copy-plist.sh
       - run: /bin/sh createFakeGoogleServices.sh
-      - run: carthage update --platform ios --no-use-binaries
-      - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -destination "OS=latest,name=iPhone 11" -destination "OS=latest,name=iPad (7th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      - run: ./carthage-xcode12 bootstrap --platform iOS --no-use-binaries --cache-builds
+      - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -destination "OS=14.0,name=iPhone 11" -destination "OS=14.0,name=iPad (8th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
       - name: Publish any snapshot test failures
         if: ${{ failure() }}
         uses: actions/upload-artifact@v1
@@ -32,4 +39,4 @@ jobs:
           name: ReferenceImagesFail
           path: Tests/Snapshot/ReferenceImagesFail
       - name: Codecov
-        uses: codecov/codecov-action@v1.0.6
+        uses: codecov/codecov-action@v1.0.13
