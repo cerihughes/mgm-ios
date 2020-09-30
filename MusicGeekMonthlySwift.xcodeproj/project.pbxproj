@@ -969,7 +969,7 @@
 			repositoryURL = "https://github.com/cerihughes/madog.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				minimumVersion = 6.0.0;
 			};
 		};
 		65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */ = {
