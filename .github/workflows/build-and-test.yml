@@ -16,6 +16,13 @@ jobs:
         with:
           path: Carthage
           key: ${{ runner.os }}-carthage-xcode12-${{ hashFiles('**/Cartfile.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-carthage-xcode12-
+        with:
+          path: SPM
+          key: ${{ runner.os }}-spm-xcode12-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-xcode12-
 
       # Install dependencies
       - run: brew install carthage swiftlint || true
@@ -31,7 +38,7 @@ jobs:
       - run: export PROJECT_DIR=.; /bin/sh BuildPhases/copy-plist.sh
       - run: /bin/sh createFakeGoogleServices.sh
       - run: ./carthage-xcode12 bootstrap --platform iOS --no-use-binaries --cache-builds
-      - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -destination "OS=14.0,name=iPhone 11" -destination "OS=14.0,name=iPad (8th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
+      - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -clonedSourcePackagesDirPath SPM -destination "OS=14.0,name=iPhone 11" -destination "OS=14.0,name=iPad (8th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
       - name: Publish any snapshot test failures
         if: ${{ failure() }}
         uses: actions/upload-artifact@v1
