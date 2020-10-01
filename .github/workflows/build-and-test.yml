@@ -32,11 +32,13 @@ jobs:
       - run: brew outdated swiftlint || brew upgrade swiftlint
 
       # Checkout
-      - uses: actions/checkout@v2
-      - run: mkdir build
+      - uses: actions/checkout@v1
+        with:
+          submodules: recursive
 
       # Build and test
       - run: set -o pipefail
+      - run: mkdir build
       - run: export PROJECT_DIR=.; /bin/sh BuildPhases/copy-plist.sh
       - run: /bin/sh createFakeGoogleServices.sh
       - run: ./carthage-xcode12 bootstrap --platform iOS --no-use-binaries --cache-builds
