@@ -195,7 +195,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
 
         self.filteredScoreViewModels = self.scoreViewModels
             .filter { $0.albumName.mgm_contains(filter: trimmed) || $0.artistName.mgm_contains(filter: trimmed) || $0.rating.starts(with: trimmed) }
-        self.message = self.filteredScoreViewModels.count == 0 ? "No results for filter: \(trimmed)" : nil
+        self.message = self.filteredScoreViewModels.isEmpty ? "No results for filter: \(trimmed)" : nil
     }
 }
 
