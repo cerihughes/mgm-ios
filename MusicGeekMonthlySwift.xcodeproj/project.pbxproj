@@ -579,7 +579,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "$PROJECT_DIR/BuildPhases/copy-plist.sh\n";
+			shellScript = "\"$PROJECT_DIR\"/ios-tools/copy-plist.sh\n";
 		};
 		654B11E72378516B005E0931 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;

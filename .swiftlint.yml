@@ -1,6 +1,1 @@
-included:
-  - Source
-line_length: 160
-identifier_name:
-  min_length: 1
-
+ios-tools/.swiftlint.yml
