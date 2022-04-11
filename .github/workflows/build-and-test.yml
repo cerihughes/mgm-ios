@@ -4,27 +4,27 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-11
 
     steps:
       # Xcode select
-      - run: sudo xcode-select -switch /Applications/Xcode_12.app
+      - run: sudo xcode-select -switch /Applications/Xcode_13_2.app
 
       # Caching
       - name: Carthage Cache
         uses: actions/cache@v2
         with:
           path: Carthage
-          key: ${{ runner.os }}-carthage-xcode12-${{ hashFiles('**/Cartfile.resolved') }}
+          key: ${{ runner.os }}-carthage-xcode13_2-${{ hashFiles('**/Cartfile.resolved') }}
           restore-keys: |
-            ${{ runner.os }}-carthage-xcode12-
+            ${{ runner.os }}-carthage-xcode13_2-
       - name: SPM Cache
         uses: actions/cache@v2
         with:
           path: SPM
-          key: ${{ runner.os }}-spm-xcode12-${{ hashFiles('**/Package.resolved') }}
+          key: ${{ runner.os }}-spm-xcode13_2-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
-            ${{ runner.os }}-spm-xcode12-
+            ${{ runner.os }}-spm-xcode13_2-
 
       # Install dependencies
       - run: brew install carthage swiftlint || true
