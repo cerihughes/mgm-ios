@@ -597,7 +597,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "swiftlint\n";
+			shellScript = "# Add M1 support\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nswiftlint\n";
 		};
 		F49C02D4245DBACF00F80D5E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
