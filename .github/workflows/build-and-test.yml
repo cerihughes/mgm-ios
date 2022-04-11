@@ -11,13 +11,6 @@ jobs:
       - run: sudo xcode-select -switch /Applications/Xcode_13.2.app
 
       # Caching
-      - name: Carthage Cache
-        uses: actions/cache@v2
-        with:
-          path: Carthage
-          key: ${{ runner.os }}-carthage-xcode13_2-${{ hashFiles('**/Cartfile.resolved') }}
-          restore-keys: |
-            ${{ runner.os }}-carthage-xcode13_2-
       - name: SPM Cache
         uses: actions/cache@v2
         with:
@@ -27,8 +20,7 @@ jobs:
             ${{ runner.os }}-spm-xcode13_2-
 
       # Install dependencies
-      - run: brew install carthage swiftlint || true
-      - run: brew outdated carthage || brew upgrade carthage
+      - run: brew install swiftlint || true
       - run: brew outdated swiftlint || brew upgrade swiftlint
 
       # Checkout
@@ -41,7 +33,6 @@ jobs:
       - run: mkdir build
       - run: export PROJECT_DIR=.; /bin/sh ios-tools/copy-plist.sh
       - run: /bin/sh ios-tools/createFakeGoogleServices.sh Source/GoogleService-Info.plist
-      - run: ios-tools/carthage-xcode12.sh bootstrap --platform iOS --no-use-binaries --cache-builds
       - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -clonedSourcePackagesDirPath SPM -destination "OS=14.0,name=iPhone 11" -destination "OS=14.0,name=iPad (8th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
       - name: Publish any snapshot test failures
         if: ${{ failure() }}

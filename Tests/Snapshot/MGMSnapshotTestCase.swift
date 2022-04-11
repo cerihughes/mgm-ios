@@ -6,7 +6,7 @@
 //  Copyright © 2020 Ceri Hughes. All rights reserved.
 //
 
-import FBSnapshotTestCase
+import iOSSnapshotTestCase
 import UIKit
 import XCTest
 
