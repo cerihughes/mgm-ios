@@ -26,6 +26,7 @@
 		656619932190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619922190ACCD0068EA1B /* SpotifyLaunchViewControllerProvider.swift */; };
 		656619952190AFBF0068EA1B /* ForwardNavigatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619942190AFBF0068EA1B /* ForwardNavigatingViewController.swift */; };
 		656619972190BB5F0068EA1B /* ExternalAppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656619962190BB5F0068EA1B /* ExternalAppLauncher.swift */; };
+		6575C52828047CC300CE2799 /* iOSSnapshotTestCase in Frameworks */ = {isa = PBXBuildFile; productRef = 6575C52728047CC300CE2799 /* iOSSnapshotTestCase */; };
 		657BE9442375B9D200039947 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 657BE9432375B9D200039947 /* GoogleService-Info.plist */; };
 		657ECF46252490050032736E /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657ECF45252490050032736E /* Navigation.swift */; };
 		657ECF5A252497AE0032736E /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657ECF59252497AE0032736E /* UIKit+Extensions.swift */; };
@@ -69,7 +70,6 @@
 		65E9AEB62191E09F001B36D6 /* URL+SpotifyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9AEB52191E09F001B36D6 /* URL+SpotifyExtensions.swift */; };
 		65FA3CCA240937CE002ED84E /* Model+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FA3CC9240937CE002ED84E /* Model+Testing.swift */; };
 		F49C02CE245DB99E00F80D5E /* LatestEventSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C02CD245DB99E00F80D5E /* LatestEventSnapshotTests.swift */; };
-		F49C02D6245DBB0A00F80D5E /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F49C02D5245DBB0A00F80D5E /* FBSnapshotTestCase.framework */; };
 		F49C02D9245DBED500F80D5E /* MockLatestEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C02D8245DBED500F80D5E /* MockLatestEventViewModel.swift */; };
 		F49C02DB245DC08A00F80D5E /* MockForwardBackNavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C02DA245DC08A00F80D5E /* MockForwardBackNavigationContext.swift */; };
 		F49C02DD245DD55000F80D5E /* ScoresSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C02DC245DD55000F80D5E /* ScoresSnapshotTests.swift */; };
@@ -158,7 +158,6 @@
 		65EA1D5D219450C2001FF06E /* Secret.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
 		65FA3CC9240937CE002ED84E /* Model+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Testing.swift"; sourceTree = "<group>"; };
 		F49C02CD245DB99E00F80D5E /* LatestEventSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestEventSnapshotTests.swift; sourceTree = "<group>"; };
-		F49C02D5245DBB0A00F80D5E /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = "<group>"; };
 		F49C02D8245DBED500F80D5E /* MockLatestEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLatestEventViewModel.swift; sourceTree = "<group>"; };
 		F49C02DA245DC08A00F80D5E /* MockForwardBackNavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockForwardBackNavigationContext.swift; sourceTree = "<group>"; };
 		F49C02DC245DD55000F80D5E /* ScoresSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresSnapshotTests.swift; sourceTree = "<group>"; };
@@ -188,7 +187,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F49C02D6245DBB0A00F80D5E /* FBSnapshotTestCase.framework in Frameworks */,
+				6575C52828047CC300CE2799 /* iOSSnapshotTestCase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,7 +327,6 @@
 				65820CB42402C1610081C6DC /* MusicGeekMonthly.entitlements */,
 				65BDAA8D2189F55C007E887B /* Source */,
 				65BDAAA22189F55D007E887B /* Tests */,
-				F49C02C7245DB71800F80D5E /* Carthage */,
 				65BDAA8C2189F55C007E887B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -407,14 +405,6 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		F49C02C7245DB71800F80D5E /* Carthage */ = {
-			isa = PBXGroup;
-			children = (
-				F49C02D5245DBB0A00F80D5E /* FBSnapshotTestCase.framework */,
-			);
-			name = Carthage;
-			sourceTree = "<group>";
-		};
 		F49C02CC245DB95000F80D5E /* Snapshot */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,7 +470,6 @@
 				65BDAA9B2189F55D007E887B /* Sources */,
 				65BDAA9C2189F55D007E887B /* Frameworks */,
 				65BDAA9D2189F55D007E887B /* Resources */,
-				F49C02D4245DBACF00F80D5E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -488,6 +477,9 @@
 				65BDAAA12189F55D007E887B /* PBXTargetDependency */,
 			);
 			name = MusicGeekMonthlyTests;
+			packageProductDependencies = (
+				6575C52728047CC300CE2799 /* iOSSnapshotTestCase */,
+			);
 			productName = MusicGeekMonthlySwiftTests;
 			productReference = 65BDAA9F2189F55D007E887B /* MusicGeekMonthlyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -527,6 +519,7 @@
 				65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */,
 				F4FAB1CD245C2CC8001BCDBA /* XCRemoteSwiftPackageReference "SnapKit" */,
 				65D4BAD32514D3660003765C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				6575C52628047CC300CE2799 /* XCRemoteSwiftPackageReference "ios-snapshot-test-case" */,
 			);
 			productRefGroup = 65BDAA8C2189F55C007E887B /* Products */;
 			projectDirPath = "";
@@ -597,25 +590,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "swiftlint\n";
-		};
-		F49C02D4245DBACF00F80D5E /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/FBSnapshotTestCase.framework",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "# Add M1 support\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nswiftlint\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -886,10 +861,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -912,10 +883,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y56955G4Q8;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -968,8 +935,16 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/cerihughes/madog.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
+				kind = exactVersion;
+				version = 6.0.0;
+			};
+		};
+		6575C52628047CC300CE2799 /* XCRemoteSwiftPackageReference "ios-snapshot-test-case" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/uber/ios-snapshot-test-case";
+			requirement = {
+				kind = exactVersion;
+				version = 8.0.0;
 			};
 		};
 		65A553132412E0E400277177 /* XCRemoteSwiftPackageReference "mgm-schema" */ = {
@@ -984,16 +959,16 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
-				branch = "6.33-spm-beta";
-				kind = branch;
+				kind = exactVersion;
+				version = 8.14.0;
 			};
 		};
 		F4FAB1CD245C2CC8001BCDBA /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				kind = exactVersion;
+				version = 5.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1003,6 +978,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 65454F8B2412C0FA00464D38 /* XCRemoteSwiftPackageReference "madog" */;
 			productName = Madog;
+		};
+		6575C52728047CC300CE2799 /* iOSSnapshotTestCase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6575C52628047CC300CE2799 /* XCRemoteSwiftPackageReference "ios-snapshot-test-case" */;
+			productName = iOSSnapshotTestCase;
 		};
 		65A553142412E0E400277177 /* MGMRemoteApiClient */ = {
 			isa = XCSwiftPackageProductDependency;
