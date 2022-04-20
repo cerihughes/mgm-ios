@@ -15,26 +15,10 @@ protocol LatestEventEntityViewData: AlbumArtViewData {
 }
 
 struct LatestEventEntityViewDataImplementation: LatestEventEntityViewData {
-    let loadingImage = (-1).loadingImage
+    let loadingImage: UIImage?
     let images: [Image]?
     let entityType: String
     let entityName: String
     let entityOwner: String
     let spotifyURL: URL?
-
-    init(album: Album) {
-        images = album.images
-        entityType = album.type == .classic ? "CLASSIC ALBUM" : album.type == .new ? "NEW ALBUM" : "ALBUM"
-        entityName = album.name
-        entityOwner = album.artist
-        spotifyURL = .createSpotifyAlbumURL(albumID: album.spotifyId)
-    }
-
-    init(playlist: Playlist) {
-        images = playlist.images
-        entityType = "PLAYLIST"
-        entityName = playlist.name
-        entityOwner = playlist.owner
-        spotifyURL = .createSpotifyPlaylistURL(playlistID: playlist.spotifyId)
-    }
 }

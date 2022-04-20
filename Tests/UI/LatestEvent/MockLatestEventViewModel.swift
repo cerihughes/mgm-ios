@@ -19,7 +19,7 @@ class MockLatestEventViewModel: MockAlbumArtViewModel, LatestEventViewModel {
     var isLocationAvailable = false
 
     var headerTitles = [String]()
-    var eventEntityViewData = [MockLatestEventEntityViewData]()
+    var eventEntityViewData = [LatestEventEntityViewData]()
 
     var numberOfEntites: Int {
         return eventEntityViewData.count
@@ -38,13 +38,4 @@ class MockLatestEventViewModel: MockAlbumArtViewModel, LatestEventViewModel {
         guard eventEntityViewData.indices.contains(index) else { return nil }
         return eventEntityViewData[index]
     }
-}
-
-struct MockLatestEventEntityViewData: LatestEventEntityViewData {
-    var loadingImage: UIImage?
-    var images: [Image]?
-    var entityType = "EntityType"
-    var entityName = "EntityName"
-    var entityOwner = "EntityOwner"
-    var spotifyURL: URL?
 }

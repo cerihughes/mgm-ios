@@ -149,12 +149,36 @@ final class LatestEventViewModelImplementation: AlbumArtViewModelImplementation,
 
     private func updateStateAndNotify(event: Event, classicAlbum: Album, newAlbum: Album, _ completion: () -> Void) {
         self.event = event
-        eventEntityViewModels.append(LatestEventEntityViewDataImplementation(album: classicAlbum))
-        eventEntityViewModels.append(LatestEventEntityViewDataImplementation(album: newAlbum))
+        eventEntityViewModels.append(classicAlbum.asLatestEventEntityViewData())
+        eventEntityViewModels.append(newAlbum.asLatestEventEntityViewData())
         if let playlist = event.playlist {
-            eventEntityViewModels.append(LatestEventEntityViewDataImplementation(playlist: playlist))
+            eventEntityViewModels.append(playlist.asLatestEventEntityViewData())
         }
         message = nil
         completion()
+    }
+}
+
+extension Album {
+    func asLatestEventEntityViewData() -> LatestEventEntityViewData {
+        return LatestEventEntityViewDataImplementation(
+            loadingImage: (-1).loadingImage,
+            images: images,
+            entityType: type == .classic ? "CLASSIC ALBUM" : type == .new ? "NEW ALBUM" : "ALBUM",
+            entityName: name,
+            entityOwner: artist,
+            spotifyURL: .createSpotifyAlbumURL(albumID: spotifyId))
+    }
+}
+
+extension Playlist {
+    func asLatestEventEntityViewData() -> LatestEventEntityViewData {
+        return LatestEventEntityViewDataImplementation(
+            loadingImage: (-1).loadingImage,
+            images: images,
+            entityType: "PLAYLIST",
+            entityName: name,
+            entityOwner: owner,
+            spotifyURL: .createSpotifyPlaylistURL(playlistID: spotifyId))
     }
 }
