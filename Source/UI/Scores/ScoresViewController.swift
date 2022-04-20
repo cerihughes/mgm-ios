@@ -83,9 +83,9 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
             return cell
         }
 
-        if let cellViewModel = viewModel.scoreViewModel(at: indexPath.row) {
-            scoresCell.albumLabel.text = cellViewModel.albumName
-            scoresCell.artistLabel.text = cellViewModel.artistName
+        if let viewData = viewModel.scoreViewData(at: indexPath.row) {
+            scoresCell.albumLabel.text = viewData.albumName
+            scoresCell.artistLabel.text = viewData.artistName
         }
         return cell
     }
@@ -94,26 +94,26 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard
-            let cellViewModel = viewModel.scoreViewModel(at: indexPath.row),
+            let viewData = viewModel.scoreViewData(at: indexPath.row),
             let scoresCell = cell as? ScoresCollectionViewCell,
             let layout = collectionView.collectionViewLayout as? FullWidthCollectionViewLayout
         else {
             return
         }
 
-        scoresCell.imageView.image = cellViewModel.loadingImage
+        scoresCell.imageView.image = viewData.loadingImage
 
-        scoresCell.positionLabel.text = cellViewModel.position
-        scoresCell.ratingLabel.text = cellViewModel.rating
-        scoresCell.ratingLabel.textColor = cellViewModel.ratingFontColor
-        scoresCell.awardImageView.image = cellViewModel.awardImage
+        scoresCell.positionLabel.text = viewData.position
+        scoresCell.ratingLabel.text = viewData.rating
+        scoresCell.ratingLabel.textColor = viewData.ratingFontColor
+        scoresCell.awardImageView.image = viewData.awardImage
 
         scoresCell.showActivityIndicator()
 
         let contentViewHeight = layout.contentViewSize(in: indexPath.section).height
         let largestDimension = Int(contentViewHeight * collectionView.traitCollection.displayScale)
 
-        cellViewModel.loadAlbumCover(largestDimension: largestDimension) { image in
+        viewModel.loadAlbumCover(largestDimension: largestDimension, viewData: viewData) { image in
             scoresCell.hideActivityIndicator()
             if let image = image {
                 scoresCell.imageView.image = image
@@ -122,19 +122,19 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
     }
 
     func collectionView(_: UICollectionView, didEndDisplaying _: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cellViewModel = viewModel.scoreViewModel(at: indexPath.row) else {
+        guard let viewData = viewModel.scoreViewData(at: indexPath.row) else {
             return
         }
 
-        cellViewModel.cancelLoadAlbumCover()
+        viewModel.cancelLoadAlbumCover(viewData: viewData)
     }
 
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         dismissKeyboard()
 
         guard
-            let cellViewModel = viewModel.scoreViewModel(at: indexPath.row),
-            let spotifyURL = cellViewModel.spotifyURL
+            let viewData = viewModel.scoreViewData(at: indexPath.row),
+            let spotifyURL = viewData.spotifyURL
         else {
             return
         }

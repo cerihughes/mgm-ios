@@ -10,7 +10,7 @@ enum ScoresViewModelError: Error {
 /// The ScoresViewModel is reponsible for all interactions with the scores UI for the
 /// app. It takes care of loading model data and translating it into view-specific
 /// representations.
-protocol ScoresViewModel {
+protocol ScoresViewModel: AlbumArtViewModel {
     /// The number of scores loaded by the last query
     var numberOfScores: Int { get }
 
@@ -38,11 +38,11 @@ protocol ScoresViewModel {
     /// Loads data. The completion block will be fired when data is available.
     func loadData(_ completion: @escaping () -> Void)
 
-    /// Returns a score view model for the given index
+    /// Returns score view data for the given index
     ///
     /// - Parameter index: the index
-    /// - Returns: the score view model, or nil if no model exists with the given index
-    func scoreViewModel(at index: Int) -> ScoreViewModel?
+    /// - Returns: the score view model, or nil if no data exists with the given index
+    func scoreViewData(at index: Int) -> ScoreViewData?
 }
 
 private let scoresSort: (Album, Album) -> Bool = {
@@ -62,15 +62,14 @@ private let scoresSort: (Album, Album) -> Bool = {
 }
 
 /// Default implementation of ScoresViewModel
-final class ScoresViewModelImplementation: ScoresViewModel {
+final class ScoresViewModelImplementation: AlbumArtViewModelImplementation, ScoresViewModel {
     private let dataRepository: DataRepository
-    private let imageLoader: ImageLoader
 
     private var classicAlbums: [Album] = []
     private var newAlbums: [Album] = []
     private var allAlbums: [Album] = []
-    private var scoreViewModels: [ScoreViewModel] = []
-    private var filteredScoreViewModels: [ScoreViewModel] = []
+    private var scoreViewModels: [ScoreViewData] = []
+    private var filteredScoreViewModels: [ScoreViewData] = []
 
     var selectedAlbumType = 2 {
         didSet {
@@ -91,7 +90,8 @@ final class ScoresViewModelImplementation: ScoresViewModel {
     var message: String?
     init(dataRepository: DataRepository, imageLoader: ImageLoader) {
         self.dataRepository = dataRepository
-        self.imageLoader = imageLoader
+
+        super.init(imageLoader: imageLoader)
     }
 
     func loadData(_ completion: @escaping () -> Void) {
@@ -115,7 +115,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
         return filteredScoreViewModels.count
     }
 
-    func scoreViewModel(at index: Int) -> ScoreViewModel? {
+    func scoreViewData(at index: Int) -> ScoreViewData? {
         guard index < filteredScoreViewModels.count else {
             return nil
         }
@@ -163,7 +163,7 @@ final class ScoresViewModelImplementation: ScoresViewModel {
         let positions = calculatePositions(for: filteredAlbums)
         scoreViewModels = filteredAlbums
             .enumerated()
-            .map { ScoreViewModelImplementation(imageLoader: imageLoader, album: $0.element, index: $0.offset, position: positions[$0.offset]) }
+            .map { ScoreViewDataImplementation(album: $0.element, index: $0.offset, position: positions[$0.offset]) }
         applyFilter()
     }
 

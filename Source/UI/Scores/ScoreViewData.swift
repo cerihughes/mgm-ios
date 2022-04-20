@@ -1,0 +1,74 @@
+import UIKit
+
+protocol ScoreViewData: AlbumArtViewData {
+    /// The album name
+    var albumName: String { get }
+
+    /// The artist name
+    var artistName: String { get }
+
+    // The album rating, to 1 decimal place
+    var rating: String { get }
+
+    // The colour of the rating text
+    var ratingFontColor: UIColor { get }
+
+    /// An image to represent the restaurant's rating award
+    var awardImage: UIImage? { get }
+
+    /// The "chart" position
+    var position: String { get }
+
+    /// The spotify URL to navigate to on interaction
+    var spotifyURL: URL? { get }
+}
+
+struct ScoreViewDataImplementation: ScoreViewData {
+    let loadingImage: UIImage?
+    private let album: Album
+    private let index: Int
+    let position: String
+    private let award: Award
+
+    init(album: Album, index: Int, position: String) {
+        self.loadingImage = ((index % 3) + 1).loadingImage
+        self.album = album
+        self.index = index
+        self.position = position
+        award = Award.award(for: album.score ?? 0.0)
+    }
+
+    var images: [Image]? {
+        return album.images
+    }
+
+    var albumName: String {
+        return album.name
+    }
+
+    var artistName: String {
+        return album.artist
+    }
+
+    var rating: String {
+        guard let score = album.score else {
+            return ""
+        }
+        return String(format: "%.01f", score)
+    }
+
+    var ratingFontColor: UIColor {
+        return award.ratingFontColor
+    }
+
+    var awardImage: UIImage? {
+        return award.awardImage
+    }
+
+    var spotifyURL: URL? {
+        guard let spotifyID = album.spotifyId else {
+            return nil
+        }
+        return .createSpotifyAlbumURL(albumID: spotifyID)
+    }
+}

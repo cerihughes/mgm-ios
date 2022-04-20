@@ -23,15 +23,15 @@ class LatestEventSnapshotTests: MGMSnapshotTests {
     }
 
     func testLatestEvent() {
-        let classicAlbum = MockLatestEventEntityViewModel()
-        classicAlbum.albumCover = .album1
-        let newAlbum = MockLatestEventEntityViewModel()
-        newAlbum.albumCover = .album2
-        let playlist = MockLatestEventEntityViewModel()
-        playlist.albumCover = .album3
+        var classicAlbum = MockLatestEventEntityViewData()
+        classicAlbum.loadingImage = .album1Loading
+        var newAlbum = MockLatestEventEntityViewData()
+        newAlbum.loadingImage = .album2Loading
+        var playlist = MockLatestEventEntityViewData()
+        playlist.loadingImage = .album3Loading
         viewModel.isLocationAvailable = false
         viewModel.headerTitles = ["LOCATION", "LISTENING TO"]
-        viewModel.eventEntityViewModels = [classicAlbum, newAlbum, playlist]
+        viewModel.eventEntityViewData = [classicAlbum, newAlbum, playlist]
 
         FBSnapshotVerifyViewController(viewController)
     }

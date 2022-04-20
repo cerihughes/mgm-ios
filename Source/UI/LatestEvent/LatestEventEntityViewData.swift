@@ -1,6 +1,6 @@
 import UIKit
 
-protocol LatestEventEntityViewModel: AlbumArtViewModel {
+protocol LatestEventEntityViewData: AlbumArtViewData {
     /// The album type / playlist
     var entityType: String { get }
 
@@ -14,27 +14,27 @@ protocol LatestEventEntityViewModel: AlbumArtViewModel {
     var spotifyURL: URL? { get }
 }
 
-final class LatestEventEntityViewModelImplementation: AlbumArtViewModelImplementation, LatestEventEntityViewModel {
+struct LatestEventEntityViewDataImplementation: LatestEventEntityViewData {
+    let loadingImage = (-1).loadingImage
+    let images: [Image]?
     let entityType: String
     let entityName: String
     let entityOwner: String
     let spotifyURL: URL?
 
-    init(imageLoader: ImageLoader, album: Album) {
+    init(album: Album) {
+        images = album.images
         entityType = album.type == .classic ? "CLASSIC ALBUM" : album.type == .new ? "NEW ALBUM" : "ALBUM"
         entityName = album.name
         entityOwner = album.artist
         spotifyURL = .createSpotifyAlbumURL(albumID: album.spotifyId)
-
-        super.init(imageLoader: imageLoader, images: album.images)
     }
 
-    init(imageLoader: ImageLoader, playlist: Playlist) {
+    init(playlist: Playlist) {
+        images = playlist.images
         entityType = "PLAYLIST"
         entityName = playlist.name
         entityOwner = playlist.owner
         spotifyURL = .createSpotifyPlaylistURL(playlistID: playlist.spotifyId)
-
-        super.init(imageLoader: imageLoader, images: playlist.images)
     }
 }
