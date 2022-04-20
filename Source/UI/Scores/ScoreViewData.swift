@@ -31,7 +31,7 @@ struct ScoreViewDataImplementation: ScoreViewData {
     private let award: Award
 
     init(album: Album, index: Int, position: String) {
-        self.loadingImage = ((index % 3) + 1).loadingImage
+        self.loadingImage = index.rotatingLoadingImage
         self.album = album
         self.index = index
         self.position = position

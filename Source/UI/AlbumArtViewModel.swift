@@ -20,18 +20,24 @@ protocol AlbumArtViewModel {
     func cancelLoadAlbumCover(viewData: AlbumArtViewData)
 }
 
+extension UIImage {
+    static var randomLoadingImage: UIImage? {
+        return Int.random(in: 0 ... 2).rangedLoadingImage
+    }
+}
+
 extension Int {
-    var loadingImage: UIImage? {
-        return rangedLoadingImage ?? Int.random(in: 1 ... 3).rangedLoadingImage
+    var rotatingLoadingImage: UIImage? {
+        return (self % 3).rangedLoadingImage
     }
 
-    private var rangedLoadingImage: UIImage? {
+    fileprivate var rangedLoadingImage: UIImage? {
         switch self {
-        case 1:
+        case 0:
             return .album1Loading
-        case 2:
+        case 1:
             return .album2Loading
-        case 3:
+        case 2:
             return .album3Loading
         default:
             return nil

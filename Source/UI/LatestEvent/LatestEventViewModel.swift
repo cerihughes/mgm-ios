@@ -162,7 +162,7 @@ final class LatestEventViewModelImplementation: AlbumArtViewModelImplementation,
 extension Album {
     func asLatestEventEntityViewData() -> LatestEventEntityViewData {
         return LatestEventEntityViewDataImplementation(
-            loadingImage: (-1).loadingImage,
+            loadingImage: .randomLoadingImage,
             images: images,
             entityType: type == .classic ? "CLASSIC ALBUM" : type == .new ? "NEW ALBUM" : "ALBUM",
             entityName: name,
@@ -174,7 +174,7 @@ extension Album {
 extension Playlist {
     func asLatestEventEntityViewData() -> LatestEventEntityViewData {
         return LatestEventEntityViewDataImplementation(
-            loadingImage: (-1).loadingImage,
+            loadingImage: .randomLoadingImage,
             images: images,
             entityType: "PLAYLIST",
             entityName: name,
