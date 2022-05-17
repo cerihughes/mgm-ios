@@ -134,14 +134,14 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: entityCellReuseIdentifier, for: indexPath)
         guard
             let entityCell = cell as? LatestEventEntityCollectionViewCell,
-            let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row)
+            let viewData = viewModel.eventEntityViewData(at: indexPath.row)
         else {
             return cell
         }
 
-        entityCell.typeLabel.text = entityViewModel.entityType
-        entityCell.albumLabel.text = entityViewModel.entityName
-        entityCell.artistLabel.text = entityViewModel.entityOwner
+        entityCell.typeLabel.text = viewData.entityType
+        entityCell.albumLabel.text = viewData.entityName
+        entityCell.artistLabel.text = viewData.entityOwner
 
         return entityCell
     }
@@ -153,21 +153,21 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
             indexPath.section == 1,
             let entityCell = cell as? LatestEventEntityCollectionViewCell,
             let backgroundImageView = entityCell.backgroundView as? UIImageView,
-            let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row),
+            let viewData = viewModel.eventEntityViewData(at: indexPath.row),
             let layout = collectionView.collectionViewLayout as? FullWidthCollectionViewLayout
         else {
             return
         }
 
-        entityCell.imageView.image = entityViewModel.loadingImage
-        backgroundImageView.image = entityViewModel.loadingImage
+        entityCell.imageView.image = viewData.loadingImage
+        backgroundImageView.image = viewData.loadingImage
 
         entityCell.showActivityIndicator()
 
         let contentViewHeight = layout.contentViewSize(in: indexPath.section).height
         let largestDimension = Int(contentViewHeight * collectionView.traitCollection.displayScale)
 
-        entityViewModel.loadAlbumCover(largestDimension: largestDimension) { image in
+        viewModel.loadAlbumCover(largestDimension: largestDimension, viewData: viewData) { image in
             entityCell.hideActivityIndicator()
             if let image = image {
                 backgroundImageView.image = image
@@ -179,12 +179,12 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_: UICollectionView, didEndDisplaying _: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard
             indexPath.section == 1,
-            let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row)
+            let viewData = viewModel.eventEntityViewData(at: indexPath.row)
         else {
             return
         }
 
-        entityViewModel.cancelLoadAlbumCover()
+        viewModel.cancelLoadAlbumCover(viewData: viewData)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -209,8 +209,8 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
 
     func collectionView(_: UICollectionView, didSelectEntityItemAt indexPath: IndexPath) {
         guard
-            let entityViewModel = viewModel.eventEntityViewModel(at: indexPath.row),
-            let spotifyURL = entityViewModel.spotifyURL
+            let viewData = viewModel.eventEntityViewData(at: indexPath.row),
+            let spotifyURL = viewData.spotifyURL
         else {
             return
         }

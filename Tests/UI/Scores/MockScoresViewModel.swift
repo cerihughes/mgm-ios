@@ -10,7 +10,7 @@ import UIKit
 
 @testable import MusicGeekMonthly
 
-class MockScoresViewModel: ScoresViewModel {
+class MockScoresViewModel: MockAlbumArtViewModel, ScoresViewModel {
     var albumTypes = ["Classic Albums", "New Albums", "All Albums"]
     var selectedAlbumType = 0
     var dataLoaded = true
@@ -19,23 +19,25 @@ class MockScoresViewModel: ScoresViewModel {
     var filterPlaceholder = "FilterPlaceholder"
     var filter: String?
 
-    var scoreViewModels = [MockScoreViewModel]()
+    var scoreViewData = [MockScoreViewData]()
 
     var numberOfScores: Int {
-        return scoreViewModels.count
+        return scoreViewData.count
     }
 
     func loadData(_ completion: @escaping () -> Void) {
         completion()
     }
 
-    func scoreViewModel(at index: Int) -> ScoreViewModel? {
-        guard scoreViewModels.indices.contains(index) else { return nil }
-        return scoreViewModels[index]
+    func scoreViewData(at index: Int) -> ScoreViewData? {
+        guard scoreViewData.indices.contains(index) else { return nil }
+        return scoreViewData[index]
     }
 }
 
-class MockScoreViewModel: ScoreViewModel {
+struct MockScoreViewData: ScoreViewData {
+    var loadingImage: UIImage?
+    var images: [Image]?
     var albumName = "AlbumName"
     var artistName = "ArtistName"
     var rating = "0.0"
@@ -43,13 +45,4 @@ class MockScoreViewModel: ScoreViewModel {
     var awardImage: UIImage?
     var position = "0"
     var spotifyURL: URL?
-    var loadingImage: UIImage?
-
-    var albumCover: UIImage?
-
-    func loadAlbumCover(largestDimension: Int, _ completion: @escaping (UIImage?) -> Void) {
-        completion(albumCover)
-    }
-
-    func cancelLoadAlbumCover() {}
 }

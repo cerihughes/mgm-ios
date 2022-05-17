@@ -9,7 +9,7 @@ enum LatestEventViewModelError: Error {
 
 typealias MapReference = (latitude: Double, longitude: Double)
 
-protocol LatestEventViewModel {
+protocol LatestEventViewModel: AlbumArtViewModel {
     /// The title to display in the UI
     var title: String { get }
 
@@ -37,21 +37,20 @@ protocol LatestEventViewModel {
     /// The title for the given section
     func headerTitle(for section: Int) -> String?
 
-    /// Returns an entity view model (album or playlist) for the given index
+    /// Returns entity view data (album or playlist) for the given index
     ///
     /// - Parameter index: the index
     /// - Returns: the entity view model, or nil if no model exists with the given index
-    func eventEntityViewModel(at index: Int) -> LatestEventEntityViewModel?
+    func eventEntityViewData(at index: Int) -> LatestEventEntityViewData?
 }
 
 /// Default implementation of LatestEventViewModel
-final class LatestEventViewModelImplementation: LatestEventViewModel {
+final class LatestEventViewModelImplementation: AlbumArtViewModelImplementation, LatestEventViewModel {
     private static let dateFormatter = DateFormatter.mgm_latestEventDateFormatter()
 
     private let dataRepository: DataRepository
-    private let imageLoader: ImageLoader
 
-    private var eventEntityViewModels: [LatestEventEntityViewModel] = []
+    private var eventEntityViewModels: [LatestEventEntityViewData] = []
 
     let retryButtonTitle = "Retry"
     var event: Event?
@@ -59,7 +58,8 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
 
     init(dataRepository: DataRepository, imageLoader: ImageLoader) {
         self.dataRepository = dataRepository
-        self.imageLoader = imageLoader
+
+        super.init(imageLoader: imageLoader)
     }
 
     var title: String {
@@ -113,7 +113,7 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
         }
     }
 
-    func eventEntityViewModel(at index: Int) -> LatestEventEntityViewModel? {
+    func eventEntityViewData(at index: Int) -> LatestEventEntityViewData? {
         guard index < eventEntityViewModels.count else {
             return nil
         }
@@ -149,12 +149,36 @@ final class LatestEventViewModelImplementation: LatestEventViewModel {
 
     private func updateStateAndNotify(event: Event, classicAlbum: Album, newAlbum: Album, _ completion: () -> Void) {
         self.event = event
-        eventEntityViewModels.append(LatestEventEntityViewModelImplementation(imageLoader: imageLoader, album: classicAlbum))
-        eventEntityViewModels.append(LatestEventEntityViewModelImplementation(imageLoader: imageLoader, album: newAlbum))
+        eventEntityViewModels.append(classicAlbum.asLatestEventEntityViewData())
+        eventEntityViewModels.append(newAlbum.asLatestEventEntityViewData())
         if let playlist = event.playlist {
-            eventEntityViewModels.append(LatestEventEntityViewModelImplementation(imageLoader: imageLoader, playlist: playlist))
+            eventEntityViewModels.append(playlist.asLatestEventEntityViewData())
         }
         message = nil
         completion()
+    }
+}
+
+extension Album {
+    func asLatestEventEntityViewData() -> LatestEventEntityViewData {
+        return LatestEventEntityViewDataImplementation(
+            loadingImage: .randomLoadingImage,
+            images: images,
+            entityType: type == .classic ? "CLASSIC ALBUM" : type == .new ? "NEW ALBUM" : "ALBUM",
+            entityName: name,
+            entityOwner: artist,
+            spotifyURL: .createSpotifyAlbumURL(albumID: spotifyId))
+    }
+}
+
+extension Playlist {
+    func asLatestEventEntityViewData() -> LatestEventEntityViewData {
+        return LatestEventEntityViewDataImplementation(
+            loadingImage: .randomLoadingImage,
+            images: images,
+            entityType: "PLAYLIST",
+            entityName: name,
+            entityOwner: owner,
+            spotifyURL: .createSpotifyPlaylistURL(playlistID: spotifyId))
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 @testable import MusicGeekMonthly
 
-class MockLatestEventViewModel: LatestEventViewModel {
+class MockLatestEventViewModel: MockAlbumArtViewModel, LatestEventViewModel {
     var title = "Title"
     var locationName: String?
     var mapReference: MapReference?
@@ -19,10 +19,10 @@ class MockLatestEventViewModel: LatestEventViewModel {
     var isLocationAvailable = false
 
     var headerTitles = [String]()
-    var eventEntityViewModels = [MockLatestEventEntityViewModel]()
+    var eventEntityViewData = [LatestEventEntityViewData]()
 
     var numberOfEntites: Int {
-        return eventEntityViewModels.count
+        return eventEntityViewData.count
     }
 
     func loadData(_ completion: @escaping () -> Void) {
@@ -34,24 +34,8 @@ class MockLatestEventViewModel: LatestEventViewModel {
         return headerTitles[section]
     }
 
-    func eventEntityViewModel(at index: Int) -> LatestEventEntityViewModel? {
-        guard eventEntityViewModels.indices.contains(index) else { return nil }
-        return eventEntityViewModels[index]
+    func eventEntityViewData(at index: Int) -> LatestEventEntityViewData? {
+        guard eventEntityViewData.indices.contains(index) else { return nil }
+        return eventEntityViewData[index]
     }
-}
-
-class MockLatestEventEntityViewModel: LatestEventEntityViewModel {
-    var entityType = "EntityType"
-    var entityName = "EntityName"
-    var entityOwner = "EntityOwner"
-    var spotifyURL: URL?
-    var loadingImage: UIImage?
-
-    var albumCover: UIImage?
-
-    func loadAlbumCover(largestDimension: Int, _ completion: @escaping (UIImage?) -> Void) {
-        completion(albumCover)
-    }
-
-    func cancelLoadAlbumCover() {}
 }

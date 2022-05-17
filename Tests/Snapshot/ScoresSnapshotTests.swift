@@ -22,23 +22,23 @@ class ScoresSnapshotTests: MGMSnapshotTests {
     }
 
     func testScores() {
-        let album1 = MockScoreViewModel(position: 1, rating: 10, color: .goldCup, awardImage: .goldAward, albumCover: .album1)
-        let album2 = MockScoreViewModel(position: 2, rating: 9.9, color: .silverCup, awardImage: .silverAward, albumCover: .album2)
-        let album3 = MockScoreViewModel(position: 3, rating: 8.8, color: .bronzeCup, awardImage: .plateAward, albumCover: .album3)
-        let album4 = MockScoreViewModel(position: 4, rating: 7.7, color: .greenCup, awardImage: .noAward, albumCover: .album1)
-        viewModel.scoreViewModels = [album1, album2, album3, album4]
+        let album1 = MockScoreViewData(loadingImage: .album1Loading, position: 1, rating: 10, color: .goldCup, awardImage: .goldAward)
+        let album2 = MockScoreViewData(loadingImage: .album2Loading, position: 2, rating: 9.9, color: .silverCup, awardImage: .silverAward)
+        let album3 = MockScoreViewData(loadingImage: .album3Loading, position: 3, rating: 8.8, color: .bronzeCup, awardImage: .plateAward)
+        let album4 = MockScoreViewData(loadingImage: .album1Loading, position: 4, rating: 7.7, color: .greenCup, awardImage: .noAward)
+        viewModel.scoreViewData = [album1, album2, album3, album4]
 
         FBSnapshotVerifyViewController(viewController)
     }
 }
 
-extension MockScoreViewModel {
-    convenience init(position: Int, rating: Float, color: UIColor, awardImage: UIImage, albumCover: UIImage) {
+extension MockScoreViewData {
+    init(loadingImage: UIImage?, position: Int, rating: Float, color: UIColor, awardImage: UIImage?) {
         self.init()
+        self.loadingImage = loadingImage
         self.position = "\(position)"
         self.rating = String(format: "%.1f", rating)
         ratingFontColor = color
         self.awardImage = awardImage
-        self.albumCover = albumCover
     }
 }

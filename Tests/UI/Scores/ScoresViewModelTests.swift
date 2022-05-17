@@ -194,16 +194,16 @@ class ScoresViewModelTests: DataRepositoryTestCase {
                         artistNames: [String]? = nil) {
         XCTAssertEqual(viewModel.numberOfScores, positions.count)
         for index in 0 ..< viewModel.numberOfScores {
-            let scoreViewModel = viewModel.scoreViewModel(at: index)!
-            XCTAssertEqual(scoreViewModel.position, positions[index])
+            let viewData = viewModel.scoreViewData(at: index)!
+            XCTAssertEqual(viewData.position, positions[index])
             if let ratings = ratings {
-                XCTAssertEqual(scoreViewModel.rating, ratings[index])
+                XCTAssertEqual(viewData.rating, ratings[index])
             }
             if let albumNames = albumNames {
-                XCTAssertEqual(scoreViewModel.albumName, albumNames[index])
+                XCTAssertEqual(viewData.albumName, albumNames[index])
             }
             if let artistNames = artistNames {
-                XCTAssertEqual(scoreViewModel.artistName, artistNames[index])
+                XCTAssertEqual(viewData.artistName, artistNames[index])
             }
         }
     }

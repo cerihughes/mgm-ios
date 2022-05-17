@@ -22,14 +22,3 @@ class MGMSnapshotTests: FBSnapshotTestCase {
         fileNameOptions = [.device, .OS, .screenSize, .screenScale]
     }
 }
-
-extension UIImage {
-    static let album1 = UIImage(named: "album1")!
-    static let album2 = UIImage(named: "album2")!
-    static let album3 = UIImage(named: "album3")!
-
-    static let goldAward = UIImage(named: "gold")!
-    static let silverAward = UIImage(named: "silver")!
-    static let plateAward = UIImage(named: "plate")!
-    static let noAward = UIImage(named: "none")!
-}
