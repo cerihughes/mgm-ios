@@ -20,7 +20,7 @@ class MGMSnapshotTests: FBSnapshotTestCase {
 
         navigationContext = MockForwardBackNavigationContext()
 
-        recordMode = false
+        recordMode = true
         fileNameOptions = [.device, .OS, .screenSize, .screenScale]
     }
 }
