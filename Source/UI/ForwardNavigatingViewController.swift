@@ -2,9 +2,9 @@ import Madog
 import UIKit
 
 class ForwardNavigatingViewController: UIViewController {
-    let navigationContext: ForwardBackNavigationContext
+    weak var navigationContext: AnyForwardBackNavigationContext<Navigation>?
 
-    init(navigationContext: ForwardBackNavigationContext) {
+    init(navigationContext: AnyForwardBackNavigationContext<Navigation>) {
         self.navigationContext = navigationContext
         super.init(nibName: nil, bundle: nil)
     }

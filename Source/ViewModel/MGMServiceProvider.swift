@@ -18,9 +18,11 @@ class MGMServiceProviderImplementation: ServiceProvider, MGMServiceProvider {
     var dataRepository: DataRepository
     let imageLoader: ImageLoader
 
+    let name = mgmServiceProviderName
+
     // MARK: ServiceProvider
 
-    override init(context: ServiceProviderCreationContext) {
+    required init(context: ServiceProviderCreationContext) {
         localStorage = UserDefaults.standard
         localDataSource = LocalDataSourceImplementation(localStorage: localStorage)
 
@@ -38,8 +40,5 @@ class MGMServiceProviderImplementation: ServiceProvider, MGMServiceProvider {
 
         let dataLoader = DataLoaderImplementation()
         imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)
-
-        super.init(context: context)
-        name = mgmServiceProviderName
     }
 }

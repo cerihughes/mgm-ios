@@ -4,7 +4,10 @@ import UIKit
 class ScoresViewControllerProvider: TypedViewControllerProvider {
     // MARK: TypedViewControllerProvider
 
-    override func createViewController(token: Navigation, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
+    override func createViewController(
+        token: Navigation,
+        navigationContext: AnyForwardBackNavigationContext<Navigation>
+    ) -> UIViewController? {
         guard
             token == .scores,
             let imageLoader = serviceProvider?.imageLoader,

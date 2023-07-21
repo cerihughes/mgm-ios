@@ -1,7 +1,7 @@
 import Madog
 
-class MGMResolver: Resolver<Navigation> {
-    override func viewControllerProviderFunctions() -> [() -> ViewControllerProvider<Navigation>] {
+class MGMResolver: Resolver {
+    func viewControllerProviderFunctions() -> [() -> AnyViewControllerProvider<Navigation>] {
         return [
             LatestEventViewControllerProvider.init,
             ScoresViewControllerProvider.init,
@@ -11,7 +11,7 @@ class MGMResolver: Resolver<Navigation> {
         ]
     }
 
-    override func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
+    func serviceProviderFunctions() -> [(ServiceProviderCreationContext) -> ServiceProvider] {
         return [
             MGMServiceProviderImplementation.init(context:)
         ]
