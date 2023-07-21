@@ -21,8 +21,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         title = viewModel.title
 
-        guard let settingsView = settingsView else { return }
-
+        guard let settingsView else { return }
         settingsView.localNotifications.title.text = viewModel.localNotificationsTitle
         settingsView.localNotifications.subtitle.text = viewModel.localNotificationsSubtitle
         settingsView.localNotifications.toggle.addTarget(self, action: #selector(toggled(sender:)), for: .valueChanged)
@@ -56,9 +55,11 @@ class SettingsViewController: UIViewController {
     }
 
     private func showSettingsAlert() {
-        let alert = UIAlertController(title: viewModel.localNotificationsDisabledTitle,
-                                      message: viewModel.localNotificationsDisabledMessage,
-                                      preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: viewModel.localNotificationsDisabledTitle,
+            message: viewModel.localNotificationsDisabledMessage,
+            preferredStyle: .alert
+        )
 
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true, completion: nil)

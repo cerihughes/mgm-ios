@@ -11,10 +11,7 @@ class TypedViewControllerProvider: ViewControllerProvider {
     }
 
     func createViewController(token: Navigation, context: AnyContext<Navigation>) -> UIViewController? {
-        guard let navigationContext = context as? AnyForwardBackNavigationContext<Navigation> else {
-            return nil
-        }
-
+        guard let navigationContext = context as? AnyForwardBackNavigationContext<Navigation> else { return nil }
         return createViewController(token: token, navigationContext: navigationContext)
     }
 
@@ -23,6 +20,6 @@ class TypedViewControllerProvider: ViewControllerProvider {
         navigationContext: AnyForwardBackNavigationContext<Navigation>
     ) -> UIViewController? {
         // Override
-        return nil
+        nil
     }
 }

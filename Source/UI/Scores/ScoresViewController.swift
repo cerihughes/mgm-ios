@@ -19,10 +19,7 @@ class ScoresViewController: ForwardNavigatingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let view = view as? ScoresView else {
-            return
-        }
-
+        guard let view = view as? ScoresView else { return }
         view.collectionView.register(ScoresCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         view.collectionView.dataSource = self
         view.collectionView.delegate = self
@@ -42,10 +39,7 @@ class ScoresViewController: ForwardNavigatingViewController {
     }
 
     private func loadData() {
-        guard let view = view as? ScoresView else {
-            return
-        }
-
+        guard let view = view as? ScoresView else { return }
         view.hideMessage()
         view.showActivityIndicator()
         viewModel.loadData { [weak self] in
@@ -57,10 +51,7 @@ class ScoresViewController: ForwardNavigatingViewController {
     // MARK: Private
 
     private func updateUI() {
-        guard let scoresView = view as? ScoresView else {
-            return
-        }
-
+        guard let scoresView = view as? ScoresView else { return }
         if let message = viewModel.message {
             scoresView.showMessage(message, showRetryButton: !viewModel.dataLoaded)
         } else {
@@ -74,14 +65,15 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
     // MARK: UICollectionViewDataSource
 
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        return viewModel.numberOfScores
+        viewModel.numberOfScores
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
-        guard let scoresCell = cell as? ScoresCollectionViewCell else {
-            return cell
-        }
+        guard let scoresCell = cell as? ScoresCollectionViewCell else { return cell }
 
         if let viewData = viewModel.scoreViewData(at: indexPath.row) {
             scoresCell.albumLabel.text = viewData.albumName
@@ -92,7 +84,11 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
 
     // MARK: UICollectionViewDelegate
 
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
         guard
             let viewData = viewModel.scoreViewData(at: indexPath.row),
             let scoresCell = cell as? ScoresCollectionViewCell,
@@ -115,17 +111,14 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
 
         viewModel.loadAlbumCover(largestDimension: largestDimension, viewData: viewData) { image in
             scoresCell.hideActivityIndicator()
-            if let image = image {
+            if let image {
                 scoresCell.imageView.image = image
             }
         }
     }
 
     func collectionView(_: UICollectionView, didEndDisplaying _: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let viewData = viewModel.scoreViewData(at: indexPath.row) else {
-            return
-        }
-
+        guard let viewData = viewModel.scoreViewData(at: indexPath.row) else { return }
         viewModel.cancelLoadAlbumCover(viewData: viewData)
     }
 
@@ -144,9 +137,7 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
     }
 
     private func dismissKeyboard() {
-        guard let scoresView = view as? ScoresView else {
-            return
-        }
+        guard let scoresView = view as? ScoresView else { return }
         scoresView.searchBar.resignFirstResponder()
     }
 }
@@ -158,10 +149,7 @@ extension ScoresViewController: UISearchBarDelegate {
         // Wait a second so that we don't update the UI while typing is ongoing...
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             // Get the filter a second time and only apply it if the value is the same as it was a second ago...
-            guard let searchText2 = searchBar.text, searchText == searchText2 else {
-                return
-            }
-
+            guard let searchText2 = searchBar.text, searchText == searchText2 else { return }
             self?.viewModel.filter = searchBar.text
             self?.updateUI()
         }

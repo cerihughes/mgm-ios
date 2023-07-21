@@ -18,10 +18,12 @@ class DataRepositoryImplementation: DataRepository {
     private let encoder = JSONEncoder.create()
     private let decoder = JSONDecoder.create()
 
-    init(localDataSource: LocalDataSource,
-         remoteDataSource: RemoteDataSource,
-         eventUpdateManager: EventUpdateManager,
-         localNotificationsManager: LocalNotificationsManager) {
+    init(
+        localDataSource: LocalDataSource,
+        remoteDataSource: RemoteDataSource,
+        eventUpdateManager: EventUpdateManager,
+        localNotificationsManager: LocalNotificationsManager
+    ) {
         self.localDataSource = localDataSource
         self.remoteDataSource = remoteDataSource
         self.eventUpdateManager = eventUpdateManager
@@ -29,16 +31,13 @@ class DataRepositoryImplementation: DataRepository {
     }
 
     var localEvents: [Event]? {
-        guard let data = localDataSource.localStorage.eventData else {
-            return nil
-        }
-
+        guard let data = localDataSource.localStorage.eventData else { return nil }
         return try? decoder.decode(eventsData: data)
             .map { $0.convert() }
     }
 
     func getEventData(_ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void) {
-        return remoteDataSource.loadEventData { [weak self] response in
+        remoteDataSource.loadEventData { [weak self] response in
             switch response {
             case let .success(events):
                 self?.handleRemoteSuccess(events: events, completion)
@@ -50,7 +49,10 @@ class DataRepositoryImplementation: DataRepository {
 
     // MARK: Private
 
-    private func handleRemoteSuccess(events: [EventApiModel], _ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void) {
+    private func handleRemoteSuccess(
+        events: [EventApiModel],
+        _ completion: @escaping (DataRepositoryResponse<[Event]>) -> Void
+    ) {
         let oldEventApiModels = existingEventApiModels ?? []
 
         if let data = try? encoder.encode(events: events) {
@@ -81,10 +83,7 @@ class DataRepositoryImplementation: DataRepository {
     }
 
     private var existingEventApiModels: [EventApiModel]? {
-        guard let existingData = localDataSource.localStorage.eventData else {
-            return nil
-        }
-
+        guard let existingData = localDataSource.localStorage.eventData else { return nil }
         return try? decoder.decode(eventsData: existingData)
     }
 }
@@ -97,7 +96,7 @@ extension JSONDecoder {
     }
 
     func decode(eventsData: Data) throws -> [EventApiModel] {
-        return try decode([EventApiModel].self, from: eventsData)
+        try decode([EventApiModel].self, from: eventsData)
     }
 }
 
@@ -109,6 +108,6 @@ extension JSONEncoder {
     }
 
     func encode(events: [EventApiModel]) throws -> Data {
-        return try encode(events)
+        try encode(events)
     }
 }

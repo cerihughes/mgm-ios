@@ -108,11 +108,11 @@ final class ScoresViewModelImplementation: AlbumArtViewModelImplementation, Scor
     }
 
     var dataLoaded: Bool {
-        return !scoreViewModels.isEmpty
+        !scoreViewModels.isEmpty
     }
 
     var numberOfScores: Int {
-        return filteredScoreViewModels.count
+        filteredScoreViewModels.count
     }
 
     func scoreViewData(at index: Int) -> ScoreViewData? {
@@ -143,8 +143,8 @@ final class ScoresViewModelImplementation: AlbumArtViewModelImplementation, Scor
 
     private func updateStateAndNotify(events: [Event], _ completion: () -> Void) {
         // Categorise, remove scoreless albums and apply descending sort by score
-        classicAlbums = events.compactMap { $0.classicAlbum }.filter { $0.score != nil }.sorted(by: scoresSort)
-        newAlbums = events.compactMap { $0.newAlbum }.filter { $0.score != nil }.sorted(by: scoresSort)
+        classicAlbums = events.compactMap(\.classicAlbum).filter { $0.score != nil }.sorted(by: scoresSort)
+        newAlbums = events.compactMap(\.newAlbum).filter { $0.score != nil }.sorted(by: scoresSort)
         allAlbums = (classicAlbums + newAlbums).sorted(by: scoresSort)
 
         applyAlbumTypeFilter()
@@ -188,19 +188,22 @@ final class ScoresViewModelImplementation: AlbumArtViewModelImplementation, Scor
             !trimmed.isEmpty,
             !self.scoreViewModels.isEmpty
         else {
-            self.filteredScoreViewModels = self.scoreViewModels
-            self.message = nil
+            filteredScoreViewModels = scoreViewModels
+            message = nil
             return
         }
 
-        self.filteredScoreViewModels = self.scoreViewModels
-            .filter { $0.albumName.mgm_contains(filter: trimmed) || $0.artistName.mgm_contains(filter: trimmed) || $0.rating.starts(with: trimmed) }
-        self.message = self.filteredScoreViewModels.isEmpty ? "No results for filter: \(trimmed)" : nil
+        filteredScoreViewModels = scoreViewModels
+            .filter {
+                $0.albumName.mgm_contains(filter: trimmed) || $0.artistName.mgm_contains(filter: trimmed) || $0.rating
+                    .starts(with: trimmed)
+            }
+        message = filteredScoreViewModels.isEmpty ? "No results for filter: \(trimmed)" : nil
     }
 }
 
 extension String {
     func mgm_contains(filter: String) -> Bool {
-        return range(of: filter, options: .caseInsensitive) != nil
+        range(of: filter, options: .caseInsensitive) != nil
     }
 }

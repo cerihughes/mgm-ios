@@ -22,13 +22,13 @@ protocol AlbumArtViewModel {
 
 extension UIImage {
     static var randomLoadingImage: UIImage? {
-        return Int.random(in: 0 ... 2).rangedLoadingImage
+        Int.random(in: 0 ... 2).rangedLoadingImage
     }
 }
 
 extension Int {
     var rotatingLoadingImage: UIImage? {
-        return (self % 3).rangedLoadingImage
+        (self % 3).rangedLoadingImage
     }
 
     fileprivate var rangedLoadingImage: UIImage? {

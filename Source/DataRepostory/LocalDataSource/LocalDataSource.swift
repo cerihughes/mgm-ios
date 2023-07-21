@@ -19,7 +19,8 @@ class LocalDataSourceImplementation: LocalDataSource {
         let bundle = Bundle(for: LocalDataSourceImplementation.self)
 
         if let path = bundle.path(forResource: "gcp", ofType: "json"),
-            let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
+           let data = try? Data(contentsOf: URL(fileURLWithPath: path))
+        {
             return data
         }
         return nil

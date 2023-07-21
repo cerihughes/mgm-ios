@@ -63,24 +63,18 @@ final class LatestEventViewModelImplementation: AlbumArtViewModelImplementation,
     }
 
     var title: String {
-        guard let date = event?.date else {
-            return "Next Event"
-        }
+        guard let date = event?.date else { return "Next Event" }
         let dateString = LatestEventViewModelImplementation.dateFormatter.string(from: date)
         return String(format: "Next Event: %@", dateString)
     }
 
     var locationName: String? {
-        guard let location = event?.location else {
-            return nil
-        }
+        guard let location = event?.location else { return nil }
         return location.name
     }
 
     var mapReference: MapReference? {
-        guard let location = event?.location else {
-            return nil
-        }
+        guard let location = event?.location else { return nil }
         return (latitude: location.latitude, longitude: location.longitude)
     }
 
@@ -98,11 +92,11 @@ final class LatestEventViewModelImplementation: AlbumArtViewModelImplementation,
     }
 
     var numberOfEntites: Int {
-        return eventEntityViewModels.count
+        eventEntityViewModels.count
     }
 
     var isLocationAvailable: Bool {
-        return event?.location != nil
+        event?.location != nil
     }
 
     func headerTitle(for section: Int) -> String? {
@@ -125,7 +119,8 @@ final class LatestEventViewModelImplementation: AlbumArtViewModelImplementation,
 
     private func handleDataLoaderSuccess(events: [Event], _ completion: () -> Void) {
         // Remove events without albums, then apply descending sort by ID
-        let sortedEvents = events.filter { $0.classicAlbum != nil && $0.newAlbum != nil }.sorted { $0.number > $1.number }
+        let sortedEvents = events.filter { $0.classicAlbum != nil && $0.newAlbum != nil }
+            .sorted { $0.number > $1.number }
 
         guard
             let event = sortedEvents.first,
@@ -161,24 +156,26 @@ final class LatestEventViewModelImplementation: AlbumArtViewModelImplementation,
 
 extension Album {
     func asLatestEventEntityViewData() -> LatestEventEntityViewData {
-        return LatestEventEntityViewDataImplementation(
+        LatestEventEntityViewDataImplementation(
             loadingImage: .randomLoadingImage,
             images: images,
             entityType: type == .classic ? "CLASSIC ALBUM" : type == .new ? "NEW ALBUM" : "ALBUM",
             entityName: name,
             entityOwner: artist,
-            spotifyURL: .createSpotifyAlbumURL(albumID: spotifyId))
+            spotifyURL: .createSpotifyAlbumURL(albumID: spotifyId)
+        )
     }
 }
 
 extension Playlist {
     func asLatestEventEntityViewData() -> LatestEventEntityViewData {
-        return LatestEventEntityViewDataImplementation(
+        LatestEventEntityViewDataImplementation(
             loadingImage: .randomLoadingImage,
             images: images,
             entityType: "PLAYLIST",
             entityName: name,
             entityOwner: owner,
-            spotifyURL: .createSpotifyPlaylistURL(playlistID: spotifyId))
+            spotifyURL: .createSpotifyPlaylistURL(playlistID: spotifyId)
+        )
     }
 }

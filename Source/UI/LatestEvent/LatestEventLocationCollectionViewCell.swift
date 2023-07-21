@@ -28,7 +28,11 @@ class LatestEventLocationCollectionViewCell: UICollectionViewCell {
     // MARK: API
 
     func dropPin(at location: CLLocation, title: String) {
-        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 200, longitudinalMeters: 200)
+        let coordinateRegion = MKCoordinateRegion(
+            center: location.coordinate,
+            latitudinalMeters: 200,
+            longitudinalMeters: 200
+        )
         let annotation = MKPointAnnotation()
         annotation.coordinate = location.coordinate
         annotation.title = title

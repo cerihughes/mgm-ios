@@ -38,7 +38,7 @@ final class ImageLoaderImplementation: ImageLoader {
     }
 
     func loadImage(url: URL, _ completion: @escaping (ImageLoaderResponse) -> Void) -> DataLoaderToken? {
-        return dataLoader.loadData(url: url) { [weak self] response in
+        dataLoader.loadData(url: url) { [weak self] response in
             switch response {
             case let .success(data):
                 self?.handleDataLoaderSuccess(data: data, completion)
@@ -52,7 +52,10 @@ final class ImageLoaderImplementation: ImageLoader {
 
     private func handleDataLoaderSuccess(data: Data, _ completion: @escaping (ImageLoaderResponse) -> Void) {
         guard let image = UIImage(data: data) else {
-            handleDataLoaderFailure(error: ImageLoaderError.badImageData("The loaded data couldn't be converted into an image"), completion)
+            handleDataLoaderFailure(
+                error: ImageLoaderError.badImageData("The loaded data couldn't be converted into an image"),
+                completion
+            )
             return
         }
         completion(.success(image))

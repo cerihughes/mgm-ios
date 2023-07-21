@@ -4,20 +4,24 @@ import MGMRemoteApiClient
 extension EventApiModel {
     func convert() -> Event {
         let dateFormatter = DateFormatter.mgm_modelDateFormatter()
-        return Event(number: number,
-                     location: location?.convert(),
-                     date: dateFormatter.date(from: date ?? ""),
-                     playlist: playlist?.convert(),
-                     classicAlbum: classicAlbum?.convert(eventNumber: number),
-                     newAlbum: newAlbum?.convert(eventNumber: number))
+        return Event(
+            number: number,
+            location: location?.convert(),
+            date: dateFormatter.date(from: date ?? ""),
+            playlist: playlist?.convert(),
+            classicAlbum: classicAlbum?.convert(eventNumber: number),
+            newAlbum: newAlbum?.convert(eventNumber: number)
+        )
     }
 }
 
 extension LocationApiModel {
     func convert() -> Location {
-        return Location(name: name,
-                        latitude: latitude,
-                        longitude: longitude)
+        Location(
+            name: name,
+            latitude: latitude,
+            longitude: longitude
+        )
     }
 }
 
@@ -34,27 +38,31 @@ extension AlbumApiModel.ModelType {
 
 extension AlbumApiModel {
     func convert(eventNumber: Int) -> Album {
-        return Album(eventNumber: eventNumber,
-                     type: type.convert(),
-                     spotifyId: spotifyId,
-                     name: name,
-                     artist: artist,
-                     score: score,
-                     images: images?.map { $0.convert() })
+        Album(
+            eventNumber: eventNumber,
+            type: type.convert(),
+            spotifyId: spotifyId,
+            name: name,
+            artist: artist,
+            score: score,
+            images: images?.map { $0.convert() }
+        )
     }
 }
 
 extension PlaylistApiModel {
     func convert() -> Playlist {
-        return Playlist(spotifyId: spotifyId,
-                        name: name,
-                        owner: owner,
-                        images: images?.map { $0.convert() })
+        Playlist(
+            spotifyId: spotifyId,
+            name: name,
+            owner: owner,
+            images: images?.map { $0.convert() }
+        )
     }
 }
 
 extension ImageApiModel {
     func convert() -> Image {
-        return Image(size: size, url: url)
+        Image(size: size, url: url)
     }
 }

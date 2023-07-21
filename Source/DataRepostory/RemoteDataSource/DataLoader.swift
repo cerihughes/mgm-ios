@@ -57,11 +57,11 @@ final class DataLoaderImplementation: DataLoader {
     }
 
     private func createDataLoaderResponse(data: Data?, response _: URLResponse?, error: Error?) -> DataLoaderResponse? {
-        if let data = data {
+        if let data {
             return .success(data)
         }
 
-        if let error = error {
+        if let error {
             let systemError = error as NSError
             if systemError.domain == NSURLErrorDomain, systemError.code == NSURLErrorCancelled {
                 // Ignore "errors" due to cancelled requests

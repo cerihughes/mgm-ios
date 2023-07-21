@@ -9,7 +9,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let madog = Madog<Navigation>()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         let window = UIWindow()
         window.makeKeyAndVisible()
 
@@ -33,7 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return madog.renderUI(identifier: .tabBarNavigation(), tokenData: .multi(initialRLs), in: window) != nil
     }
 
-    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(
+        _ application: UIApplication,
+        performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
+    ) {
         madog.resolve(resolver: MGMResolver())
 
         guard let dataRepository = serviceProvider?.dataRepository else {
@@ -57,14 +63,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private var serviceProvider: MGMServiceProvider? {
-        return madog.serviceProviders[mgmServiceProviderName] as? MGMServiceProvider
+        madog.serviceProviders[mgmServiceProviderName] as? MGMServiceProvider
     }
 }
 
 #if DEBUG
 extension UIApplicationDelegate {
     var isRunningUnitTests: Bool {
-        return UserDefaults.standard.bool(forKey: "isRunningUnitTests")
+        UserDefaults.standard.bool(forKey: "isRunningUnitTests")
     }
 }
 #endif

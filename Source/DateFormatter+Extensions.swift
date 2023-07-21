@@ -9,7 +9,7 @@ extension DateFormatter {
     }
 
     static func mgm_modelDateFormatter() -> DateFormatter {
-        return DateFormatter(dateFormat: "dd/MM/yyyy", timeZoneIdentifier: "UTC")
+        DateFormatter(dateFormat: "dd/MM/yyyy", timeZoneIdentifier: "UTC")
     }
 
     static func mgm_latestEventDateFormatter() -> DateFormatter {

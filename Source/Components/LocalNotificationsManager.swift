@@ -38,7 +38,7 @@ class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManag
 
     var isEnabled: Bool {
         get {
-            return localDataSource.localStorage.localNotificationsEnabled
+            localDataSource.localStorage.localNotificationsEnabled
         }
         set {
             localDataSource.localStorage.localNotificationsEnabled = newValue
@@ -79,15 +79,20 @@ class LocalNotificationsManagerImplementation: NSObject, LocalNotificationsManag
 }
 
 extension LocalNotificationsManagerImplementation: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
         completionHandler()
     }
 
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions)
+            -> Void
+    ) {
         completionHandler(.alert)
     }
 }
@@ -173,10 +178,7 @@ extension EventUpdate {
 
 private extension Event {
     var dateString: String? {
-        guard let date = date else {
-            return nil
-        }
-
+        guard let date else { return nil }
         let formatter = DateFormatter.mgm_latestEventDateFormatter()
         return formatter.string(from: date)
     }

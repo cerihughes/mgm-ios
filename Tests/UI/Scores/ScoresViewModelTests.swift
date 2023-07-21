@@ -33,19 +33,25 @@ class ScoresViewModelTests: DataRepositoryTestCase {
         waitForExpectations(timeout: 1)
 
         viewModel.selectedAlbumType = 0
-        assert(viewModel: viewModel,
-               positions: ["1", "2", "3"],
-               ratings: ["10.0", "8.0", "5.0"])
+        assert(
+            viewModel: viewModel,
+            positions: ["1", "2", "3"],
+            ratings: ["10.0", "8.0", "5.0"]
+        )
 
         viewModel.selectedAlbumType = 1
-        assert(viewModel: viewModel,
-               positions: ["1", "2", "3"],
-               ratings: ["9.0", "7.0", "6.0"])
+        assert(
+            viewModel: viewModel,
+            positions: ["1", "2", "3"],
+            ratings: ["9.0", "7.0", "6.0"]
+        )
 
         viewModel.selectedAlbumType = 2
-        assert(viewModel: viewModel,
-               positions: ["1", "2", "3", "4", "5", "6"],
-               ratings: ["10.0", "9.0", "8.0", "7.0", "6.0", "5.0"])
+        assert(
+            viewModel: viewModel,
+            positions: ["1", "2", "3", "4", "5", "6"],
+            ratings: ["10.0", "9.0", "8.0", "7.0", "6.0", "5.0"]
+        )
     }
 
     func testAlbums_scoreSort_sameScores() {
@@ -63,19 +69,25 @@ class ScoresViewModelTests: DataRepositoryTestCase {
         waitForExpectations(timeout: 1)
 
         viewModel.selectedAlbumType = 0
-        assert(viewModel: viewModel,
-               positions: ["1", "1", "1"],
-               ratings: ["10.0", "10.0", "10.0"])
+        assert(
+            viewModel: viewModel,
+            positions: ["1", "1", "1"],
+            ratings: ["10.0", "10.0", "10.0"]
+        )
 
         viewModel.selectedAlbumType = 1
-        assert(viewModel: viewModel,
-               positions: ["1", "1", "1"],
-               ratings: ["9.5", "9.5", "9.5"])
+        assert(
+            viewModel: viewModel,
+            positions: ["1", "1", "1"],
+            ratings: ["9.5", "9.5", "9.5"]
+        )
 
         viewModel.selectedAlbumType = 2
-        assert(viewModel: viewModel,
-               positions: ["1", "1", "1", "4", "4", "4"],
-               ratings: ["10.0", "10.0", "10.0", "9.5", "9.5", "9.5"])
+        assert(
+            viewModel: viewModel,
+            positions: ["1", "1", "1", "4", "4", "4"],
+            ratings: ["10.0", "10.0", "10.0", "9.5", "9.5", "9.5"]
+        )
     }
 
     func testAlbums_scoreSort_mixedScores() {
@@ -95,19 +107,25 @@ class ScoresViewModelTests: DataRepositoryTestCase {
         waitForExpectations(timeout: 1)
 
         viewModel.selectedAlbumType = 0
-        assert(viewModel: viewModel,
-               positions: ["1", "1", "3", "4", "5"],
-               ratings: ["6.6", "6.6", "5.5", "4.4", "3.3"])
+        assert(
+            viewModel: viewModel,
+            positions: ["1", "1", "3", "4", "5"],
+            ratings: ["6.6", "6.6", "5.5", "4.4", "3.3"]
+        )
 
         viewModel.selectedAlbumType = 1
-        assert(viewModel: viewModel,
-               positions: ["1", "1", "3", "3", "5"],
-               ratings: ["6.6", "6.6", "5.5", "5.5", "4.4"])
+        assert(
+            viewModel: viewModel,
+            positions: ["1", "1", "3", "3", "5"],
+            ratings: ["6.6", "6.6", "5.5", "5.5", "4.4"]
+        )
 
         viewModel.selectedAlbumType = 2
-        assert(viewModel: viewModel,
-               positions: ["1", "1", "1", "1", "5", "5", "5", "8", "8", "10"],
-               ratings: ["6.6", "6.6", "6.6", "6.6", "5.5", "5.5", "5.5", "4.4", "4.4", "3.3"])
+        assert(
+            viewModel: viewModel,
+            positions: ["1", "1", "1", "1", "5", "5", "5", "8", "8", "10"],
+            ratings: ["6.6", "6.6", "6.6", "6.6", "5.5", "5.5", "5.5", "4.4", "4.4", "3.3"]
+        )
     }
 
     func testAlbums_nameSort() {
@@ -125,9 +143,11 @@ class ScoresViewModelTests: DataRepositoryTestCase {
         waitForExpectations(timeout: 1)
 
         viewModel.selectedAlbumType = 2
-        assert(viewModel: viewModel,
-               positions: ["1", "1", "1", "1", "1", "1"],
-               albumNames: ["AA", "bb", "CC", "dd", "EE", "ff"])
+        assert(
+            viewModel: viewModel,
+            positions: ["1", "1", "1", "1", "1", "1"],
+            albumNames: ["AA", "bb", "CC", "dd", "EE", "ff"]
+        )
     }
 
     func testAlbums_artistSort() {
@@ -145,9 +165,11 @@ class ScoresViewModelTests: DataRepositoryTestCase {
         waitForExpectations(timeout: 1)
 
         viewModel.selectedAlbumType = 2
-        assert(viewModel: viewModel,
-               positions: ["1", "1", "1", "1", "1", "1"],
-               artistNames: ["Aa", "ab", "ACa1", "ACA2", "aDEe3", "AdeE4"])
+        assert(
+            viewModel: viewModel,
+            positions: ["1", "1", "1", "1", "1", "1"],
+            artistNames: ["Aa", "ab", "ACa1", "ACA2", "aDEe3", "AdeE4"]
+        )
     }
 
     func testAlbums_allSorts() {
@@ -180,29 +202,33 @@ class ScoresViewModelTests: DataRepositoryTestCase {
         waitForExpectations(timeout: 1)
 
         viewModel.selectedAlbumType = 2
-        assert(viewModel: viewModel,
-               positions: ["1", "1", "1", "4", "4", "4", "7", "7", "9", "9"],
-               ratings: ["10.0", "10.0", "10.0", "9.0", "9.0", "9.0", "8.0", "8.0", "7.0", "7.0"],
-               albumNames: ["A0", "A1", "A1", "B2", "B2", "B2", "aaa", "zzz", "1", "2"],
-               artistNames: ["ZZZ", "A2", "Z1", "xxx", "yyy", "zzz", "zzz", "aaa", "Art", "Art"])
+        assert(
+            viewModel: viewModel,
+            positions: ["1", "1", "1", "4", "4", "4", "7", "7", "9", "9"],
+            ratings: ["10.0", "10.0", "10.0", "9.0", "9.0", "9.0", "8.0", "8.0", "7.0", "7.0"],
+            albumNames: ["A0", "A1", "A1", "B2", "B2", "B2", "aaa", "zzz", "1", "2"],
+            artistNames: ["ZZZ", "A2", "Z1", "xxx", "yyy", "zzz", "zzz", "aaa", "Art", "Art"]
+        )
     }
 
-    private func assert(viewModel: ScoresViewModel,
-                        positions: [String],
-                        ratings: [String]? = nil,
-                        albumNames: [String]? = nil,
-                        artistNames: [String]? = nil) {
+    private func assert(
+        viewModel: ScoresViewModel,
+        positions: [String],
+        ratings: [String]? = nil,
+        albumNames: [String]? = nil,
+        artistNames: [String]? = nil
+    ) {
         XCTAssertEqual(viewModel.numberOfScores, positions.count)
         for index in 0 ..< viewModel.numberOfScores {
             let viewData = viewModel.scoreViewData(at: index)!
             XCTAssertEqual(viewData.position, positions[index])
-            if let ratings = ratings {
+            if let ratings {
                 XCTAssertEqual(viewData.rating, ratings[index])
             }
-            if let albumNames = albumNames {
+            if let albumNames {
                 XCTAssertEqual(viewData.albumName, albumNames[index])
             }
-            if let artistNames = artistNames {
+            if let artistNames {
                 XCTAssertEqual(viewData.artistName, artistNames[index])
             }
         }

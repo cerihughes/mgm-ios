@@ -19,9 +19,11 @@ protocol SettingsViewModel {
 class SettingsViewModelImplementation: SettingsViewModel {
     let title = "Settings"
     let localNotificationsTitle = "Enable Local Notifications (beta)"
-    let localNotificationsSubtitle = "Sends notifications when new events, albums scores and playlists become available."
+    let localNotificationsSubtitle =
+        "Sends notifications when new events, albums scores and playlists become available."
     let localNotificationsDisabledTitle = "Local Notifications Disabled"
-    let localNotificationsDisabledMessage = "Notifications have been disabled for this app. Go into your device's settings to change this."
+    let localNotificationsDisabledMessage =
+        "Notifications have been disabled for this app. Go into your device's settings to change this."
 
     private let localNotificationsManager: LocalNotificationsManager
 
@@ -46,7 +48,10 @@ class SettingsViewModelImplementation: SettingsViewModel {
         }
     }
 
-    private func doUpdateLocalNotificationsState(_ value: Bool, completion: @escaping (LocalNotificationsState) -> Void) {
+    private func doUpdateLocalNotificationsState(
+        _ value: Bool,
+        completion: @escaping (LocalNotificationsState) -> Void
+    ) {
         if value == true {
             requestAuthorizationIfNeeded(completion: completion)
         } else {
@@ -56,7 +61,7 @@ class SettingsViewModelImplementation: SettingsViewModel {
 
     private func requestAuthorizationIfNeeded(completion: @escaping (LocalNotificationsState) -> Void) {
         localNotificationsManager.getAuthorizationStatus { [weak self] status in
-            guard let self = self else {
+            guard let self else {
                 completion(.alreadyDenied)
                 return
             }
