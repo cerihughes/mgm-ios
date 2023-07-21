@@ -499,8 +499,9 @@
 		65BDAA832189F55C007E887B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Ceri Hughes";
 				TargetAttributes = {
 					65BDAA8A2189F55C007E887B = {
@@ -585,6 +586,7 @@
 		};
 		654B11E72378516B005E0931 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
