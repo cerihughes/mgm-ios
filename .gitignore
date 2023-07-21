@@ -3,7 +3,7 @@
 Carthage/
 DerivedData/
 SPM/
-Tests/Snapshot/ReferenceImagesFail/
+Tests/Snapshot/ReferenceImagesFail/MusicGeekMonthlyTests*/**
 
 **/xcuserdata
 
