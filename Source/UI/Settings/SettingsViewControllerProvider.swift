@@ -4,11 +4,11 @@ import UIKit
 class SettingsViewControllerProvider: TypedViewControllerProvider {
     // MARK: TypedViewControllerProvider
 
-    override func createViewController(token: Navigation, navigationContext: ForwardBackNavigationContext) -> UIViewController? {
-        guard
-            token == .settings,
-            let localNotificationsManager = serviceProvider?.localNotificationsManager
-        else {
+    override func createViewController(
+        token: Navigation,
+        navigationContext: AnyForwardBackNavigationContext<Navigation>
+    ) -> UIViewController? {
+        guard token == .settings, let localNotificationsManager = serviceProvider?.localNotificationsManager else {
             return nil
         }
 

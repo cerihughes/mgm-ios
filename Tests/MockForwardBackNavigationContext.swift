@@ -8,8 +8,23 @@
 
 import Madog
 
-class MockForwardBackNavigationContext: ForwardBackNavigationContext {
-    func navigateForward(token: Any, animated: Bool) -> Bool {
+class MockForwardBackNavigationContext<T>: ForwardBackNavigationContext {
+    var presentingContext: AnyContext<T>?
+
+    func change<VC, C, TD>(
+        to identifier: MadogUIIdentifier<VC, C, TD, T>,
+        tokenData: TD,
+        transition: Transition?,
+        customisation: CustomisationBlock<VC>?
+    ) -> C? where VC: ViewController, TD: TokenData {
+        nil
+    }
+
+    func close(animated: Bool, completion: CompletionBlock?) -> Bool {
+        true
+    }
+
+    func navigateForward(token: T, animated: Bool) -> Bool {
         return false
     }
 

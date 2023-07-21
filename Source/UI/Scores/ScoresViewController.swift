@@ -6,7 +6,7 @@ private let cellReuseIdentifier = "ScoresViewController_CellReuseIdentifier"
 class ScoresViewController: ForwardNavigatingViewController {
     private var viewModel: ScoresViewModel
 
-    init(navigationContext: ForwardBackNavigationContext, viewModel: ScoresViewModel) {
+    init(navigationContext: AnyForwardBackNavigationContext<Navigation>, viewModel: ScoresViewModel) {
         self.viewModel = viewModel
 
         super.init(navigationContext: navigationContext)
@@ -140,7 +140,7 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
         }
 
         let rl = Navigation.spotify(spotifyURL: spotifyURL)
-        _ = navigationContext.navigateForward(token: rl, animated: true)
+        navigationContext?.navigateForward(token: rl, animated: true)
     }
 
     private func dismissKeyboard() {

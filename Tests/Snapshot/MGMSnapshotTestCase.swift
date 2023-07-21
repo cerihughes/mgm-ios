@@ -10,8 +10,10 @@ import iOSSnapshotTestCase
 import UIKit
 import XCTest
 
+@testable import MusicGeekMonthly
+
 class MGMSnapshotTests: FBSnapshotTestCase {
-    var navigationContext: MockForwardBackNavigationContext!
+    var navigationContext: MockForwardBackNavigationContext<Navigation>!
 
     override func setUp() {
         super.setUp()
