@@ -4,20 +4,20 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: macos-11
+    runs-on: macos-12
 
     steps:
       # Xcode select
-      - run: sudo xcode-select -switch /Applications/Xcode_13.2.app
+      - run: sudo xcode-select -switch /Applications/Xcode_14.2.app
 
       # Caching
       - name: SPM Cache
         uses: actions/cache@v2
         with:
           path: SPM
-          key: ${{ runner.os }}-spm-xcode13_2-${{ hashFiles('**/Package.resolved') }}
+          key: ${{ runner.os }}-spm-xcode14_2-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
-            ${{ runner.os }}-spm-xcode13_2-
+            ${{ runner.os }}-spm-xcode14_2-
 
       # Install dependencies
       - run: brew install swiftlint || true
@@ -33,7 +33,7 @@ jobs:
       - run: mkdir build
       - run: export PROJECT_DIR=.; /bin/sh ios-tools/copy-plist.sh
       - run: /bin/sh ios-tools/createFakeGoogleServices.sh Source/GoogleService-Info.plist
-      - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -clonedSourcePackagesDirPath SPM -destination "OS=15.2,name=iPhone 11" -destination "OS=15.2,name=iPad (9th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
+      - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -clonedSourcePackagesDirPath SPM -resultBundlePath coverage.xcresult -destination "OS=16.2,name=iPhone 11" -destination "OS=16.2,name=iPad (10th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
       - name: Publish any snapshot test failures
         if: ${{ failure() }}
         uses: actions/upload-artifact@v1
@@ -41,4 +41,7 @@ jobs:
           name: ReferenceImagesFail
           path: Tests/Snapshot/ReferenceImagesFail
       - name: Codecov
-        uses: codecov/codecov-action@v1.0.13
+        uses: codecov/codecov-action@v3.1.0
+        with:
+            xcode: true
+            xcode_archive_path: ${{ github.workspace }}/coverage.xcresult
