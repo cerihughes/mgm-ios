@@ -8,6 +8,7 @@ private let entityCellReuseIdentifier = "LatestEventViewController_CellReuseIden
 
 class LatestEventViewController: ForwardNavigatingViewController {
     private var viewModel: LatestEventViewModel
+    private let latestEventView = LatestEventView()
 
     init(navigationContext: AnyForwardBackNavigationContext<Navigation>, viewModel: LatestEventViewModel) {
         self.viewModel = viewModel
@@ -16,34 +17,33 @@ class LatestEventViewController: ForwardNavigatingViewController {
     }
 
     override func loadView() {
-        view = LatestEventView()
+        view = latestEventView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let view = view as? LatestEventView else { return }
         navigationItem.title = viewModel.title
 
-        view.collectionView.register(
+        latestEventView.collectionView.register(
             LatestEventCollectionSectionHeaderView.self,
             forSupplementaryViewOfKind: FullWidthCollectionViewLayout.Element.sectionHeader
                 .value,
             withReuseIdentifier: sectionHeaderReuseIdentifier
         )
-        view.collectionView.register(
+        latestEventView.collectionView.register(
             LatestEventLocationCollectionViewCell.self,
             forCellWithReuseIdentifier: locationCellReuseIdentifier
         )
-        view.collectionView.register(
+        latestEventView.collectionView.register(
             LatestEventEntityCollectionViewCell.self,
             forCellWithReuseIdentifier: entityCellReuseIdentifier
         )
-        view.collectionView.dataSource = self
-        view.collectionView.delegate = self
+        latestEventView.collectionView.dataSource = self
+        latestEventView.collectionView.delegate = self
 
-        view.retryButton.setTitle(viewModel.retryButtonTitle, for: .normal)
-        view.retryButton.addTarget(self, action: #selector(buttonTapGesture(sender:)), for: .touchUpInside)
+        latestEventView.retryButton.setTitle(viewModel.retryButtonTitle, for: .normal)
+        latestEventView.retryButton.addTarget(self, action: #selector(buttonTapGesture(sender:)), for: .touchUpInside)
 
         loadData()
     }
@@ -51,24 +51,22 @@ class LatestEventViewController: ForwardNavigatingViewController {
     // MARK: Private
 
     private func loadData() {
-        guard let view = view as? LatestEventView else { return }
-        view.hideMessage()
-        view.showActivityIndicator()
+        latestEventView.hideMessage()
+        latestEventView.showActivityIndicator()
         viewModel.loadData { [weak self] in
-            view.hideActivityIndicator()
+            self?.latestEventView.hideActivityIndicator()
             self?.updateUI()
         }
     }
 
     private func updateUI() {
-        guard let scoresView = view as? LatestEventView else { return }
         navigationItem.title = viewModel.title
 
         if let message = viewModel.message {
-            scoresView.showMessage(message, showRetryButton: true)
+            latestEventView.showMessage(message, showRetryButton: true)
         } else {
-            scoresView.showResults()
-            scoresView.collectionView.reloadData()
+            latestEventView.showResults()
+            latestEventView.collectionView.reloadData()
         }
     }
 }
