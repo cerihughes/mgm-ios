@@ -1,0 +1,77 @@
+name: MusicGeekMonthly
+schemes:
+  MusicGeekMonthly:
+    build:
+      targets:
+        MusicGeekMonthly: all
+        MusicGeekMonthlyTests: [test]
+    test:
+      gatherCoverageData: true
+      coverageTargets:
+        - MusicGeekMonthly
+      targets: 
+        - MusicGeekMonthlyTests
+      commandLineArguments:
+        "-isRunningUnitTests YES": true
+      environmentVariables:
+        FB_REFERENCE_IMAGE_DIR: $(SOURCE_ROOT)/Tests/Snapshot/ReferenceImages
+        IMAGE_DIFF_DIR: $(SOURCE_ROOT)/Tests/Snapshot/ReferenceImagesFail
+options:
+  bundleIdPrefix: uk.co.cerihughes
+  deploymentTarget:
+    iOS: "16.0"
+packages:
+  Madog:
+    url: https://github.com/cerihughes/Madog
+    majorVersion: 7.0.0
+  MGMRemoteApiClient:
+    url: https://github.com/cerihughes/mgm-schema
+    exactVersion: 1.18.0
+  SnapKit:
+    url: https://github.com/SnapKit/SnapKit
+    majorVersion: 5.0.0
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk.git
+    minorVersion: 10.12.0
+  iOSSnapshotTestCase:
+    url: https://github.com/uber/ios-snapshot-test-case
+    majorVersion: 8.0.0
+targets:
+  MusicGeekMonthly:
+    type: application
+    platform: iOS
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: uk.co.cerihughes.Music-Geek-Monthly
+      INFOPLIST_FILE: Source/Secret.plist
+      DEVELOPMENT_TEAM: Y56955G4Q8
+    sources:
+      - path: Source
+        excludes:
+          - "Info.plist"
+          - "Secret.plist"
+      - path: Source
+        buildPhase: none
+        includes:
+          - "Info.plist"
+          - "Secret.plist"
+    dependencies:
+      - package: Madog
+      - package: MGMRemoteApiClient
+      - package: Firebase
+        product: FirebaseAnalytics
+        product: FirebaseCrashlytics
+      - package: SnapKit
+    postCompileScripts:
+      - script: $PROJECT_DIR/ios-tools/copy-plist.sh
+        name: Copy Plist
+        basedOnDependencyAnalysis: false
+      - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
+        name: Swift Lint
+        basedOnDependencyAnalysis: false
+  MusicGeekMonthlyTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: Tests
+    dependencies:
+      - target: MusicGeekMonthly
+      - package: iOSSnapshotTestCase

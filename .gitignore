@@ -1,6 +1,5 @@
 .DS_Store
 
-Carthage/
 DerivedData/
 SPM/
 Tests/Snapshot/ReferenceImagesFail/MusicGeekMonthlyTests*/**
@@ -10,3 +9,4 @@ Tests/Snapshot/ReferenceImagesFail/MusicGeekMonthlyTests*/**
 Secret.plist
 GoogleService-Info.plist
 MusicGeekMonthlySwift.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+MusicGeekMonthly.xcodeproj/
