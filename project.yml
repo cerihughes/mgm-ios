@@ -13,6 +13,9 @@ schemes:
         - MusicGeekMonthlyTests
       commandLineArguments:
         "-isRunningUnitTests YES": true
+      environmentVariables:
+        FB_REFERENCE_IMAGE_DIR: $(SOURCE_ROOT)/Tests/Snapshot/ReferenceImages
+        IMAGE_DIFF_DIR: $(SOURCE_ROOT)/Tests/Snapshot/ReferenceImagesFail
 options:
   bundleIdPrefix: uk.co.cerihughes
   deploymentTarget:
