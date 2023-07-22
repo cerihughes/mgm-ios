@@ -33,7 +33,8 @@ jobs:
       - run: mkdir build
       - run: export PROJECT_DIR=.; /bin/sh ios-tools/copy-plist.sh
       - run: /bin/sh ios-tools/createFakeGoogleServices.sh Source/GoogleService-Info.plist
-      - run: xcodebuild clean test -project MusicGeekMonthlySwift.xcodeproj -scheme MusicGeekMonthly -clonedSourcePackagesDirPath SPM -resultBundlePath coverage.xcresult -destination "OS=16.4,name=iPhone 14" -destination "OS=16.4,name=iPad (10th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
+      - run: xcodegen
+      - run: xcodebuild clean test -project MusicGeekMonthly.xcodeproj -scheme MusicGeekMonthly -clonedSourcePackagesDirPath SPM -resultBundlePath coverage.xcresult -destination "OS=16.4,name=iPhone 14" -destination "OS=16.4,name=iPad (10th generation)" -sdk iphonesimulator CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES VALID_ARCHS=x86_64
       - name: Publish any snapshot test failures
         if: ${{ failure() }}
         uses: actions/upload-artifact@v1
