@@ -22,10 +22,34 @@ class ScoresSnapshotTests: MGMSnapshotTests {
     }
 
     func testScores() {
-        let album1 = MockScoreViewData(loadingImage: .album1Loading, position: 1, rating: 10, color: .goldCup, awardImage: .goldAward)
-        let album2 = MockScoreViewData(loadingImage: .album2Loading, position: 2, rating: 9.9, color: .silverCup, awardImage: .silverAward)
-        let album3 = MockScoreViewData(loadingImage: .album3Loading, position: 3, rating: 8.8, color: .bronzeCup, awardImage: .plateAward)
-        let album4 = MockScoreViewData(loadingImage: .album1Loading, position: 4, rating: 7.7, color: .greenCup, awardImage: .noAward)
+        let album1 = MockScoreViewData(
+            loadingImage: .album1Loading,
+            position: 1,
+            rating: 10,
+            color: .goldCup,
+            awardImage: .goldAward
+        )
+        let album2 = MockScoreViewData(
+            loadingImage: .album2Loading,
+            position: 2,
+            rating: 9.9,
+            color: .silverCup,
+            awardImage: .silverAward
+        )
+        let album3 = MockScoreViewData(
+            loadingImage: .album3Loading,
+            position: 3,
+            rating: 8.8,
+            color: .bronzeCup,
+            awardImage: .plateAward
+        )
+        let album4 = MockScoreViewData(
+            loadingImage: .album1Loading,
+            position: 4,
+            rating: 7.7,
+            color: .greenCup,
+            awardImage: .noAward
+        )
         viewModel.scoreViewData = [album1, album2, album3, album4]
 
         FBSnapshotVerifyViewController(viewController)

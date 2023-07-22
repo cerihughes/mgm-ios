@@ -31,7 +31,7 @@ struct ScoreViewDataImplementation: ScoreViewData {
     private let award: Award
 
     init(album: Album, index: Int, position: String) {
-        self.loadingImage = index.rotatingLoadingImage
+        loadingImage = index.rotatingLoadingImage
         self.album = album
         self.index = index
         self.position = position
@@ -39,36 +39,32 @@ struct ScoreViewDataImplementation: ScoreViewData {
     }
 
     var images: [Image]? {
-        return album.images
+        album.images
     }
 
     var albumName: String {
-        return album.name
+        album.name
     }
 
     var artistName: String {
-        return album.artist
+        album.artist
     }
 
     var rating: String {
-        guard let score = album.score else {
-            return ""
-        }
+        guard let score = album.score else { return "" }
         return String(format: "%.01f", score)
     }
 
     var ratingFontColor: UIColor {
-        return award.ratingFontColor
+        award.ratingFontColor
     }
 
     var awardImage: UIImage? {
-        return award.awardImage
+        award.awardImage
     }
 
     var spotifyURL: URL? {
-        guard let spotifyID = album.spotifyId else {
-            return nil
-        }
+        guard let spotifyID = album.spotifyId else { return nil }
         return .createSpotifyAlbumURL(albumID: spotifyID)
     }
 }

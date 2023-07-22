@@ -22,7 +22,7 @@ class MockScoresViewModel: MockAlbumArtViewModel, ScoresViewModel {
     var scoreViewData = [MockScoreViewData]()
 
     var numberOfScores: Int {
-        return scoreViewData.count
+        scoreViewData.count
     }
 
     func loadData(_ completion: @escaping () -> Void) {

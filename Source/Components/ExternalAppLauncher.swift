@@ -7,7 +7,7 @@ protocol ExternalAppLauncher {
 
 extension UIApplication: ExternalAppLauncher {
     func canOpen(externalURL: URL) -> Bool {
-        return canOpenURL(externalURL)
+        canOpenURL(externalURL)
     }
 
     func open(externalURL: URL) {

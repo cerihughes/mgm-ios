@@ -11,7 +11,7 @@ private let eventDataKey = "CachingGCPDataLoaderImplementation_userDefaultsKey"
 extension UserDefaults: LocalStorage {
     var localNotificationsEnabled: Bool {
         get {
-            return bool(forKey: localNotificationsEnabledKey)
+            bool(forKey: localNotificationsEnabledKey)
         }
         set {
             set(newValue, forKey: localNotificationsEnabledKey)
@@ -20,7 +20,7 @@ extension UserDefaults: LocalStorage {
 
     var eventData: Data? {
         get {
-            return data(forKey: eventDataKey)
+            data(forKey: eventDataKey)
         }
         set {
             set(newValue, forKey: eventDataKey)

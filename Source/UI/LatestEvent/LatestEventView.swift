@@ -3,10 +3,12 @@ import UIKit
 
 /// A view that represents the latest event, and the albums being reviewed
 class LatestEventView: DataLoadingView {
-    let collectionView = FullWidthCollectionViewLayout(sectionHeaderHeight: 32.0,
-                                                       defaultItemHeight: 128.0,
-                                                       itemHeightOverrides: [0: 192.0],
-                                                       spacing: 4.0).createCollectionView()
+    let collectionView = FullWidthCollectionViewLayout(
+        sectionHeaderHeight: 32.0,
+        defaultItemHeight: 128.0,
+        itemHeightOverrides: [0: 192.0],
+        spacing: 4.0
+    ).createCollectionView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

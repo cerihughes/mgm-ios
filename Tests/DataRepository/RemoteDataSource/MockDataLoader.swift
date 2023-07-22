@@ -33,10 +33,11 @@ class MockDataLoader: DataLoader {
 
     // MARK: Private
 
-    private func fire(_ completion: @escaping (DataLoaderResponse) -> Void, with tuple: DataLoaderTuple?) -> DataLoaderToken? {
-        guard let tuple = tuple else {
-            return nil
-        }
+    private func fire(
+        _ completion: @escaping (DataLoaderResponse) -> Void,
+        with tuple: DataLoaderTuple?
+    ) -> DataLoaderToken? {
+        guard let tuple else { return nil }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             completion(tuple.response)

@@ -18,14 +18,20 @@ class EventUpdateManagerImplementation: EventUpdateManager {
     func processEventUpdate(oldEvents: [Event], newEvents: [Event]) -> [EventUpdate] {
         if let oldLatestEvent = oldEvents.last, let newLatestEvent = newEvents.last {
             let newPreviousEvent = newEvents.dropLast().last
-            return processEventUpdate(oldLatestEvent: oldLatestEvent,
-                                      newPreviousEvent: newPreviousEvent,
-                                      newLatestEvent: newLatestEvent)
+            return processEventUpdate(
+                oldLatestEvent: oldLatestEvent,
+                newPreviousEvent: newPreviousEvent,
+                newLatestEvent: newLatestEvent
+            )
         }
         return []
     }
 
-    private func processEventUpdate(oldLatestEvent: Event, newPreviousEvent: Event?, newLatestEvent: Event) -> [EventUpdate] {
+    private func processEventUpdate(
+        oldLatestEvent: Event,
+        newPreviousEvent: Event?,
+        newLatestEvent: Event
+    ) -> [EventUpdate] {
         var results = [EventUpdate]()
 
         let oldLatestEventNumber = oldLatestEvent.number
@@ -35,7 +41,7 @@ class EventUpdateManagerImplementation: EventUpdateManager {
             if oldLatestEvent != newLatestEvent {
                 results.append(contentsOf: eventChanged(oldEvent: oldLatestEvent, newEvent: newLatestEvent))
             }
-        } else if oldLatestEventNumber < newLatestEventNumber, let newPreviousEvent = newPreviousEvent {
+        } else if oldLatestEventNumber < newLatestEventNumber, let newPreviousEvent {
             if oldLatestEventNumber == newPreviousEvent.number {
                 results.append(contentsOf: eventChanged(oldEvent: oldLatestEvent, newEvent: newPreviousEvent))
             }
@@ -47,18 +53,17 @@ class EventUpdateManagerImplementation: EventUpdateManager {
 
     private func eventCreated(_ newEvent: Event) -> [EventUpdate] {
         // If there's already a classic or new score, the event has taken place, so don't send an update.
-        guard let classicAlbum = newEvent.classicAlbum,
+        guard
+            let classicAlbum = newEvent.classicAlbum,
             let newAlbum = newEvent.newAlbum,
             classicAlbum.score == nil,
             newAlbum.score == nil
-        else {
-            return []
-        }
+        else { return [] }
         return [.newEvent(newEvent)]
     }
 
     private func eventChanged(oldEvent: Event, newEvent: Event) -> [EventUpdate] {
-        return [
+        [
             playlistChanged(oldEvent: oldEvent, newEvent: newEvent),
             scoresChanged(oldAlbum: oldEvent.classicAlbum, newAlbum: newEvent.classicAlbum),
             scoresChanged(oldAlbum: oldEvent.newAlbum, newAlbum: newEvent.newAlbum),
@@ -79,12 +84,7 @@ class EventUpdateManagerImplementation: EventUpdateManager {
     }
 
     private func scoresChanged(oldAlbum: Album?, newAlbum: Album?) -> EventUpdate? {
-        guard let newAlbum = newAlbum,
-            newAlbum.score != nil,
-            oldAlbum?.score == nil
-        else {
-            return nil
-        }
+        guard let newAlbum, newAlbum.score != nil, oldAlbum?.score == nil else { return nil }
         return .scoresPublished(newAlbum)
     }
 
@@ -115,14 +115,14 @@ class EventUpdateManagerImplementation: EventUpdateManager {
 
     private func locationChanged(oldEvent: Event, newEvent: Event) -> EventUpdate? {
         // If there's already a classic or new score, the event has taken place, so don't send an update.
-        guard newEvent.classicAlbum?.score == nil, newEvent.newAlbum?.score == nil else {
-            return nil
-        }
+        guard newEvent.classicAlbum?.score == nil, newEvent.newAlbum?.score == nil else { return nil }
 
         // We only care if there was an old location and there's a different new location
-        guard let oldLocation = oldEvent.location, let newLocation = newEvent.location, oldLocation != newLocation else {
-            return nil
-        }
+        guard
+            let oldLocation = oldEvent.location,
+            let newLocation = newEvent.location,
+            oldLocation != newLocation
+        else { return nil }
 
         return .eventMoved(newEvent)
     }

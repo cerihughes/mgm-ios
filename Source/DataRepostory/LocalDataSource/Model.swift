@@ -43,6 +43,6 @@ struct Image: Equatable {
 
 extension Album {
     var uniqueID: String {
-        return "\(eventNumber)_\(type)"
+        "\(eventNumber)_\(type)"
     }
 }

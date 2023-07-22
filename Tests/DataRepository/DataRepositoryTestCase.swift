@@ -17,10 +17,12 @@ class DataRepositoryTestCase: XCTestCase {
 
         let eventUpdateManager = EventUpdateManagerImplementation()
         localNotificationsManager = MockLocalNotificationsManager()
-        dataRepository = DataRepositoryImplementation(localDataSource: localDataSource,
-                                                      remoteDataSource: remoteDataSource,
-                                                      eventUpdateManager: eventUpdateManager,
-                                                      localNotificationsManager: localNotificationsManager)
+        dataRepository = DataRepositoryImplementation(
+            localDataSource: localDataSource,
+            remoteDataSource: remoteDataSource,
+            eventUpdateManager: eventUpdateManager,
+            localNotificationsManager: localNotificationsManager
+        )
     }
 
     override func tearDown() {

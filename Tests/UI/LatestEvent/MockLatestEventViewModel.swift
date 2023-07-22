@@ -22,7 +22,7 @@ class MockLatestEventViewModel: MockAlbumArtViewModel, LatestEventViewModel {
     var eventEntityViewData = [LatestEventEntityViewData]()
 
     var numberOfEntites: Int {
-        return eventEntityViewData.count
+        eventEntityViewData.count
     }
 
     func loadData(_ completion: @escaping () -> Void) {

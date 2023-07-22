@@ -4,7 +4,10 @@ import UIKit
 class LatestEventViewControllerProvider: TypedViewControllerProvider {
     // MARK: TypedViewControllerProvider
 
-    override func createViewController(token: Navigation, navigationContext: AnyForwardBackNavigationContext<Navigation>) -> UIViewController? {
+    override func createViewController(
+        token: Navigation,
+        navigationContext: AnyForwardBackNavigationContext<Navigation>
+    ) -> UIViewController? {
         guard
             token == .latestEvent,
             let imageLoader = serviceProvider?.imageLoader,

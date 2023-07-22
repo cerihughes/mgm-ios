@@ -43,7 +43,8 @@ class DataRepositoryTests: DataRepositoryTestCase {
     }
 
     private func createDataLoaderResponse(resource: String) -> Result<[EventApiModel], Error> {
-        guard let data = loadData(forResource: resource, withExtension: "json"),
+        guard
+            let data = loadData(forResource: resource, withExtension: "json"),
             let events = try? JSONDecoder.create().decode(eventsData: data)
         else {
             XCTFail("Cannot load test data from \(resource)")

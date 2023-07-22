@@ -34,11 +34,13 @@ class LatestEventSnapshotTests: MGMSnapshotTests {
     }
 
     private func createViewData(loadingImage: UIImage?) -> LatestEventEntityViewDataImplementation {
-        .init(loadingImage: loadingImage,
+        .init(
+            loadingImage: loadingImage,
             images: nil,
             entityType: "EntityType",
             entityName: "EntityName",
             entityOwner: "EntityOwner",
-            spotifyURL: nil)
+            spotifyURL: nil
+        )
     }
 }

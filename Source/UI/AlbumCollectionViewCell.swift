@@ -56,7 +56,11 @@ class AlbumCollectionViewCell: UICollectionViewCell {
 }
 
 extension UILabel {
-    static func createCollectionViewLabel(font: UIFont, color: UIColor = .black, alignment: NSTextAlignment = .center) -> UILabel {
+    static func createCollectionViewLabel(
+        font: UIFont,
+        color: UIColor = .black,
+        alignment: NSTextAlignment = .center
+    ) -> UILabel {
         let label = UILabel()
         label.font = font
         label.textColor = color

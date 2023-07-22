@@ -6,7 +6,7 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
         case item
 
         var value: String {
-            return rawValue
+            rawValue
         }
     }
 
@@ -21,7 +21,12 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
     private var itemCache: [UICollectionViewLayoutAttributes] = []
     private var sectionHeaderCache: [UICollectionViewLayoutAttributes] = []
 
-    init(sectionHeaderHeight: CGFloat, defaultItemHeight: CGFloat, itemHeightOverrides: [Int: CGFloat], spacing: CGFloat) {
+    init(
+        sectionHeaderHeight: CGFloat,
+        defaultItemHeight: CGFloat,
+        itemHeightOverrides: [Int: CGFloat],
+        spacing: CGFloat
+    ) {
         self.sectionHeaderHeight = sectionHeaderHeight
         self.defaultItemHeight = defaultItemHeight
         self.itemHeightOverrides = itemHeightOverrides
@@ -33,11 +38,21 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
     }
 
     convenience init(defaultItemHeight: CGFloat, itemHeightOverrides: [Int: CGFloat], spacing: CGFloat) {
-        self.init(sectionHeaderHeight: 0.0, defaultItemHeight: defaultItemHeight, itemHeightOverrides: itemHeightOverrides, spacing: spacing)
+        self.init(
+            sectionHeaderHeight: 0.0,
+            defaultItemHeight: defaultItemHeight,
+            itemHeightOverrides: itemHeightOverrides,
+            spacing: spacing
+        )
     }
 
     convenience init(sectionHeaderHeight: CGFloat, itemHeight: CGFloat, spacing: CGFloat) {
-        self.init(sectionHeaderHeight: sectionHeaderHeight, defaultItemHeight: itemHeight, itemHeightOverrides: [:], spacing: spacing)
+        self.init(
+            sectionHeaderHeight: sectionHeaderHeight,
+            defaultItemHeight: itemHeight,
+            itemHeightOverrides: [:],
+            spacing: spacing
+        )
     }
 
     convenience init(itemHeight: CGFloat, spacing: CGFloat) {
@@ -51,7 +66,7 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
 
     func contentViewSize(in section: Int) -> CGSize {
         var contentWidth: CGFloat = 0.0
-        if let collectionView = collectionView {
+        if let collectionView {
             contentWidth = collectionView.bounds.width - (2 * itemSpacing)
         }
         let height = itemHeight(in: section)
@@ -62,9 +77,7 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
     // MARK: UICollectionViewLayout
 
     override var collectionViewContentSize: CGSize {
-        guard let collectionView = collectionView else {
-            return .zero
-        }
+        guard let collectionView else { return .zero }
 
         let contentWidth = collectionView.bounds.width
         var contentHeight: CGFloat = borderSpacing * 2.0
@@ -87,9 +100,7 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
     }
 
     override func prepare() {
-        guard let collectionView = collectionView else {
-            return
-        }
+        guard let collectionView else { return }
 
         itemCache.removeAll()
         sectionHeaderCache.removeAll()
@@ -100,7 +111,10 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
         for section in 0 ..< collectionView.numberOfSections {
             if sectionHeaderHeight > 0.0 {
                 let indexPath = IndexPath(item: 0, section: section)
-                let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: Element.sectionHeader.value, with: indexPath)
+                let attributes = UICollectionViewLayoutAttributes(
+                    forSupplementaryViewOfKind: Element.sectionHeader.value,
+                    with: indexPath
+                )
                 let frame = CGRect(x: x, y: y, width: width, height: sectionHeaderHeight)
                 attributes.frame = frame
                 sectionHeaderCache.append(attributes)
@@ -121,33 +135,26 @@ class FullWidthCollectionViewLayout: UICollectionViewLayout {
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
-        for attributes in sectionHeaderCache + itemCache {
-            if attributes.frame.intersects(rect) {
-                layoutAttributes.append(attributes)
-            }
+        for attributes in sectionHeaderCache + itemCache where attributes.frame.intersects(rect) {
+            layoutAttributes.append(attributes)
         }
         return layoutAttributes
     }
 
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        guard let collectionView = collectionView else {
-            return false
-        }
+        guard let collectionView else { return false }
         return collectionView.bounds.width != newBounds.width
     }
 
     // MARK: Private
 
     func itemHeight(in section: Int) -> CGFloat {
-        guard let itemHeight = itemHeightOverrides[section] else {
-            return defaultItemHeight
-        }
-        return itemHeight
+        itemHeightOverrides[section] ?? defaultItemHeight
     }
 }
 
 extension UICollectionViewLayout {
     func createCollectionView(frame: CGRect = .zero) -> UICollectionView {
-        return UICollectionView(frame: frame, collectionViewLayout: self)
+        UICollectionView(frame: frame, collectionViewLayout: self)
     }
 }

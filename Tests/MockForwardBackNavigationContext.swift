@@ -25,14 +25,14 @@ class MockForwardBackNavigationContext<T>: ForwardBackNavigationContext {
     }
 
     func navigateForward(token: T, animated: Bool) -> Bool {
-        return false
+        false
     }
 
     func navigateBack(animated: Bool) -> Bool {
-        return false
+        false
     }
 
     func navigateBackToRoot(animated: Bool) -> Bool {
-        return false
+        false
     }
 }

@@ -30,13 +30,17 @@ class MGMServiceProviderImplementation: ServiceProvider, MGMServiceProvider {
         remoteDataSource = RemoteDataSourceImplementation(basePath: basePath)
 
         eventUpdateManager = EventUpdateManagerImplementation()
-        localNotificationsManager = LocalNotificationsManagerImplementation(localDataSource: localDataSource,
-                                                                            notificationCenter: .current())
+        localNotificationsManager = LocalNotificationsManagerImplementation(
+            localDataSource: localDataSource,
+            notificationCenter: .current()
+        )
 
-        dataRepository = DataRepositoryImplementation(localDataSource: localDataSource,
-                                                      remoteDataSource: remoteDataSource,
-                                                      eventUpdateManager: eventUpdateManager,
-                                                      localNotificationsManager: localNotificationsManager)
+        dataRepository = DataRepositoryImplementation(
+            localDataSource: localDataSource,
+            remoteDataSource: remoteDataSource,
+            eventUpdateManager: eventUpdateManager,
+            localNotificationsManager: localNotificationsManager
+        )
 
         let dataLoader = DataLoaderImplementation()
         imageLoader = ImageLoaderImplementation(dataLoader: dataLoader)

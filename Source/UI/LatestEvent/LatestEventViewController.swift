@@ -22,17 +22,23 @@ class LatestEventViewController: ForwardNavigatingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let view = view as? LatestEventView else {
-            return
-        }
-
+        guard let view = view as? LatestEventView else { return }
         navigationItem.title = viewModel.title
 
-        view.collectionView.register(LatestEventCollectionSectionHeaderView.self,
-                                     forSupplementaryViewOfKind: FullWidthCollectionViewLayout.Element.sectionHeader.value,
-                                     withReuseIdentifier: sectionHeaderReuseIdentifier)
-        view.collectionView.register(LatestEventLocationCollectionViewCell.self, forCellWithReuseIdentifier: locationCellReuseIdentifier)
-        view.collectionView.register(LatestEventEntityCollectionViewCell.self, forCellWithReuseIdentifier: entityCellReuseIdentifier)
+        view.collectionView.register(
+            LatestEventCollectionSectionHeaderView.self,
+            forSupplementaryViewOfKind: FullWidthCollectionViewLayout.Element.sectionHeader
+                .value,
+            withReuseIdentifier: sectionHeaderReuseIdentifier
+        )
+        view.collectionView.register(
+            LatestEventLocationCollectionViewCell.self,
+            forCellWithReuseIdentifier: locationCellReuseIdentifier
+        )
+        view.collectionView.register(
+            LatestEventEntityCollectionViewCell.self,
+            forCellWithReuseIdentifier: entityCellReuseIdentifier
+        )
         view.collectionView.dataSource = self
         view.collectionView.delegate = self
 
@@ -45,10 +51,7 @@ class LatestEventViewController: ForwardNavigatingViewController {
     // MARK: Private
 
     private func loadData() {
-        guard let view = view as? LatestEventView else {
-            return
-        }
-
+        guard let view = view as? LatestEventView else { return }
         view.hideMessage()
         view.showActivityIndicator()
         viewModel.loadData { [weak self] in
@@ -58,10 +61,7 @@ class LatestEventViewController: ForwardNavigatingViewController {
     }
 
     private func updateUI() {
-        guard let scoresView = view as? LatestEventView else {
-            return
-        }
-
+        guard let scoresView = view as? LatestEventView else { return }
         navigationItem.title = viewModel.title
 
         if let message = viewModel.message {
@@ -77,7 +77,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
     // MARK: UICollectionViewDataSource
 
     func numberOfSections(in _: UICollectionView) -> Int {
-        return 2
+        2
     }
 
     func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -91,10 +91,16 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        viewForSupplementaryElementOfKind kind: String,
-                        at indexPath: IndexPath) -> UICollectionReusableView {
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderReuseIdentifier, for: indexPath)
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        let view = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: sectionHeaderReuseIdentifier,
+            for: indexPath
+        )
         guard
             let headerView = view as? LatestEventCollectionSectionHeaderView,
             let headerTitle = viewModel.headerTitle(for: indexPath.section)
@@ -107,14 +113,20 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         return headerView
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         if indexPath.section == 0 {
             return self.collectionView(collectionView, locationCellForItemAt: indexPath)
         }
         return self.collectionView(collectionView, entityCellForItemAt: indexPath)
     }
 
-    private func collectionView(_ collectionView: UICollectionView, locationCellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    private func collectionView(
+        _ collectionView: UICollectionView,
+        locationCellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: locationCellReuseIdentifier, for: indexPath)
         guard
             let mapReference = viewModel.mapReference,
@@ -130,7 +142,10 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
         return locationCell
     }
 
-    private func collectionView(_ collectionView: UICollectionView, entityCellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    private func collectionView(
+        _ collectionView: UICollectionView,
+        entityCellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: entityCellReuseIdentifier, for: indexPath)
         guard
             let entityCell = cell as? LatestEventEntityCollectionViewCell,
@@ -148,7 +163,11 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
 
     // MARK: UICollectionViewDelegate
 
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
         guard
             indexPath.section == 1,
             let entityCell = cell as? LatestEventEntityCollectionViewCell,
@@ -169,7 +188,7 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
 
         viewModel.loadAlbumCover(largestDimension: largestDimension, viewData: viewData) { image in
             entityCell.hideActivityIndicator()
-            if let image = image {
+            if let image {
                 backgroundImageView.image = image
                 entityCell.imageView.image = image
             }
@@ -203,7 +222,11 @@ extension LatestEventViewController: UICollectionViewDataSource, UICollectionVie
             return
         }
 
-        let rl = Navigation.appleMaps(locationName: locationName, latitude: mapReference.latitude, longitude: mapReference.longitude)
+        let rl = Navigation.appleMaps(
+            locationName: locationName,
+            latitude: mapReference.latitude,
+            longitude: mapReference.longitude
+        )
         navigationContext?.navigateForward(token: rl, animated: true)
     }
 
