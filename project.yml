@@ -61,6 +61,7 @@ targets:
     postCompileScripts:
       - script: $PROJECT_DIR/ios-tools/copy-plist.sh
         name: Copy Plist
+        basedOnDependencyAnalysis: false
       - script: export PATH="/opt/homebrew/bin:$PATH";swiftlint
         name: Swift Lint
         basedOnDependencyAnalysis: false
@@ -70,3 +71,4 @@ targets:
     sources: Tests
     dependencies:
       - target: MusicGeekMonthly
+      - package: iOSSnapshotTestCase
