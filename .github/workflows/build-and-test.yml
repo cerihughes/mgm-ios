@@ -20,8 +20,9 @@ jobs:
             ${{ runner.os }}-spm-xcode14_3_1-
 
       # Install dependencies
-      - run: brew install swiftlint || true
+      - run: brew install swiftlint xcodegen || true
       - run: brew outdated swiftlint || brew upgrade swiftlint
+      - run: brew outdated xcodegen || brew upgrade xcodegen
 
       # Checkout
       - uses: actions/checkout@v1
