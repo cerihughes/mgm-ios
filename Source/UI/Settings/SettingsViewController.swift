@@ -2,6 +2,7 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     private var viewModel: SettingsViewModel
+    private let settingsView = SettingsView()
 
     init(viewModel: SettingsViewModel) {
         self.viewModel = viewModel
@@ -15,13 +16,12 @@ class SettingsViewController: UIViewController {
     }
 
     override func loadView() {
-        view = SettingsView()
+        view = settingsView
     }
 
     override func viewDidLoad() {
         title = viewModel.title
 
-        guard let settingsView else { return }
         settingsView.localNotifications.title.text = viewModel.localNotificationsTitle
         settingsView.localNotifications.subtitle.text = viewModel.localNotificationsSubtitle
         settingsView.localNotifications.toggle.addTarget(self, action: #selector(toggled(sender:)), for: .valueChanged)
@@ -30,13 +30,8 @@ class SettingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.getLocalNotificationsState { [weak self] state in
-            guard let settingsView = self?.settingsView else { return }
-            settingsView.localNotifications.toggle.isOn = state
+            self?.settingsView.localNotifications.toggle.isOn = state
         }
-    }
-
-    private var settingsView: SettingsView? {
-        view as? SettingsView
     }
 
     @objc

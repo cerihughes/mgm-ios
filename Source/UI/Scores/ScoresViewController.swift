@@ -5,6 +5,7 @@ private let cellReuseIdentifier = "ScoresViewController_CellReuseIdentifier"
 
 class ScoresViewController: ForwardNavigatingViewController {
     private var viewModel: ScoresViewModel
+    private let scoresView = ScoresView()
 
     init(navigationContext: AnyForwardBackNavigationContext<Navigation>, viewModel: ScoresViewModel) {
         self.viewModel = viewModel
@@ -13,22 +14,24 @@ class ScoresViewController: ForwardNavigatingViewController {
     }
 
     override func loadView() {
-        view = ScoresView()
+        view = scoresView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let view = view as? ScoresView else { return }
-        view.collectionView.register(ScoresCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
-        view.collectionView.dataSource = self
-        view.collectionView.delegate = self
+        scoresView.collectionView.register(
+            ScoresCollectionViewCell.self,
+            forCellWithReuseIdentifier: cellReuseIdentifier
+        )
+        scoresView.collectionView.dataSource = self
+        scoresView.collectionView.delegate = self
 
-        view.searchBar.placeholder = viewModel.filterPlaceholder
-        view.searchBar.delegate = self
+        scoresView.searchBar.placeholder = viewModel.filterPlaceholder
+        scoresView.searchBar.delegate = self
 
-        view.retryButton.setTitle(viewModel.retryButtonTitle, for: .normal)
-        view.retryButton.addTarget(self, action: #selector(buttonTapGesture(sender:)), for: .touchUpInside)
+        scoresView.retryButton.setTitle(viewModel.retryButtonTitle, for: .normal)
+        scoresView.retryButton.addTarget(self, action: #selector(buttonTapGesture(sender:)), for: .touchUpInside)
 
         let segmentedControl = UISegmentedControl(items: viewModel.albumTypes)
         segmentedControl.selectedSegmentIndex = viewModel.selectedAlbumType
@@ -39,11 +42,10 @@ class ScoresViewController: ForwardNavigatingViewController {
     }
 
     private func loadData() {
-        guard let view = view as? ScoresView else { return }
-        view.hideMessage()
-        view.showActivityIndicator()
+        scoresView.hideMessage()
+        scoresView.showActivityIndicator()
         viewModel.loadData { [weak self] in
-            view.hideActivityIndicator()
+            self?.scoresView.hideActivityIndicator()
             self?.updateUI()
         }
     }
@@ -51,7 +53,6 @@ class ScoresViewController: ForwardNavigatingViewController {
     // MARK: Private
 
     private func updateUI() {
-        guard let scoresView = view as? ScoresView else { return }
         if let message = viewModel.message {
             scoresView.showMessage(message, showRetryButton: !viewModel.dataLoaded)
         } else {
@@ -137,7 +138,6 @@ extension ScoresViewController: UICollectionViewDataSource, UICollectionViewDele
     }
 
     private func dismissKeyboard() {
-        guard let scoresView = view as? ScoresView else { return }
         scoresView.searchBar.resignFirstResponder()
     }
 }
