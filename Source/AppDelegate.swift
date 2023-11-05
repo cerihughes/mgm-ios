@@ -1,4 +1,3 @@
-import Firebase
 import Madog
 import UIKit
 
@@ -25,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         #endif
 
-        FirebaseApp.configure()
         application.setMinimumBackgroundFetchInterval(twelveHours)
         let cache = URLCache(memoryCapacity: 16 * 1024 * 1024, diskCapacity: 128 * 1024 * 1024, diskPath: nil)
         URLCache.shared = cache

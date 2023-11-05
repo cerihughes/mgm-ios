@@ -1,0 +1,41 @@
+{
+  "pins" : [
+    {
+      "identity" : "ios-snapshot-test-case",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/uber/ios-snapshot-test-case",
+      "state" : {
+        "revision" : "7b10770333a961be6e5a41c9ce04b8c6d3990126",
+        "version" : "8.0.0"
+      }
+    },
+    {
+      "identity" : "madog",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cerihughes/Madog",
+      "state" : {
+        "revision" : "8d9fb16cecdaea0434d31dbcce33f22037e917a8",
+        "version" : "7.0.1"
+      }
+    },
+    {
+      "identity" : "mgm-schema",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cerihughes/mgm-schema",
+      "state" : {
+        "revision" : "4897a6f8d5892b81e6a547bd44d5691d8ad13841",
+        "version" : "1.18.0"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit",
+      "state" : {
+        "revision" : "f222cbdf325885926566172f6f5f06af95473158",
+        "version" : "5.6.0"
+      }
+    }
+  ],
+  "version" : 2
+}
