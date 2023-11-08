@@ -30,9 +30,6 @@ packages:
   SnapKit:
     url: https://github.com/SnapKit/SnapKit
     majorVersion: 5.0.0
-  Firebase:
-    url: https://github.com/firebase/firebase-ios-sdk.git
-    minorVersion: 10.12.0
   iOSSnapshotTestCase:
     url: https://github.com/uber/ios-snapshot-test-case
     majorVersion: 8.0.0
@@ -57,9 +54,6 @@ targets:
     dependencies:
       - package: Madog
       - package: MGMRemoteApiClient
-      - package: Firebase
-        product: FirebaseAnalytics
-        product: FirebaseCrashlytics
       - package: SnapKit
     postCompileScripts:
       - script: $PROJECT_DIR/ios-tools/copy-plist.sh
